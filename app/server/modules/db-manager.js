@@ -24,7 +24,7 @@ var DB = {};
 			console.log('connected to database :: ' + dbName);
 		}
 	});
-	DB.accounts = DB.db.collection('accounts');
+	DB.users = DB.db.collection('users');
 	DB.clients = DB.db.collection('clients');
 	DB.invoices = DB.db.collection('invoices');
 	DB.offers = DB.db.collection('offers');

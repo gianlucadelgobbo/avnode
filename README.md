@@ -1,7 +1,7 @@
 AVnode
 =============
 
-[AVnode](https://github.com/gianlucadelgobbo/avnode) is a easy to use invoices, offers and client manager based on [MongoDB](http://www.mongodb.org/) and [NodeJS](http://nodejs.org/).
+[AVnode](https://github.com/gianlucadelgobbo/avnode) is a try to have the FLxER website based on [MongoDB](http://www.mongodb.org/) and [NodeJS](http://nodejs.org/).
 
 Authors: [Gianluca Del Gobbo](https://github.com/gianlucadelgobbo/), [Fabrizio Chiovoloni](https://github.com/kennyff92) as [Flyer communication](http://www.flyer.it), [FLxER](https://flxer.net), [Free Hardware Foundation](http://fhf.it) and [Linux Club](http://linux-club.org/)
 

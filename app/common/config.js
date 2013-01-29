@@ -1,6 +1,8 @@
 var _config = {
-	"dbName": 			"admin-flyer",
+	"dbName": 			"avnode",
 	"defaultLocale": 	"en",
+	"locale": 			"en_UK",
+	"lang": 			"en",
     "locales":			["en", "it"],
 	"company": {
 		"logo":	"/img/logo.png",
