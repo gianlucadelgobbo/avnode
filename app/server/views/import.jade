@@ -1,5 +1,45 @@
-script(type="text/javascript")
-	var u = '#{locals.url}';
-	
-	//var t = setTimeout("window.location.href='"+u.replace(/&amp;/gi,"&")+"'",1500);
-div ciao
+- if (locals.menu)
+	ol
+		li
+			a(href="/import/?data=categories") Import Categories
+		li
+			a(href="/import/?data=users") Import Users
+		li
+			a(href="/import/?data=footage") Import Footage
+		li
+			a(href="/import/?data=playlists") Import Playlists
+		li
+			a(href="/import/?data=performances") Import Performances
+		li
+			a(href="/import/?data=events") Import Events
+		li
+			a(href="/import/?data=gallery") Import Gallery
+		li
+			a(href="/import/?data=tvshows") Import TV Shows
+		li
+			a(href="/import/?data=users_rel") Fix Users rel
+		li
+			a(href="/import/?data=users_rel") Fix Crews rel
+		li
+			a(href="/import/?data=footage_rel") Fix Footage rel
+		li
+			a(href="/import/?data=playlists_rel") Fix Playlists rel
+		li
+			a(href="/import/?data=performances_rel") Fix Performances rel
+		li
+			a(href="/import/?data=events_rel") Fix Events rel
+		li
+			a(href="/import/?data=gallery_rel") Fix Gallery rel
+		li
+			a(href="/import/?data=tvshows_rel") Fix TV Shows rel
+	div=locals.msg
+- if (locals.url)
+	script(type="text/javascript")
+		var u = '#{locals.url}';
+		
+		var t = setTimeout("window.location.href='"+u.replace(/&amp;/gi,"&")+"'",1500);
+	div=locals.url
+- if (locals.msg)
+	div=locals.msg
+- else
+	div ciao

@@ -25,9 +25,14 @@ var DB = {};
 		}
 	});
 	DB.users = DB.db.collection('users');
-	DB.clients = DB.db.collection('clients');
-	DB.invoices = DB.db.collection('invoices');
-	DB.offers = DB.db.collection('offers');
+	DB.footage = DB.db.collection('footage');
+	DB.playlists = DB.db.collection('playlists');
+	DB.performances = DB.db.collection('performances');
+	DB.events = DB.db.collection('events');
+	DB.tvshow = DB.db.collection('tvshow');
+	DB.gallery = DB.db.collection('gallery');
+	DB.categories = DB.db.collection('categories');
+//	//$apiValid = array("users","footage","playlists","performances","events","tvshow","gallery");
 
 module.exports = DB;
 
