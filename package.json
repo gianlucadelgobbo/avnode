@@ -1,7 +1,7 @@
 {
   "name": "avnode",
   "version": "0.0.0",
-  "description": "open-source invoice system build on node.js and mongodb",
+  "description": "open-source community system build on node.js and mongodb",
   "main": "app.js",
   "dependencies": {
     "accounting": "~0.3.2",
@@ -23,7 +23,7 @@
     "url": "git://github.com/gianlucadelgobbo/avnode.git"
   },
   "keywords": [
-    "invoices",
+    "community",
     "mongodb",
     "node.js"
   ],
