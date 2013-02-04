@@ -5,284 +5,361 @@ var DB = require('../modules/db-manager');
 
 exports.get = function get(req, res) {
 	if(req.query.data){
-	switch(req.query.data){
-		case "categories" :
-			http.get({host:"flxer.net",path:"/api/chiavi/"},function(response){
-				var pageData = "";
-				response.setEncoding('utf8');
-				response.on('data', function (chunk) {
-					pageData += chunk;
-				});
-				response.on('end', function(){
-					var ress = JSON.parse(pageData);
-					if (ress.length) {
-						for(var a=0;a<ress.length;a++) {
-							if (ress[a]) {
+		switch(req.query.data){
+			case "categories" :
+				http.get({host:"flxer.net",path:"/api/chiavi/"},function(response){
+					var pageData = "";
+					response.setEncoding('utf8');
+					response.on('data', function (chunk) {
+						pageData += chunk;
+					});
+					response.on('end', function(){
+						var ress = JSON.parse(pageData);
+						if (ress.length) {
+							for(var a=0;a<ress.length;a++) {
 								if (ress[a]) {
-									//console.dir(ress[a]);
-									eraseAndInsertChiavi(DB.categories,ress[a]);
+									if (ress[a]) {
+										//console.dir(ress[a]);
+										eraseAndInsertChiavi(DB.categories,ress[a]);
+									}
 								}
 							}
+					  		res.render('import', {  locals: {msg : "DONE"} });
+				  		} 
+					});
+				});
+			break;
+			case "gallery" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				//if (skip==0 && DB.gallery) DB.gallery.remove();
+				http.get({host:"flxer.net",path:"/api/gallery/?skip="+skip+"&limit="+limit},function(response){
+					var pageData = "";
+					response.setEncoding('utf8');
+					response.on('data', function (chunk) {
+						pageData += chunk;
+					});
+					response.on('end', function(){
+						var ress = JSON.parse(pageData);
+						if (ress.length) {
+							for(var a=0;a<ress.length;a++) {
+								if (ress[a]) {
+									ress[a] = updateEcodeGalleryData(ress[a]);
+									if (ress[a]) {
+										//console.dir(ress[a]);
+										eraseAndInsert(DB.gallery,ress[a]);
+									}
+								} 
+					  		}
+							limit = req.query.limit ? parseInt(req.query.limit) : 2;
+							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+					  		res.render('import', {  locals: {url : "/import/?data=gallery&skip="+skip+"&limit="+limit } });
+				  		} else {
+					  		res.render('import', {  locals: {msg : "DONE"} });
+				  		}
+					});
+				});
+			break;
+			case "tvshow" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				//if (skip==0 && DB.tvshow) DB.tvshow.remove();
+				http.get({host:"flxer.net",path:"/api/tvshow/?skip="+skip+"&limit="+limit},function(response){
+					var pageData = "";
+					response.setEncoding('utf8');
+					response.on('data', function (chunk) {
+						pageData += chunk;
+					});
+					response.on('end', function(){
+						var ress = JSON.parse(pageData);
+						if (ress.length) {
+							for(var a=0;a<ress.length;a++) {
+								if (ress[a]) {
+									ress[a] = updateEcodeTvshowData(ress[a]);
+									if (ress[a]) {
+										//console.dir(ress[a]);
+										eraseAndInsert(DB.tvshow,ress[a]);
+									}
+								} 
+					  		}
+							limit = req.query.limit ? parseInt(req.query.limit) : 2;
+							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+					  		res.render('import', {  locals: {url : "/import/?data=tvshow&skip="+skip+"&limit="+limit } });
+				  		} else {
+					  		res.render('import', {  locals: {msg : "DONE"} });
+				  		}
+					});
+				});
+			break;
+			case "events" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				//if (skip==0 && DB.events) DB.events.remove();
+				http.get({host:"flxer.net",path:"/api/events/?skip="+skip+"&limit="+limit},function(response){
+					var pageData = "";
+					response.setEncoding('utf8');
+					response.on('data', function (chunk) {
+						pageData += chunk;
+					});
+					response.on('end', function(){
+						var ress = JSON.parse(pageData);
+						if (ress.length) {
+							for(var a=0;a<ress.length;a++) {
+								if (ress[a]) {
+									ress[a] = updateEcodeEventsData(ress[a]);
+									if (ress[a]) {
+										//console.dir(ress[a]);
+										eraseAndInsert(DB.events,ress[a]);
+									}
+								} 
+					  		}
+							limit = req.query.limit ? parseInt(req.query.limit) : 2;
+							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+					  		res.render('import', {  locals: {url : "/import/?data=events&skip="+skip+"&limit="+limit } });
+				  		} else {
+					  		res.render('import', {  locals: {msg : "DONE"} });
+				  		}
+					});
+				});
+			break;
+			case "performances" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				//if (skip==0 && DB.performances) DB.performances.remove();
+				http.get({host:"flxer.net",path:"/api/performances/?skip="+skip+"&limit="+limit},function(response){
+					var pageData = "";
+					response.setEncoding('utf8');
+					response.on('data', function (chunk) {
+						pageData += chunk;
+					});
+					response.on('end', function(){
+						var ress = JSON.parse(pageData);
+						if (ress.length) {
+							for(var a=0;a<ress.length;a++) {
+								if (ress[a]) {
+									ress[a] = updateEcodePerformancesData(ress[a]);
+									if (ress[a]) {
+										//console.dir(ress[a]);
+										eraseAndInsert(DB.performances,ress[a]);
+									}
+								} 
+					  		}
+							limit = req.query.limit ? parseInt(req.query.limit) : 2;
+							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+					  		res.render('import', {  locals: {url : "/import/?data=performances&skip="+skip+"&limit="+limit } });
+				  		} else {
+					  		res.render('import', {  locals: {msg : "DONE"} });
+				  		}
+					});
+				});
+			break;
+			case "playlists" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				//if (skip==0 && DB.playlists) DB.playlists.remove();
+				http.get({host:"flxer.net",path:"/api/playlists/?skip="+skip+"&limit="+limit},function(response){
+					var pageData = "";
+					response.setEncoding('utf8');
+					response.on('data', function (chunk) {
+						pageData += chunk;
+					});
+					response.on('end', function(){
+						var ress = JSON.parse(pageData);
+						if (ress.length) {
+							for(var a=0;a<ress.length;a++) {
+								if (ress[a]) {
+									ress[a] = updateEcodePlaylistsData(ress[a]);
+									if (ress[a]) {
+										//console.dir(ress[a]);
+										eraseAndInsert(DB.playlists,ress[a]);
+									}
+								} 
+					  		}
+							limit = req.query.limit ? parseInt(req.query.limit) : 2;
+							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+					  		res.render('import', {  locals: {url : "/import/?data=playlists&skip="+skip+"&limit="+limit } });
+				  		} else {
+					  		res.render('import', {  locals: {msg : "DONE"} });
+				  		}
+					});
+				});
+			break;
+			case "footage" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				//if (skip==0 && DB.footage) DB.footage.remove();
+				http.get({host:"flxer.net",path:"/api/footage/?skip="+skip+"&limit="+limit},function(response){
+					var pageData = "";
+					response.setEncoding('utf8');
+					response.on('data', function (chunk) {
+						pageData += chunk;
+					});
+					response.on('end', function(){
+						var ress = JSON.parse(pageData);
+						if (ress.length) {
+							for(var a=0;a<ress.length;a++) {
+								if (ress[a]) {
+									ress[a] = updateEcodeFootageData(ress[a]);
+									if (ress[a]) {
+										eraseAndInsert(DB.footage,ress[a]);
+									}
+								} 
+					  		}
+							limit = req.query.limit ? parseInt(req.query.limit) : 2;
+							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+					  		res.render('import', {  locals: {url : "/import/?data=footage&skip="+skip+"&limit="+limit } });
+				  		} else {
+					  		res.render('import', {  locals: {msg : "DONE"} });
+				  		}
+					});
+				});
+			break;
+			case "users" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				//if (skip==0 && DB.users) DB.users.remove();
+				http.get({host:"flxer.net",path:"/api/users/?skip="+skip+"&limit="+limit},function(response){
+					var pageData = "";
+					response.setEncoding('utf8');
+					response.on('data', function (chunk) {
+						pageData += chunk;
+					});
+					response.on('end', function(){
+						var ress = JSON.parse(pageData);
+						if (ress.length) {
+							for(var a=0;a<ress.length;a++) {
+								if (ress[a]) {
+									ress[a] = updateEcodeUsersData(ress[a]);
+									if (ress[a]) {
+										eraseAndInsert(DB.users,ress[a]);
+									}
+								} 
+					  		}
+							limit = req.query.limit ? parseInt(req.query.limit) : 2;
+							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+					  		res.render('import', {  locals: {url : "/import/?data=users&skip="+skip+"&limit="+limit } });
+				  		} else {
+					  		res.render('import', {  locals: {msg : "DONE"} });
+				  		}
+				  		//res.send(JSON.stringify(ress, null, '\t'));
+				  		//res.send("/import/?data=users&skip="+skip+"&limit="+limit+"\n\n"+JSON.stringify(ress, null, '\t'));
+				  		//res.end();
+					});
+				});
+			break;
+			case "users_rel" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				DB.users.find({}, {skip:skip, limit:limit}).toArray(function(err, records){
+					if (records.length) {
+						for(var a=0;a<records.length;a++){
+							updateUser(records[a]);
 						}
-				  		res.render('import', {  locals: {msg : "DONE"} });
-			  		} 
-				});
-			});
-		break;
-		case "gallery" :
-			var limit = req.query.limit ? parseInt(req.query.limit) : 2;
-			var skip = req.query.skip ? parseInt(req.query.skip) : 0;
-			//if (skip==0 && DB.gallery) DB.gallery.remove();
-			http.get({host:"flxer.net",path:"/api/gallery/?skip="+skip+"&limit="+limit},function(response){
-				var pageData = "";
-				response.setEncoding('utf8');
-				response.on('data', function (chunk) {
-					pageData += chunk;
-				});
-				response.on('end', function(){
-					var ress = JSON.parse(pageData);
-					if (ress.length) {
-						for(var a=0;a<ress.length;a++) {
-							if (ress[a]) {
-								ress[a] = updateEcodeGalleryData(ress[a]);
-								if (ress[a]) {
-									//console.dir(ress[a]);
-									eraseAndInsert(DB.gallery,ress[a]);
-								}
-							} 
-				  		}
 						limit = req.query.limit ? parseInt(req.query.limit) : 2;
 						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-				  		res.render('import', {  locals: {url : "/import/?data=gallery&skip="+skip+"&limit="+limit } });
+						res.render('import', {  locals: {url : "/import/?data=users_rel&skip="+skip+"&limit="+limit } });
 			  		} else {
 				  		res.render('import', {  locals: {msg : "DONE"} });
 			  		}
 				});
-			});
-		break;
-		case "tvshow" :
-			var limit = req.query.limit ? parseInt(req.query.limit) : 2;
-			var skip = req.query.skip ? parseInt(req.query.skip) : 0;
-			//if (skip==0 && DB.tvshow) DB.tvshow.remove();
-			http.get({host:"flxer.net",path:"/api/tvshow/?skip="+skip+"&limit="+limit},function(response){
-				var pageData = "";
-				response.setEncoding('utf8');
-				response.on('data', function (chunk) {
-					pageData += chunk;
-				});
-				response.on('end', function(){
-					var ress = JSON.parse(pageData);
-					if (ress.length) {
-						for(var a=0;a<ress.length;a++) {
-							if (ress[a]) {
-								ress[a] = updateEcodeTvshowData(ress[a]);
-								if (ress[a]) {
-									//console.dir(ress[a]);
-									eraseAndInsert(DB.tvshow,ress[a]);
-								}
-							} 
-				  		}
-						limit = req.query.limit ? parseInt(req.query.limit) : 2;
-						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-				  		res.render('import', {  locals: {url : "/import/?data=tvshow&skip="+skip+"&limit="+limit } });
-			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
-			  		}
-				});
-			});
-		break;
-		case "events" :
-			var limit = req.query.limit ? parseInt(req.query.limit) : 2;
-			var skip = req.query.skip ? parseInt(req.query.skip) : 0;
-			//if (skip==0 && DB.events) DB.events.remove();
-			http.get({host:"flxer.net",path:"/api/events/?skip="+skip+"&limit="+limit},function(response){
-				var pageData = "";
-				response.setEncoding('utf8');
-				response.on('data', function (chunk) {
-					pageData += chunk;
-				});
-				response.on('end', function(){
-					var ress = JSON.parse(pageData);
-					if (ress.length) {
-						for(var a=0;a<ress.length;a++) {
-							if (ress[a]) {
-								ress[a] = updateEcodeEventsData(ress[a]);
-								if (ress[a]) {
-									//console.dir(ress[a]);
-									eraseAndInsert(DB.events,ress[a]);
-								}
-							} 
-				  		}
-						limit = req.query.limit ? parseInt(req.query.limit) : 2;
-						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-				  		res.render('import', {  locals: {url : "/import/?data=events&skip="+skip+"&limit="+limit } });
-			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
-			  		}
-				});
-			});
-		break;
-		case "performances" :
-			var limit = req.query.limit ? parseInt(req.query.limit) : 2;
-			var skip = req.query.skip ? parseInt(req.query.skip) : 0;
-			//if (skip==0 && DB.performances) DB.performances.remove();
-			http.get({host:"flxer.net",path:"/api/performances/?skip="+skip+"&limit="+limit},function(response){
-				var pageData = "";
-				response.setEncoding('utf8');
-				response.on('data', function (chunk) {
-					pageData += chunk;
-				});
-				response.on('end', function(){
-					var ress = JSON.parse(pageData);
-					if (ress.length) {
-						for(var a=0;a<ress.length;a++) {
-							if (ress[a]) {
-								ress[a] = updateEcodePerformancesData(ress[a]);
-								if (ress[a]) {
-									//console.dir(ress[a]);
-									eraseAndInsert(DB.performances,ress[a]);
-								}
-							} 
-				  		}
-						limit = req.query.limit ? parseInt(req.query.limit) : 2;
-						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-				  		res.render('import', {  locals: {url : "/import/?data=performances&skip="+skip+"&limit="+limit } });
-			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
-			  		}
-				});
-			});
-		break;
-		case "playlists" :
-			var limit = req.query.limit ? parseInt(req.query.limit) : 2;
-			var skip = req.query.skip ? parseInt(req.query.skip) : 0;
-			//if (skip==0 && DB.playlists) DB.playlists.remove();
-			http.get({host:"flxer.net",path:"/api/playlists/?skip="+skip+"&limit="+limit},function(response){
-				var pageData = "";
-				response.setEncoding('utf8');
-				response.on('data', function (chunk) {
-					pageData += chunk;
-				});
-				response.on('end', function(){
-					var ress = JSON.parse(pageData);
-					if (ress.length) {
-						for(var a=0;a<ress.length;a++) {
-							if (ress[a]) {
-								ress[a] = updateEcodePlaylistsData(ress[a]);
-								if (ress[a]) {
-									//console.dir(ress[a]);
-									eraseAndInsert(DB.playlists,ress[a]);
-								}
-							} 
-				  		}
-						limit = req.query.limit ? parseInt(req.query.limit) : 2;
-						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-				  		res.render('import', {  locals: {url : "/import/?data=playlists&skip="+skip+"&limit="+limit } });
-			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
-			  		}
-				});
-			});
-		break;
-		case "footage" :
-			var limit = req.query.limit ? parseInt(req.query.limit) : 2;
-			var skip = req.query.skip ? parseInt(req.query.skip) : 0;
-			//if (skip==0 && DB.footage) DB.footage.remove();
-			http.get({host:"flxer.net",path:"/api/footage/?skip="+skip+"&limit="+limit},function(response){
-				var pageData = "";
-				response.setEncoding('utf8');
-				response.on('data', function (chunk) {
-					pageData += chunk;
-				});
-				response.on('end', function(){
-					var ress = JSON.parse(pageData);
-					if (ress.length) {
-						for(var a=0;a<ress.length;a++) {
-							if (ress[a]) {
-								ress[a] = updateEcodeFootageData(ress[a]);
-								if (ress[a]) {
-									eraseAndInsert(DB.footage,ress[a]);
-								}
-							} 
-				  		}
-						limit = req.query.limit ? parseInt(req.query.limit) : 2;
-						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-				  		res.render('import', {  locals: {url : "/import/?data=footage&skip="+skip+"&limit="+limit } });
-			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
-			  		}
-				});
-			});
-		break;
-		case "users" :
-			var limit = req.query.limit ? parseInt(req.query.limit) : 2;
-			var skip = req.query.skip ? parseInt(req.query.skip) : 0;
-			//if (skip==0 && DB.users) DB.users.remove();
-			http.get({host:"flxer.net",path:"/api/users/?skip="+skip+"&limit="+limit},function(response){
-				var pageData = "";
-				response.setEncoding('utf8');
-				response.on('data', function (chunk) {
-					pageData += chunk;
-				});
-				response.on('end', function(){
-					var ress = JSON.parse(pageData);
-					if (ress.length) {
-						for(var a=0;a<ress.length;a++) {
-							if (ress[a]) {
-								ress[a] = updateEcodeUsersData(ress[a]);
-								if (ress[a]) {
-									eraseAndInsert(DB.users,ress[a]);
-								}
-							} 
-				  		}
-						limit = req.query.limit ? parseInt(req.query.limit) : 2;
-						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-				  		res.render('import', {  locals: {url : "/import/?data=users&skip="+skip+"&limit="+limit } });
-			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
-			  		}
-			  		//res.send(JSON.stringify(ress, null, '\t'));
-			  		//res.send("/import/?data=users&skip="+skip+"&limit="+limit+"\n\n"+JSON.stringify(ress, null, '\t'));
-			  		//res.end();
-				});
-			});
-		break;
-		case "users_rel" :
-			DB.users.find({old_id:'480'}).toArray(function(err, records){
-				for(var a=0;a<records.length;a++){
-					updateUser(records[a]);
-				}
-		  		res.send("/import/?data=users&skip="+skip+"&limit="+limit+"\n\n");
-			});
-			/*
-			DB.users.find({"is_crew":0}).toArray(function(err, records){
-				for(var a=0;a<records.length;a++){
-					if(records[a].crews.length){
-						crews_old_ids = [];
-						for(var b=0;b<records[a].crews.length;b++){
-							crews_old_ids.push(records[a].crews[b].old_id);
+			break;
+			case "footage_rel" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				DB.footage.find({}, {skip:skip, limit:limit}).toArray(function(err, records){
+					if (records.length) {
+						for(var a=0;a<records.length;a++){
+							updateFootage(records[a]);
 						}
-						updateUsers(records[a],crews_old_ids);
-					}
-				}
-		  		res.send("/import/?data=users&skip="+skip+"&limit="+limit+"\n\n");
-			});
-			*/
-		break;
-		case "crews_rel" :
-			DB.users.find({"is_crew":1}).toArray(function(err, records){
-				for(var a=0;a<records.length;a++){
-					//console.dir(records[a].members);
-					members_old_ids = [];
-					for(var b=0;b<records[a].members.length;b++){
-						members_old_ids.push(records[a].members[b].old_id);
-					}
-					updateCrew(records[a],members_old_ids);
-				}
-		  		res.send("/import/?data=users&skip="+skip+"&limit="+limit+"\n\n");
-			});
-		break;
-	}
+						limit = req.query.limit ? parseInt(req.query.limit) : 2;
+						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+						res.render('import', {  locals: {url : "/import/?data=footage_rel&skip="+skip+"&limit="+limit } });
+			  		} else {
+				  		res.render('import', {  locals: {msg : "DONE"} });
+			  		}
+				});
+			break;
+			case "playlists_rel" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				DB.playlists.find({}, {skip:skip, limit:limit}).toArray(function(err, records){
+					if (records.length) {
+						for(var a=0;a<records.length;a++){
+							updatePlaylists(records[a]);
+						}
+						limit = req.query.limit ? parseInt(req.query.limit) : 2;
+						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+						res.render('import', {  locals: {url : "/import/?data=playlists_rel&skip="+skip+"&limit="+limit } });
+			  		} else {
+				  		res.render('import', {  locals: {msg : "DONE"} });
+			  		}
+				});
+			break;
+			case "performances_rel" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				DB.performances.find({}, {skip:skip, limit:limit}).toArray(function(err, records){
+					if (records.length) {
+						for(var a=0;a<records.length;a++){
+							updatePerformances(records[a]);
+						}
+						limit = req.query.limit ? parseInt(req.query.limit) : 2;
+						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+						res.render('import', {  locals: {url : "/import/?data=performances_rel&skip="+skip+"&limit="+limit } });
+			  		} else {
+				  		res.render('import', {  locals: {msg : "DONE"} });
+			  		}
+				});
+			break;
+			case "events_rel" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				DB.events.find({}, {skip:skip, limit:limit}).toArray(function(err, records){
+					if (records.length) {
+						for(var a=0;a<records.length;a++){
+							updateEvents(records[a]);
+						}
+						limit = req.query.limit ? parseInt(req.query.limit) : 2;
+						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+						res.render('import', {  locals: {url : "/import/?data=events_rel&skip="+skip+"&limit="+limit } });
+			  		} else {
+				  		res.render('import', {  locals: {msg : "DONE"} });
+			  		}
+				});
+			break;
+			case "gallery_rel" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 20;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				DB.gallery.find({}, {skip:skip, limit:limit}).toArray(function(err, records){
+					if (records.length) {
+						for(var a=0;a<records.length;a++){
+							updateGallery(records[a]);
+						}
+						limit = req.query.limit ? parseInt(req.query.limit) : 2;
+						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+						res.render('import', {  locals: {url : "/import/?data=gallery_rel&skip="+skip+"&limit="+limit } });
+			  		} else {
+				  		res.render('import', {  locals: {msg : "DONE"} });
+			  		}
+				});
+			break;
+			case "tvshow_rel" :
+				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+				DB.tvshow.find({}, {skip:skip, limit:limit}).toArray(function(err, records){
+					if (records.length) {
+						for(var a=0;a<records.length;a++){
+							updateTvshow(records[a]);
+						}
+						limit = req.query.limit ? parseInt(req.query.limit) : 2;
+						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
+						res.render('import', {  locals: {url : "/import/?data=tvshow_rel&skip="+skip+"&limit="+limit } });
+			  		} else {
+				  		res.render('import', {  locals: {msg : "DONE"} });
+			  		}
+				});
+			break;
+		}
 	} else {
 		res.render('import', {  locals: {menu : true} });
 	}
@@ -296,7 +373,7 @@ function eraseAndInsert(table,obj,callback) {
 }
 function eraseAndInsertChiavi(table,obj,callback) {
 	table.remove({old_id: obj.old_id}, {safe:true}, function(err, records){
-		table.findOne({old_id: obj.ancestor_old_id}, {safe: true}, function(err, record){
+		table.findOne({old_id: obj.e}, function(err, record){
 			console.dir(record);
 			obj.ancestors = (record ? [{_id:record._id}] : []);
 			delete obj.ancestor_old_id;
@@ -400,22 +477,23 @@ function updateEcodeUsersData(data) {
 	return data;
 }
 function updateUser(user) {
-	DB.users.find({"members.old_id":user.old_id}).toArray(function(err, subrecords){
+	DB.users.find({"members.old_id":user.old_id}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+		delete user.crews;
 		if (subrecords.length) user.crews = subrecords;
-		DB.users.find({"crews.old_id":user.old_id}).toArray(function(err, subrecords){
+		DB.users.find({"crews.old_id":user.old_id}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+			delete user.members;
 			if (subrecords.length) user.members = subrecords;
-			DB.footage.find({"users.old_id":user.old_id}).toArray(function(err, subrecords){
+			DB.footage.find({"users.old_id":user.old_id}, {fields:{_id:1,title:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
 				if (subrecords.length) user.footage = subrecords;
-				DB.playlists.find({"users.old_id":user.old_id}).toArray(function(err, subrecords){
-				console.dir(subrecords);
+				DB.playlists.find({"users.old_id":user.old_id}, {fields:{_id:1,title:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
 					if (subrecords.length) user.playlists = subrecords;
-					DB.performances.find({"users.old_id":user.old_id}).toArray(function(err, subrecords){
+					DB.performances.find({"users.old_id":user.old_id}, {fields:{_id:1,title:1,permalink:1,files:1,categories:1,stats:1}}).toArray(function(err, subrecords){
 						if (subrecords.length) user.performances = subrecords;
-						DB.events.find({"users.old_id":user.old_id}).toArray(function(err, subrecords){
+						DB.events.find({"users.old_id":user.old_id}, {fields:{_id:1,title:1,permalink:1,files:1,categories:1,stats:1}}).toArray(function(err, subrecords){
 							if (subrecords.length) user.events = subrecords;
-							DB.tvshow.find({"users.old_id":user.old_id}).toArray(function(err, subrecords){
+							DB.tvshow.find({"users.old_id":user.old_id}, {fields:{_id:1,title:1,permalink:1,files:1,categories:1,stats:1}}).toArray(function(err, subrecords){
 								if (subrecords.length) user.tvshow = subrecords;
-								DB.gallery.find({"users.old_id":user.old_id}).toArray(function(err, subrecords){
+								DB.gallery.find({"users.old_id":user.old_id}, {fields:{_id:1,title:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
 									if (subrecords.length) user.gallery = subrecords;
 									DB.users.save(user);
 									DB.users.findOne({_id:user._id},function(err, record){
@@ -430,24 +508,181 @@ function updateUser(user) {
 		});
 	});
 }
-function updateUsers(user,crews_old_ids) {
-	DB.users.find({old_id:{ $all: crews_old_ids }}).toArray(function(err, subrecords){
-		user.crews = subrecords;
-		DB.users.save(user);
-		DB.users.findOne({_id:user._id},function(err, record){
+function updateFootage(obj) {
+	var users = [];
+	for(item in obj.users) {
+		users.push(obj.users[item].old_id);
+	}
+	DB.users.find({"old_id":{$in:users}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+		if (subrecords.length) obj.users = subrecords;
+		DB.footage.save(obj);
+		DB.footage.findOne({_id:obj._id},function(err, record){
 			console.dir(record);
 		});
 	});
 }
-function updateCrew(crew,members_old_ids) {
-	DB.users.find({old_id:{ $all: members_old_ids }}).toArray(function(err, subrecords){
-		crew.members = subrecords;
-		DB.users.save(crew);
-		DB.users.findOne({_id:crew._id},function(err, record){
+function updateTvshow(obj) {
+	var users = [];
+	for(item in obj.users) {
+		users.push(obj.users[item].old_id);
+	}
+	DB.users.find({"old_id":{$in:users}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+		if (subrecords.length) obj.users = subrecords;
+		DB.tvshow.save(obj);
+		DB.tvshow.findOne({_id:obj._id},function(err, record){
 			console.dir(record);
 		});
 	});
 }
+function updatePlaylists(obj) {
+	var users = [];
+	for(item in obj.users) {
+		users.push(obj.users[item].old_id);
+	}
+	var footage = [];
+	for(item in obj.footage) {
+		footage.push(obj.footage[item].old_id);
+	}
+	DB.users.find({"old_id":{$in:users}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+		if (subrecords.length) obj.users = subrecords;
+		//console.dir(footage);
+		DB.footage.find({"old_id":{$in:footage}}, {fields:{_id:1,title:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+			if (subrecords.length) obj.footage = subrecords;
+			DB.playlists.save(obj);
+			DB.playlists.findOne({_id:obj._id},function(err, record){
+				console.dir(record);
+			});
+		});
+	});
+}
+function updateGallery(obj) {
+	var users = [];
+	for(item in obj.users) {
+		users.push(obj.users[item].old_id);
+	}
+	DB.users.find({"old_id":{$in:users}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+		if (subrecords.length) obj.users = subrecords;
+		DB.gallery.save(obj);
+		DB.gallery.findOne({_id:obj._id},function(err, record){
+			console.dir(record);
+		});
+	});
+}
+function updatePerformances(obj) {
+	var users = [];
+	for(item in obj.users) {
+		users.push(obj.users[item].old_id);
+	}
+	var gallery = [];
+	for(item in obj.gallery) {
+		gallery.push(obj.gallery[item].id);
+	}
+	DB.users.find({"old_id":{$in:users}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+		if (subrecords.length) obj.users = subrecords;
+		DB.gallery.find({"old_id":{$in:gallery}}, {fields:{_id:1,title:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+			if (subrecords.length) obj.gallery = subrecords;
+			DB.categories.find({"old_id":{$in:obj.categories}}, {fields:{_id:1,name:1,slug:1,ancestors:1}}).toArray(function(err, subrecords){
+				if (subrecords.length) obj.categories = subrecords;
+				//console.dir(obj);
+				DB.performances.save(obj);
+				DB.performances.findOne({_id:obj._id},function(err, record){
+					console.dir(record);
+				});
+			});
+		});
+	});
+}
+function updateEvents(obj) {
+	var users = [];
+	for(item in obj.users) {
+		users.push(obj.users[item].old_id);
+	}
+	var partners = {};
+	partners["PRODUCTION"] = [];
+	if (obj.partners && obj.partners["PRODUCTION"]) {
+		for(item in obj.partners["PRODUCTION"]) {
+			partners["PRODUCTION"].push(obj.partners["PRODUCTION"][item].uid);
+		}
+	}
+	partners["SUPPORTED BY"] = [];
+	if (obj.partners && obj.partners["SUPPORTED BY"]) {
+		for(item in obj.partners["SUPPORTED BY"]) {
+			partners["SUPPORTED BY"].push(obj.partners["SUPPORTED BY"][item].uid);
+		}
+	}
+	partners["APPROVED BY"] = [];
+	if (obj.partners && obj.partners["APPROVED BY"]) {
+		for(item in obj.partners["APPROVED BY"]) {
+			partners["APPROVED BY"].push(obj.partners["APPROVED BY"][item].uid);
+		}
+	}
+	partners["TECHNICAL PARTNERS"] = [];
+	if (obj.partners && obj.partners["TECHNICAL PARTNERS"]) {
+		for(item in obj.partners["TECHNICAL PARTNERS"]) {
+			partners["TECHNICAL PARTNERS"].push(obj.partners["TECHNICAL PARTNERS"][item].uid);
+		}
+	}
+	partners["MEDIA PARTNERS"] = [];
+	if (obj.partners && obj.partners["MEDIA PARTNERS"]) {
+		for(item in obj.partners["MEDIA PARTNERS"]) {
+			partners["MEDIA PARTNERS"].push(obj.partners["MEDIA PARTNERS"][item].uid);
+		}
+	}
+	partners["LPM NETWORK"] = [];
+	if (obj.partners && obj.partners["LPM NETWORK"]) {
+		for(item in obj.partners["LPM NETWORK"]) {
+			partners["LPM NETWORK"].push(obj.partners["LPM NETWORK"][item].uid);
+		}
+	}
+	var gallery = [];
+	for(item in obj.gallery) {
+		gallery.push(obj.gallery[item].id);
+	}
+	var performances = [];
+	for(item in obj.performances) {
+		performances.push(obj.performances[item].id);
+	}
+	DB.users.find({"old_id":{$in:users}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+		if (subrecords.length) obj.users = subrecords;
+		DB.gallery.find({"old_id":{$in:gallery}}, {fields:{_id:1,title:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+			if (subrecords.length) obj.gallery = subrecords;
+			DB.categories.find({"old_id":{$in:obj.categories}}, {fields:{_id:1,name:1,slug:1,ancestors:1}}).toArray(function(err, subrecords){
+				if (subrecords.length) obj.categories = subrecords;
+				DB.performances.find({"old_id":{$in:performances}}, {fields:{_id:1,title:1,permalink:1,files:1,categories:1}}).toArray(function(err, subrecords){
+					if (subrecords.length) obj.performances = subrecords;
+					DB.users.find({"old_id":{$in:partners["PRODUCTION"]}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+						if (subrecords.length) obj.partners["PRODUCTION"] = subrecords;
+						DB.users.find({"old_id":{$in:partners["SUPPORTED BY"]}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+							if (subrecords.length) obj.partners["SUPPORTED BY"] = subrecords;
+							DB.users.find({"old_id":{$in:partners["APPROVED BY"]}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+								if (subrecords.length) obj.partners["APPROVED BY"] = subrecords;
+								DB.users.find({"old_id":{$in:partners["TECHNICAL PARTNERS"]}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+									if (subrecords.length) obj.partners["TECHNICAL PARTNERS"] = subrecords;
+									DB.users.find({"old_id":{$in:partners["MEDIA PARTNERS"]}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+										if (subrecords.length) obj.partners["MEDIA PARTNERS"] = subrecords;
+										DB.users.find({"old_id":{$in:partners["LPM NETWORK"]}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+											if (subrecords.length) obj.partners["LPM NETWORK"] = subrecords;
+											console.dir(obj);
+											//DB.events.save(obj);
+											DB.events.findOne({_id:obj._id},function(err, record){
+												console.dir(record);
+											});
+										});
+									});
+								});
+							});
+						});
+					});
+				});
+			});
+		});
+	});
+}
+
+
+
+
+
 function updateEcodeFootageData(data) {
 	data.old_id = data.id;
 	delete data.id;

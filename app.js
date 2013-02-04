@@ -1,4 +1,4 @@
-
+//forever start -l forever.log -o out.log -e err.log  --debug -a app.js
 /**
  * Node.js Mongo invoices
  * Author : Gianluca Del Gobbo, Fabrizio Chivoloni as Flyer communication, FLxER, Free Hardware Foundation and Linux Club
