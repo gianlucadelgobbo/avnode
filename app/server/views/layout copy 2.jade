@@ -1,0 +1,213 @@
+- var user
+!!!
+html(lang=_config.lang)
+	head
+		title=(locals.title ? locals.title+" | FLxER" : "FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(name="author", content="FLYER COMMUNICATION, Gianluca Del Gobbo, Flavio Distefano")
+		meta(name="robots", content="all")
+		meta(name="keywords", content=__("meta-keywords"))
+		meta(name="description", content=locals.description)
+
+		//- if(is_facebook())
+			meta(property="og:title", content=(locals.title ? locals.title : "FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE"))
+			meta(property="og:type", content=(locals.type ? locals.type : "website"))
+			meta(property="og:url", content='')
+			meta(property="og:image", content='')
+			meta(property="og:site_name", content=_config.site_name)
+			meta(property="og:description", content=locals.description)
+			meta(property="fb:admins", content=_config.admins)
+			meta(property="fb:app_id", content=_config.app_id)
+			meta(property="og:locale", content=_config.locale)
+
+
+		link(type="text/css", href="/lib/jquery/css/smoothness/jquery-ui-1.8.17.custom.css", rel="stylesheet")	
+		script(type="text/javascript", src="/lib/jquery/js/jquery-1.7.1.min.js")
+		link(type="text/css", href="/lib/bootstrap.min.css", rel="stylesheet")	
+		script(type="text/javascript", src="/lib/bootstrap.min.js")
+		script(type="text/javascript", src="/lib/jquery/js/jquery-ui-1.8.17.custom.min.js")
+
+		script(type="text/javascript", src="/_lang/"+_config.lang+".js")
+		script(type="text/javascript", src="/js/fpVariables.js")
+		script(type="text/javascript", src="/js/fpManager.js")
+		script(type="text/javascript", src="/js/fpCheck.js")
+		script(type="text/javascript", src="/js/script.js?v=1.2")
+		script(type="text/javascript", src="/js/sendMsg.js")
+		script(type="text/javascript", src="/js/notifications.js")
+		script(type="text/javascript", src="/js/playList.js")
+		script(type="text/javascript", src="/js/rate.js")
+		script(type="text/javascript", src="/js/ajaxSlideShowLoader.js")
+
+		//script(type="text/javascript", src="http://cdn.gigya.com/js/socialize.js?apiKey=2_B2v2RgZOGGx4SxCW1frvgSeM5PW8MWRLqnPNwXeDZ3RP0zZuI78lJccYf2-p453s")
+		script(type="text/javascript")
+			var conf = {APIKey:'2_B2v2RgZOGGx4SxCW1frvgSeM5PW8MWRLqnPNwXeDZ3RP0zZuI78lJccYf2-p453s'}
+
+		//link(href="/css/style.css", rel="stylesheet", type="text/css")
+		script(type="text/javascript")
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', '<? echo($this->initObj["sections"]["analytics"][$this->initObj["area"]]); ?>']);
+			_gaq.push(['_setDomainName', 'flxer.net']);
+			_gaq.push(['_setAllowLinker', true]);
+			_gaq.push(['_trackPageview']);
+		
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+	body
+		.header
+			.cnt
+				h2
+					a(href="/", title="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
+						img(src="/img/logoFLxER.gif", alt="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
+				.topBanner=locals.bannerTop
+				.cnt
+					ul#mainMenu
+						li#abusers
+							a(href="/", title=__("Network"), onmouseover="swapMenu('#communityMenu')", onmouseout="swapMenuRestore()")=__("Community")
+						li#software
+							a#softwareA(href="/software/", title=__("Software"), onmouseover="swapMenu('#softwareMenu')", onmouseout="swapMenuRestore()")=__("Software")
+							a#useNow(href="/flxer5/", onclick="popupwindow('800','600','/flxer5/','FLxER5','no','yes');return false;")=__("USE NOW")
+						li#project
+							a(href="/project/", title=__("Project"), onmouseover="swapMenu('#projectMenu')", onmouseout="swapMenuRestore()")=__("Project")
+					#rightMenu
+						#search
+							form(action="/search/")#cse-search-box-footer
+								input(type="hidden", name="cx", value="008270153029254647808:_czuhrjkjpk")
+								input(type="hidden", name="cof", value="FORID:10")
+								input(type="hidden", name="ie", value="UTF-8")
+								input(type="text", 	name="q", size="31", class="textfieldsSearch left", value=locals.q)
+								input(type="submit", name="sa", value=__("Cerca"), class="pulsSearch left")
+							script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box-footer&amp;lang"+_config.lang)
+						#lang
+							ul#nav
+					br.myClear
+					#subMainMenu
+						#communityMenu
+							ul
+								li.left
+									a(href="/performers/")=__("Utenti")
+								li.left
+									a(href="/footage/")=__("Posts")
+								li.left
+									a(href="/playlists/")=__("Playlists")
+								li.left
+									a(href="/performances/")=__("Performances")
+								li.left
+									a(href="/events/")=__("Eventi")
+								li.left
+									a(href="/tvshows/")=__("TV Shows")
+								li.left
+									a(href="/iflxerfiles/")=__("iFlxer files")
+								li.left
+									a(href="/iflxerplaylists/")=__("iFlxer playlists")
+								li.left
+									a(href="/forum/")=__("Forum")
+								li.right
+									a(href="/controlpanel/"+(user ? "" : "login/"), onclick="$('#menuUser').toggle();$('#menuNew').hide();return false;")=(user ? __("Account") : __("Login"))
+								- if(!user)
+									li.right
+										a(href="/controlpanel/new/")=__("Registrati")
+								- else
+									li.right(style="position:relative")
+										a(href="/"+user.user_name+"/notifications/", title=__("Visualizza le notifiche"))=__("Notifiche")
+											span.jewelCount=locals.notifiche
+											
+								li.right
+									a(href="#", onclick="$('#menuNew').toggle();$('#menuUser').hide();moveMenu(this);return false;")=__("Nuovo contenuto")
+								br.myClear
+				#menuNew
+					script(type="text/javascript")
+						document.getElementById('menuNew').style.display='none';
+						document.getElementById('menuNew').style.position='absolute';
+					ul			
+						li
+							a(href="/controlpanel/?edit=performances&amp;perfid=0")=__("Nuova performance")
+						li
+							a(href="/controlpanel/?edit=footage&amp;footageid=0")=__("Nuovo post")
+						li
+							a(href="/controlpanel/?edit=events&amp;eventid=0")=__("Nuovo evento")
+						li
+							a(href="/controlpanel/?edit=tvshows&amp;tvshowid=0")=__("Nuovo TV Show")
+						li
+							a(href="/controlpanel/?edit=postiflxer&amp;postiflxerid=0")=__("Nuovo iFLxER file")
+						li
+							a(href="/controlpanel/?edit=forum&amp;forumid=0")=__("Nuova discussione")
+				#menuUser
+					script(type="text/javascript")
+						document.getElementById('menuUser').style.display='none';
+						document.getElementById('menuUser').style.position='absolute';
+				//<? include_once($this->initObj['site_path']."_php/form/login/login.php"); ?>
+		.gray
+			.cnt
+				!= body
+				//<? include_once($this->initObj['site_path']."_php/modelli/".$this->modello); ?>
+			br.myClear
+		.black
+			.cnt
+				.col_0s
+					img(alt="FLxER.NET", src="/img/logo_piede.gif")
+				.col_1s
+					.left
+						strong="FLxER.net"
+						!=" | "+__("un progetto di Flyer communication")
+						br
+						a(title=__("Scrivi a FLxER.net"), href="mailto:info@flxer.net")="info@flxer.net"
+						!=" // P.IVA: 06589171005"
+					- d = new Date()
+					.right(style="text-align:right;")="NO &copy; "+d.getFullYear()
+						br
+						a(href="/disclaimers/privacy/")=__("Privacy")
+						!=" // "
+						a(href="/disclaimers/terms/")=__("Termini e condizioni")
+						!=" // "
+						a(href="/disclaimers/guidelines/")=__("Linee guida")
+					br.myClear
+				br.myClear
+		#top
+			.cnt
+				ul#corporate
+					li
+						a(title=__("flyer"), target="_blank", href="http://www.flyer.it")
+							span.bulletSmall
+							!="FLYER"
+					li
+						a(title=__("flyerwp"), target="_blank", href="http://wp.flyer.it")
+							span.bulletSmall
+							!="FLYER WP"
+					li.corpSel
+						span.bulletSmall
+						!="FLxER"
+					li
+						a(title=__("vjtv"), target="_blank", href="http://www.vjtelevision.com/")
+							span.bulletSmall
+							!="VJ TELEVISION"
+					li
+						a(title="LPM Live Performers Meeting", target="_blank", href="http://www.liveperformersmeeting.net/")
+							span.bulletSmall
+							!="LPM"
+					li
+						a(title=__("learning"), target="_blank", href="http://learning.flyer.it/")
+							span.bulletSmall
+							!="LEARNING"
+					li
+						a(title=__("shockart"), target="_blank", href="http://shockart.net/")
+							span.bulletSmall
+							!="SHOCKART"
+					li
+						a(title=__("wam"), target="_blank", href="http://wam.flyer.it")
+							span.bulletSmall
+							!="WAM"
+		- if(locals.reply && user)
+			script(type="text/javascript")
+				$(document).ready(function(){
+					sendDelay();
+				});
+				function sendDelay() {
+					c = setTimeout(openSendMsgPanel2,500)
+				}
+				function openSendMsgPanel2() {
+					clearTimeout(c);
+					openSendMsgPanel('<? echo($this->u_id) ?>','sendMsg','<? echo($this->getLabel("Invia un messaggio a")) ?> <? echo($this->u_name) ?>','');
+				}
