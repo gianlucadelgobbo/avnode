@@ -1,1 +1,50 @@
-!=result
+
+ul.nav.nav-pills
+	li.disabled
+		a(href="#")=__("Performers")
+	li(class=(locals.sort=="mostactive" ? "active" : ""))
+		a(href="/performers/mostactive/")=__("Most productive")
+	li(class=(locals.sort=="mostrecent" ? "active" : ""))
+		a(href="/performers/mostrecent/")=__("Most Recent")
+.row
+	.span9
+		h1=locals.title+" "
+			small=__("From")+" "+locals.skip+" "+__("to")+" "+(locals.skip+locals.limit)+" "+__("on")+" "+locals.tot+" "+__("performers")
+		.row
+			- for(a=0;a<locals.result.length;a++)
+				.span3
+					.row
+						.span1
+
+					.media
+						.pull-left
+							a(href=locals.result[a].permalink)
+								- avatar = "https://flxer.net"+locals.result[a].avatar
+								img.media-object(alt="FLxER.NET", src=avatar)
+						.media-body
+							h4.media-heading
+								a(href="/"+locals.result[a].permalink+"/")=locals.result[a].display_name
+							- stats = "";
+							- for(item in locals.result[a].stats)
+								- if (locals.result[a].stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.result[a].stats[item]+"</li>"
+							- if (stats)
+								ul!=stats
+		.pagination
+			ul
+				li=locals.skip
+				li=locals.tot
+				li=_config.sections.performers.limit
+				li=locals.limit
+		- locals.skip = 20000
+		- skippa = locals.skip/_config.sections.performers.limit
+		.pagination.pagination-small.pagination-centered
+			ul
+				li(class=(locals.skip==0 ? "active" : "disabled"))
+					a(href="#"+((locals.skip/_config.sections.performers.limit)-5))="«"
+				//- for (a=0;a<locals.tot/_config.sections.performers.limit;a++)
+				- for (a=skippa-5;a<skippa+6;a++)
+					li(class=(a==locals.skip/_config.sections.performers.limit ? "active" : "disabled"))
+						a(href="#"+a)=(a+1)
+				li(class=(locals.skip+locals.limit>=locals.tot ? "active" : "disabled"))
+					a(href="#"+((locals.skip/_config.sections.performers.limit)+7))="»"
+	.span3 Bella

@@ -477,6 +477,13 @@ function updateEcodeUsersData(data) {
 	return data;
 }
 function updateUser(user) {
+	if(user.avatar) {
+		user.files = [{
+			preview:	user.avatar.replace("400x300/","")
+		}];
+		delete user.avatar;
+	
+	}
 	DB.users.find({"members.old_id":user.old_id}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
 		delete user.crews;
 		if (subrecords.length) user.crews = subrecords;

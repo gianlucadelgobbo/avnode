@@ -40,8 +40,8 @@ module.exports = function(app) {
 	app.get('/logout', logoutRoutes.get);
 
 	// performers //
-	app.get('/performers', performersRoutes.get);
-	app.post('/performers', performersRoutes.post);
+	app.get('/performers/*', performersRoutes.get);
+	app.post('/performers/*', performersRoutes.post);
 
 	// performances //
 	app.get('/performances', performancesRoutes.get);

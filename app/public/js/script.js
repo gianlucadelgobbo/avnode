@@ -7,10 +7,28 @@ var oldPerf = 0;
 var rate_id;
 
 $(document).ready(function () {
+	$('.dropdown-toggle').dropdown();
 	caricaFlashAvvio();
 	if($("rateBox") && rate_id && !isNaN(rate_id)){
 		initRateAct();
 	}
+	init = $("#menu").position().top;
+	console.log(init);
+});
+var docked;
+$(window).scroll(function () {
+	menu = $("#menu");
+    if (!docked && (menu.offset().top - menu.scrollTop() < 0)) {
+        menu.style.top = 0;
+        menu.style.position = 'fixed'; 
+        menu.className = 'docked'; 
+        docked = true;
+    } else if (docked && menu.scrollTop() <= init) { 
+        menu.style.position = 'absolute'; 
+        menu.style.top = init + 'px';
+        menu.className = menu.className.replace('docked', ''); 
+        docked = false;  
+    }
 });
 function moveMenu(t){
 	$('#menuNew').css('left',($(t).position().left));

@@ -3,10 +3,16 @@ var ObjectID = require('mongodb').ObjectID;
 var CT = require('../modules/country-list');
 
 exports.get = function get(req, res) {
-	console.dir("cazzo");
-	console.dir(req);
-	DB.users.find({}, function(e, result) {
-		res.render('performers', {	locals: { title: __('Performers'), result : result, udata : req.session.user } });
+	console.dir(req.params);
+	sort = req.params[0].replace("/","");
+	sort = (sort && _config.sections.performers.valid.indexOf(sort) ? sort : _config.sections.performers.default);
+	var limit = req.query.limit ? parseInt(req.query.limit) : _config.sections.performers.limit;
+	var skip = req.query.skip ? parseInt(req.query.skip) : 0;
+	DB.users.find({}).count(function(err, tot){
+		console.dir(tot);
+		DB.users.find({}, {skip:skip, limit:limit}).sort(_config.sections.performers.sortQ[sort]).toArray(function(err, records){
+			res.render('performers', {	locals: { title:"Performers", sort:sort, tot:tot, skip:skip, limit:limit, result : records, udata : req.session.user } });
+		});
 	});
 };
 

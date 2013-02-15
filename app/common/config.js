@@ -4,6 +4,26 @@ var _config = {
 	"locale": 			"en_UK",
 	"lang": 			"en",
     "locales":			["en", "it"],
+    "sections":			{
+    	"performers":		{
+    		"limit":			20,
+    		"default":			"mostrecent",
+    		"valid":			[
+    								"mostrecent",
+    								"mostactive"
+    							],
+    		"sortQ":	{
+				"mostrecent":{"creation_date": 		-1},
+				"mostactive":{"stats.performances":	-1}
+			}
+		}
+	},
+
+    
+    
+    
+    
+    
 	"company": {
 		"logo":	"/img/logo.png",
 		"name":	"Flyer communication srl",

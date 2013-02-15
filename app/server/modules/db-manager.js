@@ -1,5 +1,5 @@
 
-var bcrypt = require('bcrypt')
+//var bcrypt = require('bcrypt')
 var Db = require('mongodb').Db;
 var Server = require('mongodb').Server;
 
@@ -88,6 +88,8 @@ DB.validateLink = function(email, passHash, callback) {
 	});
 }
 
+
+/*
 DB.saltAndHash = function(pass, callback) {
 	bcrypt.genSalt(10, function(err, salt) {
 		bcrypt.hash(pass, salt, function(err, hash) {
@@ -96,8 +98,6 @@ DB.saltAndHash = function(pass, callback) {
 	});
 }
 
-
-/*
 // just for testing - these are not actually being used //
 
 DB.findById = function(id, callback) {
