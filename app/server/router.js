@@ -40,32 +40,32 @@ module.exports = function(app) {
 	app.get('/logout', logoutRoutes.get);
 
 	// performers //
-	app.get('/performers/*', performersRoutes.get);
-	app.post('/performers/*', performersRoutes.post);
+	app.get('/performers*', performersRoutes.get);
+	app.post('/performers*', performersRoutes.post);
 
 	// performances //
-	app.get('/performances', performancesRoutes.get);
-	app.post('/performances', performancesRoutes.post);
+	app.get('/performances*', performancesRoutes.get);
+	app.post('/performances*', performancesRoutes.post);
 
 	// footage //
-	app.get('/footage', footageRoutes.get);
-	app.post('/footage', footageRoutes.post);
+	app.get('/footage*', footageRoutes.get);
+	app.post('/footage*', footageRoutes.post);
 
 	// events //
-	app.get('/events', eventsRoutes.get);
-	app.post('/events', eventsRoutes.post);
+	app.get('/events*', eventsRoutes.get);
+	app.post('/events*', eventsRoutes.post);
 
 	// playlists //
-	app.get('/playlists', playlistsRoutes.get);
-	app.post('/playlists', playlistsRoutes.post);
+	app.get('/playlists*', playlistsRoutes.get);
+	app.post('/playlists*', playlistsRoutes.post);
 
 	// forum //
 	app.get('/forum ', forumRoutes.get);
 	app.post('/forum ', forumRoutes.post);
 
 	// tvshows //
-	app.get('/tvshows', tvshowsRoutes.get);
-	app.post('/tvshows', tvshowsRoutes.post);
+	app.get('/tvshows*', tvshowsRoutes.get);
+	app.post('/tvshows*', tvshowsRoutes.post);
 
 	// controlpanel //
 	app.get('/controlpanel', controlpanelRoutes.get);

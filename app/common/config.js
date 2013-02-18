@@ -6,7 +6,12 @@ var _config = {
     "locales":			["en", "it"],
     "sections":			{
     	"performers":		{
+			"title":			"Performers",
     		"limit":			20,
+			"basepath":			"performers",
+			"coll":				"users",
+			"view_list":		"performers",
+
     		"default":			"mostrecent",
     		"valid":			[
     								"mostrecent",
@@ -15,8 +20,144 @@ var _config = {
     		"sortQ":	{
 				"mostrecent":{"creation_date": 		-1},
 				"mostactive":{"stats.performances":	-1}
+			},
+    		"labels":	{
+				"mostrecent":"Most recent",
+				"mostactive":"Most active"
 			}
-		}
+		},
+    	"events":		{
+			"title":			"Events",
+    		"limit":			20,
+			"basepath":			"events",
+			"coll":				"events",
+			"view_list":		"events",
+
+    		"default":			"mostrecent",
+    		"valid":			[
+    								"mostrecent",
+    								"mostviewed",
+									"mostrated"
+    							],
+    		"sortQ":	{
+				"mostrecent":{"creation_date": 		-1},
+				"mostviewed":{"stats.visits":	-1},
+				"mostrated":{"stats.tot_rate":	-1}
+			},
+    		"labels":	{
+				"mostrecent":"Most recent",
+				"mostviewed":"Most viewed",
+				"mostrated":"Most rated"
+			}
+		},
+    	"performances":		{
+			"title":			"Performances",
+    		"limit":			20,
+			"basepath":			"performances",
+			"coll":				"performances",
+			"view_list":		"performances",
+
+    		"default":			"mostrecent",
+    		"valid":			[
+    								"mostrecent",
+    								"mostviewed",
+									"mostrated"
+    							],
+    		"categories":		[
+    								"av-performance",
+    								"vj-set",
+    								"workshop",
+    								"project-showcase",
+									"dj-set"
+    							],
+    		"sortQ":	{
+				"mostrecent":{"creation_date": 		-1},
+				"mostviewed":{"stats.visits":	-1},
+				"mostrated":{"stats.tot_rate":	-1}
+			},
+    		"labels":	{
+				"mostrecent":		"Most recent",
+				"mostviewed":		"Most viewed",
+				"mostrated":		"Most rated",
+				"av-performance":	"AV Performance",
+				"vj-set":			"VJ Set",
+				"dj-set":			"DJ Set",
+				"project-showcase":	"Project Showcase",
+				"workshop":			"Workshop"
+			}
+		},
+    	"tvshows":		{
+			"title":			"TV Shows",
+    		"limit":			20,
+			"basepath":			"tvshows",
+			"coll":				"tvshow",
+			"view_list":		"tvshows",
+
+    		"default":			"mostrecent",
+    		"valid":			[
+    								"mostrecent",
+    								"mostviewed",
+									"mostrated"
+    							],
+    		"sortQ":	{
+				"mostrecent":{"creation_date": 		-1},
+				"mostviewed":{"stats.visits":	-1},
+				"mostrated":{"stats.tot_rate":	-1}
+			},
+    		"labels":	{
+				"mostrecent":"Most recent",
+				"mostviewed":"Most viewed",
+				"mostrated":"Most rated"
+			}
+		},
+    	"footage":		{
+			"title":			"Footage",
+    		"limit":			20,
+			"basepath":			"footage",
+			"coll":				"footage",
+			"view_list":		"footage",
+
+    		"default":			"mostrecent",
+    		"valid":			[
+    								"mostrecent",
+    								"mostviewed",
+									"mostrated"
+    							],
+    		"sortQ":	{
+				"mostrecent":{"creation_date": 		-1},
+				"mostviewed":{"stats.visits":	-1},
+				"mostrated":{"stats.tot_rate":	-1}
+			},
+    		"labels":	{
+				"mostrecent":"Most recent",
+				"mostviewed":"Most viewed",
+				"mostrated":"Most rated"
+			}
+		},
+    	"playlists":		{
+			"title":			"Playlists",
+    		"limit":			20,
+			"basepath":			"playlists",
+			"coll":				"playlists",
+			"view_list":		"playlists",
+
+    		"default":			"mostrecent",
+    		"valid":			[
+    								"mostrecent",
+    								"mostviewed",
+									"mostrated"
+    							],
+    		"sortQ":	{
+				"mostrecent":{"creation_date": 		-1},
+				"mostviewed":{"stats.visits":	-1},
+				"mostrated":{"stats.tot_rate":	-1}
+			},
+    		"labels":	{
+				"mostrecent":"Most recent",
+				"mostviewed":"Most viewed",
+				"mostrated":"Most rated"
+			}
+		},
 	},
 
     

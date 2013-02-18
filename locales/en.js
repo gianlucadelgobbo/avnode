@@ -1,4 +1,5 @@
 {
+	"0": "0",
 	"Invoices": "Invoices",
 	"Clients": "Clients",
 	"New client": "New client",

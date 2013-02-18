@@ -1,0 +1,35 @@
+include comp/submenu_sez
+include comp/functions
+
+.row
+	.span9
+		h1=_config.sections[locals.sez].title+" "
+			small=__("From")+" "+locals.skip+" "+__("to")+" "+(locals.skip+_config.sections[locals.sez].limit)+" "+__("on")+" "+locals.tot+" "+_config.sections[locals.sez].title
+		.row
+			- for(a=0;a<locals.result.length;a++)
+				.span3
+					.row
+						.span1
+
+					.media
+						.pull-left
+							a(href="/"+locals.result[a].users[0].permalink+"/"+_config.sections[locals.sez].basepath+"/"+locals.result[a].permalink+"/")
+								- if (locals.result[a].files && locals.result[a].files.length)
+									//img.media-object(alt="FLxER.NET", src=getFileFormat(locals.result[a].files[0].preview,'90x68'))
+									img.media-object(alt="FLxER.NET", src="https://flxer.net"+locals.result[a].files[0].preview)
+						.media-body
+							h4.media-heading
+								a(href="/"+locals.result[a].users[0].permalink+"/"+_config.sections[locals.sez].basepath+"/"+locals.result[a].permalink+"/")=locals.result[a].title
+							- console.dir(locals.result[a])
+							- performers = "";
+							- for(item in locals.result[a].users)
+								- if (locals.result[a].users[item]) performers+="<li><a href=\"/"+locals.result[a].users[item].permalink+"/\">"+locals.result[a].users[item].display_name+"</a></li>"
+							- if (performers)
+								ul!=performers
+							- categories = "";
+							- for(item in locals.result[a].categories)
+								- if (locals.result[a].categories[item]) categories+="<li><a href=\"/"+_config.sections[locals.sez].basepath+"/"+locals.result[a].categories[item].slug+"/\">"+locals.result[a].categories[item].name+"</a></li>"
+							- if (categories)
+								ul!=categories
+		include comp/paginator
+	.span3 Bella

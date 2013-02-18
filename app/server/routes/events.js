@@ -1,9 +1,14 @@
-var CT = require('../modules/country-list');
+var DB = require('../modules/db-manager');
+var Fnc = require('../modules/functions');
 
 exports.get = function get(req, res) {
-  if (req.session.user == null) {
-    res.redirect('/?from='+req.url);
-  } else {
-    res.render('home', { locals: { title: __("Home"), countries : CT, udata : req.session.user } });
-  }
+	var sez = "events";
+	console.dir(req.params);
+	var conf = Fnc.getConf(req.params[0], sez, res);
+	console.dir(conf);
+	DB.events.find({}).count(function(err, tot){
+		DB.events.find({}, {skip:conf.skip, limit:_config.sections[sez].limit}).sort(_config.sections[sez].sortQ[conf.sort]).toArray(function(err, records){
+			res.render(_config.sections[sez].view_list, {locals: {sez:sez, tot:tot, path:conf.path, sort:conf.sort, skip:conf.skip, result:records, udata:req.session.user }});
+		});
+	});
 };

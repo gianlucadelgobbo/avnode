@@ -1,0 +1,11 @@
+ul.nav.nav-pills
+	li.disabled
+		a(href="#")=_config.sections[locals.sez].title
+	- for (item in _config.sections[locals.sez].valid)
+		li(class=(locals.sort==_config.sections[locals.sez].valid[item] ? "active" : ""))
+			a(href="/"+_config.sections[locals.sez].basepath+"/"+_config.sections[locals.sez].valid[item]+"/")=_config.sections[locals.sez].labels[_config.sections[locals.sez].valid[item]]
+- if (_config.sections[locals.sez].categories)
+	ul.nav.nav-pills
+		- for (item in _config.sections[locals.sez].categories)
+			li(class=(locals.sort==_config.sections[locals.sez].categories[item] ? "active" : ""))
+				a(href="/"+_config.sections[locals.sez].basepath+"/"+_config.sections[locals.sez].categories[item]+"/")=_config.sections[locals.sez].labels[_config.sections[locals.sez].categories[item]]
