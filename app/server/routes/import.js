@@ -476,16 +476,11 @@ function updateEcodeUsersData(data) {
 
 	return data;
 }
-
-function updateUserFile(file){
-	var newFile = (file.substring(0,file.lastIndexOf('_'))).concat('.',file.substring(file.lastIndexOf('_')+1,file.lastIndexOf('.')));
-	return newFile.replace("\/90x68","");
-}
 function updateUser(user) {
 	if(user.avatar) {
 		if(!(user.avatar.substring(user.avatar.length-15,user.avatar.length)=="defaultUser.gif")){
 			user.files = [{
-				file:	updateUserFile(user.avatar)
+				file:	updateFiles(user.avatar,"90x68/")
 			}];
 		}
 		delete user.avatar;
@@ -695,7 +690,6 @@ function updateEvents(obj) {
 
 
 
-
 function updateEcodeFootageData(data) {
 	data.old_id = data.id;
 	delete data.id;
@@ -704,9 +698,11 @@ function updateEcodeFootageData(data) {
 		data.files = [{
 			folder:		"/"+data.file_info.cartella+"/",
 			file:		data.file_info.nome,
-			encoded:	parseInt(data.encoded),
-			preview:	data.img_arr.replace("90x68/","")
+			encoded:	parseInt(data.encoded)
 		}];
+		if(!(data.img_arr.substring(data.img_arr.length-11,data.img_arr.length)=="default.gif")) {
+			data.files[0].preview = updateFiles(data.img_arr,"90x68/")
+		}
 		delete data.img_arr;
 		delete data.encoded;
 		delete data.file_info;
@@ -756,11 +752,12 @@ function updateEcodePlaylistsData(data) {
 	data.old_id = data.id;
 	delete data.id;
 	if(data.img_arr) {
-		data.files = [{
-			preview:	data.img_arr.replace("400x300/","")
-		}];
+		if(!(data.img_arr.substring(data.img_arr.length-11,data.img_arr.length)=="default.gif")){
+			data.files = [{
+				preview:	updateFiles(data.img_arr,"400x300/")
+			}];
+		}
 		delete data.img_arr;
-	
 	}
 	if(data.footage) {
 		for(var a=0;a<data.footage.length;a++){
@@ -813,11 +810,12 @@ function updateEcodePerformancesData(data) {
 	delete data.testo;
 
 	if(data.img_arr) {
-		data.files = [{
-			preview:	data.img_arr.replace("400x300/","")
-		}];
+		if(!(data.img_arr.substring(data.img_arr.length-11,data.img_arr.length)=="default.gif")){
+			data.files = [{
+				preview:	updateFiles(data.img_arr,"400x300/")
+			}];
+		}
 		delete data.img_arr;
-	
 	}
 	data.users = [];
 	if (data.performers) {
@@ -880,11 +878,12 @@ function updateEcodeEventsData(data) {
 	delete data.testo;
 
 	if(data.img_arr) {
-		data.files = [{
-			preview:	data.img_arr.replace("400x300/","")
-		}];
+		if(!(data.img_arr.substring(data.img_arr.length-11,data.img_arr.length)=="default.gif")){
+			data.files = [{
+				preview:	updateFiles(data.img_arr,"400x300/")
+			}];
+		}
 		delete data.img_arr;
-	
 	}
 	data.users = [];
 	if (data.performers) {
@@ -933,6 +932,19 @@ function updateEcodeEventsData(data) {
 
 	return data;
 }
+/*
+function updateFootageFile(file){
+	return file.substring(0,file.lastIndexOf('_')).concat('.',file.substring(file.lastIndexOf('_')+1,file.lastIndexOf('.')));
+}
+	if(data.img_arr) {
+		if(!(data.img_arr.substring(data.img_arr.length-11,data.img_arr.length)=="default.gif")){
+			data.files = [{
+				preview:	updatePlaylistFile(data.img_arr.replace("400x300/",""))
+			}];
+		}
+		delete data.img_arr;
+	}
+*/
 function updateEcodeTvshowData(data) {
 	data.old_id = data.id;
 	delete data.id;
@@ -1012,11 +1024,12 @@ function updateEcodeGalleryData(data) {
 	delete data.titolo;
 
 	if(data.img_arr) {
-		data.files = [{
-			preview:	data.img_arr.replace("400x300/","")
-		}];
+		if(!(data.img_arr.substring(data.img_arr.length-11,data.img_arr.length)=="default.gif")){
+			data.files = [{
+				preview:	updateFiles(data.img_arr,"400x300")
+			}];
+		}
 		delete data.img_arr;
-	
 	}
 	data.users = [];
 	if (data.performers) {
@@ -1049,11 +1062,8 @@ function updateEcodeGalleryData(data) {
 
 	return data;
 }
-
-
-
-
-
-
-
+function updateFiles(file,size){
+	var newFile = file.replace(size,"");
+	return newFile.substring(0,newFile.lastIndexOf('_')).concat('.',newFile.substring(newFile.lastIndexOf('_')+1,newFile.lastIndexOf('.')));
+}
 
