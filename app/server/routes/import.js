@@ -476,13 +476,19 @@ function updateEcodeUsersData(data) {
 
 	return data;
 }
+
+function updateUserFile(file){
+	var newFile = (file.substring(0,file.lastIndexOf('_'))).concat('.',file.substring(file.lastIndexOf('_')+1,file.lastIndexOf('.')));
+	return newFile.replace("\/90x68","");
+}
 function updateUser(user) {
 	if(user.avatar) {
-		user.files = [{
-			preview:	user.avatar.replace("400x300/","")
-		}];
+		if(!(user.avatar.substring(user.avatar.length-15,user.avatar.length)=="defaultUser.gif")){
+			user.files = [{
+				file:	updateUserFile(user.avatar)
+			}];
+		}
 		delete user.avatar;
-	
 	}
 	DB.users.find({"members.old_id":user.old_id}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
 		delete user.crews;
