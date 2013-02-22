@@ -1,0 +1,18 @@
+.container
+	form(name="formLogin", method="post", action="#").well
+		.row-fluid
+			.span8
+				h2=__("Login")
+				.offset4
+					input(name="login", type="text", placeholder=__("Username")).input-large
+					br
+					input(name="password", type="password", placeholder=__("Password")).input-large
+					label.checkbox=__("Remember_me")
+						input(type="checkbox", value="true")
+					button(type="submit").btn.btn-primary=__("Enter")
+				hr.clearfix
+				a(href="controlpanel/passwordRequest").btn.btn-link=__("Recover_data")
+				a(href="controlpanel/user").btn.btn-link=__("Register")
+			.span4
+				h3=__("LoginHelpTitle")
+				p=__("LoginHelp")

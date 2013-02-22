@@ -10,6 +10,9 @@ var tvshowsRoutes = require('./routes/tvshows');
 var userRoutes = require('./routes/user');
 var apiRoutes = require('./routes/api');
 var controlpanelRoutes = require('./routes/controlpanel');
+var controlpanelLoginRoutes = require('./routes/controlpanel/login');
+var controlpanelRegisterRoutes = require('./routes/controlpanel/new/register');
+var controlpanelUserRoutes = require('./routes/controlpanel/user');
 var searchRoutes = require('./routes/search');
 var importRoutes = require('./routes/import');
 /*
@@ -70,6 +73,18 @@ module.exports = function(app) {
 	// controlpanel //
 	app.get('/controlpanel', controlpanelRoutes.get);
 	app.post('/controlpanel', controlpanelRoutes.post);
+
+	// cp Log In //
+	app.get('/controlpanel/login', controlpanelLoginRoutes.get);
+	app.post('/controlpanel/login', controlpanelLoginRoutes.post);
+	
+	// cp Register //
+	app.get('/controlpanel/new/register', controlpanelRegisterRoutes.get);
+	app.post('/controlpanel/new/register', controlpanelRegisterRoutes.post);
+
+	// cp User //
+	app.get('/controlpanel/user', controlpanelUserRoutes.get);
+	app.post('/controlpanel/user', controlpanelUserRoutes.post);
 
 	// search //
 	app.get('/search', searchRoutes.get);

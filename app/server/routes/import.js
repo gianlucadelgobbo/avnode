@@ -932,19 +932,6 @@ function updateEcodeEventsData(data) {
 
 	return data;
 }
-/*
-function updateFootageFile(file){
-	return file.substring(0,file.lastIndexOf('_')).concat('.',file.substring(file.lastIndexOf('_')+1,file.lastIndexOf('.')));
-}
-	if(data.img_arr) {
-		if(!(data.img_arr.substring(data.img_arr.length-11,data.img_arr.length)=="default.gif")){
-			data.files = [{
-				preview:	updatePlaylistFile(data.img_arr.replace("400x300/",""))
-			}];
-		}
-		delete data.img_arr;
-	}
-*/
 function updateEcodeTvshowData(data) {
 	data.old_id = data.id;
 	delete data.id;
@@ -959,11 +946,13 @@ function updateEcodeTvshowData(data) {
 	delete data.testo;
 
 	if(data.img_arr) {
-		data.files = [{
-			preview:	data.img_arr.replace("90x68/",""),
-			preview2:	"/"+data.preview_file,
-			file:		data.file
-		}];
+		if(!(data.img_arr.substring(data.img_arr.length-11,data.img_arr.length)=="default.gif")){
+			data.files = [{
+				preview:	updateFiles(data.img_arr,"90x68/"),
+				preview2:	"/"+data.preview_file,
+				file:		data.file
+			}];
+		}
 		delete data.img_arr;
 		delete data.preview_file;
 		delete data.file;

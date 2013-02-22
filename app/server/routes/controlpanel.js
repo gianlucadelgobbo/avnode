@@ -2,7 +2,7 @@ var DB = require('../modules/db-manager');
 
 exports.get = function get(req, res) {
   if (req.session.user == null) {
-    res.redirect('/?from='+req.url);
+    res.redirect('/login');
   } else {
     var msg = {};
     if (req.query.id && req.query.del) {
