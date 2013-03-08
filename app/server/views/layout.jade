@@ -1,4 +1,3 @@
-- var user
 !!!
 html(lang=_config.lang)
 	head
@@ -100,7 +99,7 @@ html(lang=_config.lang)
 							a(href="/playlists/")=__("Playlists")
 					ul.nav.pull-right
 						li
-							a(href="/controlpanel/"+(user ? "" : "login/"), onclick="$('#menuUser').toggle();$('#menuNew').hide();return false;")=(user ? __("Account") : __("Login"))
+							a(href="/controlpanel/"+(user ? "" : "login/"))=(user ? __("Account") : __("Login"))
 						- if(!user)
 							li
 								a(href="/controlpanel/new/")=__("Registrati")

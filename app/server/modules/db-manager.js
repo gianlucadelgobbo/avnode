@@ -1,5 +1,5 @@
 
-//var bcrypt = require('bcrypt')
+var bcrypt = require('bcrypt')
 var Db = require('mongodb').Db;
 var Server = require('mongodb').Server;
 
@@ -73,11 +73,13 @@ DB.delete_account = function(id, callback) {
 	});
 }
 
-DB.setPassword = function(email, newPass, callback) {
-	DB.accounts.findOne({email:email}, function(e, o){
+DB.setPassword = function(login, newPass, callback) {
+	DB.users.findOne({login:login}, function(e, o){
 		DB.saltAndHash(newPass, function(hash){
-			o.pass = hash;
-			DB.accounts.save(o); callback(o);
+			o.password = hash;
+			DB.users.save(o, {safe:true}, function(e, o) {
+				callback(e, o);
+			});
 		});
 	});
 }
@@ -87,9 +89,6 @@ DB.validateLink = function(email, passHash, callback) {
 		callback(o ? 'ok' : null);
 	});
 }
-
-
-/*
 DB.saltAndHash = function(pass, callback) {
 	bcrypt.genSalt(10, function(err, salt) {
 		bcrypt.hash(pass, salt, function(err, hash) {
@@ -97,6 +96,9 @@ DB.saltAndHash = function(pass, callback) {
 		});
 	});
 }
+
+
+/*
 
 // just for testing - these are not actually being used //
 

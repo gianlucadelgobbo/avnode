@@ -13,17 +13,25 @@ include comp/functions
 
 					.media
 						.pull-left
-							a(href=locals.result[a].permalink)
+							a(href="/"+locals.result[a].users[0].permalink+"/"+_config.sections[locals.sez].basepath+"/"+locals.result[a].permalink+"/")
 								- if (locals.result[a].files && locals.result[a].files.length)
 									img.media-object(alt="FLxER.NET", src=getFileFormat(locals.result[a].files[0].preview,'90x68'))
 						.media-body
 							h4.media-heading
-								a(href="/"+locals.result[a].permalink+"/")=locals.result[a].title
-							- stats = "";
-							- console.dir(locals.result[a].stats)
-							- for(item in locals.result[a].stats)
-								- if (locals.result[a].stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.result[a].stats[item]+"</li>"
-							- if (stats)
-								ul!=stats
+								a(href="/"+locals.result[a].users[0].permalink+"/"+_config.sections[locals.sez].basepath+"/"+locals.result[a].permalink+"/")=locals.result[a].title
+							- performers = "";
+							- for(item in locals.result[a].users)
+								- if (locals.result[a].users[item]) performers+="<li><a href=\"/"+locals.result[a].users[item].permalink+"/\">"+locals.result[a].users[item].display_name+"</a></li>"
+							- if (performers)
+								ul!=performers
+							- categories = "";
+							- for(item in locals.result[a].categories)
+								- if (locals.result[a].categories[item]) categories+="<li><a href=\"/"+_config.sections[locals.sez].basepath+"/"+locals.result[a].categories[item].slug+"/\">"+locals.result[a].categories[item].name+"</a></li>"
+							- if (categories)
+								ul!=categories
+							ul
+								li=__("Visits")+": "+locals.result[a].stats[0].visits
+								li=__("Downloads")+": "+locals.result[a].stats[0].visits
+								li=__("Rate")+": "+locals.result[a].stats[0].rates.tot_rate
 		include comp/paginator
 	.span3 Bella

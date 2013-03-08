@@ -8,7 +8,7 @@ exports.get = function get(req, res) {
 	if (pathArray[0]) {
 		DB.users.findOne({permalink:pathArray[0]}, function(e, result) {
 			if (result) {
-				res.render('performer', {	locals: { title: result.display_name, result : result, udata : req.session.user } });
+				res.render('performer', {	locals: { title: result.display_name, result : result}, user : req.session.user });
 			} else {
 				res.send(404);
 			}

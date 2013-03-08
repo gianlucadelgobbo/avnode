@@ -1,1 +1,63 @@
-!=result
+.row
+	.span9
+		.media
+			.pull-left
+				a(href=locals.result.permalink)
+					- avatar = "https://flxer.net"+locals.result.avatar
+					img.media-object(alt="FLxER.NET", src=avatar)
+			.media-body
+				h1.media-heading=locals.result.display_name
+				ul
+					- for(a=0;a<locals.result.locations.length;a++)
+						li=locals.result.locations[a].country+(locals.result.locations[a].city ? ", "+locals.result.locations[a].city : "")
+				- if (locals.result.text)
+					div=locals.result.text[_config.lang]
+		.row
+			- for(a=0;a<locals.result.length;a++)
+				.span3
+					.row
+						.span1
+
+	.span3
+		- stats = "";
+		- for(item in locals.result.stats)
+			- if (locals.result.stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.result.stats[item]+"</li>"
+		- if (stats)
+			ul!=stats
+		- console.dir(locals.result)
+		- if (locals.result.members && locals.result.members.lenght)
+		
+			ul
+				- for(a=0;a<locals.result.members.lenght;a++)
+					li=locals.result.members[a].display_name
+						.media
+							.pull-left
+								a(href=locals.result.members[a].permalink)
+									- avatar = "https://flxer.net"+locals.result.members[a].avatar
+									img.media-object(alt="FLxER.NET", src=avatar)
+							.media-body
+								h4.media-heading
+									a(href="/"+locals.result.members[a].permalink+"/")=locals.result.members[a].display_name
+								- stats = "";
+								- for(item in locals.result.members[a].stats)
+									- if (locals.result.members[a].stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.result.members[a].stats[item]+"</li>"
+								- if (stats)
+									ul!=stats
+		- if (locals.result.crews && locals.result.crews.lenght)
+		
+			ul
+				- for(a=0;a<locals.result.crews.lenght;a++)
+					li=locals.result.crews[a].display_name
+						.media
+							.pull-left
+								a(href=locals.result.crews[a].permalink)
+									- avatar = "https://flxer.net"+locals.result.crews[a].avatar
+									img.media-object(alt="FLxER.NET", src=avatar)
+							.media-body
+								h4.media-heading
+									a(href="/"+locals.result.crews[a].permalink+"/")=locals.result.crews[a].display_name
+								- stats = "";
+								- for(item in locals.result.crews[a].stats)
+									- if (locals.result.crews[a].stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.result.crews[a].stats[item]+"</li>"
+								- if (stats)
+									ul!=stats

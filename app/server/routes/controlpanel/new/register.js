@@ -5,5 +5,5 @@ var CT = require('../../../modules/country-list');
 var DB = require('../../../modules/db-manager');
 
 exports.get = function get(req, res) {
-	res.render('form/register', {  locals: {title : "Register", countries: CT} });
+	res.render('form/register', {  locals: {title : "Register", countries: CT}, user : req.session.user });
 }

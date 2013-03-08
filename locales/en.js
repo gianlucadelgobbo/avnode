@@ -188,5 +188,14 @@
 	"Gender": "Gender",
 	"M": "M",
 	"F": "F",
-	"Other": "Other"
+	"Other": "Other",
+	"Remember_me": "Remember_me",
+	"Recover_data": "Recover_data",
+	"Visits": "Visits",
+	"Downloads": "Downloads",
+	"Rate": "Rate",
+	"Warning!": "Warning!",
+	"Login failed": "Login failed",
+	"Visualizza le notifiche": "Visualizza le notifiche",
+	"Notifiche": "Notifiche"
 }

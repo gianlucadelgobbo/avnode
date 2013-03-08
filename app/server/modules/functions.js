@@ -1,3 +1,8 @@
+var bcrypt = require('bcrypt');
+var DB = require('./db-manager');
+var http = require('http');
+var request = require('request');
+
 exports.getConf = function getConf(params, sez, res) {
 	var p = params.split("page-");
 	var page = parseInt(p[1]);
@@ -21,8 +26,42 @@ exports.getConf = function getConf(params, sez, res) {
 	return conf;
 }
 exports.in_array = function (needle, haystack) {
-    for(var i in haystack) {
-        if(haystack[i] == needle) return true;
-    }
-    return false;
+	for(var i in haystack) {
+		if(haystack[i] == needle) return true;
+	}
+	return false;
 }
+exports.validateFormLogin = function validateFormLogin(o,callback) {
+	var e = [];
+	DB.users.findOne({login:o.login}, function(err, result) {
+		if (result == null){
+			e.push({name:"user",m:__("User not found")});
+			callback(e, o);
+		} else {
+			if (!result.password) result.password = " ";
+			bcrypt.compare(o.password, result.password, function(err, res) {
+				if (res) {
+					console.dir("login interno");
+					callback(e, result);
+				} else {
+					var userString = JSON.stringify();
+					request.post({
+					    uri:"httpS://flxer.net/api/login",
+					    headers:{'content-type': 'application/x-www-form-urlencoded'},
+					    body:require('querystring').stringify({login:o.login, password:o.password})
+				    },function(err,res,body){
+				    	var ress = JSON.parse(body);
+				        if (ress.login) {
+				        	DB.setPassword(o.login, o.password, function(err, o) {
+								callback(e, o);
+							});
+				        } else {
+							e.push({name:"user",m:__("Login failed")});
+							callback(e, o);
+				        }
+					});
+				}
+			});
+		}
+	});
+};

@@ -24,7 +24,7 @@ exports.get = function get(req, res) {
 									}
 								}
 							}
-					  		res.render('import', {  locals: {msg : "DONE"} });
+					  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 				  		} 
 					});
 				});
@@ -53,9 +53,9 @@ exports.get = function get(req, res) {
 					  		}
 							limit = req.query.limit ? parseInt(req.query.limit) : 2;
 							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-					  		res.render('import', {  locals: {url : "/import/?data=gallery&skip="+skip+"&limit="+limit } });
+					  		res.render('import', {  locals: {url : "/import/?data=gallery&skip="+skip+"&limit="+limit }, user : req.session.user });
 				  		} else {
-					  		res.render('import', {  locals: {msg : "DONE"} });
+					  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 				  		}
 					});
 				});
@@ -84,9 +84,9 @@ exports.get = function get(req, res) {
 					  		}
 							limit = req.query.limit ? parseInt(req.query.limit) : 2;
 							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-					  		res.render('import', {  locals: {url : "/import/?data=tvshow&skip="+skip+"&limit="+limit } });
+					  		res.render('import', {  locals: {url : "/import/?data=tvshow&skip="+skip+"&limit="+limit }, user : req.session.user });
 				  		} else {
-					  		res.render('import', {  locals: {msg : "DONE"} });
+					  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 				  		}
 					});
 				});
@@ -115,9 +115,9 @@ exports.get = function get(req, res) {
 					  		}
 							limit = req.query.limit ? parseInt(req.query.limit) : 2;
 							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-					  		res.render('import', {  locals: {url : "/import/?data=events&skip="+skip+"&limit="+limit } });
+					  		res.render('import', {  locals: {url : "/import/?data=events&skip="+skip+"&limit="+limit }, user : req.session.user });
 				  		} else {
-					  		res.render('import', {  locals: {msg : "DONE"} });
+					  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 				  		}
 					});
 				});
@@ -146,9 +146,9 @@ exports.get = function get(req, res) {
 					  		}
 							limit = req.query.limit ? parseInt(req.query.limit) : 2;
 							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-					  		res.render('import', {  locals: {url : "/import/?data=performances&skip="+skip+"&limit="+limit } });
+					  		res.render('import', {  locals: {url : "/import/?data=performances&skip="+skip+"&limit="+limit }, user : req.session.user });
 				  		} else {
-					  		res.render('import', {  locals: {msg : "DONE"} });
+					  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 				  		}
 					});
 				});
@@ -177,9 +177,9 @@ exports.get = function get(req, res) {
 					  		}
 							limit = req.query.limit ? parseInt(req.query.limit) : 2;
 							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-					  		res.render('import', {  locals: {url : "/import/?data=playlists&skip="+skip+"&limit="+limit } });
+					  		res.render('import', {  locals: {url : "/import/?data=playlists&skip="+skip+"&limit="+limit }, user : req.session.user });
 				  		} else {
-					  		res.render('import', {  locals: {msg : "DONE"} });
+					  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 				  		}
 					});
 				});
@@ -207,9 +207,9 @@ exports.get = function get(req, res) {
 					  		}
 							limit = req.query.limit ? parseInt(req.query.limit) : 2;
 							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-					  		res.render('import', {  locals: {url : "/import/?data=footage&skip="+skip+"&limit="+limit } });
+					  		res.render('import', {  locals: {url : "/import/?data=footage&skip="+skip+"&limit="+limit }, user : req.session.user });
 				  		} else {
-					  		res.render('import', {  locals: {msg : "DONE"} });
+					  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 				  		}
 					});
 				});
@@ -217,7 +217,7 @@ exports.get = function get(req, res) {
 			case "users" :
 				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
 				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
-				//if (skip==0 && DB.users) DB.users.remove();
+				if (skip==0 && DB.users) DB.users.remove();
 				http.get({host:"flxer.net",path:"/api/users/?skip="+skip+"&limit="+limit},function(response){
 					var pageData = "";
 					response.setEncoding('utf8');
@@ -237,9 +237,9 @@ exports.get = function get(req, res) {
 					  		}
 							limit = req.query.limit ? parseInt(req.query.limit) : 2;
 							skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-					  		res.render('import', {  locals: {url : "/import/?data=users&skip="+skip+"&limit="+limit } });
+					  		res.render('import', {  locals: {url : "/import/?data=users&skip="+skip+"&limit="+limit }, user : req.session.user });
 				  		} else {
-					  		res.render('import', {  locals: {msg : "DONE"} });
+					  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 				  		}
 				  		//res.send(JSON.stringify(ress, null, '\t'));
 				  		//res.send("/import/?data=users&skip="+skip+"&limit="+limit+"\n\n"+JSON.stringify(ress, null, '\t'));
@@ -248,18 +248,19 @@ exports.get = function get(req, res) {
 				});
 			break;
 			case "users_rel" :
-				var limit = req.query.limit ? parseInt(req.query.limit) : 2;
+				var limit = req.query.limit ? parseInt(req.query.limit) : 1;
 				var skip = req.query.skip ? parseInt(req.query.skip) : 0;
-				DB.users.find({}, {skip:skip, limit:limit}).toArray(function(err, records){
+				DB.users.find({"categories.name":{$exists: false}}, {skip:skip, limit:limit}).toArray(function(err, records){
 					if (records.length) {
 						for(var a=0;a<records.length;a++){
 							updateUser(records[a]);
 						}
-						limit = req.query.limit ? parseInt(req.query.limit) : 2;
-						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-						res.render('import', {  locals: {url : "/import/?data=users_rel&skip="+skip+"&limit="+limit } });
+						limit = req.query.limit ? parseInt(req.query.limit) : 1;
+						skip = req.query.skip ? parseInt(req.query.skip)+limit : 1;
+						//res.render('import', {  locals: {url : "/import/?data=users_rel&skip="+skip+"&limit="+limit }, user : req.session.user });
+						res.render('import', {  locals: {url : "/import/?data=users_rel"}, user : req.session.user });
 			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
+				  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 			  		}
 				});
 			break;
@@ -273,9 +274,9 @@ exports.get = function get(req, res) {
 						}
 						limit = req.query.limit ? parseInt(req.query.limit) : 2;
 						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-						res.render('import', {  locals: {url : "/import/?data=footage_rel&skip="+skip+"&limit="+limit } });
+						res.render('import', {  locals: {url : "/import/?data=footage_rel&skip="+skip+"&limit="+limit }, user : req.session.user });
 			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
+				  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 			  		}
 				});
 			break;
@@ -289,9 +290,9 @@ exports.get = function get(req, res) {
 						}
 						limit = req.query.limit ? parseInt(req.query.limit) : 2;
 						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-						res.render('import', {  locals: {url : "/import/?data=playlists_rel&skip="+skip+"&limit="+limit } });
+						res.render('import', {  locals: {url : "/import/?data=playlists_rel&skip="+skip+"&limit="+limit }, user : req.session.user });
 			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
+				  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 			  		}
 				});
 			break;
@@ -305,9 +306,9 @@ exports.get = function get(req, res) {
 						}
 						limit = req.query.limit ? parseInt(req.query.limit) : 2;
 						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-						res.render('import', {  locals: {url : "/import/?data=performances_rel&skip="+skip+"&limit="+limit } });
+						res.render('import', {  locals: {url : "/import/?data=performances_rel&skip="+skip+"&limit="+limit }, user : req.session.user });
 			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
+				  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 			  		}
 				});
 			break;
@@ -321,9 +322,9 @@ exports.get = function get(req, res) {
 						}
 						limit = req.query.limit ? parseInt(req.query.limit) : 2;
 						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-						res.render('import', {  locals: {url : "/import/?data=events_rel&skip="+skip+"&limit="+limit } });
+						res.render('import', {  locals: {url : "/import/?data=events_rel&skip="+skip+"&limit="+limit }, user : req.session.user });
 			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
+				  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 			  		}
 				});
 			break;
@@ -337,9 +338,9 @@ exports.get = function get(req, res) {
 						}
 						limit = req.query.limit ? parseInt(req.query.limit) : 2;
 						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-						res.render('import', {  locals: {url : "/import/?data=gallery_rel&skip="+skip+"&limit="+limit } });
+						res.render('import', {  locals: {url : "/import/?data=gallery_rel&skip="+skip+"&limit="+limit }, user : req.session.user });
 			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
+				  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 			  		}
 				});
 			break;
@@ -353,15 +354,15 @@ exports.get = function get(req, res) {
 						}
 						limit = req.query.limit ? parseInt(req.query.limit) : 2;
 						skip = req.query.skip ? parseInt(req.query.skip)+limit : 2;
-						res.render('import', {  locals: {url : "/import/?data=tvshow_rel&skip="+skip+"&limit="+limit } });
+						res.render('import', {  locals: {url : "/import/?data=tvshow_rel&skip="+skip+"&limit="+limit }, user : req.session.user });
 			  		} else {
-				  		res.render('import', {  locals: {msg : "DONE"} });
+				  		res.render('import', {  locals: {msg : "DONE"}, user : req.session.user });
 			  		}
 				});
 			break;
 		}
 	} else {
-		res.render('import', {  locals: {menu : true} });
+		res.render('import', {  locals: {menu : true}, user : req.session.user });
 	}
 };
 function eraseAndInsert(table,obj,callback) {
@@ -391,6 +392,22 @@ function updateEcodeUsersData(data) {
 	data.old_id = data.uid;
 	delete data.uid;
 	data.is_crew = parseFloat(data.is_crew);
+	
+	if(!data.stats) data.stats = { members: 0,
+  performances: 0,
+  crews: 0,
+  crewperformance: 0,
+  post: 0,
+  tvshows: 0,
+  playlists: 0,
+  progetti: 0,
+  gallery: 0,
+  iflxerpost: 0,
+  iflxerplaylists: 0,
+  forum: 0,
+  friends: 0 };
+	data.activity = ((data.stats["performances"]*2)+(data.stats["post"]/5)+data.stats["tvshows"]+data.stats["playlists"]+data.stats["progetti"]+data.stats["gallery"]+(data.stats["iflxerpost"]/5)+(data.stats["iflxerplaylists"]/5)+data.stats["forum"]);
+
 
 	if (data.is_crew==0) data.name = data.nome;
 	delete data.nome;
@@ -424,6 +441,8 @@ function updateEcodeUsersData(data) {
 	if (data.is_crew==0) delete data.members;
 	if (data.is_crew==1) {
 		delete data.crews;
+		delete data.emails;
+		delete data.lang;
 	} else {
 		if (data.crews) {
 			for(var a=0;a<data.crews.length;a++){
@@ -456,6 +475,7 @@ function updateEcodeUsersData(data) {
 	delete data.forum;
 	delete data.friends;
 	delete data.dataIscr;
+	delete data.confirmed;
 
 	data.categories = [];
 	if (data.chiavi) {
@@ -503,9 +523,12 @@ function updateUser(user) {
 								if (subrecords.length) user.tvshow = subrecords;
 								DB.gallery.find({"users.old_id":user.old_id}, {fields:{_id:1,title:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
 									if (subrecords.length) user.gallery = subrecords;
-									DB.users.save(user);
-									DB.users.findOne({_id:user._id},function(err, record){
-										console.dir(record);
+									DB.categories.find({"old_id":{$in:user.categories}}, {fields:{_id:1,name:1,slug:1,ancestors:1}}).toArray(function(err, subrecords){
+										if (subrecords.length) user.categories = subrecords;
+										DB.users.save(user);
+										DB.users.findOne({_id:user._id},function(err, record){
+											console.dir(record);
+										});
 									});
 								});
 							});
@@ -536,9 +559,12 @@ function updateTvshow(obj) {
 	}
 	DB.users.find({"old_id":{$in:users}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
 		if (subrecords.length) obj.users = subrecords;
-		DB.tvshow.save(obj);
-		DB.tvshow.findOne({_id:obj._id},function(err, record){
-			console.dir(record);
+		DB.categories.find({"old_id":{$in:obj.categories}}, {fields:{_id:1,name:1,slug:1,ancestors:1}}).toArray(function(err, subrecords){
+			if (subrecords.length) obj.categories = subrecords;
+			DB.tvshow.save(obj);
+			DB.tvshow.findOne({_id:obj._id},function(err, record){
+				console.dir(record);
+			});
 		});
 	});
 }
@@ -671,7 +697,7 @@ function updateEvents(obj) {
 										DB.users.find({"old_id":{$in:partners["LPM NETWORK"]}}, {fields:{_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
 											if (subrecords.length) obj.partners["LPM NETWORK"] = subrecords;
 											console.dir(obj);
-											//DB.events.save(obj);
+											DB.events.save(obj);
 											DB.events.findOne({_id:obj._id},function(err, record){
 												console.dir(record);
 											});
