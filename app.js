@@ -2,7 +2,7 @@
 /**
  * Node.js AVnode
  * Author : Gianluca Del Gobbo, Fabrizio Chivoloni as Flyer communication, FLxER, Free Hardware Foundation and Linux Club
- * More Info : https://github.com/gianlucadelgobbo/mongo-invoices
+ * More Info : https://github.com/gianlucadelgobbo/avnode
  */
 
 var exp = require('express');
