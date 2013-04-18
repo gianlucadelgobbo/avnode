@@ -1,10 +1,10 @@
+- console.dir(locals.result)
 .row
 	.span9
 		.media
 			.pull-left
 				a(href=locals.result.permalink)
-					- avatar = "https://flxer.net"+locals.result.avatar
-					img.media-object(alt="FLxER.NET", src=avatar)
+					img.media-object(alt=__("Thumbnail of")+": "+locals.result.display_name, src=locals.Fnc.getFileFormat(locals.result.files, 400, 300))
 			.media-body
 				h1.media-heading=locals.result.display_name
 				ul
@@ -24,40 +24,41 @@
 			- if (locals.result.stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.result.stats[item]+"</li>"
 		- if (stats)
 			ul!=stats
-		- console.dir(locals.result)
-		- if (locals.result.members && locals.result.members.lenght)
-		
-			ul
-				- for(a=0;a<locals.result.members.lenght;a++)
-					li=locals.result.members[a].display_name
+- var rows = 1;
+- blocks = [];
+- if (locals.result.performances 	&& locals.result.performances.length) 	blocks.push("performances")
+- if (locals.result.events 			&& locals.result.events.length) 		blocks.push("events")
+- if (locals.result.tvshow 			&& locals.result.tvshow.length) 		blocks.push("tvshows")
+- if (locals.result.footage 		&& locals.result.footage.length) 		blocks.push("footage")
+- if (locals.result.playlists 		&& locals.result.playlists.length) 		blocks.push("playlists")
+- if (locals.result.gallery 		&& locals.result.gallery.length) 		blocks.push("gallery")
+- if (locals.result.members 		&& locals.result.members.length) 		blocks.push("members")
+- if (locals.result.crews 			&& locals.result.crews.length) 			blocks.push("crews")
+- if (blocks.length>4) rows = 2;
+- var cols = Math.round(blocks.length/2);
+- var span = 12/cols;
+- for(var c=0;c<rows;c++)
+	.row
+		- for(var b=0;b<cols;b++)
+			- var sez = (blocks[b+(c*cols)] == "tvshows" ? "tvshow" : blocks[b+(c*cols)])
+			- var tit = (blocks[b+(c*cols)] == "crews" || blocks[b+(c*cols)] == "members" ? "display_name" : "title")
+			- if (b+(c*cols)<blocks.length)
+				div(class="span"+span)
+					- console.log(c+" - "+b+" - "+(b+(c*cols)))
+					- console.log(blocks[b+(c*cols)])
+					- console.log(locals.result[sez][0].users)
+					h3=(blocks[b+(c*cols)] == "members" ? __("Members") : (blocks[b+(c*cols)] == "crews" ? __("Crews") : _config.sections[blocks[b+(c*cols)]].title))
+					- for(var a=0;a<locals.result[sez].length;a++)
+						- var basepath = (blocks[b+(c*cols)] == "crews" || blocks[b+(c*cols)] == "members" ? "" : "/"+locals.result[sez][a].users[0].permalink+"/"+_config.sections[blocks[b+(c*cols)]].basepath)
 						.media
 							.pull-left
-								a(href=locals.result.members[a].permalink)
-									- avatar = "https://flxer.net"+locals.result.members[a].avatar
-									img.media-object(alt="FLxER.NET", src=avatar)
+								a(href=basepath+"/"+locals.result[sez][a].permalink+"/")
+									img.media-object(alt=__("Thumbnail of")+": "+locals.result[sez][a][tit], src=locals.Fnc.getFileFormat(locals.result[sez][a].files, 90, 68))
 							.media-body
 								h4.media-heading
-									a(href="/"+locals.result.members[a].permalink+"/")=locals.result.members[a].display_name
-								- stats = "";
-								- for(item in locals.result.members[a].stats)
-									- if (locals.result.members[a].stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.result.members[a].stats[item]+"</li>"
-								- if (stats)
-									ul!=stats
-		- if (locals.result.crews && locals.result.crews.lenght)
-		
-			ul
-				- for(a=0;a<locals.result.crews.lenght;a++)
-					li=locals.result.crews[a].display_name
-						.media
-							.pull-left
-								a(href=locals.result.crews[a].permalink)
-									- avatar = "https://flxer.net"+locals.result.crews[a].avatar
-									img.media-object(alt="FLxER.NET", src=avatar)
-							.media-body
-								h4.media-heading
-									a(href="/"+locals.result.crews[a].permalink+"/")=locals.result.crews[a].display_name
-								- stats = "";
-								- for(item in locals.result.crews[a].stats)
-									- if (locals.result.crews[a].stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.result.crews[a].stats[item]+"</li>"
-								- if (stats)
-									ul!=stats
+									a(href=basepath+"/"+locals.result[sez][a].permalink+"/")=locals.result[sez][a][tit]
+								- var str = "";
+								- for(item in locals.result[sez][a].stats)
+									- if (locals.result[sez][a].stats[item] || item == "performances") str+="<li>"+__(item)+": "+locals.result[sez][a].stats[item]+"</li>"
+								- if (str)
+									ul!=str

@@ -1,3 +1,19 @@
+function showModal(t, m, callback) {
+	if (m) $('.modal-'+t+' .modal-body p').html(m);
+	$('.modal-'+t).modal('show');
+	if ($.isFunction(callback)) {
+		$('.modal-'+t).on('hidden', function () {
+		  callback();
+		})
+	}
+}
+function adda() {
+	var t = "search_map";
+	showModal(t, false, function() {
+		console.log($("#search_map").val());
+	});
+}
+
 var timerID;
 var myWidthOLD;
 var myHeightOLD;

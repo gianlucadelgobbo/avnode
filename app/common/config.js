@@ -3,82 +3,182 @@ var _config = {
 	"defaultLocale": 	"en",
 	"locale": 			"en_UK",
 	"lang": 			"en",
-    "locales":			["en", "it"],
-    "sections":			{
-    	"performers":		{
+	"locales":			["en", "it"],
+	"locales_labels":	{"en":"English", "it":"Italiano"},
+	"thumbnails":		[{"width":400,"height":300},{"width":55,"height":55}],
+	"sitepath":			"/development/avnode",
+	"siteurl":			"http://127.0.0.1:8002",
+	"sitename":			"AV Node",
+	"uploadpath":		"/app/public",
+	"uploadtmp":		"/tmp",
+	"cp_basepath":		"controlpanel",
+	"emaildispatcher":	{
+		"nameFrom":		"AV node",
+		"emailFrom":	"g.delgobbo@flyer.it",
+		"server":	{
+			"user":		"g.delgobbo@flyer.it", 
+			"password":	"22724gia", 
+			"host":		"smtp.gmail.com", 
+			"ssl":		true
+			
+		},
+	},
+	"cpanel":			{
+		"account":			{
 			"title":			"Performers",
-    		"limit":			20,
+			"limit":			20,
 			"basepath":			"performers",
 			"coll":				"users",
 			"view_list":		"performers",
+			"view_edit":		"user",
 
-    		"default":			"mostrecent",
-    		"valid":			[
-    								"mostrecent",
-    								"mostactive"
-    							],
-    		"sortQ":	{
+			"list_fields":	{"title":1,"users":1,"permalink":1,"files":1,"categories":1,"stats":1},
+			"orders":			[
+									"mostrecent",
+									"mostactive"
+								],
+			"sortQ":	{
 				"mostrecent":{"creation_date": 		-1},
 				"mostactive":{"stats.performances":	-1}
 			},
-    		"labels":	{
+			"labels":	{
 				"mostrecent":"Most recent",
 				"mostactive":"Most active"
 			}
 		},
-    	"events":		{
+	},
+	"sections":			{
+		"performers":		{
+			"title":			"Performers",
+			"limit":			20,
+			"basepath":			"performers",
+			"coll":				"users",
+			"view_list":		"performers",
+			"view_edit":		"user",
+
+			"list_fields":	{"display_name":1,"permalink":1,"files":1,"stats":1},
+			"orders":			[
+									"mostrecent",
+									"mostactive"
+								],
+			"categories":		[
+									"all",
+									"individuals",
+									"crews"
+								],
+			"searchQ":	{
+				"all":				{},
+				"individuals":		{"is_crew":	0},
+				"crews":			{"is_crew":	1}
+			},
+			"sortQ":	{
+				"mostrecent":{"creation_date": 		-1},
+				"mostactive":{"activity":			-1}
+			},
+			"labels":	{
+				"mostrecent":"Most recent",
+				"mostactive":"Most active",
+				"all":"All",
+				"individuals":"Individuals",
+				"crews":"Crews"
+			}
+		},
+		"events":		{
 			"title":			"Events",
-    		"limit":			20,
+			"limit":			20,
 			"basepath":			"events",
 			"coll":				"events",
 			"view_list":		"events",
 
-    		"default":			"mostrecent",
-    		"valid":			[
-    								"mostrecent",
-    								"mostviewed",
+			"list_fields":	{"title":1,"users":1,"permalink":1,"files":1,"categories":1,"stats":1},
+			"orders":			[
+									"mostrecent",
+									"mostviewed",
 									"mostrated"
-    							],
-    		"sortQ":	{
-				"mostrecent":{"creation_date": 		-1},
-				"mostviewed":{"stats.visits":	-1},
-				"mostrated":{"stats.tot_rate":	-1}
+								],
+			"categories":		[
+									"all",
+									"clubbing",
+									"corporate",
+									"festival",
+									"one-night",
+									"television", 
+									"workshops-learning"
+								],
+			"searchQ":	{
+				"all":					{},
+				"clubbing":				{"categories.slug":	"clubbing"},
+				"corporate":			{"categories.slug":	"corporate"},
+				"festival":				{"categories.slug":	"festival"},
+				"one-night":			{"categories.slug":	"one-night"},
+				"television":			{"categories.slug":	"television"}, 
+				"workshops-learning":	{"categories.slug":	"workshops-learning"}
 			},
-    		"labels":	{
-				"mostrecent":"Most recent",
-				"mostviewed":"Most viewed",
-				"mostrated":"Most rated"
+			"sortQ":	{
+				"mostrecent":	{"creation_date": 	-1},
+				"mostviewed":	{"stats.visits":	-1},
+				"mostrated":	{"stats.tot_rate":	-1}
+			},
+			"labels":	{
+				"mostrecent":			"Most recent",
+				"mostviewed":			"Most viewed",
+				"mostrated":			"Most rated",
+				"all":					"All",
+				"individuals":			"Individuals",
+				"clubbing":				"Clubbing",
+				"corporate":			"Corporate",
+				"festival":				"Festival",
+				"one-night":			"One night",
+				"television":			"Television", 
+				"workshops-learning":	"Workshops & learning"
+
+			},
+			"permissions":	{
+				"administrator":			"Administrator",
+				"editor":					"Editor",
+				"viewer":					"Viewer"
+
 			}
 		},
-    	"performances":		{
+		"performances":		{
 			"title":			"Performances",
-    		"limit":			20,
+			"limit":			20,
 			"basepath":			"performances",
 			"coll":				"performances",
 			"view_list":		"performances",
 
-    		"default":			"mostrecent",
-    		"valid":			[
-    								"mostrecent",
-    								"mostviewed",
+ 			"list_fields":	{"title":1,"users":1,"permalink":1,"files":1,"categories":1,"stats":1},
+	   		"orders":			[
+									"mostrecent",
+									"mostviewed",
 									"mostrated"
-    							],
-    		"categories":		[
-    								"av-performance",
-    								"vj-set",
-    								"workshop",
-    								"project-showcase",
+								],
+			"categories":		[
+									"all",
+									"av-performance",
+									"vj-set",
+									"workshop",
+									"project-showcase",
 									"dj-set"
-    							],
-    		"sortQ":	{
-				"mostrecent":{"creation_date": 		-1},
-				"mostviewed":{"stats.visits":	-1},
-				"mostrated":{"stats.tot_rate":	-1}
+								],
+			"searchQ":	{
+				"all":				{},
+				"av-performance":	{"categories.slug":	"av-performance"},
+				"vj-set":			{"categories.slug":	"vj-set"},
+				"workshop":			{"categories.slug":	"workshop"},
+				"project-showcase":	{"categories.slug":	"project-showcase"},
+				"dj-set":			{"categories.slug":	"dj-set"}
 			},
-    		"labels":	{
+			"sortQ":	{
+				"mostrecent":	{"creation_date": 		-1},
+				"mostviewed":	{"stats.visits":	-1},
+				"mostrated":	{"stats.tot_rate":	-1}
+			},
+			"labels":	{
 				"mostrecent":		"Most recent",
 				"mostviewed":		"Most viewed",
 				"mostrated":		"Most rated",
+				"all":				"All",
 				"av-performance":	"AV Performance",
 				"vj-set":			"VJ Set",
 				"dj-set":			"DJ Set",
@@ -86,85 +186,158 @@ var _config = {
 				"workshop":			"Workshop"
 			}
 		},
-    	"tvshows":		{
+		"tvshows":		{
 			"title":			"TV Shows",
-    		"limit":			20,
+			"limit":			20,
 			"basepath":			"tvshows",
 			"coll":				"tvshow",
 			"view_list":		"tvshows",
 
-    		"default":			"mostrecent",
-    		"valid":			[
-    								"mostrecent",
-    								"mostviewed",
+			"list_fields":	{"title":1,"users":1,"permalink":1,"files":1,"categories":1,"stats":1},
+			"orders":			[
+									"mostrecent",
+									"mostviewed",
 									"mostrated"
-    							],
-    		"sortQ":	{
-				"mostrecent":{"creation_date": 		-1},
-				"mostviewed":{"stats.visits":	-1},
-				"mostrated":{"stats.tot_rate":	-1}
+								],
+			"categories":		[
+									"all",
+									"performances",
+									"vj-dj-sets",
+									"docs",
+									"video"
+								],
+			"searchQ":	{
+				"all":				{},
+				"performances":		{"categories.slug":	"performances"},
+				"vj-dj-sets":		{"categories.slug":	"vj-dj-sets"},
+				"docs":				{"categories.slug":	"docs"},
+				"video":			{"categories.slug":	"video"}
 			},
-    		"labels":	{
-				"mostrecent":"Most recent",
-				"mostviewed":"Most viewed",
-				"mostrated":"Most rated"
+			"sortQ":	{
+				"mostrecent":	{"creation_date": 		-1},
+				"mostviewed":	{"stats.visits":	-1},
+				"mostrated":	{"stats.tot_rate":	-1}
+			},
+			"labels":	{
+				"mostrecent":	"Most recent",
+				"mostviewed":	"Most viewed",
+				"mostrated":	"Most rated",
+				"all":"All",
+				"performances":		"AV Performance",
+				"vj-dj-sets":		"VJ-DJ Sets",
+				"docs":				"Docs",
+				"video":			"Video"
 			}
 		},
-    	"footage":		{
+		"footage":		{
 			"title":			"Footage",
-    		"limit":			20,
+			"limit":			20,
 			"basepath":			"footage",
 			"coll":				"footage",
 			"view_list":		"footage",
 
-    		"default":			"mostrecent",
-    		"valid":			[
-    								"mostrecent",
-    								"mostviewed",
+			"list_fields":	{"title":1,"users":1,"permalink":1,"files":1,"categories":1,"stats":1},
+			"orders":			[
+									"mostrecent",
+									"mostviewed",
 									"mostrated"
-    							],
-    		"sortQ":	{
-				"mostrecent":{"creation_date": 		-1},
-				"mostviewed":{"stats.visits":	-1},
-				"mostrated":{"stats.tot_rate":	-1}
+								],
+			"categories":		[
+									"all",
+									"hole",
+									"no-hole",
+									"koncept"
+								],
+			"searchQ":	{
+				"all":				{},
+				"hole":				{"tag.tag":	"hole"},
+				"no-hole":			{"tag.tag":	"no-hole"},
+				"koncept":			{"tag.tag":	"koncept"}
 			},
-    		"labels":	{
-				"mostrecent":"Most recent",
-				"mostviewed":"Most viewed",
-				"mostrated":"Most rated"
+			"sortQ":	{
+				"mostrecent":	{"creation_date": 		-1},
+				"mostviewed":	{"stats.visits":	-1},
+				"mostrated":	{"stats.tot_rate":	-1}
+			},
+			"labels":	{
+				"mostrecent":	"Most recent",
+				"mostviewed":	"Most viewed",
+				"mostrated":	"Most rated",
+				"all":			"All",
+				"hole":			"Hole",
+				"no-hole":		"No Hole",
+				"koncept":		"Koncept"
 			}
 		},
-    	"playlists":		{
+		"playlists":		{
 			"title":			"Playlists",
-    		"limit":			20,
+			"limit":			20,
 			"basepath":			"playlists",
 			"coll":				"playlists",
 			"view_list":		"playlists",
 
-    		"default":			"mostrecent",
-    		"valid":			[
-    								"mostrecent",
-    								"mostviewed",
+			"list_fields":	{"title":1,"users":1,"permalink":1,"files":1,"categories":1,"stats":1},
+			"orders":			[
+									"mostrecent",
+									"mostviewed",
 									"mostrated"
-    							],
-    		"sortQ":	{
-				"mostrecent":{"creation_date": 		-1},
-				"mostviewed":{"stats.visits":	-1},
-				"mostrated":{"stats.tot_rate":	-1}
+								],
+			"categories":		[
+									"all"
+								],
+			"searchQ":	{
+				"all":				{}
 			},
-    		"labels":	{
-				"mostrecent":"Most recent",
-				"mostviewed":"Most viewed",
-				"mostrated":"Most rated"
+			"sortQ":	{
+				"mostrecent":		{"creation_date": 		-1},
+				"mostviewed":		{"stats.visits":	-1},
+				"mostrated":		{"stats.tot_rate":	-1}
+			},
+			"labels":	{
+				"mostrecent":		"Most recent",
+				"mostviewed":		"Most viewed",
+				"mostrated":		"Most rated",
+				"all":				"All"
 			}
 		},
+		"gallery":		{
+			"title":			"Gallery",
+			"limit":			20,
+			"basepath":			"gallery",
+			"coll":				"gallery",
+			"view_list":		"gallery",
+
+			"list_fields":	{"title":1,"users":1,"permalink":1,"files":1,"stats":1},
+			"orders":			[
+									"mostrecent",
+									"mostviewed",
+									"mostrated"
+								],
+			"categories":		[
+									"all"
+								],
+			"searchQ":	{
+				"all":				{}
+			},
+			"sortQ":	{
+				"mostrecent":		{"creation_date": 		-1},
+				"mostviewed":		{"stats.visits":	-1},
+				"mostrated":		{"stats.tot_rate":	-1}
+			},
+			"labels":	{
+				"mostrecent":		"Most recent",
+				"mostviewed":		"Most viewed",
+				"mostrated":		"Most rated",
+				"all":				"All"
+			}
+		}
 	},
 
-    
-    
-    
-    
-    
+	
+	
+	
+	
+	
 	"company": {
 		"logo":	"/img/logo.png",
 		"name":	"Flyer communication srl",

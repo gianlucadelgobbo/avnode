@@ -1,6 +1,6 @@
 //forever start -l forever.log -o out.log -e err.log  --debug -a app.js
 /**
- * Node.js Mongo invoices
+ * Node.js AVnode
  * Author : Gianluca Del Gobbo, Fabrizio Chivoloni as Flyer communication, FLxER, Free Hardware Foundation and Linux Club
  * More Info : https://github.com/gianlucadelgobbo/mongo-invoices
  */

@@ -5,7 +5,7 @@ var DB = require('../../modules/db-manager');
 var functions = require('../../modules/functions');
 
 exports.get = function get(req, res) {
-	res.render('form/login', {	locals: {title : "Login"}, user : req.session.user });
+	res.render('forms/login', {	locals: {title : "Login", "from":req.query.from}, user : req.session.user });
 }
 exports.post = function post(req, res) {
 	functions.validateFormLogin(req.body, function(e, o) {
@@ -14,7 +14,7 @@ exports.post = function post(req, res) {
 				res.send({msg:{e:e}}, 200);
 			} else {
 				o._id = o.id;
-				res.render('form/login', { locals: { title: __('Hello - Please Login To Your Account'), result : o, msg:{e:e}, from:req.body.from}, user : req.session.user});
+				res.render('forms/login', { locals: { title: __('Hello - Please Login To Your Account'), result : o, msg:{e:e}, from:req.body.from}, user : req.session.user});
 			}
 		} else {
 			req.session.user = o;
@@ -27,6 +27,7 @@ exports.post = function post(req, res) {
 				res.send(o, 200);
 			} else {
 				var redirect = req.body.from ? req.body.from : '/';
+				console.dir("cazzo"+redirect);
 				res.redirect(redirect);
 			}
 		}

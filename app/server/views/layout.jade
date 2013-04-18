@@ -20,40 +20,15 @@ html(lang=_config.lang)
 			meta(property="og:locale", content=_config.locale)
 
 
-		link(type="text/css", href="/lib/jquery/css/smoothness/jquery-ui-1.8.17.custom.css", rel="stylesheet")	
-		script(type="text/javascript", src="/lib/jquery/js/jquery-1.7.1.min.js")
 		link(type="text/css", href="/lib/bootstrap.min.css", rel="stylesheet")	
-		script(type="text/javascript", src="/lib/bootstrap.min.js")
-		script(type="text/javascript", src="/lib/jquery/js/jquery-ui-1.8.17.custom.min.js")
+		link(type="text/css", href="/lib/bootstrap-datepicker/datepicker.css", rel="stylesheet")	
+		link(type="text/css", href="/lib/bootstrap-timepicker/bootstrap-timepicker.min.css", rel="stylesheet")	
+		link(type="text/css", href="/lib/uploader/fileuploader.css", rel="stylesheet")	
+		link(type="text/css", href="/lib/bootstrap-jquery-ui-1.10.1.custom.css", rel="stylesheet")	
+		link(type="text/css", href="/lib/bootstrap-switch.css", rel="stylesheet")	
+		script(type="text/javascript", src="/lib/jquery-1.9.1.js")
 
-		script(type="text/javascript", src="/_lang/"+_config.lang+".js")
-		script(type="text/javascript", src="/js/fpVariables.js")
-		script(type="text/javascript", src="/js/fpManager.js")
-		script(type="text/javascript", src="/js/fpCheck.js")
-		script(type="text/javascript", src="/js/script.js?v=1.2")
-		script(type="text/javascript", src="/js/sendMsg.js")
-		script(type="text/javascript", src="/js/notifications.js")
-		script(type="text/javascript", src="/js/playList.js")
-		script(type="text/javascript", src="/js/rate.js")
-		script(type="text/javascript", src="/js/ajaxSlideShowLoader.js")
 
-		//script(type="text/javascript", src="http://cdn.gigya.com/js/socialize.js?apiKey=2_B2v2RgZOGGx4SxCW1frvgSeM5PW8MWRLqnPNwXeDZ3RP0zZuI78lJccYf2-p453s")
-		script(type="text/javascript")
-			var conf = {APIKey:'2_B2v2RgZOGGx4SxCW1frvgSeM5PW8MWRLqnPNwXeDZ3RP0zZuI78lJccYf2-p453s'}
-
-		//link(href="/css/style.css", rel="stylesheet", type="text/css")
-		script(type="text/javascript")
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', '<? echo($this->initObj["sections"]["analytics"][$this->initObj["area"]]); ?>']);
-			_gaq.push(['_setDomainName', 'flxer.net']);
-			_gaq.push(['_setAllowLinker', true]);
-			_gaq.push(['_trackPageview']);
-		
-			(function() {
-				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-			})();
 	body
 		.container
 			.nav.navbar.pull-right
@@ -67,7 +42,7 @@ html(lang=_config.lang)
 								.input-append
 									input.span2.search-query(type="text", 	name="q", size="31", value=locals.q)
 									button.btn(type="submit", name="sa")=__("Cerca")
-							script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
+							//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
 						li.dropdown
 							a.dropdown-toggle(href="#", data-toggle="dropdown")
 								!=__(_config.lang)+" "
@@ -85,24 +60,15 @@ html(lang=_config.lang)
 				//.navbar-fixed-top
 				.navbar-inner
 					ul.nav
-						li
-							a(href="/events/")=__("Eventi")
-						li
-							a(href="/performances/")=__("Performances")
-						li
-							a(href="/tvshows/")=__("TV Shows")
-						li(class=(locals.title=="Performers" ? "active" : ""))
-							a(href="/performers/")=__("Performers")
-						li
-							a(href="/footage/")=__("Posts")
-						li
-							a(href="/playlists/")=__("Playlists")
+						- each item in _config.sections
+							li(class=(_config.sections[locals.sez] && _config.sections[locals.sez].basepath==item.basepath ? "active" : undefined))
+								a(href="/"+item.basepath+"/")=item.title
 					ul.nav.pull-right
 						li
-							a(href="/controlpanel/"+(user ? "" : "login/"))=(user ? __("Account") : __("Login"))
+							a(href="/controlpanel/"+(user ? "user/" : "login/"))=(user ? __("Account") : __("Login"))
 						- if(!user)
 							li
-								a(href="/controlpanel/new/")=__("Registrati")
+								a(href="/signup/")=__("Registrati")
 						- else
 							li(style="position:relative")
 								a(href="/"+user.user_name+"/notifications/", title=__("Visualizza le notifiche"))=__("Notifiche")
@@ -178,6 +144,39 @@ html(lang=_config.lang)
 							a(title=__("wam"), target="_blank", href="http://wam.flyer.it")
 								span.bulletSmall
 								!="WAM"
+		script(type="text/javascript", src="/lib/bootstrap.min.js")
+		script(type="text/javascript", src="/lib/bootstrap-datepicker/bootstrap-datepicker.js")
+		script(type="text/javascript", src="/lib/bootstrap-timepicker/bootstrap-timepicker.min.js")
+		script(type="text/javascript", src="/lib/uploader/fileuploader.js")
+		script(type="text/javascript", src="/lib/jquery-ui-1.10.2.custom.js")
+		script(type="text/javascript", src="/lib/bday-picker.min.js")
+		script(type="text/javascript", src="/lib/bootstrap-switch.js")
+		
+		script(type="text/javascript", src="http://maps.googleapis.com/maps/api/js?sensor=false")
+
+		//
+			script(type="text/javascript", src="/_lang/"+_config.lang+".js")
+			script(type="text/javascript", src="/js/fpVariables.js")
+			script(type="text/javascript", src="/js/fpManager.js")
+			script(type="text/javascript", src="/js/fpCheck.js")
+			script(type="text/javascript", src="/js/script.js?v=1.2")
+			script(type="text/javascript", src="/js/sendMsg.js")
+			script(type="text/javascript", src="/js/notifications.js")
+			script(type="text/javascript", src="/js/playList.js")
+			script(type="text/javascript", src="/js/rate.js")
+			script(type="text/javascript", src="/js/ajaxSlideShowLoader.js")
+			script(type="text/javascript")
+				var _gaq = _gaq || [];
+				_gaq.push(['_setAccount', '<? echo($this->initObj["sections"]["analytics"][$this->initObj["area"]]); ?>']);
+				_gaq.push(['_setDomainName', 'flxer.net']);
+				_gaq.push(['_setAllowLinker', true]);
+				_gaq.push(['_trackPageview']);
+			
+				(function() {
+					var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+					//ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+				})();
 		- if(locals.reply && user)
 			script(type="text/javascript")
 				$(document).ready(function(){

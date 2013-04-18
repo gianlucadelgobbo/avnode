@@ -1,6 +1,6 @@
 GLOBAL._config = require('./common/config.js')._config;
 
-var i18n = require('i18n');
+GLOBAL.i18n = require('i18n');
 i18n.configure({
     // setup some locales - other locales default to en silently
     locales:		_config.locales,
@@ -9,6 +9,7 @@ i18n.configure({
     register:		 global
 });
 
+//GLOBAL.i18n.configure({defaultLocale:"it"});
 
 module.exports = function(app, exp) {
 	app.configure(function(){

@@ -24,20 +24,22 @@ var DB = {};
 			console.log('connected to database :: ' + dbName);
 		}
 	});
-	DB.users = DB.db.collection('users');
-	DB.footage = DB.db.collection('footage');
-	DB.playlists = DB.db.collection('playlists');
-	DB.performances = DB.db.collection('performances');
-	DB.events = DB.db.collection('events');
-	DB.tvshow = DB.db.collection('tvshow');
-	DB.gallery = DB.db.collection('gallery');
-	DB.categories = DB.db.collection('categories');
+	DB.users = 			DB.db.collection('users');
+	DB.footage = 		DB.db.collection('footage');
+	DB.playlists = 		DB.db.collection('playlists');
+	DB.performances = 	DB.db.collection('performances');
+	DB.events = 		DB.db.collection('events');
+	DB.tvshow = 		DB.db.collection('tvshow');
+	DB.gallery = 		DB.db.collection('gallery');
+	DB.categories = 	DB.db.collection('categories');
+	DB.temp_users = 	DB.db.collection('temp_users');
 //	//$apiValid = array("users","footage","playlists","performances","events","tvshow","gallery");
 
 module.exports = DB;
 
 // Accont insertion, update & deletion methods //
 
+/*
 DB.insert_account = function(newData, callback) {
 	delete newData.id;
 	DB.saltAndHash(newData.pass, function(hash){
@@ -72,27 +74,39 @@ DB.delete_account = function(id, callback) {
 		callback(err, records);
 	});
 }
-
-DB.setPassword = function(login, newPass, callback) {
-	DB.users.findOne({login:login}, function(e, o){
-		DB.saltAndHash(newPass, function(hash){
-			o.password = hash;
-			DB.users.save(o, {safe:true}, function(e, o) {
-				callback(e, o);
-			});
-		});
-	});
-}
-
 DB.validateLink = function(email, passHash, callback) {
 	DB.accounts.find({ $and: [{email:email, pass:passHash}] }, function(e, o){
 		callback(o ? 'ok' : null);
 	});
 }
+*/
+DB.setPassword = function(login, newPass, callback) {
+	DB.users.findOne({login:login}, function(e, o){
+		DB.saltAndHash(newPass, function(hash){
+			//o.password = hash;
+			DB.users.save(o, {safe:true}, function(e, res) {
+				callback(e, res);
+			});
+		});
+	});
+}
+
 DB.saltAndHash = function(pass, callback) {
 	bcrypt.genSalt(10, function(err, salt) {
 		bcrypt.hash(pass, salt, function(err, hash) {
 			callback(hash);
+		});
+	});
+}
+
+DB.updateDB = function(collection, id, values, callback) {
+	DB[collection].findOne({_id: new ObjectID(id)}, function(e, o){
+		for(var i=0;i<values.length;i++) {
+			console.dir(values[i].name);
+			o[values[i].name] = values[i].value;
+		}
+		DB[collection].save(o, {safe:true}, function(e, o) {
+			callback(e, o);
 		});
 	});
 }

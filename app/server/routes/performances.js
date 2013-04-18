@@ -3,12 +3,7 @@ var Fnc = require('../modules/functions');
 
 exports.get = function get(req, res) {
 	var sez = "performances";
-	console.dir(req.params);
-	var conf = Fnc.getConf(req.params[0], sez, res);
-	console.dir(conf);
-	DB.performances.find({}).count(function(err, tot){
-		DB.performances.find({}, {skip:conf.skip, limit:_config.sections[sez].limit}).sort(_config.sections[sez].sortQ[conf.sort]).toArray(function(err, records){
-			res.render(_config.sections[sez].view_list, {locals: {sez:sez, tot:tot, path:conf.path, sort:conf.sort, skip:conf.skip, result:records}, user : req.session.user});
-		});
+	Fnc.getList(req.params[0], sez, res, 0, function(err, tot, records, conf){
+		res.render(_config.sections[sez].view_list, {locals: {title:_config.sections[sez].title, sez:sez, tot:tot, path:conf.path, sort:conf.sort, filter:conf.filter, skip:conf.skip, result:records, Fnc:Fnc}, user : req.session.user});
 	});
 };

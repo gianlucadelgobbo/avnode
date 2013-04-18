@@ -1,20 +1,25 @@
-var indexRoutes = require('./routes/index');
-var logoutRoutes = require('./routes/logout');
-var performersRoutes = require('./routes/performers');
-var performancesRoutes = require('./routes/performances');
-var footageRoutes = require('./routes/footage');
-var eventsRoutes = require('./routes/events');
-var playlistsRoutes = require('./routes/playlists');
-var forumRoutes = require('./routes/forum');
-var tvshowsRoutes = require('./routes/tvshows');
-var userRoutes = require('./routes/user');
-var apiRoutes = require('./routes/api');
-var controlpanelRoutes = require('./routes/controlpanel');
-var controlpanelLoginRoutes = require('./routes/controlpanel/login');
-var controlpanelRegisterRoutes = require('./routes/controlpanel/new/register');
-var controlpanelUserRoutes = require('./routes/controlpanel/user');
-var searchRoutes = require('./routes/search');
-var importRoutes = require('./routes/import');
+var indexRoutes 			= require('./routes/index');
+var performersRoutes 		= require('./routes/performers');
+var performancesRoutes 		= require('./routes/performances');
+var footageRoutes 			= require('./routes/footage');
+var eventsRoutes 			= require('./routes/events');
+var playlistsRoutes 		= require('./routes/playlists');
+var forumRoutes 			= require('./routes/forum');
+var tvshowsRoutes 			= require('./routes/tvshows');
+var userRoutes 				= require('./routes/user');
+var apiRoutes 				= require('./routes/api');
+var searchRoutes 			= require('./routes/search');
+var importRoutes 			= require('./routes/_import');
+var cpanelUserRoutes		= require('./routes/controlpanel/user');
+var cpanelLoginRoutes 		= require('./routes/controlpanel/login');
+var cpanelLogoutRoutes 		= require('./routes/controlpanel/logout');
+var cpanelSignupRoutes 		= require('./routes/controlpanel/signup');
+var cpanelUserRoutes 		= require('./routes/controlpanel/user');
+var cpanelCrewsRoutes	 	= require('./routes/controlpanel/crews');
+var cpanelEventsRoutes	 	= require('./routes/controlpanel/events');
+var uploadRoutes 			= require('./routes/upload');
+var imageRoutes 			= require('./routes/image');
+var adminFilesRoutes 			= require('./routes/admin/files');
 /*
 var lostPasswordRoutes = require('./routes/lost-password');
 var resetPasswordRoutes = require('./routes/reset-password');
@@ -31,16 +36,12 @@ var flxerappRoutes = require('./routes/flxerapp');
 */
 
 module.exports = function(app) {
+	// Import //
+	app.get('/import', importRoutes.get);
 
 	// Index //
 	app.get('/', indexRoutes.get);
 	app.post('/', indexRoutes.post);
-
-	// Import //
-	app.get('/import', importRoutes.get);
-
-	// Log Out //
-	app.get('/logout', logoutRoutes.get);
 
 	// performers //
 	app.get('/performers*', performersRoutes.get);
@@ -70,29 +71,52 @@ module.exports = function(app) {
 	app.get('/tvshows*', tvshowsRoutes.get);
 	app.post('/tvshows*', tvshowsRoutes.post);
 
-	// controlpanel //
-	app.get('/controlpanel', controlpanelRoutes.get);
-	app.post('/controlpanel', controlpanelRoutes.post);
+	// cpanel //
+	//app.get('/controlpanel', cpanelRoutes.get);
+	//app.post('/controlpanel', cpanelRoutes.post);
 
 	// cp Log In //
-	app.get('/controlpanel/login', controlpanelLoginRoutes.get);
-	app.post('/controlpanel/login', controlpanelLoginRoutes.post);
-	
-	// cp Register //
-	app.get('/controlpanel/new/register', controlpanelRegisterRoutes.get);
-	app.post('/controlpanel/new/register', controlpanelRegisterRoutes.post);
+	app.get('/controlpanel/login', cpanelLoginRoutes.get);
+	app.post('/controlpanel/login', cpanelLoginRoutes.post);
+
+	// cp Log Out //
+	app.get('/controlpanel/logout', cpanelLogoutRoutes.get);
+
+	// cp Signup //
+	app.get('/signup', cpanelSignupRoutes.get);
+	app.post('/signup', cpanelSignupRoutes.post);
 
 	// cp User //
-	app.get('/controlpanel/user', controlpanelUserRoutes.get);
-	app.post('/controlpanel/user', controlpanelUserRoutes.post);
+	app.get('/controlpanel/user*', cpanelUserRoutes.get);
+	app.post('/controlpanel/user*', cpanelUserRoutes.post);
 
+	// cp Crews //
+	app.get('/controlpanel/crews*', cpanelCrewsRoutes.get);
+	app.post('/controlpanel/crews*', cpanelCrewsRoutes.post);
+	
+	// cp Events //
+	app.get('/controlpanel/events*', cpanelEventsRoutes.get);
+	app.post('/controlpanel/events*', cpanelEventsRoutes.post);
+	
 	// search //
 	app.get('/search', searchRoutes.get);
 	app.post('/search', searchRoutes.post);
 
+	// upload //
+	app.get('/upload', uploadRoutes.get);
+	app.post('/upload', uploadRoutes.post);
+
+	// image //
+	app.get('/image', imageRoutes.get);
+	app.post('/image', imageRoutes.post);
+
 	// Api //
 	//app.get('/api/clients', apiRoutes.getClients);
 	app.get('/api', apiRoutes.get);
+
+	// adminRoutes //
+	//app.get('/api/clients', apiRoutes.getClients);
+	app.get('/admin/files', adminFilesRoutes.get);
 
 	// all other routes: User or 404
 	app.get('*', userRoutes.get);

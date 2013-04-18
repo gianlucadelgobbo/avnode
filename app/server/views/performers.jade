@@ -1,36 +1,20 @@
 include comp/submenu_sez
-- function getFileFormat(result,w,h) {
--	if (result.files && result.files[0].file) {
--	file = result.files[0].file
--	folder = file.substring(0,file.lastIndexOf("/")+1)
--	f = file.substring(file.lastIndexOf("/")+1,file.lastIndexOf("."))
--	ext = file.substring(file.lastIndexOf(".")+1,file.length)
--	return "https://flxer.net"+folder+w+"x"+h+"/"+f+"_"+ext+".jpg"
--	}
-- }
-
+h1=_config.sections[locals.sez].title+" "
+	small=__("From")+" "+locals.skip+" "+__("to")+" "+(locals.skip+_config.sections[locals.sez].limit)+" "+__("on")+" "+locals.tot+" "+__("performers")
 .row
-	.span9
-		h1=_config.sections[locals.sez].title+" "
-			small=__("From")+" "+locals.skip+" "+__("to")+" "+(locals.skip+_config.sections[locals.sez].limit)+" "+__("on")+" "+locals.tot+" "+__("performers")
-		.row
-			- for(a=0;a<locals.result.length;a++)
-				.span3
-					.row
-						.span1
-
-					.media
-						.pull-left
-							a(href=locals.result[a].permalink)
-								- avatar = getFileFormat(locals.result[a],90,68)
-								img.media-object(alt="FLxER.NET", src=avatar)
-						.media-body
-							h4.media-heading
-								a(href="/"+locals.result[a].permalink+"/")=locals.result[a].display_name
-							- stats = "";
-							- for(item in locals.result[a].stats)
-								- if (locals.result[a].stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.result[a].stats[item]+"</li>"
-							- if (stats)
-								ul!=stats
-		include comp/paginator
-	.span3 Bella
+	- for(a=0;a<locals.result.length;a++)
+		.span3
+			.media
+				.pull-left
+					a(href="/"+locals.result[a].permalink+"/")
+						img.media-object(alt=__("Thumbnail of")+": "+locals.result[a].display_name, src=locals.Fnc.getFileFormat(locals.result[a].files, 90, 68))
+						-console.log(locals.result[a])
+				.media-body
+					h4.media-heading
+						a(href="/"+locals.result[a].permalink+"/")=locals.result[a].display_name
+					- stats = "";
+					- for(item in locals.result[a].stats)
+						- if (locals.result[a].stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.result[a].stats[item]+"</li>"
+					- if (stats)
+						ul!=stats
+include comp/paginator
