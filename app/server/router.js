@@ -19,7 +19,7 @@ var cpanelEventsRoutes	 	= require('./routes/controlpanel/events');
 var uploadRoutes 			= require('./routes/upload');
 var imageRoutes 			= require('./routes/image');
 /*
-var importRoutes 			= require('./routes/_import');
+var adminImportRoutes 		= require('./routes/admin/import');
 var adminFilesRoutes 		= require('./routes/admin/files');
 var lostPasswordRoutes = require('./routes/lost-password');
 var resetPasswordRoutes = require('./routes/reset-password');
@@ -36,9 +36,6 @@ var flxerappRoutes = require('./routes/flxerapp');
 */
 
 module.exports = function(app) {
-	// Import //
-	app.get('/import', importRoutes.get);
-
 	// Index //
 	app.get('/', indexRoutes.get);
 	app.post('/', indexRoutes.post);
@@ -117,6 +114,9 @@ module.exports = function(app) {
 	// adminRoutes //
 	//app.get('/api/clients', apiRoutes.getClients);
 	app.get('/admin/files', adminFilesRoutes.get);
+
+	// Import //
+	app.get('/admin/import', adminImportRoutes.get);
 
 	// all other routes: User or 404
 	app.get('*', userRoutes.get);
