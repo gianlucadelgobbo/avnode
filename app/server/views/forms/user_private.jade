@@ -1,0 +1,40 @@
+.tabbable.tabs-left
+	include ../comp/menu_cp
+	.tab-content
+		.tab-pane.active
+			include ../comp/user_submenu_cp
+			form.form-horizontal(method="post", action="#")
+				fieldset
+					legend=locals.title
+					.control-group
+						label.control-label=__("Name")
+						.controls
+							input(name="name", value=result.name, type="text", placeholder=__("Name")).input-large
+					.control-group
+						label.control-label=__("Surname")
+						.controls
+							input(name="surname", value=result.surname, type="text", placeholder=__("Surname")).input-large
+					.control-group
+						label.control-label=__("Birth date")
+						.controls
+							- d = new Date(result.birth_date)
+							- birth_date = d.getFullYear()+"-"+("0" + (d.getMonth()+1)).slice(-2)+"-"+("0" + d.getDate()).slice(-2)
+							.birthday-picker
+					.control-group
+						label.control-label=__("Gender")
+						.controls
+							select(name="gender").input-small
+								option(value="")=__("Gender")
+								option(value="M",selected=(result.gender=="M" ? "selected" : undefined))=__("M")
+								option(value="F",selected=(result.gender=="F" ? "selected" : undefined))=__("F")
+								option(value="Other",selected=(result.gender=="Other" ? "selected" : undefined))=__("Other")
+					hr.clearfix
+					.control-group
+						.controls
+							button(type="submit").btn.btn-large.input-large.btn-primary.right=__("Save")
+				script
+					$(".birthday-picker").birthdaypicker(options={
+						dateFormat:		"bigEndian",
+						monthFormat:	"long",
+						defaultDate:	"#{birth_date}"
+					});

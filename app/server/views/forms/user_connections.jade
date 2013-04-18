@@ -1,0 +1,23 @@
+.tabbable.tabs-left
+	include ../comp/menu_cp
+	.tab-content
+		.tab-pane.active
+			include ../comp/user_submenu_cp
+			form.form-horizontal(method="post", action="#")
+				fieldset
+					legend=locals.title
+					.control-group
+						label.control-label=__("FLxER")
+						.controls
+							button.btn.btn-success(type="button")=__("Connect")
+							button.btn.btn-danger(type="button",class="disabled")=__("Disconnect")
+					.control-group
+						label.control-label=__("Facebook")
+						.controls
+							button.btn.btn-success(type="button")=__("Connect")
+							button.btn.btn-danger(type="button",class="disabled")=__("Disconnect")
+					.control-group
+						label.control-label=__("Twitter")
+						.controls
+							button.btn.btn-success(type="button")=__("Connect")
+							button.btn.btn-danger(type="button",class="disabled")=__("Disconnect")

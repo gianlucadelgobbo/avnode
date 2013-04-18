@@ -1,0 +1,67 @@
+- console.dir(result)
+.tabbable.tabs-left
+	include ../comp/menu_cp
+	.tab-content
+		.tab-pane.active
+			include ../comp/event_submenu_cp
+			form.form-horizontal(method="post", action="#")
+				fieldset
+					legend=locals.title
+					.control-group
+						label.control-label=__("Event name")
+						.controls
+							input(name="title", value=result.title, type="text", placeholder=__("Event name")).input-xlarge
+					include ../comp/subtitle_multilang
+					include ../comp/users_single
+					.control-group
+						label.control-label=__("Event url")
+						.controls
+							input(name="permalink", value=result.permalink, type="text", placeholder=__("Event url")).input-large
+							.help-block="https://flxer.net/"
+								span#permalink=result.users[0].permalink+"/events/"+result.permalink
+					legend=__("Dates and locations")
+					each item,index in result.date_time_venue
+						.control-group
+							label.control-label=__("Date")+" "+(index+1)
+							.controls
+								.input-append.date.datepicker(data-date=item.date,data-date-format="yyyy-mm-dd")
+									input(name="date_time_venue[index].date", value=item.date, disabled, type="text", placeholder=__("Profile url")).input-large
+									span.add-on
+										i.icon-calendar
+						.control-group
+							label.control-label=__("Venue")+" "+(index+1)
+							.controls
+								input(name="date_time_venue[index].venue", value=item.venue, type="text", placeholder=__("Venue")).input-large
+						.control-group
+							label.control-label=__("Venue address")+" "+(index+1)
+							.controls
+								input(name="date_time_venue[index].venue_address", value=item.venue_address, type="text", placeholder=__("Venue address")).input-xxlarge
+						include ../comp/time_start_end
+						.control-group
+							label.control-label=__("City")
+							.controls
+								input(name="date_time_venue[index].city", value=item.city, type="text", placeholder=__("City")).input-medium
+						.control-group
+							label.control-label=__("Country")
+							.controls
+								select(name="date_time_venue[index].country", default="country").input-medium
+									option(value="")=__("Country")
+									each country in countries
+										option(value=item.name,selected=(item.country==country.name ? "selected" : undefined))=country.name
+						.control-group
+							.controls
+								a(href="#",onclick="adda()", onmouseover="$(this).tooltip('show')",data-toggle="tooltip",title="",data-original-title=__("Add location"))
+									i.icon-plus-sign
+								a(href="#",onmouseover="$(this).tooltip('show')",data-toggle="tooltip",title="",data-original-title=__("Remove location"))
+									i.icon-minus-sign
+						hr
+					include ../comp/text_multilang
+					include ../comp/websites
+					hr.clearfix
+					.control-group
+						.controls
+							button(type="submit").btn.btn-large.input-large.btn-primary.right=__("Save")
+			script(type="text/javascript")
+				$(function() {
+					$(".datepicker").datepicker()
+				});

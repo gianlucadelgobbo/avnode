@@ -1,0 +1,15 @@
+.control-group
+	label.control-label
+		ul.nav.nav-list
+			li=__("Description")
+			li.active
+				a(href="#",onclick="$(this).parent().parent().find('li').attr('class','');$(this).parent().attr('class','active');$('textarea.lang').hide();$('textarea."+_config.defaultLocale+"').show();return false;")=_config.locales_labels[_config.defaultLocale]										
+			each val, key in _config.locales_labels
+				- if (_config.defaultLocale!=key)
+					li
+						a(href="#",onclick="$(this).parent().parent().find('li').attr('class','');$(this).parent().attr('class','active');$('textarea.lang').hide();$('textarea."+key+"').show();return false;")=val										
+	.controls
+		textarea.span5.lang(name="text["+_config.defaultLocale+"]",rows="10",class=_config.defaultLocale)=result.text && result.text.length && result.text[_config.defaultLocale] ? result.text[_config.defaultLocale] : ""
+		each val, key in _config.locales_labels
+			- if (_config.defaultLocale!=key)
+				textarea.span5.lang.hide(name="text["+key+"]",rows="10",class=key)=result.text && result.text[key] ? result.text[key] : ""

@@ -1,0 +1,79 @@
+.row
+	.span6.offset3.well
+		- if (locals.record)
+			.text-center
+				h3=__("We have sent an email to confirm")
+		- else
+			.text-center
+				h3=__("Join AV Node. Start to perform.")
+				p
+					a.btn.btn-danger(href="/signup/google/")=__("Google")
+					!=" "
+					a.btn.btn-inverse(href="/signup/twitter/")=__("Twitter")
+					!=" "
+					a.btn.btn-primary(href="/signup/facebook/")=__("Facebook")
+				p=__("or sign up using your email:")
+			form(method="post",autocomplete="off")
+				.controls.text-center
+					hr
+					label.radio.inline
+						input(type="radio", autocomplete="off",name="is_crew", value="0", onclick="$('#crew').hide('slow')")
+						!=" "+__("As individual")
+					label.radio.inline
+						input(type="radio", autocomplete="off",name="is_crew", value="1", onclick="$('#crew').show('slow')")
+						!=" "+__("As crew")
+					hr
+				#crew.hide
+					legend=__("Crew public data")
+					.controls.row
+						.span6
+							label=__("Crew name")
+								input(type="text", autocomplete="off", name="crew_display_name", placeholder=__("Crew stage name")).span6
+					.controls.row
+						.span6
+							label=__("Crew profile url")
+								input(type="text", autocomplete="off", name="crew_permalink", placeholder=__("Crew profile url")).span6
+								.help-block="https://flxer.net/"
+									span#crew_permalink
+				legend=__("Member private data")
+				.controls.row
+					.span3
+						label=__("Name")
+							input(type="text", autocomplete="off", name="name", placeholder=__("Name"))
+					.span3
+						label=__("Surname")
+							input(type="text", autocomplete="off", name="suename", placeholder=__("Surname"))
+				.controls
+					.birthday-picker
+				.controls.row
+					.span6
+						label=__("Email")
+							input(type="text", autocomplete="off", name="email", placeholder=__("Your Email Address")).span6
+				.controls.row
+					.span3
+						label=__("Password")
+							input(type="password", autocomplete="off", name="password", placeholder=__("Choose a Password")).span3
+					.span3
+						label=__("Confirm password")
+							input(type="password", autocomplete="off", name="passwordconfirm", placeholder=__("Confirm password")).span3
+				legend=__("Member public data")
+				.controls.row
+					.span6
+						label=__("Stage name")
+							input(type="text", autocomplete="off", name="display_name", placeholder=__("Stage name")).span6
+				.controls.row
+					.span6
+						label=__("Profile url")
+							input(type="text", autocomplete="off", name="permalink", placeholder=__("Profile url")).span6
+							.help-block="https://flxer.net/"
+								span#permalink
+						hr
+				.controls
+					button(type="submit").btn.btn-primary.pull-right=__("Get Started")+"  "
+						i.icon-forward.icon-white
+			script
+				$(".birthday-picker").birthdaypicker(options={
+					dateFormat:		"bigEndian",
+					monthFormat:	"long",
+					legend:			"#{__("Birth date")}"
+				});

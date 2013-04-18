@@ -1,0 +1,50 @@
+- if (locals.menu)
+	ol
+		li
+			a(target="_blank",href="/import/?data=categories") Import Categories
+		li
+			a(target="_blank",href="/import/?data=categories_permalink") Fix Categories permalink
+		li
+			a(target="_blank",href="/import/?data=categories_rel") Fix Categories rel
+		li
+			a(target="_blank",href="/import/?data=users") Import Users
+		li
+			a(target="_blank",href="/import/?data=footage") Import Footage
+		li
+			a(target="_blank",href="/import/?data=playlists") Import Playlists
+		li
+			a(target="_blank",href="/import/?data=performances") Import Performances
+		li
+			a(target="_blank",href="/import/?data=events") Import Events
+		li
+			a(target="_blank",href="/import/?data=gallery") Import Gallery
+		li
+			a(target="_blank",href="/import/?data=tvshow") Import TV Shows
+		li
+			a(target="_blank",href="/import/?data=crews_rel") Fix Crews rel
+		li
+			a(target="_blank",href="/import/?data=users_crews_rel") Fix Users rel
+		li
+			a(target="_blank",href="/import/?data=footage_rel") Fix Footage rel
+		li
+			a(target="_blank",href="/import/?data=playlists_rel") Fix Playlists rel
+		li
+			a(target="_blank",href="/import/?data=performances_rel") Fix Performances rel
+		li
+			a(target="_blank",href="/import/?data=gallery_rel") Fix Gallery rel
+		li
+			a(target="_blank",href="/import/?data=events_rel") Fix Events rel
+		li
+			a(target="_blank",href="/import/?data=tvshow_rel") Fix TV Shows rel
+		li
+			a(target="_blank",href="/import/?data=users_rel") Fix Users rel
+	div=locals.msg
+- if (locals.url)
+	script(type="text/javascript")
+		var u = '#{locals.url}';
+		
+		var t = setTimeout("window.location.href='"+u.replace(/&amp;/gi,"&")+"'",1500);
+	div=locals.url
+- if (locals.msg)
+	div=locals.msg
+- else

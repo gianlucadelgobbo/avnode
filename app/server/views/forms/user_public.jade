@@ -1,0 +1,79 @@
+.tabbable.tabs-left
+	include ../comp/menu_cp
+	.tab-content
+		.tab-pane.active
+			include ../comp/user_submenu_cp
+			form.form-horizontal(method="post", action="#")
+				fieldset
+					legend=locals.title
+					.control-group
+						label.control-label=__("Stage name")
+						.controls
+							input(name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).input-large
+					.control-group
+						label.control-label=__("Profile url")
+						.controls
+							input(name="permalink", value=result.permalink, type="text", placeholder=__("Profile url")).input-large
+							.help-block="https://flxer.net/"
+								span#permalink=result.permalink
+					include ../comp/text_multilang
+					include ../comp/websites
+					hr.clearfix
+					.control-group
+						.controls
+							button(type="submit").btn.btn-large.input-large.btn-primary.right=__("Save")
+			script(type="text/javascript")
+				$("#search-map-form").submit(function(event, info) {
+					var text = $("input[id=search-map]", this);
+					text.blur();
+					if (!geocoder) geocoder = new google.maps.Geocoder();
+					geocoder.geocode( { 'address': text.val()}, function(results, status) {
+						//console.log(status);
+						//console.log(results);
+						if (status == google.maps.GeocoderStatus.OK) {
+							marker.setPosition(results[0].geometry.location);
+							var m = marker.getPosition();
+							map.setCenter(m);
+							console.log(m.lat(),m.lng());
+						} else {
+							alert(getLabel("Località non trovata"));
+						}
+					});
+					_gaq.push(['_trackEvent', 'search-map-form', text.val()]);
+					return false;   	
+				});
+				var data=jQuery.parseJSON('!{JSON.stringify(result.locations)}');
+				data[0].lat = 51;
+				data[0].lng = 51;
+				function initialize() {	
+					var myOptions = {
+						zoom: 5,
+						center: new google.maps.LatLng(1,1) ,
+						mapTypeId: google.maps.MapTypeId.ROADMAP,
+						streetViewControl: true
+					}; 
+
+					map= new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+					var bounds=new google.maps.LatLngBounds();
+					infowindow = new google.maps.InfoWindow({
+						content: 'oi'
+					});
+					$.each(data, function(index, c) {
+						console.log(c);
+						var latlng = new google.maps.LatLng(c.lat,c.lng); 
+						var marker = new google.maps.Marker({
+							map: map,
+							position: latlng,
+							title:'pk:'+c.pk
+						});
+						bounds.extend(latlng);
+						google.maps.event.addListener(marker, 'click', function() {
+							infowindow.close();
+							infowindow.setContent('pk:'+c.pk);
+							infowindow.open(map, marker);
+						});
+					});
+					map.fitBounds(bounds);
+				}
+				initialize();
+include ../modals/search_map

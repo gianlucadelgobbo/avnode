@@ -1,0 +1,37 @@
+.tabbable.tabs-left
+	include ../comp/menu_cp
+	.tab-content
+		.tab-pane.active
+			include ../comp/user_submenu_cp
+			form.form-horizontal(method="post", action="#")
+				fieldset
+					legend=locals.title
+					each item in result.emails
+						.control-group
+							label.control-label=__("Email")
+							.controls
+								input(type="text",value=item.email,placeholder=__("Email")).input-xlarge
+								span(style="padding-left:20px")
+									a(href="#",onmouseover="$(this).tooltip('show')",data-toggle="tooltip",title="",data-original-title=__("Add location"))
+										i.icon-plus-sign
+									a(href="#",onmouseover="$(this).tooltip('show')",data-toggle="tooltip",title="",data-original-title=__("Remove location"))
+										i.icon-minus-sign
+								.help-block
+									label.checkbox.inline=__("Newsletters")+": "
+									- item.mailinglists.flxer=1
+									label.checkbox.inline
+										input(type="checkbox",value="1",checked=(item.mailinglists.flxer==1 ? "checked" : undefined))
+										!=__("Flxer")
+									label.checkbox.inline
+										input(type="checkbox",value="1",checked=(item.mailinglists.flyer==1 ? "checked" : undefined))
+										!=__("Flyer")
+									label.checkbox.inline
+										input(type="checkbox",value="1",checked=(item.mailinglists.livevisuals==1 ? "checked" : undefined))
+										!=__("Livevisuals")
+									label.checkbox.inline
+										input(type="checkbox",value="1",checked=(item.mailinglists.updates==1 ? "checked" : undefined))
+										!=__("Updates")
+					hr.clearfix
+					.control-group
+						.controls
+							button(type="submit").btn.btn-large.input-large.btn-primary.right=__("Save")

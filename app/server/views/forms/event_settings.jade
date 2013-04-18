@@ -1,0 +1,225 @@
+- //console.dir(result)
+- if (!result.settings.call.calls) result.settings.call.calls = [{prices:[{}],topics:[{}]}]
+- if (!result.settings.call.calls.length) result.settings.call.calls[0] = {prices:[{}],topics:[{}]}
+- if (!result.settings.call.calls[0].prices) result.settings.call.calls[0].prices = [{}]
+- if (!result.settings.call.calls[0].topics) result.settings.call.calls[0].topics = [{}]
+- if (!result.settings.call.calls[0].prices.length) result.settings.call.calls[0].prices[0] = {}
+- if (!result.settings.call.calls[0].topics.length) result.settings.call.calls[0].topics[0] = {}
+- if (!result.settings.rooms) result.settings.rooms = [{}]
+- if (!result.settings.rooms.length) result.settings.rooms[0] = {}
+//- result.settings.permissions = {"administrator":[user]}
+.tabbable.tabs-left
+	include ../comp/menu_cp
+	.tab-content
+		.tab-pane.active
+			include ../comp/event_submenu_cp
+			form.form-horizontal(method="post")
+				input(type="hidden",name="_id",value=result._id)
+				input(type="hidden",name="title",value=result.title)
+				fieldset
+					legend=locals.title
+					.control-group
+						label.control-label
+							.switch
+								input(value="1", name="settings[is_public]", type="checkbox",autocomplete="off",checked=result.settings.is_public ? "checked" : undefined)
+						.controls
+							h4=__("Public")
+							p=__("The event is published")
+					.control-group
+						label.control-label
+							.switch
+								input(value="1", name="settings[gallery_is_public]", type="checkbox",autocomplete="off",checked=result.settings.gallery_is_public ? "checked" : undefined)
+						.controls
+							h4=__("Public Gallery")
+							p=__("All the AV node users can upload gallery")
+					.control-group
+						label.control-label
+							.switch
+								input(value="1", name="settings[call][is_active]", onchange="$('#opencall').toggle('slide')",type="checkbox",autocomplete="off", checked=result.settings.callOpen ? "checked" : undefined)
+						.controls
+							h4=__("Open call")
+							p=__("The users can submit a project to the event")
+							p
+								b=__("This function is reserved to AVnode.org members")+". "
+								a(href="http://avnode.org/members/")=__("more info")
+
+
+
+							textarea=JSON.stringify(result.settings, null, '\t')
+							#opencall(class=!result.settings.callOpen ? "hide" : undefined)
+								fieldset
+									legend=__("Open call general settings")
+									.control-group
+										label.control-label=__("Next Edition")
+										.controls
+											input.input-large(name="settings[call][nextEdition]",value=result.settings.call.nextEdition,type="text")
+									.control-group
+										label.control-label=__("Header image")+" (960 x 100px)"
+										.controls
+											input.input-xlarge(name="settings[call][subImg]",	value=result.settings.call.subImg,	type="text")
+									.control-group
+										label.control-label=__("Background image")+" (optional)"
+										.controls
+											input.input-xlarge(name="settings[call][subBkg]",	value=result.settings.call.subBkg,	type="text")
+									.control-group
+										label.control-label=__("Background color")
+										.controls
+											input.input-large(name="settings[call][colBkg]",	value=result.settings.call.colBkg,	type="text")
+									.control-group
+										label.control-label=__("Support email")
+										.controls
+											input.input-large(name="settings[call][email]",	value=result.settings.call.email,	type="text")
+								- for (var a=0;a<result.settings.call.calls.length;a++)
+									fieldset
+										legend
+											.pull-left=__("Open call")+" ID: "+(a+1)
+											button.btn.btn-primary.pull-right(type="button")=__("Add a call")
+										.control-group
+											label.control-label=__("Title")
+											.controls
+												input.input-large(name="settings[call][calls]["+a+"][title]",			value=result.settings.call.calls[a].title,		type="text")
+										.control-group
+											label.control-label=__("Identifier")
+											.controls
+												input.input-large(name="settings[call][calls]["+a+"][permalink]",		value=result.settings.call.calls[a].permalink,	type="text")
+												.help-block="https://flxer.net/"
+													span#permalink=result.users[0].permalink+"/events/"+result.permalink+"/participate/?c="+"performers"
+										.control-group
+											label.control-label=__("Open call start day")
+											.controls
+												.input-append.date.datepicker(data-date=result.settings.call.calls[a].start_date,data-date-format="yyyy-mm-dd")
+													input.input-large(name="settings[call][calls]["+a+"][start_date]", value=result.settings.call.calls[a].start_date,	type="text", disabled="disabled")
+													span.add-on
+														i.icon-calendar
+										.control-group
+											label.control-label=__("Open call end day")
+											.controls
+												.input-append.date.datepicker(data-date=result.settings.call.calls[a].end_date,data-date-format="yyyy-mm-dd")
+													input.input-large(name="settings[call][calls]["+a+"][end_date]", value=result.settings.call.calls[a].end_date,		type="text", disabled="disabled")
+													span.add-on
+														i.icon-calendar
+										.control-group
+											label.control-label=__("Admitted projects")
+											- for (var b=0;b<_config.sections.performances.categories.length;b++)
+												.controls
+													label.checkbox
+														input(name="settings[call][calls]["+a+"][admitted][]", checked=result.settings.call.calls[a].admitted && result.settings.call.calls[a].admitted.indexof(_config.sections.performances.categories[b])!=-1 ? "checked" : undefined,		value=_config.sections.performances.categories[b],		type="checkbox")
+														!=" "+_config.sections.performances.labels[_config.sections.performances.categories[b]]
+										.control-group
+											label.control-label=__("Terms and conditions")
+											.controls
+												textarea.span5(name="settings[call][calls]["+a+"][terms]")=result.settings.call.calls[a].terms
+										.control-group
+											- prices = result.settings.call.calls[a].prices && result.settings.call.calls[a].prices.length
+											label.control-label
+												.switch
+													input(onchange="$('#prices').toggle('slide')",type="checkbox",autocomplete="off",checked=prices ? "checked" : undefined)
+											.controls
+												h5=__("This call have prices")
+												#prices(class=!prices ? "hide" : undefined)
+													- for (var b=0;b<result.settings.call.calls[a].prices.length;b++)
+														fieldset
+															legend
+																.pull-left=__("Package")+" ID: "+(b+1)
+																button.btn.btn-primary.pull-right(type="button")=__("Add a package")
+															.row
+																label.span3=__("Name")
+																	input.span3(name="settings[call][calls]["+a+"][prices]["+b+"][name]", value=result.settings.call.calls[a].prices[b].name, type="text")
+																label.span2=__("Price")
+																	.input-append
+																		input.input-small(name="settings[call][calls]["+a+"][prices]["+b+"][price]", value=result.settings.call.calls[a].prices[b].price, type="text")
+																		span.add-on €
+															small.help-block=__("Use a negative amount if the event will pay, 0 if the project don't have to pay and a positive number if they have to pay")
+															br
+															label=__("Package description")
+																textarea.span5(name="settings[call][calls]["+a+"][prices]["+b+"][description]")=result.settings.call.calls[a].prices[b].description
+															hr
+										.control-group
+											- topics = result.settings.call.calls[a].topics && result.settings.call.calls[a].topics.length
+											label.control-label
+												.switch
+													input(onchange="$('#topics').toggle('slide')",type="checkbox",autocomplete="off",checked=topics ? "checked" : undefined)
+											.controls
+												h5=__("This call have topics")
+												#prices(class=!topics ? "hide" : undefined)
+													- for (var b=0;b<result.settings.call.calls[a].topics.length;b++)
+														fieldset
+															legend
+																.pull-left=__("Topic")+" ID: "+(b+1)
+																button.btn.btn-primary.pull-right(type="button")=__("Add a topic")
+															label=__("Name")
+															input.span5(name="settings[call][calls]["+a+"][topics]["+b+"][name]", value=result.settings.call.calls[a].topics[b].name, type="text")
+															label=__("Description")
+															textarea.span5(name="settings[call][calls]["+a+"][topics]["+b+"][description]")=result.settings.call.calls[a].topics[b].description
+															hr
+									hr
+									button.btn.btn-primary.pull-right(type="button")=__("Add a call")
+
+
+
+
+
+
+
+					.control-group
+						label.control-label
+							.switch
+								input(value="1", name="settings[call][program_builder]", onchange="$('#rooms').toggle('slide')",type="checkbox",autocomplete="off", checked=result.settings.call.program_builder ? "checked" : undefined)
+						.controls
+							h4=__("Advanced program builder")
+							p=__("Tool to manage, evaluate, select and schedule every project involved in the event")
+							p
+								b=__("This function is reserved to AVnode.org members")+". "
+								a(href="http://avnode.org/members/")=__("more info")
+							#rooms(class=!result.settings.call.program_builder ? "hide" : undefined)
+								- for (var a=0;a<result.settings.rooms.length;a++)
+									fieldset
+										legend
+											.pull-left=__("Open call")+" ID: "+(a+1)
+											button.btn.btn-primary.pull-right(type="button")=__("Add a room")
+										label=__("Name")
+										input.span5(name="settings[rooms]["+a+"][name]", value=result.settings.rooms[a].name, type="text")
+										label=__("Subtitle")
+										input.span5(name="settings[rooms]["+a+"][subtitle]", value=result.settings.rooms[a].subtitle, type="text")
+										label=__("Start time")
+										.bootstrap-timepicker.input-append
+											input.input-small(name="settings[rooms]["+a+"][start_time]", value=result.settings.rooms[a].start_time, type="text")
+											span.add-on
+												i.icon-time
+										label=__("Break between projects")+" ("+__("minutes")+")"
+										input.span5(name="settings[rooms]["+a+"][break]", value=result.settings.rooms[a].break, type="text")
+					.control-group
+						label.control-label
+							.switch
+								input(value="1", name="settings[call][advanced_proposals_manager]", onchange="$('#permissions').toggle('slide')",type="checkbox",autocomplete="off", checked=result.settings.call.advanced_proposals_manager ? "checked" : undefined)
+						.controls
+							h4=__("Advanced project proposals manager")
+							p=__("Tool to easily build the program based on custom rooms ad timetable with rules on performance accepted")
+							p
+								b=__("This function is reserved to AVnode.org members")+". "
+								a(href="http://avnode.org/members/")=__("more info")
+							#permissions(class=!result.settings.call.advanced_proposals_manager ? "hide" : undefined)
+								- for (item in _config.sections.events.permissions)
+									fieldset
+										legend
+											.pull-left=_config.sections.events.permissions[item]
+											button.btn.btn-primary.pull-right(type="button")=__("Add a user")
+										ul.nav
+											- if (result.settings.permissions[item] && result.settings.permissions[item].length)
+												- console.dir(result.settings.permissions[item])
+												- for (var a=0;a<result.settings.permissions[item].length;a++)
+													li.alert.alert-info
+														button.close(type="button",data-dismiss="alert")!="&times"
+														b=result.settings.permissions[item][a].display_name
+														input(type="hidden",name="settings[permissions]["+item+"]["+a+"]",value=JSON.stringify(result.settings.permissions[item][a]))
+											- else
+												li.alert.text-center=__("No users")
+					hr.clearfix
+					.control-group
+						.controls
+							button(type="submit").btn.btn-large.input-large.btn-primary.right=__("Save")
+					script
+						$(function() {
+							$(".bootstrap-timepicker input").timepicker();
+							$(".datepicker").datepicker();
+						});

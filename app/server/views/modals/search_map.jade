@@ -1,0 +1,12 @@
+
+.modal-search_map.modal.hide.fade
+	div.modal-header
+		button.close(data-dismiss='modal') x
+		h3=__("Google map search")
+	div.modal-body
+		p
+			form#search-map-form
+				input#search-map(type="text")
+	div.modal-footer
+		button(data-dismiss="modal").cancel.btn=__("Cancel")
+		button(data-dismiss="modal")#ok.btn.btn-success=__("SEARCH")

@@ -1,0 +1,6 @@
+input#img_arr(type="hidden",id="img_arr",name="img_arr",value=locals.result.files[locals.result.files.length-1].file)
+- for (a=0;a<_config.thumbnails.length;a++)
+	p
+		a(href="#",onclick="editThumbnail(this)",onmouseover="$(this).find('.hide').show()",onmouseout="$(this).find('.hide').hide()")
+			img#avatar_old_img(alt="FLxER.NET", src=locals.Fnc.getFileFormat(locals.result.files[locals.result.files.length-1].file,_config.thumbnails[a].width,_config.thumbnails[a].height))
+			span.hide=__("Edit thumbnail")

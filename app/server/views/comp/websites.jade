@@ -1,0 +1,10 @@
+.control-group
+	label.control-label=__("Web sites")
+	.controls
+		each website in result.websites
+			input(name="websites[]", value=website.url, type="text", placeholder="http://").input-xlarge
+			span(style="padding-left:20px")
+				a(href="#",onclick="adda()", onmouseover="$(this).tooltip('show')",data-toggle="tooltip",title="",data-original-title=__("Add location"))
+					i.icon-plus-sign
+				a(href="#",onmouseover="$(this).tooltip('show')",data-toggle="tooltip",title="",data-original-title=__("Remove location"))
+					i.icon-minus-sign

@@ -1,0 +1,15 @@
+.control-group
+	label.control-label
+		ul.nav.nav-list
+			li=__("Subtitle")
+			li.active
+				a(href="#",onclick="$(this).parent().parent().find('li').attr('class','');$(this).parent().attr('class','active');$('input.lang').hide();$('input."+_config.defaultLocale+"').show();return false;")=_config.locales_labels[_config.defaultLocale]										
+			each val, key in _config.locales_labels
+				- if (_config.defaultLocale!=key)
+					li
+						a(href="#",onclick="$(this).parent().parent().find('li').attr('class','');$(this).parent().attr('class','active');$('input.lang').hide();$('input."+key+"').show();return false;")=val										
+	.controls
+		input.input-xxlarge.lang(name="subtitle["+_config.defaultLocale+"]",class=_config.defaultLocale, type="text",value=result.subtitle[_config.defaultLocale])
+		each val, key in _config.locales_labels
+			- if (_config.defaultLocale!=key)
+				input.span5.lang.hide(name="text["+key+"]",class=key, type="text", value=result.subtitle[key],placeholder=__("Subtitle"))

@@ -1,0 +1,7 @@
+.control-group
+	label.control-label=__("Author")
+	.controls
+		select(name="users[]",autocomplete="off")
+			option(value=user._id,selected=(result.users[0]._id == user._id ? "selected" : undefined))=user.display_name
+			each u in user.crews
+				option(value=u._id,selected=(result.users[0]._id == u._id ? "selected" : undefined))=u.display_name
