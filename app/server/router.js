@@ -18,9 +18,9 @@ var cpanelCrewsRoutes	 	= require('./routes/controlpanel/crews');
 var cpanelEventsRoutes	 	= require('./routes/controlpanel/events');
 var uploadRoutes 			= require('./routes/upload');
 var imageRoutes 			= require('./routes/image');
-/*
 var adminImportRoutes 		= require('./routes/admin/import');
 var adminFilesRoutes 		= require('./routes/admin/files');
+/*
 var lostPasswordRoutes = require('./routes/lost-password');
 var resetPasswordRoutes = require('./routes/reset-password');
 var softwareRoutes = require('./routes/software');

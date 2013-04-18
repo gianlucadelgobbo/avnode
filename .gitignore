@@ -7,6 +7,5 @@ node_modules
 **/style.css
 app/public/warehouse/
 app/public/warehouse2/
-app/server/routes/_import.js
 app/server/routes/admin
 style.css
