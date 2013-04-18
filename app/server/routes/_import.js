@@ -1,7 +1,7 @@
 //rsync -avr --progress --inplace --rsh='ssh -p22' root@dev.flxer.net:/sites/flxer/warehouse/ /development/avnode/app/public/warehouse/
 //./bin/mongodump --db avnode --out /development/avnode.bck
-//./bin/mongorestore /development/avnode.bck
-
+//./bin/mongorestore --db avnode /development/avnode.bck/avnode/
+// forever start -l forever.log -o out.log -e err.log  --debug -a app.js
 var http = require('http');
 var fs = require('fs');
 var ObjectID = require('mongodb').ObjectID;
