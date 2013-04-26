@@ -1,43 +1,49 @@
 - if (locals.menu)
-	ol
+	ol.nav.nav-list
 		li
-			a(target="_blank",href="/import/?data=categories") Import Categories
+			a(target="_blank",href="/admin/import/?data=categories") Import Categories
 		li
-			a(target="_blank",href="/import/?data=categories_permalink") Fix Categories permalink
+			a(target="_blank",href="/admin/import/?data=categories_rel") Fix Categories rel
+		li.divider
 		li
-			a(target="_blank",href="/import/?data=categories_rel") Fix Categories rel
+			a(target="_blank",href="/admin/import/?data=users") Import Users
 		li
-			a(target="_blank",href="/import/?data=users") Import Users
+			a(target="_blank",href="/admin/import/?data=footage") Import Footage
 		li
-			a(target="_blank",href="/import/?data=footage") Import Footage
+			a(target="_blank",href="/admin/import/?data=playlists") Import Playlists
 		li
-			a(target="_blank",href="/import/?data=playlists") Import Playlists
+			a(target="_blank",href="/admin/import/?data=performances") Import Performances
 		li
-			a(target="_blank",href="/import/?data=performances") Import Performances
+			a(target="_blank",href="/admin/import/?data=events") Import Events
 		li
-			a(target="_blank",href="/import/?data=events") Import Events
+			a(target="_blank",href="/admin/import/?data=gallery") Import Gallery
 		li
-			a(target="_blank",href="/import/?data=gallery") Import Gallery
+			a(target="_blank",href="/admin/import/?data=tvshow") Import TV Shows
+		li.divider
 		li
-			a(target="_blank",href="/import/?data=tvshow") Import TV Shows
+			a(target="_blank",href="/admin/import/?data=crews_rel") Fix Crews rel
 		li
-			a(target="_blank",href="/import/?data=crews_rel") Fix Crews rel
+			a(target="_blank",href="/admin/import/?data=users_crews_rel") Fix Users Crews rel
 		li
-			a(target="_blank",href="/import/?data=users_crews_rel") Fix Users rel
+			a(target="_blank",href="/admin/import/?data=footage_rel") Fix Footage rel
 		li
-			a(target="_blank",href="/import/?data=footage_rel") Fix Footage rel
+			a(target="_blank",href="/admin/import/?data=gallery_rel") Fix Gallery rel
 		li
-			a(target="_blank",href="/import/?data=playlists_rel") Fix Playlists rel
+			a(target="_blank",href="/admin/import/?data=tvshow_rel") Fix TV Shows rel
+		li.divider
 		li
-			a(target="_blank",href="/import/?data=performances_rel") Fix Performances rel
+			a(target="_blank",href="/admin/import/?data=playlists_rel") Fix Playlists rel
 		li
-			a(target="_blank",href="/import/?data=gallery_rel") Fix Gallery rel
+			a(target="_blank",href="/admin/import/?data=performances_rel") Fix Performances rel
+		li.divider
 		li
-			a(target="_blank",href="/import/?data=events_rel") Fix Events rel
+			a(target="_blank",href="/admin/import/?data=events_rel") Fix Events rel
+		li.divider
 		li
-			a(target="_blank",href="/import/?data=tvshow_rel") Fix TV Shows rel
+			a(target="_blank",href="/admin/import/?data=performances_rel_events") Fix Performances Events rel
+		li.divider
 		li
-			a(target="_blank",href="/import/?data=users_rel") Fix Users rel
+			a(target="_blank",href="/admin/import/?data=users_rel") Fix Users rel
 	div=locals.msg
 - if (locals.url)
 	script(type="text/javascript")

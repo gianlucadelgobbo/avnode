@@ -12,6 +12,7 @@ var _config = {
 	"uploadpath":		"/app/public",
 	"uploadtmp":		"/tmp",
 	"cp_basepath":		"controlpanel",
+	"usersListItems":	6,
 	"emaildispatcher":	{
 		"nameFrom":		"AV node",
 		"emailFrom":	"g.delgobbo@flyer.it",
@@ -83,6 +84,18 @@ var _config = {
 				"crews":"Crews"
 			}
 		},
+		"crews":		{
+			"title":			"Crews",
+			"limit":			20,
+			"basepath":			"crews",
+			"coll":				"users"
+		},
+		"members":		{
+			"title":			"Members",
+			"limit":			20,
+			"basepath":			"members",
+			"coll":				"users"
+		},
 		"events":		{
 			"title":			"Events",
 			"limit":			20,
@@ -107,15 +120,15 @@ var _config = {
 								],
 			"searchQ":	{
 				"all":					{},
-				"clubbing":				{"categories.slug":	"clubbing"},
-				"corporate":			{"categories.slug":	"corporate"},
-				"festival":				{"categories.slug":	"festival"},
-				"one-night":			{"categories.slug":	"one-night"},
-				"television":			{"categories.slug":	"television"}, 
-				"workshops-learning":	{"categories.slug":	"workshops-learning"}
+				"clubbing":				{"categories.permalink":	"clubbing"},
+				"corporate":			{"categories.permalink":	"corporate"},
+				"festival":				{"categories.permalink":	"festival"},
+				"one-night":			{"categories.permalink":	"one-night"},
+				"television":			{"categories.permalink":	"television"}, 
+				"workshops-learning":	{"categories.permalink":	"workshops-learning"}
 			},
 			"sortQ":	{
-				"mostrecent":	{"creation_date": 	-1},
+				"mostrecent":	{"date_time_venue.0.date": 	-1},
 				"mostviewed":	{"stats.visits":	-1},
 				"mostrated":	{"stats.tot_rate":	-1}
 			},
@@ -163,11 +176,11 @@ var _config = {
 								],
 			"searchQ":	{
 				"all":				{},
-				"av-performance":	{"categories.slug":	"av-performance"},
-				"vj-set":			{"categories.slug":	"vj-set"},
-				"workshop":			{"categories.slug":	"workshop"},
-				"project-showcase":	{"categories.slug":	"project-showcase"},
-				"dj-set":			{"categories.slug":	"dj-set"}
+				"av-performance":	{"categories.permalink":	"av-performance"},
+				"vj-set":			{"categories.permalink":	"vj-set"},
+				"workshop":			{"categories.permalink":	"workshop"},
+				"project-showcase":	{"categories.permalink":	"project-showcase"},
+				"dj-set":			{"categories.permalink":	"dj-set"}
 			},
 			"sortQ":	{
 				"mostrecent":	{"creation_date": 		-1},
@@ -208,10 +221,10 @@ var _config = {
 								],
 			"searchQ":	{
 				"all":				{},
-				"performances":		{"categories.slug":	"performances"},
-				"vj-dj-sets":		{"categories.slug":	"vj-dj-sets"},
-				"docs":				{"categories.slug":	"docs"},
-				"video":			{"categories.slug":	"video"}
+				"performances":		{"categories.permalink":	"performances"},
+				"vj-dj-sets":		{"categories.permalink":	"vj-dj-sets"},
+				"docs":				{"categories.permalink":	"docs"},
+				"video":			{"categories.permalink":	"video"}
 			},
 			"sortQ":	{
 				"mostrecent":	{"creation_date": 		-1},

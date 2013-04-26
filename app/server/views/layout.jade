@@ -26,43 +26,48 @@ html(lang=_config.lang)
 		link(type="text/css", href="/lib/uploader/fileuploader.css", rel="stylesheet")	
 		link(type="text/css", href="/lib/bootstrap-jquery-ui-1.10.1.custom.css", rel="stylesheet")	
 		link(type="text/css", href="/lib/bootstrap-switch.css", rel="stylesheet")	
+		link(type="text/css", href="/css/style.css", rel="stylesheet")	
 		script(type="text/javascript", src="/lib/jquery-1.9.1.js")
 
 
 	body
 		.container
-			.nav.navbar.pull-right
-				.navbar-inner
-					ul.nav
-						li.active
-							form.navbar-form.form-search(action="/search/")#cse-search-box
-								input(type="hidden", name="cx", value="008270153029254647808:_czuhrjkjpk")
-								input(type="hidden", name="cof", value="FORID:10")
-								input(type="hidden", name="ie", value="UTF-8")
-								.input-append
-									input.span2.search-query(type="text", 	name="q", size="31", value=locals.q)
-									button.btn(type="submit", name="sa")=__("Cerca")
-							//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
-						li.dropdown
-							a.dropdown-toggle(href="#", data-toggle="dropdown")
-								!=__(_config.lang)+" "
-								b.caret
-							ul.dropdown-menu			
-								li(href="/controlpanel/?edit=performances&amp;perfid=0")=__(_config.lang)
-			header
-				.row
-					h2.span3
-						a(href="/", title="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
-							img(src="/img/logoFLxER.gif", alt="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
-					.span9=locals.bannerTop
+			if (typeof(userpage) === 'undefined')
+				.nav.navbar.pull-right
+					.navbar-inner
+						ul.nav
+							li.active
+								form.navbar-form.form-search(action="/search/")#cse-search-box
+									input(type="hidden", name="cx", value="008270153029254647808:_czuhrjkjpk")
+									input(type="hidden", name="cof", value="FORID:10")
+									input(type="hidden", name="ie", value="UTF-8")
+									.input-append
+										input.span2.search-query(type="text", 	name="q", size="31", value=locals.q)
+										button.btn(type="submit", name="sa")=__("Cerca")
+								//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
+							li.dropdown
+								a.dropdown-toggle(href="#", data-toggle="dropdown")
+									!=__(_config.lang)+" "
+									b.caret
+								ul.dropdown-menu			
+									li(href="/controlpanel/?edit=performances&amp;perfid=0")=__(_config.lang)
+				header
+					.row
+						h2.span3
+							a(href="/", title="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
+								img(src="/img/logoFLxER.gif", alt="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
+						.span9=locals.bannerTop
 					
-			nav.navbar.navbar-inverse#menu
+			nav.navbar.navbar-inverse#menu(class=(typeof(userpage) !== 'undefined' && userpage ? "navbar-fixed-top" : undefined))
 				//.navbar-fixed-top
 				.navbar-inner
+					- if (typeof(userpage) !== 'undefined' && userpage)
+						a.brand(href="/")=" AV Node"
 					ul.nav
 						- each item in _config.sections
-							li(class=(_config.sections[locals.sez] && _config.sections[locals.sez].basepath==item.basepath ? "active" : undefined))
-								a(href="/"+item.basepath+"/")=item.title
+							- if (item.view_list)
+								li(class=(_config.sections[locals.sez] && _config.sections[locals.sez].basepath==item.basepath ? "active" : undefined))
+									a(href="/"+item.basepath+"/")=item.title
 					ul.nav.pull-right
 						li
 							a(href="/controlpanel/"+(user ? "user/" : "login/"))=(user ? __("Account") : __("Login"))
@@ -70,6 +75,8 @@ html(lang=_config.lang)
 							li
 								a(href="/signup/")=__("Registrati")
 						- else
+							li
+								a(href="/controlpanel/logout/")=__("Logout")
 							li(style="position:relative")
 								a(href="/"+user.user_name+"/notifications/", title=__("Visualizza le notifiche"))=__("Notifiche")
 									span.jewelCount=locals.notifiche
@@ -92,6 +99,7 @@ html(lang=_config.lang)
 									a(href="/controlpanel/?edit=forum&amp;forumid=0")=__("Nuova discussione")
 			!= body
 			//<? include_once($this->initObj['site_path']."_php/modelli/".$this->modello); ?>
+			hr
 			.row
 				.span1
 					img(alt="FLxER.NET", src="/img/logo_piede.gif")
@@ -153,13 +161,13 @@ html(lang=_config.lang)
 		script(type="text/javascript", src="/lib/bootstrap-switch.js")
 		
 		script(type="text/javascript", src="http://maps.googleapis.com/maps/api/js?sensor=false")
+		script(type="text/javascript", src="/js/script.js?v=1.2")
 
 		//
 			script(type="text/javascript", src="/_lang/"+_config.lang+".js")
 			script(type="text/javascript", src="/js/fpVariables.js")
 			script(type="text/javascript", src="/js/fpManager.js")
 			script(type="text/javascript", src="/js/fpCheck.js")
-			script(type="text/javascript", src="/js/script.js?v=1.2")
 			script(type="text/javascript", src="/js/sendMsg.js")
 			script(type="text/javascript", src="/js/notifications.js")
 			script(type="text/javascript", src="/js/playList.js")

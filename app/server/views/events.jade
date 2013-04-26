@@ -19,7 +19,7 @@ h1=_config.sections[locals.sez].title+" "
 						ul!=performers
 					- categories = "";
 					- for(item in locals.result[a].categories)
-						- if (locals.result[a].categories[item]) categories+="<li><a href=\"/"+_config.sections[locals.sez].basepath+"/"+locals.result[a].categories[item].slug+"/\">"+locals.result[a].categories[item].name+"</a></li>"
+						- if (locals.result[a].categories[item]) categories+="<li><a href=\"/"+_config.sections[locals.sez].basepath+"/"+locals.result[a].categories[item].permalink+"/\">"+locals.result[a].categories[item].name+"</a></li>"
 					- if (categories)
 						ul!=categories
 					ul

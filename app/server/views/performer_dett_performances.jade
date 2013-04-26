@@ -1,0 +1,75 @@
+- console.dir(locals.dett)
+.user_dett
+	.row
+		.span9
+			h1=locals.dett.title
+			.media
+				.pull-left
+					a(href=locals.dett.permalink)
+						img.media-object(alt=__("Thumbnail of")+": "+locals.dett.display_name, src=locals.Fnc.getFileFormat(locals.dett.files, 400, 300))
+				.media-body
+					.cnt
+						ul
+							li=__("Visits")+": "+locals.dett.stats.visits
+							li
+								a.btn.btn-primary.btn-mini
+									i.icon-globe.icon-white
+									!=" "+__("Like")
+								!=" "
+								code=locals.dett.stats.rates.tot_rate
+						- categories = "";
+						- for(item in locals.dett.categories)
+							- if (locals.dett.categories[item]) categories+="<li>"+__(item)+": "+locals.dett.categories[item].name+(locals.dett.categories[item].ancestors ? " - "+locals.dett.categories[item].ancestors[0].name : "")+"</li>"
+						- if (categories)
+							ul!=categories
+						ul
+							li
+								a.btn
+									i.icon-globe
+									!=" "+__("Download PDF")
+								!=" "
+							li
+								a.btn.btn-primary
+									i.icon-globe.icon-white
+									!=" "+__("Share")
+							li
+								a.btn.btn-primary
+									i.icon-globe.icon-white
+									!=" "+__("Invite to event")
+					hr
+			ul.nav.nav-tabs
+				li(class=sez=="performances" ? "active" : undefined)
+					a(href="#about",data-toggle="tab")=__("About")
+				li
+					a(href="#tech_req",data-toggle="tab")=__("Technical rider")
+				- if(locals.dett.gallery && locals.dett.gallery.length)
+					li
+						a(href="#gallery",data-toggle="tab")=_config.sections["gallery"].title+" ["+locals.dett.gallery.length+"]"
+			.tab-content
+				#about.tab-pane.active
+					!=locals.Fnc.getTextFormat(locals.dett.text, _config.lang, true)
+				#tech_req.tab-pane
+					!=locals.Fnc.getTextFormat(locals.dett.tech_req, _config.lang, true)
+				- if(locals.dett.gallery && locals.dett.gallery.length)
+					#gallery.tab-pane
+						.row
+							- for(item in locals.dett.gallery)
+								.span3
+									- var basepath = "/"
+									- //+locals.dett.gallery[item].users[0].permalink+"/"+_config.sections["gallery"].basepath
+									.media
+										.pull-left
+											a(href=basepath+"/"+locals.dett.gallery[item].permalink+"/")
+												img.media-object(alt=__("Thumbnail of")+": "+locals.dett.gallery[item].title, src=locals.Fnc.getFileFormat(locals.dett.gallery[item].files, 90, 68))
+										.media-body
+											h4.media-heading
+												a(href=basepath+"/"+locals.dett.gallery[item].permalink+"/")=locals.dett.gallery[item].title
+											- var str = "";
+											- if (locals.dett.gallery[item].stats) 
+												- for(stat in locals.dett.gallery[item].stats)
+													- str+="<li>"+__(stat)+": "+locals.dett.gallery[item].stats[stat]+"</li>"
+											- if (str)
+												ul!=str
+		.span3
+			h3=__("Author")
+			include performer_inc_vert

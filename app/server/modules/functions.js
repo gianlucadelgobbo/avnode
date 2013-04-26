@@ -33,6 +33,24 @@ exports.getList = function getList(params, sez, res, ids, callback) {
 		});
 	});
 }
+exports.formatLoc = function formatLoc(locations) {
+	var str = "";
+	var tmp = {};
+	for(var a=0;a<locations.length;a++) {
+		if (!tmp[locations[a].country]) tmp[locations[a].country] = {};
+		tmp[locations[a].country][locations[a].city]=1; 
+	}
+	console.log(tmp);
+	for(country in tmp) {
+		str+="<b>"+country+"</b> (";
+		for(city in tmp[country]) {
+			str+="<a href=\"#\" onclick=\"showNear('"+country+"','"+city+"')\">"+city+"</a>, ";
+		}
+		str = str.substring(0,str.length-2)+"), ";
+	}
+	str = str.substring(0,str.length-2);
+	return str;
+}
 
 exports.parseParams = function parseParams(params) {
 	var p = params.split("page-");
@@ -74,35 +92,56 @@ exports.getConf = function getConf(params, sez, res) {
 	return conf;
 }
 
+exports.getTextFormat = function (text, lang, defaultlang) {
+	str = (text[lang] ? text[lang] : (defaultlang ? (text[_config.defaultLocale] ? text[_config.defaultLocale] : text[0]) : ""));
+	str = str.replace(new RegExp("###b###","gm"), "<b>");
+	str = str.replace(new RegExp("###/b###","gm"), "</b>");
+	str = str.replace(new RegExp("\n","gm"), "<br />");
+	return str;
+}
+
 exports.getFileFormat = function (obj, w, h) {
 	if (obj && obj.length && obj[0].file) {
-		var source = obj[0].file;
-		var folder = source.substring(0,source.lastIndexOf("/")+1);
-		var file = source.substring(source.lastIndexOf("/"),source.length);
-		var ext = file.substring(file.lastIndexOf(".")+1,file.length);
-		var file = file.substring(0,file.lastIndexOf("."))+"_"+ext+".jpg";
-		var formatfolder = folder+w+"x"+h;
-		if (fs.existsSync(_config.sitepath+_config.uploadpath+formatfolder+file)) {
-			return formatfolder+file;
+		var source = 		obj[0].file;
+		var folder = 		source.substring(0,source.lastIndexOf("/")+1);
+		var file = 			source.substring(source.lastIndexOf("/")+1,source.length);
+		var ext = 			file.substring(file.lastIndexOf(".")+1,file.length);
+		var formatfile = 	file.substring(0,file.lastIndexOf("."))+"_"+ext+".jpg";
+		var formatfolder = 	folder+w+"x"+h+"/";
+		/*
+		console.log("---------");
+		console.log(_config.sitepath);
+		console.log(_config.uploadpath);
+		console.log(folder);
+		console.log(file);
+		console.log(formatfolder);
+		console.log(formatfile);
+		console.log(_config.sitepath+_config.uploadpath+formatfolder+formatfile);
+		console.log(_config.sitepath+_config.uploadpath+folder+file);
+		console.log("---------");
+		*/
+		if (fs.existsSync(_config.sitepath+_config.uploadpath+formatfolder+formatfile)) {
+			return formatfolder+formatfile;
 		} else if (fs.existsSync(_config.sitepath+_config.uploadpath+folder+file)) {
+			console.log("----cazzo----");
 			mkdirp.sync(_config.sitepath+_config.uploadpath+formatfolder);
 			im.crop({
 				srcPath: _config.sitepath+_config.uploadpath+folder+file,
-				dstPath: _config.sitepath+_config.uploadpath+formatfolder+file,
+				dstPath: _config.sitepath+_config.uploadpath+formatfolder+formatfile,
 				width: w,
 				height: h,
 				quality: 1,
 				gravity: "North"
 			}, function(err, stdout, stderr){
-				console.log("croppato"+formatfolder+file)
+				console.log("croppato"+formatfolder+formatfile);
 			});
-			return formatfolder+file;
+			return formatfolder+formatfile;
 		} else {
-			return "https://flxer.net"+"/warehouse/defaults/"+w+"x"+h+".jpg";
+			return "/warehouse/defaults/"+w+"x"+h+".jpg";
 			//return "/warehouse/defaults/"+w+"x"+h+".jpg";
 		}
 	} else {
-		return "https://flxer.net"+"/warehouse/defaults/"+w+"x"+h+".jpg";
+		return "/warehouse/defaults/"+w+"x"+h+".jpg";
 	}
 }
 
@@ -117,7 +156,7 @@ exports.validateFormLogin = function validateFormLogin(o,callback) {
 	DB.users.findOne({login:o.login}, function(err, result) {
 		if (result == null){
 			e.push({name:"user",m:__("User not found")});
-			callback(e, o);
+			callback(e, result);
 		} else {
 			if (!result.password) result.password = " ";
 			bcrypt.compare(o.password, result.password, function(err, res) {
@@ -125,20 +164,19 @@ exports.validateFormLogin = function validateFormLogin(o,callback) {
 					console.dir("login interno");
 					callback(e, result);
 				} else {
-					var userString = JSON.stringify();
 					request.post({
-					    uri:"httpS://flxer.net/api/login",
+					    uri:"https://flxer.net/api/login",
 					    headers:{'content-type': 'application/x-www-form-urlencoded'},
 					    body:require('querystring').stringify({login:o.login, password:o.password})
-				    },function(err,res,body){
+				    },function(err, res, body){
 				    	var ress = JSON.parse(body);
 				        if (ress.login) {
-				        	DB.setPassword(o.login, o.password, function(err, oo) {
-								callback(e, oo);
+				        	DB.setPassword(o.login, o.password, function(e, o) {
+								callback(e, result);
 							});
 				        } else {
 							e.push({name:"user",m:__("Login failed")});
-							callback(e, o);
+							callback(e, result);
 				        }
 					});
 				}

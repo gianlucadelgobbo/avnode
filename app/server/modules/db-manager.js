@@ -83,7 +83,7 @@ DB.validateLink = function(email, passHash, callback) {
 DB.setPassword = function(login, newPass, callback) {
 	DB.users.findOne({login:login}, function(e, o){
 		DB.saltAndHash(newPass, function(hash){
-			//o.password = hash;
+			o.password = hash;
 			DB.users.save(o, {safe:true}, function(e, res) {
 				callback(e, res);
 			});

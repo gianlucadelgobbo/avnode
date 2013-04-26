@@ -1,0 +1,38 @@
+a(href="/"+locals.result.permalink+"/")
+	img.media-object(alt=__("Thumbnail of")+": "+locals.result.display_name, src=locals.Fnc.getFileFormat(locals.result.files, 240, 180))
+h3
+	a(href="/"+locals.result.permalink+"/")=locals.result.display_name
+.clearfix
+	.pull-right
+		a.btn.btn-mini
+			i.icon-globe
+			!=" "+__("Messagge")
+		!=" "
+		a.btn.btn-primary.btn-mini
+			i.icon-globe.icon-white
+			!=" "+__("Follow")
+hr
+//
+	.cnt
+		ul.user_dett_ul
+			- if (locals.result.websites)
+				- for(a=0;a<locals.result.websites.length;a++)
+					li
+						a(href=locals.result.websites[a].url,target="_blank")
+							i.icon-globe
+							!=locals.result.websites[a].url.replace("http://","").replace("https://","")
+			li
+				i.icon-home
+				!=locals.Fnc.formatLoc(locals.result.locations)
+	hr
+	ul.nav.nav-pills.nav-stacked
+		li(class=!sez ? "active" : undefined)
+			a(href="/"+locals.result.permalink+"/")
+				i.icon-globe
+				!=" "+__("About")
+		- for(item in locals.result.stats)
+			- if(_config.sections[item] && locals.result.stats[item])
+				li(class=locals.sez==item ? "active" : undefined)
+					a(href="/"+locals.result.permalink+"/"+_config.sections[item].basepath+"/")
+						i.icon-globe
+						!=" "+_config.sections[item].title+" ["+locals.result.stats[item]+"]"

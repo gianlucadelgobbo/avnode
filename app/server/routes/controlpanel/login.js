@@ -9,7 +9,7 @@ exports.get = function get(req, res) {
 }
 exports.post = function post(req, res) {
 	functions.validateFormLogin(req.body, function(e, o) {
-		if (e.length) {
+		if (e) {
 			if (req.body.ajax) {
 				res.send({msg:{e:e}}, 200);
 			} else {
@@ -27,7 +27,6 @@ exports.post = function post(req, res) {
 				res.send(o, 200);
 			} else {
 				var redirect = req.body.from ? req.body.from : '/';
-				console.dir("cazzo"+redirect);
 				res.redirect(redirect);
 			}
 		}

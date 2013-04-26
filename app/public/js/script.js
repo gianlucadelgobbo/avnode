@@ -1,3 +1,37 @@
+$(function () {
+	if ($('.user_dettaaa').height()>$('.user_dett .pull-left img').height()) {
+		$('.user_dett .media-body .more').show();
+		$('.user_dett .media-body').attr('style','position:relative');
+		var user_dett_height = $('.user_dett .pull-left img').height()-15-$('.user_dett .media-body .more').height()-$('.user_dett .media-body .cnt').position().top;
+		$('.user_dett .media-body .cnt').attr('style','overflow:hidden;height:'+user_dett_height+'px');
+		$('.user_dett .media-body .more button').click(function() {
+			$('.user_dett .media-body .cnt').attr('style','height:auto');
+			$('.user_dett .media-body .more').hide();
+			$('.user_dett .pull-left img').css("width", "200px");
+			$('.user_dett .media-body .less').show();
+		});
+		$('.user_dett .media-body .less button').click(function() {
+			$('.user_dett .media-body .cnt').attr('style','overflow:hidden;height:'+user_dett_height+'px');
+			$('.user_dett .media-body .less').hide();
+			$('.user_dett .pull-left img').css("width", "400px");
+			$('.user_dett .media-body .more').show();
+		});
+		console.log(user_dett_height);
+	}
+});
+function moreShowHide(div) {
+	if ($('.user_dett')) {
+		$('#BoxPerfPrimoPiano').attr('style','height:385px');
+	}
+	if (div=="#cntHide") {
+		$(div).attr('style','height:300px');
+	} else {
+		$(div).attr('style','height:30px');
+	}
+	$(div+"Hide").hide();
+	$(div+"More").attr('style','display:inline');
+}
+/*
 function showModal(t, m, callback) {
 	if (m) $('.modal-'+t+' .modal-body p').html(m);
 	$('.modal-'+t).modal('show');
@@ -95,7 +129,7 @@ function tagUsersRemove(id_media, id_sogg) {
 		}
 	});
 }
-/* HOME SLIDESHOW */
+// HOME SLIDESHOW
 function setNewPerf() {
 	$.ajax({
 		url: '/_php/ajax/randomPerf.php',
@@ -145,7 +179,7 @@ function setNewAlert() {
 	});
 }
 
-/* HOME POST */
+// HOME POST
 function loadHomePostAjax(url,div){
 	$(div).html("<div style=\"text-align:center; padding:50px 0;background-color:#FFFFFF;\"><img src=\"/_images/loading_white.gif\" alt=\"please wait\" /></div>");
 	$.ajax({
@@ -189,7 +223,7 @@ function loadListaBase(url){
 }
 
 
-/* FUNZIONI GENERICHE */
+// FUNZIONI GENERICHE
 function openShadowboxWin(modeOpt,winOpt){
 	//modeOpt={"mode":"html"};
 	//winOpt={"cnt":"BLA BLA","title":"window title","width":680,"height":190};
