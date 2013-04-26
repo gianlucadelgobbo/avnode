@@ -59,8 +59,8 @@ var _config = {
 
 			"list_fields":	{"display_name":1,"permalink":1,"files":1,"stats":1},
 			"orders":			[
-									"mostrecent",
-									"mostactive"
+									"mostactive",
+									"mostrecent"
 								],
 			"categories":		[
 									"all",
@@ -73,8 +73,8 @@ var _config = {
 				"crews":			{"is_crew":	1}
 			},
 			"sortQ":	{
-				"mostrecent":{"creation_date": 		-1},
-				"mostactive":{"activity":			-1}
+				"mostactive":{"activity":			-1},
+				"mostrecent":{"creation_date": 		-1}
 			},
 			"labels":	{
 				"mostrecent":"Most recent",

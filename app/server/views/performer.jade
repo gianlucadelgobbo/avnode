@@ -1,51 +1,10 @@
 - //console.dir(locals.result)
-.row.user_dett
-	.span9
-		.media
-			.pull-left
-				a(href=locals.result.permalink)
-					img.media-object(alt=__("Thumbnail of")+": "+locals.result.display_name, src=locals.Fnc.getFileFormat(locals.result.files, 240, 180))
-			.media-body
-				h1.media-heading=locals.result.display_name
-				.cnt
-					ul.user_dett_ul
-						- if (locals.result.websites)
-							- for(a=0;a<locals.result.websites.length;a++)
-								li
-									a(href=locals.result.websites[a].url,target="_blank")
-										i.icon-globe
-										!=locals.result.websites[a].url
-						li
-							i.icon-home
-							!=locals.Fnc.formatLoc(locals.result.locations)
-		.row
-			- for(a=0;a<locals.result.length;a++)
-				.span3
-					.row
-						.span1
-
-	.span3
-		- stats = "";
-		- for(item in locals.result.stats)
-			- if (locals.result.stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.result.stats[item]+"</li>"
-		- if (stats)
-			ul!=stats
-hr
-ul.nav.nav-tabs
-	li(class=!sez ? "active" : undefined)
-		a(href="#about",onclick="$('#about').show();")=__("About")
-	- for(item in locals.result.stats)
-		- if(_config.sections[item] && locals.result.stats[item])
-			li
-				a(href="/"+locals.result.permalink+"/"+_config.sections[item].basepath+"/")=_config.sections[item].title+" ["+locals.result.stats[item]+"]"
+include performer_inc_header
 - if (locals.result.text)
 	.page-header
 		h3=__("About")
-	!=locals.result.text[_config.lang]
-	.more.text-right.hide(style="margin-top:10px;padding-top:10px;border-top:1px solid #EEE;")
-		button.btn.btn-small=__("Read More")
-	.less.text-right.hide(style="margin-top:10px;padding-top:10px;border-top:1px solid #EEE;")
-		button.btn.btn-small=__("Read Less")
+	!=locals.Fnc.getTextFormat(locals.result.text, _config.lang, true)
+hr
 - var rows = 1;
 - blocks = [];
 - if (locals.result.performances 	&& locals.result.performances.length) 	blocks.push("performances")
@@ -70,20 +29,30 @@ ul.nav.nav-tabs
 					- console.log(blocks[b+(c*cols)])
 					- console.log(locals.result[sez][0].users)
 					h3=(blocks[b+(c*cols)] == "members" ? __("Members") : (blocks[b+(c*cols)] == "crews" ? __("Crews") : _config.sections[blocks[b+(c*cols)]].title))
-					- for(var a=0;a<_config.usersListItems;a++)
-						- if (locals.result[sez][a])
-							- var basepath = (blocks[b+(c*cols)] == "crews" || blocks[b+(c*cols)] == "members" ? "" : "/"+locals.result[sez][a].users[0].permalink+"/"+_config.sections[blocks[b+(c*cols)]].basepath)
-							.media
-								.pull-left
-									a(href=basepath+"/"+locals.result[sez][a].permalink+"/")
-										img.media-object(alt=__("Thumbnail of")+": "+locals.result[sez][a][tit], src=locals.Fnc.getFileFormat(locals.result[sez][a].files, 90, 68))
-								.media-body
-									h4.media-heading
-										a(href=basepath+"/"+locals.result[sez][a].permalink+"/")=locals.result[sez][a][tit]
-									- var str = "";
-									- for(item in locals.result[sez][a].stats)
-										- if (locals.result[sez][a].stats[item] || item == "performances") str+="<li>"+__(item)+": "+locals.result[sez][a].stats[item]+"</li>"
-									- if (str)
-										ul!=str
-					- if (locals.result[sez].length>_config.usersListItems)
-						.pull-right=__("Show all")
+					.main-list
+						- locals.sez = sez
+						- for(var a=0;a<_config.usersListItems;a++)
+							- if (locals.result[sez][a])
+								- var box = locals.result[sez][a]
+								- if (locals.sez == "performances")
+									include comp/box_performances
+								- if (locals.sez == "performers")
+									include comp/box_performers
+								- if (locals.sez == "footage")
+									include comp/box_footage
+								- if (locals.sez == "playlists")
+									include comp/box_playlists
+								- if (locals.sez == "tvshows")
+									include comp/box_tvshows
+								- if (locals.sez == "events")
+									include comp/box_events
+								- if (locals.sez == "gallery")
+									include comp/box_gallery
+								- if (locals.sez == "crews")
+									include comp/box_performers
+						- if (locals.result[sez].length>_config.usersListItems)
+							.pull-right
+								- console.log(locals.sez)
+								a.btn(href="/"+locals.result.permalink+"/"+_config.sections[blocks[b+(c*cols)]].basepath+"/")
+									!=__("Show all")+" "
+									i.icon-globe

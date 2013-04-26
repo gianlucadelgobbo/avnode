@@ -1,4 +1,4 @@
-- //console.dir(locals.dett)
+- //console.dirlocals.dett
 .user_dett
 	.row
 		.span9
@@ -31,8 +31,14 @@
 						- for(item in locals.dett.stats)
 							- if (locals.dett.stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.dett.stats[item]+"</li>"
 						- if (stats)
-							ul!=stats
-				hr
+							ul.nav.nav-list!=stats
+						- categories = "";
+						- for(item in locals.dett.categories)
+							- console.dir(locals.dett.categories[item].ancestors)
+							- if (locals.dett.categories[item] && locals.dett.categories[item].ancestors && locals.dett.categories[item].ancestors[0].permalink=="lv-projects-categories") categories+="<li><a href=\"/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item].permalink+"/\">"+locals.dett.categories[item].name+"</a></li>"
+						- if (categories)
+							ul.nav.nav-list!=categories
+							hr
 			ul.nav.nav-tabs
 				li(class=sez=="events" ? "active" : undefined)
 					a(href="#about",data-toggle="tab")=__("About")

@@ -25,14 +25,14 @@ hr
 				i.icon-home
 				!=locals.Fnc.formatLoc(locals.result.locations)
 	hr
-	ul.nav.nav-pills.nav-stacked
-		li(class=!sez ? "active" : undefined)
-			a(href="/"+locals.result.permalink+"/")
-				i.icon-globe
-				!=" "+__("About")
-		- for(item in locals.result.stats)
-			- if(_config.sections[item] && locals.result.stats[item])
-				li(class=locals.sez==item ? "active" : undefined)
-					a(href="/"+locals.result.permalink+"/"+_config.sections[item].basepath+"/")
-						i.icon-globe
-						!=" "+_config.sections[item].title+" ["+locals.result.stats[item]+"]"
+ul.nav.nav-pills.nav-stacked
+	li(class=!sez ? "active" : undefined)
+		a(href="/"+locals.result.permalink+"/")
+			i.icon-globe
+			!=" "+__("About")
+	- for(item in locals.result.stats)
+		- if(_config.sections[item] && locals.result.stats[item])
+			li(class=locals.sez==item ? "active" : undefined)
+				a(href="/"+locals.result.permalink+"/"+_config.sections[item].basepath+"/")
+					i.icon-globe
+					!=" "+_config.sections[item].title+" ["+locals.result.stats[item]+"]"

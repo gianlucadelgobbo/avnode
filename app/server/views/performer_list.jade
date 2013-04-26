@@ -1,26 +1,23 @@
 - //console.dir(locals.result)
-.row.user_dett
-	.span9
-		h1=locals.title
-		-if (locals.result[locals.sez] && locals.result[locals.sez].length)
-			.row
-				- for(var a=0;a<locals.result[locals.sez].length;a++)
-					.span3
-						- var basepath = (locals.sez == "crews" || locals.sez == "members" ? "" : "/"+locals.result[locals.sez][a].users[0].permalink+"/"+_config.sections[locals.sez].basepath)
-						- var tit = (locals.sez == "crews" || locals.sez == "members" ? "display_name" : "title")
-						.media
-							.pull-left
-								a(href=basepath+"/"+locals.result[sez][a].permalink+"/")
-									img.media-object(alt=__("Thumbnail of")+": "+locals.result[sez][a][tit], src=locals.Fnc.getFileFormat(locals.result[sez][a].files, 90, 68))
-							.media-body
-								h4.media-heading
-									a(href=basepath+"/"+locals.result[sez][a].permalink+"/")=locals.result[sez][a][tit]
-								- var str = "";
-								- for(item in locals.result[sez][a].stats)
-									- if (locals.result[sez][a].stats[item] || item == "performances") str+="<li>"+__(item)+": "+locals.result[sez][a].stats[item]+"</li>"
-								- if (str)
-									ul!=str
-		- else
-			.alert=__("The user have no content available")
-	.span3
-		include performer_inc_vert
+include performer_inc_header_mini
+h1=locals.title
+-if (locals.result[locals.sez] && locals.result[locals.sez].length)
+	.row.main-list
+		- for(var a=0;a<locals.result[locals.sez].length;a++)
+			- var box = locals.result[locals.sez][a]
+			- if (locals.sez == "performances")
+				include comp/box_performances
+			- if (locals.sez == "performers")
+				include comp/box_performers
+			- if (locals.sez == "footage")
+				include comp/box_footage
+			- if (locals.sez == "playlists")
+				include comp/box_playlists
+			- if (locals.sez == "tvshows")
+				include comp/box_tvshows
+			- if (locals.sez == "events")
+				include comp/box_events
+			- if (locals.sez == "gallery")
+				include comp/box_gallery
+- else
+	.alert=__("The user have no content available")

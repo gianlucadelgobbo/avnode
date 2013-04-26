@@ -9,7 +9,7 @@
 						img.media-object(alt=__("Thumbnail of")+": "+locals.dett.display_name, src=locals.Fnc.getFileFormat(locals.dett.files, 400, 300))
 				.media-body
 					.cnt
-						ul
+						ul.nav.nav-list
 							li=__("Visits")+": "+locals.dett.stats.visits
 							li
 								a.btn.btn-primary.btn-mini
@@ -19,9 +19,11 @@
 								code=locals.dett.stats.rates.tot_rate
 						- categories = "";
 						- for(item in locals.dett.categories)
-							- if (locals.dett.categories[item]) categories+="<li>"+__(item)+": "+locals.dett.categories[item].name+(locals.dett.categories[item].ancestors ? " - "+locals.dett.categories[item].ancestors[0].name : "")+"</li>"
+							- console.dir(locals.dett.categories[item].ancestors)
+							- if (locals.dett.categories[item] && locals.dett.categories[item].ancestors && locals.dett.categories[item].ancestors[0].permalink=="type") categories+="<li><a href=\"/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item].permalink+"/\">"+locals.dett.categories[item].name+"</a></li>"
 						- if (categories)
-							ul!=categories
+							ul.nav.nav-list!=categories
+							hr
 						ul
 							li
 								a.btn

@@ -8,7 +8,7 @@ var fs = require('fs');
 var mkdirp = require('mkdirp');
 var ObjectID = require('mongodb').ObjectID;
 
-exports.getList = function getList(params, sez, res, ids, callback) {
+exports.getList = function (params, sez, res, ids, callback) {
 	var conf = exports.getConf(params, sez, res);
 	var searchQ = _config.sections[sez].searchQ[conf.filter];
 	//ids = ["515c07ccdad037523c000903"];
@@ -33,7 +33,7 @@ exports.getList = function getList(params, sez, res, ids, callback) {
 		});
 	});
 }
-exports.formatLoc = function formatLoc(locations) {
+exports.formatLoc = function (locations) {
 	var str = "";
 	var tmp = {};
 	for(var a=0;a<locations.length;a++) {
@@ -52,7 +52,7 @@ exports.formatLoc = function formatLoc(locations) {
 	return str;
 }
 
-exports.parseParams = function parseParams(params) {
+exports.parseParams = function (params) {
 	var p = params.split("page-");
 	var page = parseInt(p[1]);
 	var params2 = p[0].split("/");
@@ -61,7 +61,7 @@ exports.parseParams = function parseParams(params) {
 	return {page:page,params2:params2}
 }
 
-exports.getConf = function getConf(params, sez, res) {
+exports.getConf = function (params, sez, res) {
 	var p = exports.parseParams(params);
 	var page = p.page;
 	var params2 = p.params2;
@@ -94,9 +94,11 @@ exports.getConf = function getConf(params, sez, res) {
 
 exports.getTextFormat = function (text, lang, defaultlang) {
 	str = (text[lang] ? text[lang] : (defaultlang ? (text[_config.defaultLocale] ? text[_config.defaultLocale] : text[0]) : ""));
-	str = str.replace(new RegExp("###b###","gm"), "<b>");
-	str = str.replace(new RegExp("###/b###","gm"), "</b>");
-	str = str.replace(new RegExp("\n","gm"), "<br />");
+	if (str) {
+		str = str.replace(new RegExp("###b###","gm"), "<b>");
+		str = str.replace(new RegExp("###/b###","gm"), "</b>");
+		str = str.replace(new RegExp("\n","gm"), "<br />");
+	}
 	return str;
 }
 
@@ -151,7 +153,7 @@ exports.in_array = function (needle, haystack) {
 	}
 	return false;
 }
-exports.validateFormLogin = function validateFormLogin(o,callback) {
+exports.validateFormLogin = function (o,callback) {
 	var e = [];
 	DB.users.findOne({login:o.login}, function(err, result) {
 		if (result == null){
