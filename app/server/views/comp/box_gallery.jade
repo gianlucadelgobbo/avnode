@@ -1,0 +1,14 @@
+.span3
+	.media
+		.pull-left
+			a(href="/"+box.users[0].permalink+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")
+				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=locals.Fnc.getFileFormat(box.files, 90, 68))
+		.media-body
+			h4.media-heading
+				a(href="/"+box.users[0].permalink+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")=box.title
+			ul.stats
+				li=__("Visits")+": "+box.stats.visits
+			ul.stats
+				- for(item in box.stats)
+					- if (item!="visits")
+						li=__(item)+": "+box.stats[item]

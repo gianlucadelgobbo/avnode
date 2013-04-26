@@ -1,0 +1,14 @@
+.span3
+	.media
+		.pull-left
+			a(href="/"+box.permalink+"/")
+				img.media-object(alt=__("Thumbnail of")+": "+box.display_name, src=locals.Fnc.getFileFormat(box.files, 90, 68))
+		.media-body
+			h4.media-heading
+				a(href="/"+box.permalink+"/")=box.display_name
+			- stats = "";
+			- if (!box.stats.performances) box.stats.performances = 0;
+			- for(item in box.stats)
+				- if (box.stats[item] || item == "performances") stats+="<li>"+__(item)+": "+box.stats[item]+"</li>"
+			- if (stats)
+				ul.stats!=stats
