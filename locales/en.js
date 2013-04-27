@@ -377,5 +377,12 @@
 	"Invite to event": "Invite to event",
 	"Rates": "Rates",
 	"Likes": "Likes",
-	"Like": "Like"
+	"Like": "Like",
+	"Type": "Type",
+	"Technique": "Technique",
+	"Genre": "Genre",
+	"a project of AVnode.org": "a project of AVnode.org",
+	"Write to AVnode.net": "Write to AVnode.net",
+	"Guidelines": "Guidelines",
+	"AVnode.org": "AVnode.org"
 }

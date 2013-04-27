@@ -4,17 +4,6 @@ a:hover img {
 .user_dett {
   margin-top: 50px;
 }
-.user_dett_ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.user_dett_ul i {
-  margin-right: 5px;
-}
-.user_dett_ul li {
-  margin-bottom: 5px;
-}
 .navbar .brand {
   margin: 0;
 }
@@ -30,13 +19,13 @@ a:hover img {
 .stats li {
   line-height: 10px;
 }
-.main-list .span3 {
+.main-list .media {
   border-bottom: 1px solid #eee;
   height: 105px;
   margin-bottom: 20px;
   padding-bottom: 10px;
 }
-.main-list .span3 h4 {
+.main-list .media h4 {
   height: 43px;
   overflow: hidden;
 }
@@ -53,4 +42,40 @@ a:hover img {
 .navbar-inner {
   padding-left: 5px;
   padding-right: 5px;
+}
+.navbar .nav > li > a {
+  padding: 10px 10px;
+}
+.user_dett_ul {
+  padding-left: 0;
+  padding-right: 0;
+}
+.user_dett_ul > li > a.btn {
+  display: inline;
+  padding: 3px 5px;
+}
+.user_dett_ul > li > a {
+  display: inline;
+  padding: 0;
+}
+.user_dett_ul > li > a {
+  margin-left: 0;
+  margin-right: 0;
+}
+.user_dett_ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.user_dett_ul i {
+  margin-right: 5px;
+}
+.user_dett_ul li {
+  margin-bottom: 5px;
+}
+.nav-pills > li > span {
+  display: block;
+  line-height: 14px;
+  margin: 2px 2px 0 0;
+  padding: 8px 12px 8px 0;
 }

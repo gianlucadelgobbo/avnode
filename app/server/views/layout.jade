@@ -2,7 +2,7 @@
 html(lang=_config.lang)
 	head
 		title=(locals.title ? locals.title+" | FLxER" : "FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
-		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		//meta(name="viewport", content="width=device-width, initial-scale=1.0")
 		meta(name="author", content="FLYER COMMUNICATION, Gianluca Del Gobbo, Flavio Distefano")
 		meta(name="robots", content="all")
 		meta(name="keywords", content=__("meta-keywords"))
@@ -53,10 +53,10 @@ html(lang=_config.lang)
 									li(href="/controlpanel/?edit=performances&amp;perfid=0")=__(_config.lang)
 				header
 					.row
-						h2.span3
+						h2.span4
 							a(href="/", title="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
-								img(src="/img/logoFLxER.gif", alt="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
-						.span9=locals.bannerTop
+								img(src="/img/logo.gif", alt="AV node - PERFORMING VIDEO NETWORK")
+						.span8=locals.bannerTop
 					
 			nav.navbar.navbar-inverse#menu(class=(typeof(userpage) !== 'undefined' && userpage ? "navbar-fixed-top" : undefined))
 				//.navbar-fixed-top
@@ -100,58 +100,26 @@ html(lang=_config.lang)
 			!= body
 			//<? include_once($this->initObj['site_path']."_php/modelli/".$this->modello); ?>
 			hr
-			.row
-				.span1
-					img(alt="FLxER.NET", src="/img/logo_piede.gif")
-				.span11
-					.pull-left
-						strong="FLxER.net"
-						!=" | "+__("un progetto di Flyer communication")
-						br
-						a(title=__("Scrivi a FLxER.net"), href="mailto:info@flxer.net")="info@flxer.net"
-						!=" // P.IVA: 06589171005"
+			.media
+				.pull-left
+					img(alt="AVnode.net", src="/img/logo_piede.gif")
+				.media-body
+					h4.media-heading="AVnode.net"
+						small=" | "+__("a project of AVnode.org")
 					- d = new Date()
-					.pull-right(style="text-align:right;")="NO &copy; "+d.getFullYear()
-						br
-						a(href="/disclaimers/privacy/")=__("Privacy")
-						!=" // "
-						a(href="/disclaimers/terms/")=__("Termini e condizioni")
-						!=" // "
-						a(href="/disclaimers/guidelines/")=__("Linee guida")
-			nav.navbar.navbar-inverse
-				.navbar-inner
-					ul.nav
+					ul.nav.nav-pills
 						li
-							a(title=__("flyer"), target="_blank", href="http://www.flyer.it")
-								span.bulletSmall
-								!="FLYER"
+							span="NO &copy; "+d.getFullYear()
 						li
-							a(title=__("flyerwp"), target="_blank", href="http://wp.flyer.it")
-								span.bulletSmall
-								!="FLYER WP"
-						li.corpSel
-							span.bulletSmall
-							!="FLxER"
+							a(href="http://avnode.org")=__("AVnode.org")
 						li
-							a(title=__("vjtv"), target="_blank", href="http://www.vjtelevision.com/")
-								span.bulletSmall
-								!="VJ TELEVISION"
+							a(href="/disclaimers/about/")=__("About")
 						li
-							a(title="LPM Live Performers Meeting", target="_blank", href="http://www.liveperformersmeeting.net/")
-								span.bulletSmall
-								!="LPM"
+							a(href="/disclaimers/privacy/")=__("Privacy")
 						li
-							a(title=__("learning"), target="_blank", href="http://learning.flyer.it/")
-								span.bulletSmall
-								!="LEARNING"
+							a(href="/disclaimers/terms/")=__("Terms and conditions")
 						li
-							a(title=__("shockart"), target="_blank", href="http://shockart.net/")
-								span.bulletSmall
-								!="SHOCKART"
-						li
-							a(title=__("wam"), target="_blank", href="http://wam.flyer.it")
-								span.bulletSmall
-								!="WAM"
+							a(href="/disclaimers/guidelines/")=__("Guidelines")
 		script(type="text/javascript", src="/lib/bootstrap.min.js")
 		script(type="text/javascript", src="/lib/bootstrap-datepicker/bootstrap-datepicker.js")
 		script(type="text/javascript", src="/lib/bootstrap-timepicker/bootstrap-timepicker.min.js")

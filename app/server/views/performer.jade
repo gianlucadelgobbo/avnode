@@ -29,7 +29,7 @@ hr
 					- console.log(blocks[b+(c*cols)])
 					- console.log(locals.result[sez][0].users)
 					h3=(blocks[b+(c*cols)] == "members" ? __("Members") : (blocks[b+(c*cols)] == "crews" ? __("Crews") : _config.sections[blocks[b+(c*cols)]].title))
-					.main-list
+					.main-list.row
 						- locals.sez = sez
 						- for(var a=0;a<_config.usersListItems;a++)
 							- if (locals.result[sez][a])

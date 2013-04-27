@@ -1,150 +1,125 @@
 - //console.dirlocals.dett
 .user_dett
 	.row
-		.span9
+		.span4
+			img.media-object(alt=__("Thumbnail of")+": "+locals.dett.display_name, src=locals.Fnc.getFileFormat(locals.dett.files, 400, 300))
+			br
+			ul.nav.nav-list
+				- if (locals.dett.websites)
+					- for(a=0;a<locals.dett.websites.length;a++)
+						li
+							a(href=locals.dett.websites[a].url,target="_blank")
+								i.icon-globe
+								!=locals.dett.websites[a].url
+		.span8
 			h1=locals.dett.title
 			h3=locals.dett.subtitle[_config.lang]
-			.media
-				.pull-left
-					a(href=locals.dett.permalink)
-						img.media-object(alt=__("Thumbnail of")+": "+locals.dett.display_name, src=locals.Fnc.getFileFormat(locals.dett.files, 400, 300))
-				.media-body
-					.cnt
-						ul.nav.nav-list
-							- if (locals.dett.websites)
-								- for(a=0;a<locals.dett.websites.length;a++)
-									li
-										a(href=locals.dett.websites[a].url,target="_blank")
-											i.icon-globe
-											!=locals.dett.websites[a].url
+			.row
+				.span5
+					ul.nav.nav-list.user_dett_ul
+						- if (locals.dett.date_time_venue)
+							- for(a=0;a<locals.dett.date_time_venue.length;a++)
 								li.divider
-							- if (locals.dett.date_time_venue)
-								- for(a=0;a<locals.dett.date_time_venue.length;a++)
-									li
-										i.icon-time
-										!=locals.dett.date_time_venue[a].date+" | "+locals.dett.date_time_venue[a].start_time+" / "+locals.dett.date_time_venue[a].end_time+"<br />"
-									li
-										i.icon-home
-										!=locals.dett.date_time_venue[a].venue+" | "+locals.dett.date_time_venue[a].city+", "+locals.dett.date_time_venue[a].country
-									li.divider
-						- stats = "";
-						- for(item in locals.dett.stats)
-							- if (locals.dett.stats[item] || item == "performances") stats+="<li>"+__(item)+": "+locals.dett.stats[item]+"</li>"
-						- if (stats)
-							ul.nav.nav-list!=stats
-						- categories = "";
+								li
+									i.icon-time
+									!=locals.dett.date_time_venue[a].date+" | "+locals.dett.date_time_venue[a].start_time+" / "+locals.dett.date_time_venue[a].end_time+"<br />"
+								li
+									i.icon-home
+									!=locals.dett.date_time_venue[a].venue+" | "+locals.dett.date_time_venue[a].city+", "+locals.dett.date_time_venue[a].country
+				.span3
+					ul.nav.nav-list.user_dett_ul
+						li.divider
+						li.clearfix
+							span.pull-left=__("Visits")+": "+locals.dett.stats.visits
+							span.pull-right
+								button.btn.btn-primary.btn-mini
+									i.icon-globe.icon-white
+									!=" "+__("Like")
+								!=" "
+								code=locals.dett.stats.rates.tot_rate
+						li.divider
+						li=__("Author")+": "
+							a(href="/"+locals.result.permalink+"/")=locals.result.display_name
+						li.divider
 						- for(item in locals.dett.categories)
-							- console.dir(locals.dett.categories[item].ancestors)
-							- if (locals.dett.categories[item] && locals.dett.categories[item].ancestors && locals.dett.categories[item].ancestors[0].permalink=="lv-projects-categories") categories+="<li><a href=\"/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item].permalink+"/\">"+locals.dett.categories[item].name+"</a></li>"
-						- if (categories)
-							ul.nav.nav-list!=categories
-							hr
-			ul.nav.nav-tabs
-				li(class=sez=="events" ? "active" : undefined)
-					a(href="#about",data-toggle="tab")=__("About")
-				- if(locals.dett.performances)
-					li
-						a(href="#performances",data-toggle="tab")=_config.sections["performances"].title+" ["+locals.dett.performances.length+"]"
-				- if(locals.dett.partners)
-					li
-						a(href="#partners",data-toggle="tab")=__("Partners")+" ["+locals.dett.partners.length+"]"
-				- if(locals.dett.gallery)
-					li
-						a(href="#gallery",data-toggle="tab")=_config.sections["gallery"].title+" ["+locals.dett.gallery.length+"]"
-			.tab-content
-				- if (locals.dett.text)
-					#about.tab-pane.active
-						!=locals.Fnc.getTextFormat(locals.dett.text, _config.lang, true)
-				- if (locals.dett.performances)
-					#performances.tab-pane
-						- tree = {};
-						- for(item in locals.dett.performances) {
-						-	if (locals.dett.performances[item].event_data.day) {
-						-		if (!tree[locals.dett.performances[item].event_data.day]) tree[locals.dett.performances[item].event_data.day] = {};
-						-		if (locals.dett.performances[item].event_data.room) tree[locals.dett.performances[item].event_data.day][locals.dett.performances[item].event_data.room] = 1;
-						-	} else {
-						-		tree["To be sheduled"] = {};
-						-	}
-						- }
-						- for(day in tree) {
-						- 	var dayPerf = locals.dett.performances.filter( function (value, index, self) {
-						-		return value.event_data.day==day
-						- 	});
+							- if (locals.dett.categories[item] && locals.dett.categories[item].ancestors && locals.dett.categories[item].ancestors[0].permalink=="lv-projects-categories")
+								li
+									!=__("Type")+": "
+									a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item].permalink+"/")=locals.dett.categories[item].name
+hr
+ul.nav.nav-tabs
+	li(class=sez=="events" ? "active" : undefined)
+		a(href="#about",data-toggle="tab")=__("About")
+	- if(locals.dett.performances)
+		li
+			a(href="#performances",data-toggle="tab")=_config.sections["performances"].title+" ["+locals.dett.performances.length+"]"
+	- if(locals.dett.partners)
+		li
+			a(href="#partners",data-toggle="tab")=__("Partners")+" ["+locals.dett.partners.length+"]"
+	- if(locals.dett.gallery)
+		li
+			a(href="#gallery",data-toggle="tab")=_config.sections["gallery"].title+" ["+locals.dett.gallery.length+"]"
+.tab-content
+	- if (locals.dett.text)
+		#about.tab-pane.active
+			!=locals.Fnc.getTextFormat(locals.dett.text, _config.lang, true)
+	- if (locals.dett.performances)
+		#performances.tab-pane
+			- tree = {};
+			- for(item in locals.dett.performances) {
+			-	if (locals.dett.performances[item].event_data.day) {
+			-		if (!tree[locals.dett.performances[item].event_data.day]) tree[locals.dett.performances[item].event_data.day] = {};
+			-		if (locals.dett.performances[item].event_data.room) tree[locals.dett.performances[item].event_data.day][locals.dett.performances[item].event_data.room] = 1;
+			-	} else {
+			-		tree["To be sheduled"] = {};
+			-	}
+			- }
+			- for(day in tree) {
+			- 	var dayPerf = locals.dett.performances.filter( function (value, index, self) {
+			-		return value.event_data.day==day
+			- 	});
+				.page-header
+					h3=day
+				.row
+					- for(room in tree[day]) {
+					- 	var dayRoomPerf = dayPerf.filter( function (value, index, self) {
+					-		return value.event_data.room==room
+					- 	});
+						.span3
 							.page-header
-								h3=day
-							.row
-								- for(room in tree[day]) {
-								- 	var dayRoomPerf = dayPerf.filter( function (value, index, self) {
-								-		return value.event_data.room==room
-								- 	});
-									.span3
-										.page-header
-											h3=room
-										- for(item in dayRoomPerf)
-											div
-												- var basepath = "/"+dayRoomPerf[item].users[0].permalink+"/"+_config.sections["performances"].basepath
-												.media
-													.pull-left
-														a(href=basepath+"/"+dayRoomPerf[item].permalink+"/")
-															img.media-object(alt=__("Thumbnail of")+": "+dayRoomPerf[item].title, src=locals.Fnc.getFileFormat(dayRoomPerf[item].files, 90, 68))
-													.media-body
-														h4.media-heading
-															a(href=basepath+"/"+dayRoomPerf[item].permalink+"/")=dayRoomPerf[item].title
-														- var str = "";
-														- if (dayRoomPerf[item].stats) 
-															- for(stat in dayRoomPerf[item].stats)
-																- str+="<li>"+__(stat)+": "+dayRoomPerf[item].stats[stat]+"</li>"
-														- if (str)
-															ul!=str
-								- }
-						- }
-				- if (locals.dett.partners)
-					#partners.tab-pane
-						- tree = {};
-						- for(item in locals.dett.partners) {
-						-	if (locals.dett.partners[item].partner_type) {
-						-		if (!tree[locals.dett.partners[item].partner_type]) tree[locals.dett.partners[item].partner_type] = 1;
-						-	} else {
-						-		tree["To be sheduled"] = {};
-						-	}
-						- }
-						.row
-							- for(partner_type in tree) {
-							- 	var partnersType = locals.dett.partners.filter( function (value, index, self) {
-							-		return value.partner_type==partner_type
-							- 	});
-							.span3
-								.page-header
-									h3=partner_type
-									- for(partner in partnersType) {
-										- var basepath = "/"+partnersType[partner].permalink+"/"
-										.media
-											.pull-left
-												a(href=basepath)
-													img.media-object(alt=__("Thumbnail of")+": "+partnersType[partner].display_name, src=locals.Fnc.getFileFormat(partnersType[partner].files, 90, 68))
-											.media-body
-												h4.media-heading
-													a(href=basepath)=partnersType[partner].display_name
-										- }
-							- }
-				- if (locals.dett.gallery)
-					#gallery.tab-pane
-						.row
-							- for(item in locals.dett.gallery)
-								.span3
-									- var basepath = "/"+locals.dett.gallery[item].users[0].permalink+"/"+_config.sections["gallery"].basepath
-									.media
-										.pull-left
-											a(href=basepath+"/"+locals.dett.gallery[item].permalink+"/")
-												img.media-object(alt=__("Thumbnail of")+": "+locals.dett.gallery[item].title, src=locals.Fnc.getFileFormat(locals.dett.gallery[item].files, 90, 68))
-										.media-body
-											h4.media-heading
-												a(href=basepath+"/"+locals.dett.gallery[item].permalink+"/")=locals.dett.gallery[item].title
-											- var str = "";
-											- if (locals.dett.gallery[item].stats) 
-												- for(stat in locals.dett.gallery[item].stats)
-													- str+="<li>"+__(stat)+": "+locals.dett.gallery[item].stats[stat]+"</li>"
-											- if (str)
-												ul!=str
-		.span3
-			include performer_inc_vert
+								h3=room
+							.row.main-list
+								- for(item in dayRoomPerf)
+									- var box = dayRoomPerf[item]
+									include comp/box_performances
+					- }
+			- }
+	- if (locals.dett.partners)
+		#partners.tab-pane
+			- tree = {};
+			- for(item in locals.dett.partners) {
+			-	if (locals.dett.partners[item].partner_type) {
+			-		if (!tree[locals.dett.partners[item].partner_type]) tree[locals.dett.partners[item].partner_type] = 1;
+			-	} else {
+			-		tree["To be sheduled"] = {};
+			-	}
+			- }
+			.row
+				- for(partner_type in tree) {
+				- 	var partnersType = locals.dett.partners.filter( function (value, index, self) {
+				-		return value.partner_type==partner_type
+				- 	});
+				.span3
+					.page-header
+						h3=partner_type
+					.row.main-list
+						- for(partner in partnersType)
+							- var box = partnersType[partner]
+							include comp/box_performers
+				- }
+	- if (locals.dett.gallery)
+		#gallery.tab-pane
+			.row.main-list
+				- for(item in locals.dett.gallery)
+					- var box = locals.dett.gallery[item]
+					include comp/box_gallery

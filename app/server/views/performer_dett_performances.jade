@@ -5,39 +5,45 @@
 			h1=locals.dett.title
 			.media
 				.pull-left
-					a(href=locals.dett.permalink)
-						img.media-object(alt=__("Thumbnail of")+": "+locals.dett.display_name, src=locals.Fnc.getFileFormat(locals.dett.files, 400, 300))
+					img.media-object(alt=__("Thumbnail of")+": "+locals.dett.display_name, src=locals.Fnc.getFileFormat(locals.dett.files, 400, 300))
 				.media-body
-					.cnt
-						ul.nav.nav-list
-							li=__("Visits")+": "+locals.dett.stats.visits
-							li
-								a.btn.btn-primary.btn-mini
+					ul.nav.nav-list.user_dett_ul
+						li.divider
+						li.clearfix
+							span.pull-left=__("Visits")+": "+locals.dett.stats.visits
+							span.pull-right
+								button.btn.btn-primary.btn-mini
 									i.icon-globe.icon-white
 									!=" "+__("Like")
 								!=" "
 								code=locals.dett.stats.rates.tot_rate
-						- categories = "";
-						- for(item in locals.dett.categories)
-							- console.dir(locals.dett.categories[item].ancestors)
-							- if (locals.dett.categories[item] && locals.dett.categories[item].ancestors && locals.dett.categories[item].ancestors[0].permalink=="type") categories+="<li><a href=\"/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item].permalink+"/\">"+locals.dett.categories[item].name+"</a></li>"
-						- if (categories)
-							ul.nav.nav-list!=categories
-							hr
-						ul
-							li
-								a.btn
-									i.icon-globe
-									!=" "+__("Download PDF")
-								!=" "
-							li
-								a.btn.btn-primary
-									i.icon-globe.icon-white
-									!=" "+__("Share")
-							li
-								a.btn.btn-primary
-									i.icon-globe.icon-white
-									!=" "+__("Invite to event")
+						li.divider
+							- for(item in locals.dett.categories)
+								- console.dir(locals.dett.categories[item])
+								- if (locals.dett.categories[item] && locals.dett.categories[item].ancestors && locals.dett.categories[item].ancestors[0].permalink=="type")
+									li=__("Type")+": "
+										a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item].permalink+"/")=locals.dett.categories[item].name
+										- for(item2 in locals.dett.categories)
+											- if (locals.dett.categories[item2] && locals.dett.categories[item2].ancestors && locals.dett.categories[item].permalink!=locals.dett.categories[item2].permalink && locals.dett.categories[item2].ancestors[0].permalink.indexOf(locals.dett.categories[item].permalink)!=-1 && locals.dett.categories[item2].ancestors[0].permalink.indexOf("technique")!=-1)
+												li=__("Technique")+": "
+													a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item2].permalink+"/")=locals.dett.categories[item2].name
+													- for(item3 in locals.dett.categories)
+														- if (locals.dett.categories[item3] && locals.dett.categories[item3].ancestors && locals.dett.categories[item].permalink!=locals.dett.categories[item3].permalink && locals.dett.categories[item3].ancestors[0].permalink.indexOf("genere")!=-1)
+															li=__("Genre")+": "
+																a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item3].permalink+"/")=locals.dett.categories[item3].name
+						li
+							button.btn
+								i.icon-globe
+								!=" "+__("Download PDF")
+							!=" "
+						li
+							button.btn.btn-primary
+								i.icon-globe.icon-white
+								!=" "+__("Share")
+						li
+							button.btn.btn-primary
+								i.icon-globe.icon-white
+								!=" "+__("Invite to event")
 					hr
 			ul.nav.nav-tabs
 				li(class=sez=="performances" ? "active" : undefined)
