@@ -98,28 +98,32 @@ html(lang=_config.lang)
 								li
 									a(href="/controlpanel/?edit=forum&amp;forumid=0")=__("Nuova discussione")
 			!= body
-			//<? include_once($this->initObj['site_path']."_php/modelli/".$this->modello); ?>
 			hr
-			.media
-				.pull-left
-					img(alt="AVnode.net", src="/img/logo_piede.gif")
-				.media-body
-					h4.media-heading="AVnode.net"
-						small=" | "+__("a project of AVnode.org")
-					- d = new Date()
-					ul.nav.nav-pills
-						li
-							span="NO &copy; "+d.getFullYear()
-						li
-							a(href="http://avnode.org")=__("AVnode.org")
-						li
-							a(href="/disclaimers/about/")=__("About")
-						li
-							a(href="/disclaimers/privacy/")=__("Privacy")
-						li
-							a(href="/disclaimers/terms/")=__("Terms and conditions")
-						li
-							a(href="/disclaimers/guidelines/")=__("Guidelines")
+			.row
+				.span11
+					.media
+						.pull-left
+							img(alt="AVnode.net", src="/img/logo_piede.gif")
+						.media-body
+							h4.media-heading="AVnode.net"
+								small=" | "+__("a project of AVnode.org")
+							- d = new Date()
+							ul.nav.nav-pills
+								li
+									span="NO &copy; "+d.getFullYear()
+								li
+									a(href="http://avnode.org")=__("AVnode.org")
+								li
+									a(href="/disclaimers/about/")=__("About")
+								li
+									a(href="/disclaimers/privacy/")=__("Privacy")
+								li
+									a(href="/disclaimers/terms/")=__("Terms and conditions")
+								li
+									a(href="/disclaimers/guidelines/")=__("Guidelines")
+				.span1
+					a(href="http://www.flyer.it", target="_blank", data-toggle="tooltip", title="tooltip")=__("AVnode.org")
+						img(alt="Flyer.it", src="/img/logo_flyer.gif")
 		script(type="text/javascript", src="/lib/bootstrap.min.js")
 		script(type="text/javascript", src="/lib/bootstrap-datepicker/bootstrap-datepicker.js")
 		script(type="text/javascript", src="/lib/bootstrap-timepicker/bootstrap-timepicker.min.js")
