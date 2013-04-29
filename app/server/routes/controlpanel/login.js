@@ -9,21 +9,22 @@ exports.get = function get(req, res) {
 }
 exports.post = function post(req, res) {
 	functions.validateFormLogin(req.body, function(e, o) {
-		if (e) {
+		if (e.length) {
 			if (req.body.ajax) {
 				res.send({msg:{e:e}}, 200);
 			} else {
-				o._id = o.id;
-				res.render('forms/login', { locals: { title: __('Hello - Please Login To Your Account'), result : o, msg:{e:e}, from:req.body.from}, user : req.session.user});
+				//o._id = o.id;
+				res.render('forms/login', { locals: { title: __('Hello - Please Login To Your Account'), msg:{e:e}, from:req.body.from}, user : req.session.user});
 			}
 		} else {
 			req.session.user = o;
-			if (req.param('remember-me') == 'true'){
+			if (req.body.remember == 'true'){
+				console.log("cazzo");
 				res.cookie('user', o.user, { maxAge: 900000 });
 				res.cookie('pass', o.pass, { maxAge: 900000 });
 				res.cookie('role', o.role, { maxAge: 900000 });
 			}
-			if (req.param('ajax') == 'true') {
+			if (req.body.ajax) {
 				res.send(o, 200);
 			} else {
 				var redirect = req.body.from ? req.body.from : '/';

@@ -1,8 +1,9 @@
 - if (typeof(username) === 'undefined') span = "3"
+- if (typeof(boxpath) === 'undefined') boxpath = box.users[0].permalink
 div(class="span"+span)
 	.media
 		.pull-left
-			a(href="/"+box.users[0].permalink+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")
+			a(href="/"+boxpath+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")
 				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=locals.Fnc.getFileFormat(box.files, 90, 68))
 			br
 			ul.stats
@@ -10,7 +11,7 @@ div(class="span"+span)
 				li=__("Likes")+": "+box.stats.rates.tot_rate
 		.media-body
 			h4.media-heading
-				a(href="/"+box.users[0].permalink+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")=box.title
+				a(href="/"+boxpath+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")=box.title
 			- performers = "";
 			- for(item in box.users)
 				- if (box.users[item]) performers+="<li><a href=\"/"+box.users[item].permalink+"/\">"+box.users[item].display_name+"</a></li>"

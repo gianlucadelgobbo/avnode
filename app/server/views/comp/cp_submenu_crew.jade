@@ -1,0 +1,7 @@
+ul.nav.nav-pills
+	li(class=(locals.subsez=="public" ? "active" : undefined))
+		a(href="/controlpanel/crews/"+locals.result.permalink+"/")=__("Public data")
+	li(class=(locals.subsez=="mainimage" ? "active" : undefined))
+		a(href="/controlpanel/crews/"+locals.result.permalink+"/mainimage/")=__("Main image")
+	li(class=(locals.subsez=="members" ? "active" : undefined))
+		a(href="/controlpanel/crews/"+locals.result.permalink+"/members/")=__("Members")

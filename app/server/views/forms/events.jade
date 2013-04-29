@@ -1,32 +1,12 @@
 .tabbable.tabs-left
-	include ../comp/menu_cp
+	include ../comp/cp_menu
 	.tab-content
 		.tab-pane.active
-			legend=__("Events")
-			.row
+			legend.clearfix
+				.pull-left=locals.title
+				button.btn.btn-primary.pull-right(type="button",onclick="$('#playerPreview').hide();$('#file-uploader').show();return false")=__("Create a new event")
+			.row.main-list
 				- for(a=0;a<locals.result.length;a++)
-					.span3
-						.media
-							.pull-left
-								a(href="/"+_config.cp_basepath+"/"+_config.sections[locals.sez].basepath+"/"+locals.result[a].permalink+"/")
-									- if (locals.result[a].files && locals.result[a].files.length)
-										img.media-object(alt="FLxER.NET", src=locals.Fnc.getFileFormat(locals.result[a].files[0].preview,'90x68'))
-							.media-body
-								h4.media-heading
-									a(href="/"+_config.cp_basepath+"/"+_config.sections[locals.sez].basepath+"/"+locals.result[a].permalink+"/")=locals.result[a].title
-								- performers = "";
-								- for(item in locals.result[a].users)
-									- if (locals.result[a].users[item]) performers+="<li>"+locals.result[a].users[item].display_name+"</li>"
-								- if (performers)
-									ul!=performers
-								- categories = "";
-								- for(item in locals.result[a].categories)
-									- if (locals.result[a].categories[item]) categories+="<li>"+locals.result[a].categories[item].name+"</li>"
-								- if (categories)
-									ul!=categories
-								ul
-									li=__("Visits")+": "+locals.result[a].stats.visits
-									li=__("Downloads")+": "+locals.result[a].stats.visits
-									li=__("Rate")+": "+locals.result[a].stats.rates.tot_rate
-				
-include ../modals/search_map
+					- var box = locals.result[a]
+					- var boxpath = "controlpanel"
+					include ../comp/box_events

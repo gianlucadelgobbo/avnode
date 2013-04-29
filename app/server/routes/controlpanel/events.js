@@ -52,31 +52,6 @@ exports.get = function get(req, res) {
 					res.render('forms/event_settings', {locals: {title:result.title+": "+__("Settings"), countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
 				}
 			});
-			/*
-			DB.events.findOne({_id:new ObjectID(id)}, function(err, result){
-				if (req.params[0]=="/mainimage" || req.params[0]=="/mainimage/") {
-					var sez = "mainimage";
-					var msg = [];
-					res.render('forms/event_mainimage', {locals: {title:__("My Account")+": "+__("Main image"), sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
-				} else if (req.params[0]=="/password" || req.params[0]=="/password/") {
-					var sez = "password";
-					var msg = [];
-					res.render('forms/event_password', {locals: {title:__("My Account")+": "+__("Change password"), sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
-				} else if (req.params[0]=="/emails" || req.params[0]=="/emails/") {
-					var sez = "emails";
-					var msg = [];
-					res.render('forms/event_emails', {locals: {title:__("My Account")+": "+__("Emails"), countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
-				} else if (req.params[0]=="/private" || req.params[0]=="/private/") {
-					var sez = "private";
-					var msg = [];
-					res.render('forms/event_private', {locals: {title:__("My Account")+": "+__("Private data"), countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
-				} else if (req.params[0]=="/connections" || req.params[0]=="/connections/") {
-					var sez = "connections";
-					var msg = [];
-					res.render('forms/event_connections', {locals: {title:__("My Account")+": "+__("Connections"), countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
-				}
-			});
-			*/
 		}
 	}
 };

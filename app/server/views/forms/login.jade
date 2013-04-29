@@ -19,7 +19,7 @@ form(name="formLogin", method="post", action="#")
 				br
 				input(name="password", type="password", placeholder=__("Password")).input-large
 				label.checkbox=__("Remember_me")
-					input(name="remember-me",type="checkbox", value="true",checked="checked")
+					input(name="remember",type="checkbox", value="true",checked="checked")
 					input(name="from",type="hidden", value=locals.from).input-large
 				button(type="submit").btn.btn-primary=__("Enter")
 			hr.clearfix

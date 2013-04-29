@@ -1,6 +1,9 @@
 a:hover img {
   opacity: 0.6;
 }
+.logo {
+  height: 75px;
+}
 .user_dett {
   margin-top: 50px;
 }

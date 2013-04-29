@@ -1,0 +1,15 @@
+.tabbable.tabs-left
+	include ../comp/cp_menu
+	.tab-content
+		.tab-pane.active
+			include ../comp/cp_submenu_crew
+			form.form-horizontal(method="post", action="#")
+				fieldset
+					legend.clearfix
+						.pull-left=locals.title
+						button.btn.btn-primary.pull-right(type="button",onclick="$('#playerPreview').hide();$('#file-uploader').show();return false")=__("Create a new crew")
+					.row.main-list
+						- for(a=0;a<locals.result.length;a++)
+							- var box = locals.result[a]
+							- var path = "controlpanel/crews"
+							include ../comp/box_performers
