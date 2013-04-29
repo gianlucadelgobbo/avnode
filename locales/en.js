@@ -384,5 +384,7 @@
 	"a project of AVnode.org": "a project of AVnode.org",
 	"Write to AVnode.net": "Write to AVnode.net",
 	"Guidelines": "Guidelines",
-	"AVnode.org": "AVnode.org"
+	"AVnode.org": "AVnode.org",
+	"This website is developed with NodeJS and MongoDB from Flyer communication": "This website is developed with NodeJS and MongoDB from Flyer communication",
+	"TV Programming": "TV Programming"
 }

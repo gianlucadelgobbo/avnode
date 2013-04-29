@@ -13,6 +13,7 @@ var _config = {
 	"uploadtmp":		"/tmp",
 	"cp_basepath":		"controlpanel",
 	"usersListItems":	6,
+	"googleAnalytics":	"UA-8844617-6",
 	"emaildispatcher":	{
 		"nameFrom":		"AV node",
 		"emailFrom":	"g.delgobbo@flyer.it",
@@ -396,8 +397,7 @@ var _config = {
 			"write": false,
 			"read" : true
 		}
-	},
-	"googleAnalytics": "UA-8844617-15"
+	}
 }
 if (typeof exports !== "undefined") exports._config = _config;
 //if (GLOBAL) GLOBAL._config = _config;

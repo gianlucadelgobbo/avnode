@@ -1,0 +1,63 @@
+- console.dir(locals.dett)
+.user_dett
+	.row
+		.span9
+			h1=locals.dett.title
+			#flxerPlayer
+				a(href=locals.dett.files[0].file,onclick="swfobject.embedSWF('/fp/flxerPlayer.swf?cnt="+_config.siteurl+"/"+locals.result.permalink+"/tvshows/"+locals.dett.permalink+"/?output=xml"+"', 'flxerPlayer', '700', '394', '9.0.0','/fp/expressInstall.swf');return false;")
+					img.media-object(alt=__("Thumbnail of")+": "+locals.dett.title, src=locals.Fnc.getFileFormat(locals.dett.files, 700, 394))
+			br
+			.row
+				.span7
+					ul.nav.nav-tabs
+						li(class=sez=="tvshows" ? "active" : undefined)
+							a(href="#about",data-toggle="tab")=__("About")
+						- if(locals.dett.palinsestodate && locals.dett.palinsestodate.length)
+							li
+								a(href="#palinsestodate",data-toggle="tab")=__("TV Programming")
+					.tab-content
+						#about.tab-pane.active
+							!=locals.Fnc.getTextFormat(locals.dett.text, _config.lang, true)
+						- if(locals.dett.palinsestodate && locals.dett.palinsestodate.length)
+							#palinsestodate.tab-pane
+								.row
+									- for(item in locals.dett.palinsestodate)
+										.span3
+											- var basepath = "/"
+											- //+locals.dett.palinsestodate[item].users[0].permalink+"/"+_config.sections["palinsestodate"].basepath
+											.media
+												.pull-left
+													a(href=basepath+"/"+locals.dett.palinsestodate[item].permalink+"/")
+														img.media-object(alt=__("Thumbnail of")+": "+locals.dett.palinsestodate[item].title, src=locals.Fnc.getFileFormat(locals.dett.palinsestodate[item].files, 90, 68))
+												.media-body
+													h4.media-heading
+														a(href=basepath+"/"+locals.dett.palinsestodate[item].permalink+"/")=locals.dett.palinsestodate[item].title
+													- var str = "";
+													- if (locals.dett.palinsestodate[item].stats) 
+														- for(stat in locals.dett.palinsestodate[item].stats)
+															- str+="<li>"+__(stat)+": "+locals.dett.palinsestodate[item].stats[stat]+"</li>"
+													- if (str)
+														ul!=str
+				.span2
+					ul.nav.nav-list.user_dett_ul
+						li.divider
+						li=__("Visits")+": "+locals.dett.stats.visits
+						li.divider
+							- for(item in locals.dett.categories)
+								- if (locals.dett.categories[item] && locals.dett.categories[item].ancestors && locals.dett.categories[item].ancestors[0].permalink=="tv")
+									li=__("Type")+": "
+										a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item].permalink+"/")=locals.dett.categories[item].name
+						li.divider
+						li
+							button.btn.btn-primary
+								i.icon-globe.icon-white
+								!=" "+__("Like")
+							!=" "
+							code=locals.dett.stats.rates.tot_rate
+						li
+							button.btn.btn-primary
+								i.icon-globe.icon-white
+								!=" "+__("Share")
+		.span3
+			h3=__("Author")
+			include performer_inc_vert

@@ -2,7 +2,7 @@
 .user_dett
 	.row
 		.span4
-			img.media-object(alt=__("Thumbnail of")+": "+locals.dett.display_name, src=locals.Fnc.getFileFormat(locals.dett.files, 400, 300))
+			img.media-object(alt=__("Thumbnail of")+": "+locals.dett.title, src=locals.Fnc.getFileFormat(locals.dett.files, 400, 300))
 			br
 			ul.nav.nav-list
 				- if (locals.dett.websites)

@@ -23,12 +23,12 @@ exports.getList = function (params, sez, res, ids, callback) {
 	//if (ids) searchQ["users._id"] = {$in:ids};
 	//searchQ = {"users._id": {$in: [new ObjectID("515c07ccdad037523c000903")]}};
 	//searchQ = {"users._id": new ObjectID("50f836b77ad42b00000003ad")};
-	console.dir(searchQ);
-	console.dir(_config.sections[sez].coll);
+	//console.dir(searchQ);
+	//console.dir(_config.sections[sez].coll);
 	DB[_config.sections[sez].coll].find(searchQ, {"_id": 1 }).count(function(err, tot){
-		console.dir(tot);
+		//console.dir(tot);
 		DB[_config.sections[sez].coll].find(searchQ, _config.sections[sez].list_fields, {skip:conf.skip, limit:_config.sections[sez].limit}).sort(_config.sections[sez].sortQ[conf.sort]).toArray(function(err, records){
-			console.dir(records);
+			//console.dir(records);
 			callback(err, tot, records, conf);
 		});
 	});
@@ -40,7 +40,7 @@ exports.formatLoc = function (locations) {
 		if (!tmp[locations[a].country]) tmp[locations[a].country] = {};
 		tmp[locations[a].country][locations[a].city]=1; 
 	}
-	console.log(tmp);
+	//console.log(tmp);
 	for(country in tmp) {
 		str+="<b>"+country+"</b> (";
 		for(city in tmp[country]) {
@@ -86,7 +86,7 @@ exports.getConf = function (params, sez, res) {
 	} else {
 		var sort = _config.sections[sez].orders[0];
 	}
-	console.log("filter: "+filter);
+	//console.log("filter: "+filter);
 	var skip = page ? (page-1)*_config.sections[sez].limit : 0;
 	var conf = {skip:skip,page:(page ? page : 1),path:path,filter:filter,sort:sort};
 	return conf;
@@ -108,6 +108,7 @@ exports.getFileFormat = function (obj, w, h) {
 		var folder = 		source.substring(0,source.lastIndexOf("/")+1);
 		var file = 			source.substring(source.lastIndexOf("/")+1,source.length);
 		var ext = 			file.substring(file.lastIndexOf(".")+1,file.length);
+		var previewfile = 	file.substring(0,file.lastIndexOf("."))+".png";
 		var formatfile = 	file.substring(0,file.lastIndexOf("."))+"_"+ext+".jpg";
 		var formatfolder = 	folder+w+"x"+h+"/";
 		/*
@@ -124,23 +125,30 @@ exports.getFileFormat = function (obj, w, h) {
 		*/
 		if (fs.existsSync(_config.sitepath+_config.uploadpath+formatfolder+formatfile)) {
 			return formatfolder+formatfile;
-		} else if (fs.existsSync(_config.sitepath+_config.uploadpath+folder+file)) {
-			console.log("----cazzo----");
-			mkdirp.sync(_config.sitepath+_config.uploadpath+formatfolder);
-			im.crop({
-				srcPath: _config.sitepath+_config.uploadpath+folder+file,
-				dstPath: _config.sitepath+_config.uploadpath+formatfolder+formatfile,
-				width: w,
-				height: h,
-				quality: 1,
-				gravity: "North"
-			}, function(err, stdout, stderr){
-				console.log("croppato"+formatfolder+formatfile);
-			});
-			return formatfolder+formatfile;
 		} else {
-			return "/warehouse/defaults/"+w+"x"+h+".jpg";
-			//return "/warehouse/defaults/"+w+"x"+h+".jpg";
+			var originalImg = fs.existsSync(_config.sitepath+_config.uploadpath+folder+"preview_files/"+previewfile) ? _config.sitepath+_config.uploadpath+folder+"preview_files/"+previewfile : fs.existsSync(_config.sitepath+_config.uploadpath+folder+file) ? _config.sitepath+_config.uploadpath+folder+file : false;
+			if (originalImg) {
+				//console.log("----cazzo----");
+				mkdirp.sync(_config.sitepath+_config.uploadpath+formatfolder);
+				im.crop({
+					srcPath: originalImg,
+					dstPath: _config.sitepath+_config.uploadpath+formatfolder+formatfile,
+					width: w,
+					height: h,
+					quality: 1,
+					gravity: "North"
+				}, function(err, stdout, stderr){
+					//console.log("croppato"+_config.sitepath+_config.uploadpath+formatfolder+formatfile);
+					//console.dir(err);
+					//console.dir(stdout);
+					//console.dir(stderr);
+					//console.log("croppato"+formatfolder+formatfile);
+				});
+				return formatfolder+formatfile;
+			} else {
+				return "/warehouse/defaults/"+w+"x"+h+".jpg";
+				//return "/warehouse/defaults/"+w+"x"+h+".jpg";
+			}
 		}
 	} else {
 		return "/warehouse/defaults/"+w+"x"+h+".jpg";
@@ -163,7 +171,7 @@ exports.validateFormLogin = function (o,callback) {
 			if (!result.password) result.password = " ";
 			bcrypt.compare(o.password, result.password, function(err, res) {
 				if (res) {
-					console.dir("login interno");
+					//console.dir("login interno");
 					callback(e, result);
 				} else {
 					request.post({
