@@ -1,4 +1,4 @@
-GLOBAL._config = require('./config.js')._config;
+GLOBAL._config = require('../config.js')._config;
 
 var settings = require('./server/modules/settings.js')._config
 for (var key in settings) {
