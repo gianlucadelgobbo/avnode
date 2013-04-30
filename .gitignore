@@ -8,4 +8,5 @@ node_modules
 app/public/warehouse/
 app/public/warehouse2/
 app/server/routes/admin
+config.js
 style.css
