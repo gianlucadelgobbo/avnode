@@ -104,7 +104,7 @@ var _config = {
 			"coll":				"events",
 			"view_list":		"events",
 
-			"list_fields":	{"title":1,"users":1,"permalink":1,"files":1,"categories":1,"stats":1},
+			"list_fields":	{"title":1,"users":1,"permalink":1,"files":1,"categories":1,"stats":1,"date_time_venue":1},
 			"orders":			[
 									"mostrecent",
 									"mostviewed",
@@ -207,7 +207,7 @@ var _config = {
 			"coll":				"tvshow",
 			"view_list":		"tvshows",
 
-			"list_fields":	{"title":1,"users":1,"permalink":1,"files":1,"categories":1,"stats":1},
+			"list_fields":	{"title":1,"users":1,"permalink":1,"files":1,"categories":1,"stats":1,"palinsestodate":1},
 			"orders":			[
 									"mostrecent",
 									"mostviewed",

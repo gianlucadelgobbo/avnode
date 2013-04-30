@@ -6,6 +6,7 @@ var request = require('request');
 var im = require('imagemagick');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
+var moment = require('moment');
 var ObjectID = require('mongodb').ObjectID;
 
 exports.getList = function (params, sez, res, ids, callback) {
@@ -32,6 +33,11 @@ exports.getList = function (params, sez, res, ids, callback) {
 			callback(err, tot, records, conf);
 		});
 	});
+}
+exports.getEventDate = function (date) {
+	var d = new Date(date);
+	//return moment(d).format("dddd, MMMM Do YYYY, h:mm");
+	return moment(d).format("dddd, MMMM Do YYYY");
 }
 exports.formatLoc = function (locations) {
 	var str = "";
@@ -108,7 +114,7 @@ exports.getFileFormat = function (obj, w, h) {
 		var folder = 		source.substring(0,source.lastIndexOf("/")+1);
 		var file = 			source.substring(source.lastIndexOf("/")+1,source.length);
 		var ext = 			file.substring(file.lastIndexOf(".")+1,file.length);
-		var previewfile = 	file.substring(0,file.lastIndexOf("."))+".png";
+		var previewfile = 	file.substring(0,file.lastIndexOf("."))+"_"+ext+".png";
 		var formatfile = 	file.substring(0,file.lastIndexOf("."))+"_"+ext+".jpg";
 		var formatfolder = 	folder+w+"x"+h+"/";
 		/*
@@ -126,9 +132,9 @@ exports.getFileFormat = function (obj, w, h) {
 		if (fs.existsSync(_config.sitepath+_config.uploadpath+formatfolder+formatfile)) {
 			return formatfolder+formatfile;
 		} else {
-			var originalImg = fs.existsSync(_config.sitepath+_config.uploadpath+folder+"preview_files/"+previewfile) ? _config.sitepath+_config.uploadpath+folder+"preview_files/"+previewfile : fs.existsSync(_config.sitepath+_config.uploadpath+folder+file) ? _config.sitepath+_config.uploadpath+folder+file : false;
+			var imgExt = ['jpg','jpeg','gif','png'];
+			var originalImg = fs.existsSync(_config.sitepath+_config.uploadpath+folder+"preview_files/"+previewfile) ? _config.sitepath+_config.uploadpath+folder+"preview_files/"+previewfile : fs.existsSync(_config.sitepath+_config.uploadpath+folder+file) && imgExt.indexOf(ext)!=-1  ? _config.sitepath+_config.uploadpath+folder+file : false;
 			if (originalImg) {
-				//console.log("----cazzo----");
 				mkdirp.sync(_config.sitepath+_config.uploadpath+formatfolder);
 				im.crop({
 					srcPath: originalImg,

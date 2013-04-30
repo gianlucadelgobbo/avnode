@@ -388,5 +388,7 @@
 	"This website is developed with NodeJS and MongoDB from Flyer communication": "This website is developed with NodeJS and MongoDB from Flyer communication",
 	"TV Programming": "TV Programming",
 	"Create a new event": "Create a new event",
-	"Developers & API": "Developers & API"
+	"Developers & API": "Developers & API",
+	"Starts": "Starts",
+	"Ends": "Ends"
 }

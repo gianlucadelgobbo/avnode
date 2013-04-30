@@ -1,4 +1,9 @@
-GLOBAL._config = require('./common/config.js')._config;
+GLOBAL._config = require('./config.js')._config;
+
+var settings = require('./server/modules/settings.js')._config
+for (var key in settings) {
+	GLOBAL._config[key] = settings[key];
+}
 
 GLOBAL.i18n = require('i18n');
 i18n.configure({

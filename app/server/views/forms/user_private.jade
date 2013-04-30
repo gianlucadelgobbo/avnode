@@ -33,8 +33,10 @@
 						.controls
 							button(type="submit").btn.btn-large.input-large.btn-primary.right=__("Save")
 				script
-					$(".birthday-picker").birthdaypicker(options={
-						dateFormat:		"bigEndian",
-						monthFormat:	"long",
-						defaultDate:	"#{birth_date}"
+					$(function () {
+						$(".birthday-picker").birthdaypicker(options={
+							dateFormat:		"bigEndian",
+							monthFormat:	"long",
+							defaultDate:	"#{birth_date}"
+						});
 					});

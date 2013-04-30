@@ -9,7 +9,7 @@ exports.get = function get(req, res) {
 }
 exports.post = function post(req, res) {
 	functions.validateFormLogin(req.body, function(e, o) {
-		if (e.length) {
+		if (e && e.length) {
 			if (req.body.ajax) {
 				res.send({msg:{e:e}}, 200);
 			} else {

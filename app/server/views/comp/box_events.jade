@@ -1,9 +1,8 @@
-- if (typeof(username) === 'undefined') span = "3"
-- if (typeof(boxpath) === 'undefined') boxpath = box.users[0].permalink
+- if (typeof(username) === 'undefined') span = "6"
 div(class="span"+span)
 	.media
 		.pull-left
-			a(href="/"+boxpath+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")
+			a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")
 				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=locals.Fnc.getFileFormat(box.files, 90, 68))
 			br
 			ul.stats
@@ -11,10 +10,15 @@ div(class="span"+span)
 				li=__("Likes")+": "+box.stats.rates.tot_rate
 		.media-body
 			h4.media-heading
-				a(href="/"+boxpath+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")=box.title
+				a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")=box.title
 			- categories = "";
 			- for(item in box.categories)
-				- console.dir(box.categories[item].ancestors)
 				- if (box.categories[item] && box.categories[item].ancestors && box.categories[item].ancestors[0].permalink=="lv-projects-categories") categories+="<li><a href=\"/"+_config.sections[locals.sez].basepath+"/"+box.categories[item].permalink+"/\">"+box.categories[item].name+"</a></li>"
 			- if (categories)
 				ul.stats!=categories
+			- if (box.date_time_venue)
+				- categories = "";
+				- if (box.date_time_venue[0] && box.date_time_venue[0].date) categories+="<li>"+(box.date_time_venue.length>1 ? __("Starts")+": " : "")+locals.Fnc.getEventDate(box.date_time_venue[0].date)+", "+box.date_time_venue[0].start_time+" | "+box.date_time_venue[0].venue+"</li>"
+				- if (box.date_time_venue[box.date_time_venue.length-1] && box.date_time_venue[box.date_time_venue.length-1].date && box.date_time_venue.length>1) categories+="<li>"+__("Ends")+": "+locals.Fnc.getEventDate(box.date_time_venue[box.date_time_venue.length-1].date)+", "+box.date_time_venue[box.date_time_venue.length-1].end_time+" | "+box.date_time_venue[box.date_time_venue.length-1].venue+"</li>"
+				- if (categories)
+					ul.stats!=categories

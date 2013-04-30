@@ -1,4 +1,4 @@
-- //console.dir(locals.dett)
+- console.dir(locals.dett)
 .user_dett
 	.row
 		.span9
@@ -14,18 +14,10 @@
 					ul.nav.nav-list.user_dett_ul
 						li=__("Visits")+": "+locals.dett.stats.visits
 						li.divider
-							- for(item in locals.dett.categories)
-								- if (locals.dett.categories[item] && locals.dett.categories[item].ancestors && locals.dett.categories[item].ancestors[0].permalink=="tv")
-									li=__("Type")+": "
-										a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item].permalink+"/")=locals.dett.categories[item].name
-										- for(item2 in locals.dett.categories)
-											- if (locals.dett.categories[item2] && locals.dett.categories[item2].ancestors && locals.dett.categories[item].permalink!=locals.dett.categories[item2].permalink && locals.dett.categories[item2].ancestors[0].permalink.indexOf(locals.dett.categories[item].permalink)!=-1 && locals.dett.categories[item2].ancestors[0].permalink.indexOf("technique")!=-1)
-												li=__("Technique")+": "
-													a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item2].permalink+"/")=locals.dett.categories[item2].name
-													- for(item3 in locals.dett.categories)
-														- if (locals.dett.categories[item3] && locals.dett.categories[item3].ancestors && locals.dett.categories[item].permalink!=locals.dett.categories[item3].permalink && locals.dett.categories[item3].ancestors[0].permalink.indexOf("genere")!=-1)
-															li=__("Genre")+": "
-																a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item3].permalink+"/")=locals.dett.categories[item3].name
+						li=__("Type")+": "
+							- for(item in locals.dett.tag)
+								a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.tag[item].tag+"/")=locals.dett.tag[item].tag
+								!=" "
 						li.divider
 						li
 							button.btn.btn-primary

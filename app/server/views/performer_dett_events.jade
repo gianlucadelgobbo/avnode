@@ -1,4 +1,4 @@
-- //console.dirlocals.dett
+- //console.dir(locals.dett)
 .user_dett
 	.row
 		.span4
@@ -22,7 +22,7 @@
 								li.divider
 								li
 									i.icon-time
-									!=locals.dett.date_time_venue[a].date+" | "+locals.dett.date_time_venue[a].start_time+" / "+locals.dett.date_time_venue[a].end_time+"<br />"
+									!=locals.Fnc.getEventDate(locals.dett.date_time_venue[a].date)+" | "+locals.dett.date_time_venue[a].start_time+" / "+locals.dett.date_time_venue[a].end_time+"<br />"
 								li
 									i.icon-home
 									!=locals.dett.date_time_venue[a].venue+" | "+locals.dett.date_time_venue[a].city+", "+locals.dett.date_time_venue[a].country

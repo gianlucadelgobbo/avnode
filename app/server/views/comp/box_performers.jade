@@ -1,5 +1,5 @@
 - if (typeof(username) === 'undefined') span = "3"
-- path = (typeof(boxpath) === 'undefined' ? box.permalink : boxpath+"/"+box.permalink) 
+- var boxpath = (typeof(boxpath) === 'undefined' ? box.permalink : boxpath+"/"+box.permalink) 
 div(class="span"+span)
 	.media
 		.pull-left
