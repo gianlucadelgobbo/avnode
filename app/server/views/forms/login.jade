@@ -1,23 +1,12 @@
-form(name="formLogin", method="post", action="#")
+form(name="formLogin", method="post")
 	.row
-		.span9
+		.span6.offset3.well
 			h2=__("Login")
-			- if (typeof msg !== "undefined" && typeof msg.e !== "undefined" && msg.e.length)
-				.alert.alert-error
-					h4=__("There are some errors")
-					ul
-						- for(a=0;a<msg.e.length;a++)
-							li=msg.e[a].m
-			- if (typeof msg !== "undefined" && typeof msg.c !== "undefined" && msg.c.length)
-				.alert.alert-success
-					h4=__("There are some messages")
-					ul
-						- for(a=0;a<msg.c.length;a++)
-							li=msg.c[a].m
-			.offset3
-				input(name="login", type="text", placeholder=__("Username")).input-large
+			include ../comp/msg
+			.offset1
+				input(name="login", type="text", placeholder=__("Username")).input-xlarge
 				br
-				input(name="password", type="password", placeholder=__("Password")).input-large
+				input(name="password", type="password", placeholder=__("Password")).input-xlarge
 				label.checkbox=__("Remember_me")
 					input(name="remember",type="checkbox", value="true",checked="checked")
 					input(name="from",type="hidden", value=locals.from).input-large
@@ -25,6 +14,3 @@ form(name="formLogin", method="post", action="#")
 			hr.clearfix
 			a(href="controlpanel/passwordRequest").btn.btn-link=__("Recover_data")
 			a(href="controlpanel/user").btn.btn-link=__("Register")
-		.span3
-			h3=__("LoginHelpTitle")
-			p=__("LoginHelp")

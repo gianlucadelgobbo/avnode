@@ -1,79 +1,68 @@
+- if(result.locations && result.locations.length && !result.locations[0].lat) result.locations[0].lat = 41.8929163;
+- if(result.locations && result.locations.length && !result.locations[0].lng) result.locations[0].lng = 12.482519899999943;
 .tabbable.tabs-left
 	include ../comp/cp_menu
 	.tab-content
 		.tab-pane.active
 			include ../comp/cp_submenu_user
-			form.form-horizontal(method="post", action="#")
+			form.form-horizontal(method="post")
+				input(name="collection", value="users", type="hidden")
+				input(name="_id", value=result._id, type="hidden")
+				input(name="form", value=form, type="hidden")
 				fieldset
 					legend=locals.title
+					include ../comp/msg
 					.control-group
 						label.control-label=__("Stage name")
 						.controls
-							input(name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).input-large
+							input(autocomplete="off", name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).input-large
 					.control-group
 						label.control-label=__("Profile url")
 						.controls
-							input(name="permalink", value=result.permalink, type="text", placeholder=__("Profile url")).input-large
+							input(autocomplete="off", name="permalink", value=result.permalink, type="text", placeholder=__("Profile url")).input-large
+							span.help-inline
 							.help-block="https://flxer.net/"
 								span#permalink=result.permalink
 					include ../comp/text_multilang
 					include ../comp/websites
+					.control-group
+						label.control-label=__("Locations")
+						.controls
+							#map_canvas
+							hr
+							#sortable
+								- if (result.locations && result.locations.length)
+									- var n = 0
+									- var connectedSortable = []
+									each location,key in result.locations
+										.alert.alert-info
+											.clearfix
+												.pull-left
+													input(name="locations[]", value=JSON.stringify(location), type="hidden")
+													h4=location.country+(location.locality ? ", "+location.locality : "")
+													- if (location.lat && location.lng)
+														div=location.lat+" / "+location.lng
+												.pull-right
+													a.btn.btn-mini(href="#",onclick="deleteLocation(this);return false;")
+														i.icon-remove
+													!=" "
+													i.icon-move(style="margin:3px 0 0 25px;")
+		
+							.text-right
+									a.btn.btn-mini.btn-primary(href="#", onclick="showMapAdd();return false;")
+										i.icon-plus.icon-white
+										!=" "+__("Add a Location")
 					hr.clearfix
 					.control-group
 						.controls
-							button(type="submit").btn.btn-large.input-large.btn-primary.right=__("Save")
+							button(type="submit").btn.btn-large.input-large.btn-primary=__("Save")
 			script(type="text/javascript")
-				$("#search-map-form").submit(function(event, info) {
-					var text = $("input[id=search-map]", this);
-					text.blur();
-					if (!geocoder) geocoder = new google.maps.Geocoder();
-					geocoder.geocode( { 'address': text.val()}, function(results, status) {
-						//console.log(status);
-						//console.log(results);
-						if (status == google.maps.GeocoderStatus.OK) {
-							marker.setPosition(results[0].geometry.location);
-							var m = marker.getPosition();
-							map.setCenter(m);
-							console.log(m.lat(),m.lng());
-						} else {
-							alert(getLabel("Località non trovata"));
-						}
-					});
-					_gaq.push(['_trackEvent', 'search-map-form', text.val()]);
-					return false;   	
-				});
-				var data=jQuery.parseJSON('!{JSON.stringify(result.locations)}');
-				data[0].lat = 51;
-				data[0].lng = 51;
-				function initialize() {	
-					var myOptions = {
-						zoom: 5,
-						center: new google.maps.LatLng(1,1) ,
-						mapTypeId: google.maps.MapTypeId.ROADMAP,
-						streetViewControl: true
-					}; 
+				$(function(){
+					$('#sortable').sortable({
+						placeholder: "ui-state-highlight"
+					}).disableSelection();
 
-					map= new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-					var bounds=new google.maps.LatLngBounds();
-					infowindow = new google.maps.InfoWindow({
-						content: 'oi'
-					});
-					$.each(data, function(index, c) {
-						console.log(c);
-						var latlng = new google.maps.LatLng(c.lat,c.lng); 
-						var marker = new google.maps.Marker({
-							map: map,
-							position: latlng,
-							title:'pk:'+c.pk
-						});
-						bounds.extend(latlng);
-						google.maps.event.addListener(marker, 'click', function() {
-							infowindow.close();
-							infowindow.setContent('pk:'+c.pk);
-							infowindow.open(map, marker);
-						});
-					});
-					map.fitBounds(bounds);
-				}
-				initialize();
+					var data=jQuery.parseJSON('!{JSON.stringify(result.locations)}');
+					initializeMap(data);
+				});
 include ../modals/search_map

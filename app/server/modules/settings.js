@@ -14,6 +14,7 @@ var _config = {
 	"cp_basepath":		"controlpanel",
 	"usersListItems":	6,
 	"googleAnalytics":	"UA-8844617-6",
+	"mailinglists":		["livevisuals","flxer","flyer","updates"],
 	"emaildispatcher":	{
 		"nameFrom":		"AV node",
 		"emailFrom":	"g.delgobbo@flyer.it",

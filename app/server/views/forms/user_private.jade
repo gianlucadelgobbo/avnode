@@ -1,11 +1,16 @@
+- console.log(result)
 .tabbable.tabs-left
 	include ../comp/cp_menu
 	.tab-content
 		.tab-pane.active
 			include ../comp/cp_submenu_user
-			form.form-horizontal(method="post", action="#")
+			form.form-horizontal(method="post")
+				input(name="collection", value="users", type="hidden")
+				input(name="_id", value=result._id, type="hidden")
+				input(name="form", value=form, type="hidden")
 				fieldset
 					legend=locals.title
+					include ../comp/msg
 					.control-group
 						label.control-label=__("Name")
 						.controls
@@ -28,6 +33,27 @@
 								option(value="M",selected=(result.gender=="M" ? "selected" : undefined))=__("M")
 								option(value="F",selected=(result.gender=="F" ? "selected" : undefined))=__("F")
 								option(value="Other",selected=(result.gender=="Other" ? "selected" : undefined))=__("Other")
+					.control-group
+						label.control-label=__("Country of citizenship")
+						.controls
+							select(name="citizenship").input-medium
+								option(value="")=__("Country")
+								each country in countries
+									option(value=country.name,selected=(result.citizenship && country.name==result.citizenship ? "selected" : undefined))=country.name
+					.control-group
+						label.control-label=__("Phone numbers")
+						.controls
+							- if (result.phonenumbers)
+								each phone in result.phonenumbers
+									.clearfix
+										.input-append
+											input(value=phone,name="phonenumbers[]",type="text",placeholder=__("Phone number")).input-large
+											button.btn(type="button",onclick="$(this).parent().parent().remove()")
+												i.icon-remove
+										br
+										br
+							.input-append
+								input(name="phonenumbers[]",type="text",placeholder=__("Phone number")).input-large
 					hr.clearfix
 					.control-group
 						.controls

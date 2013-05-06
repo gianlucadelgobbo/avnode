@@ -131,13 +131,16 @@ html(lang=_config.lang)
 		script(type="text/javascript", src="/lib/jquery-ui-1.10.2.custom.js")
 		script(type="text/javascript", src="/lib/bday-picker.min.js")
 		script(type="text/javascript", src="/lib/bootstrap-switch.js")
+		script(type="text/javascript", src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places")
+		script(type="text/javascript", src="/lib/jquery.geocomplete.min.js")
 		
-		script(type="text/javascript", src="http://maps.googleapis.com/maps/api/js?sensor=false")
+		script(type="text/javascript", src="/validators.js")
 		script(type="text/javascript", src="/fp/swfobject.js")
 		script(type="text/javascript", src="/js/script.js?v=1.2")
+		script(type="text/javascript")
 
+		script(type="text/javascript", src="/_lang/"+_config.lang+".js")
 		//
-			script(type="text/javascript", src="/_lang/"+_config.lang+".js")
 			script(type="text/javascript", src="/js/fpVariables.js")
 			script(type="text/javascript", src="/js/fpManager.js")
 			script(type="text/javascript", src="/js/fpCheck.js")
@@ -148,7 +151,7 @@ html(lang=_config.lang)
 			script(type="text/javascript", src="/js/ajaxSlideShowLoader.js")
 			script(type="text/javascript")
 				var _gaq = _gaq || [];
-				_gaq.push(['_setAccount', '<? echo($this->initObj["sections"]["analytics"][$this->initObj["area"]]); ?>']);
+				_gaq.push(['_setAccount', _config.googleAnalytics]);
 				_gaq.push(['_setDomainName', 'flxer.net']);
 				_gaq.push(['_setAllowLinker', true]);
 				_gaq.push(['_trackPageview']);

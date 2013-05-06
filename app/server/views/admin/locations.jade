@@ -1,0 +1,8 @@
+h1 Files
+- console.log(locals.CT)
+table.table
+	- for(item in locals.results)
+		tr
+			td=item
+			td=JSON.stringify(locals.results[item])
+			td=(locals.results[item] && locals.results[item].country ? (locals.CT[locals.results[item].country] ? "" : "error country") : "error country")

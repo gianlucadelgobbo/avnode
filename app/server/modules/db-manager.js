@@ -33,6 +33,7 @@ var DB = {};
 	DB.gallery = 		DB.db.collection('gallery');
 	DB.categories = 	DB.db.collection('categories');
 	DB.temp_users = 	DB.db.collection('temp_users');
+	DB.temp = 			DB.db.collection('temp');
 //	//$apiValid = array("users","footage","playlists","performances","events","tvshow","gallery");
 
 module.exports = DB;

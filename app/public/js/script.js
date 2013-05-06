@@ -1,3 +1,366 @@
+var ajax;
+var int;
+$(function () {
+	$('[name="permalink"]').keyup(function() {
+		$('#permalink').parent().parent().find(".help-inline").text("")
+		$('#permalink').parent().parent().parent().removeClass("error");
+		clearTimeout(int);
+		int = setTimeout("checkPermalink()", 500);
+	});
+});
+function checkPermalink() {
+	var _id = $('[name="_id"]').val();
+	var collection = $('[name="collection"]').val();
+	var permalink = $('[name="permalink"]').val().toLowerCase();
+	$('#permalink').parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />");
+	$('#permalink').text(permalink);
+	if (ajax) ajax.abort();
+	ajax = $.ajax({
+		url: "/ajax/checkPermalink/?_id="+_id+"&permalink="+permalink+"&collection="+collection,
+		type: 'GET',
+		success: function(data) {
+			console.log(data);
+			console.log($('#permalink').parent().parent());
+			if(data.success){
+				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"icon-ok\"></i> "+data.msg)
+				$('#permalink').parent().parent().parent().removeClass("error");
+			} else {
+				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"icon-remove\"></i> "+data.msg)
+				$('#permalink').parent().parent().parent().addClass("error");
+			}
+		}
+	});
+}
+function showModal(t, m, callback) {
+	if (m) $('.modal-'+t+' .modal-body p').html(m);
+	$('.modal-'+t).modal('show');
+	if ($.isFunction(callback)) {
+		$('.modal-'+t).on('hidden', function () {
+		  callback();
+		})
+	}
+}
+/* EMAILS */
+
+function emailAdd(t){
+	$('#email_add').parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />&nbsp;&nbsp;Checking email");
+	$('#email_add').parent().parent().find("button").attr("disabled","disabled");
+	var email = $("#email_add").val();
+	if (Validators.is_email(email)) {
+		console.log("Sending verification email");
+		$('#email_add').parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />&nbsp;&nbsp;Sending verification email");
+		var _id = $('[name="_id"]').val();
+		var collection = $('[name="collection"]').val();
+		$.ajax({
+			url: "/ajax/sendVerificationEmail/?doc_id="+_id+"&email="+email+"&collection="+collection,
+			type: 'GET',
+			success: function(data) {
+				console.log(data);
+				console.log($('#permalink').parent().parent());
+				if(data.success){
+					$('#email_add').parent().parent().find(".help-inline").html("<i class=\"icon-ok\"></i> "+data.msg)
+					$('#email_add').parent().parent().parent().removeClass("error");
+				} else {
+					$('#email_add').parent().parent().find(".help-inline").html("<i class=\"icon-remove\"></i> "+data.msg)
+					$('#email_add').parent().parent().parent().addClass("error");
+				}
+			}
+		})
+	} else {
+		$('#email_add').parent().parent().find(".help-inline").html("Wrong email format");
+		$('#email_add').parent().parent().parent().addClass("error");
+	}
+	$('#email_add').bind("keyup",function() {
+		$('#email_add').parent().parent().find(".help-inline").html("");
+		$('#email_add').parent().parent().find("button").removeAttr("disabled");
+		$('#email_add').parent().parent().parent().removeClass("error");
+	});
+}
+
+function emailRemove(t){
+	var _id = $('[name="_id"]').val();
+	var collection = $('[name="collection"]').val();
+	var email = $($(t).parent().parent().parent().find('input')[0]).val();
+	console.log($($(t).parent().parent().parent().find('input')[0]).val());
+	$(t).parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />&nbsp;&nbsp;Deleting");
+	
+	$.ajax({
+		url: "/ajax/deleteEmail/?doc_id="+_id+"&email="+email+"&collection="+collection,
+		type: 'GET',
+		success: function(data) {
+			console.log(data);
+			console.log($('#permalink').parent().parent());
+			if(data.success){
+				$(t).parent().parent().parent().remove()
+			} else {
+				$('#email_add').parent().parent().find(".help-inline").html("<i class=\"icon-remove\"></i> "+data.msg)
+				$('#email_add').parent().parent().parent().addClass("error");
+			}
+		}
+	})
+	/*
+	*/
+}
+
+function setPrimary(t){
+	var _id = $('[name="_id"]').val();
+	var collection = $('[name="collection"]').val();
+	var email = $($(t).parent().parent().parent().find('input')[0]).val();
+	var div = $(t).parent().parent().parent();
+	console.log($($(t).parent().parent().parent().find('input')[0]).val());
+	var oldHelp = $(t).parent().parent().find(".help-inline").html();
+	console.log(oldHelp);
+	var oldDelete = $(t).parent().parent().find(".add-on");
+	console.log(oldDelete);
+	$(t).parent().parent().find(".add-on").remove();
+	$(t).parent().parent().find(".input-append").append("<span class=\"add-on\"><i class=\"icon-lock\"></i></span>");
+	console.log($(t).parent().parent());
+	$(t).parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />&nbsp;&nbsp;Deleting");
+	$.ajax({
+		url: "/ajax/setPrimary/?doc_id="+_id+"&email="+email+"&collection="+collection,
+		type: 'GET',
+		success: function(data) {
+			console.log(data);
+			if(data.success){
+				div.find(".help-inline").html("");
+			} else {
+			}
+		}
+	})
+	/*
+	*/
+}
+
+function setNewsletter(email, t){
+	var _id = $('[name="_id"]').val();
+	var collection = $('[name="collection"]').val();
+	var val = [];
+	$(t).parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />&nbsp;&nbsp;Updating");
+	$(t).parent().parent().find("input").each(function() {
+		if (this.checked) val.push($(this).attr("name"));
+	});
+	var lang = $(t).parent().parent().find("select").val();
+	console.log(val);
+	$.ajax({
+		url: "/ajax/setNewsletter/?doc_id="+_id+"&newsletters="+val.concat(",")+"&email="+email+"&lang="+lang,
+		type: 'GET',
+		success: function(data) {
+			$(t).parent().parent().find(".help-inline").html("");
+		}
+	})
+}
+function __(t){
+	return t;
+}
+function renamer(t){
+	for (var a=0;a<blocks.length;a++) {
+		$(blocks[a]).find("input").each(function() {
+			if($(this).attr("name")){
+				var name = $(this).attr("name");
+				var name1 = name.substring(0,name.indexOf("[")+1);
+				var name2 = name.substring(name.indexOf("]"));
+				console.log(name1+a+name2);
+				$(this).attr("name",name1+a+name2);
+			}
+		});
+	}
+}
+
+
+/* WEBSITES */
+
+function websiteAdd(t){
+	var tmp = $($("#websites").children()[0]).clone();
+	tmp.find("input").val("");
+	$("#websites").append(tmp);
+}
+
+function websiteRemove(t){
+	if ($("#websites").children().length==1) {
+		$(t).parent().parent().find("input").val("");
+	} else {
+		$(t).parent().parent().remove();
+	}
+}
+
+/* MAPS */
+var map;
+var bounds;
+var map_add;
+var allMarkers = [];
+
+function showMapAdd(){
+	showModal('search_map', false, addOnClose)
+	if (!map_add) if(navigator.geolocation) navigator.geolocation.getCurrentPosition(createMapAdd);
+}
+
+/* MAPS USER GLOBAL*/
+function initializeMap(data) {	
+	var myOptions = {
+		zoom: 17,
+		center: new google.maps.LatLng(1,1) ,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		streetViewControl: true
+	}; 
+
+	map= new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	bounds=new google.maps.LatLngBounds();
+	/*
+	infowindow = new google.maps.InfoWindow({
+		content: 'oi'
+	});
+	*/
+	$.each(data, function(index, c) {
+		console.log(c);
+		var latlng = new google.maps.LatLng(c.lat,c.lng); 
+		var marker = new google.maps.Marker({
+			map: map,
+			position: latlng,
+			title:'pk:'+c.pk
+		});
+		allMarkers.push(marker);
+		bounds.extend(latlng);
+		/*
+		google.maps.event.addListener(marker, 'click', function() {
+			infowindow.close();
+			infowindow.setContent('pk:'+c.pk);
+			infowindow.open(map, marker);
+		});
+		*/
+	});
+	map.fitBounds(bounds);
+}
+
+/* MAPS PICKER*/
+var defaultLat = 41.8929163;
+var defaultLng = 12.482519899999943;
+var center;
+
+function createMapAdd(){
+	center = new google.maps.LatLng(defaultLat,defaultLng),
+	defaultBounds = new google.maps.LatLngBounds(
+		new google.maps.LatLng(defaultLat,defaultLng),
+		new google.maps.LatLng(defaultLat,defaultLng)
+	);
+	
+    //if(navigator.geolocation) navigator.geolocation.getCurrentPosition(onPositionUpdate);
+
+	var options = {
+		map: "#map_canvas_add",
+		location: [defaultLat,defaultLng],
+		markerOptions: {draggable: true},
+		details: "form#search-map-form",
+		types: ["geocode", "establishment"],
+		bounds: defaultBounds
+	};
+		
+	$("#find").click(function(){
+		$("#geocomplete").trigger("geocode");
+	});
+							
+	$("#geocomplete").geocomplete(options)
+		.bind("geocode:result", function(event, result){
+			geo_add = result;
+			console.log("Result: " + result.formatted_address);
+		})
+		.bind("geocode:error", function(event, status){
+			console.log("ERROR: " + status);
+		})
+		.bind("geocode:multiple", function(event, results){
+			console.log("Multiple: " + results.length + " results found");
+		});
+	map_add =  $("#geocomplete").geocomplete("map");
+	map_add.setCenter(center);
+	map_add.setZoom(8);
+	$("#geocomplete").bind("geocode:dragged", function(event, latLng){
+		$("input[name=lat]").val(latLng.lat());
+		$("input[name=lng]").val(latLng.lng());
+		$("input[name=bounds]").val(latLng.lat(),latLng.lng(),latLng.lat(),latLng.lng());
+		$("input[name=viewport]").val(latLng.lat(),latLng.lng(),latLng.lat(),latLng.lng());
+	});
+}
+
+function addOnClose() {
+	var obj = $("#search-map-form").serializeObject();
+	if (obj.lat && obj.lng) {
+		var tmp = $("#sortable .alert:first").clone();
+		tmp.find(".pull-left").html("<h4>"+obj.country+(obj.locality ? ", "+obj.locality : "")+"</h4><div>"+obj.lat+" / "+obj.lng+"</div><input type=\"hidden\" name=\"locations[]\" value='"+JSON.stringify(obj)+"' />");
+		$("#sortable").append(tmp);
+		tmp.show();
+		var latlng = new google.maps.LatLng(obj.lat,obj.lng); 
+		var marker = new google.maps.Marker({
+			map: map,
+			position: latlng
+		});
+		allMarkers.push(marker);
+		bounds.extend(latlng);
+		map.fitBounds(bounds);
+	}
+}
+
+function deleteLocation(button) {
+	var div = $(button).parent().parent().parent();
+	var obj = $.parseJSON(div.find('input').val())
+	console.log(div);
+	console.log(obj);
+	for (item in allMarkers) {
+		console.log(allMarkers[item].position.lat()+" - "+allMarkers[item].position.lng());
+		if (allMarkers[item].position.lat()==obj.lat && allMarkers[item].position.lng()==obj.lng) {
+			allMarkers[item].setMap(null);
+			delete allMarkers[item];
+			if (div.parent().children().length>1) {
+				div.remove();
+			} else {
+				div.find(".pull-left").html("");
+				div.hide();
+			}
+		}
+	}
+}
+
+function onPositionUpdate(position) {
+	defaultLat = position.coords.latitude;
+	defaultLng = position.coords.longitude;
+	var latlng = new google.maps.LatLng(defaultLat,defaultLng); 
+	var marker = new google.maps.Marker({
+		map: map_add,
+		position: latlng,
+		draggable: true
+	});
+	map_add.setCenter(latlng);
+	map_add.setZoom(17);
+	alert("Current position: " + lat + " " + lng);
+}
+
+
+$.fn.serializeObject = function() {
+  var arrayData, objectData;
+  arrayData = this.serializeArray();
+  objectData = {};
+
+  $.each(arrayData, function() {
+    var value;
+
+    if (this.value != null) {
+      value = this.value;
+    } else {
+      value = '';
+    }
+
+    if (objectData[this.name] != null) {
+      if (!objectData[this.name].push) {
+        objectData[this.name] = [objectData[this.name]];
+      }
+
+      objectData[this.name].push(value);
+    } else {
+      objectData[this.name] = value;
+    }
+  });
+
+  return objectData;
+};
+/*
 $(function () {
 	if ($('.user_dettaaa').height()>$('.user_dett .pull-left img').height()) {
 		$('.user_dett .media-body .more').show();
@@ -30,16 +393,6 @@ function moreShowHide(div) {
 	}
 	$(div+"Hide").hide();
 	$(div+"More").attr('style','display:inline');
-}
-/*
-function showModal(t, m, callback) {
-	if (m) $('.modal-'+t+' .modal-body p').html(m);
-	$('.modal-'+t).modal('show');
-	if ($.isFunction(callback)) {
-		$('.modal-'+t).on('hidden', function () {
-		  callback();
-		})
-	}
 }
 function adda() {
 	var t = "search_map";

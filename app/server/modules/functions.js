@@ -167,36 +167,3 @@ exports.in_array = function (needle, haystack) {
 	}
 	return false;
 }
-exports.validateFormLogin = function (o,callback) {
-	var e = [];
-	DB.users.findOne({login:o.login}, function(err, result) {
-		if (result == null){
-			e.push({name:"user",m:__("User not found")});
-			callback(e, result);
-		} else {
-			if (!result.password) result.password = " ";
-			bcrypt.compare(o.password, result.password, function(err, res) {
-				if (res) {
-					//console.dir("login interno");
-					callback(e, result);
-				} else {
-					request.post({
-					    uri:"https://flxer.net/api/login",
-					    headers:{'content-type': 'application/x-www-form-urlencoded'},
-					    body:require('querystring').stringify({login:o.login, password:o.password})
-				    },function(err, res, body){
-				    	var ress = JSON.parse(body);
-				        if (ress.login) {
-				        	DB.setPassword(o.login, o.password, function(e, o) {
-								callback(e, result);
-							});
-				        } else {
-							e.push({name:"user",m:__("Login failed")});
-							callback(e, result);
-				        }
-					});
-				}
-			});
-		}
-	});
-};

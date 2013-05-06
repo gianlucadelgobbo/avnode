@@ -11,6 +11,7 @@ var apiRoutes 				= require('./routes/api');
 var searchRoutes 			= require('./routes/search');
 var cpanelUserRoutes		= require('./routes/controlpanel/user');
 var cpanelLoginRoutes 		= require('./routes/controlpanel/login');
+var cpanelConfirmRoutes 		= require('./routes/controlpanel/confirm');
 var cpanelLogoutRoutes 		= require('./routes/controlpanel/logout');
 var cpanelSignupRoutes 		= require('./routes/controlpanel/signup');
 var cpanelUserRoutes 		= require('./routes/controlpanel/user');
@@ -20,6 +21,8 @@ var uploadRoutes 			= require('./routes/upload');
 var imageRoutes 			= require('./routes/image');
 var adminImportRoutes 		= require('./routes/admin/import');
 var adminFilesRoutes 		= require('./routes/admin/files');
+var adminLocationsRoutes	= require('./routes/admin/locations');
+var ajax		 			= require('./routes/ajax');
 /*
 var lostPasswordRoutes = require('./routes/lost-password');
 var resetPasswordRoutes = require('./routes/reset-password');
@@ -39,6 +42,10 @@ module.exports = function(app) {
 	// Index //
 	app.get('/', indexRoutes.get);
 	app.post('/', indexRoutes.post);
+
+	// ajax //
+	app.get('/ajax*', ajax.get);
+	app.post('/ajax*', ajax.post);
 
 	// performers //
 	app.get('/performers*', performersRoutes.get);
@@ -83,6 +90,10 @@ module.exports = function(app) {
 	app.get('/signup', cpanelSignupRoutes.get);
 	app.post('/signup', cpanelSignupRoutes.post);
 
+	// cp Confirm //
+	app.get('/confirm', cpanelConfirmRoutes.get);
+	app.post('/confirm', cpanelConfirmRoutes.post);
+
 	// cp User //
 	app.get('/controlpanel/user*', cpanelUserRoutes.get);
 	app.post('/controlpanel/user*', cpanelUserRoutes.post);
@@ -117,6 +128,9 @@ module.exports = function(app) {
 
 	// Import //
 	app.get('/admin/import', adminImportRoutes.get);
+
+	// Import //
+	app.get('/admin/locations', adminLocationsRoutes.get);
 
 	// all other routes: User or 404
 	app.get('*', userRoutes.get);

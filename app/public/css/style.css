@@ -82,3 +82,19 @@ a:hover img {
   margin: 2px 2px 0 0;
   padding: 8px 12px 8px 0;
 }
+#map_canvas,
+#map_canvas_add {
+  height: 300px;
+}
+.modal-backdrop {
+  z-index: 998;
+}
+.modal {
+  z-index: 999;
+}
+#search-map-form {
+  margin: 0;
+}
+#map_canvas_add img {
+  max-width: none;
+}
