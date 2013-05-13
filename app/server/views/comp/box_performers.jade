@@ -1,13 +1,12 @@
 - if (typeof(username) === 'undefined') span = "3"
-- var boxpath = (typeof(boxpath) === 'undefined' ? box.permalink : boxpath+"/"+box.permalink) 
 div(class="span"+span)
 	.media
 		.pull-left
-			a(href="/"+boxpath+"/")
+			a(href="/"+(typeof(boxpath) === 'undefined' ? ""+box.permalink+"" : boxpath+"/"+box.permalink)+"/")
 				img.media-object(alt=__("Thumbnail of")+": "+box.display_name, src=locals.Fnc.getFileFormat(box.files, 90, 68))
 		.media-body
 			h4.media-heading
-				a(href="/"+boxpath+"/")=box.display_name
+				a(href="/"+(typeof(boxpath) === 'undefined' ? ""+box.permalink+"" : boxpath+"/"+box.permalink)+"/")=box.display_name
 			- stats = "";
 			- if (!box.stats.performances) box.stats.performances = 0;
 			- for(item in box.stats)

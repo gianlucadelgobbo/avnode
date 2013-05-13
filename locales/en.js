@@ -421,5 +421,18 @@
 	"Birth date is not valid": "Birth date is not valid",
 	"Country of citizenship": "Country of citizenship",
 	"Phone numbers": "Phone numbers",
-	"Phone number": "Phone number"
+	"Phone number": "Phone number",
+	"Add member": "Add member",
+	"Search a member": "Search a member",
+	"Search members": "Search members",
+	"Accept invitation to": "Accept invitation to",
+	"Invitation accepted with success, please continue": "Invitation accepted with success, please continue",
+	"Invitation to": "Invitation to",
+	"Close": "Close",
+	"Permission error": "Permission error",
+	"Access to this place or content is restricted. If you think this is a mistake, please contact the administrator": "Access to this place or content is restricted. If you think this is a mistake, please contact the administrator",
+	"Create a new performance": "Create a new performance",
+	"Remove Date & location": "Remove Date & location",
+	"Add a Date & location": "Add a Date & location",
+	"Stage name can not be empty": "Stage name can not be empty"
 }

@@ -8,12 +8,13 @@
 				- if (locals.dett.websites)
 					- for(a=0;a<locals.dett.websites.length;a++)
 						li
-							a(href=locals.dett.websites[a].url,target="_blank")
+							a(href=locals.dett.websites[a],target="_blank")
 								i.icon-globe
-								!=locals.dett.websites[a].url
+								!=locals.dett.websites[a]
 		.span8
 			h1=locals.dett.title
-			h3=locals.dett.subtitle[_config.lang]
+			- if (locals.dett.subtitle)
+				h3=locals.Fnc.getTextFormat(locals.dett.subtitle, _config.lang, true)
 			.row
 				.span5
 					ul.nav.nav-list.user_dett_ul

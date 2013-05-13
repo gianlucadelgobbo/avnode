@@ -4,9 +4,13 @@
 	.tab-content
 		.tab-pane.active
 			include ../comp/cp_submenu_event
-			form.form-horizontal(method="post", action="#")
+			form.form-horizontal(method="post")
+				input(name="collection", value="events", type="hidden")
+				input(name="_id", value=result._id, type="hidden")
+				input(name="form", value=form, type="hidden")
 				fieldset
 					legend=locals.title
+					include ../comp/msg
 					.control-group
 						label.control-label=__("Event name")
 						.controls
@@ -48,16 +52,20 @@
 									option(value="")=__("Country")
 									each country in countries
 										option(value=item.name,selected=(item.country==country.name ? "selected" : undefined))=country.name
-						.control-group
-							.controls
-								a(href="#",onclick="adda()", onmouseover="$(this).tooltip('show')",data-toggle="tooltip",title="",data-original-title=__("Add location"))
-									i.icon-plus-sign
-								a(href="#",onmouseover="$(this).tooltip('show')",data-toggle="tooltip",title="",data-original-title=__("Remove location"))
-									i.icon-minus-sign
+								.text-right
+										a.btn.btn-mini.btn-danger(href="#", onclick="datelocRemove(this);return false;")
+											i.icon-remove.icon-white
+											!=" "+__("Remove Date & location")
 						hr
+					.control-group
+						.controls
+							.text-right
+									a.btn.btn-mini.btn-primary(href="#", onclick="datelocAdd(this);return false;")
+										i.icon-plus.icon-white
+										!=" "+__("Add a Date & location")
+					hr
 					include ../comp/text_multilang
 					include ../comp/websites
-					hr.clearfix
 					.control-group
 						.controls
 							button(type="submit").btn.btn-large.input-large.btn-primary.right=__("Save")

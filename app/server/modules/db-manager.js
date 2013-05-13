@@ -106,9 +106,342 @@ DB.updateDB = function(collection, id, values, callback) {
 			console.dir(values[i].name);
 			o[values[i].name] = values[i].value;
 		}
-		DB[collection].save(o, {safe:true}, function(e, o) {
+		DB[collection].save(o, {safe:true}, function(e, success) {
 			callback(e, o);
 		});
+	});
+}
+
+DB.updateEventRel = function(id, callback) {
+	var status = {
+		users:			false,
+//		partners:		false,
+		gallery:		false,
+		performances:	false
+	};
+	DB.events.findOne({_id:id}, function(err, event) {
+		var minievent = {_id:event._id,title:event.title,permalink:event.permalink,users:event.users,files:event.files,categories:event.categories,stats:event.stats,date_time_venue:event.date_time_venue};
+		var ids = [];
+		for (var item in event.users) {
+			ids.push(event.users[item]._id);
+			if (event.users[item].members || event.users[item].members.length) {
+				for (var item2 in event.users[item].members) {
+					ids.push(event.users[item].members[item2]._id);
+				} 
+			}
+		} 
+		// USERS
+		DB.users.find({"_id":{$in:ids}}).toArray(function(err, subrecords){
+			var conta = 0;
+			if (subrecords.length) {
+				subrecords.forEach(function(subrecord){
+					var add = true;
+					for (var a=0;a<subrecord.events.length;a++) {
+						if (subrecord.events[a]._id.equals(id)) {
+							subrecord.events[a] = minievent;
+							add = false;
+						}
+					}
+					if (add) subrecord.events.push(minievent);
+					DB.users.save(subrecord, {safe:true}, function(e, success) {
+						conta++;
+						console.dir(""+q+": "+conta);
+						if (conta==subrecords.length) {
+							status.users = true;
+							var end = true
+							for (sts in status) if (status[sts]==false) end = false;
+							if (end) callback(true);
+						}
+					});
+				});
+			} else {
+				status.users = true;
+				var end = true
+				for (sts in status) if (status[sts]==false) end = false;
+				if (end) callback(true);
+			}
+		});
+		// PERFORMANCES
+		var ids = [];
+		for (var item in event.performances) {
+			ids.push(event.performances[item]._id);
+		} 
+		DB.performances.find({"_id":{$in:ids}}).toArray(function(err, subrecords){
+			var conta = 0;
+			if (subrecords.length) {
+				subrecords.forEach(function(subrecord){
+					var add = true;
+					for (var a=0;a<subrecord.performances.length;a++) {
+						if (subrecord.performances[a]._id.equals(id)) {
+							subrecord.performances[a] = minievent;
+							add = false;
+						}
+					}
+					if (add) subrecord.performances.push(minievent);
+					DB.performances.save(subrecord, {safe:true}, function(e, success) {
+						conta++;
+						console.dir(""+q+": "+conta);
+						if (conta==subrecords.length) {
+							status.performances = true;
+							var end = true
+							for (sts in status) if (status[sts]==false) end = false;
+							if (end) callback(true);
+						}
+					});
+				});
+			} else {
+				status.performances = true;
+				var end = true
+				for (sts in status) if (status[sts]==false) end = false;
+				if (end) callback(true);
+			}
+		});
+		// GALLERY
+		var ids = [];
+		for (var item in event.gallery) {
+			ids.push(event.gallery[item]._id);
+		} 
+		DB.gallery.find({"_id":{$in:ids}}).toArray(function(err, subrecords){
+			var conta = 0;
+			if (subrecords.length) {
+				subrecords.forEach(function(subrecord){
+					var add = true;
+					for (var a=0;a<subrecord.gallery.length;a++) {
+						if (subrecord.gallery[a]._id.equals(id)) {
+							subrecord.gallery[a] = minievent;
+							add = false;
+						}
+					}
+					if (add) subrecord.gallery.push(minievent);
+					DB.gallery.save(subrecord, {safe:true}, function(e, success) {
+						conta++;
+						console.dir(""+q+": "+conta);
+						if (conta==subrecords.length) {
+							status.gallery = true;
+							var end = true
+							for (sts in status) if (status[sts]==false) end = false;
+							if (end) callback(true);
+						}
+					});
+				});
+			} else {
+				status.gallery = true;
+				var end = true
+				for (sts in status) if (status[sts]==false) end = false;
+				if (end) callback(true);
+			}
+		});
+	});
+}
+
+DB.updateUserRel = function(id, callback) {
+	var status = {
+		users:			false,
+		events:			false,
+		footage:		false,
+		playlists:		false,
+		gallery:		false,
+		performances:	false,
+		tvshow:			false
+	};
+	DB.users.findOne({_id:id}, {fields:{_id:1,old_id:1,display_name:1,permalink:1,files:1,stats:1,members:1,is_crew:1}}, function(err, user){
+		var q = user.is_crew ? "crews" : "members";
+		var qq = user.is_crew ? {"crews._id":id} : {"members._id":id};
+		delete user.is_crew;
+		DB.users.find(qq).toArray(function(err, subrecords){
+			var conta = 0;
+			if (subrecords.length) {
+				subrecords.forEach(function(subrecord){
+					for (var a=0;a<subrecord[q].length;a++) {
+						if (subrecord[q][a]._id.equals(id)) subrecord[q][a] = user;
+					}
+					DB.users.save(subrecord, {safe:true}, function(e, success) {
+						conta++;
+						console.dir(""+q+": "+conta);
+						if (conta==subrecords.length) {
+							status.users = true;
+							var end = true
+							for (sts in status) if (status[sts]==false) end = false;
+							if (end) callback(true);
+						}
+					});
+				});
+			} else {
+				status.users = true;
+				var end = true
+				for (sts in status) if (status[sts]==false) end = false;
+				if (end) callback(true);
+			}
+		});
+		DB.events.find({"users._id":id}).toArray(function(err, subrecords){
+			var conta = 0;
+			if (subrecords.length) {
+				subrecords.forEach(function(subrecord){
+					for (var a=0;a<subrecord.users.length;a++) {
+						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+					}
+					if (subrecord.partners) {
+						for (var a=0;a<subrecord.partners.length;a++) {
+							if (subrecord.partners[a]._id==id) subrecord.partners[a] = user; 
+						}
+					}
+					if (subrecord.performances) {
+						for (var a=0;a<subrecord.performances.length;a++) {
+							for (var b=0;b<subrecord.performances[a].length;b++) {
+								if (subrecord.performances[a].users[b]._id==id) subrecord.performances[a].users[b] = user; 
+							}
+						}
+					}
+					DB.events.save(subrecord, {safe:true}, function(e, success) {
+						conta++;
+						console.dir("events: "+conta);
+						if (conta==subrecords.length) {
+							status.events = true;
+							var end = true
+							for (sts in status) if (status[sts]==false) end = false;
+							if (end) callback(true);
+						}
+					});
+				});
+			} else {
+				status.events = true;
+				var end = true
+				for (sts in status) if (status[sts]==false) end = false;
+				if (end) callback(true);
+			}
+		});
+		DB.footage.find({"users._id":id}).toArray(function(err, subrecords){
+			var conta = 0;
+			if (subrecords.length) {
+				subrecords.forEach(function(subrecord){
+					for (var a=0;a<subrecord.users.length;a++) {
+						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+					}
+					DB.footage.save(subrecord, {safe:true}, function(e, success) {
+						conta++;
+						console.dir("footage: "+conta);
+						if (conta==subrecords.length) {
+							status.footage = true;
+							var end = true
+							for (sts in status) if (status[sts]==false) end = false;
+							if (end) callback(true);
+						}
+					});
+				});
+			} else {
+				status.footage = true;
+				var end = true
+				for (sts in status) if (status[sts]==false) end = false;
+				if (end) callback(true);
+			}
+		});
+		DB.playlists.find({"users._id":id}).toArray(function(err, subrecords){
+			var conta = 0;
+			if (subrecords.length) {
+				subrecords.forEach(function(subrecord){
+					for (var a=0;a<subrecord.users.length;a++) {
+						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+					}
+					DB.playlists.save(subrecord, {safe:true}, function(e, success) {
+						conta++;
+						console.dir("playlists: "+conta);
+						if (conta==subrecords.length) {
+							status.playlists = true;
+							var end = true
+							for (sts in status) if (status[sts]==false) end = false;
+							if (end) callback(true);
+						}
+					});
+				});
+			} else {
+				status.playlists = true;
+				var end = true
+				for (sts in status) if (status[sts]==false) end = false;
+				if (end) callback(true);
+			}
+		});
+		DB.gallery.find({"users._id":id}).toArray(function(err, subrecords){
+			var conta = 0;
+			if (subrecords.length) {
+				subrecords.forEach(function(subrecord){
+					for (var a=0;a<subrecord.users.length;a++) {
+						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+					}
+					DB.gallery.save(subrecord, {safe:true}, function(e, success) {
+						conta++;
+						console.dir("gallery: "+conta);
+						if (conta==subrecords.length) {
+							status.gallery = true;
+							var end = true
+							for (sts in status) if (status[sts]==false) end = false;
+							if (end) callback(true);
+						}
+					});
+				});
+			} else {
+				status.gallery = true;
+				var end = true
+				for (sts in status) if (status[sts]==false) end = false;
+				if (end) callback(true);
+			}
+		});
+		DB.performances.find({"users._id":id}).toArray(function(err, subrecords){
+			var conta = 0;
+			if (subrecords.length) {
+				subrecords.forEach(function(subrecord){
+					for (var a=0;a<subrecord.users.length;a++) {
+						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+					}
+					DB.performances.save(subrecord, {safe:true}, function(e, success) {
+						conta++;
+						console.dir("performances: "+conta);
+						if (conta==subrecords.length) {
+							status.performances = true;
+							var end = true
+							for (sts in status) if (status[sts]==false) end = false;
+							if (end) callback(true);
+						}
+					});
+				});
+			} else {
+				status.performances = true;
+				var end = true
+				for (sts in status) if (status[sts]==false) end = false;
+				if (end) callback(true);
+			}
+		});
+		DB.tvshow.find({"users._id":id}).toArray(function(err, subrecords){
+			var conta = 0;
+			if (subrecords.length) {
+				subrecords.forEach(function(subrecord){
+					for (var a=0;a<subrecord.users.length;a++) {
+						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+					}
+					DB.tvshow.save(subrecord, {safe:true}, function(e, success) {
+						conta++;
+						console.dir("tvshow: "+conta);
+						if (conta==subrecords.length) {
+							status.tvshow = true;
+							var end = true
+							for (sts in status) if (status[sts]==false) end = false;
+							if (end) callback(true);
+						}
+					});
+				});
+			} else {
+				status.tvshow = true;
+				var end = true
+				for (sts in status) if (status[sts]==false) end = false;
+				if (end) callback(true);
+			}
+		});
+	});
+}
+
+DB.canIeditThis = function(collection, q, user, callback) {
+	//if (collection=="users") q["members._id"] = user._id;
+	DB[collection].findOne(q, function(e, o){
+		callback(o);
 	});
 }
 

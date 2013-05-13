@@ -98,3 +98,9 @@ a:hover img {
 #map_canvas_add img {
   max-width: none;
 }
+.loading-box {
+  padding: 1px 5px 6px 5px;
+  border-radius: 5px;
+  border: 1px solid #eee;
+  background-color: #fff;
+}

@@ -15,7 +15,6 @@ var titles = {
 }
 
 exports.get = function get(req, res) {
-console.dir(createsend);
 	if (req.session.user == null) {
 		res.redirect('/controlpanel/login/?from='+req.url);
 	} else {
@@ -86,16 +85,38 @@ exports.post = function get(req, res) {
 				  		delete o.form;
 				  		var newItem = result;
 				  		//var newItem = {};
-				  		for(item in o) {
+				  		for(var item in o) {
 				  			newItem[item] = o[item];
 				  		}
 						console.dir("CAZZO");
 						console.dir(newItem);
+						var sections = ["events","footage","playlists","gallery","performances","tvshow"];
+						var miniuser = {_id:newItem._id,old_id:newItem.old_id,display_name:newItem.display_name,permalink:newItem.permalink,files:newItem.files,stats:newItem.stats,members:newItem.members};
+						for (var item in sections) {
+							console.dir("bella item "+sections[item]);
+							if (newItem[sections[item]] && newItem[sections[item]].length) {
+								for (var a=0;a<newItem[sections[item]].length;a++) {
+										console.dir("bella2 sections[item]"+sections[item]);
+										console.dir("bella2 newItem[sections[item]].length"+newItem[sections[item]].length);
+									for (var b=0;b<newItem[sections[item]][a].users.length;b++) {
+										console.dir("bella3 sections[item]"+sections[item]);
+										console.dir(newItem[sections[item]][a].users[b].permalink);
+										console.dir(newItem[sections[item]][a].users[b]._id);
+										console.dir(miniuser._id);
+										console.dir(newItem._id);
+//										if (newItem[sections[item]][a].users[b].permalink == miniuser.permalink) newItem[sections[item]][a].users[b] = miniuser;
+										if (newItem[sections[item]][a].users[b]._id.equals(miniuser._id)) newItem[sections[item]][a].users[b] = miniuser;
+									}
+								}
+							}
+						}
 				  		DB.users.save(newItem, {safe:true}, function(e, success) {
 						  	DB.users.findOne({_id:result._id},function(e, result3) {
 						  		result3.form = form;
 						  		result3.collection = sez;
-								res.render('forms/'+form, {locals: {form:form, title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result3, msg:{c:[{m:m}]},Fnc:Fnc}, user : req.session.user });
+						  		DB.updateUserRel(result._id, function(success) {
+									res.render('forms/'+form, {locals: {form:form, title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result3, msg:{c:[{m:m}]},Fnc:Fnc}, user : req.session.user });
+						  		});
 					  		});
 				  		});
 					});

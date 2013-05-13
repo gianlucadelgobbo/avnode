@@ -19,5 +19,9 @@ h1=locals.title
 				include comp/box_events
 			- if (locals.sez == "gallery")
 				include comp/box_gallery
+			- if (locals.sez == "members")
+				include comp/box_performers
+			- if (locals.sez == "crews")
+				include comp/box_performers
 - else
 	.alert=__("The user have no content available")

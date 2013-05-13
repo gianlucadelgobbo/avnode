@@ -1,0 +1,12 @@
+.tabbable.tabs-left
+	include ../comp/cp_menu
+	.tab-content
+		.tab-pane.active
+			legend.clearfix
+				.pull-left=locals.title
+				button.btn.btn-primary.pull-right(type="button",onclick="$('#playerPreview').hide();$('#file-uploader').show();return false")=__("Create a new performance")
+			.row.main-list
+				- for(a=0;a<locals.result.length;a++)
+					- var box = locals.result[a]
+					- var boxpath = "controlpanel"
+					include ../comp/box_performances

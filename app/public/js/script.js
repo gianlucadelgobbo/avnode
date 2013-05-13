@@ -1,5 +1,18 @@
 var ajax;
 var int;
+
+function showModal(t, m, callback) {
+	if (m) $('.modal-'+t+' .modal-body p').html(m);
+	$('.modal-'+t).modal('show');
+	if ($.isFunction(callback)) {
+		$('.modal-'+t).on('hidden', function () {
+		  callback();
+		})
+	}
+}
+
+// PERMALINK
+
 $(function () {
 	$('[name="permalink"]').keyup(function() {
 		$('#permalink').parent().parent().find(".help-inline").text("")
@@ -16,8 +29,9 @@ function checkPermalink() {
 	$('#permalink').text(permalink);
 	if (ajax) ajax.abort();
 	ajax = $.ajax({
-		url: "/ajax/checkPermalink/?_id="+_id+"&permalink="+permalink+"&collection="+collection,
-		type: 'GET',
+		url: "/ajax/checkPermalink/",
+		type: 'POST',
+		data:{_id:_id, permalink:permalink, collection:collection},
 		success: function(data) {
 			console.log(data);
 			console.log($('#permalink').parent().parent());
@@ -31,15 +45,141 @@ function checkPermalink() {
 		}
 	});
 }
-function showModal(t, m, callback) {
-	if (m) $('.modal-'+t+' .modal-body p').html(m);
-	$('.modal-'+t).modal('show');
-	if ($.isFunction(callback)) {
-		$('.modal-'+t).on('hidden', function () {
-		  callback();
-		})
-	}
+
+// EVENTS
+
+function updatePartners( event, ui ) {
+	var _id = $('[name="_id"]').val();
+	var collection = $('[name="collection"]').val();
+	var partners = [];
+	$(".main-list").find("input").each(function(){
+		partners.push(JSON.parse($(this).val()));
+	});
+	console.log(partners);
+	$.ajax({
+		url: "/ajax/updatePartners/",
+		type: 'POST',
+		data:{_id:_id, partners:partners, collection:collection},
+		success: function(data) {
+			console.log(data);
+			console.log($('#permalink').parent().parent());
+		}
+	});
 }
+
+function deletePartner(t,id) {
+	$(t).parent().parent().html("<div class=\"text-center\"><span class=\"loading-box\"><img src=\"/img/loading-small.gif\" /></span></div>");
+	updatePartners(undefined,undefined);
+	$.ajax({
+		url: "/ajax/recreateEventPartners/",
+		type: 'POST',
+		data:{id:id},
+		success: function(data) {
+			$(t).parent().parent().parent().remove();
+			console.log(data);
+			console.log($('#permalink').parent().parent());
+		}
+	});
+}
+
+
+// MEMBERS
+
+function updateMembers( event, ui ) {
+	var _id = $('[name="_id"]').val();
+	var collection = $('[name="collection"]').val();
+	var members = [];
+	$(".main-list").find("input").each(function(){
+		members.push(JSON.parse($(this).val()));
+	});
+	console.log(members);
+	$.ajax({
+		url: "/ajax/updateMembers/",
+		type: 'POST',
+		data:{_id:_id, members:members, collection:collection},
+		success: function(data) {
+			console.log(data);
+			console.log($('#permalink').parent().parent());
+		}
+	});
+}
+
+function deleteMember(t,id) {
+	$(t).parent().parent().html("<div class=\"text-center\"><span class=\"loading-box\"><img src=\"/img/loading-small.gif\" /></span></div>");
+	updateMembers(undefined,undefined);
+	$.ajax({
+		url: "/ajax/recreateUserCrews/",
+		type: 'POST',
+		data:{id:id},
+		success: function(data) {
+			$(t).parent().parent().parent().remove();
+			console.log(data);
+			console.log($('#permalink').parent().parent());
+		}
+	});
+}
+
+function inviteMember(id) {
+	var _id = $('[name="_id"]').val();
+	var crew_name = $('[name="crew_name"]').val();
+	var collection = "users";
+	var data = JSON.parse($('#'+id).val());
+	$('#'+id).parent().find("button").parent().prepend("<span class=\"loading-box\"><img src=\"/img/loading-small.gif\" /></span>");
+	$('#'+id).parent().find("button").attr("disabled","disabled")
+	$('#'+id).parent().find("button").html(__("Inviting"));
+	$.ajax({
+		url: "/ajax/inviteMember/",
+		type: 'POST',
+		data:{doc_id:_id, data:data, crew_name:crew_name, collection:collection},
+		success: function(data) {
+			console.log(data);
+			if(data.success){
+				$('#'+id).parent().find("button").html(__("Invited"));
+				$('#'+id).parent().find(".loading-box").remove();
+			} else {
+				$('#'+id).parent().find("button").removeAttr("disabled")
+				$('#'+id).parent().find("button").html(__("Invite"));
+			}
+		}
+	});
+}
+function findMembers(val) {
+	var _id = $('[name="_id"]').val();
+	var collection = $('[name="collection"]').val();
+	ajax = $.ajax({
+		url: "/ajax/findMembers/",
+		type: 'POST',
+		data:{_id:_id, search:val, collection:collection},
+		success: function(data) {
+			console.log(data);
+			var str = "";
+			for (var a=0;a<data.length;a++) {
+				str+="<div class=\"alert alert-info\"><div class=\"clearfix\">\n";
+				str+="<h4 class=\"pull-left\">"+data[a].display_name+"</h4>\n";
+				str+="<span class=\"pull-right\">\n";
+				str+="<input type=\"hidden\" id=\""+data[a]._id+"\" value='"+JSON.stringify(data[a])+"' />\n";
+				str+="<button class=\"btn btn-small\" onclick=\"inviteMember('"+data[a]._id+"')\">"+__("Invite")+"</button>\n";
+				str+="</span>\n";
+				str+="</div></div>\n";
+			}
+			if (str) {
+				str = "<hr />"+str+"\n";
+			} else {
+				str = __("No members found");
+			}
+			$("#search_result").append(str);
+			console.log($('#permalink').parent().parent());
+			if(data.success){
+				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"icon-ok\"></i> "+data.msg)
+				$('#permalink').parent().parent().parent().removeClass("error");
+			} else {
+				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"icon-remove\"></i> "+data.msg)
+				$('#permalink').parent().parent().parent().addClass("error");
+			}
+		}
+	});
+}
+
 /* EMAILS */
 
 function emailAdd(t){
@@ -52,8 +192,9 @@ function emailAdd(t){
 		var _id = $('[name="_id"]').val();
 		var collection = $('[name="collection"]').val();
 		$.ajax({
-			url: "/ajax/sendVerificationEmail/?doc_id="+_id+"&email="+email+"&collection="+collection,
-			type: 'GET',
+			url: "/ajax/sendVerificationEmail/",
+			type: 'POST',
+			data:{doc_id:_id, email:email, collection:collection},
 			success: function(data) {
 				console.log(data);
 				console.log($('#permalink').parent().parent());
@@ -85,8 +226,9 @@ function emailRemove(t){
 	$(t).parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />&nbsp;&nbsp;Deleting");
 	
 	$.ajax({
-		url: "/ajax/deleteEmail/?doc_id="+_id+"&email="+email+"&collection="+collection,
-		type: 'GET',
+		url: "/ajax/deleteEmail/",
+		type: 'POST',
+		data:{doc_id:_id, email:email, collection:collection},
 		success: function(data) {
 			console.log(data);
 			console.log($('#permalink').parent().parent());
@@ -117,8 +259,9 @@ function setPrimary(t){
 	console.log($(t).parent().parent());
 	$(t).parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />&nbsp;&nbsp;Deleting");
 	$.ajax({
-		url: "/ajax/setPrimary/?doc_id="+_id+"&email="+email+"&collection="+collection,
-		type: 'GET',
+		url: "/ajax/setPrimary/",
+		type: 'POST',
+		data:{doc_id:_id, email:email, collection:collection},
 		success: function(data) {
 			console.log(data);
 			if(data.success){
@@ -142,8 +285,9 @@ function setNewsletter(email, t){
 	var lang = $(t).parent().parent().find("select").val();
 	console.log(val);
 	$.ajax({
-		url: "/ajax/setNewsletter/?doc_id="+_id+"&newsletters="+val.concat(",")+"&email="+email+"&lang="+lang,
-		type: 'GET',
+		url: "/ajax/setNewsletter/",
+		type: 'POST',
+		data:{doc_id:_id, newsletters:val.concat(","), email:email, lang:lang},
 		success: function(data) {
 			$(t).parent().parent().find(".help-inline").html("");
 		}
@@ -460,7 +604,8 @@ function createSend(t,url){
 function tagUsers(id_media, id_sogg, x, y) {
 	$.ajax({
 		url: '/_php/ajax/tagUsers.php?act=add&id_media='+id_media+'&id_sogg='+id_sogg+'&x='+x+'&y='+y+'&url='+document.location.href,
-		type: 'GET',
+		type: 'POST',
+		data:{_id:_id, members:members, collection:collection},
 		success: function(data) {
 			$('#taggedUsers').show();
 			$('#taggedUsersList').html(data);
@@ -471,7 +616,8 @@ function tagUsers(id_media, id_sogg, x, y) {
 function tagUsersRemove(id_media, id_sogg) {
 	$.ajax({
 		url: '/_php/ajax/tagUsers.php?act=remove&id_media='+id_media+'&id_sogg='+id_sogg,
-		type: 'GET',
+		type: 'POST',
+		data:{_id:_id, members:members, collection:collection},
 		success: function(data) {
 			if (data.indexOf("href")>0) {
 				$('#taggedUsers').show();
@@ -486,7 +632,8 @@ function tagUsersRemove(id_media, id_sogg) {
 function setNewPerf() {
 	$.ajax({
 		url: '/_php/ajax/randomPerf.php',
-		type: 'GET',
+		type: 'POST',
+		data:{_id:_id, members:members, collection:collection},
 		success: function(data) {
 			$('#BoxPerfPrimoPiano').html(data);
 			$('#cntHide').attr('style','height:auto');
@@ -525,7 +672,8 @@ function setNewAlert() {
 	if (oldPerf>2) oldPerf=0;
 	$.ajax({
 		url: '/_php/ajax/newAlert.php?n='+oldPerf,
-		type: 'GET',
+		type: 'POST',
+		data:{_id:_id, members:members, collection:collection},
 		success: function(data) {
 			$('#alertCnt').html(data);
 		}
@@ -537,7 +685,8 @@ function loadHomePostAjax(url,div){
 	$(div).html("<div style=\"text-align:center; padding:50px 0;background-color:#FFFFFF;\"><img src=\"/_images/loading_white.gif\" alt=\"please wait\" /></div>");
 	$.ajax({
 		url: url,
-		type: 'GET',
+		type: 'POST',
+		data:{_id:_id, members:members, collection:collection},
 		success: function(data) {
 			$(div).html(data);
 		}
@@ -566,7 +715,8 @@ function loadListaBase(url){
 	$(div).html("<div style=\"text-align:center; padding:50px 0;background-color:#FFFFFF;\"><img src=\"/_images/loading_white.gif\" alt=\"please wait\" /></div>");
 	$.ajax({
 		url: '/_php/ajax/writeList.php'+url,
-		type: 'GET',
+		type: 'POST',
+		data:{_id:_id, members:members, collection:collection},
 		success: function(data) {
 			$(div).html(data);
 			$('#tot_num_rows').html($('#tot_num_rows_pager').html());
@@ -587,7 +737,8 @@ function openShadowboxWin(modeOpt,winOpt){
 	if(modeOpt.mode=="ajax"){
 		$.ajax({
 			url: winOpt.url,
-			type: 'GET',
+			type: 'POST',
+		data:{_id:_id, members:members, collection:collection},
 			success: function(data) {
 				$("#msgBox").html(data);
 				$("#msgBox").dialog({ title: winOpt.title,modal: true,width: winOpt.width,height:winOpt.height});
@@ -734,7 +885,8 @@ function fillCommentArea(divSrc,divDest,nome){
 function ajaxLoader(url,divDest){
 	$.ajax({
 		url: url,
-		type: 'GET',
+		type: 'POST',
+		data:{_id:_id, members:members, collection:collection},
 		success: function(data) {
 			$(divDest).html(data);
 		}
@@ -743,7 +895,8 @@ function ajaxLoader(url,divDest){
 function ajaxLoaderPlayer(url,divDest,fpUrl,listUrl,divDestList){	
 	$.ajax({
 		url: url,
-		type: 'GET',
+		type: 'POST',
+		data:{_id:_id, members:members, collection:collection},
 		success: function(data) {
 			$(divDest).html(data);
 			flashWriter('flashPlayer',400,300,'/_fp/flxerPlayer.swf?cnt='+sitePath+'/_fp/fpGallery.php?id=p'+fpUrl,'window'); 
@@ -778,7 +931,8 @@ function divFiller(divid,pid,url){
 			$(pid).setStyle({backgroundImage: 'url(/_images/freccia_open.gif)'});
 			$.ajax({
 				url: url,
-				type: 'GET',
+				type: 'POST',
+		data:{_id:_id, members:members, collection:collection},
 				success: function(data) {
 					$(divid).html(data);
 					Shadowbox.setup();

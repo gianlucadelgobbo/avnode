@@ -17,6 +17,7 @@ var cpanelSignupRoutes 		= require('./routes/controlpanel/signup');
 var cpanelUserRoutes 		= require('./routes/controlpanel/user');
 var cpanelCrewsRoutes	 	= require('./routes/controlpanel/crews');
 var cpanelEventsRoutes	 	= require('./routes/controlpanel/events');
+var cpanelPerformancesRoutes= require('./routes/controlpanel/performances');
 var uploadRoutes 			= require('./routes/upload');
 var imageRoutes 			= require('./routes/image');
 var adminImportRoutes 		= require('./routes/admin/import');
@@ -105,6 +106,10 @@ module.exports = function(app) {
 	// cp Events //
 	app.get('/controlpanel/events*', cpanelEventsRoutes.get);
 	app.post('/controlpanel/events*', cpanelEventsRoutes.post);
+	
+	// cp Performances //
+	app.get('/controlpanel/performances*', cpanelPerformancesRoutes.get);
+	app.post('/controlpanel/performances*', cpanelPerformancesRoutes.post);
 	
 	// search //
 	app.get('/search', searchRoutes.get);

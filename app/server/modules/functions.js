@@ -24,7 +24,7 @@ exports.getList = function (params, sez, res, ids, callback) {
 	//if (ids) searchQ["users._id"] = {$in:ids};
 	//searchQ = {"users._id": {$in: [new ObjectID("515c07ccdad037523c000903")]}};
 	//searchQ = {"users._id": new ObjectID("50f836b77ad42b00000003ad")};
-	//console.dir(searchQ);
+	console.dir(searchQ);
 	//console.dir(_config.sections[sez].coll);
 	DB[_config.sections[sez].coll].find(searchQ, {"_id": 1 }).count(function(err, tot){
 		//console.dir(tot);

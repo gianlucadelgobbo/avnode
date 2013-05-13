@@ -1,4 +1,12 @@
+- //console.dir(result.partners)
+- var tmp = {};
+- for (partner in result.partners) {
+- 	if (!tmp[result.partners[partner].partner_type]) tmp[result.partners[partner].partner_type] = []
+- 	tmp[result.partners[partner].partner_type].push(result.partners[partner])
+- }
+- result.partners = tmp;
 - console.dir(result.partners)
+	
 .tabbable.tabs-left
 	include ../comp/cp_menu
 	.tab-content
@@ -7,37 +15,39 @@
 			form.form-horizontal(method="post", action="#")
 				fieldset
 					legend=locals.title
+					input(name="collection", value="events", type="hidden")
+					input(name="_id", value=result._id, type="hidden")
 					.clearfix
 						button.btn.btn-primary.pull-right(style="margin-bottom:20px;")=__("Add a partner")
-					- if (result.partners && result.partners.length)
+					- if (result.partners)
 						- var n = 0
 						- var connectedSortable = []
-						each partner,key in result.partners
-							.control-group
-								label.control-label=key
-								.controls.connectedSortable(id="connectedSortable_"+n)
-									- connectedSortable.push("#connectedSortable_"+n)
-									- n++
-									each p,key in partner
-										.alert.alert-info
-											.clearfix
-												.pull-left
-													b=p.display_name
-												.pull-right
-													a.btn.btn-mini(href="#")
-														i.icon-pencil
-													!=" "
-													a.btn.btn-mini(href="#")
-														i.icon-remove
-													!=" "
-													a.btn.btn-mini(href="#")
-														i.icon-eye-open
-													!=" "
-													i.icon-move(style="margin:3px 0 0 25px;")
+						.main-list
+							each partner,key in result.partners
+								.control-group
+									label.control-label=key
+									.controls.connectedSortable(id="connectedSortable_"+n)
+										- connectedSortable.push("#connectedSortable_"+n)
+										- n++
+										each p,key2 in partner
+											.alert.alert-info
+												.clearfix
+													.pull-left
+														b=p.display_name
+														input(type="hidden",name="partners[]",value=JSON.stringify(p))
+													.pull-right
+														a.btn.btn-mini(href="#",onclick="deletePartner(this,'"+p._id+"');return false;")
+															i.icon-remove
+														!=" "
+														a.btn.btn-mini(href="/"+p.permalink+"/",target="_blank")
+															i.icon-eye-open
+														!=" "
+														i.icon-move(style="margin:3px 0 0 25px;")
 						- connectedSortableStr = connectedSortable.join(",")
 						script
 							$(function() {
 								$('#{connectedSortableStr}').sortable({
+									update: updatePartners,
 									connectWith: ".connectedSortable",
 									placeholder: "ui-state-highlight"
 								}).disableSelection();

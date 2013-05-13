@@ -49,6 +49,26 @@ exports.get = function get(req, res) {
 							res.render('forms/confirm', {	locals: {title : result.msg.title, msg:msg, "from":req.query.from}, user : req.session.user });
 				  		});
 					});
+				} else if (result.act == "inviteMember") {
+					DB[result.collection].findOne({_id:new ObjectID(result.doc_id)}, function(e, result2) {
+				  		result2.members.push(result.data);
+				  		DB[result.collection].save(result2, {safe:true}, function(e, success) {
+				  			if (success) {
+						  		var msg = {c:[{m:result.msg.text}]};
+						  		DB.temp.remove({code:req.query.code});
+				  			} else {
+						  		var msg = {e:[{m:"Code is not valid or already used"}]};
+				  			}
+							DB[result.collection].findOne({_id:new ObjectID(result.data._id)}, function(e, user) {
+								DB[result.collection].find({"members._id":result.data._id}, {fields:{_id:1,old_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
+								if (subrecords.length) user.crews = subrecords;
+									DB.users.save(user, {safe:true}, function(e, success) {
+										res.render('forms/confirm', {	locals: {title : result.msg.title, msg:msg, "from":req.query.from}, user : req.session.user });
+									});
+								});
+					  		});
+				  		});
+					});
 				}
 			} else {
 				var msg = {e:[{m:"Code is not valid or already used"}]};

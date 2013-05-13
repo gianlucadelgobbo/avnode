@@ -18,9 +18,9 @@ hr
 			- if (locals.result.websites)
 				- for(a=0;a<locals.result.websites.length;a++)
 					li
-						a(href=locals.result.websites[a].url,target="_blank")
+						a(href=locals.result.websites[a],target="_blank")
 							i.icon-globe
-							!=locals.result.websites[a].url.replace("http://","").replace("https://","")
+							!=locals.result.websites[a].replace("http://","").replace("https://","")
 			li
 				i.icon-home
 				!=locals.Fnc.formatLoc(locals.result.locations)
