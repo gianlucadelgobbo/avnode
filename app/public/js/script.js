@@ -48,6 +48,30 @@ function checkPermalink() {
 
 // EVENTS
 
+function invitePartner(id) {
+	var _id = $('[name="_id"]').val();
+	var event_name = $('[name="title"]').val();
+	var collection = "events";
+	var data = JSON.parse($('#'+id).val());
+	$('#'+id).parent().find("button").parent().prepend("<span class=\"loading-box\"><img src=\"/img/loading-small.gif\" /></span>");
+	$('#'+id).parent().find("button").attr("disabled","disabled")
+	$('#'+id).parent().find("button").html(__("Inviting"));
+	$.ajax({
+		url: "/ajax/invitePartner/",
+		type: 'POST',
+		data:{doc_id:_id, data:data, event_name:event_name, collection:collection},
+		success: function(data) {
+			console.log(data);
+			if(data.success){
+				$('#'+id).parent().find("button").html(__("Invited"));
+				$('#'+id).parent().find(".loading-box").remove();
+			} else {
+				$('#'+id).parent().find("button").removeAttr("disabled")
+				$('#'+id).parent().find("button").html(__("Invite"));
+			}
+		}
+	});
+}
 function updatePartners( event, ui ) {
 	var _id = $('[name="_id"]').val();
 	var collection = $('[name="collection"]').val();
@@ -68,12 +92,49 @@ function updatePartners( event, ui ) {
 }
 
 function deletePartner(t,id) {
+	var _id = $('[name="_id"]').val();
+	var collection = $('[name="collection"]').val();
+	var toremove = $(t).parent().parent().parent();
 	$(t).parent().parent().html("<div class=\"text-center\"><span class=\"loading-box\"><img src=\"/img/loading-small.gif\" /></span></div>");
-	updatePartners(undefined,undefined);
+	var partners = [];
+	$(".main-list").find("input").each(function(){
+		partners.push(JSON.parse($(this).val()));
+	});
+	console.log(partners);
 	$.ajax({
-		url: "/ajax/recreateEventPartners/",
+		url: "/ajax/updatePartners/",
 		type: 'POST',
-		data:{id:id},
+		data:{_id:_id, partners:partners, collection:collection},
+		success: function(data) {
+			$.ajax({
+				url: "/ajax/deletePartner/",
+				type: 'POST',
+				data:{_id:_id, id_partner:id, collection:collection},
+				success: function(data) {
+					toremove.remove();
+					/*
+					$.ajax({
+						url: "/ajax/recreatePartnersEvent/",
+						type: 'POST',
+						data:{id:$('[name="_id"]').val()},
+						success: function(data) {
+							toremove.remove();
+							console.log($(t));
+							console.log($('#permalink').parent().parent());
+						}
+					});
+					*/
+				}
+			});
+		}
+	});
+}
+
+function recreatePartnersEvent() {
+	$.ajax({
+		url: "/ajax/recreatePartnersEvent/",
+		type: 'POST',
+		data:{id:$('[name="_id"]').val()},
 		success: function(data) {
 			$(t).parent().parent().parent().remove();
 			console.log(data);

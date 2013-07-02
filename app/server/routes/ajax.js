@@ -62,6 +62,7 @@ exports.post = function get(req, res) {
 			} else {
 				res.send(404);
 			}
+// EVENT PARTNER
 		} else if (pathArray[1] == "updatePartners") {
 			if(req.body.partners && req.body.collection) {
 				DB[req.body.collection].findOne({"_id":new ObjectID(req.body._id)}, function(e, o){
@@ -74,21 +75,93 @@ exports.post = function get(req, res) {
 			} else {
 				res.send(404);
 			}
-		} else if (pathArray[1] == "recreatePartnersEvent") {
-			if(req.body.id) {
-				DB.events.findOne({_id:new ObjectID(req.body.id)}, function(e, event) {
-					DB.events.find({"events._id":new ObjectID(req.body.id)}, {fields:{_id:1,title:1,permalink:1,users:1,files:1,categories:1,stats:1,date_time_venue:1}}).toArray(function(err, subrecords){
-						if (subrecords.length) event.partners = subrecords;
-						console.log({"events._id":req.body.id});
-						console.log(subrecords);
-						DB.events.save(event, {safe:true}, function(e, success) {
-							res.send({success:success});
+		} else if (pathArray[1] == "deletePartner") {
+			if(req.body._id && req.body.id_partner) {
+				DB.users.findOne({"_id":new ObjectID(req.body.id_partner)}, function(e, o){
+					if (o.partnerships && o.partnerships.length) {
+						o.partnerships = o.partnerships.filter(function (element, index, array) {
+							return (element._id.toString() !== req.body._id);
 						});
-					});
+						DB.users.save(o, {safe:true}, function(e, success) {
+							console.dir("SEND AN EMAIL TO THE PARTNER REMOVED");
+							res.send(o);			
+				  		});
+					} else {
+						DB.events.find({"partners._id":new ObjectID(req.body.id_partner)}, {fields:{_id:1,title:1,permalink:1,users:1,files:1,categories:1,stats:1,date_time_venue:1}}).toArray(function(e, subrecords){
+							//if (o.partnership) delete o.partnership;
+							if (subrecords) o.partnerships = subrecords;
+							DB.users.save(o, {safe:true}, function(e, success) {
+								console.dir("SEND AN EMAIL TO THE PARTNER REMOVED");
+								res.send(o);			
+					  		});
+				  		});
+					}
 		  		});
 			} else {
 				res.send(404);
 			}
+		} else if (pathArray[1] == "invitePartner") {
+			if(req.body.data && req.body.collection) {
+				DB.saltAndHash(req.body._id+req.body.data._id,function(hash){
+					req.body.code = hash;
+					req.body.act = "invitePartner";
+					req.body.collection = "users";
+					req.body.redirect = "/"+req.body.permalink+"/";
+					req.body.msg = {title:__("Accept invitation to be partner of")+": "+req.body.title,text:__("Invitation accepted with success, please continue")};
+					console.dir(req.body);
+					DB.temp.insert(req.body, {safe: true}, function(err, record){
+						text = _config.siteurl+"/confirm/?code="+req.body.code;
+						EM.sendMail({
+						   text:    text, 
+						   //to:      req.body.data.emails[0].email,
+						   to:      "g.delgobbo@flyer.it",
+						   subject: _config.sitename + " | " + __("Invitation to")+": "+req.body.crew_name
+						}, function(err, message) {
+							var result = err ? {success:false, msg:__("Email verification sending failed")} : {success:true, msg:__("Email verification sent by email")};
+							res.send(result);			
+						});
+			  		});
+					/*
+			  		*/
+		  		});
+			} else {
+				res.send(404);
+			}
+/*		} else if (pathArray[1] == "recreatePartnersEvent") {
+			if(req.body.id) {
+				DB.events.findOne({_id:new ObjectID(req.body.id)}, {fields:{_id:1,title:1,permalink:1,users:1,files:1,categories:1,stats:1,date_time_venue:1,partners:1}}, function(e, event) {
+					console.dir({_id:new ObjectID(req.body.id)});
+					console.dir(event);
+					if (event.partners) {
+						var minievent = {_id:event._id,title:event.title,permalink:event.permalink,users:event.users,files:event.files,categories:event.categories,stats:event.stats,date_time_venue:event.date_time_venue};
+						//delete minievent.partners;
+						var conta = 0;
+						event.partners.forEach(function(item){
+							DB.users.findOne({"_id":new ObjectID(item._id)}, function(err, subrecord){
+								if (!subrecord.partnership) subrecord.partnership = [];
+								var add = true;
+								for(event2 in subrecord.partnership) {
+									if (subrecord.partnership[event2]._id==minievent._id) add = false;
+								}
+								if (add) subrecord.partnership.push(minievent);
+								console.log(subrecord);
+								DB.users.save(subrecord, {safe:true}, function(e, success) {
+									conta++;
+									if (event.partners.length==conta) {
+										res.send({success:success});
+									}
+								});
+							});
+						});
+					} else {
+						res.send({success:false});
+					}
+		  		});
+			} else {
+				res.send(404);
+			}
+*/
+// CREW MEMBERS
 		} else if (pathArray[1] == "updateMembers") {
 			if(req.body.members && req.body.collection) {
 				DB[req.body.collection].findOne({"_id":new ObjectID(req.body._id)}, function(e, o){
