@@ -4,6 +4,7 @@
   "description": "open-source community system build on node.js and mongodb",
   "main": "app.js",
   "dependencies": {
+<<<<<<< HEAD
     "accounting": "~0.3.2",
     "bcrypt": "~0.7.2",
     "emailjs": "~0.3.2",
@@ -16,6 +17,8 @@
     "request": "~2.16.6",
     "imagemagick": "~0.1.3",
     "bcrypt-nodejs": "0.0.3"
+=======
+>>>>>>> 9a2cd3ca379c466ab744bd2b6ba3dfe758d38a37
   },
   "devDependencies": {},
   "scripts": {
