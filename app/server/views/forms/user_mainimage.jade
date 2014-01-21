@@ -8,7 +8,7 @@
 					legend=locals.title
 					#playerPreview
 						include ../comp/thumbnails
-					#file-uploader(class=(locals.result.files.length ? 'hide' : undefined))
+					#file-uploader(class=(locals.result.files && locals.result.files.length ? 'hide' : undefined))
 						.qq-uploader
 							.qq-upload-drop-area
 								span=__("Drop here files to upload (only jpg, png, gif)")

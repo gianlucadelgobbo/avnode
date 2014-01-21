@@ -1,7 +1,11 @@
 - console.log (_config.thumbnails)
-input#img_arr(type="hidden",id="img_arr",name="img_arr",value=locals.result.files[locals.result.files.length-1].file)
-- for (a=0;a<_config.thumbnails.length;a++)
+input#img_arr(type="hidden",id="img_arr",name="img_arr",value=locals.result.files && locals.result.files.length ? locals.result.files[locals.result.files.length-1].file : undefined)
+- if (locals.result.files)
+	- for (a=0;a<_config.thumbnails.length;a++)
+		p
+				a(href="#",onclick="editThumbnail(this)",onmouseover="$(this).find('.hide').show()",onmouseout="$(this).find('.hide').hide()")
+					img#avatar_old_img(src=locals.Fnc.getFileFormat(locals.result.files,_config.thumbnails[a].width,_config.thumbnails[a].height))
+					span.hide=__("Edit thumbnail")
+- else
 	p
-		a(href="#",onclick="editThumbnail(this)",onmouseover="$(this).find('.hide').show()",onmouseout="$(this).find('.hide').hide()")
-			img#avatar_old_img(src=locals.Fnc.getFileFormat(locals.result.files,_config.thumbnails[a].width,_config.thumbnails[a].height))
-			span.hide=__("Edit thumbnail")
+		img#avatar_old_img(src=locals.Fnc.getFileFormat(locals.result.files,_config.thumbnails[0].width,_config.thumbnails[0].height))

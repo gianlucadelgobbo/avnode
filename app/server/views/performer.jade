@@ -1,4 +1,3 @@
-- console.dir(locals.result)
 include performer_inc_author_header
 - if (locals.result.text)
 	.page-header
@@ -17,17 +16,18 @@ hr
 - if (locals.result.crews 			&& locals.result.crews.length) 			blocks.push("crews")
 - if (blocks.length>4) rows = 2;
 - var cols = Math.round(blocks.length/2);
-- var span = 12/cols;
+- console.dir(blocks.length)
+- var myspan = 12/cols;
+- console.dir(myspan)
+- console.dir(blocks.length)
 - for(var c=0;c<rows;c++)
 	.row
 		- for(var b=0;b<cols;b++)
 			- var sez = (blocks[b+(c*cols)] == "tvshows" ? "tvshow" : blocks[b+(c*cols)])
 			- var tit = (blocks[b+(c*cols)] == "crews" || blocks[b+(c*cols)] == "members" ? "display_name" : "title")
 			- if (b+(c*cols)<blocks.length)
-				div(class="span"+span)
-					- console.log(c+" - "+b+" - "+(b+(c*cols)))
-					- console.log(blocks[b+(c*cols)])
-					- console.log(locals.result[sez][0].users)
+				div(class="span"+myspan)
+					- console.dir("stocazzo"+myspan)
 					h3=(blocks[b+(c*cols)] == "members" ? __("Members") : (blocks[b+(c*cols)] == "crews" ? __("Crews") : _config.sections[blocks[b+(c*cols)]].title))
 					.main-list.row
 						- locals.sez = sez
@@ -52,7 +52,6 @@ hr
 									include comp/box_performers
 						- if (locals.result[sez].length>_config.usersListItems)
 							.pull-right
-								- console.log(locals.sez)
 								a.btn(href="/"+locals.result.permalink+"/"+_config.sections[blocks[b+(c*cols)]].basepath+"/")
 									!=__("Show all")+" "
 									i.icon-globe

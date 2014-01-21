@@ -18,6 +18,13 @@ var cpanelUserRoutes 		= require('./routes/controlpanel/user');
 var cpanelCrewsRoutes	 	= require('./routes/controlpanel/crews');
 var cpanelEventsRoutes	 	= require('./routes/controlpanel/events');
 var cpanelPerformancesRoutes= require('./routes/controlpanel/performances');
+var cpanelTvshowsRoutes	 	= require('./routes/controlpanel/tvshows');
+var cpanelFootageRoutes	 	= require('./routes/controlpanel/footage');
+var cpanelPlaylistsRoutes	= require('./routes/controlpanel/playlists');
+var cpanelGalleryRoutes		= require('./routes/controlpanel/gallery');
+
+
+
 var uploadRoutes 			= require('./routes/upload');
 var imageRoutes 			= require('./routes/image');
 var adminImportRoutes 		= require('./routes/admin/import');
@@ -110,6 +117,22 @@ module.exports = function(app) {
 	// cp Performances //
 	app.get('/controlpanel/performances*', cpanelPerformancesRoutes.get);
 	app.post('/controlpanel/performances*', cpanelPerformancesRoutes.post);
+	
+	// cp tvshows //
+	app.get('/controlpanel/tvshows*', cpanelTvshowsRoutes.get);
+	app.post('/controlpanel/tvshows*', cpanelTvshowsRoutes.post);
+	
+	// cp footage //
+	app.get('/controlpanel/footage*', cpanelFootageRoutes.get);
+	app.post('/controlpanel/footage*', cpanelFootageRoutes.post);
+	
+	// cp tvshows //
+	app.get('/controlpanel/playlists*', cpanelPlaylistsRoutes.get);
+	app.post('/controlpanel/playlists*', cpanelPlaylistsRoutes.post);
+	
+	// cp tvshows //
+	app.get('/controlpanel/gallery*', cpanelGalleryRoutes.get);
+	app.post('/controlpanel/gallery*', cpanelGalleryRoutes.post);
 	
 	// search //
 	app.get('/search', searchRoutes.get);

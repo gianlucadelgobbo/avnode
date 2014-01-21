@@ -160,6 +160,10 @@ exports.getFileFormat = function (obj, w, h) {
 		return "/warehouse/defaults/"+w+"x"+h+".jpg";
 	}
 }
+exports.is_email = function(e) {
+	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return re.test(e);
+}
 
 exports.in_array = function (needle, haystack) {
 	for(var i in haystack) {

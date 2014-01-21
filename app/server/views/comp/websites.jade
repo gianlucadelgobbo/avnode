@@ -2,6 +2,7 @@
 	label.control-label=__("Web sites")
 	.controls
 		#websites
+			- if (!result.websites) result.websites = [""]
 			each website in result.websites
 				.clearfix
 					.input-append

@@ -138,6 +138,7 @@ exports.validate_user_private = function (req,callback) {
 	if (o.name=="") errors.push({name:"name",m:__("Name can not be empty")});
 	if (o.surname=="") errors.push({name:"surname",m:__("Surname can not be empty")});
 	if (o.gender=="") errors.push({name:"gender",m:__("Gender can not be empty")});
+	if (o.citizenship=="") errors.push({name:"gender",m:__("Country of citizenship can not be empty")});
 	if (!((parseFloat(tmp[2])==o.birth_date.getDate()) && (parseFloat(tmp[1])-1==o.birth_date.getMonth()) && (parseFloat(tmp[0])==o.birth_date.getFullYear()))) errors.push({name:"birthdate",m:__("Birth date is not valid")});
 	console.dir(o);
 	console.dir(o.birth_date.getFullYear());

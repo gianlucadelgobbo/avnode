@@ -434,5 +434,22 @@
 	"Create a new performance": "Create a new performance",
 	"Remove Date & location": "Remove Date & location",
 	"Add a Date & location": "Add a Date & location",
-	"Stage name can not be empty": "Stage name can not be empty"
+	"Stage name can not be empty": "Stage name can not be empty",
+	"Name is too short": "Name is too short",
+	"Surname is too short": "Surname is too short",
+	"Email is too short": "Email is too short",
+	"Password is too short (min 8 char)": "Password is too short (min 8 char)",
+	"Stage name is too short": "Stage name is too short",
+	"Profile url is too short": "Profile url is too short",
+	"Email is not a valid address": "Email is not a valid address",
+	"Email is too long (max. 20 char)": "Email is too long (max. 20 char)",
+	"Email is too long (max. 30 char)": "Email is too long (max. 30 char)",
+	"Crew profile url is too short": "Crew profile url is too short",
+	"Please select the type of account: individual or crew": "Please select the type of account: individual or crew",
+	"Crew name is too short": "Crew name is too short",
+	"Crew profile url already in use": "Crew profile url already in use",
+	"Crew  profile url can not be the equal to Profile url": "Crew  profile url can not be the equal to Profile url",
+	"Data saved, please login": "Data saved, please login",
+	"Gender can not be empty": "Gender can not be empty",
+	"Country of citizenship can not be empty": "Country of citizenship can not be empty"
 }

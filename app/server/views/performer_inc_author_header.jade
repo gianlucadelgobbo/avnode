@@ -13,9 +13,10 @@
 									a(href=locals.result.websites[a].url,target="_blank")
 										i.icon-globe
 										!=locals.result.websites[a].url
-						li
-							i.icon-home
-							!=locals.Fnc.formatLoc(locals.result.locations)
+						- if (locals.result.locations)
+							li
+								i.icon-home
+								!=locals.Fnc.formatLoc(locals.result.locations)
 		.row
 			- for(a=0;a<locals.result.length;a++)
 				.span3

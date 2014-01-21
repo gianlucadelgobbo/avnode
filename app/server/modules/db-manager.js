@@ -278,17 +278,17 @@ DB.updateUserRel = function(id, callback) {
 			if (subrecords.length) {
 				subrecords.forEach(function(subrecord){
 					for (var a=0;a<subrecord.users.length;a++) {
-						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+						if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user; 
 					}
 					if (subrecord.partners) {
 						for (var a=0;a<subrecord.partners.length;a++) {
-							if (subrecord.partners[a]._id==id) subrecord.partners[a] = user; 
+							if (subrecord.partners[a]._id.equals(id)) subrecord.partners[a] = user; 
 						}
 					}
 					if (subrecord.performances) {
 						for (var a=0;a<subrecord.performances.length;a++) {
 							for (var b=0;b<subrecord.performances[a].length;b++) {
-								if (subrecord.performances[a].users[b]._id==id) subrecord.performances[a].users[b] = user; 
+								if (subrecord.performances[a].users[b]._id.equals(id)) subrecord.performances[a].users[b] = user; 
 							}
 						}
 					}
@@ -315,7 +315,7 @@ DB.updateUserRel = function(id, callback) {
 			if (subrecords.length) {
 				subrecords.forEach(function(subrecord){
 					for (var a=0;a<subrecord.users.length;a++) {
-						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+						if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user; 
 					}
 					DB.footage.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
@@ -340,7 +340,7 @@ DB.updateUserRel = function(id, callback) {
 			if (subrecords.length) {
 				subrecords.forEach(function(subrecord){
 					for (var a=0;a<subrecord.users.length;a++) {
-						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+						if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user; 
 					}
 					DB.playlists.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
@@ -365,7 +365,7 @@ DB.updateUserRel = function(id, callback) {
 			if (subrecords.length) {
 				subrecords.forEach(function(subrecord){
 					for (var a=0;a<subrecord.users.length;a++) {
-						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+						if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user; 
 					}
 					DB.gallery.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
@@ -390,7 +390,7 @@ DB.updateUserRel = function(id, callback) {
 			if (subrecords.length) {
 				subrecords.forEach(function(subrecord){
 					for (var a=0;a<subrecord.users.length;a++) {
-						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+						if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user; 
 					}
 					DB.performances.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
@@ -415,7 +415,7 @@ DB.updateUserRel = function(id, callback) {
 			if (subrecords.length) {
 				subrecords.forEach(function(subrecord){
 					for (var a=0;a<subrecord.users.length;a++) {
-						if (subrecord.users[a]._id==id) subrecord.users[a] = user; 
+						if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user; 
 					}
 					DB.tvshow.save(subrecord, {safe:true}, function(e, success) {
 						conta++;

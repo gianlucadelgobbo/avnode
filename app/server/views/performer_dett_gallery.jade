@@ -1,0 +1,32 @@
+- console.dir(locals.dett)
+.user_dett
+	.row
+		.span9
+			h1=locals.dett.title
+		.span3
+			ul.nav.nav-list.user_dett_ul
+				li.divider
+				li.clearfix
+					span.pull-left=__("Visits")+": "+locals.dett.stats.visits
+					span.pull-right
+						button.btn.btn-primary.btn-mini
+							i.icon-globe.icon-white
+							!=" "+__("Like")
+						!=" "
+						code=locals.dett.stats.rates ? locals.dett.stats.rates.tot_rate : 0
+				li.divider
+				li=__("Author")+": "
+					a(href="/"+locals.result.permalink+"/")=locals.result.display_name
+				li.divider
+				- for(item in locals.dett.categories)
+					- if (locals.dett.categories[item] && locals.dett.categories[item].ancestors && locals.dett.categories[item].ancestors[0].permalink=="lv-projects-categories")
+						li
+							!=__("Type")+": "
+							a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item].permalink+"/")=locals.dett.categories[item].name
+hr
+.row
+	- for(item in locals.dett.footage)
+		- var box = locals.dett.footage[item]
+		- box.files = [{file:'/'+box.folder+'/'+box.name}]
+		- var sea = "gallery"
+		include comp/box_gallery_item

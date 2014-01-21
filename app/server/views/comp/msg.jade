@@ -1,11 +1,11 @@
 - if (typeof msg !== "undefined" && typeof msg.e !== "undefined" && msg.e.length)
-	.alert.alert-error
+	.alert.alert-error.text-left
 		h4=__("There are some errors")
 		ul
 			- for(a=0;a<msg.e.length;a++)
 				li=msg.e[a].m
 - if (typeof msg !== "undefined" && typeof msg.c !== "undefined" && msg.c.length)
-	.alert.alert-success
+	.alert.alert-success.text-left
 		h4=__("There are some messages")
 		ul
 			- for(a=0;a<msg.c.length;a++)

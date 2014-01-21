@@ -53,6 +53,9 @@
 				- if(locals.dett.gallery && locals.dett.gallery.length)
 					li
 						a(href="#gallery",data-toggle="tab")=_config.sections["gallery"].title+" ["+locals.dett.gallery.length+"]"
+				- if(locals.dett.events && locals.dett.events.length)
+					li
+						a(href="#events",data-toggle="tab")=_config.sections["events"].title+" ["+locals.dett.events.length+"]"
 			.tab-content
 				#about.tab-pane.active
 					!=locals.Fnc.getTextFormat(locals.dett.text, _config.lang, true)
@@ -78,6 +81,13 @@
 													- str+="<li>"+__(stat)+": "+locals.dett.gallery[item].stats[stat]+"</li>"
 											- if (str)
 												ul!=str
+				- if(locals.dett.events && locals.dett.events.length)
+					#events.tab-pane
+						.row
+							- for(item in locals.dett.events)
+								- var box = locals.dett.events[item]
+								- locals.sez = "events"
+								include comp/box_events
 		.span3
 			h3=__("Author")
 			include performer_inc_author_column

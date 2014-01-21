@@ -92,6 +92,7 @@ ul.nav.nav-tabs
 							.row.main-list
 								- for(item in dayRoomPerf)
 									- var box = dayRoomPerf[item]
+									- locals.sez = "performances"
 									include comp/box_performances
 					- }
 			- }

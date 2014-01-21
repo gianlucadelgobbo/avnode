@@ -16,6 +16,9 @@ div(class="span"+span)
 				- if (box.categories[item] && box.categories[item].ancestors && box.categories[item].ancestors[0].permalink=="lv-projects-categories") categories+="<li><a href=\"/"+_config.sections[locals.sez].basepath+"/"+box.categories[item].permalink+"/\">"+box.categories[item].name+"</a></li>"
 			- if (categories)
 				ul.stats!=categories
+			ul.stats
+			- for(item in box.users)
+				li!=box.users[item].display_name
 			- if (box.date_time_venue)
 				- categories = "";
 				- if (box.date_time_venue[0] && box.date_time_venue[0].date) categories+="<li>"+(box.date_time_venue.length>1 ? __("Starts")+": " : "")+locals.Fnc.getEventDate(box.date_time_venue[0].date)+", "+box.date_time_venue[0].start_time+" | "+box.date_time_venue[0].venue+"</li>"

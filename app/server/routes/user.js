@@ -15,16 +15,38 @@ exports.get = function get(req, res) {
 				if (pathArray.length > 1) {
 					if (pathArray.length > 2) {
 						if (pathArray.length > 3) {
-							DB.users.findOne({permalink:pathArray[0]}, function(e, result) {
-								res.send(404);
-								/*
-								if (result) {
-									res.render('performer', {	locals: { userpage:true, title: result.display_name, result : result, Fnc:Fnc}, user : req.session.user });
-								} else {
+							if (pathArray.length > 4) {
+								DB.users.findOne({permalink:pathArray[0]}, function(e, result) {
 									res.send(404);
-								}
-								*/
-							});
+									/*
+									if (result) {
+										res.render('performer', {	locals: { userpage:true, title: result.display_name, result : result, Fnc:Fnc}, user : req.session.user });
+									} else {
+										res.send(404);
+									}
+									*/
+								});
+							} else if (_config.sections[pathArray[1]]) {
+								- console.dir("bella"+pathArray.length)
+								DB[_config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2],"footage.permalink":pathArray[3]}, function(e, dett) {
+									if (dett) {
+										for (item in dett.footage) {
+											if (dett.footage[item].permalink==pathArray[3]) dettdett = dett.footage[item];
+										}
+										if (output=="json") {
+											res.send(result);
+										} else if (output=="xml") {
+											res.render('performer_dett_'+pathArray[1]+"_single"+"_xml", {	layout: false, locals: { userpage:true, title: result.display_name+": "+_config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc}, user : req.session.user });
+										} else {
+											res.render('performer_dett_'+pathArray[1]+"_single", {	locals: { userpage:true, title: result.display_name+": "+_config.sections[pathArray[1]].title+": "+_config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, dettdett : dettdett, Fnc:Fnc}, user : req.session.user });
+										}
+									} else {
+										res.send(404);
+									}
+								});
+							} else {
+								res.send(404);
+							}
 						} else if (_config.sections[pathArray[1]]) {
 							DB[_config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
 								if (dett) {
