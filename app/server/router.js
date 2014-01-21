@@ -27,9 +27,6 @@ var cpanelGalleryRoutes		= require('./routes/controlpanel/gallery');
 
 var uploadRoutes 			= require('./routes/upload');
 var imageRoutes 			= require('./routes/image');
-var adminImportRoutes 		= require('./routes/admin/import');
-var adminFilesRoutes 		= require('./routes/admin/files');
-var adminLocationsRoutes	= require('./routes/admin/locations');
 var ajax		 			= require('./routes/ajax');
 /*
 var lostPasswordRoutes = require('./routes/lost-password');
@@ -149,16 +146,6 @@ module.exports = function(app) {
 	// Api //
 	//app.get('/api/clients', apiRoutes.getClients);
 	app.get('/api', apiRoutes.get);
-
-	// adminRoutes //
-	//app.get('/api/clients', apiRoutes.getClients);
-	app.get('/admin/files', adminFilesRoutes.get);
-
-	// Import //
-	app.get('/admin/import', adminImportRoutes.get);
-
-	// Import //
-	app.get('/admin/locations', adminLocationsRoutes.get);
 
 	// all other routes: User or 404
 	app.get('*', userRoutes.get);
