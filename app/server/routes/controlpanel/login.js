@@ -1,7 +1,7 @@
 var request = require('request');
 var ObjectID = require('mongodb').ObjectID;
 var DB = require('../../modules/db-manager');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 
 exports.get = function get(req, res) {
 	res.render('forms/login', {	locals: {title : "Login", "from":req.query.from}, user : req.session.user });
