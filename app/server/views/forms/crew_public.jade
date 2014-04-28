@@ -1,6 +1,6 @@
-.tabbable.tabs-left
+.tabbable.tabs-left.row
 	include ../comp/cp_menu
-	.tab-content
+	.tab-content.col-md-10
 		.tab-pane.active
 			include ../comp/cp_submenu_crew
 			form.form-horizontal(method="post")
@@ -10,19 +10,20 @@
 				fieldset
 					legend=locals.title
 					include ../comp/msg
-					.control-group
-						label.control-label=__("Stage name")
-						.controls
-							input(name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).input-large
-					.control-group
-						label.control-label=__("Profile url")
-						.controls
-							input(autocomplete="off", name="permalink", value=result.permalink, type="text", placeholder=__("Profile url")).input-large
+					.form-group
+						label.col-sm-2.control-label=__("Stage name")
+						.col-sm-10
+							input(name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).form-control
+					.form-group
+						label.col-sm-2.control-label=__("Profile url")
+						.col-sm-10
+							input(autocomplete="off", name="permalink", value=result.permalink, type="text", placeholder=__("Profile url")).form-control
 							span.help-inline
 							.help-block="https://flxer.net/"
 								span#permalink=result.permalink
 					include ../comp/text_multilang
 					include ../comp/websites
-					.control-group
-						.controls
-							button(type="submit").btn.btn-large.input-large.btn-primary.right=__("Save")
+					.form-group
+						label.col-sm-2.control-label
+						.col-sm-10
+							button(type="submit").btn.btn-lg.btn-primary=__("Save")

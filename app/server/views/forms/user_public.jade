@@ -1,33 +1,33 @@
 - if(result.locations && result.locations.length && !result.locations[0].lat) result.locations[0].lat = 41.8929163;
 - if(result.locations && result.locations.length && !result.locations[0].lng) result.locations[0].lng = 12.482519899999943;
-.tabbable.tabs-left
+.tabbable.tabs-left.row
 	include ../comp/cp_menu
-	.tab-content
+	.tab-content.col-md-10
 		.tab-pane.active
-			include ../comp/cp_submenu_user
 			form.form-horizontal(method="post")
+				include ../comp/cp_submenu_user
 				input(name="collection", value="users", type="hidden")
 				input(name="_id", value=result._id, type="hidden")
 				input(name="form", value=form, type="hidden")
 				fieldset
 					legend=locals.title
 					include ../comp/msg
-					.control-group
-						label.control-label=__("Stage name")
-						.controls
-							input(autocomplete="off", name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).input-large
-					.control-group
-						label.control-label=__("Profile url")
-						.controls
-							input(autocomplete="off", name="permalink", value=result.permalink, type="text", placeholder=__("Profile url")).input-large
+					.form-group
+						label.col-sm-2.control-label=__("Stage name")
+						.col-sm-10
+							input(autocomplete="off", name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).form-control
+					.form-group
+						label.col-sm-2.control-label=__("Profile url")
+						.col-sm-10
+							input(autocomplete="off", name="permalink", value=result.permalink, type="text", placeholder=__("Profile url")).form-control
 							span.help-inline
 							.help-block="https://flxer.net/"
 								span#permalink=result.permalink
 					include ../comp/text_multilang
 					include ../comp/websites
-					.control-group
-						label.control-label=__("Locations")
-						.controls
+					.form-group
+						label.col-sm-2.control-label=__("Locations")
+						.col-sm-10
 							#map_canvas
 							hr
 							#sortable
@@ -44,25 +44,27 @@
 														div=location.lat+" / "+location.lng
 												.pull-right
 													a.btn.btn-mini(href="#",onclick="deleteLocation(this);return false;")
-														i.icon-remove
+														i.glyphicon.glyphicon-remove
 													!=" "
-													i.icon-move(style="margin:3px 0 0 25px;")
-		
+													i.glyphicon.glyphicon-move(style="margin:3px 0 0 25px;")
+
 							.text-right
 									a.btn.btn-mini.btn-primary(href="#", onclick="showMapAdd();return false;")
-										i.icon-plus.icon-white
+										i.glyphicon.glyphicon-plus.glyphicon.glyphicon-white
 										!=" "+__("Add a Location")
 					hr.clearfix
-					.control-group
-						.controls
-							button(type="submit").btn.btn-large.input-large.btn-primary=__("Save")
-			script(type="text/javascript")
-				$(function(){
-					$('#sortable').sortable({
-						placeholder: "ui-state-highlight"
-					}).disableSelection();
+					.form-group
+						label.col-sm-2.control-label
+						.col-sm-10
+							button(type="submit").btn.btn-primary.btn-lg=__("Save")
+script(type="text/javascript")
+	$(function(){
+		var data=jQuery.parseJSON('!{JSON.stringify(result.locations)}');
+		initializeMap(data);
 
-					var data=jQuery.parseJSON('!{JSON.stringify(result.locations)}');
-					initializeMap(data);
-				});
+		$('#sortable').sortable({
+			placeholder: "ui-state-highlight"
+		}).disableSelection();
+
+	});
 include ../modals/search_map

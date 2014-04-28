@@ -1,7 +1,7 @@
 - console.dir(locals.dett)
 .user_dett
 	.row
-		.span9
+		.col-md-9
 			h1=locals.dett.title
 			.media
 				.pull-left
@@ -12,8 +12,8 @@
 						li.clearfix
 							span.pull-left=__("Visits")+": "+locals.dett.stats.visits
 							span.pull-right
-								button.btn.btn-primary.btn-mini
-									i.icon-globe.icon-white
+								button.btn.btn-primary.btn-xs
+									i.glyphicon.glyphicon-globe
 									!=" "+__("Like")
 								!=" "
 								code=locals.dett.stats.rates.tot_rate
@@ -33,16 +33,16 @@
 																a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item3].permalink+"/")=locals.dett.categories[item3].name
 						li
 							button.btn
-								i.icon-globe
+								i.glyphicon.glyphicon-globe
 								!=" "+__("Download PDF")
 							!=" "
 						li
 							button.btn.btn-primary
-								i.icon-globe.icon-white
+								i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
 								!=" "+__("Share")
 						li
 							button.btn.btn-primary
-								i.icon-globe.icon-white
+								i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
 								!=" "+__("Invite to event")
 					hr
 			ul.nav.nav-tabs
@@ -56,7 +56,7 @@
 				- if(locals.dett.events && locals.dett.events.length)
 					li
 						a(href="#events",data-toggle="tab")=_config.sections["events"].title+" ["+locals.dett.events.length+"]"
-			.tab-content
+			.tab-content.col-md-10
 				#about.tab-pane.active
 					!=locals.Fnc.getTextFormat(locals.dett.text, _config.lang, true)
 				#tech_req.tab-pane
@@ -65,7 +65,7 @@
 					#gallery.tab-pane
 						.row
 							- for(item in locals.dett.gallery)
-								.span3
+								.col-md-3
 									- var basepath = "/"
 									- //+locals.dett.gallery[item].users[0].permalink+"/"+_config.sections["gallery"].basepath
 									.media
@@ -76,7 +76,7 @@
 											h4.media-heading
 												a(href=basepath+"/"+locals.dett.gallery[item].permalink+"/")=locals.dett.gallery[item].title
 											- var str = "";
-											- if (locals.dett.gallery[item].stats) 
+											- if (locals.dett.gallery[item].stats)
 												- for(stat in locals.dett.gallery[item].stats)
 													- str+="<li>"+__(stat)+": "+locals.dett.gallery[item].stats[stat]+"</li>"
 											- if (str)
@@ -88,6 +88,6 @@
 								- var box = locals.dett.events[item]
 								- locals.sez = "events"
 								include comp/box_events
-		.span3
+		.col-md-3
 			h3=__("Author")
 			include performer_inc_author_column

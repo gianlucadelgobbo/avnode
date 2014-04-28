@@ -32,6 +32,9 @@
   ],
   "author": "Gianluca Del Gobbo <g.delgobbo@flyer.it>",
   "license": "BSD",
-  "readmeFilename": "README.md",
-  "private": true
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/gianlucadelgobbo/avnode/issues"
+  },
+  "homepage": "https://github.com/gianlucadelgobbo/avnode"
 }

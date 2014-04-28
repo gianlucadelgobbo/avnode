@@ -1,7 +1,7 @@
 var DB = require('../../modules/db-manager');
 var EM = require('../../modules/email-dispatcher');
 var CT = require('../../modules/country-list');
-var Fnc = require('../../modules/functions');
+var Fnc = require('../../modules/general-functions');
 
 // send the message and get a callback with an error or details of the message that was sent
 

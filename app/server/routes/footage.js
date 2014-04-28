@@ -1,5 +1,5 @@
 var DB = require('../modules/db-manager');
-var Fnc = require('../modules/functions');
+var Fnc = require('../modules/general-functions');
 
 exports.get = function get(req, res) {
 	var sez = "footage";

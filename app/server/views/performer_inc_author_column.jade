@@ -5,11 +5,11 @@ h3
 .clearfix
 	.pull-right
 		a.btn.btn-mini
-			i.icon-globe
+			i.glyphicon.glyphicon-globe
 			!=" "+__("Messagge")
 		!=" "
 		a.btn.btn-primary.btn-mini
-			i.icon-globe.icon-white
+			i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
 			!=" "+__("Follow")
 hr
 //
@@ -19,20 +19,20 @@ hr
 				- for(a=0;a<locals.result.websites.length;a++)
 					li
 						a(href=locals.result.websites[a],target="_blank")
-							i.icon-globe
+							i.glyphicon.glyphicon-globe
 							!=locals.result.websites[a].replace("http://","").replace("https://","")
 			li
-				i.icon-home
+				i.glyphicon.glyphicon-home
 				!=locals.Fnc.formatLoc(locals.result.locations)
 	hr
 ul.nav.nav-pills.nav-stacked
 	li(class=!sez ? "active" : undefined)
 		a(href="/"+locals.result.permalink+"/")
-			i.icon-globe
+			i.glyphicon.glyphicon-globe
 			!=" "+__("About")
 	- for(item in locals.result.stats)
 		- if(_config.sections[item] && locals.result.stats[item])
 			li(class=locals.sez==item ? "active" : undefined)
 				a(href="/"+locals.result.permalink+"/"+_config.sections[item].basepath+"/")
-					i.icon-globe
+					i.glyphicon.glyphicon-globe
 					!=" "+_config.sections[item].title+" ["+locals.result.stats[item]+"]"

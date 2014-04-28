@@ -1,5 +1,5 @@
-- if (typeof(username) === 'undefined') span = "3"
-div(class="span"+span)
+- if (typeof(username) === 'undefined' && typeof(span) === 'undefined') span = "3"
+div(class="col-md-"+span)
 	.media
 		.pull-left
 			a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")

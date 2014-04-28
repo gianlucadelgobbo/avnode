@@ -16,9 +16,11 @@ exports.post = function post(req, res) {
 				res.render('forms/login', { locals: { title: __('Hello - Please Login To Your Account'), msg:{e:e}, from:req.body.from}, user : req.session.user});
 			}
 		} else {
+			console.log(_config.locales[o.lang]);
+			setLocale("it");
+			console.log(getLocale());
 			req.session.user = o;
 			if (req.body.remember == 'true'){
-				console.log("cazzo");
 				res.cookie('user', o.user, { maxAge: 900000 });
 				res.cookie('pass', o.pass, { maxAge: 900000 });
 				res.cookie('role', o.role, { maxAge: 900000 });

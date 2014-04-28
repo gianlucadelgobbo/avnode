@@ -36,10 +36,10 @@ function checkPermalink() {
 			console.log(data);
 			console.log($('#permalink').parent().parent());
 			if(data.success){
-				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"icon-ok\"></i> "+data.msg)
+				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-ok\"></i> "+data.msg)
 				$('#permalink').parent().parent().parent().removeClass("error");
 			} else {
-				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"icon-remove\"></i> "+data.msg)
+				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-remove\"></i> "+data.msg)
 				$('#permalink').parent().parent().parent().addClass("error");
 			}
 		}
@@ -231,10 +231,10 @@ function findMembers(val) {
 			$("#search_result").append(str);
 			console.log($('#permalink').parent().parent());
 			if(data.success){
-				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"icon-ok\"></i> "+data.msg)
+				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-ok\"></i> "+data.msg)
 				$('#permalink').parent().parent().parent().removeClass("error");
 			} else {
-				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"icon-remove\"></i> "+data.msg)
+				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-remove\"></i> "+data.msg)
 				$('#permalink').parent().parent().parent().addClass("error");
 			}
 		}
@@ -260,10 +260,10 @@ function emailAdd(t){
 				console.log(data);
 				console.log($('#permalink').parent().parent());
 				if(data.success){
-					$('#email_add').parent().parent().find(".help-inline").html("<i class=\"icon-ok\"></i> "+data.msg)
+					$('#email_add').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-ok\"></i> "+data.msg)
 					$('#email_add').parent().parent().parent().removeClass("error");
 				} else {
-					$('#email_add').parent().parent().find(".help-inline").html("<i class=\"icon-remove\"></i> "+data.msg)
+					$('#email_add').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-remove\"></i> "+data.msg)
 					$('#email_add').parent().parent().parent().addClass("error");
 				}
 			}
@@ -296,7 +296,7 @@ function emailRemove(t){
 			if(data.success){
 				$(t).parent().parent().parent().remove()
 			} else {
-				$('#email_add').parent().parent().find(".help-inline").html("<i class=\"icon-remove\"></i> "+data.msg)
+				$('#email_add').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-remove\"></i> "+data.msg)
 				$('#email_add').parent().parent().parent().addClass("error");
 			}
 		}
@@ -316,7 +316,7 @@ function setPrimary(t){
 	var oldDelete = $(t).parent().parent().find(".add-on");
 	console.log(oldDelete);
 	$(t).parent().parent().find(".add-on").remove();
-	$(t).parent().parent().find(".input-append").append("<span class=\"add-on\"><i class=\"icon-lock\"></i></span>");
+	$(t).parent().parent().find(".input-append").append("<span class=\"add-on\"><i class=\"glyphicon glyphicon-lock\"></i></span>");
 	console.log($(t).parent().parent());
 	$(t).parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />&nbsp;&nbsp;Deleting");
 	$.ajax({

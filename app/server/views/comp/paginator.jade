@@ -1,12 +1,11 @@
 - skippa = locals.skip/_config.sections[locals.sez].limit
 - if (skippa<6) skippa = 6
-.pagination.pagination-small.pagination-centered
-	ul
-		li(class=(locals.skip>0 ? "disabled" : "active"))
-			a(href=(locals.skip>0 ? locals.path+"page-"+((locals.skip/_config.sections[locals.sez].limit)-1)+"/" : "#"))="«"
-		- for (a=skippa-5;a<skippa+6;a++)
-			- if ((a-1)*_config.sections[locals.sez].limit<locals.tot)
-				li(class=(a==(locals.skip/_config.sections[locals.sez].limit)+1 ? "active" : "disabled"))
-					a(href=locals.path+"page-"+a+"/")=a
-		li(class=(locals.skip+_config.sections[locals.sez].limit>=locals.tot ? "active" : "disabled"))
-			a(href=((a-1)*_config.sections[locals.sez].limit<locals.tot ? locals.path+"page-"+((locals.skip/_config.sections[locals.sez].limit)+1) : "#"))="»"
+ul.pagination.pagination-sm.pagination-centered
+    li(class=(locals.skip==0 ? "disabled" : ""))
+        a(href=(locals.skip>0 ? locals.path+"page-"+((locals.skip/_config.sections[locals.sez].limit)-1)+"/" : "#"))="«"
+    - for (a=skippa-5;a<skippa+6;a++)
+        - if ((a-1)*_config.sections[locals.sez].limit<locals.tot)
+            li(class=(a==(locals.skip/_config.sections[locals.sez].limit)+1 ? "active" : ""))
+                a(href=locals.path+"page-"+a+"/")=a
+    li(class=(locals.skip+_config.sections[locals.sez].limit>=locals.tot ? "disabled" : ""))
+        a(href=((a-1)*_config.sections[locals.sez].limit<locals.tot ? locals.path+"page-"+((locals.skip/_config.sections[locals.sez].limit)+2) : "#"))="»"

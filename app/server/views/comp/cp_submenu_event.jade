@@ -1,5 +1,6 @@
+- console.dir("locals.subsez "+locals.subsez)
 ul.nav.nav-pills
-	li(class=(locals.subsez=="maindata" ? "active" : undefined))
+	li(class=(locals.subsez=="public" ? "active" : undefined))
 		a(href="/controlpanel/events/"+locals.result.permalink+"/")=__("Main info")
 	li(class=(locals.subsez=="mainimage" ? "active" : undefined))
 		a(href="/controlpanel/events/"+locals.result.permalink+"/mainimage/")=__("Main image")
@@ -11,3 +12,4 @@ ul.nav.nav-pills
 		a(href="/controlpanel/events/"+locals.result.permalink+"/gallery/")=__("Gallery")
 	li(class=(locals.subsez=="settings" ? "active" : undefined))
 		a(href="/controlpanel/events/"+locals.result.permalink+"/settings/")=__("Settings")
+br

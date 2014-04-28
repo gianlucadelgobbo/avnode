@@ -1,5 +1,5 @@
 var DB = require('../modules/db-manager');
-var Fnc = require('../modules/functions');
+var Fnc = require('../modules/general-functions');
 var formidable = require('formidable');
 var util = require('util');
 var im = require('imagemagick');

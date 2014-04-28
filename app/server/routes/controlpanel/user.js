@@ -1,6 +1,6 @@
 var DB = require('../../modules/db-manager');
 var ObjectID = require('mongodb').ObjectID;
-var Fnc = require('../../modules/functions');
+var Fnc = require('../../modules/general-functions');
 var CT = require('../../modules/country-list');
 var EM = require('../../modules/email-dispatcher');
 var createsend = require('createsend');

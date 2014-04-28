@@ -1,5 +1,5 @@
 var DB = require('../../modules/db-manager');
-var Fnc = require('../../modules/functions');
+var Fnc = require('../../modules/general-functions');
 var CT = require('../../modules/country-list');
 var ObjectID = require('mongodb').ObjectID;
 var CT = require('../../modules/country-list');

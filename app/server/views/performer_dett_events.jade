@@ -1,40 +1,40 @@
 - //console.dir(locals.dett)
 .user_dett
 	.row
-		.span4
-			img.media-object(alt=__("Thumbnail of")+": "+locals.dett.title, src=locals.Fnc.getFileFormat(locals.dett.files, 400, 300))
+		.col-md-4
+			img.img-responsive(alt=__("Thumbnail of")+": "+locals.dett.title, src=locals.Fnc.getFileFormat(locals.dett.files, 400, 300))
 			br
 			ul.nav.nav-list
 				- if (locals.dett.websites)
 					- for(a=0;a<locals.dett.websites.length;a++)
 						li
 							a(href=locals.dett.websites[a],target="_blank")
-								i.icon-globe
+								i.glyphicon.glyphicon-globe
 								!=locals.dett.websites[a]
-		.span8
+		.col-md-8
 			h1=locals.dett.title
 			- if (locals.dett.subtitle)
 				h3=locals.Fnc.getTextFormat(locals.dett.subtitle, _config.lang, true)
 			.row
-				.span5
+				.col-md-5
 					ul.nav.nav-list.user_dett_ul
 						- if (locals.dett.date_time_venue)
 							- for(a=0;a<locals.dett.date_time_venue.length;a++)
 								li.divider
 								li
-									i.icon-time
+									i.glyphicon.glyphicon-time
 									!=locals.Fnc.getEventDate(locals.dett.date_time_venue[a].date)+" | "+locals.dett.date_time_venue[a].start_time+" / "+locals.dett.date_time_venue[a].end_time+"<br />"
 								li
-									i.icon-home
+									i.glyphicon.glyphicon-home
 									!=locals.dett.date_time_venue[a].venue+" | "+locals.dett.date_time_venue[a].city+", "+locals.dett.date_time_venue[a].country
-				.span3
+				.col-md-3
 					ul.nav.nav-list.user_dett_ul
 						li.divider
 						li.clearfix
 							span.pull-left=__("Visits")+": "+locals.dett.stats.visits
 							span.pull-right
 								button.btn.btn-primary.btn-mini
-									i.icon-globe.icon-white
+									i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
 									!=" "+__("Like")
 								!=" "
 								code=locals.dett.stats.rates.tot_rate
@@ -60,7 +60,7 @@ ul.nav.nav-tabs
 	- if(locals.dett.gallery)
 		li
 			a(href="#gallery",data-toggle="tab")=_config.sections["gallery"].title+" ["+locals.dett.gallery.length+"]"
-.tab-content
+.tab-content.col-md-10
 	- if (locals.dett.text)
 		#about.tab-pane.active
 			!=locals.Fnc.getTextFormat(locals.dett.text, _config.lang, true)
@@ -86,7 +86,7 @@ ul.nav.nav-tabs
 					- 	var dayRoomPerf = dayPerf.filter( function (value, index, self) {
 					-		return value.event_data.room==room
 					- 	});
-						.span3
+						.col-md-3
 							.page-header
 								h3=room
 							.row.main-list
@@ -111,7 +111,7 @@ ul.nav.nav-tabs
 				- 	var partnersType = locals.dett.partners.filter( function (value, index, self) {
 				-		return value.partner_type==partner_type
 				- 	});
-				.span3
+				.col-md-3
 					.page-header
 						h3=partner_type
 					.row.main-list

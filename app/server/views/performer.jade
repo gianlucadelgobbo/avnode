@@ -18,7 +18,7 @@ hr
 - var cols = Math.round(blocks.length/2);
 - console.dir(blocks.length)
 - var myspan = 12/cols;
-- console.dir(myspan)
+- console.dir("myspan"+myspan)
 - console.dir(blocks.length)
 - for(var c=0;c<rows;c++)
 	.row
@@ -26,11 +26,12 @@ hr
 			- var sez = (blocks[b+(c*cols)] == "tvshows" ? "tvshow" : blocks[b+(c*cols)])
 			- var tit = (blocks[b+(c*cols)] == "crews" || blocks[b+(c*cols)] == "members" ? "display_name" : "title")
 			- if (b+(c*cols)<blocks.length)
-				div(class="span"+myspan)
+				div(class="col-md-"+myspan)
 					- console.dir("stocazzo"+myspan)
 					h3=(blocks[b+(c*cols)] == "members" ? __("Members") : (blocks[b+(c*cols)] == "crews" ? __("Crews") : _config.sections[blocks[b+(c*cols)]].title))
 					.main-list.row
 						- locals.sez = sez
+						- span = 12
 						- for(var a=0;a<_config.usersListItems;a++)
 							- if (locals.result[sez][a])
 								- var box = locals.result[sez][a]
@@ -54,4 +55,4 @@ hr
 							.pull-right
 								a.btn(href="/"+locals.result.permalink+"/"+_config.sections[blocks[b+(c*cols)]].basepath+"/")
 									!=__("Show all")+" "
-									i.icon-globe
+									i.glyphicon.glyphicon-globe

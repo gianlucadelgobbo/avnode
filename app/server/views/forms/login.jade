@@ -1,16 +1,23 @@
 form(name="formLogin", method="post")
 	.row
-		.span6.offset3.well
-			h2=__("Login")
-			include ../comp/msg
-			.offset1
-				input(name="login", type="text", placeholder=__("Username")).input-xlarge
-				br
-				input(name="password", type="password", placeholder=__("Password")).input-xlarge
-				label.checkbox=__("Remember_me")
-					input(name="remember",type="checkbox", value="true",checked="checked")
-					input(name="from",type="hidden", value=locals.from).input-large
-				button(type="submit").btn.btn-primary=__("Enter")
-			hr.clearfix
-			a(href="controlpanel/passwordRequest").btn.btn-link=__("Recover_data")
-			a(href="controlpanel/user").btn.btn-link=__("Register")
+		.col-md-6.col-md-offset-3
+			.well
+				h1.no-margin-top=__("Login")
+				hr
+				include ../comp/msg
+				.form-group
+					input(name="login", type="text", placeholder=__("Username")).form-control
+				.form-group
+					input(name="password", type="password", placeholder=__("Password")).form-control
+				.row
+					.col-md-6
+						.checkbox
+							label=__("Remember_me")
+								input(name="remember",type="checkbox", value="true",checked="checked")
+								input(name="from",type="hidden", value=locals.from).input-large
+					.col-md-6
+						.pull-right
+							button(type="submit").btn.btn-primary=__("Enter")
+				hr.clearfix
+				a(href="controlpanel/passwordRequest").btn.btn-link=__("Recover_data")
+				a(href="controlpanel/user").btn.btn-link=__("Register")

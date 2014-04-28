@@ -1,6 +1,6 @@
-.tabbable.tabs-left
+.tabbable.tabs-left.row
 	include ../comp/cp_menu
-	.tab-content
+	.tab-content.col-md-10
 		.tab-pane.active
 			legend.clearfix
 				.pull-left=locals.title
@@ -9,4 +9,5 @@
 				- for(a=0;a<locals.result.length;a++)
 					- var box = locals.result[a]
 					- var boxpath = "controlpanel"
+					- var span = "6"
 					include ../comp/box_events

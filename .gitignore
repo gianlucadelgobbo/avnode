@@ -2,10 +2,11 @@
 .bundle
 err.log
 out.log
-git-credential-osxkeychain
+forever.log
 node_modules
 **/style.css
-app/public/warehouse/
-app/public/warehouse2/
-config.js
-style.css
+warehouse
+app/server/config.js
+bower_components
+_buttare
+.idea

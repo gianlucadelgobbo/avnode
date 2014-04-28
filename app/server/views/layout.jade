@@ -20,55 +20,57 @@ html(lang=_config.lang)
 			meta(property="og:locale", content=_config.locale)
 
 
-		link(type="text/css", href="/lib/bootstrap.min.css", rel="stylesheet")	
-		link(type="text/css", href="/lib/bootstrap-datepicker/datepicker.css", rel="stylesheet")	
-		link(type="text/css", href="/lib/bootstrap-timepicker/bootstrap-timepicker.min.css", rel="stylesheet")	
-		link(type="text/css", href="/lib/uploader/fileuploader.css", rel="stylesheet")	
-		link(type="text/css", href="/lib/bootstrap-jquery-ui-1.10.1.custom.css", rel="stylesheet")	
-		link(type="text/css", href="/lib/bootstrap-switch.css", rel="stylesheet")	
+		link(type="text/css", href="/bootstrap/dist/css/bootstrap.min.css", rel="stylesheet")
+		link(type="text/css", href="/bootstrap-datepicker/css/datepicker.css", rel="stylesheet")
+		link(type="text/css", href="/bootstrap-timepicker/css/bootstrap-timepicker.min.css", rel="stylesheet")
+		link(type="text/css", href="/fine-uploader/_dist/fineuploader-4.4.0/fineuploader-4.4.0.min.css", rel="stylesheet")
+		link(type="text/css", href="/modules/jquery-ui/bootstrap-jquery-ui-1.10.1.custom.css", rel="stylesheet")
+		link(type="text/css", href="/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css", rel="stylesheet")
 		link(type="text/css", href="/css/style.css", rel="stylesheet")	
-		script(type="text/javascript", src="/lib/jquery-1.9.1.js")
+		script(type="text/javascript", src="/jquery/dist/jquery.min.js")
 
 
 	body
 		.container
 			if (typeof(userpage) === 'undefined')
-				.nav.navbar.pull-right
-					.navbar-inner
-						ul.nav
-							li.active
-								form.navbar-form.form-search(action="/search/")#cse-search-box
-									input(type="hidden", name="cx", value="008270153029254647808:_czuhrjkjpk")
-									input(type="hidden", name="cof", value="FORID:10")
-									input(type="hidden", name="ie", value="UTF-8")
-									.input-append
-										input.span2.search-query(type="text", 	name="q", size="31", value=locals.q)
-										button.btn(type="submit", name="sa")=__("Cerca")
-								//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
+				div.navbar.navbar-default.pull-right#menu_search_lang
+					.container-fluid
+						form.navbar-form.navbar-left(action="/search/",role="search")#cse-search-box
+							input(type="hidden", name="cx", value="008270153029254647808:_czuhrjkjpk")
+							input(type="hidden", name="cof", value="FORID:10")
+							input(type="hidden", name="ie", value="UTF-8")
+							.form-group
+								input.form-control(type="text",	name="q", size="31", value=locals.q)
+								button.btn.btn-default(type="submit", name="sa")=__("Cerca")
+									//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
+						ul.nav.navbar-nav
 							li.dropdown
 								a.dropdown-toggle(href="#", data-toggle="dropdown")
-									!=__(_config.lang)+" "
+									!=__(_config.locales_labels[getLocale()])+" "
 									b.caret
-								ul.dropdown-menu			
-									li(href="/controlpanel/?edit=performances&amp;perfid=0")=__(_config.lang)
+								ul.dropdown-menu
+									each val, index in _config.locales_labels
+										li
+											a(href="/controlpanel/change_lang?lang="+index)=__(val)
 				header
 					.row
-						h2.span4.logo
+						h2.col-md-4.logo
 							a(href="/", title="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
 								img(src="/img/logo.gif", alt="AV node - PERFORMING VIDEO NETWORK")
-						.span8=locals.bannerTop
+						.col-md-8=locals.bannerTop
 					
 			nav.navbar.navbar-inverse#menu(class=(typeof(userpage) !== 'undefined' && userpage ? "navbar-fixed-top" : undefined))
 				//.navbar-fixed-top
-				.navbar-inner
+				.container-fluid
 					- if (typeof(userpage) !== 'undefined' && userpage)
-						a.brand(href="/")=" AV Node"
-					ul.nav
+						.navbar-header
+							a.navbar-brand(href="/")=" AV Node"
+					ul.nav.navbar-nav
 						- each item in _config.sections
 							- if (item.view_list)
 								li(class=(_config.sections[locals.sez] && _config.sections[locals.sez].basepath==item.basepath ? "active" : undefined))
 									a(href="/"+item.basepath+"/")=item.title
-					ul.nav.pull-right
+					ul.nav.navbar-nav.pull-right
 						li
 							a(href="/controlpanel/"+(user ? "user/" : "login/"))=(user ? __("Account") : __("Login"))
 						- if(!user)
@@ -124,23 +126,24 @@ html(lang=_config.lang)
 						li.pull-right
 							a(href="http://www.flyer.it", target="_blank", data-toggle="tooltip", onmouseover="$(this).tooltip('show')", title=__("This website is developed with NodeJS and MongoDB from Flyer communication"))
 								img(alt="Flyer.it", src="/img/logo_flyer.gif")
-		script(type="text/javascript", src="/lib/bootstrap.min.js")
-		script(type="text/javascript", src="/lib/bootstrap-datepicker/bootstrap-datepicker.js")
-		script(type="text/javascript", src="/lib/bootstrap-timepicker/bootstrap-timepicker.min.js")
-		script(type="text/javascript", src="/lib/uploader/fileuploader.js")
-		script(type="text/javascript", src="/lib/jquery-ui-1.10.2.custom.js")
-		script(type="text/javascript", src="/lib/bday-picker.min.js")
-		script(type="text/javascript", src="/lib/bootstrap-switch.js")
+		br
+		script(type="text/javascript", src="/bootstrap/dist/js/bootstrap.min.js")
+		script(type="text/javascript", src="/bootstrap-datepicker/js/bootstrap-datepicker.js")
+		script(type="text/javascript", src="/bootstrap-timepicker/js/bootstrap-timepicker.min.js")
+		script(type="text/javascript", src="/fine-uploader/_dist/fineuploader-4.4.0/fineuploader-4.4.0.min.js")
+		script(type="text/javascript", src="/modules/jquery-ui/jquery-ui-1.10.2.custom.js")
+		script(type="text/javascript", src="/modules/birthdaypicker/bday-picker.min.js")
+		script(type="text/javascript", src="/bootstrap-switch/dist/js/bootstrap-switch.min.js")
 		script(type="text/javascript", src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places")
-		script(type="text/javascript", src="/lib/jquery.geocomplete.min.js")
+		script(type="text/javascript", src="/modules/geocomplete/jquery.geocomplete.min.js")
 		
-		script(type="text/javascript", src="/validators.js")
-		script(type="text/javascript", src="/fp/swfobject.js")
+		script(type="text/javascript", src="/js/validators.js")
+		script(type="text/javascript", src="/swfobject/swfobject/swfobject.js")
 		script(type="text/javascript", src="/js/script.js?v=1.2")
 		script(type="text/javascript")
 
-		script(type="text/javascript", src="/_lang/"+_config.lang+".js")
 		//
+			script(type="text/javascript", src="/_lang/"+_config.lang+".js")
 			script(type="text/javascript", src="/js/fpVariables.js")
 			script(type="text/javascript", src="/js/fpManager.js")
 			script(type="text/javascript", src="/js/fpCheck.js")

@@ -1,5 +1,5 @@
 .row.user_dett
-	.span9
+	.col-md-9
 		.media
 			.pull-left
 				a(href="/"+locals.result.permalink+"/")
@@ -7,14 +7,14 @@
 			.media-body
 				h1.media-heading
 					a(href="/"+locals.result.permalink+"/")=locals.result.display_name
-	.span3
+	.col-md-3
 		.pull-right.text-right
 			a.btn.btn-mini
-				i.icon-globe
+				i.glyphicon.glyphicon-globe
 				!=" "+__("Messagge")
 			!=" "
 			a.btn.btn-mini.btn-primary
-				i.icon-globe.icon-white
+				i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
 				!=" "+__("Follow")
 br
 ul.nav.nav-tabs

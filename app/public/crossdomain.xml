@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">
+<cross-domain-policy>
+    <allow-access-from domain="*" />
+    <allow-access-from domain="de.flxer.net" />
+    <allow-access-from domain="it.flxer.net" />
+    <allow-access-from domain="es.flxer.net" />
+    <allow-access-from domain="ru.flxer.net" />
+    <allow-access-from domain="hu.flxer.net" />
+    <allow-access-from domain="by.flxer.net" />
+    <allow-access-from domain="pl.flxer.net" />
+    <allow-access-from domain="flxer.net" />
+</cross-domain-policy>

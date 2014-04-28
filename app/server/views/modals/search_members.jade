@@ -1,18 +1,19 @@
+.modal-search_members.modal.fade
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(data-dismiss='modal') x
+				h3=__("Search members")
+			.modal-body
+				#search-map-form.form-inline
+					input#find_input.form-control(placeholder=__("Search a member"),type="text")
+					button#find.btn(type="button")=__("SEARCH")
+					#search_result
+					#invite
+				script
+					$("#find").click(function(){
+						findMembers($("#find_input").val());
+					});
 
-.modal-search_members.modal.fade.hide
-	div.modal-header
-		button.close(data-dismiss='modal') x
-		h3=__("Search members")
-	div.modal-body
-		#search-map-form.form-inline
-			input#find_input.input-large(placeholder=__("Search a member"),type="text")
-			button#find.btn(type="button")=__("SEARCH")
-			#search_result
-			#invite
-		script
-			$("#find").click(function(){
-				findMembers($("#find_input").val());
-			});
-			
-	div.modal-footer
-		button(data-dismiss="modal").cancel.btn=__("Close")
+			.modal-footer
+				button(data-dismiss="modal").cancel.btn=__("Close")

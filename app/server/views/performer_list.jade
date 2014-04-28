@@ -2,6 +2,7 @@
 include performer_inc_author_header_mini
 h1=locals.title
 -if (locals.result[locals.sez] && locals.result[locals.sez].length)
+	- span = 3
 	.row.main-list
 		- for(var a=0;a<locals.result[locals.sez].length;a++)
 			- var box = locals.result[locals.sez][a]

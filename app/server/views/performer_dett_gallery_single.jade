@@ -1,16 +1,16 @@
 - console.dir(locals.dett)
 .user_dett
 	.row
-		.span9
+		.col-md-9
 			h1=locals.dett.title+": "+locals.dettdett.titolo
-		.span3
+		.col-md-3
 			ul.nav.nav-list.user_dett_ul
 				li.divider
 				li.clearfix
 					span.pull-left=__("Visits")+": "+locals.dett.stats.visits
 					span.pull-right
 						button.btn.btn-primary.btn-mini
-							i.icon-globe.icon-white
+							i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
 							!=" "+__("Like")
 						!=" "
 						code=locals.dett.stats.rates ? locals.dett.stats.rates.tot_rate : 0

@@ -1,5 +1,5 @@
 var DB = require('../modules/db-manager');
-var Fnc = require('../modules/functions');
+var Fnc = require('../modules/general-functions');
 var ObjectID = require('mongodb').ObjectID;
 var EM = require('../modules/email-dispatcher');
 var createsend = require('createsend');

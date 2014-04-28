@@ -13,6 +13,7 @@ Requirements
 
 
 Setup
+
 ------------
 
 1. Edit the config file and put your data `/app/common/config.js`

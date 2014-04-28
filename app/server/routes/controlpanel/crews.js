@@ -1,6 +1,6 @@
 var DB = require('../../modules/db-manager');
 var ObjectID = require('mongodb').ObjectID;
-var Fnc = require('../../modules/functions');
+var Fnc = require('../../modules/general-functions');
 
 var titles = {
 	"public": 		__("Main data"),

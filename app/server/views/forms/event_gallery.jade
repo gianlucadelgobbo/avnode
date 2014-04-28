@@ -1,7 +1,7 @@
 - console.dir(result.gallery)
-.tabbable.tabs-left
+.tabbable.tabs-left.row
 	include ../comp/cp_menu
-	.tab-content
+	.tab-content.col-md-10
 		.tab-pane.active
 			include ../comp/cp_submenu_event
 			form.form-horizontal(method="post", action="#")
@@ -36,15 +36,15 @@
 															
 												.pull-right
 													a.btn.btn-mini(href="#")
-														i.icon-pencil
+														i.glyphicon.glyphicon-pencil
 													!=" "
 													a.btn.btn-mini(href="#")
-														i.icon-remove
+														i.glyphicon.glyphicon-remove
 													!=" "
 													a.btn.btn-mini(href="#")
-														i.icon-eye-open
+														i.glyphicon.glyphicon-eye-open
 													!=" "
-													i.icon-move(style="margin:3px 0 0 25px;")
+													i.glyphicon.glyphicon-move(style="margin:3px 0 0 25px;")
 						script(type="text/javascript")
 							$(function() {
 								$('.sortable').sortable({

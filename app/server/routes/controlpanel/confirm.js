@@ -2,7 +2,7 @@ var http = require('http');
 var fs = require('fs');
 var ObjectID = require('mongodb').ObjectID;
 var DB = require('../../modules/db-manager');
-var functions = require('../../modules/functions');
+var functions = require('../../modules/general-functions');
 
 exports.get = function get(req, res) {
 	if (req.query.code) {

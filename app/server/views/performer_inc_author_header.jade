@@ -1,5 +1,5 @@
 .row.user_dett
-	.span9
+	.col-md-9
 		.media
 			.pull-left
 				img.media-object(alt=__("Thumbnail of")+": "+locals.result.display_name, src=locals.Fnc.getFileFormat(locals.result.files, 240, 180))
@@ -11,40 +11,40 @@
 							- for(a=0;a<locals.result.websites.length;a++)
 								li
 									a(href=locals.result.websites[a].url,target="_blank")
-										i.icon-globe
+										i.glyphicon.glyphicon-globe
 										!=locals.result.websites[a].url
 						- if (locals.result.locations)
 							li
-								i.icon-home
+								i.glyphicon.glyphicon-home
 								!=locals.Fnc.formatLoc(locals.result.locations)
 		.row
 			- for(a=0;a<locals.result.length;a++)
-				.span3
+				.col-md-3
 					.row
-						.span1
+						.col-md-1
 
-	.span3
+	.col-md-3
 		ul.user_dett_ul.pull-right.text-right
 			li
 				a.btn.btn-mini
-					i.icon-globe
+					i.glyphicon.glyphicon-globe
 					!=" "+__("Download PDF")
 				!=" "
 			li
 				a.btn.btn-mini.btn-primary
-					i.icon-globe.icon-white
+					i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
 					!=" "+__("Share")
 			li
 				a.btn.btn-mini.btn-primary
-					i.icon-globe.icon-white
+					i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
 					!=" "+__("Invite to event")
 			li
 				a.btn.btn-mini
-					i.icon-globe
+					i.glyphicon.glyphicon-globe
 					!=" "+__("Messagge")
 			li
 				a.btn.btn-mini.btn-primary
-					i.icon-globe.icon-white
+					i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
 					!=" "+__("Follow")
 hr
 ul.nav.nav-tabs

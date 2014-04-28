@@ -9,9 +9,9 @@ var tvshowsRoutes 			= require('./routes/tvshows');
 var userRoutes 				= require('./routes/user');
 var apiRoutes 				= require('./routes/api');
 var searchRoutes 			= require('./routes/search');
-var cpanelUserRoutes		= require('./routes/controlpanel/user');
+var cpanelChangeLangRoutes	= require('./routes/controlpanel/change_lang');
 var cpanelLoginRoutes 		= require('./routes/controlpanel/login');
-var cpanelConfirmRoutes 		= require('./routes/controlpanel/confirm');
+var cpanelConfirmRoutes 	= require('./routes/controlpanel/confirm');
 var cpanelLogoutRoutes 		= require('./routes/controlpanel/logout');
 var cpanelSignupRoutes 		= require('./routes/controlpanel/signup');
 var cpanelUserRoutes 		= require('./routes/controlpanel/user');
@@ -99,11 +99,15 @@ module.exports = function(app) {
 	app.get('/confirm', cpanelConfirmRoutes.get);
 	app.post('/confirm', cpanelConfirmRoutes.post);
 
-	// cp User //
-	app.get('/controlpanel/user*', cpanelUserRoutes.get);
-	app.post('/controlpanel/user*', cpanelUserRoutes.post);
+	// cp Change Lang //
+	app.get('/controlpanel/change_lang*', cpanelChangeLangRoutes.get);
+	//app.post('/controlpanel/user*', cpanelChangeLangRoutes.post);
 
-	// cp Crews //
+    // cp User //
+    app.get('/controlpanel/user*', cpanelUserRoutes.get);
+    app.post('/controlpanel/user*', cpanelUserRoutes.post);
+
+    // cp Crews //
 	app.get('/controlpanel/crews*', cpanelCrewsRoutes.get);
 	app.post('/controlpanel/crews*', cpanelCrewsRoutes.post);
 	

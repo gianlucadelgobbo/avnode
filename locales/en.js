@@ -451,5 +451,14 @@
 	"Crew  profile url can not be the equal to Profile url": "Crew  profile url can not be the equal to Profile url",
 	"Data saved, please login": "Data saved, please login",
 	"Gender can not be empty": "Gender can not be empty",
-	"Country of citizenship can not be empty": "Country of citizenship can not be empty"
+	"Country of citizenship can not be empty": "Country of citizenship can not be empty",
+	"English": "English",
+	"Italiano": "Italiano",
+	"Espa&ntilde;ol": "Espa&ntilde;ol",
+	"Fran&ccedil;aise": "Fran&ccedil;aise",
+	"Polski": "Polski",
+	"Russian": "Russian",
+	"Hungarian": "Hungarian",
+	"Belarusian": "Belarusian",
+	"Greek": "Greek"
 }
