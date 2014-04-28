@@ -1,17 +1,12 @@
 {
   "name": "avnode",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "homepage": "https://github.com/gianlucadelgobbo/avnode",
   "authors": [
     "Gianluca Del Gobbo <g.delgobbo@flyer.it>"
   ],
   "main": "app.js",
-  "moduleType": [
-    "globals",
-    "node"
-  ],
   "license": "MIT",
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -20,7 +15,10 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~3.1.1",
-    "jquery": "~2.1.0"
+    "bootstrap-timepicker": "~0.2.6",
+    "bootstrap-datepicker": "~1.3.0",
+    "fine-uploader": "~4.4.0",
+    "swfobject": "*",
+    "bootstrap-switch": "~3.0.0"
   }
 }
