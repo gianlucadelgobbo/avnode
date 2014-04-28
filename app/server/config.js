@@ -6,10 +6,10 @@ var _config = {
 	"uploadtmp":		"/tmp",
 	"emaildispatcher":	{
 		"nameFrom":		"AVnode",
-		"emailFrom":	"g.delgobbo@flyer.it",
+		"emailFrom":	"",
 		"server":	{
-			"user":		"g.delgobbo@flyer.it", 
-			"password":	"22724gia", 
+			"user":		"", 
+			"password":	"", 
 			"host":		"smtp.gmail.com", 
 			"ssl":		true
 			
