@@ -7,12 +7,12 @@
 			.text-center
 				h3=__("Join AV Node. Start to perform.")
 				p
-					a.btn.btn-danger(href="/signup/google/")=__("Google")
+					a.btn.btn-danger(href="/controlpanel/signup/google/")=__("Google")
 					!=" "
 					//
-						a.btn.btn-info(href="/signup/twitter/")=__("Twitter")
+						a.btn.btn-info(href="/controlpanel/signup/twitter/")=__("Twitter")
 						!=" "
-					a.btn.btn-primary(href="/signup/facebook/")=__("Facebook")
+					a.btn.btn-primary(href="/controlpanel/signup/facebook/")=__("Facebook")
 				p=__("or sign up using your email:")
 				include ../comp/msg
 			form(method="post",autocomplete="off")
