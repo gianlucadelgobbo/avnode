@@ -461,5 +461,13 @@
 	"Hungarian": "Hungarian",
 	"Belarusian": "Belarusian",
 	"Greek": "Greek",
+<<<<<<< HEAD
+	"Forgot Your Password?": "Forgot Your Password?",
+	"I'm sorry, the page or resource you are searching for is currently unavailable.": "I'm sorry, the page or resource you are searching for is currently unavailable.",
+	"Change year": "Change year",
+	"Select offer": "Select offer",
+	"View": "View"
+=======
 	"or": "or"
+>>>>>>> 11c5bb29b2c5019f441a69b879dc4b07231d4ac0
 }
