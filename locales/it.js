@@ -228,6 +228,7 @@
 	"Password is too short (min 8 char)": "Password is too short (min 8 char)",
 	"Stage name is too short": "Stage name is too short",
 	"We have sent an email to confirm": "We have sent an email to confirm",
+<<<<<<< HEAD
 	"Please Login To Your Account": "Please Login To Your Account",
 	"Remember Me": "Remember Me",
 	"Forgot Your Password?": "Forgot Your Password?",
@@ -275,4 +276,9 @@
 	"Amount": "Amount",
 	"Bank": "Bank",
 	"PRINT": "PRINT"
+=======
+	"Please select the type of account: individual or crew": "Please select the type of account: individual or crew",
+	"Profile url is too short": "Profile url is too short",
+	"Crew profile url is too short": "Crew profile url is too short"
+>>>>>>> 11c5bb29b2c5019f441a69b879dc4b07231d4ac0
 }

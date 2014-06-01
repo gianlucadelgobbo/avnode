@@ -28,6 +28,10 @@ var cpanelGalleryRoutes		= require('./routes/controlpanel/gallery');
 var uploadRoutes 			= require('./routes/upload');
 var imageRoutes 			= require('./routes/image');
 var ajax		 			= require('./routes/ajax');
+
+var passport = require('passport');
+
+
 /*
 var lostPasswordRoutes = require('./routes/lost-password');
 var resetPasswordRoutes = require('./routes/reset-password');
@@ -44,7 +48,7 @@ var flxerappRoutes = require('./routes/flxerapp');
 */
 
 module.exports = function(app) {
-	// Index //
+    // Index //
 	app.get('/', indexRoutes.get);
 	app.post('/', indexRoutes.post);
 
@@ -84,22 +88,89 @@ module.exports = function(app) {
 	//app.get('/controlpanel', cpanelRoutes.get);
 	//app.post('/controlpanel', cpanelRoutes.post);
 
-	// cp Log In //
+	// local login //
 	app.get('/controlpanel/login', cpanelLoginRoutes.get);
-	app.post('/controlpanel/login', cpanelLoginRoutes.post);
+    app.post('/controlpanel/login',
+        passport.authenticate('local', {
+            successRedirect: '/',
+            failureRedirect: '/controlpanel/login',
+            failureFlash: true
+        })
+    );
+    // facebook login //
+    app.get('/controlpanel/login/facebook',
+        passport.authenticate('facebook-login', {
+            scope: ['public_profile', 'email']
+        })
+    );
+    // Facebook will redirect the user to this URL after approval.
+    app.get('/controlpanel/login/facebook/callback',
+        passport.authenticate('facebook-login', {
+            successRedirect: '/',
+            failureRedirect: '/controlpanel/login/'
+        })
+    );
 
-	// cp Log Out //
+    // twitter login //
+    app.get('/controlpanel/login/twitter',
+        passport.authenticate('twitter-login')
+    );
+    // twitter will redirect the user to this URL after approval.
+    app.get('/controlpanel/login/twitter/callback',
+        passport.authenticate('twitter-login', {
+            successRedirect: '/',
+            failureRedirect: '/controlpanel/login/'
+        })
+    );
+
+    // google login //
+    app.get('/controlpanel/login/google',
+        passport.authenticate('google-login')
+    );
+    // google will redirect the user to this URL after approval.
+    app.get('/controlpanel/login/google/callback',
+        passport.authenticate('google-login', {
+            successRedirect: '/',
+            failureRedirect: '/controlpanel/login/'
+        })
+    );
+
+    // cp Log Out //
 	app.get('/controlpanel/logout', cpanelLogoutRoutes.get);
 
-	// cp Signup //
-	app.get('/signup', cpanelSignupRoutes.get);
-	app.post('/signup', cpanelSignupRoutes.post);
+    // local signup //
+	app.get('/controlpanel/signup/', cpanelSignupRoutes.get);
+	app.post('/controlpanel/signup/', cpanelSignupRoutes.post);
 
 	// cp Confirm //
 	app.get('/confirm', cpanelConfirmRoutes.get);
 	app.post('/confirm', cpanelConfirmRoutes.post);
 
-	// cp Change Lang //
+    // facebook signup //
+    app.get('/controlpanel/signup/facebook',
+        passport.authenticate('facebook-signup', {
+            scope: ['public_profile', 'email']
+        })
+    );
+    app.get('/controlpanel/signup/facebook/callback',
+        passport.authenticate('facebook-signup', {
+            successRedirect: '/controlpanel/user/',
+            failureRedirect: '/controlpanel/signup/'
+        })
+    );
+
+    // google signup //
+    app.get('/controlpanel/signup/google',
+        passport.authenticate('google-signup')
+    );
+    app.get('/controlpanel/signup/google/callback',
+        passport.authenticate('google-signup', {
+            successRedirect: '/controlpanel/user/',
+            failureRedirect: '/controlpanel/signup/'
+        })
+    );
+
+    // cp Change Lang //
 	app.get('/controlpanel/change_lang*', cpanelChangeLangRoutes.get);
 	//app.post('/controlpanel/user*', cpanelChangeLangRoutes.post);
 
@@ -140,8 +211,9 @@ module.exports = function(app) {
 	app.post('/search', searchRoutes.post);
 
 	// upload //
-	app.get('/upload', uploadRoutes.get);
+	//app.get('/upload', uploadRoutes.get);
 	app.post('/upload', uploadRoutes.post);
+    app.delete("/uploads/:uuid", uploadRoutes.onDeleteFile);
 
 	// image //
 	app.get('/image', imageRoutes.get);

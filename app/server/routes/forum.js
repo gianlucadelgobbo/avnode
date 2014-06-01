@@ -1,7 +1,7 @@
 var DB = require('../modules/db-manager');
 
 exports.get = function get(req, res) {
-  if (req.session.user == null) {
+  if (req.session.passport.user == null) {
     res.redirect('/?from='+req.url);
   } else {
     var msg = {};
@@ -18,7 +18,7 @@ exports.get = function get(req, res) {
     }
     var query = req.query.client ? {"to_client._id":req.query.client} : {};
     DB.invoices.find(query).sort({invoice_number:1}).toArray(function(e, result) {
-      res.render('invoices', {  locals: { title: __("Invoices"), result : result, msg:msg, udata : req.session.user } });
+      res.render('invoices', {  locals: { title: __("Invoices"), result : result, msg:msg, udata : req.session.passport.user } });
     });
   }
 };

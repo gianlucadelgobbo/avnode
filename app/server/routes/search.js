@@ -1,7 +1,7 @@
 var DB = require('../modules/db-manager');
 
 exports.get = function get(req, res) {
-  if (req.session.user == null) {
+  if (req.session.passport.user == null) {
     res.redirect('/?from='+req.url);
   } else {
     var msg = {};
@@ -17,7 +17,7 @@ exports.get = function get(req, res) {
       });
     }
     DB.clients.find({}).toArray(function(e, result) {
-      res.render('clients', {  locals: { title: __("Clients"), result : result, msg: msg}, user : req.session.user });
+      res.render('clients', {  locals: { title: __("Clients"), result : result, msg: msg}, user : req.session.passport.user });
     });
   }
 };

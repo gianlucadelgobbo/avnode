@@ -52,14 +52,14 @@ exports.get = function get(req, res) {
 						console.dir("DB.users.insert-user 2");
 						console.dir(record);
 						DB.temp_users.remove({"code":req.query.code}, {safe: true}, function(err, record){
-							res.render('forms/user_signup', {  locals: {title : __('Signup'), countries: CT, result:record, msg:{c:[{m:__("Data saved, please login")}]} }, user : req.session.user });
+							res.render('forms/user_signup', {  locals: {title : __('Signup'), countries: CT, result:record, msg:{c:[{m:__("Data saved, please login")}]} }, user : req.session.passport.user });
 							/*
 							EM.sendMail({
 							   text:    text, 
 							   to:      req.body.email,
 							   subject: _config.sitename + " | " + __("Signup confirmation")
 							}, function(err, message) {
-								res.render('forms/user_signup', {  locals: {title : "Signup", result:record,msg:{c:[{m:m}]}}, user : req.session.user });
+								res.render('forms/user_signup', {  locals: {title : "Signup", result:record,msg:{c:[{m:m}]}}, user : req.session.passport.user });
 							});
 							*/
 						});
@@ -68,7 +68,7 @@ exports.get = function get(req, res) {
 			});
 		});
 	} else {
-		res.render('forms/user_signup', {  locals: {title : __('Signup'), countries: CT, result:req.body}, user : req.session.user });
+		res.render('forms/user_signup', {  locals: {title : __('Signup'), countries: CT, result:req.body}, user : req.session.passport.user });
 	}
 }
 
@@ -79,7 +79,7 @@ exports.post = function get(req, res) {
 				res.send({msg:{e:e}}, 200);
 			} else {
 				//o._id = o.id;
-				res.render('forms/user_signup', { locals: { title: __('Signup'), countries: CT, msg:{e:e}, result:req.body}, user : req.session.user});
+				res.render('forms/user_signup', { locals: { title: __('Signup'), countries: CT, msg:{e:e}, result:req.body}, user : req.session.passport.user});
 			}
 		} else {
 			var temp = o;
@@ -99,7 +99,7 @@ exports.post = function get(req, res) {
 							   to:      o.email,
 							   subject: _config.sitename + " | " + __("Signup confirmation")
 							}, function(err, message) {
-								res.render('forms/user_signup', {  locals: {title : "Signup", result:record,msg:{c:[{m:m}]}}, user : req.session.user });
+								res.render('forms/user_signup', {  locals: {title : "Signup", result:record,msg:{c:[{m:m}]}}, user : req.session.passport.user });
 							});
 						});
 					});
@@ -122,7 +122,7 @@ exports.validateFormSignup = function (o,callback) {
 	if (!o.is_crew) {
 		e.push({name:"is_crew",m:__("Please select the type of account: individual or crew")});
 	}
-	if (o.is_crew) {
+	if (o.is_crew==1) {
 		if (o.crew_display_name.length < 1){
 			e.push({name:"crew_display_name",m:__("Crew name is too short")});
 		}

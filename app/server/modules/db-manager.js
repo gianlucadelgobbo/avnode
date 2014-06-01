@@ -1,7 +1,7 @@
-
 var bcrypt = require('bcrypt-nodejs')
 var Db = require('mongodb').Db;
 var Server = require('mongodb').Server;
+var Fnc = require('./general-functions');
 
 var dbPort = 27017;
 var dbHost = global.host;
@@ -81,6 +81,244 @@ DB.validateLink = function(email, passHash, callback) {
 	});
 }
 */
+DB.validateFormLogin = function (login, password,callback) {
+    var e = [];
+    DB.users.findOne({login:login}, function(err, result) {
+        if (result == null){
+            e.push({name:"user",m:__("User not found")});
+            callback(e, result);
+        } else {
+            if (result.password) {
+                bcrypt.compare(password, result.password, function(err, res) {
+                    if (res) {
+                        //console.dir("login interno");
+                        callback(e, result);
+                    } else {
+                        e.push({name:"user",m:__("Login failed")});
+                        callback(e, result);
+                    }
+                });
+            } else {
+                request.post({
+                    uri:"https://flxer.net/api/login",
+                    headers:{'content-type': 'application/x-www-form-urlencoded'},
+                    body:require('querystring').stringify({login:login, password:password})
+                },function(err, res, body){
+                    var ress = JSON.parse(body);
+                    if (ress.login) {
+                        DB.setPassword(login, password, function(e, o) {
+                            callback(e, result);
+                        });
+                    } else {
+                        e.push({name:"user",m:__("Login failed")});
+                        callback(e, result);
+                    }
+                });
+            }
+        }
+    });
+};
+
+
+DB.facebookFindOrCreate = function(profile, callback){
+    DB.users.findOne({"facebook.id":profile.id}, function(err, res){
+        if (!res) {
+            console.log("NON TROVATO 1 !!!");
+            DB.users.findOne({"emails.email":profile.emails[0].value}, function(err, res){
+                if (!res) {
+                    console.log("NON TROVATO 2 !!!");
+                    DB.facebookCreate(profile, function(err, res) {
+                        callback(err, res);
+                    });
+                } else {
+                    console.log("TROVATO 2 !!!");
+                    res.facebook = profile;
+                    DB.users.save(res, {safe:true}, function(e, resSave) {
+                        console.log("salvato 2 !!!");
+                        callback(e, res);
+                    });
+                }
+            });
+        } else {
+            console.log("TROVATO 1 !!!");
+            callback(err, res);
+        }
+    });
+}
+DB.facebookFind = function(profile, callback){
+    DB.users.findOne({"facebook.id":profile.id}, function(err, res){
+        if (!res) {
+            console.log("NON TROVATO 1 !!!");
+            res.redirect('/controlpanel/login/');
+        } else {
+            console.log("TROVATO 1 !!!");
+            callback(err, res);
+        }
+    });
+}
+DB.facebookCreate = function(profile, callback) {
+    var lang = profile._json.locale.split("_")[0];
+    for(var a=0;a<profile.emails.length;a++){
+        profile.emails[a].email = profile.emails[a].value;
+        delete profile.emails[a].value;
+        profile.emails[a].public = 0;
+        profile.emails[a].valid = 1;
+        profile.emails[a].public = a===0 ? 1 :0;
+        profile.emails[a].mailinglists = _config.mailinglists;
+    }
+    var o = {
+        name: profile.name.givenName,
+        surname: profile.name.familyName,
+        display_name: profile.displayName,
+        gender: profile.gender == 'male' ? 'M' : profile.gender == 'female' ? 'F' : 'Other',
+        is_crew: 0,
+        lang: _config.locales.indexOf(lang),
+        public: 1,
+        //birth_date: "Mon Feb 28 1966 00:00:00 GMT+0100 (CET)",
+        creation_date: new Date(),
+        emails:profile.emails,
+        files: [ { file: '/warehouse/2012/01/romacreativa_10.jpg' } ],
+        locations:
+            [ { city: 'Roma',
+                country: 'Italy',
+                lat: 41.8929163,
+                lng: 12.482519899999943 } ],
+        permalink: Fnc.getPermalink(profile.displayName),
+        stats: {
+            events: 0,
+            performances: 0,
+            playlists: 0,
+            footage: 0,
+            gallery: 0,
+            crews: 0
+        },
+        text: { en: 'Very interested in any kind of avant-garde, costume, music, art and experimentation, it is updated on all sorts of innovation in technology and communications.\r\n\r\nIn 1996 he founded and coordinates the various activities dealing Flyer Communication Srl well as the managerial tasks and strategic development of all applications Flash Flyer.\r\n\r\nIn 1999 he founded Shockart.net that quickly becomes a point of reference for the Web Art and especially for the productions in Shockwave Flash, features exhibitions in Rome, Valencia, San Francisco, New York.\r\n\r\nIn 2001 he created a AV mixer FLxER based on Flash tecnology, that is presented in the most varied occasions, it is used to mix vector graphics, audio, video, text and interactive media, in live performance.\r\n\r\nFrom 2002 to 2005 taught at the IED as teacher in the Master in Web Design and Strategy, and in 2006 taught "Flash" in the course of Graphics for three years.\r\n\r\nHe has also edited several interventions in the Faculty of Engineering, University of Sannio, Department of Linguistic Practices and Text Analysis at the University of Bari, in the Faculty of Humanities, University of Tor Vergata, University of Perugia , at the Biennale of Young Artists of Athens (2003), the Flash Forward in San Francisco and New York, the Center for Studies in Szentendre (Budapest), at Sonar in Barcelona, the RESFEST of Rome, the Biennial of Valencia, the Faculty of Fine Arts in Barcelona at the Galleria d\'Arte Moderna e Contemporanea di Bergamo, the Galleria d\'Arte Moderna in Rome, at the Faculty of Architecture of Wisdom.\r\n\r\nIn 2004 he won the prize Bardi IBM Web award with the site of the Photograpy International Festival of Rome in the same year he started writing for Next Exit magazine and others on the Web.\r\n\r\nIn 2006, Achille Bonito Oliva gives the ABO Silver, an award for having outstanding accomplishments of Web Art, as one of the protagonists of international contemporary art.',
+            it: 'Molto interessato ad ogni tipo di avanguardia, costume, musica, arte e sperimentazione, è sempre aggiornato su ogni genere di innovazione nelle tecnologie e nella comunicazione. \r\n\r\nNel 1996 fonda e coordina le diverse attività di Flyer Communication S.r.l occupandosi oltre che dei compiti manageriali e strategici, dello sviluppo di tutte le applicazioni Flash di Flyer. \r\n\r\nNel 1999 fonda Shockart.net che diventa in poco tempo uno dei punti di riferimento per la Web Art ed in particolare per le produzioni realizzate in Shockwave Flash; realizza mostre a Roma, Valencia, San Francisco, New York. \r\n\r\nNel 2001 crea FLxER un mixer video realizzato in Flash, presentato continuamente nelle più diverse occasioni, utilizzato per mixare grafica vettoriale, audio, video, testo e media interattivi, nella realizzazione di video live performance.\r\n\r\nDal 2002 al 2005 insegna allo IED in qualità di docente nell’ambito del Master in Web Design e Strategy, e nel 2006 insegna “Flash” nel Corso di Grafica triennale. \r\n\r\nHa inoltre curato diversi interventi alla Facoltà di Ingegneria dell\'Università del Sannio, al Dipartimento di Pratiche Linguistiche e Analisi dei Testi dell\'Università di Bari, alla Facoltà di Lettere e Filosofia dell\'Università di Tor Vergata, all\'Università degli Studi di Perugia, alla Biennale dei Giovani Artisti di Athene (2003), al Flash Forward di San Francisco e New York, al Centro Studi di Szentendre (Budapest), al Sonar di Barcellona, al ResFest di Roma, alla Biennale di Valencia, alla Facoltà di Belle Arti di Barcellona, alla Galleria d’Arte Moderna e Contemporanea di Bergamo, alla Galleria d’Arte Moderna di Roma, alla Facoltà di Architettura della Sapienza. \r\n\r\nNel 2004 vince il premio Bardi Web di IBM con il sito del Festival Internazionale di Roma; nello stesso anno inizia a scrivere per Next Exit ed altri magazine nel Web. \r\n\r\nNel 2006 Achille Bonito Oliva gli conferisce l\'A.B.O. D\'argento, un riconoscimento per essersi distinto nell\'ambito della Web Art, come uno dei protagonisti dell\'Arte Contemporanea internazionale.',
+            es: '',
+            fr: '',
+            pl: '',
+            ru: '',
+            hu: '',
+            by: '',
+            gr: ''
+        },
+        websites: [],
+        citizenship: 'Italy',
+        phonenumbers: [ '0678147301' ],
+        facebook:   profile
+    };
+    DB.users.save(o, {safe:true}, function(err, res) {
+        callback(err, o);
+    });
+}
+DB.twitterFind = function(profile, callback){
+    console.log(profile);
+    DB.users.findOne({"twitter.id":profile.id}, function(err, res){
+        if (!res) {
+            console.log("NON TROVATO 1 !!!");
+            res.redirect('/controlpanel/login/');
+        } else {
+            console.log("TROVATO 1 !!!");
+            callback(err, res);
+        }
+    });
+}
+
+DB.googleFindOrCreate = function(profile, callback){
+    DB.users.findOne({"google.id":profile.id}, function(err, res){
+        console.log(res);
+        if (!res) {
+            console.log("NON TROVATO 1 !!!");
+            DB.users.findOne({"emails.email":profile.emails[0].value}, function(err, res){
+                console.log(res);
+                if (!res) {
+                    console.log("NON TROVATO 2 !!!");
+                    DB.googleCreate(profile, function(err, res) {
+                        callback(err, res);
+                    });
+                } else {
+                    console.log("TROVATO 2 !!!");
+                    res.google = profile;
+                    DB.users.save(res, {safe:true}, function(e, resSave) {
+                        console.log("salvato 2 !!!");
+                        callback(e, res);
+                    });
+                }
+            });
+        } else {
+            console.log("TROVATO 1 !!!");
+            callback(err, res);
+        }
+    });
+}
+DB.googleFind = function(profile, callback){
+    DB.users.findOne({"google.id":profile.id}, function(err, res){
+        console.log(res);
+        if (!res) {
+            console.log("NON TROVATO 1 !!!");
+            res.redirect('/controlpanel/login/');
+        } else {
+            console.log("TROVATO 1 !!!");
+            callback(err, res);
+        }
+    });
+}
+
+DB.googleCreate = function(profile, callback) {
+    var lang = profile._json.locale.split("_")[0];
+    for(var a=0;a<profile.emails.length;a++){
+        profile.emails[a].email = profile.emails[a].value;
+        delete profile.emails[a].value;
+        profile.emails[a].public = 0;
+        profile.emails[a].valid = 1;
+        profile.emails[a].public = a===0 ? 1 :0;
+        profile.emails[a].mailinglists = _config.mailinglists;
+    }
+    var o = {
+        name: profile.name.givenName,
+        surname: profile.name.familyName,
+        display_name: profile.displayName,
+        gender: profile.gender == 'male' ? 'M' : profile.gender == 'female' ? 'F' : 'Other',
+        is_crew: 0,
+        lang: _config.locales.indexOf(lang),
+        public: 1,
+        //birth_date: "Mon Feb 28 1966 00:00:00 GMT+0100 (CET)",
+        creation_date: new Date(),
+        emails:profile.emails,
+        files: [ { file: '/warehouse/2012/01/romacreativa_10.jpg' } ],
+        locations:
+            [ { city: 'Roma',
+                country: 'Italy',
+                lat: 41.8929163,
+                lng: 12.482519899999943 } ],
+        permalink: Fnc.getPermalink(profile.displayName),
+        stats: {
+            events: 0,
+            performances: 0,
+            playlists: 0,
+            footage: 0,
+            gallery: 0,
+            crews: 0
+        },
+        text: { en: 'Very interested in any kind of avant-garde, costume, music, art and experimentation, it is updated on all sorts of innovation in technology and communications.\r\n\r\nIn 1996 he founded and coordinates the various activities dealing Flyer Communication Srl well as the managerial tasks and strategic development of all applications Flash Flyer.\r\n\r\nIn 1999 he founded Shockart.net that quickly becomes a point of reference for the Web Art and especially for the productions in Shockwave Flash, features exhibitions in Rome, Valencia, San Francisco, New York.\r\n\r\nIn 2001 he created a AV mixer FLxER based on Flash tecnology, that is presented in the most varied occasions, it is used to mix vector graphics, audio, video, text and interactive media, in live performance.\r\n\r\nFrom 2002 to 2005 taught at the IED as teacher in the Master in Web Design and Strategy, and in 2006 taught "Flash" in the course of Graphics for three years.\r\n\r\nHe has also edited several interventions in the Faculty of Engineering, University of Sannio, Department of Linguistic Practices and Text Analysis at the University of Bari, in the Faculty of Humanities, University of Tor Vergata, University of Perugia , at the Biennale of Young Artists of Athens (2003), the Flash Forward in San Francisco and New York, the Center for Studies in Szentendre (Budapest), at Sonar in Barcelona, the RESFEST of Rome, the Biennial of Valencia, the Faculty of Fine Arts in Barcelona at the Galleria d\'Arte Moderna e Contemporanea di Bergamo, the Galleria d\'Arte Moderna in Rome, at the Faculty of Architecture of Wisdom.\r\n\r\nIn 2004 he won the prize Bardi IBM Web award with the site of the Photograpy International Festival of Rome in the same year he started writing for Next Exit magazine and others on the Web.\r\n\r\nIn 2006, Achille Bonito Oliva gives the ABO Silver, an award for having outstanding accomplishments of Web Art, as one of the protagonists of international contemporary art.',
+            it: 'Molto interessato ad ogni tipo di avanguardia, costume, musica, arte e sperimentazione, è sempre aggiornato su ogni genere di innovazione nelle tecnologie e nella comunicazione. \r\n\r\nNel 1996 fonda e coordina le diverse attività di Flyer Communication S.r.l occupandosi oltre che dei compiti manageriali e strategici, dello sviluppo di tutte le applicazioni Flash di Flyer. \r\n\r\nNel 1999 fonda Shockart.net che diventa in poco tempo uno dei punti di riferimento per la Web Art ed in particolare per le produzioni realizzate in Shockwave Flash; realizza mostre a Roma, Valencia, San Francisco, New York. \r\n\r\nNel 2001 crea FLxER un mixer video realizzato in Flash, presentato continuamente nelle più diverse occasioni, utilizzato per mixare grafica vettoriale, audio, video, testo e media interattivi, nella realizzazione di video live performance.\r\n\r\nDal 2002 al 2005 insegna allo IED in qualità di docente nell’ambito del Master in Web Design e Strategy, e nel 2006 insegna “Flash” nel Corso di Grafica triennale. \r\n\r\nHa inoltre curato diversi interventi alla Facoltà di Ingegneria dell\'Università del Sannio, al Dipartimento di Pratiche Linguistiche e Analisi dei Testi dell\'Università di Bari, alla Facoltà di Lettere e Filosofia dell\'Università di Tor Vergata, all\'Università degli Studi di Perugia, alla Biennale dei Giovani Artisti di Athene (2003), al Flash Forward di San Francisco e New York, al Centro Studi di Szentendre (Budapest), al Sonar di Barcellona, al ResFest di Roma, alla Biennale di Valencia, alla Facoltà di Belle Arti di Barcellona, alla Galleria d’Arte Moderna e Contemporanea di Bergamo, alla Galleria d’Arte Moderna di Roma, alla Facoltà di Architettura della Sapienza. \r\n\r\nNel 2004 vince il premio Bardi Web di IBM con il sito del Festival Internazionale di Roma; nello stesso anno inizia a scrivere per Next Exit ed altri magazine nel Web. \r\n\r\nNel 2006 Achille Bonito Oliva gli conferisce l\'A.B.O. D\'argento, un riconoscimento per essersi distinto nell\'ambito della Web Art, come uno dei protagonisti dell\'Arte Contemporanea internazionale.',
+            es: '',
+            fr: '',
+            pl: '',
+            ru: '',
+            hu: '',
+            by: '',
+            gr: ''
+        },
+        websites: [],
+        citizenship: 'Italy',
+        phonenumbers: [ '0678147301' ],
+        facebook:   profile
+    };
+    DB.users.save(o, {safe:true}, function(err, res) {
+        callback(err, o);
+    });
+}
 DB.setPassword = function(login, newPass, callback) {
 	DB.users.findOne({login:login}, function(e, o){
 		DB.saltAndHash(newPass, function(hash){
