@@ -227,5 +227,8 @@
 	"Email is too short": "Email is too short",
 	"Password is too short (min 8 char)": "Password is too short (min 8 char)",
 	"Stage name is too short": "Stage name is too short",
-	"We have sent an email to confirm": "We have sent an email to confirm"
+	"We have sent an email to confirm": "We have sent an email to confirm",
+	"Please select the type of account: individual or crew": "Please select the type of account: individual or crew",
+	"Profile url is too short": "Profile url is too short",
+	"Crew profile url is too short": "Crew profile url is too short"
 }

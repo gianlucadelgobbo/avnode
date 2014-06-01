@@ -1,12 +1,20 @@
-form(name="formLogin", method="post")
-	.row
-		.col-md-6.col-md-offset-3
-			.well
-				h1.no-margin-top=__("Login")
-				hr
-				include ../comp/msg
+.row
+	.col-md-6.col-md-offset-3
+		.well
+			h1.no-margin-top=__("Login")
+			hr
+			.text-center
+				p
+					a.btn.btn-danger(href="/controlpanel/login/google/")=__("Google")
+					!=" "
+					a.btn.btn-info(href="/controlpanel/login/twitter/")=__("Twitter")
+					!=" "
+					a.btn.btn-primary(href="/controlpanel/login/facebook/")=__("Facebook")
+				p=__("or")
+			include ../comp/msg
+			form(name="formLogin", method="post")
 				.form-group
-					input(name="login", type="text", placeholder=__("Username")).form-control
+					input(name="username", type="text", placeholder=__("Username")).form-control
 				.form-group
 					input(name="password", type="password", placeholder=__("Password")).form-control
 				.row
@@ -18,6 +26,6 @@ form(name="formLogin", method="post")
 					.col-md-6
 						.pull-right
 							button(type="submit").btn.btn-primary=__("Enter")
-				hr.clearfix
-				a(href="controlpanel/passwordRequest").btn.btn-link=__("Recover_data")
-				a(href="controlpanel/user").btn.btn-link=__("Register")
+			hr.clearfix
+			a(href="/controlpanel/passwordRequest").btn.btn-link=__("Recover_data")
+			a(href="/signup").btn.btn-link=__("Register")

@@ -9,10 +9,12 @@
 				p
 					a.btn.btn-danger(href="/signup/google/")=__("Google")
 					!=" "
-					a.btn.btn-info(href="/signup/twitter/")=__("Twitter")
-					!=" "
+					//
+						a.btn.btn-info(href="/signup/twitter/")=__("Twitter")
+						!=" "
 					a.btn.btn-primary(href="/signup/facebook/")=__("Facebook")
 				p=__("or sign up using your email:")
+				include ../comp/msg
 			form(method="post",autocomplete="off")
 				.controls.text-center
 					hr
@@ -23,8 +25,7 @@
 						input(type="radio", autocomplete="off",name="is_crew", value="1", onclick="$('#crew').removeClass('hide').show('slow')", checked=typeof result.is_crew !== "undefined" && result.is_crew==="1"  ? "checked" : undefined)
 						!=" "+__("As crew")
 					hr
-				include ../comp/msg
-				#crew(class=result.is_crew ? undefined : "hide")
+				#crew(class=result.is_crew!=1 ? "hide" : undefined)
 					legend=__("Crew public data")
 					.row
 						.col-md-6

@@ -460,5 +460,6 @@
 	"Russian": "Russian",
 	"Hungarian": "Hungarian",
 	"Belarusian": "Belarusian",
-	"Greek": "Greek"
+	"Greek": "Greek",
+	"or": "or"
 }

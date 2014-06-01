@@ -9,56 +9,56 @@ var titles = {
 }
 
 exports.get = function get(req, res) {
-	if (req.session.user == null) {
+	if (req.session.passport.user == null) {
 		res.redirect('/controlpanel/login/?from='+req.url);
 	} else {
 		var sez = "performers";
 		if (req.params.length==0 || req.params[0]=="" || req.params[0]=="/") {
 			var ids = [];
-			//for(var crew in req.session.user.crews) ids.push(req.session.user.crews[crew]._id);
-			for(var crew in req.session.user.crews) ids.push(new ObjectID(req.session.user.crews[crew]._id));
-			//var ids = [req.session.user.permalink];
+			//for(var crew in req.session.passport.user.crews) ids.push(req.session.passport.user.crews[crew]._id);
+			for(var crew in req.session.passport.user.crews) ids.push(new ObjectID(req.session.passport.user.crews[crew]._id));
+			//var ids = [req.session.passport.user.permalink];
 			console.dir(ids);
 			Fnc.getList(req.params[0], sez, res, ids, function(err, tot, records, conf){
 				console.dir("bella");
-				res.render('forms/crews', {locals: {title:__("Crews"), sez:sez, tot:tot, path:conf.path, sort:conf.sort, filter:conf.filter, skip:conf.skip, result:records, Fnc:Fnc}, user : req.session.user});
+				res.render('forms/crews', {locals: {title:__("Crews"), sez:sez, tot:tot, path:conf.path, sort:conf.sort, filter:conf.filter, skip:conf.skip, result:records, Fnc:Fnc}, user : req.session.passport.user});
 			});
 		} else {
 			var p = Fnc.parseParams(req.params[0]);
 			var page = p.page;
 			var params2 = p.params2;
-			DB.canIeditThis("users", {"permalink":params2[0]}, req.session.user, function (result) {
+			DB.canIeditThis("users", {"permalink":params2[0]}, req.session.passport.user, function (result) {
 				if (result) {
 					var sez = "performers";
 					if (params2.length==1) {
 						var subsez = "public";
 						var msg = [];
-						res.render('forms/crew_public', {locals: {form:"crew_public", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
+						res.render('forms/crew_public', {locals: {form:"crew_public", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
 					} else if (params2[1]=="mainimage") {
 						var subsez = "mainimage";
 						var msg = [];
-						res.render('forms/crew_mainimage', {locals: {form:"crew_mainimage", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
+						res.render('forms/crew_mainimage', {locals: {form:"crew_mainimage", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
 					} else if (params2[1]=="members") {
 						var subsez = "members";
 						var msg = [];
-						res.render('forms/crew_members', {locals: {form:"crew_members", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
+						res.render('forms/crew_members', {locals: {form:"crew_members", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
 					}
 				} else {
-					res.render('forms/cannotedit', {locals: {}, user : req.session.user });
+					res.render('forms/cannotedit', {locals: {}, user : req.session.passport.user });
 				}
 			});
 		}
 	}
 };
 exports.post = function get(req, res) {
-	if (req.session.user == null) {
+	if (req.session.passport.user == null) {
 		res.redirect('/controlpanel/login/?from='+req.url);
 	} else {
 		var tmp = req.body.form.split("_");
 		var form = req.body.form;
 		var sez = tmp[0];
 		var subsez = tmp[1];
-		DB.canIeditThis("users", {_id:new ObjectID(req.body._id)}, req.session.user, function (result) {
+		DB.canIeditThis("users", {_id:new ObjectID(req.body._id)}, req.session.passport.user, function (result) {
 			if (result){
 				exports["validate_"+form](req, function(errors, o, m){
 					if (errors.length === 0){
@@ -78,17 +78,17 @@ exports.post = function get(req, res) {
 							  		result3.form = form;
 							  		result3.collection = sez;
 							  		DB.updateUserRel(result._id, function(success) {
-										res.render('forms/'+form, {locals: {form:form, title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result3, msg:{c:[{m:m}]},Fnc:Fnc}, user : req.session.user });
+										res.render('forms/'+form, {locals: {form:form, title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result3, msg:{c:[{m:m}]},Fnc:Fnc}, user : req.session.passport.user });
 							  		});
 						  		});
 					  		});
 						}
 					} else {
-						res.render('forms/'+form, {locals: {form:"user_public", title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:req.body, msg:{e:errors},Fnc:Fnc}, user : req.session.user });
+						res.render('forms/'+form, {locals: {form:"user_public", title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:req.body, msg:{e:errors},Fnc:Fnc}, user : req.session.passport.user });
 					}
 		  		});
 			} else {
-				res.render('forms/cannotedit', {locals: {}, user : req.session.user });
+				res.render('forms/cannotedit', {locals: {}, user : req.session.passport.user });
 			}
   		});
 	}

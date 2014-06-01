@@ -32,6 +32,10 @@ exports.getList = function (params, sez, res, ids, callback) {
 		});
 	});
 }
+exports.getPermalink = function (str) {
+    str = str.split(' ').join('-');
+    return str;
+}
 exports.getEventDate = function (date) {
 	var d = new Date(date);
 	//return moment(d).format("dddd, MMMM Do YYYY, h:mm");

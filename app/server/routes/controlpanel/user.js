@@ -15,25 +15,25 @@ var titles = {
 }
 
 exports.get = function get(req, res) {
-	if (req.session.user == null) {
+	if (req.session.passport.user == null) {
 		res.redirect('/controlpanel/login/?from='+req.url);
 	} else {
 		console.dir(req.params);
-		var id = (req.query.id ? req.query.id : req.session.user._id);
+		var id = (req.query.id ? req.query.id : req.session.passport.user._id);
 		DB.users.findOne({_id:new ObjectID(id)}, function(err, result){
 			var sez = "user";
 			if (req.params[0]=="" || req.params[0]=="/") {
 				var subsez = "public";
 				var msg = [];
-				res.render('forms/user_public', {locals: {form:"user_public", title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
+				res.render('forms/user_public', {locals: {form:"user_public", title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
 			} else if (req.params[0]=="/mainimage" || req.params[0]=="/mainimage/") {
 				var subsez = "mainimage";
 				var msg = [];
-				res.render('forms/user_mainimage', {locals: {title:__("My Account")+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
+				res.render('forms/user_mainimage', {locals: {title:__("My Account")+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
 			} else if (req.params[0]=="/password" || req.params[0]=="/password/") {
 				var subsez = "password";
 				var msg = [];
-				res.render('forms/user_password', {form:"user_password", locals: {title:__("My Account")+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
+				res.render('forms/user_password', {form:"user_password", locals: {title:__("My Account")+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
 			} else if (req.params[0]=="/emails" || req.params[0]=="/emails/") {
 				var subsez = "emails";
 				var msg = [];
@@ -51,7 +51,7 @@ exports.get = function get(req, res) {
 							}
 						}
 						if (conta==theArray.length-1) {
-							res.render('forms/user_emails', {locals: {title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
+							res.render('forms/user_emails', {locals: {title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
 						}
 						conta++;
 					});
@@ -59,17 +59,17 @@ exports.get = function get(req, res) {
 			} else if (req.params[0]=="/private" || req.params[0]=="/private/") {
 				var subsez = "private";
 				var msg = [];
-				res.render('forms/user_private', {form:"user_private", locals: {title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
+				res.render('forms/user_private', {form:"user_private", locals: {title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
 			} else if (req.params[0]=="/connections" || req.params[0]=="/connections/") {
 				var subsez = "connections";
 				var msg = [];
-				res.render('forms/user_connections', {locals: {title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.user });
+				res.render('forms/user_connections', {locals: {title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
 			}
 		});
 	}
 };
 exports.post = function get(req, res) {
-	if (req.session.user == null) {
+	if (req.session.passport.user == null) {
 		res.redirect('/controlpanel/login/?from='+req.url);
 	} else {
 		var tmp = req.body.form.split("_");
@@ -115,14 +115,14 @@ exports.post = function get(req, res) {
 						  		result3.form = form;
 						  		result3.collection = sez;
 						  		DB.updateUserRel(result._id, function(success) {
-									res.render('forms/'+form, {locals: {form:form, title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result3, msg:{c:[{m:m}]},Fnc:Fnc}, user : req.session.user });
+									res.render('forms/'+form, {locals: {form:form, title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result3, msg:{c:[{m:m}]},Fnc:Fnc}, user : req.session.passport.user });
 						  		});
 					  		});
 				  		});
 					});
 				}
 			} else {
-				res.render('forms/'+form, {locals: {form:"user_public", title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:req.body, msg:{e:errors},Fnc:Fnc}, user : req.session.user });
+				res.render('forms/'+form, {locals: {form:"user_public", title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:req.body, msg:{e:errors},Fnc:Fnc}, user : req.session.passport.user });
 			}
   		});
 	}
@@ -163,14 +163,14 @@ exports.validate_user_password = function (req,callback) {
 		o.doc_id = o._id;
 		o.act = "password";
 		delete o._id;
-		DB.saltAndHash(o.password+req.session.user.emails[0].email,function(hash){
+		DB.saltAndHash(o.password+req.session.passport.user.emails[0].email,function(hash){
 			o.code = hash;
 			o.msg = {title:__("Password confirmation"),text:__("Password updated with success, please log in")};
 			DB.temp.insert(o, {safe: true}, function(err, record){
 				text = _config.siteurl+"/confirm/?code="+o.code;
 				EM.sendMail({
 				   text:    text, 
-				   to:      req.session.user.emails[0].email,
+				   to:      req.session.passport.user.emails[0].email,
 				   subject: _config.sitename + " | " + __("Password confirmation")
 				}, function(err, message) {
 					delete o.password;

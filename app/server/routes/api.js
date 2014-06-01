@@ -1,7 +1,7 @@
 var DB = require('../modules/db-manager');
 
 exports.getClients = function getClients(req, res) {
-  if (req.session.user == null) {
+  if (req.session.passport.user == null) {
     res.redirect('/?from='+req.url);
   } else {
     var query = {name:{$regex: req.query.term, $options: 'i' }};
@@ -14,7 +14,7 @@ exports.getClients = function getClients(req, res) {
 };
 
 exports.getPayments = function getPayments(req, res) {
-  if (req.session.user == null) {
+  if (req.session.passport.user == null) {
     res.redirect('/?from='+req.url);
   } else {
     var query = {payment:{$regex: req.query.term, $options: 'i' }};
@@ -37,7 +37,7 @@ exports.getInvoices = function getInvoices(req, res) {
 };
 
 exports.getProducts = function getProducts(req, res) {
-  if (req.session.user == null) {
+  if (req.session.passport.user == null) {
     res.redirect('/?from='+req.url);
   } else {
     var query = {"items.description":{$regex: req.query.term, $options: 'i' }};

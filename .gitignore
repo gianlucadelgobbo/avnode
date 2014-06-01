@@ -10,3 +10,4 @@ app/server/config.js
 bower_components
 _buttare
 .idea
+tmp
