@@ -23,7 +23,7 @@ var _config = {
 		"emailFrom":	"g.delgobbo@flyer.it",
 		"server":	{
 			"user":		"g.delgobbo@flyer.it", 
-			"password":	"22724gia", 
+			"password":	"", 
 			"host":		"smtp.gmail.com", 
 			"ssl":		true
 			
