@@ -12,3 +12,4 @@ _buttare
 .idea
 tmp
 app/server/config.js
+locales

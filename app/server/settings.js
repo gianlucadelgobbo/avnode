@@ -1,34 +1,6 @@
 var _config = {
-	"dbName": 			"avnode",
-	"defaultLocale": 	"en",
-	"locales":			["it","en", "es", "fr", "pl", "ru", "hu", "by", "gr"],
-	"locales_labels":	{
-		"it":"Italiano",
-		"en":"English",
-		"es":"Espa&ntilde;ol",
-		"fr":"Fran&ccedil;aise",
-		"pl":"Polski",
-		"ru":"Russian",
-		"hu":"Hungarian",
-		"by":"Belarusian",
-		"gr":"Greek"
-	},
-	"thumbnails":		[{"width":400,"height":300},{"width":55,"height":55}],
-	"cp_basepath":		"controlpanel",
-	"usersListItems":	6,
-	"googleAnalytics":	"UA-8844617-6",
-	"mailinglists":		["livevisuals","flxer","flyer","updates"],
-	"emaildispatcher":	{
-		"nameFrom":		"AV node",
-		"emailFrom":	"g.delgobbo@flyer.it",
-		"server":	{
-			"user":		"g.delgobbo@flyer.it", 
-			"password":	"22724gia", 
-			"host":		"smtp.gmail.com", 
-			"ssl":		true
-			
-		}
-	},
+    "cp_basepath":		"controlpanel",
+    "usersListItems":	6,
 	"cpanel":			{
 		"account":			{
 			"title":			"Performers",

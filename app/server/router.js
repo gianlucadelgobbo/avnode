@@ -125,14 +125,15 @@ module.exports = function(app) {
 
     // google login //
     app.get('/controlpanel/login/google',
-        passport.authenticate('google-login')
+        passport.authenticate('google-login', { scope: ['email','profile'] })
     );
     // google will redirect the user to this URL after approval.
     app.get('/controlpanel/login/google/callback',
-        passport.authenticate('google-login', {
-            successRedirect: '/',
-            failureRedirect: '/controlpanel/login/'
-        })
+        passport.authenticate('google-login', {failureRedirect: '/controlpanel/login/'}),
+        function(req, res) {
+            // Successful authentication, redirect home.
+            res.redirect('/');
+        }
     );
 
     // cp Log Out //
@@ -161,13 +162,14 @@ module.exports = function(app) {
 
     // google signup //
     app.get('/controlpanel/signup/google',
-        passport.authenticate('google-signup')
+        passport.authenticate('google-signup', { scope: ['email','profile'] })
     );
     app.get('/controlpanel/signup/google/callback',
-        passport.authenticate('google-signup', {
-            successRedirect: '/controlpanel/user/',
-            failureRedirect: '/controlpanel/signup/'
-        })
+        passport.authenticate('google-signup', {failureRedirect: '/controlpanel/signup/'}),
+        function(req, res) {
+            // Successful authentication, redirect home.
+            res.redirect('/controlpanel/user/');
+        }
     );
 
     // cp Change Lang //

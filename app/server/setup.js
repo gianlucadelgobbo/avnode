@@ -3,7 +3,7 @@ var DB = require('./modules/db-manager.js');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
-var GoogleStrategy = require('passport-google').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var LocalStrategy = require('passport-local').Strategy;
 var settings = require('./settings.js')._config;
 var ObjectID = require('mongodb').ObjectID;
@@ -94,16 +94,16 @@ module.exports = function(app, exp) {
         }
     ));
     passport.use('google-login', new GoogleStrategy(_config.socials.google_login,
-        function(identifier, profile, done) {
-            profile.id = identifier;
+        function(accessToken, refreshToken, profile, done) {
+            //profile.id = identifier;
             DB.googleFind(profile, function(err, res) {
                 done(null, res);
             });
         }
     ));
     passport.use('google-signup', new GoogleStrategy(_config.socials.google_signup,
-        function(identifier, profile, done) {
-            profile.id = identifier;
+        function(accessToken, refreshToken, profile, done) {
+            //profile.id = identifier;
             DB.googleFindOrCreate(profile, function(err, res) {
                 done(null, res);
             });
