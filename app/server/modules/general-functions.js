@@ -10,6 +10,7 @@ var moment = require('moment');
 var ObjectID = require('mongodb').ObjectID;
 
 exports.getList = function (params, sez, res, ids, callback) {
+    var DB = require('./db-manager');
 	var conf = exports.getConf(params, sez, res);
 	var searchQ = _config.sections[sez].searchQ[conf.filter];
 	//ids = ["515c07ccdad037523c000903"];
@@ -24,7 +25,7 @@ exports.getList = function (params, sez, res, ids, callback) {
 	//if (ids) searchQ["users._id"] = {$in:ids};
 	//searchQ = {"users._id": {$in: [new ObjectID("515c07ccdad037523c000903")]}};
 	//searchQ = {"users._id": new ObjectID("50f836b77ad42b00000003ad")};
-	//console.dir(_config.sections[sez].coll);
+
 	DB[_config.sections[sez].coll].find(searchQ, {"_id": 1 }).count(function(err, tot){
 		DB[_config.sections[sez].coll].find(searchQ, _config.sections[sez].list_fields, {skip:conf.skip, limit:_config.sections[sez].limit}).sort(_config.sections[sez].sortQ[conf.sort]).toArray(function(err, records){
             console.dir(err);
