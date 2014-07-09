@@ -21,19 +21,19 @@ var DB = {};
 		if (e) {
 			console.log(e);
 		} else {
-			console.log('connected to database :: ' + dbName);
+            DB.users = 			DB.db.collection('users');
+            DB.footage = 		DB.db.collection('footage');
+            DB.playlists = 		DB.db.collection('playlists');
+            DB.performances = 	DB.db.collection('performances');
+            DB.events = 		DB.db.collection('events');
+            DB.tvshow = 		DB.db.collection('tvshow');
+            DB.gallery = 		DB.db.collection('gallery');
+            DB.categories = 	DB.db.collection('categories');
+            DB.temp_users = 	DB.db.collection('temp_users');
+            DB.temp = 			DB.db.collection('temp');
+            console.log('connected to database :: ' + dbName);
 		}
 	});
-	DB.users = 			DB.db.collection('users');
-	DB.footage = 		DB.db.collection('footage');
-	DB.playlists = 		DB.db.collection('playlists');
-	DB.performances = 	DB.db.collection('performances');
-	DB.events = 		DB.db.collection('events');
-	DB.tvshow = 		DB.db.collection('tvshow');
-	DB.gallery = 		DB.db.collection('gallery');
-	DB.categories = 	DB.db.collection('categories');
-	DB.temp_users = 	DB.db.collection('temp_users');
-	DB.temp = 			DB.db.collection('temp');
 //	//$apiValid = array("users","footage","playlists","performances","events","tvshow","gallery");
 
 module.exports = DB;
@@ -82,6 +82,7 @@ DB.validateLink = function(email, passHash, callback) {
 }
 */
 DB.validateFormLogin = function (login, password,callback) {
+	console.log("validateFormLogin");
     var e = [];
     DB.users.findOne({login:login}, function(err, result) {
         if (result == null){

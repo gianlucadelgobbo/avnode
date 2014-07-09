@@ -59,9 +59,10 @@ module.exports = function(app, exp) {
 
 
     passport.use(new LocalStrategy({
-            usernameField: 'login'
+            usernameField: 'username'
         },
         function(username, password, done) {
+        	console.log("stocazzo");
             DB.validateFormLogin(username, password, function(e, o) {
                 if (e && e.length) {
                     return done(null, false, { message: e.m });
