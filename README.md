@@ -16,7 +16,7 @@ Setup
 
 ------------
 
-1. Edit the config file and put your data `/app/common/config.js`
+1. Edit the config file and put your data `/app/server/config.js`
 2. Edit the css to print your invoices and offers `/app/public/css/print_templates.css`
 3. Run `app.js`
 4. Create your first account (Administrator)
