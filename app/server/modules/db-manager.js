@@ -287,9 +287,13 @@ DB.setPassword = function(login, newPass, callback) {
 
 DB.saltAndHash = function(pass, callback) {
 	bcrypt.genSalt(10, function(err, salt) {
-		bcrypt.hash(pass, salt, function(err, hash) {
-			callback(hash);
-		});
+		bcrypt.hash(pass, salt,
+			function() { // progress
+			},
+			function(err, hash) {
+				callback(hash);
+			}
+		);
 	});
 }
 
