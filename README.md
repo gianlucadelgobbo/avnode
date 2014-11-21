@@ -3,7 +3,7 @@ AVnode
 
 [AVnode](https://github.com/gianlucadelgobbo/avnode) is a try to have the FLxER website based on [MongoDB](http://www.mongodb.org/) and [NodeJS](http://nodejs.org/).
 
-Authors: [Gianluca Del Gobbo](https://github.com/gianlucadelgobbo/), [Fabrizio Chiovoloni](https://github.com/kennyff92) as [Flyer communication](http://www.flyer.it), [FLxER](https://flxer.net), [Free Hardware Foundation](http://fhf.it) and [Linux Club](http://linux-club.org/)
+Authors: [Gianluca Del Gobbo](https://github.com/gianlucadelgobbo/)
 
 Requirements
 ------------
@@ -16,11 +16,10 @@ Setup
 
 ------------
 
-1. Edit the config file and put your data `/app/common/config.js`
-2. Edit the css to print your invoices and offers `/app/public/css/print_templates.css`
-3. Run `app.js`
-4. Create your first account (Administrator)
-5. Start to work :)
+1. Rename the config file `/app/common/config-example.js` to `/app/common/config.js` and put your data
+2. Request the DB to [g.delgobbo@flyer.it]
+3. Request the file repository `/warehouse` to [g.delgobbo@flyer.it]
+4. Run `app.js`
 
 
 Contributing

@@ -31,8 +31,8 @@ module.exports = function(app, exp) {
 	app.set('view engine', 'jade');
 	app.set('view options', { doctype : 'html', layout: './app/server/views/layout.jade', pretty : true });
 	app.use(cookieParser());
-	app.use(bodyParser.json({limit: '500mb'}));
-	app.use(bodyParser.urlencoded({limit: '500mb', extended: true }));
+	app.use(bodyParser.json({limit: _config.maxFileSize}));
+	app.use(bodyParser.urlencoded({limit: _config.maxFileSize, extended: true }));
 	app.use(methodOverride());
 
 	app.use(session({ secret: 'avnode', resave: true, saveUninitialized: true }));
