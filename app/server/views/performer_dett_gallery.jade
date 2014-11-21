@@ -1,32 +1,32 @@
-- console.dir(locals.dett)
+- console.dir(dett)
 .user_dett
 	.row
 		.col-md-9
-			h1=locals.dett.title
+			h1=dett.title
 		.col-md-3
 			ul.nav.nav-list.user_dett_ul
 				li.divider
 				li.clearfix
-					span.pull-left=__("Visits")+": "+locals.dett.stats.visits
+					span.pull-left=__("Visits")+": "+dett.stats.visits
 					span.pull-right
 						button.btn.btn-primary.btn-mini
 							i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
 							!=" "+__("Like")
 						!=" "
-						code=locals.dett.stats.rates ? locals.dett.stats.rates.tot_rate : 0
+						code=dett.stats.rates ? dett.stats.rates.tot_rate : 0
 				li.divider
 				li=__("Author")+": "
-					a(href="/"+locals.result.permalink+"/")=locals.result.display_name
+					a(href="/"+result.permalink+"/")=result.display_name
 				li.divider
-				- for(item in locals.dett.categories)
-					- if (locals.dett.categories[item] && locals.dett.categories[item].ancestors && locals.dett.categories[item].ancestors[0].permalink=="lv-projects-categories")
+				- for(item in dett.categories)
+					- if (dett.categories[item] && dett.categories[item].ancestors && dett.categories[item].ancestors[0].permalink=="lv-projects-categories")
 						li
 							!=__("Type")+": "
-							a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.dett.categories[item].permalink+"/")=locals.dett.categories[item].name
+							a(href="/"+_config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
 hr
 .row
-	- for(item in locals.dett.footage)
-		- var box = locals.dett.footage[item]
+	- for(item in dett.footage)
+		- var box = dett.footage[item]
 		- box.files = [{file:'/'+box.folder+'/'+box.name}]
 		- var sea = "gallery"
 		include comp/box_gallery_item

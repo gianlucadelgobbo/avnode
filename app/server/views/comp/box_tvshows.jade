@@ -2,15 +2,15 @@
 div(class="col-md-"+span)
 	.media
 		.pull-left
-			a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")
-				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=locals.Fnc.getFileFormat(box.files, 90, 68))
+			a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+_config.sections[sez].basepath+"/"+box.permalink+"/")
+				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=Fnc.getFileFormat(box.files, 90, 68))
 			br
 			ul.stats
 				li=__("Visits")+": "+box.stats.visits
 				li=__("Likes")+": "+box.stats.rates.tot_rate
 		.media-body
 			h4.media-heading
-				a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+_config.sections[locals.sez].basepath+"/"+box.permalink+"/")=box.title
+				a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+_config.sections[sez].basepath+"/"+box.permalink+"/")=box.title
 			- performers = "";
 			- for(item in box.users)
 				- if (box.users[item]) performers+="<li><a href=\"/"+box.users[item].permalink+"/\">"+box.users[item].display_name+"</a></li>"
@@ -18,6 +18,6 @@ div(class="col-md-"+span)
 				ul.stats!=performers
 			- categories = "";
 			- for(item in box.categories)
-				- if (box.categories[item]) categories+="<li><a href=\"/"+_config.sections[locals.sez].basepath+"/"+box.categories[item].slug+"/\">"+box.categories[item].name+"</a></li>"
+				- if (box.categories[item]) categories+="<li><a href=\"/"+_config.sections[sez].basepath+"/"+box.categories[item].slug+"/\">"+box.categories[item].name+"</a></li>"
 			- if (categories)
 				ul.stats!=categories

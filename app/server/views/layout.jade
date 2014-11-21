@@ -1,24 +1,12 @@
-!!!
+doctype html
 html(lang=_config.lang)
 	head
-		title=(locals.title ? locals.title+" | FLxER" : "FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
+		title=(title ? title+" | FLxER" : "FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
 		//meta(name="viewport", content="width=device-width, initial-scale=1.0")
 		meta(name="author", content="FLYER COMMUNICATION, Gianluca Del Gobbo, Flavio Distefano")
 		meta(name="robots", content="all")
 		meta(name="keywords", content=__("meta-keywords"))
-		meta(name="description", content=locals.description)
-
-		//- if(is_facebook())
-			meta(property="og:title", content=(locals.title ? locals.title : "FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE"))
-			meta(property="og:type", content=(locals.type ? locals.type : "website"))
-			meta(property="og:url", content='')
-			meta(property="og:image", content='')
-			meta(property="og:site_name", content=_config.site_name)
-			meta(property="og:description", content=locals.description)
-			meta(property="fb:admins", content=_config.admins)
-			meta(property="fb:app_id", content=_config.app_id)
-			meta(property="og:locale", content=_config.locale)
-
+		meta(name="description", content=description)
 
 		link(type="text/css", href="/bootstrap/dist/css/bootstrap.min.css", rel="stylesheet")
 		link(type="text/css", href="/bootstrap-datepicker/css/datepicker.css", rel="stylesheet")
@@ -26,7 +14,7 @@ html(lang=_config.lang)
 		link(type="text/css", href="/fine-uploader/_dist/jquery.fineuploader-4.4.0/fineuploader-4.4.0.min.css", rel="stylesheet")
 		link(type="text/css", href="/modules/jquery-ui/bootstrap-jquery-ui-1.10.1.custom.css", rel="stylesheet")
 		link(type="text/css", href="/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css", rel="stylesheet")
-		link(type="text/css", href="/css/style.css", rel="stylesheet")	
+		link(type="text/css", href="/css/style.css", rel="stylesheet")
 		script(type="text/javascript", src="/jquery/dist/jquery.min.js")
 
 
@@ -40,7 +28,7 @@ html(lang=_config.lang)
 							input(type="hidden", name="cof", value="FORID:10")
 							input(type="hidden", name="ie", value="UTF-8")
 							.form-group
-								input.form-control(type="text",	name="q", size="31", value=locals.q)
+								input.form-control(type="text",	name="q", size="31", value=q)
 								button.btn.btn-default(type="submit", name="sa")=__("Cerca")
 									//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
 						ul.nav.navbar-nav
@@ -57,7 +45,7 @@ html(lang=_config.lang)
 						h2.col-md-4.logo
 							a(href="/", title="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
 								img(src="/img/logo.gif", alt="AV node - PERFORMING VIDEO NETWORK")
-						.col-md-8=locals.bannerTop
+						.col-md-8=bannerTop
 					
 			nav.navbar.navbar-inverse#menu(class=(typeof(userpage) !== 'undefined' && userpage ? "navbar-fixed-top" : undefined))
 				//.navbar-fixed-top
@@ -68,7 +56,7 @@ html(lang=_config.lang)
 					ul.nav.navbar-nav
 						- each item in _config.sections
 							- if (item.view_list)
-								li(class=(_config.sections[locals.sez] && _config.sections[locals.sez].basepath==item.basepath ? "active" : undefined))
+								li(class=(_config.sections[sez] && _config.sections[sez].basepath==item.basepath ? "active" : undefined))
 									a(href="/"+item.basepath+"/")=item.title
 					ul.nav.navbar-nav.pull-right
 						li
@@ -80,8 +68,8 @@ html(lang=_config.lang)
 							li
 								a(href="/controlpanel/logout/")=__("Logout")
 							li(style="position:relative")
-								a(href="/"+user.user_name+"/notifications/", title=__("Visualizza le notifiche"))=__("Notifiche")
-									span.jewelCount=locals.notifiche
+								a(href="/"+user_name+"/notifications/", title=__("Visualizza le notifiche"))=__("Notifiche")
+									span.jewelCount=notifiche
 						li.dropdown
 							a.dropdown-toggle(href="#", data-toggle="dropdown")
 								!=__("Nuovo contenuto")+" "
@@ -99,7 +87,7 @@ html(lang=_config.lang)
 									a(href="/controlpanel/?edit=postiflxer&amp;postiflxerid=0")=__("Nuovo iFLxER file")
 								li
 									a(href="/controlpanel/?edit=forum&amp;forumid=0")=__("Nuova discussione")
-			!= body
+			block content
 			hr
 			.media
 				.pull-left
@@ -140,32 +128,9 @@ html(lang=_config.lang)
 		script(type="text/javascript", src="/js/validators.js")
 		script(type="text/javascript", src="/swfobject/swfobject/swfobject.js")
 		script(type="text/javascript", src="/js/script.js?v=1.2")
-		script(type="text/javascript")
-
-		//
-			script(type="text/javascript", src="/_lang/"+_config.lang+".js")
-			script(type="text/javascript", src="/js/fpVariables.js")
-			script(type="text/javascript", src="/js/fpManager.js")
-			script(type="text/javascript", src="/js/fpCheck.js")
-			script(type="text/javascript", src="/js/sendMsg.js")
-			script(type="text/javascript", src="/js/notifications.js")
-			script(type="text/javascript", src="/js/playList.js")
-			script(type="text/javascript", src="/js/rate.js")
-			script(type="text/javascript", src="/js/ajaxSlideShowLoader.js")
+		- if(reply && user)
 			script(type="text/javascript")
-				var _gaq = _gaq || [];
-				_gaq.push(['_setAccount', _config.googleAnalytics]);
-				_gaq.push(['_setDomainName', 'flxer.net']);
-				_gaq.push(['_setAllowLinker', true]);
-				_gaq.push(['_trackPageview']);
-			
-				(function() {
-					var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-					//ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-				})();
-		- if(locals.reply && user)
-			script(type="text/javascript")
+			//
 				$(document).ready(function(){
 					sendDelay();
 				});

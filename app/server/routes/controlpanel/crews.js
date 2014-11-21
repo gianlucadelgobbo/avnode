@@ -21,7 +21,7 @@ exports.get = function get(req, res) {
 			console.dir(ids);
 			Fnc.getList(req.params[0], sez, res, ids, function(err, tot, records, conf){
 				console.dir("bella");
-				res.render('forms/crews', {locals: {title:__("Crews"), sez:sez, tot:tot, path:conf.path, sort:conf.sort, filter:conf.filter, skip:conf.skip, result:records, Fnc:Fnc}, user : req.session.passport.user});
+				res.render('forms/crews', {title:__("Crews"), sez:sez, tot:tot, path:conf.path, sort:conf.sort, filter:conf.filter, skip:conf.skip, result:records, Fnc:Fnc, user : req.session.passport.user});
 			});
 		} else {
 			var p = Fnc.parseParams(req.params[0]);
@@ -33,18 +33,18 @@ exports.get = function get(req, res) {
 					if (params2.length==1) {
 						var subsez = "public";
 						var msg = [];
-						res.render('forms/crew_public', {locals: {form:"crew_public", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
+						res.render('forms/crew_public', {form:"crew_public", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
 					} else if (params2[1]=="mainimage") {
 						var subsez = "mainimage";
 						var msg = [];
-						res.render('forms/crew_mainimage', {locals: {form:"crew_mainimage", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
+						res.render('forms/crew_mainimage', {form:"crew_mainimage", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
 					} else if (params2[1]=="members") {
 						var subsez = "members";
 						var msg = [];
-						res.render('forms/crew_members', {locals: {form:"crew_members", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
+						res.render('forms/crew_members', {form:"crew_members", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
 					}
 				} else {
-					res.render('forms/cannotedit', {locals: {}, user : req.session.passport.user });
+					res.render('forms/cannotedit', {user : req.session.passport.user });
 				}
 			});
 		}
@@ -78,17 +78,17 @@ exports.post = function get(req, res) {
 							  		result3.form = form;
 							  		result3.collection = sez;
 							  		DB.updateUserRel(result._id, function(success) {
-										res.render('forms/'+form, {locals: {form:form, title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result3, msg:{c:[{m:m}]},Fnc:Fnc}, user : req.session.passport.user });
+										res.render('forms/'+form, {form:form, title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result3, msg:{c:[{m:m}]},Fnc:Fnc, user : req.session.passport.user });
 							  		});
 						  		});
 					  		});
 						}
 					} else {
-						res.render('forms/'+form, {locals: {form:"user_public", title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:req.body, msg:{e:errors},Fnc:Fnc}, user : req.session.passport.user });
+						res.render('forms/'+form, {form:"user_public", title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:req.body, msg:{e:errors},Fnc:Fnc, user : req.session.passport.user });
 					}
 		  		});
 			} else {
-				res.render('forms/cannotedit', {locals: {}, user : req.session.passport.user });
+				res.render('forms/cannotedit', {user : req.session.passport.user });
 			}
   		});
 	}

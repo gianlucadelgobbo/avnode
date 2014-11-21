@@ -1,58 +1,60 @@
-include performer_inc_author_header
-- if (locals.result.text)
-	.page-header
-		h3=__("About")
-	!=locals.Fnc.getTextFormat(locals.result.text, _config.lang, true)
-hr
-- var rows = 1;
-- blocks = [];
-- if (locals.result.performances 	&& locals.result.performances.length) 	blocks.push("performances")
-- if (locals.result.events 			&& locals.result.events.length) 		blocks.push("events")
-- if (locals.result.tvshow 			&& locals.result.tvshow.length) 		blocks.push("tvshows")
-- if (locals.result.footage 		&& locals.result.footage.length) 		blocks.push("footage")
-- if (locals.result.playlists 		&& locals.result.playlists.length) 		blocks.push("playlists")
-- if (locals.result.gallery 		&& locals.result.gallery.length) 		blocks.push("gallery")
-- if (locals.result.members 		&& locals.result.members.length) 		blocks.push("members")
-- if (locals.result.crews 			&& locals.result.crews.length) 			blocks.push("crews")
-- if (blocks.length>4) rows = 2;
-- var cols = Math.round(blocks.length/2);
-- console.dir(blocks.length)
-- var myspan = 12/cols;
-- console.dir("myspan"+myspan)
-- console.dir(blocks.length)
-- for(var c=0;c<rows;c++)
-	.row
-		- for(var b=0;b<cols;b++)
-			- var sez = (blocks[b+(c*cols)] == "tvshows" ? "tvshow" : blocks[b+(c*cols)])
-			- var tit = (blocks[b+(c*cols)] == "crews" || blocks[b+(c*cols)] == "members" ? "display_name" : "title")
-			- if (b+(c*cols)<blocks.length)
-				div(class="col-md-"+myspan)
-					- console.dir("stocazzo"+myspan)
-					h3=(blocks[b+(c*cols)] == "members" ? __("Members") : (blocks[b+(c*cols)] == "crews" ? __("Crews") : _config.sections[blocks[b+(c*cols)]].title))
-					.main-list.row
-						- locals.sez = sez
-						- span = 12
-						- for(var a=0;a<_config.usersListItems;a++)
-							- if (locals.result[sez][a])
-								- var box = locals.result[sez][a]
-								- if (locals.sez == "performances")
-									include comp/box_performances
-								- if (locals.sez == "performers")
-									include comp/box_performers
-								- if (locals.sez == "footage")
-									include comp/box_footage
-								- if (locals.sez == "playlists")
-									include comp/box_playlists
-								- if (locals.sez == "tvshows")
-									include comp/box_tvshows
-								- if (locals.sez == "events")
-									include comp/box_events
-								- if (locals.sez == "gallery")
-									include comp/box_gallery
-								- if (locals.sez == "crews")
-									include comp/box_performers
-						- if (locals.result[sez].length>_config.usersListItems)
-							.pull-right
-								a.btn(href="/"+locals.result.permalink+"/"+_config.sections[blocks[b+(c*cols)]].basepath+"/")
-									!=__("Show all")+" "
-									i.glyphicon.glyphicon-globe
+extends layout
+block content
+	include performer_inc_author_header
+	- if (result.text)
+		.page-header
+			h3=__("About")
+		!=Fnc.getTextFormat(result.text, _config.lang, true)
+	hr
+	- var rows = 1;
+	- blocks = [];
+	- if (result.performances 	&& result.performances.length) 	blocks.push("performances")
+	- if (result.events 			&& result.events.length) 		blocks.push("events")
+	- if (result.tvshow 			&& result.tvshow.length) 		blocks.push("tvshows")
+	- if (result.footage 		&& result.footage.length) 		blocks.push("footage")
+	- if (result.playlists 		&& result.playlists.length) 		blocks.push("playlists")
+	- if (result.gallery 		&& result.gallery.length) 		blocks.push("gallery")
+	- if (result.members 		&& result.members.length) 		blocks.push("members")
+	- if (result.crews 			&& result.crews.length) 			blocks.push("crews")
+	- if (blocks.length>4) rows = 2;
+	- var cols = Math.round(blocks.length/2);
+	- console.dir(blocks.length)
+	- var myspan = 12/cols;
+	- console.dir("myspan"+myspan)
+	- console.dir(blocks.length)
+	- for(var c=0;c<rows;c++)
+		.row
+			- for(var b=0;b<cols;b++)
+				- var sez = (blocks[b+(c*cols)] == "tvshows" ? "tvshow" : blocks[b+(c*cols)])
+				- var tit = (blocks[b+(c*cols)] == "crews" || blocks[b+(c*cols)] == "members" ? "display_name" : "title")
+				- if (b+(c*cols)<blocks.length)
+					div(class="col-md-"+myspan)
+						- console.dir("stocazzo"+myspan)
+						h3=(blocks[b+(c*cols)] == "members" ? __("Members") : (blocks[b+(c*cols)] == "crews" ? __("Crews") : _config.sections[blocks[b+(c*cols)]].title))
+						.main-list.row
+							- sez = sez
+							- span = 12
+							- for(var a=0;a<_config.usersListItems;a++)
+								- if (result[sez][a])
+									- var box = result[sez][a]
+									- if (sez == "performances")
+										include comp/box_performances
+									- if (sez == "performers")
+										include comp/box_performers
+									- if (sez == "footage")
+										include comp/box_footage
+									- if (sez == "playlists")
+										include comp/box_playlists
+									- if (sez == "tvshows")
+										include comp/box_tvshows
+									- if (sez == "events")
+										include comp/box_events
+									- if (sez == "gallery")
+										include comp/box_gallery
+									- if (sez == "crews")
+										include comp/box_performers
+							- if (result[sez].length>_config.usersListItems)
+								.pull-right
+									a.btn(href="/"+result.permalink+"/"+_config.sections[blocks[b+(c*cols)]].basepath+"/")
+										!=__("Show all")+" "
+										i.glyphicon.glyphicon-globe

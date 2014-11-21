@@ -1,7 +1,7 @@
 root(lng=_config.lang,autostop="false",trackID=_config.googleAnalytics,endpPath="",resizzaMode="1",resizzaModeThumb="2",txtSwfReader=_config.siteurl+"/_fp/reader.swf",downPath=_config.siteurl+"/_fp/download/?file=",embedPath=_config.siteurl+"/_fp/flxerPlayer.swf")
 	item
-		file=locals.dett.files[0].file
+		file=dett.files[0].file
 		data
-			tit=locals.dett.title
+			tit=dett.title
 		thumb
-			!=locals.Fnc.getFileFormat(locals.dett.files, 400, 300)
+			!=Fnc.getFileFormat(dett.files, 400, 300)

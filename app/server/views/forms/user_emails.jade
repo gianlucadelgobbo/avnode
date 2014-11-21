@@ -1,63 +1,65 @@
-.tabbable.tabs-left.row
-	include ../comp/cp_menu
-	.tab-content.col-md-10
-		.tab-pane.active
-			include ../comp/cp_submenu_user
-			form.form-horizontal(method="post", action="#")
-				input(name="collection", value="users", type="hidden")
-				input(name="_id", value=result._id, type="hidden")
-				fieldset
-					legend=locals.title
-					.form-group
-						label.col-sm-2.control-label=__("Emails")
-						.col-sm-10
-							#emails
-								each item,index in result.emails
-									- //item.valid = 0
-									- //item.primary = 0
-									.email
-										div(class=item.valid ? "" : "error")
-											.input-group
-												input(name="emails["+index+"][email]",type="text",value=item.email,placeholder=__("Email"),class=item.primary ? "disabled" : undefined).form-control
-												input(name="emails["+index+"][valid]",type="hidden",value=item.valid)
-												input(name="emails["+index+"][primary]",type="hidden",value=item.primary)
-												input(name="emails["+index+"][public]",type="hidden",value=item.public)
-												- if (item.primary)
-													span.input-group-addon
-														i.glyphicon.glyphicon-lock
-												- else
-													a.input-group-addon(href="#",onclick="emailRemove(this);return false;",onmouseover="$(this).tooltip('show')",data-toggle="tooltip",title="",data-original-title=__("Remove email"))
-														i.glyphicon.glyphicon-remove
-											- if (item.valid && !item.primary)
-												.help-inline
-													a(href="#",onclick="setPrimary(this);return false;")=__("Set as primary")
-											- if (!item.valid)
-													span.help-inline=__("Waiting email validation")
-										.help-block(class=item.valid ? "" : "hide")
-											label.checkbox-inline=__("Newsletters")+": "
-											- each mailinglist in _config.mailinglists
-												label.checkbox-inline
-													input(name=mailinglist, autocomplete="off", onchange="setNewsletter('"+item.email+"', this)", type="checkbox",value="1",checked=(item.mailinglists && item.mailinglists[mailinglist]==1 ? "checked" : undefined))
-													!=mailinglist
-											br
-											.form-inline
-												label.checkbox-inline=__("Newsletters language")+": "
-													select.form-control(autocomplete="off", onchange="setNewsletter('"+item.email+"', this)")
-														option=__("Select a language")
-														each item2,index2 in _config.locales_labels
-															option(value=index2,selected=(index2==item.lang ? "selected" : undefined))=item2
+extends ../layout
+block content
+	.tabbable.tabs-left.row
+		include ../comp/cp_menu
+		.tab-content.col-md-10
+			.tab-pane.active
+				include ../comp/cp_submenu_user
+				form.form-horizontal(method="post", action="#")
+					input(name="collection", value="users", type="hidden")
+					input(name="_id", value=result._id, type="hidden")
+					fieldset
+						legend=title
+						.form-group
+							label.col-sm-2.control-label=__("Emails")
+							.col-sm-10
+								#emails
+									each item,index in result.emails
+										- //item.valid = 0
+										- //item.primary = 0
+										.email
+											div(class=item.valid ? "" : "error")
+												.input-group
+													input(name="emails["+index+"][email]",type="text",value=item.email,placeholder=__("Email"),class=item.primary ? "disabled" : undefined).form-control
+													input(name="emails["+index+"][valid]",type="hidden",value=item.valid)
+													input(name="emails["+index+"][primary]",type="hidden",value=item.primary)
+													input(name="emails["+index+"][public]",type="hidden",value=item.public)
+													- if (item.primary)
+														span.input-group-addon
+															i.glyphicon.glyphicon-lock
+													- else
+														a.input-group-addon(href="#",onclick="emailRemove(this);return false;",onmouseover="$(this).tooltip('show')",data-toggle="tooltip",title="",data-original-title=__("Remove email"))
+															i.glyphicon.glyphicon-remove
+												- if (item.valid && !item.primary)
 													.help-inline
-										hr
-					.email.form-group
-						label.col-sm-2.control-label=__("Add a new email")
-						.col-sm-10
-							.input-group
-								input#email_add(autocomplete="off",type="text",placeholder=__("Email")).form-control
-								span.input-group-btn
-									button.btn.btn-success(autocomplete="off", type="button", onclick="emailAdd();return false;")
-										i.glyphicon.glyphicon-ok.glyphicon.glyphicon-white
-										!=" "
-										!=__("Validate")
-							.help-inline
-					hr.clearfix
-include ../modals/errors
+														a(href="#",onclick="setPrimary(this);return false;")=__("Set as primary")
+												- if (!item.valid)
+														span.help-inline=__("Waiting email validation")
+											.help-block(class=item.valid ? "" : "hide")
+												label.checkbox-inline=__("Newsletters")+": "
+												- each mailinglist in _config.mailinglists
+													label.checkbox-inline
+														input(name=mailinglist, autocomplete="off", onchange="setNewsletter('"+item.email+"', this)", type="checkbox",value="1",checked=(item.mailinglists && item.mailinglists[mailinglist]==1 ? "checked" : undefined))
+														!=mailinglist
+												br
+												.form-inline
+													label.checkbox-inline=__("Newsletters language")+": "
+														select.form-control(autocomplete="off", onchange="setNewsletter('"+item.email+"', this)")
+															option=__("Select a language")
+															each item2,index2 in _config.locales_labels
+																option(value=index2,selected=(index2==item.lang ? "selected" : undefined))=item2
+														.help-inline
+											hr
+						.email.form-group
+							label.col-sm-2.control-label=__("Add a new email")
+							.col-sm-10
+								.input-group
+									input#email_add(autocomplete="off",type="text",placeholder=__("Email")).form-control
+									span.input-group-btn
+										button.btn.btn-success(autocomplete="off", type="button", onclick="emailAdd();return false;")
+											i.glyphicon.glyphicon-ok.glyphicon.glyphicon-white
+											!=" "
+											!=__("Validate")
+								.help-inline
+						hr.clearfix
+	include ../modals/errors

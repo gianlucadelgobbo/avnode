@@ -3,7 +3,7 @@ div(class="col-md-"+span)
 	.media
 		.pull-left
 			a(href="/"+(typeof(boxpath) === 'undefined' ? ""+box.permalink+"" : boxpath+"/"+box.permalink)+"/")
-				img.media-object(alt=__("Thumbnail of")+": "+box.display_name, src=locals.Fnc.getFileFormat(box.files, 90, 68))
+				img.media-object(alt=__("Thumbnail of")+": "+box.display_name, src=Fnc.getFileFormat(box.files, 90, 68))
 		.media-body
 			h4.media-heading
 				a(href="/"+(typeof(boxpath) === 'undefined' ? ""+box.permalink+"" : boxpath+"/"+box.permalink)+"/")=box.display_name

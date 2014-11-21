@@ -1,11 +1,11 @@
-- skippa = locals.skip/_config.sections[locals.sez].limit
+- skippa = skip/_config.sections[sez].limit
 - if (skippa<6) skippa = 6
 ul.pagination.pagination-sm.pagination-centered
-    li(class=(locals.skip==0 ? "disabled" : ""))
-        a(href=(locals.skip>0 ? locals.path+"page-"+((locals.skip/_config.sections[locals.sez].limit)-1)+"/" : "#"))="«"
+    li(class=(skip==0 ? "disabled" : ""))
+        a(href=(skip>0 ? path+"page-"+((skip/_config.sections[sez].limit)-1)+"/" : "#"))="«"
     - for (a=skippa-5;a<skippa+6;a++)
-        - if ((a-1)*_config.sections[locals.sez].limit<locals.tot)
-            li(class=(a==(locals.skip/_config.sections[locals.sez].limit)+1 ? "active" : ""))
-                a(href=locals.path+"page-"+a+"/")=a
-    li(class=(locals.skip+_config.sections[locals.sez].limit>=locals.tot ? "disabled" : ""))
-        a(href=((a-1)*_config.sections[locals.sez].limit<locals.tot ? locals.path+"page-"+((locals.skip/_config.sections[locals.sez].limit)+2) : "#"))="»"
+        - if ((a-1)*_config.sections[sez].limit<tot)
+            li(class=(a==(skip/_config.sections[sez].limit)+1 ? "active" : ""))
+                a(href=path+"page-"+a+"/")=a
+    li(class=(skip+_config.sections[sez].limit>=tot ? "disabled" : ""))
+        a(href=((a-1)*_config.sections[sez].limit<tot ? path+"page-"+((skip/_config.sections[sez].limit)+2) : "#"))="»"

@@ -1,14 +1,14 @@
 .clearfix.submenu
-	- if (_config.sections[locals.sez].categories)
+	- if (_config.sections[sez].categories)
 		.pull-left
 			ul.nav.nav-pills
 				li.disabled
-					//a(href="#")=_config.sections[locals.sez].title
-					- for (item in _config.sections[locals.sez].categories)
-						li(class=(locals.filter==_config.sections[locals.sez].categories[item] ? "active" : ""))
-							a(href="/"+_config.sections[locals.sez].basepath+"/"+_config.sections[locals.sez].categories[item]+"/")=_config.sections[locals.sez].labels[_config.sections[locals.sez].categories[item]]
+					//a(href="#")=_config.sections[sez].title
+					- for (item in _config.sections[sez].categories)
+						li(class=(filter==_config.sections[sez].categories[item] ? "active" : ""))
+							a(href="/"+_config.sections[sez].basepath+"/"+_config.sections[sez].categories[item]+"/")=_config.sections[sez].labels[_config.sections[sez].categories[item]]
 		.pull-right
 			ul.nav.nav-pills
-				- for (item in _config.sections[locals.sez].orders)
-					li(class=(locals.sort==_config.sections[locals.sez].orders[item] ? "active" : ""))
-						a(href="/"+_config.sections[locals.sez].basepath+"/"+locals.filter+"/"+_config.sections[locals.sez].orders[item]+"/")=_config.sections[locals.sez].labels[_config.sections[locals.sez].orders[item]]
+				- for (item in _config.sections[sez].orders)
+					li(class=(sort==_config.sections[sez].orders[item] ? "active" : ""))
+						a(href="/"+_config.sections[sez].basepath+"/"+filter+"/"+_config.sections[sez].orders[item]+"/")=_config.sections[sez].labels[_config.sections[sez].orders[item]]

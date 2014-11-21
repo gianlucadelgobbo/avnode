@@ -1,19 +1,21 @@
-h1=_config.sections[locals.sez].title+" "
-	small=__("From")+" "+locals.skip+" "+__("to")+" "+(locals.skip+_config.sections[locals.sez].limit)+" "+__("on")+" "+locals.tot+" "+_config.sections[locals.sez].title
-include comp/submenu_sez
-.row.main-list
-	- for(a=0;a<locals.result.length;a++)
-		- var box = locals.result[a]
-		- if (locals.sez == "performances")
-			include comp/box_performances
-		- if (locals.sez == "performers")
-			include comp/box_performers
-		- if (locals.sez == "footage")
-			include comp/box_footage
-		- if (locals.sez == "playlists")
-			include comp/box_playlists
-		- if (locals.sez == "tvshows")
-			include comp/box_tvshows
-		- if (locals.sez == "events")
-			include comp/box_events
-include comp/paginator
+extends layout
+block content
+	h1=_config.sections[sez].title+" "
+		small=__("From")+" "+skip+" "+__("to")+" "+(skip+_config.sections[sez].limit)+" "+__("on")+" "+tot+" "+_config.sections[sez].title
+	include comp/submenu_sez
+	.row.main-list
+		- for(a=0;a<result.length;a++)
+			- var box = result[a]
+			- if (sez == "performances")
+				include comp/box_performances
+			- if (sez == "performers")
+				include comp/box_performers
+			- if (sez == "footage")
+				include comp/box_footage
+			- if (sez == "playlists")
+				include comp/box_playlists
+			- if (sez == "tvshows")
+				include comp/box_tvshows
+			- if (sez == "events")
+				include comp/box_events
+	include comp/paginator

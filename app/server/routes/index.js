@@ -2,8 +2,8 @@ var DB = require('../modules/db-manager');
 var CT = require('../modules/country-list');
 
 exports.get = function get(req, res) {
-    console.log(req.cookies);
-    console.log(req.session);
+	//console.log(req.cookies);
+    //console.log(req.session.passport.user);
 	if (req.cookies.user) {
 		DB.users.findOne({user:req.cookies.user}, function(e, o) {
 			if (o) {
@@ -13,7 +13,7 @@ exports.get = function get(req, res) {
 			}
 		});
 	}
-	res.render('index', {	locals: { title: __('Home Page'), sez:"home", countries : CT, result : {}, user : req.session.passport.user } });
+	res.render('index', { title: __('Home Page'), sez:"home", countries : CT, result : {}, user : req.session.passport.user });
 };
 
 exports.post = function post(req, res) {

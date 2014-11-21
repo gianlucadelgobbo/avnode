@@ -29,7 +29,7 @@ var uploadRoutes 			= require('./routes/upload');
 var imageRoutes 			= require('./routes/image');
 var ajax		 			= require('./routes/ajax');
 
-var passport = require('passport');
+var passport 				= require('passport');
 
 
 /*
@@ -51,52 +51,54 @@ module.exports = function(app) {
     // Index //
 	app.get('/', indexRoutes.get);
 	app.post('/', indexRoutes.post);
+	console.log("trace");
 
 	// ajax //
-	app.get('/ajax*', ajax.get);
+	//app.get('/ajax*', ajax.get);
 	app.post('/ajax*', ajax.post);
+	console.log("trace2");
 
 	// performers //
 	app.get('/performers*', performersRoutes.get);
-	app.post('/performers*', performersRoutes.post);
+	//app.post('/performers*', performersRoutes.post);
 
 	// performances //
 	app.get('/performances*', performancesRoutes.get);
-	app.post('/performances*', performancesRoutes.post);
+	//app.post('/performances*', performancesRoutes.post);
 
 	// footage //
 	app.get('/footage*', footageRoutes.get);
-	app.post('/footage*', footageRoutes.post);
+	//app.post('/footage*', footageRoutes.post);
 
 	// events //
 	app.get('/events*', eventsRoutes.get);
-	app.post('/events*', eventsRoutes.post);
+	//app.post('/events*', eventsRoutes.post);
 
 	// playlists //
 	app.get('/playlists*', playlistsRoutes.get);
-	app.post('/playlists*', playlistsRoutes.post);
+	//app.post('/playlists*', playlistsRoutes.post);
 
 	// forum //
-	app.get('/forum ', forumRoutes.get);
-	app.post('/forum ', forumRoutes.post);
+	//app.get('/forum ', forumRoutes.get);
+	//app.post('/forum ', forumRoutes.post);
 
 	// tvshows //
 	app.get('/tvshows*', tvshowsRoutes.get);
-	app.post('/tvshows*', tvshowsRoutes.post);
+	//app.post('/tvshows*', tvshowsRoutes.post);
 
 	// cpanel //
 	//app.get('/controlpanel', cpanelRoutes.get);
 	//app.post('/controlpanel', cpanelRoutes.post);
 
 	// local login //
+	app.post('/controlpanel/login/local/',
+		passport.authenticate('local', {
+			successRedirect: '/',
+			failureRedirect: '/controlpanel/login',
+			failureFlash: true
+		})
+	);
 	app.get('/controlpanel/login', cpanelLoginRoutes.get);
-    app.post('/controlpanel/login',
-        passport.authenticate('local', {
-            successRedirect: '/',
-            failureRedirect: '/controlpanel/login',
-            failureFlash: true
-        })
-    );
     // facebook login //
     app.get('/controlpanel/login/facebook',
         passport.authenticate('facebook-login', {
@@ -145,7 +147,7 @@ module.exports = function(app) {
 
 	// cp Confirm //
 	app.get('/confirm', cpanelConfirmRoutes.get);
-	app.post('/confirm', cpanelConfirmRoutes.post);
+	//app.post('/confirm', cpanelConfirmRoutes.post);
 
     // facebook signup //
     app.get('/controlpanel/signup/facebook',
@@ -183,34 +185,34 @@ module.exports = function(app) {
     // cp Crews //
 	app.get('/controlpanel/crews*', cpanelCrewsRoutes.get);
 	app.post('/controlpanel/crews*', cpanelCrewsRoutes.post);
-	
+
 	// cp Events //
 	app.get('/controlpanel/events*', cpanelEventsRoutes.get);
 	app.post('/controlpanel/events*', cpanelEventsRoutes.post);
-	
+
 	// cp Performances //
 	app.get('/controlpanel/performances*', cpanelPerformancesRoutes.get);
 	app.post('/controlpanel/performances*', cpanelPerformancesRoutes.post);
-	
+
 	// cp tvshows //
 	app.get('/controlpanel/tvshows*', cpanelTvshowsRoutes.get);
 	app.post('/controlpanel/tvshows*', cpanelTvshowsRoutes.post);
-	
+
 	// cp footage //
 	app.get('/controlpanel/footage*', cpanelFootageRoutes.get);
 	app.post('/controlpanel/footage*', cpanelFootageRoutes.post);
-	
+
 	// cp tvshows //
 	app.get('/controlpanel/playlists*', cpanelPlaylistsRoutes.get);
 	app.post('/controlpanel/playlists*', cpanelPlaylistsRoutes.post);
-	
+
 	// cp tvshows //
 	app.get('/controlpanel/gallery*', cpanelGalleryRoutes.get);
 	app.post('/controlpanel/gallery*', cpanelGalleryRoutes.post);
-	
+
 	// search //
 	app.get('/search', searchRoutes.get);
-	app.post('/search', searchRoutes.post);
+	//app.post('/search', searchRoutes.post);
 
 	// upload //
 	//app.get('/upload', uploadRoutes.get);
@@ -219,11 +221,11 @@ module.exports = function(app) {
 
 	// image //
 	app.get('/image', imageRoutes.get);
-	app.post('/image', imageRoutes.post);
+	//app.post('/image', imageRoutes.post);
 
 	// Api //
 	//app.get('/api/clients', apiRoutes.getClients);
-	app.get('/api', apiRoutes.get);
+	//app.get('/api', apiRoutes.get);
 
 	// all other routes: User or 404
 	app.get('*', userRoutes.get);

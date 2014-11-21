@@ -18,7 +18,7 @@ exports.post = function get(req, res) {
 				if (req.body._id) q._id = {$ne:new ObjectID(req.body._id)};
 				DB[req.body.collection].findOne(q, function(e, o){
 					var result = o ? {success:false, msg:__("Profile url already in use")} : {success:true, msg:__("Profile url is valid")};
-					res.send(result);			
+					res.send(result);
 				});
 			} else {
 				res.send(404);
@@ -28,7 +28,7 @@ exports.post = function get(req, res) {
 			if(req.body.email && req.body.collection) {
 				DB[req.body.collection].findOne({"emails.email":req.body.email}, function(e, o){
 					if (o) {
-						res.send({success:false, msg:__("Email already in use")});			
+						res.send({success:false, msg:__("Email already in use")});
 					} else {
 						DB[req.body.collection].findOne({"_id":new ObjectID(req.body.doc_id)}, function(e, o){
 							o.emails.push({email:req.body.email,valid:0,public:0,primary:0});
@@ -44,12 +44,12 @@ exports.post = function get(req, res) {
 									DB.temp.insert(req.body, {safe: true}, function(err, record){
 										text = _config.siteurl+"/confirm/?code="+req.body.code;
 										EM.sendMail({
-										   text:    text, 
+										   text:    text,
 										   to:      req.body.data.email,
 										   subject: _config.sitename + " | " + __("Email verification")
 										}, function(err, message) {
 											var result = err ? {success:false, msg:__("Email verification sending failed")} : {success:true, msg:__("Email verification sent by email")};
-											res.send(result);			
+											res.send(result);
 										});
 							  		});
 									/*
@@ -69,7 +69,7 @@ exports.post = function get(req, res) {
 					o.partners = req.body.partners;
 					DB[req.body.collection].save(o, {safe:true}, function(e, success) {
 						console.dir(o);
-						res.send(o);			
+						res.send(o);
 			  		});
 		  		});
 			} else {
@@ -84,7 +84,7 @@ exports.post = function get(req, res) {
 						});
 						DB.users.save(o, {safe:true}, function(e, success) {
 							console.dir("SEND AN EMAIL TO THE PARTNER REMOVED");
-							res.send(o);			
+							res.send(o);
 				  		});
 					} else {
 						DB.events.find({"partners._id":new ObjectID(req.body.id_partner)}, {fields:{_id:1,title:1,permalink:1,users:1,files:1,categories:1,stats:1,date_time_venue:1}}).toArray(function(e, subrecords){
@@ -92,7 +92,7 @@ exports.post = function get(req, res) {
 							if (subrecords) o.partnerships = subrecords;
 							DB.users.save(o, {safe:true}, function(e, success) {
 								console.dir("SEND AN EMAIL TO THE PARTNER REMOVED");
-								res.send(o);			
+								res.send(o);
 					  		});
 				  		});
 					}
@@ -112,13 +112,13 @@ exports.post = function get(req, res) {
 					DB.temp.insert(req.body, {safe: true}, function(err, record){
 						text = _config.siteurl+"/confirm/?code="+req.body.code;
 						EM.sendMail({
-						   text:    text, 
+						   text:    text,
 						   //to:      req.body.data.emails[0].email,
 						   to:      "g.delgobbo@flyer.it",
 						   subject: _config.sitename + " | " + __("Invitation to")+": "+req.body.crew_name
 						}, function(err, message) {
 							var result = err ? {success:false, msg:__("Email verification sending failed")} : {success:true, msg:__("Email verification sent by email")};
-							res.send(result);			
+							res.send(result);
 						});
 			  		});
 					/*
@@ -168,7 +168,7 @@ exports.post = function get(req, res) {
 					o.members = req.body.members;
 					DB[req.body.collection].save(o, {safe:true}, function(e, success) {
 						console.dir(o);
-						res.send(o);			
+						res.send(o);
 			  		});
 		  		});
 			} else {
@@ -178,11 +178,11 @@ exports.post = function get(req, res) {
 			if(req.body.search && req.body.collection) {
 				DB[req.body.collection].find({"display_name":new RegExp(req.body.search, "i"),"is_crew": 0}, {fields:{_id:1,old_id:1,display_name:1,permalink:1,files:1,stats:1,emails:1}}).toArray(function(e, o){
 					console.dir(o);
-					res.send(o);			
+					res.send(o);
 					/*
 					DB[req.body.collection].save(o, {safe:true}, function(e, success) {
 						console.dir(o);
-						res.send(o);			
+						res.send(o);
 			  		});
 			  		*/
 		  		});
@@ -202,13 +202,13 @@ exports.post = function get(req, res) {
 					DB.temp.insert(req.body, {safe: true}, function(err, record){
 						text = _config.siteurl+"/confirm/?code="+req.body.code;
 						EM.sendMail({
-						   text:    text, 
+						   text:    text,
 						   //to:      req.body.data.emails[0].email,
 						   to:      "g.delgobbo@flyer.it",
 						   subject: _config.sitename + " | " + __("Invitation to")+": "+req.body.crew_name
 						}, function(err, message) {
 							var result = err ? {success:false, msg:__("Email verification sending failed")} : {success:true, msg:__("Email verification sent by email")};
-							res.send(result);			
+							res.send(result);
 						});
 			  		});
 					/*
@@ -245,7 +245,7 @@ exports.post = function get(req, res) {
 							console.dir(result.emails.length);
 							if (index==theArray.length-1) {
 								DB[req.body.collection].save(result, {safe:true}, function(e, success) {
-									res.send({success:true, msg:__("Email deleted")});			
+									res.send({success:true, msg:__("Email deleted")});
 									console.dir(result.emails);
 								});
 							}
@@ -282,7 +282,7 @@ exports.post = function get(req, res) {
 							console.dir(result.emails.length);
 							if (index==theArray.length-1) {
 								DB[req.body.collection].save(result, {safe:true}, function(e, success) {
-									res.send({success:true, msg:__("Email is primary")});			
+									res.send({success:true, msg:__("Email is primary")});
 									console.dir(result.emails);
 								});
 							}

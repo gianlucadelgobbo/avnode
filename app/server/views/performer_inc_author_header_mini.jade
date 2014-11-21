@@ -2,11 +2,11 @@
 	.col-md-9
 		.media
 			.pull-left
-				a(href="/"+locals.result.permalink+"/")
-					img.media-object(alt=__("Thumbnail of")+": "+locals.result.display_name, src=locals.Fnc.getFileFormat(locals.result.files, 90, 68))
+				a(href="/"+result.permalink+"/")
+					img.media-object(alt=__("Thumbnail of")+": "+result.display_name, src=Fnc.getFileFormat(result.files, 90, 68))
 			.media-body
 				h1.media-heading
-					a(href="/"+locals.result.permalink+"/")=locals.result.display_name
+					a(href="/"+result.permalink+"/")=result.display_name
 	.col-md-3
 		.pull-right.text-right
 			a.btn.btn-mini
@@ -19,8 +19,8 @@
 br
 ul.nav.nav-tabs
 	li(class=!sez ? "active" : undefined)
-		a(href="/"+locals.result.permalink+"/")=__("About")
-	- for(item in locals.result.stats)
-		- if(_config.sections[item] && locals.result.stats[item])
+		a(href="/"+result.permalink+"/")=__("About")
+	- for(item in result.stats)
+		- if(_config.sections[item] && result.stats[item])
 			li(class=sez==_config.sections[item].basepath ? "active" : undefined)
-				a(href="/"+locals.result.permalink+"/"+_config.sections[item].basepath+"/")=_config.sections[item].title+" ["+locals.result.stats[item]+"]"
+				a(href="/"+result.permalink+"/"+_config.sections[item].basepath+"/")=_config.sections[item].title+" ["+result.stats[item]+"]"

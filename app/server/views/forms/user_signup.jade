@@ -1,116 +1,118 @@
-.row
-	- if (typeof msg !== "undefined" && typeof msg.c !== "undefined" && msg.c.length)
-		.col-md-6.col-md-offset-3
-			include ../comp/msg
-	- else
-		.col-md-6.col-md-offset-3.well
-			.text-center
-				h3=__("Join AV Node. Start to perform.")
-				p
-					a.btn.btn-danger(href="/controlpanel/signup/google/")=__("Google")
-					!=" "
-					//
-						a.btn.btn-info(href="/controlpanel/signup/twitter/")=__("Twitter")
-						!=" "
-					a.btn.btn-primary(href="/controlpanel/signup/facebook/")=__("Facebook")
-				p=__("or sign up using your email:")
+extends ../layout
+block content
+	.row
+		- if (typeof msg !== "undefined" && typeof msg.c !== "undefined" && msg.c.length)
+			.col-md-6.col-md-offset-3
 				include ../comp/msg
-			form(method="post",autocomplete="off")
-				.controls.text-center
-					hr
-					label.radio-inline
-						input(type="radio", autocomplete="off",name="is_crew", value="0", onclick="$('#crew').removeClass('hide').hide('slow')", checked=typeof result.is_crew !== "undefined" && result.is_crew==="0"  ? "checked" : undefined)
-						!=" "+__("As individual")
-					label.radio-inline
-						input(type="radio", autocomplete="off",name="is_crew", value="1", onclick="$('#crew').removeClass('hide').show('slow')", checked=typeof result.is_crew !== "undefined" && result.is_crew==="1"  ? "checked" : undefined)
-						!=" "+__("As crew")
-					hr
-				#crew(class=result.is_crew!=1 ? "hide" : undefined)
-					legend=__("Crew public data")
+		- else
+			.col-md-6.col-md-offset-3.well
+				.text-center
+					h3=__("Join AV Node. Start to perform.")
+					p
+						a.btn.btn-danger(href="/controlpanel/signup/google/")=__("Google")
+						!=" "
+						//
+							a.btn.btn-info(href="/controlpanel/signup/twitter/")=__("Twitter")
+							!=" "
+						a.btn.btn-primary(href="/controlpanel/signup/facebook/")=__("Facebook")
+					p=__("or sign up using your email:")
+					include ../comp/msg
+				form(method="post",autocomplete="off")
+					.controls.text-center
+						hr
+						label.radio-inline
+							input(type="radio", autocomplete="off",name="is_crew", value="0", onclick="$('#crew').removeClass('hide').hide('slow')", checked=typeof result.is_crew !== "undefined" && result.is_crew==="0"  ? "checked" : undefined)
+							!=" "+__("As individual")
+						label.radio-inline
+							input(type="radio", autocomplete="off",name="is_crew", value="1", onclick="$('#crew').removeClass('hide').show('slow')", checked=typeof result.is_crew !== "undefined" && result.is_crew==="1"  ? "checked" : undefined)
+							!=" "+__("As crew")
+						hr
+					#crew(class=result.is_crew!=1 ? "hide" : undefined)
+						legend=__("Crew public data")
+						.row
+							.col-md-6
+								.bella
+									label=__("Crew name")
+									input(type="text", value=result.crew_display_name, autocomplete="off", name="crew_display_name", placeholder=__("Crew stage name")).form-control
+							.col-md-6
+								.form-group
+									label=__("Crew profile url")
+									input(type="text", value=result.crew_permalink, autocomplete="off", name="crew_permalink", placeholder=__("Crew profile url")).form-control
+									.help-block="https://flxer.net/"
+										span#crew_permalink
+					legend=__("Member private data")
 					.row
 						.col-md-6
-							.bella
-								label=__("Crew name")
-								input(type="text", value=result.crew_display_name, autocomplete="off", name="crew_display_name", placeholder=__("Crew stage name")).form-control
+							.form-group
+								label(for="name")=__("Name")
+								input#name(type="text", value=result.name, autocomplete="off", name="name", placeholder=__("Name")).form-control
 						.col-md-6
 							.form-group
-								label=__("Crew profile url")
-								input(type="text", value=result.crew_permalink, autocomplete="off", name="crew_permalink", placeholder=__("Crew profile url")).form-control
-								.help-block="https://flxer.net/"
-									span#crew_permalink
-				legend=__("Member private data")
-				.row
-					.col-md-6
-						.form-group
-							label(for="name")=__("Name")
-							input#name(type="text", value=result.name, autocomplete="off", name="name", placeholder=__("Name")).form-control
-					.col-md-6
-						.form-group
-							label(for="surname")=__("Surname")
-							input#surname(type="text", value=result.surname, autocomplete="off", name="surname", placeholder=__("Surname")).form-control
-				.row
-					.col-md-12
-						.form-group
-							label(for="email")=__("Email")
-							input#email(type="text", value=result.email, autocomplete="off", name="email", placeholder=__("Your Email Address")).form-control
-				.row
-					.col-md-6
-						.form-group
-							label(for="name")=__("Password")
-							input#password(type="password", autocomplete="off", name="password", placeholder=__("Choose a Password")).form-control
-					.col-md-6
-						.form-group
-							label(for="password")=__("Confirm password")
-							input#password(type="password", autocomplete="off", name="passwordconfirm", placeholder=__("Confirm password")).form-control
-				.row
-					.col-md-12
-						.form-group
-							label=__("Birth date")
-							- d = new Date(result.birth_date)
-							- birth_date = d.getFullYear()+"-"+("0" + (d.getMonth()+1)).slice(-2)+"-"+("0" + d.getDate()).slice(-2)
-							.birthday-picker
-				.row
-					.col-md-6
-						.form-group
-							label(for="citizenship")=__("Country of citizenship")
-							select#citizenship(name="citizenship").form-control
-								option(value="")=__("Country")
-								each country in countries
-									option(value=country.name,selected=(result.citizenship && country.name==result.citizenship ? "selected" : undefined))=country.name
-					.col-md-6
-						.form-group
-							label(for="gender")=__("Gender")
-							select#gender(name="gender").form-control
-								option(value="")=__("Gender")
-								option(value="M",selected=(result.gender=="M" ? "selected" : undefined))=__("M")
-								option(value="F",selected=(result.gender=="F" ? "selected" : undefined))=__("F")
-								option(value="Other",selected=(result.gender=="Other" ? "selected" : undefined))=__("Other")
+								label(for="surname")=__("Surname")
+								input#surname(type="text", value=result.surname, autocomplete="off", name="surname", placeholder=__("Surname")).form-control
+					.row
+						.col-md-12
+							.form-group
+								label(for="email")=__("Email")
+								input#email(type="text", value=result.email, autocomplete="off", name="email", placeholder=__("Your Email Address")).form-control
+					.row
+						.col-md-6
+							.form-group
+								label(for="name")=__("Password")
+								input#password(type="password", autocomplete="off", name="password", placeholder=__("Choose a Password")).form-control
+						.col-md-6
+							.form-group
+								label(for="password")=__("Confirm password")
+								input#password(type="password", autocomplete="off", name="passwordconfirm", placeholder=__("Confirm password")).form-control
+					.row
+						.col-md-12
+							.form-group
+								label=__("Birth date")
+								- d = new Date(result.birth_date)
+								- birth_date = d.getFullYear()+"-"+("0" + (d.getMonth()+1)).slice(-2)+"-"+("0" + d.getDate()).slice(-2)
+								.birthday-picker
+					.row
+						.col-md-6
+							.form-group
+								label(for="citizenship")=__("Country of citizenship")
+								select#citizenship(name="citizenship").form-control
+									option(value="")=__("Country")
+									each country in countries
+										option(value=country.name,selected=(result.citizenship && country.name==result.citizenship ? "selected" : undefined))=country.name
+						.col-md-6
+							.form-group
+								label(for="gender")=__("Gender")
+								select#gender(name="gender").form-control
+									option(value="")=__("Gender")
+									option(value="M",selected=(result.gender=="M" ? "selected" : undefined))=__("M")
+									option(value="F",selected=(result.gender=="F" ? "selected" : undefined))=__("F")
+									option(value="Other",selected=(result.gender=="Other" ? "selected" : undefined))=__("Other")
 
 
 
-				legend=__("Member public data")
-				.row
-					.col-md-12
-						.form-group
-							label(for="display_name")=__("Stage name")
-							input#display_name(type="text", value=result.display_name, autocomplete="off", name="display_name", placeholder=__("Stage name")).form-control
-				.row
-					.col-md-12
-						.form-group
-							label(for="permalink")=__("Profile url")
-							input#permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
-							.help-block="https://avnode.net/"
-								span#permalink
-						hr
+					legend=__("Member public data")
+					.row
+						.col-md-12
+							.form-group
+								label(for="display_name")=__("Stage name")
+								input#display_name(type="text", value=result.display_name, autocomplete="off", name="display_name", placeholder=__("Stage name")).form-control
+					.row
+						.col-md-12
+							.form-group
+								label(for="permalink")=__("Profile url")
+								input#permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
+								.help-block="https://avnode.net/"
+									span#permalink
+							hr
 
-				.controls
-					button(type="submit").btn.btn-primary.pull-right=__("Get Started")+"  "
-						i.glyphicon.glyphicon-forward.glyphicon.glyphicon-white
-			script
-				$(function () {
-					$(".birthday-picker").birthdaypicker(options={
-						dateFormat:		"bigEndian",
-						monthFormat:	"long",
-						defaultDate:	"#{birth_date}"
+					.controls
+						button(type="submit").btn.btn-primary.pull-right=__("Get Started")+"  "
+							i.glyphicon.glyphicon-forward.glyphicon.glyphicon-white
+				script(type="text/javascript").
+					$(function () {
+						$(".birthday-picker").birthdaypicker(options={
+							dateFormat:		"bigEndian",
+							monthFormat:	"long",
+							defaultDate:	"#{birth_date}"
+						});
 					});
-				});

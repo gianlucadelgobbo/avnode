@@ -23,11 +23,11 @@ exports.get = function get(req, res) {
 					  			} else {
 							  		var msg = {e:[{m:"Code is not valid or already used"}]};
 					  			}
-								res.render('forms/confirm', {	locals: {title : result.msg.title, msg:msg, "from":req.query.from}, user : req.session.passport.user });
+								res.render('forms/confirm', {locals: {title : result.msg.title, msg:msg, "from":req.query.from}, user : req.session.passport.user });
 					  		});
 						} else {
 							var msg = {e:[{m:"Code is not valid or already used"}]};
-							res.render('forms/confirm', {	locals: {title : result.msg.title, msg:msg, "from":req.query.from}, user : req.session.passport.user });
+							res.render('forms/confirm', {locals: {title : result.msg.title, msg:msg, "from":req.query.from}, user : req.session.passport.user });
 						}
 					});
 				} else if (result.act == "newmail") {
@@ -46,7 +46,7 @@ exports.get = function get(req, res) {
 				  			} else {
 						  		var msg = {e:[{m:"Code is not valid or already used"}]};
 				  			}
-							res.render('forms/confirm', {	locals: {title : result.msg.title, msg:msg, "from":req.query.from}, user : req.session.passport.user });
+							res.render('forms/confirm', {locals: {title : result.msg.title, msg:msg, "from":req.query.from}, user : req.session.passport.user });
 				  		});
 					});
 				} else if (result.act == "inviteMember") {
@@ -63,7 +63,7 @@ exports.get = function get(req, res) {
 								DB[result.collection].find({"members._id":result.data._id}, {fields:{_id:1,old_id:1,display_name:1,permalink:1,files:1,stats:1}}).toArray(function(err, subrecords){
 								if (subrecords.length) user.crews = subrecords;
 									DB.users.save(user, {safe:true}, function(e, success) {
-										res.render('forms/confirm', {	locals: {title : result.msg.title, msg:msg, "from":req.query.from}, user : req.session.passport.user });
+										res.render('forms/confirm', {locals: {title : result.msg.title, msg:msg, "from":req.query.from}, user : req.session.passport.user });
 									});
 								});
 					  		});
@@ -72,10 +72,10 @@ exports.get = function get(req, res) {
 				}
 			} else {
 				var msg = {e:[{m:"Code is not valid or already used"}]};
-				res.render('forms/confirm', {	locals: {title : __("Code confirm"), msg:msg, "from":req.query.from}, user : req.session.passport.user });
+				res.render('forms/confirm', {locals: {title : __("Code confirm"), msg:msg, "from":req.query.from}, user : req.session.passport.user });
 			}
 		});
 	} else {
-		res.render('forms/confirm', {	locals: {title : "Login", "from":req.query.from}, user : req.session.passport.user });
+		res.render('forms/confirm', {locals: {title : "Login", "from":req.query.from}, user : req.session.passport.user });
 	}
 }

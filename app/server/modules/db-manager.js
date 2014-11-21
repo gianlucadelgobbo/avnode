@@ -1,13 +1,12 @@
-var bcrypt = require('bcrypt-nodejs')
+var bcrypt = require('bcrypt-nodejs');
 var Db = require('mongodb').Db;
 var Server = require('mongodb').Server;
 var Fnc = require('./general-functions');
 
-var dbPort = 27017;
-var dbHost = global.host;
+var dbPort = _config.dbPort;
+var dbHost = _config.dbHost;
 var dbName = _config.dbName;
 
-// use moment.js for pretty date-stamping //
 var moment = require('moment');
 
 var accounting = require('accounting');
@@ -21,66 +20,22 @@ var DB = {};
 		if (e) {
 			console.log(e);
 		} else {
-			console.log('connected to database :: ' + dbName);
+            DB.users = 			DB.db.collection('users');
+            DB.footage = 		DB.db.collection('footage');
+            DB.playlists = 		DB.db.collection('playlists');
+            DB.performances = 	DB.db.collection('performances');
+            DB.events = 		DB.db.collection('events');
+            DB.tvshow = 		DB.db.collection('tvshow');
+            DB.gallery = 		DB.db.collection('gallery');
+            DB.categories = 	DB.db.collection('categories');
+            DB.temp_users = 	DB.db.collection('temp_users');
+            DB.temp = 			DB.db.collection('temp');
+            console.log('connected to database :: ' + dbName);
 		}
 	});
-	DB.users = 			DB.db.collection('users');
-	DB.footage = 		DB.db.collection('footage');
-	DB.playlists = 		DB.db.collection('playlists');
-	DB.performances = 	DB.db.collection('performances');
-	DB.events = 		DB.db.collection('events');
-	DB.tvshow = 		DB.db.collection('tvshow');
-	DB.gallery = 		DB.db.collection('gallery');
-	DB.categories = 	DB.db.collection('categories');
-	DB.temp_users = 	DB.db.collection('temp_users');
-	DB.temp = 			DB.db.collection('temp');
-//	//$apiValid = array("users","footage","playlists","performances","events","tvshow","gallery");
 
 module.exports = DB;
 
-// Accont insertion, update & deletion methods //
-
-/*
-DB.insert_account = function(newData, callback) {
-	delete newData.id;
-	DB.saltAndHash(newData.pass, function(hash){
-		newData.pass = hash;
-	// append date stamp when record was created //
-		newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
-		DB.accounts.insert(newData, {safe: true}, function(err, records){
-			callback(err, records);
-		});
-	});
-}
-DB.update_account = function(newData, callback) {
-	DB.accounts.findOne({_id: new ObjectID(newData.id)}, function(e, o){
-		o.name 		= newData.name;
-		o.role 		= newData.role;
-		o.email 	= newData.email;
-		o.country 	= newData.country;
-		if (newData.pass == ''){
-			DB.accounts.save(o);
-			callback(o);
-		} else{
-			DB.saltAndHash(newData.pass, function(hash){
-				o.pass = hash;
-				DB.accounts.save(o);
-				callback(o);
-			});
-		}
-	});
-}
-DB.delete_account = function(id, callback) {
-	DB.accounts.remove({_id: new ObjectID(id)}, {safe: true}, function(err, records){
-		callback(err, records);
-	});
-}
-DB.validateLink = function(email, passHash, callback) {
-	DB.accounts.find({ $and: [{email:email, pass:passHash}] }, function(e, o){
-		callback(o ? 'ok' : null);
-	});
-}
-*/
 DB.validateFormLogin = function (login, password,callback) {
     var e = [];
     DB.users.findOne({login:login}, function(err, result) {
@@ -660,7 +615,7 @@ DB.updateUserRel = function(id, callback) {
 						console.dir("tvshow: "+conta);
 						if (conta==subrecords.length) {
 							status.tvshow = true;
-							var end = true
+							var end = true;
 							for (sts in status) if (status[sts]==false) end = false;
 							if (end) callback(true);
 						}
@@ -668,7 +623,7 @@ DB.updateUserRel = function(id, callback) {
 				});
 			} else {
 				status.tvshow = true;
-				var end = true
+				var end = true;
 				for (sts in status) if (status[sts]==false) end = false;
 				if (end) callback(true);
 			}
@@ -682,49 +637,6 @@ DB.canIeditThis = function(collection, q, user, callback) {
 		callback(o);
 	});
 }
-
-
-/*
-
-// just for testing - these are not actually being used //
-
-DB.findById = function(id, callback) {
-	DB.accounts.findOne({_id: new ObjectID(id)},
-		function(e, res) {
-		if (e) callback(e)
-		else callback(null, res)
-	});
-}
-
-
-DB.findByMultipleFields = function(a, callback) {
-// this takes an array of name/val pairs to search against {fieldName : 'value'} //
-	DB.accounts.find( { $or : a } ).toArray(
-		function(e, results) {
-		if (e) callback(e)
-		else callback(null, results)
-	});
-}
-
-DB.getEmail = function(email, callback) {
-	DB.accounts.findOne({email:email}, function(e, o){ callback(o); });
-}
-
-DB.getObjectId = function(id) {
-	return DB.accounts.db.bson_serializer.ObjectID.createFromHexString(id)
-}
-DB.getAllRecords = function(callback) {
-	DB.accounts.find().toArray(
-		function(e, res) {
-		if (e) callback(e)
-		else callback(null, res)
-	});
-}
-
-DB.delAllRecords = function(id, callback) {
-	DB.accounts.remove(); // reset accounts collection for testing //
-}
-*/
 
 DB.insert_invoice = function(newData, userData, callback) {
 	delete newData.id;

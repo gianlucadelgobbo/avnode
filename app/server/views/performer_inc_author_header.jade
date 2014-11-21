@@ -2,23 +2,23 @@
 	.col-md-9
 		.media
 			.pull-left
-				img.media-object(alt=__("Thumbnail of")+": "+locals.result.display_name, src=locals.Fnc.getFileFormat(locals.result.files, 240, 180))
+				img.media-object(alt=__("Thumbnail of")+": "+result.display_name, src=Fnc.getFileFormat(result.files, 240, 180))
 			.media-body
-				h1.media-heading=locals.result.display_name
+				h1.media-heading=result.display_name
 				.cnt
 					ul.user_dett_ul
-						- if (locals.result.websites)
-							- for(a=0;a<locals.result.websites.length;a++)
+						- if (result.websites)
+							- for(a=0;a<result.websites.length;a++)
 								li
-									a(href=locals.result.websites[a].url,target="_blank")
+									a(href=result.websites[a].url,target="_blank")
 										i.glyphicon.glyphicon-globe
-										!=locals.result.websites[a].url
-						- if (locals.result.locations)
+										!=result.websites[a].url
+						- if (result.locations)
 							li
 								i.glyphicon.glyphicon-home
-								!=locals.Fnc.formatLoc(locals.result.locations)
+								!=Fnc.formatLoc(result.locations)
 		.row
-			- for(a=0;a<locals.result.length;a++)
+			- for(a=0;a<result.length;a++)
 				.col-md-3
 					.row
 						.col-md-1
@@ -50,7 +50,7 @@ hr
 ul.nav.nav-tabs
 	li(class=!sez ? "active" : undefined)
 		a(href="#about",onclick="$('#about').show();")=__("About")
-	- for(item in locals.result.stats)
-		- if(_config.sections[item] && locals.result.stats[item])
+	- for(item in result.stats)
+		- if(_config.sections[item] && result.stats[item])
 			li
-				a(href="/"+locals.result.permalink+"/"+_config.sections[item].basepath+"/")=_config.sections[item].title+" ["+locals.result.stats[item]+"]"
+				a(href="/"+result.permalink+"/"+_config.sections[item].basepath+"/")=_config.sections[item].title+" ["+result.stats[item]+"]"

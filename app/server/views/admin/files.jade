@@ -1,28 +1,28 @@
 h1 Files
-- console.log(locals.files)
+- console.log(files)
 table.table
-	- for(item in locals.files)
-		- for(file in locals.files[item])
-			- if (locals.files[item][file].footage && locals.files[item][file].footage.length)
-				- for(f in locals.files[item][file].footage)
+	- for(item in files)
+		- for(file in files[item])
+			- if (files[item][file].footage && files[item][file].footage.length)
+				- for(f in files[item][file].footage)
 					tr
 						td=item
-						td=locals.files[item][file].title+": "+locals.files[item][file].footage[f].titolo
+						td=files[item][file].title+": "+files[item][file].footage[f].titolo
 						td
-							- if (locals.files[item][file].users && locals.files[item][file].users.length)
-								span=locals.files[item][file].users[0].display_name
-						td="/"+locals.files[item][file].footage[f].folder+"/"+locals.files[item][file].footage[f].name
-						td=locals.files[item][file].footage[f].preview_file
-						td=locals.files[item][file].files.length
-						//td=JSON.stringify(locals.files[item][file])
+							- if (files[item][file].users && files[item][file].users.length)
+								span=files[item][file].users[0].display_name
+						td="/"+files[item][file].footage[f].folder+"/"+files[item][file].footage[f].name
+						td=files[item][file].footage[f].preview_file
+						td=files[item][file].files.length
+						//td=JSON.stringify(files[item][file])
 			- else
 				tr
 					td=item
-					td=locals.files[item][file].title
+					td=files[item][file].title
 					td
-						- if (locals.files[item][file].users && locals.files[item][file].users.length)
-							span=locals.files[item][file].users[0].display_name
-					td=locals.files[item][file].files[0].file
-					td=locals.files[item][file].files[0].preview
-					td=locals.files[item][file].files.length
-					//td=JSON.stringify(locals.files[item][file])
+						- if (files[item][file].users && files[item][file].users.length)
+							span=files[item][file].users[0].display_name
+					td=files[item][file].files[0].file
+					td=files[item][file].files[0].preview
+					td=files[item][file].files.length
+					//td=JSON.stringify(files[item][file])

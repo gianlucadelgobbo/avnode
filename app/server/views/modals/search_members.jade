@@ -10,7 +10,7 @@
 					button#find.btn(type="button")=__("SEARCH")
 					#search_result
 					#invite
-				script
+				script(type="text/javascript").
 					$("#find").click(function(){
 						findMembers($("#find_input").val());
 					});

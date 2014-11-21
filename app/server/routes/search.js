@@ -17,7 +17,7 @@ exports.get = function get(req, res) {
       });
     }
     DB.clients.find({}).toArray(function(e, result) {
-      res.render('clients', {  locals: { title: __("Clients"), result : result, msg: msg}, user : req.session.passport.user });
+      res.render('clients', { title: __("Clients"), result : result, msg: msg, user : req.session.passport.user });
     });
   }
 };

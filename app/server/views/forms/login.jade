@@ -1,31 +1,33 @@
-.row
-	.col-md-6.col-md-offset-3
-		.well
-			h1.no-margin-top=__("Login")
-			hr
-			.text-center
-				p
-					a.btn.btn-danger(href="/controlpanel/login/google/")=__("Google")
-					!=" "
-					a.btn.btn-info(href="/controlpanel/login/twitter/")=__("Twitter")
-					!=" "
-					a.btn.btn-primary(href="/controlpanel/login/facebook/")=__("Facebook")
-				p=__("or")
-			include ../comp/msg
-			form(name="formLogin", method="post")
-				.form-group
-					input(name="username", type="text", placeholder=__("Username")).form-control
-				.form-group
-					input(name="password", type="password", placeholder=__("Password")).form-control
-				.row
-					.col-md-6
-						.checkbox
-							label=__("Remember_me")
-								input(name="remember",type="checkbox", value="true",checked="checked")
-								input(name="from",type="hidden", value=locals.from).input-large
-					.col-md-6
-						.pull-right
-							button(type="submit").btn.btn-primary=__("Enter")
-			hr.clearfix
-			a(href="/controlpanel/passwordRequest").btn.btn-link=__("Recover_data")
-			a(href="/signup").btn.btn-link=__("Register")
+extends ../layout
+block content
+	.row
+		.col-md-6.col-md-offset-3
+			.well
+				h1.no-margin-top=__("Login")
+				hr
+				.text-center
+					p
+						a.btn.btn-danger(href="/controlpanel/login/google/")=__("Google")
+						!=" "
+						a.btn.btn-info(href="/controlpanel/login/twitter/")=__("Twitter")
+						!=" "
+						a.btn.btn-primary(href="/controlpanel/login/facebook/")=__("Facebook")
+					p=__("or")
+				include ../comp/msg
+				form(name="formLogin", method="post", action="/controlpanel/login/local/")
+					.form-group
+						input(name="username", type="text", placeholder=__("Username")).form-control
+					.form-group
+						input(name="password", type="password", placeholder=__("Password")).form-control
+					.row
+						.col-md-6
+							.checkbox
+								label=__("Remember_me")
+									input(name="remember",type="checkbox", value="true",checked="checked")
+									input(name="from",type="hidden", value=from).input-large
+						.col-md-6
+							.pull-right
+								button(type="submit").btn.btn-primary=__("Enter")
+				hr.clearfix
+				a(href="/controlpanel/passwordRequest").btn.btn-link=__("Recover_data")
+				a(href="/signup").btn.btn-link=__("Register")

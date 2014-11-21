@@ -1,6 +1,11 @@
-GLOBAL._config = require('./config.js')._config;
 var DB = require('./modules/db-manager.js');
 var passport = require('passport');
+//var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
+var session = require('express-session');
+var flash = require('connect-flash');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -11,57 +16,44 @@ var ObjectID = require('mongodb').ObjectID;
 for (var key in settings) {
 	GLOBAL._config[key] = settings[key];
 }
-
 GLOBAL.i18n = require('i18n');
 i18n.configure({
-	// setup some locales - other locales default to en silently
 	locales:		_config.locales,
 	defaultLocale: 	_config.defaultLocale,
 	cookie:			"avnode",
-	// where to register __() and __n() to, might be "global" if you know what you are doing
 	register:		 global
 });
 
-//GLOBAL.i18n.configure({defaultLocale:"it"});
-
 module.exports = function(app, exp) {
-	app.configure(function(){
-		app.use(i18n.init);
-		app.set('views', app.root + '/app/server/views');
-		app.set('view engine', 'jade');
-		app.set('view options', { doctype : 'html', pretty : true });
-		app.use(exp.bodyParser());
-		app.use(exp.cookieParser());
-		app.use(exp.session({ secret: 'avnode' }));
-		app.use(exp.methodOverride());
-		app.use(require('stylus').middleware({ src: app.root + '/app/public' }));
-		app.use(exp.static(app.root + '/app/public'));
-        app.use(exp.static(app.root + '/bower_components'));
-        app.use('/warehouse', exp.static(app.root + '/warehouse'));
-        app.use(passport.initialize());
-        app.use(passport.session());
-    });
+	//app.use(logger('combined'));
+	app.use(i18n.init);
+	app.set('views', './app/server/views');
+	app.set('view engine', 'jade');
+	app.set('view options', { doctype : 'html', layout: './app/server/views/layout.jade', pretty : true });
+	app.use(cookieParser());
+	app.use(bodyParser.json({limit: '500mb'}));
+	app.use(bodyParser.urlencoded({limit: '500mb', extended: true }));
+	app.use(methodOverride());
+
+	app.use(session({ secret: 'avnode', resave: true, saveUninitialized: true }));
+	app.use(require('stylus').middleware({ src: './app/public' }));
+	app.use(exp.static('./app/public'));
+	app.use(exp.static('./bower_components'));
+	app.use('/warehouse', exp.static('./warehouse'));
+	app.use(passport.initialize());
+	app.use(passport.session());
+	app.use(flash());
+
     passport.serializeUser(function(user, done) {
-        console.log("serializeUser");
-        console.log(user);
         done(null, user);
     });
-
     passport.deserializeUser(function(user, done) {
-        console.log(user);
         DB.users.findOne({_id:new ObjectID(user._id)}, function(err, user){
-            //console.log(user);
-            console.log("deserializeUser");
             if(!err) done(null, user);
             else done(err, null);
         });
     });
-
-
-    passport.use(new LocalStrategy({
-            usernameField: 'login'
-        },
-        function(username, password, done) {
+    passport.use(new LocalStrategy(function(username, password, done) {
             DB.validateFormLogin(username, password, function(e, o) {
                 if (e && e.length) {
                     return done(null, false, { message: e.m });
@@ -87,7 +79,6 @@ module.exports = function(app, exp) {
     ));
     passport.use('twitter-login', new TwitterStrategy(_config.socials.twitter_login,
         function(token, tokenSecret, profile, done) {
-            console.log(profile)
             DB.twitterFind(profile, function(err, res) {
                 done(null, res);
             });
@@ -95,7 +86,6 @@ module.exports = function(app, exp) {
     ));
     passport.use('google-login', new GoogleStrategy(_config.socials.google_login,
         function(accessToken, refreshToken, profile, done) {
-            //profile.id = identifier;
             DB.googleFind(profile, function(err, res) {
                 done(null, res);
             });
@@ -103,7 +93,6 @@ module.exports = function(app, exp) {
     ));
     passport.use('google-signup', new GoogleStrategy(_config.socials.google_signup,
         function(accessToken, refreshToken, profile, done) {
-            //profile.id = identifier;
             DB.googleFindOrCreate(profile, function(err, res) {
                 done(null, res);
             });

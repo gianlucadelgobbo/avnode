@@ -1,28 +1,30 @@
-- //console.dir(locals.result)
-include performer_inc_author_header_mini
-h1=locals.title
--if (locals.result[locals.sez] && locals.result[locals.sez].length)
-	- span = 3
-	.row.main-list
-		- for(var a=0;a<locals.result[locals.sez].length;a++)
-			- var box = locals.result[locals.sez][a]
-			- if (locals.sez == "performances")
-				include comp/box_performances
-			- if (locals.sez == "performers")
-				include comp/box_performers
-			- if (locals.sez == "footage")
-				include comp/box_footage
-			- if (locals.sez == "playlists")
-				include comp/box_playlists
-			- if (locals.sez == "tvshows")
-				include comp/box_tvshows
-			- if (locals.sez == "events")
-				include comp/box_events
-			- if (locals.sez == "gallery")
-				include comp/box_gallery
-			- if (locals.sez == "members")
-				include comp/box_performers
-			- if (locals.sez == "crews")
-				include comp/box_performers
-- else
-	.alert=__("The user have no content available")
+extends layout
+block content
+	- //console.dir(result)
+	include performer_inc_author_header_mini
+	h1=title
+	-if (result[sez] && result[sez].length)
+		- span = 3
+		.row.main-list
+			- for(var a=0;a<result[sez].length;a++)
+				- var box = result[sez][a]
+				- if (sez == "performances")
+					include comp/box_performances
+				- if (sez == "performers")
+					include comp/box_performers
+				- if (sez == "footage")
+					include comp/box_footage
+				- if (sez == "playlists")
+					include comp/box_playlists
+				- if (sez == "tvshows")
+					include comp/box_tvshows
+				- if (sez == "events")
+					include comp/box_events
+				- if (sez == "gallery")
+					include comp/box_gallery
+				- if (sez == "members")
+					include comp/box_performers
+				- if (sez == "crews")
+					include comp/box_performers
+	- else
+		.alert=__("The user have no content available")

@@ -2,11 +2,11 @@
 div(class="col-md-"+span)
 	.media
 		.pull-left
-			a(href="/"+(typeof(boxpath) === 'undefined' ? locals.dett.users[0].permalink : boxpath)+"/"+_config.sections[locals.sez].basepath+"/"+locals.dett.permalink+"/"+box.permalink+"/")
-				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=locals.Fnc.getFileFormat(box.files, 90, 68))
+			a(href="/"+(typeof(boxpath) === 'undefined' ? dett.users[0].permalink : boxpath)+"/"+_config.sections[sez].basepath+"/"+dett.permalink+"/"+box.permalink+"/")
+				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=Fnc.getFileFormat(box.files, 90, 68))
 		.media-body
 			h4.media-heading
-				a(href="/"+(typeof(boxpath) === 'undefined' ? locals.dett.users[0].permalink : boxpath)+"/"+_config.sections[locals.sez].basepath+"/"+locals.dett.permalink+"/"+box.permalink+"/")=box.titolo
+				a(href="/"+(typeof(boxpath) === 'undefined' ? dett.users[0].permalink : boxpath)+"/"+_config.sections[sez].basepath+"/"+dett.permalink+"/"+box.permalink+"/")=box.titolo
 			ul.stats
 				li=__("Visits")+": "+box.visite
 			ul.stats

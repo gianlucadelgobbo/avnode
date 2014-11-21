@@ -1,23 +1,25 @@
-.tabbable.tabs-left.row
-	include ../comp/cp_menu
-	.tab-content.col-md-10
-		.tab-pane.active
-			include ../comp/cp_submenu_user
-			form.form-horizontal(method="post", action="#")
-				fieldset
-					legend=locals.title
-					.form-group
-						label.col-sm-2.control-label=__("FLxER")
-						.col-sm-10
-							button.btn.btn-success(type="button")=__("Connect")
-							button.btn.btn-danger(type="button",class="disabled")=__("Disconnect")
-					.form-group
-						label.col-sm-2.control-label=__("Facebook")
-						.col-sm-10
-							button.btn.btn-success(type="button")=__("Connect")
-							button.btn.btn-danger(type="button",class="disabled")=__("Disconnect")
-					.form-group
-						label.col-sm-2.control-label=__("Twitter")
-						.col-sm-10
-							button.btn.btn-success(type="button")=__("Connect")
-							button.btn.btn-danger(type="button",class="disabled")=__("Disconnect")
+extends ../layout
+block content
+	.tabbable.tabs-left.row
+		include ../comp/cp_menu
+		.tab-content.col-md-10
+			.tab-pane.active
+				include ../comp/cp_submenu_user
+				form.form-horizontal(method="post", action="#")
+					fieldset
+						legend=title
+						.form-group
+							label.col-sm-2.control-label=__("FLxER")
+							.col-sm-10
+								button.btn.btn-success(type="button")=__("Connect")
+								button.btn.btn-danger(type="button",class="disabled")=__("Disconnect")
+						.form-group
+							label.col-sm-2.control-label=__("Facebook")
+							.col-sm-10
+								button.btn.btn-success(type="button")=__("Connect")
+								button.btn.btn-danger(type="button",class="disabled")=__("Disconnect")
+						.form-group
+							label.col-sm-2.control-label=__("Twitter")
+							.col-sm-10
+								button.btn.btn-success(type="button")=__("Connect")
+								button.btn.btn-danger(type="button",class="disabled")=__("Disconnect")

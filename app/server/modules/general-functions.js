@@ -132,7 +132,7 @@ exports.getFileFormat = function (obj, w, h) {
 		console.log(_config.sitepath+_config.uploadpath+folder+file);
 		console.log("---------");
 		*/
-		console.log(_config.sitepath+_config.uploadpath+formatfolder+formatfile);
+		//console.log(_config.sitepath+_config.uploadpath+formatfolder+formatfile);
 		if (fs.existsSync(_config.sitepath+_config.uploadpath+formatfolder+formatfile)) {
 			console.log(formatfolder+formatfile);
 			return formatfolder+formatfile;

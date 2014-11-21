@@ -1,148 +1,151 @@
-.tabbable.tabs-left.row
-	include ../comp/cp_menu
-	.tab-content.col-md-10
-		.tab-pane.active
-			include ../comp/cp_submenu_user
-			form.form-horizontal(method="post", action="#")
-				fieldset
-					legend=locals.title
-					#playerPreview
-						include ../comp/thumbnails
-					#file-uploader(class=(locals.result.files && locals.result.files.length ? 'hide' : undefined))
-						.qq-uploader
-							.qq-upload-drop-area
-								span=__("Drop here files to upload (only jpg, png, gif)")
-							.qq-upload-button=__("Upload a file (only jpg, png, gif)")
-							input(type="file",name="file")
-							ul.qq-upload-list
-					hr.clearfix
-					.control-group
-						.controls
-							button(type="button",onclick="$('#playerPreview').hide();$('#file-uploader').removeClass('hide').show();return false").btn.btn-large.input-large.btn-primary.right=__("Update image")
-include ../modals/errors
-include ../modals/confirm
-	script(type="text/javascript")
-		var uploader;
-		$(document).ready(function () {
-		uploader = $("#file-uploader").fineUploader({
-		debug:                true,
-		multiple:            false,
-		maxConnections:    3,
-		chunking: {
-		enabled: true,
-		partSize: 2000000
-		},
-		request: {
-		endpoint: '/upload'
-		},
-		deleteFile: {
-		enabled: true,
-		endpoint: '/upload'
-		},
-		retry: {
-		enableAuto: true
-		},
-		messages: {
-		typeError:"{file} has an invalid extension. Valid extension(s): {extensions}.",
-		sizeError:"{file} is too large, maximum file size is {sizeLimit}.",
-		minSizeError:"{file} is too small, minimum file size is {minSizeLimit}.",
-		emptyError:"{file} is empty, please select files again without it.",
-		noFilesError:"No files to upload.",
-		tooManyItemsError:"Too many items ({netItems}) would be uploaded.	Item limit is {itemLimit}.",
-		maxHeightImageError:"Image is too tall.",
-		maxWidthImageError:"Image is too wide.",
-		minHeightImageError:"Image is not tall enough.",
-		minWidthImageError:"Image is not wide enough.",
-		retryFailTooManyItems:"Retry failed - you have reached your file limit.",
-		onLeave:"The files are being uploaded, if you leave now the upload will be canceled."
-		},
-		template: 'qq-template-bootstrap',
-		classes: {
-		success: 'alert alert-success',
-		fail: 'alert alert-error'
-		}
-		}).on("complete", function(event, id, fileName, responseJSON){
-		/*
-		*/
-		console.log("complete");
-		console.log(event);
-		console.log((id));
-		console.log((fileName));
-		console.log((responseJSON));
-		//console.log(eval(responseJSON));
-		console.log("complete");
-		$.ajax({
-		type: "POST",
-		url: "/upload-success/?id=#{result._id}&c=users",
-		data: responseJSON,
-		success: function(json, textStatus, jqXHR){
-		//console.log(json);
-		//var json = eval(responseJSON);
-		//console.log(JSON.stringify(json, null, "\t"));
-		$('#playerPreview').show();
-		$('#playerPreview').html('<img src="/_php/ajax/image_display.php?n='+json.items[0].filename+'&w=400&h=300" /><input type="hidden" id="avatar_path" name="avatar_path" value="'+json.folder+'" /><input type="hidden" id="avatar_name" name="avatar_name" value="'+json.items[0].filename+'" />');
-		},
-		dataType: "json"
-		});
-		}).on("submit", function(id, fileName){
-		//clearError($('#file-uploader'));
-		});
-			/*
-			uploader = new qq.FileUploader({
-			element: document.getElementById('file-uploader'),
-			action: '/upload/?id=#{result._id}&c=users',
-			debug: 			true,
-			minWidth: 			#{_config.thumbnails[0].width},
-			minHeight: 			300,
-			validFormats: 		["JPEG"],
-			multiple: 			false,
-			maxConnections: 	3,
-			allowedExtensions: 	["jpg", "png", "gif"],	// .zip, .jpg, .png, .gif, .mov, .mp4, .m4v, .mpg, .mpeg, .flv, .f4v, .wmv, .avi
-			sizeLimit: 			1024000,
-			minSizeLimit: 		0,
-			onSubmit: function(id, fileName){
-			//clearError($('#file-uploader'));
+extends ../layout
+block content
+	.tabbable.tabs-left.row
+		include ../comp/cp_menu
+		.tab-content.col-md-10
+			.tab-pane.active
+				include ../comp/cp_submenu_user
+				form.form-horizontal(method="post", action="#")
+					fieldset
+						legend=title
+						#playerPreview
+							include ../comp/thumbnails
+						#file-uploader(class=(result.files && result.files.length ? 'hide' : undefined))
+							.qq-uploader
+								.qq-upload-drop-area
+									span=__("Drop here files to upload (only jpg, png, gif)")
+								.qq-upload-button=__("Upload a file (only jpg, png, gif)")
+								input(type="file",name="file")
+								ul.qq-upload-list
+						hr.clearfix
+						.control-group
+							.controls
+								button(type="button",onclick="$('#playerPreview').hide();$('#file-uploader').removeClass('hide').show();return false").btn.btn-large.input-large.btn-primary.right=__("Update image")
+	include ../modals/errors
+	include ../modals/confirm
+		script(type="text/javascript").
+
+			var uploader;
+			$(document).ready(function () {
+			uploader = $("#file-uploader").fineUploader({
+			debug:                true,
+			multiple:            false,
+			maxConnections:    3,
+			chunking: {
+			enabled: true,
+			partSize: 2000000
 			},
-		onComplete: function(id, fileName, responseJSON){
-		console.log(responseJSON);
-		console.log(this.validFormats.indexOf(responseJSON[responseJSON.length-1].format));
-		console.log(responseJSON[responseJSON.length-1].format);
-		if (responseJSON[responseJSON.length-1].width>=this.minWidth && responseJSON[responseJSON.length-1].height>=this.minHeight && this.validFormats.indexOf(responseJSON[responseJSON.length-1].format)>-1) {
-		file = responseJSON[responseJSON.length-1].file;
-		//var json = eval(responseJSON);
-		$('#playerPreview').show();
-		$('#playerPreview').html('<img src="/image/?f='+file+'&w=400&h=300" /><input type="hidden" id="avatar_name" name="avatar_name" value="'+file+'" />');
-		} else if (this.validFormats.indexOf(responseJSON[responseJSON.length-1].format)==-1) {
-		showModal('error', '#{__("You can upload only jpg, png, gif")}');
-		} else {
-		showModal('error', '#{__("You have to upload an image at least")}'+': '+this.minWidth+' x '+this.minHeight+' '+'#{__("pixels")}');
-		}
-		}
-		});
-		*/
-		});
-	script(type="text/template",id="qq-template-bootstrap")
-		<div class="qq-uploader-selector qq-uploader span12">
-		<div class="qq-upload-drop-area-selector qq-upload-drop-area span12" qq-hide-dropzone>
-		<span>Drop files here to upload</span>
-		</div>
-		<div class="qq-upload-button-selector qq-upload-button btn btn-success" style="width: auto;">
-		<div><i class="icon-upload icon-white"></i> Test me now and upload a file</div>
-		</div>
-		<span class="qq-drop-processing-selector qq-drop-processing">
-		<span>Processing dropped files...</span>
-		<span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
-		</span>
-		<ul class="qq-upload-list-selector qq-upload-list" style="margin-top: 10px; text-align: center;">
-		<li>
-		<div class="qq-progress-bar-container-selector">
-		<div class="qq-progress-bar-selector qq-progress-bar"></div>
-		</div>
-		<span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-		<span class="qq-upload-file-selector qq-upload-file"></span>
-		<span class="qq-upload-size-selector qq-upload-size"></span>
-		<a class="qq-upload-cancel-selector qq-upload-cancel" href="#">Cancel</a>
-		<span class="qq-upload-status-text-selector qq-upload-status-text"></span>
-		</li>
-		</ul>
-		</div>
+			request: {
+			endpoint: '/upload'
+			},
+			deleteFile: {
+			enabled: true,
+			endpoint: '/upload'
+			},
+			retry: {
+			enableAuto: true
+			},
+			messages: {
+			typeError:"{file} has an invalid extension. Valid extension(s): {extensions}.",
+			sizeError:"{file} is too large, maximum file size is {sizeLimit}.",
+			minSizeError:"{file} is too small, minimum file size is {minSizeLimit}.",
+			emptyError:"{file} is empty, please select files again without it.",
+			noFilesError:"No files to upload.",
+			tooManyItemsError:"Too many items ({netItems}) would be uploaded.	Item limit is {itemLimit}.",
+			maxHeightImageError:"Image is too tall.",
+			maxWidthImageError:"Image is too wide.",
+			minHeightImageError:"Image is not tall enough.",
+			minWidthImageError:"Image is not wide enough.",
+			retryFailTooManyItems:"Retry failed - you have reached your file limit.",
+			onLeave:"The files are being uploaded, if you leave now the upload will be canceled."
+			},
+			template: 'qq-template-bootstrap',
+			classes: {
+			success: 'alert alert-success',
+			fail: 'alert alert-error'
+			}
+			}).on("complete", function(event, id, fileName, responseJSON){
+			/*
+			*/
+			console.log("complete");
+			console.log(event);
+			console.log((id));
+			console.log((fileName));
+			console.log((responseJSON));
+			//console.log(eval(responseJSON));
+			console.log("complete");
+			$.ajax({
+			type: "POST",
+			url: "/upload-success/?id=#{result._id}&c=users",
+			data: responseJSON,
+			success: function(json, textStatus, jqXHR){
+			//console.log(json);
+			//var json = eval(responseJSON);
+			//console.log(JSON.stringify(json, null, "\t"));
+			$('#playerPreview').show();
+			$('#playerPreview').html('<img src="/_php/ajax/image_display.php?n='+json.items[0].filename+'&w=400&h=300" /><input type="hidden" id="avatar_path" name="avatar_path" value="'+json.folder+'" /><input type="hidden" id="avatar_name" name="avatar_name" value="'+json.items[0].filename+'" />');
+			},
+			dataType: "json"
+			});
+			}).on("submit", function(id, fileName){
+			//clearError($('#file-uploader'));
+			});
+				/*
+				uploader = new qq.FileUploader({
+				element: document.getElementById('file-uploader'),
+				action: '/upload/?id=#{result._id}&c=users',
+				debug: 			true,
+				minWidth: 			#{_config.thumbnails[0].width},
+				minHeight: 			300,
+				validFormats: 		["JPEG"],
+				multiple: 			false,
+				maxConnections: 	3,
+				allowedExtensions: 	["jpg", "png", "gif"],	// .zip, .jpg, .png, .gif, .mov, .mp4, .m4v, .mpg, .mpeg, .flv, .f4v, .wmv, .avi
+				sizeLimit: 			1024000,
+				minSizeLimit: 		0,
+				onSubmit: function(id, fileName){
+				//clearError($('#file-uploader'));
+				},
+			onComplete: function(id, fileName, responseJSON){
+			console.log(responseJSON);
+			console.log(this.validFormats.indexOf(responseJSON[responseJSON.length-1].format));
+			console.log(responseJSON[responseJSON.length-1].format);
+			if (responseJSON[responseJSON.length-1].width>=this.minWidth && responseJSON[responseJSON.length-1].height>=this.minHeight && this.validFormats.indexOf(responseJSON[responseJSON.length-1].format)>-1) {
+			file = responseJSON[responseJSON.length-1].file;
+			//var json = eval(responseJSON);
+			$('#playerPreview').show();
+			$('#playerPreview').html('<img src="/image/?f='+file+'&w=400&h=300" /><input type="hidden" id="avatar_name" name="avatar_name" value="'+file+'" />');
+			} else if (this.validFormats.indexOf(responseJSON[responseJSON.length-1].format)==-1) {
+			showModal('error', '#{__("You can upload only jpg, png, gif")}');
+			} else {
+			showModal('error', '#{__("You have to upload an image at least")}'+': '+this.minWidth+' x '+this.minHeight+' '+'#{__("pixels")}');
+			}
+			}
+			});
+			*/
+			});
+		script(type="text/template",id="qq-template-bootstrap")
+			<div class="qq-uploader-selector qq-uploader span12">
+			<div class="qq-upload-drop-area-selector qq-upload-drop-area span12" qq-hide-dropzone>
+			<span>Drop files here to upload</span>
+			</div>
+			<div class="qq-upload-button-selector qq-upload-button btn btn-success" style="width: auto;">
+			<div><i class="icon-upload icon-white"></i> Test me now and upload a file</div>
+			</div>
+			<span class="qq-drop-processing-selector qq-drop-processing">
+			<span>Processing dropped files...</span>
+			<span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+			</span>
+			<ul class="qq-upload-list-selector qq-upload-list" style="margin-top: 10px; text-align: center;">
+			<li>
+			<div class="qq-progress-bar-container-selector">
+			<div class="qq-progress-bar-selector qq-progress-bar"></div>
+			</div>
+			<span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+			<span class="qq-upload-file-selector qq-upload-file"></span>
+			<span class="qq-upload-size-selector qq-upload-size"></span>
+			<a class="qq-upload-cancel-selector qq-upload-cancel" href="#">Cancel</a>
+			<span class="qq-upload-status-text-selector qq-upload-status-text"></span>
+			</li>
+			</ul>
+			</div>
