@@ -68,7 +68,7 @@ exports.get = function get(req, res) {
 		});
 	}
 };
-exports.post = function get(req, res) {
+exports.post = function post(req, res) {
 	if (req.session.passport.user == null) {
 		res.redirect('/controlpanel/login/?from='+req.url);
 	} else {

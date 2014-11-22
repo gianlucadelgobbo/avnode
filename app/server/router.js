@@ -26,6 +26,7 @@ var cpanelGalleryRoutes		= require('./routes/controlpanel/gallery');
 
 
 var uploadRoutes 			= require('./routes/upload');
+var uploadSuccessRoutes		= require('./routes/upload-success');
 var imageRoutes 			= require('./routes/image');
 var ajax		 			= require('./routes/ajax');
 
@@ -217,7 +218,7 @@ module.exports = function(app) {
 	// upload //
 	//app.get('/upload', uploadRoutes.get);
 	app.post('/upload', uploadRoutes.post);
-    app.delete("/uploads/:uuid", uploadRoutes.onDeleteFile);
+    //app.delete("/uploads/:uuid", uploadRoutes.onDeleteFile);
 
 	// image //
 	app.get('/image', imageRoutes.get);

@@ -12,6 +12,7 @@ var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var LocalStrategy = require('passport-local').Strategy;
 var settings = require('./settings.js')._config;
 var ObjectID = require('mongodb').ObjectID;
+var multer  = require('multer');
 
 for (var key in settings) {
 	GLOBAL._config[key] = settings[key];
@@ -32,8 +33,9 @@ module.exports = function(app, exp) {
 	app.set('view options', { doctype : 'html', layout: './app/server/views/layout.jade', pretty : true });
 	app.use(cookieParser());
 	app.use(bodyParser.json({limit: _config.maxFileSize}));
-	app.use(bodyParser.urlencoded({limit: _config.maxFileSize, extended: true }));
+	app.use(bodyParser.urlencoded({parameterLimit: 30000000000, limit: _config.maxFileSize, extended: true }));
 	app.use(methodOverride());
+	app.use(multer({ dest: _config.uploadedFilesPath}))
 
 	app.use(session({ secret: 'avnode', resave: true, saveUninitialized: true }));
 	app.use(require('stylus').middleware({ src: './app/public' }));
