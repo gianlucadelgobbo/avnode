@@ -25,8 +25,8 @@ function checkPermalink() {
 	var _id = $('[name="_id"]').val();
 	var collection = $('[name="collection"]').val();
 	var permalink = $('[name="permalink"]').val().toLowerCase();
-	$('#permalink').parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />");
-	$('#permalink').text(permalink);
+	$('#permalink').parent().parent().find(".control-label.pull-right").html("<img src=\"/img/loading-small.gif\" />");
+	$('#permalink_print').text(permalink);
 	if (ajax) ajax.abort();
 	ajax = $.ajax({
 		url: "/ajax/checkPermalink/",
@@ -36,11 +36,13 @@ function checkPermalink() {
 			console.log(data);
 			console.log($('#permalink').parent().parent());
 			if(data.success){
-				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-ok\"></i> "+data.msg)
-				$('#permalink').parent().parent().parent().removeClass("error");
+				$('#permalink').parent().parent().find(".control-label.pull-right").html("<i class=\"glyphicon glyphicon-ok\"></i> "+data.msg)
+				$('#permalink').parent().addClass("has-success");
+				$('#permalink').parent().removeClass("has-error");
 			} else {
-				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-remove\"></i> "+data.msg)
-				$('#permalink').parent().parent().parent().addClass("error");
+				$('#permalink').parent().parent().find(".control-label.pull-right").html("<i class=\"glyphicon glyphicon-remove\"></i> "+data.msg)
+				$('#permalink').parent().addClass("has-error");
+				$('#permalink').parent().removeClass("has-success");
 			}
 		}
 	});

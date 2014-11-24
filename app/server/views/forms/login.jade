@@ -14,11 +14,11 @@ block content
 						a.btn.btn-primary(href="/controlpanel/login/facebook/")=__("Facebook")
 					p=__("or")
 				include ../comp/msg
-				form(name="formLogin", method="post", action="/controlpanel/login/local/")
+				form(name="formLogin", method="post", action="/controlpanel/login/")
 					.form-group
-						input(name="username", type="text", placeholder=__("Username")).form-control
+						input(name="username", type="text", value=result.username, placeholder=__("Username")).form-control
 					.form-group
-						input(name="password", type="password", placeholder=__("Password")).form-control
+						input(name="password", type="password", value=result.password, placeholder=__("Password")).form-control
 					.row
 						.col-md-6
 							.checkbox

@@ -57,7 +57,6 @@ module.exports = function(app) {
 	// ajax //
 	//app.get('/ajax*', ajax.get);
 	app.post('/ajax*', ajax.post);
-	console.log("trace2");
 
 	// performers //
 	app.get('/performers*', performersRoutes.get);
@@ -92,14 +91,9 @@ module.exports = function(app) {
 	//app.post('/controlpanel', cpanelRoutes.post);
 
 	// local login //
-	app.post('/controlpanel/login/local/',
-		passport.authenticate('local', {
-			successRedirect: '/',
-			failureRedirect: '/controlpanel/login',
-			failureFlash: true
-		})
-	);
+	app.post('/controlpanel/login/', cpanelLoginRoutes.post);
 	app.get('/controlpanel/login', cpanelLoginRoutes.get);
+
     // facebook login //
     app.get('/controlpanel/login/facebook',
         passport.authenticate('facebook-login', {

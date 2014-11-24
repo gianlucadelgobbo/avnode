@@ -14,7 +14,8 @@ exports.post = function get(req, res) {
 	if (pathArray.length > 0) {
 		if (pathArray[1] == "checkPermalink") {
 			if(req.body.permalink && req.body.collection) {
-				var q = {permalink:req.body.permalink};
+				var regex = new RegExp(["^",req.body.permalink,"$"].join(""),"i");
+				var q = {permalink:regex};
 				if (req.body._id) q._id = {$ne:new ObjectID(req.body._id)};
 				DB[req.body.collection].findOne(q, function(e, o){
 					var result = o ? {success:false, msg:__("Profile url already in use")} : {success:true, msg:__("Profile url is valid")};

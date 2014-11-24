@@ -62,7 +62,11 @@ block content
 								button(type="submit").btn.btn-primary.btn-lg=__("Save")
 		script(type="text/javascript").
 			$(function(){
-				var data=jQuery.parseJSON('!{JSON.stringify(result.locations)}');
+				var dataA='!{result.locations}';
+				var data = {};
+				if (dataA) {
+					data=jQuery.parseJSON('!{JSON.stringify(result.locations)}');
+				}
 				initializeMap(data);
 
 				$('#sortable').sortable({

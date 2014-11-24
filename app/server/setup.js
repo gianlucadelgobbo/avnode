@@ -55,15 +55,14 @@ module.exports = function(app, exp) {
             else done(err, null);
         });
     });
-    passport.use(new LocalStrategy(function(username, password, done) {
-            DB.validateFormLogin(username, password, function(e, o) {
-                if (e && e.length) {
-                    return done(null, false, { message: e.m });
-                } else {
-                    return done(null, o);
-                }
-            });
-        }
+    passport.use('local', new LocalStrategy(function(username, password, done) {
+		DB.validateFormLogin(username, password, function(e, o) {
+			if (e && e.length) {
+				return done(null, false, { message: e[0].m });
+			} else {
+				return done(null, o);
+			}
+		});}
     ));
     passport.use('facebook-login', new FacebookStrategy(_config.socials.facebook_login,
         function(accessToken, refreshToken, profile, done) {

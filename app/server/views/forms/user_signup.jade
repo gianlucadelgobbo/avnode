@@ -99,10 +99,12 @@ block content
 					.row
 						.col-md-12
 							.form-group
+								.control-label.pull-right
 								label(for="permalink")=__("Profile url")
 								input#permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
 								.help-block="https://avnode.net/"
-									span#permalink
+									span#permalink_print
+								input(type="hidden", value="users", name="collection")
 							hr
 
 					.controls

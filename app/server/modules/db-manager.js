@@ -13,6 +13,7 @@ var accounting = require('accounting');
 accounting.settings = _config.accountingSettings;
 
 var ObjectID = require('mongodb').ObjectID;
+var request = require('request');
 
 var DB = {};
 	DB.db = new Db(dbName, new Server(dbHost, dbPort, {auto_reconnect: true,safe:true}, {}));
@@ -38,8 +39,12 @@ module.exports = DB;
 
 DB.validateFormLogin = function (login, password,callback) {
     var e = [];
+	console.log("stocazzo");
+	console.log(login);
     DB.users.findOne({login:login}, function(err, result) {
+		console.log(result);
         if (result == null){
+			console.log("stocazzo2");
             e.push({name:"user",m:__("User not found")});
             callback(e, result);
         } else {
