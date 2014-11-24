@@ -4,6 +4,7 @@ var _config = {
 	"port": 			8002,
 	"dbHost":			"localhost",
 	"dbPort":			27017,
+	"sitename": 		"AVnode",
 	"dbName": 			"avnode",
 	"sitepath":			"/Users/admin/github/avnode",
 	"siteurl":			siteurl,
@@ -37,6 +38,7 @@ var _config = {
 
 		}
 	},
+	"signature":	"\n\nAVnode Team\n______________________________________\nAVnode\navnode.org | avnode.net",
 	"socials":	{
 		"facebook":		"AVnode",
 		"emailFrom":	"",
