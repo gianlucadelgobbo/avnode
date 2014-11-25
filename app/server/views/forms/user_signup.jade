@@ -31,15 +31,19 @@ block content
 						legend=__("Crew public data")
 						.row
 							.col-md-6
-								.bella
+								.form-group
 									label=__("Crew name")
 									input(type="text", value=result.crew_display_name, autocomplete="off", name="crew_display_name", placeholder=__("Crew stage name")).form-control
 							.col-md-6
 								.form-group
-									label=__("Crew profile url")
-									input(type="text", value=result.crew_permalink, autocomplete="off", name="crew_permalink", placeholder=__("Crew profile url")).form-control
-									.help-block="https://flxer.net/"
-										span#crew_permalink
+									label(for="crew_permalink")=__("Crew profile url")
+									input.permalink#crew_permalink(type="text", value=result.crew_permalink, autocomplete="off", name="crew_permalink", placeholder=__("Crew profile url")).form-control
+									.help-block="https://avnode.net/"
+										span.permalink_print
+									span.glyphicon.form-control-feedback(aria-hidden="true")
+									input(type="hidden", value="users", name="collection")
+									.control-label.pull-right
+									.clearfix
 					legend=__("Member private data")
 					.row
 						.col-md-6
@@ -99,14 +103,15 @@ block content
 					.row
 						.col-md-12
 							.form-group
-								.control-label.pull-right
 								label(for="permalink")=__("Profile url")
-								input#permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
+								input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
 								.help-block="https://avnode.net/"
-									span#permalink_print
+									span.permalink_print
+								span.glyphicon.form-control-feedback(aria-hidden="true")
 								input(type="hidden", value="users", name="collection")
+								.control-label.pull-right
+								.clearfix
 							hr
-
 					.controls
 						button(type="submit").btn.btn-primary.pull-right=__("Get Started")+"  "
 							i.glyphicon.glyphicon-forward.glyphicon.glyphicon-white

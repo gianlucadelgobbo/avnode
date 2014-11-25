@@ -14,19 +14,19 @@ function showModal(t, m, callback) {
 // PERMALINK
 
 $(function () {
-	$('[name="permalink"]').keyup(function() {
-		$('#permalink').parent().parent().find(".help-inline").text("")
-		$('#permalink').parent().parent().parent().removeClass("error");
-		clearTimeout(int);
-		int = setTimeout("checkPermalink()", 500);
+	$('.permalink').keyup(function() {
+        checkPermalink($(this));
 	});
 });
-function checkPermalink() {
+function checkPermalink(field) {
+    //field.parent().parent().find(".help-inline").text("")
+    //field.parent().parent().parent().removeClass("error");
 	var _id = $('[name="_id"]').val();
-	var collection = $('[name="collection"]').val();
-	var permalink = $('[name="permalink"]').val().toLowerCase();
-	$('#permalink').parent().parent().find(".control-label.pull-right").html("<img src=\"/img/loading-small.gif\" />");
-	$('#permalink_print').text(permalink);
+	var collection = field.parent().find('[name="collection"]').val();
+	var permalink = field.val().toLowerCase();
+
+    field.parent().find(".permalink_print").text(permalink);
+    field.parent().find(".control-label.pull-right").html("<img src=\"/img/loading-small.gif\" />");
 	if (ajax) ajax.abort();
 	ajax = $.ajax({
 		url: "/ajax/checkPermalink/",
@@ -34,15 +34,19 @@ function checkPermalink() {
 		data:{_id:_id, permalink:permalink, collection:collection},
 		success: function(data) {
 			console.log(data);
-			console.log($('#permalink').parent().parent());
+			console.log(field.parent());
 			if(data.success){
-				$('#permalink').parent().parent().find(".control-label.pull-right").html("<i class=\"glyphicon glyphicon-ok\"></i> "+data.msg)
-				$('#permalink').parent().addClass("has-success");
-				$('#permalink').parent().removeClass("has-error");
+				field.parent().find(".control-label").html(data.msg)
+				field.parent().addClass("has-success has-feedback");
+                field.parent().find(".glyphicon").addClass("glyphicon-ok");
+                field.parent().find(".glyphicon").removeClass("glyphicon-remove");
+				field.parent().removeClass("has-error");
 			} else {
-				$('#permalink').parent().parent().find(".control-label.pull-right").html("<i class=\"glyphicon glyphicon-remove\"></i> "+data.msg)
-				$('#permalink').parent().addClass("has-error");
-				$('#permalink').parent().removeClass("has-success");
+				field.parent().find(".control-label").html(data.msg)
+				field.parent().addClass("has-error has-feedback");
+                field.parent().find(".glyphicon").addClass("glyphicon-remove");
+                field.parent().find(".glyphicon").removeClass("glyphicon-ok");
+				field.parent().removeClass("has-success");
 			}
 		}
 	});
