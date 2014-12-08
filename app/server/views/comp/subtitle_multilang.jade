@@ -1,16 +1,14 @@
 .form-group
 	.col-md-2.control-label
-		ul.nav.nav-list
-			li
-				b=__("Subtitle")
-			li.active
-				a(href="#",onclick="$(this).parent().parent().find('li').attr('class','');$(this).parent().attr('class','active');$(this).parent().parent().parent().parent().find('input'   ).hide();$('input."+_config.defaultLocale+"').removeClass('hide').show();return false;")=_config.locales_labels[_config.defaultLocale]
-			each val, key in _config.locales_labels
-				- if (_config.defaultLocale!=key)
-					li
-						a(href="#",onclick="$(this).parent().parent().find('li').attr('class','');$(this).parent().attr('class','active');$(this).parent().parent().parent().parent().find('input'   ).hide();$('input."+key+"').removeClass('hide').show();return false;")=val
+		b=__("Subtitle")
+	.col-sm-10
+.form-group
+	.col-md-2.control-label.small!=_config.locales_labels[_config.defaultLocale]
 	.col-sm-10
 		input.form-control(name="subtitle["+_config.defaultLocale+"]",class=_config.defaultLocale, type="text",value=result.subtitle[_config.defaultLocale])
-		each val, key in _config.locales_labels
-			- if (_config.defaultLocale!=key)
-				input.form-control.hide(name="text["+key+"]",class=key, type="text", value=result.subtitle[key],placeholder=__("Subtitle"))
+each val, key in _config.locales_labels
+	- if (_config.defaultLocale!=key)
+		.form-group
+			.col-md-2.control-label.small!=val
+			.col-sm-10
+				input.form-control(name="text["+key+"]",class=key, type="text", value=result.subtitle[key],placeholder=__("Subtitle"))

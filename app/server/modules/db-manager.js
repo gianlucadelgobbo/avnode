@@ -347,7 +347,7 @@ DB.updateEventRel = function(id, callback) {
 					if (add) subrecord.events.push(minievent);
 					DB.users.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir(""+q+": "+conta);
+						console.dir(": "+conta);
 						if (conta==subrecords.length) {
 							status.users = true;
 							var end = true
@@ -372,6 +372,9 @@ DB.updateEventRel = function(id, callback) {
 			var conta = 0;
 			if (subrecords.length) {
 				subrecords.forEach(function(subrecord){
+                    console.log("subrecord gallery");
+                    console.log(subrecord);
+                    /*
 					var add = true;
 					for (var a=0;a<subrecord.performances.length;a++) {
 						if (subrecord.performances[a]._id.equals(id)) {
@@ -390,6 +393,7 @@ DB.updateEventRel = function(id, callback) {
 							if (end) callback(true);
 						}
 					});
+					*/
 				});
 			} else {
 				status.performances = true;
@@ -407,8 +411,11 @@ DB.updateEventRel = function(id, callback) {
 			var conta = 0;
 			if (subrecords.length) {
 				subrecords.forEach(function(subrecord){
+                    console.log("subrecord gallery");
+                    console.log(subrecord);
+					/*
 					var add = true;
-					for (var a=0;a<subrecord.gallery.length;a++) {
+∑					for (var a=0;a<subrecord.gallery.length;a++) {
 						if (subrecord.gallery[a]._id.equals(id)) {
 							subrecord.gallery[a] = minievent;
 							add = false;
@@ -425,6 +432,7 @@ DB.updateEventRel = function(id, callback) {
 							if (end) callback(true);
 						}
 					});
+					*/
 				});
 			} else {
 				status.gallery = true;

@@ -3,7 +3,7 @@ var ObjectID = require('mongodb').ObjectID;
 var Fnc = require('../../modules/general-functions');
 var CT = require('../../modules/country-list');
 var EM = require('../../modules/email-dispatcher');
-var createsend = require('createsend');
+var MCapi = require('mailchimp-api');
 
 var titles = {
 	"public": 		__("Public data"),
@@ -39,9 +39,25 @@ exports.get = function get(req, res) {
 				var msg = [];
 				var conta = 0;
 				result.emails.forEach(function(item, index, theArray) {
-					var CS = new createsend('a1df774dbf1832f1e4177589d54ef8eb');
-					CS.subscriberDetails("ec6de6ef7a4a0cf81d73e0263d8017f2", result.emails[index].email, function (e,o) {
-						for (item in o.CustomFields) {
+					var MC = new MCapi.Mailchimp('d6f941b09ba398bb520ffbb594e48054-us7', true);
+                    //MC.lists.memberInfo({id:'6be13adfd8', emails:[{email:result.emails[index].email}]}, function (data) {
+                    MC.lists.memberInfo({id:'6be13adfd8', emails:[{email:'g.delgobbo@flyer.it'}]}, function (data) {
+                        //console.log(data);
+                        if (data.success_count) {
+                            //console.log(data.data[0].merges.GROUPINGS);
+                            for (item in data.data[0].merges.GROUPINGS) {
+                                if (data.data[0].merges.GROUPINGS[item].name == "Topics") {
+                                    //console.log(data.data[0].merges.GROUPINGS[item].groups);
+                                    for (topic in data.data[0].merges.GROUPINGS[item].groups) {
+                                        if (!result.emails[index].mailinglists) result.emails[index].mailinglists = {};
+                                        if (data.data[0].merges.GROUPINGS[item].groups[topic].interested) result.emails[index].mailinglists[data.data[0].merges.GROUPINGS[item].groups[topic].name] = 1;
+                                    }
+                                }
+                            }
+                            result.emails[index].lang = data.data[0].language;
+                        }
+                        /*
+   						for (item in o.CustomFields) {
 							if (o.CustomFields[item].Key=="topic") {
 								if (!result.emails[index].mailinglists) result.emails[index].mailinglists = {};
 								result.emails[index].mailinglists[o.CustomFields[item].Value] = 1;
@@ -51,10 +67,11 @@ exports.get = function get(req, res) {
 							}
 						}
 						if (conta==theArray.length-1) {
-							res.render('forms/user_emails', {title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
 						}
 						conta++;
-					});
+                         */
+                        res.render('forms/user_emails', {title:__("My Account")+": "+titles[subsez], countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
+                    });
 				});
 			} else if (req.params[0]=="/private" || req.params[0]=="/private/") {
 				var subsez = "private";

@@ -27,26 +27,41 @@ exports.get = function get(req, res) {
 			var p = Fnc.parseParams(req.params[0]);
 			var page = p.page;
 			var params2 = p.params2;
-			DB.canIeditThis("users", {"permalink":params2[0]}, req.session.passport.user, function (result) {
-				if (result) {
-					var sez = "performers";
-					if (params2.length==1) {
-						var subsez = "public";
-						var msg = [];
-						res.render('forms/crew_public', {form:"crew_public", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
-					} else if (params2[1]=="mainimage") {
-						var subsez = "mainimage";
-						var msg = [];
-						res.render('forms/crew_mainimage', {form:"crew_mainimage", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
-					} else if (params2[1]=="members") {
-						var subsez = "members";
-						var msg = [];
-						res.render('forms/crew_members', {form:"crew_members", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
-					}
-				} else {
-					res.render('forms/cannotedit', {user : req.session.passport.user });
-				}
-			});
+            console.dir("bella"+params2[0]);
+            if (params2[0] == "new") {
+                var subsez = "new";
+                var msg = [];
+                res.render('forms/crew_public', {form:"crew_public", title:__("Create a new crew"), sez:sez, subsez:subsez, result:{}, msg:msg,Fnc:Fnc, user : req.session.passport.user });
+            } else {
+                DB.canIeditThis("users", {"permalink":params2[0]}, req.session.passport.user, function (result) {
+                    console.dir(result);
+                    if (result) {
+                        var sez = "performers";
+                        if (params2.length==1) {
+                            var subsez = "public";
+                            var msg = [];
+                            res.render('forms/crew_public', {form:"crew_public", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
+                        } else if (params2[1]=="mainimage") {
+                            var subsez = "mainimage";
+                            var msg = [];
+                            res.render('forms/crew_mainimage', {form:"crew_mainimage", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
+                        } else if (params2[1]=="members") {
+                            var subsez = "members";
+                            var msg = [];
+                            //DB.temp.findOne({doc_id:new ObjectID(result._id)}, function(e, result2) {
+                            DB.temp.find({doc_id:result._id.toString()}).toArray(function(e, result2) {
+                                console.dir("NOT CONFIRMED");
+                                console.dir(result2);
+                                if (result2.length) result.membersnotconfirmed = result2;
+                                res.render('forms/crew_members', {form:"crew_members", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
+                            });
+                        }
+                    } else {
+                        res.render('forms/cannotedit', {user : req.session.passport.user });
+                    }
+                });
+
+            }
 		}
 	}
 };
@@ -58,39 +73,86 @@ exports.post = function get(req, res) {
 		var form = req.body.form;
 		var sez = tmp[0];
 		var subsez = tmp[1];
-		DB.canIeditThis("users", {_id:new ObjectID(req.body._id)}, req.session.passport.user, function (result) {
-			if (result){
-				exports["validate_"+form](req, function(errors, o, m){
-					if (errors.length === 0){
-						if (o._id) {
-					  		delete o._id;
-					  		delete o.collection;
-					  		delete o.form;
-					  		var newItem = result;
-					  		//var newItem = {};
-					  		for(item in o) {
-					  			newItem[item] = o[item];
-					  		}
-							console.dir("CAZZO");
-							console.dir(newItem);
-					  		DB.users.save(newItem, {safe:true}, function(e, success) {
-							  	DB.users.findOne({_id:result._id},function(e, result3) {
-							  		result3.form = form;
-							  		result3.collection = sez;
-							  		DB.updateUserRel(result._id, function(success) {
-										res.render('forms/'+form, {form:form, title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result3, msg:{c:[{m:m}]},Fnc:Fnc, user : req.session.passport.user });
-							  		});
-						  		});
-					  		});
-						}
-					} else {
-						res.render('forms/'+form, {form:"user_public", title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:req.body, msg:{e:errors},Fnc:Fnc, user : req.session.passport.user });
-					}
-		  		});
-			} else {
-				res.render('forms/cannotedit', {user : req.session.passport.user });
-			}
-  		});
+        if (req.body._id) {
+            DB.canIeditThis("users", {_id:new ObjectID(req.body._id)}, req.session.passport.user, function (result) {
+                if (result){
+                    exports["validate_"+form](req, function(errors, o, m){
+                        if (errors.length === 0){
+                            console.dir("CAZZO");
+                            console.dir(o);
+                            if (o._id) {
+                                delete o._id;
+                                delete o.collection;
+                                delete o.form;
+                                var newItem = result;
+                                //var newItem = {};
+                                for(item in o) {
+                                    newItem[item] = o[item];
+                                }
+                                console.dir("CAZZO");
+                                console.dir(newItem);
+                                DB.users.save(newItem, {safe:true}, function(e, success) {
+                                    DB.users.findOne({_id:result._id},function(e, result3) {
+                                        result3.form = form;
+                                        result3.collection = sez;
+                                        DB.updateUserRel(result._id, function(success) {
+                                            res.render('forms/'+form, {form:form, title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result3, msg:{c:[{m:m}]},Fnc:Fnc, user : req.session.passport.user });
+                                        });
+                                    });
+                                });
+                            } else {
+                                console.dir("CAZZO");
+                            }
+                        } else {
+                            res.render('forms/'+form, {form:"user_public", title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:req.body, msg:{e:errors},Fnc:Fnc, user : req.session.passport.user });
+                        }
+                    });
+                } else {
+                    res.render('forms/cannotedit', {user : req.session.passport.user });
+                }
+            });
+        } else {
+            exports["validate_"+form](req, function(errors, o, m){
+                if (errors.length === 0){
+                    console.dir("CAZZO new");
+                    console.dir(req.session.passport.user);
+                    delete o._id;
+                    delete o.collection;
+                    delete o.form;
+                    var newItem = {};
+                    for(item in o) {
+                        newItem[item] = o[item];
+                    }
+                    newItem["members"] = {
+                        old_id: '13576',
+                        permalink: 'deftoo',
+                        display_name: 'ioann maria/Deftoo',
+                        _id: '51707638d931639094000127',
+                        files: [Object],
+                        stats: [Object]
+                    };
+                        console.dir("CAZZO");
+                    console.dir(newItem);
+                    if (o._id) {
+                        /*
+                        DB.users.save(newItem, {safe:true}, function(e, success) {
+                            DB.users.findOne({_id:result._id},function(e, result3) {
+                                result3.form = form;
+                                result3.collection = sez;
+                                DB.updateUserRel(result._id, function(success) {
+                                    res.render('forms/'+form, {form:form, title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result3, msg:{c:[{m:m}]},Fnc:Fnc, user : req.session.passport.user });
+                                });
+                            });
+                        });
+                       */
+                    } else {
+                        console.dir("CAZZO");
+                    }
+                } else {
+                    res.render('forms/'+form, {form:"user_public", title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:req.body, msg:{e:errors},Fnc:Fnc, user : req.session.passport.user });
+                }
+            });
+        }
 	}
 };
 

@@ -20,16 +20,19 @@ block content
 							.col-sm-10
 								input(autocomplete="off", name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).form-control
 						.form-group
-							label.col-sm-2.control-label=__("Profile url")
+							label.col-sm-2.control-label(for="permalink")=__("Profile url")
 							.col-sm-10
-								input(autocomplete="off", name="permalink", value=result.permalink, type="text", placeholder=__("Profile url")).form-control
-								span.help-inline
-								.help-block="https://flxer.net/"
-									span#permalink=result.permalink
+								input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
+								span.glyphicon.form-control-feedback(aria-hidden="true")
+								.row
+									.help-block.col-sm-9="https://avnode.net/"
+										span.permalink_print=result.permalink.toLowerCase()
+									input(type="hidden", value="users", name="collection")
+									.control-label.col-sm-3
 						include ../comp/text_multilang
 						include ../comp/websites
 						.form-group
-							label.col-sm-2.control-label=__("Locations")
+							label.col-sm-2.control-label=__("Working and living places")
 							.col-sm-10
 								#map_canvas
 								hr
@@ -50,6 +53,16 @@ block content
 															i.glyphicon.glyphicon-remove
 														!=" "
 														i.glyphicon.glyphicon-move(style="margin:3px 0 0 25px;")
+									- else
+										.alert.alert-info.hide
+											.clearfix
+												.pull-left
+												.pull-right
+													a.btn.btn-mini(href="#",onclick="deleteLocation(this);return false;")
+														i.glyphicon.glyphicon-remove
+													!=" "
+													i.glyphicon.glyphicon-move(style="margin:3px 0 0 25px;")
+
 
 								.text-right
 										a.btn.btn-mini.btn-primary(href="#", onclick="showMapAdd();return false;")

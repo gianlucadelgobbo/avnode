@@ -3,17 +3,20 @@
 		.modal-content
 			.modal-header
 				button.close(data-dismiss='modal') x
-				h3=__("Search members")
+				h4.modal-title=__("Search members")
 			.modal-body
-				#search-map-form.form-inline
-					input#find_input.form-control(placeholder=__("Search a member"),type="text")
-					button#find.btn(type="button")=__("SEARCH")
+				form#search_form
+					.input-group
+						input#find_input.form-control(placeholder=__("Search a member"),type="text")
+						span.input-group-btn
+							button#find.btn.btn-default(type="button")=__("SEARCH")
 					#search_result
 					#invite
 				script(type="text/javascript").
-					$("#find").click(function(){
+					$("#search_form").submit(function( event ) {
+						event.preventDefault();
 						findMembers($("#find_input").val());
 					});
 
 			.modal-footer
-				button(data-dismiss="modal").cancel.btn=__("Close")
+				button(data-dismiss="modal").cancel.btn.btn-primary=__("Done")

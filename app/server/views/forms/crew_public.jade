@@ -4,7 +4,8 @@ block content
 		include ../comp/cp_menu
 		.tab-content.col-md-10
 			.tab-pane.active
-				include ../comp/cp_submenu_crew
+				- if(result._id)
+					include ../comp/cp_submenu_crew
 				form.form-horizontal(method="post")
 					input(name="collection", value="users", type="hidden")
 					input(name="_id", value=result._id, type="hidden")
@@ -17,12 +18,16 @@ block content
 							.col-sm-10
 								input(name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).form-control
 						.form-group
-							label.col-sm-2.control-label=__("Profile url")
+							label.col-sm-2.control-label(for="permalink")=__("Profile url")
 							.col-sm-10
-								input(autocomplete="off", name="permalink", value=result.permalink, type="text", placeholder=__("Profile url")).form-control
-								span.help-inline
-								.help-block="https://flxer.net/"
-									span#permalink=result.permalink
+								input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
+								span.glyphicon.form-control-feedback(aria-hidden="true")
+								.row
+									.help-block.col-sm-9="https://avnode.net/"
+										span.permalink_print=result.permalink.toLowerCase()
+									input(type="hidden", value="users", name="collection")
+									.control-label.col-sm-3
+
 						include ../comp/text_multilang
 						include ../comp/websites
 						.form-group

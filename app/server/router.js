@@ -22,6 +22,7 @@ var cpanelTvshowsRoutes	 	= require('./routes/controlpanel/tvshows');
 var cpanelFootageRoutes	 	= require('./routes/controlpanel/footage');
 var cpanelPlaylistsRoutes	= require('./routes/controlpanel/playlists');
 var cpanelGalleryRoutes		= require('./routes/controlpanel/gallery');
+var cpanelAjax		 		= require('./routes/controlpanel/ajax');
 
 
 
@@ -56,7 +57,7 @@ module.exports = function(app) {
 
 	// ajax //
 	//app.get('/ajax*', ajax.get);
-	app.post('/ajax*', ajax.post);
+	//app.post('/ajax*', ajax.post);
 
 	// performers //
 	app.get('/performers*', performersRoutes.get);
@@ -90,7 +91,11 @@ module.exports = function(app) {
 	//app.get('/controlpanel', cpanelRoutes.get);
 	//app.post('/controlpanel', cpanelRoutes.post);
 
-	// local login //
+    // cpanel ajax //
+    //app.get('/controlpanel/ajax*', ajax.get);
+    app.post('/controlpanel/ajax*', cpanelAjax.post);
+
+    // local login //
 	app.post('/controlpanel/login/', cpanelLoginRoutes.post);
 	app.get('/controlpanel/login', cpanelLoginRoutes.get);
 

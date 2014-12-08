@@ -194,3 +194,9 @@ a:hover img {
   border: 1px solid #eee;
   background-color: #fff;
 }
+.datepicker {
+  padding: 0;
+}
+.glyphicon-calendar {
+  cursor: pointer;
+}

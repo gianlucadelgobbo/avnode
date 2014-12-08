@@ -7,7 +7,7 @@ block content
 				legend
 					.clearfix
 						.pull-left=title
-						button.btn.btn-primary.pull-right(type="button",onclick="$('#playerPreview').hide();$('#file-uploader').show();return false")=__("Create a new crew")
+						a.btn.btn-primary.pull-right(type="button",href="/controlpanel/crews/new/")=__("Create a new crew")
 				.row.main-list
 					- for(var a=0;a<result.length;a++)
 						- var box = result[a]

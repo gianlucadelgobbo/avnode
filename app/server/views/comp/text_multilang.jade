@@ -8,7 +8,7 @@
 			each val, key in _config.locales_labels
 				- if (getLocale()!=key)
 					li
-						a(href="#",onclick="$(this).parent().parent().find('li').attr('class','');$(this).parent().attr('class','active');$(this).parent().parent().parent().parent().find('textarea').hide();$('textarea."+key+"').removeClass('hide').show();return false;")=val
+						a(href="#",onclick="$(this).parent().parent().find('li').attr('class','');$(this).parent().attr('class','active');$(this).parent().parent().parent().parent().find('textarea').hide();$('textarea."+key+"').removeClass('hide').show();return false;")!=val
 	.col-md-10
 		textarea.form-control(name="text["+getLocale()+"]",rows="20",class=getLocale())=(result.text && result.text[getLocale()] ? result.text[getLocale()] : "")
 		each val, key in _config.locales_labels

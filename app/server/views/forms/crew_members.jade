@@ -13,9 +13,9 @@ block content
 						input(name="_id", value=result._id, type="hidden")
 						input(name="crew_name", value=result.display_name, type="hidden")
 						.pull-left=title
-						button.btn.btn-primary.pull-right(type="button",onclick="showModal('search_members','search_members',updateMembers);return false")=__("Add member")
+						button.btn.btn-primary.pull-right(type="button",onclick="showModal('search_members','search_members');return false")=__("Add member")
 					.main-list
-						each p,key in result.members
+						- each p,key in result.members
 							.alert.alert-info
 								.clearfix
 									.pull-left
@@ -37,4 +37,21 @@ block content
 								placeholder: "ui-state-highlight"
 							}).disableSelection();
 						});
+					h4(class="main-list-notconfirmed-title"+(result.membersnotconfirmed && result.membersnotconfirmed.length ? "" : " hide"))=__("Waiting member confirm")
+					.main-list-notconfirmed
+						- if (result.membersnotconfirmed)
+							- each p,key in result.membersnotconfirmed
+								.alert.alert-info
+									.clearfix
+										.pull-left
+											b=p.data.display_name
+											input(name="membersnotconfirmed[]",type="hidden",value=JSON.stringify(p.data))
+										.pull-right
+											- if (p.data._id!=user._id)
+											a(href="#",onclick="deleteTemp(this,'"+p._id+"');return false;")
+												i.glyphicon.glyphicon-remove
+											!="&nbsp;&nbsp;&nbsp;"
+											a(href="/"+p.data.permalink+"/",target="_blank")
+												i.glyphicon.glyphicon-eye-open
 	include ../modals/search_members
+	include ../modals/errors
