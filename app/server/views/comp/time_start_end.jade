@@ -2,14 +2,14 @@
 .form-group
 	label.col-sm-2.control-label=__("Start time")+" "+(index+1)
 	.col-sm-10
-		select.form-control(name="date_time_venue[index][start_time]",autocomplete="off")
+		select.form-control(name="date_time_venue["+index+"][start_time]",autocomplete="off")
 			option=__("Choose")
 				each hour in hours
 					option(value=hour,selected=(result.date_time_venue[index].start_time == hour ? "selected" : undefined))=hour
 .form-group
 	label.col-sm-2.control-label=__("End time")+" "+(index+1)
 	.col-sm-10
-		select.form-control(name="date_time_venue[index][end_time]",autocomplete="off")
+		select.form-control(name="date_time_venue["+index+"][end_time]",autocomplete="off")
 			option=__("Choose")
 				each hour in hours
 					option(value=hour,selected=(result.date_time_venue[index].end_time == hour ? "selected" : undefined))=hour

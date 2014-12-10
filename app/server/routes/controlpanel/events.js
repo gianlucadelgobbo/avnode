@@ -33,6 +33,7 @@ exports.get = function get(req, res) {
 			console.dir(p);
 			DB.canIeditThis("events", {"permalink":params2[0]}, req.session.passport.user, function (result) {
 				if (result) {
+                    console.log(result);
 					var sez = "events";
 					if (params2.length==1) {
 						var subsez = "public";
@@ -87,10 +88,11 @@ exports.post = function get(req, res) {
 					  		for(item in o) {
 					  			newItem[item] = o[item];
 					  		}
-							console.dir("CAZZO");
+                            console.dir(o);
+                            console.dir("CAZZO");
 							console.dir(newItem);
-					  		DB.users.save(newItem, {safe:true}, function(e, success) {
-							  	DB.users.findOne({_id:result._id},function(e, result3) {
+					  		DB.events.save(newItem, {safe:true}, function(e, success) {
+					  		  	DB.events.findOne({_id:result._id},function(e, result3) {
 							  		result3.form = form;
 							  		result3.collection = sez;
 							  		DB.updateEventRel(result._id, function(success) {
@@ -98,7 +100,9 @@ exports.post = function get(req, res) {
 							  		});
 						  		});
 					  		});
-						}
+                            /*
+                            */
+                        }
 					} else {
 						res.render('forms/'+form, {form:"user_public", title:result.title+": "+titles[subsez], sez:sez, subsez:subsez, countries: CT, result:req.body, msg:{e:errors},Fnc:Fnc, user : req.session.passport.user });
 					}

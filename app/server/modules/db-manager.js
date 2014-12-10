@@ -347,7 +347,7 @@ DB.updateEventRel = function(id, callback) {
 					if (add) subrecord.events.push(minievent);
 					DB.users.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir(": "+conta);
+						console.dir(" : "+conta);
 						if (conta==subrecords.length) {
 							status.users = true;
 							var end = true
@@ -372,20 +372,17 @@ DB.updateEventRel = function(id, callback) {
 			var conta = 0;
 			if (subrecords.length) {
 				subrecords.forEach(function(subrecord){
-                    console.log("subrecord gallery");
-                    console.log(subrecord);
-                    /*
 					var add = true;
-					for (var a=0;a<subrecord.performances.length;a++) {
-						if (subrecord.performances[a]._id.equals(id)) {
-							subrecord.performances[a] = minievent;
+					for (var a=0;a<subrecord.events.length;a++) {
+						if (subrecord.events[a]._id.equals(id)) {
+							subrecord.events[a] = minievent;
 							add = false;
 						}
 					}
-					if (add) subrecord.performances.push(minievent);
+					if (add) subrecord.events.push(minievent);
 					DB.performances.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir(""+q+": "+conta);
+						console.dir(" : "+conta);
 						if (conta==subrecords.length) {
 							status.performances = true;
 							var end = true
@@ -393,7 +390,6 @@ DB.updateEventRel = function(id, callback) {
 							if (end) callback(true);
 						}
 					});
-					*/
 				});
 			} else {
 				status.performances = true;
@@ -411,20 +407,19 @@ DB.updateEventRel = function(id, callback) {
 			var conta = 0;
 			if (subrecords.length) {
 				subrecords.forEach(function(subrecord){
-                    console.log("subrecord gallery");
+                    console.log("subrecord GALLERY");
                     console.log(subrecord);
-					/*
 					var add = true;
-∑					for (var a=0;a<subrecord.gallery.length;a++) {
-						if (subrecord.gallery[a]._id.equals(id)) {
-							subrecord.gallery[a] = minievent;
+					for (var a=0;a<subrecord.events.length;a++) {
+                        if (subrecord.events[a]._id && subrecord.events[a]._id.equals(id)) {
+							subrecord.events[a] = minievent;
 							add = false;
 						}
 					}
-					if (add) subrecord.gallery.push(minievent);
+					if (add) subrecord.events.push(minievent);
 					DB.gallery.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir(""+q+": "+conta);
+						console.dir(" : "+conta);
 						if (conta==subrecords.length) {
 							status.gallery = true;
 							var end = true
@@ -432,7 +427,6 @@ DB.updateEventRel = function(id, callback) {
 							if (end) callback(true);
 						}
 					});
-					*/
 				});
 			} else {
 				status.gallery = true;
