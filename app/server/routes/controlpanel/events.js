@@ -88,9 +88,6 @@ exports.post = function get(req, res) {
 					  		for(item in o) {
 					  			newItem[item] = o[item];
 					  		}
-                            console.dir(o);
-                            console.dir("CAZZO");
-							console.dir(newItem);
 					  		DB.events.save(newItem, {safe:true}, function(e, success) {
 					  		  	DB.events.findOne({_id:result._id},function(e, result3) {
 							  		result3.form = form;
