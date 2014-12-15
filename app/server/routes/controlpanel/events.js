@@ -46,7 +46,13 @@ exports.get = function get(req, res) {
 					} else if (params2[1]=="partners") {
 						var subsez = "partners";
 						var msg = [];
-						res.render('forms/event_partners', {title:result.title+": "+__("Partners"), sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
+                        DB.temp.find({doc_id:result._id.toString()}).toArray(function(e, result2) {
+                            console.dir("NOT CONFIRMED");
+                            console.dir(result2);
+                            if (result2.length) result.partnersnotconfirmed = result2;
+                            //res.render('forms/crew_partners', {title:result.display_name+": "+__("Partners"), sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
+                            res.render('forms/event_partners', {title:result.title+": "+__("Partners"), sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
+                        });
 					} else if (params2[1]=="performances") {
 						var subsez = "performances";
 						var msg = [];

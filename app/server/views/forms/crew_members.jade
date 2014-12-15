@@ -1,7 +1,5 @@
 extends ../layout
 block content
-	- console.log("AAAAA")
-	- console.log(result)
 	.tabbable.tabs-left.row
 		include ../comp/cp_menu
 		.tab-content.col-md-10
@@ -12,15 +10,16 @@ block content
 						input(name="collection", value="users", type="hidden")
 						input(name="_id", value=result._id, type="hidden")
 						input(name="crew_name", value=result.display_name, type="hidden")
+						input(name="permalink", value=result.permalink, type="hidden")
 						.pull-left=title
-						button.btn.btn-primary.pull-right(type="button",onclick="showModal('search_members','search_members');return false")=__("Add member")
+						button.btn.btn-primary.pull-right(type="button",onclick="showModal('search_and_add','search_and_add');return false")=__("Add member")
 					.main-list
 						- each p,key in result.members
 							.alert.alert-info
 								.clearfix
 									.pull-left
 										b=p.display_name
-										input(name="members[]",type="hidden",value=JSON.stringify(p))
+										input.exclude(name="members[]",type="hidden",value=JSON.stringify(p))
 									.pull-right
 										- if (p._id!=user._id)
 										a(href="#",onclick="deleteMember(this,'"+p._id+"');return false;")
@@ -53,5 +52,12 @@ block content
 											!="&nbsp;&nbsp;&nbsp;"
 											a(href="/"+p.data.permalink+"/",target="_blank")
 												i.glyphicon.glyphicon-eye-open
-	include ../modals/search_members
+	- title=__("Add members")
+	- placeholder=__("Member name")
+	include ../modals/search_and_add
+		script(type="text/javascript").
+			$("#search_form").submit(function( event ) {
+				event.preventDefault();
+				searchMembers();
+			});
 	include ../modals/errors

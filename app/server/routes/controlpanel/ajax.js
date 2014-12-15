@@ -50,6 +50,15 @@ exports.post = function get(req, res) {
                     res.sendStatus(404);
                 }
 // EVENT PARTNER
+            } else if (pathArray[2] == "searchPartners") {
+                if (req.body.search) {
+                    DB.users.find({"display_name": new RegExp(req.body.search, "i"), "is_crew": 1}, {fields: {_id: 1, old_id: 1, display_name: 1, permalink: 1, files: 1, stats: 1, emails: 1}}).toArray(function (e, o) {
+                        console.dir(o);
+                        res.send(o);
+                    });
+                } else {
+                    res.sendStatus(404);
+                }
             } else if (pathArray[2] == "updatePartners") {
                 if (req.body.partners && req.body.collection) {
                     DB[req.body.collection].findOne({"_id": new ObjectID(req.body._id)}, function (e, o) {
@@ -147,17 +156,11 @@ exports.post = function get(req, res) {
                  }
                  */
 // CREW MEMBERS
-            } else if (pathArray[2] == "findMembers") {
-                if (req.body.search && req.body.collection) {
-                    DB[req.body.collection].find({"display_name": new RegExp(req.body.search, "i"), "is_crew": 0}, {fields: {_id: 1, old_id: 1, display_name: 1, permalink: 1, files: 1, stats: 1, emails: 1}}).toArray(function (e, o) {
+            } else if (pathArray[2] == "searchMembers") {
+                if (req.body.search) {
+                    DB.users.find({"display_name": new RegExp(req.body.search, "i"), "is_crew": 0}, {fields: {_id: 1, old_id: 1, display_name: 1, permalink: 1, files: 1, stats: 1, emails: 1}}).toArray(function (e, o) {
                         console.dir(o);
                         res.send(o);
-                        /*
-                         DB[req.body.collection].save(o, {safe:true}, function(e, success) {
-                         console.dir(o);
-                         res.send(o);
-                         });
-                         */
                     });
                 } else {
                     res.sendStatus(404);
@@ -175,7 +178,7 @@ exports.post = function get(req, res) {
                     res.sendStatus(404);
                 }
             } else if (pathArray[2] == "inviteMember") {
-                if (req.body.data && req.body.collection) {
+                if (req.body.data) {
                     DB.saltAndHash(req.body._id + req.body.data._id, function (hash) {
                         req.body.code = hash;
                         req.body.act = "inviteMember";
@@ -184,8 +187,9 @@ exports.post = function get(req, res) {
                         req.body.msg = {title: __("Accept invitation to") + ": " + req.body.crew_name, text: __("Invitation accepted with success, please continue")};
                         console.dir("insert temp:");
                         console.dir(req.body);
+                        console.dir(req.session.passport.user.display_name);
                         DB.temp.insert(req.body, {safe: true}, function (err, record) {
-                            text = _config.siteurl + "/confirm/?code=" + req.body.code;
+                            text = "Ciao "+req.body.data.display_name+",\n"+req.session.passport.user.display_name+" invited you to be member of " + req.body.crew_name+" " + _config.siteurl+"/"+req.body.permalink+"\n\nTo accept the invitation click here:\n"+_config.siteurl + "/confirm/?code=" + req.body.code+"\n\n"+_config.signature;
                             EM.sendMail({
                                 text: text,
                                 //to:      req.body.data.emails[0].email,

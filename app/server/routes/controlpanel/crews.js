@@ -34,7 +34,6 @@ exports.get = function get(req, res) {
                 res.render('forms/crew_public', {form:"crew_public", title:__("Create a new crew"), sez:sez, subsez:subsez, result:{}, msg:msg,Fnc:Fnc, user : req.session.passport.user });
             } else {
                 DB.canIeditThis("users", {"permalink":params2[0]}, req.session.passport.user, function (result) {
-                    console.dir(result);
                     if (result) {
                         var sez = "performers";
                         if (params2.length==1) {

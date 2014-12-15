@@ -124,6 +124,9 @@ function invitePartner(id) {
 			if(data.success){
 				$('#'+id).parent().find("button").html(__("Invited"));
 				$('#'+id).parent().find(".loading-box").remove();
+                $('.main-list-notconfirmed').append('<div class="alert alert-info"><div class="clearfix"><div class="pull-left"><b>'+data.display_name+'</b><input type="hidden" value="'+JSON.stringify(data)+'" name="partnersnotconfirmed[]"></div><div class="pull-right"><a onclick="deleteTemp(this,\''+data._id.toString()+'\');return false;" href="#"><i class="glyphicon glyphicon-remove"></i></a>&nbsp;&nbsp;&nbsp;<a target="_blank" href="/'+data.permalink+'/"><i class="glyphicon glyphicon-eye-open"></i></a></div></div></div>');
+                $(".main-list-notconfirmed-title").show();
+                $(".main-list-notconfirmed-title").removeClass("hide");
 			} else {
 				$('#'+id).parent().find("button").removeAttr("disabled")
 				$('#'+id).parent().find("button").html(__("Invite"));
@@ -202,6 +205,45 @@ function recreatePartnersEvent() {
 	});
 }
 
+function searchPartners(val) {
+    var partners = [];
+    var partnersnotconfirmed = [];
+    $("input[name=partners\\[\\]]").each(function(){
+        partners.push(JSON.parse($(this).val())._id);
+    });
+    $("input[name=partnersnotconfirmed\\[\\]]").each(function(){
+        partnersnotconfirmed.push(JSON.parse($(this).val())._id);
+    });
+    ajax = $.ajax({
+        url: "/controlpanel/ajax/searchPartners/",
+        type: 'POST',
+        data:{search:$('#search_input').val()},
+        success: function(data) {
+            var str = "";
+            for (var a=0;a<data.length;a++) {
+                var status = "";
+                if (partners.length && partners.indexOf(data[a]._id.toString())!=-1){
+                    status = "partner";
+                } else if (partnersnotconfirmed.length && partnersnotconfirmed.indexOf(data[a]._id.toString())!=-1){
+                    status = "partnernotconfirmed";
+                }
+                str+="<div class=\"alert alert-info\"><div class=\"clearfix\">\n";
+                str+="<h4 class=\"pull-left\">"+data[a].display_name+"</h4>\n";
+                str+="<span class=\"pull-right\">\n";
+                str+="<input type=\"hidden\" id=\""+data[a]._id+"\" value='"+JSON.stringify(data[a])+"' />\n";
+                str+="<button class=\"btn btn-small"+(status ? " disabled" : "")+"\" "+(!status ? "onclick=\"invitePartner('"+data[a]._id.toString()+"');\"" : "")+">"+(status=="partner" ? __("Already partner") : (status=="partnernotconfirmed" ? __("Already invited") : __("Invite")))+"</button>\n";
+                str+="</span>\n";
+                str+="</div></div>\n";
+            }
+            if (str) {
+                str = "<hr />"+str+"\n";
+            } else {
+                str = __("No partners found");
+            }
+            $("#search_result").html(str);
+        }
+    });
+}
 
 // MEMBERS
 
@@ -245,7 +287,8 @@ function deleteMember(t,id) {
 
 function inviteMember(id) {
 	var _id = $('[name="_id"]').val();
-	var crew_name = $('[name="crew_name"]').val();
+    var crew_name = $('[name="crew_name"]').val();
+    var permalink = $('[name="permalink"]').val();
 	var collection = "users";
 	var data = JSON.parse($('#'+id).val());
 	$('#'+id).parent().find("button").parent().prepend("<span class=\"loading-box\"><img src=\"/img/loading-small.gif\" /></span>");
@@ -254,7 +297,7 @@ function inviteMember(id) {
 	$.ajax({
 		url: "/controlpanel/ajax/inviteMember/",
 		type: 'POST',
-		data:{doc_id:_id, data:data, crew_name:crew_name, collection:collection},
+		data:{doc_id:_id, data:data, crew_name:crew_name, permalink:permalink},
 		success: function(res) {
 			console.log(res);
 			if(res.success){
@@ -270,9 +313,7 @@ function inviteMember(id) {
 		}
 	});
 }
-function findMembers(val) {
-	var _id = $('[name="_id"]').val();
-    var collection = $('[name="collection"]').val();
+function searchMembers(val) {
     var members = [];
     var membersnotconfirmed = [];
     $("input[name=members\\[\\]]").each(function(){
@@ -282,9 +323,9 @@ function findMembers(val) {
         membersnotconfirmed.push(JSON.parse($(this).val())._id);
     });
 	ajax = $.ajax({
-		url: "/controlpanel/ajax/findMembers/",
+		url: "/controlpanel/ajax/searchMembers/",
 		type: 'POST',
-		data:{_id:_id, search:val, collection:collection},
+		data:{search:$('#search_input').val()},
 		success: function(data) {
 			var str = "";
 			for (var a=0;a<data.length;a++) {
@@ -307,14 +348,7 @@ function findMembers(val) {
 			} else {
 				str = __("No members found");
 			}
-			$("#search_result").append(str);
-			if(data.success){
-				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-ok\"></i> "+data.msg)
-				$('#permalink').parent().parent().parent().removeClass("error");
-			} else {
-				$('#permalink').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-remove\"></i> "+data.msg)
-				$('#permalink').parent().parent().parent().addClass("error");
-			}
+			$("#search_result").html(str);
 		}
 	});
 }
