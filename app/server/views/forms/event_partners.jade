@@ -30,7 +30,7 @@ block content
 														b=p.display_name
 														input(type="hidden",name="partners[]",value=JSON.stringify(p))
 													.pull-right
-														a(href="#",onclick="deletePartner(this,'"+p._id+"');return false;")
+														a(href="#",onclick="deletePartner(this,'"+p._id+"'); return false;")
 															i.glyphicon.glyphicon-remove
 														!="&nbsp;&nbsp;&nbsp;"
 														a(href="/"+p.permalink+"/",target="_blank")
@@ -60,7 +60,7 @@ block content
 										.pull-right
 											- if (p.data._id!=user._id)
 											a(href="#",onclick="deleteTemp(this,'"+p._id+"');return false;")
-											i.glyphicon.glyphicon-remove
+												i.glyphicon.glyphicon-remove
 											!="&nbsp;&nbsp;&nbsp;"
 											a(href="/"+p.data.permalink+"/",target="_blank")
 												i.glyphicon.glyphicon-eye-open

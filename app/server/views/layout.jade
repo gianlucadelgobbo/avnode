@@ -6,7 +6,7 @@ html(lang=_config.lang)
 		meta(name="author", content="FLYER COMMUNICATION, Gianluca Del Gobbo, Flavio Distefano")
 		meta(name="robots", content="all")
 		meta(name="keywords", content=__("meta-keywords"))
-		meta(name="description", content=description)
+		meta(name="description", content=typeof description !== 'undefined' && description ? description : "")
 
 		link(type="text/css", href="/bootstrap/dist/css/bootstrap.min.css", rel="stylesheet")
 		link(type="text/css", href="/bootstrap-datepicker/css/datepicker.css", rel="stylesheet")
@@ -15,7 +15,7 @@ html(lang=_config.lang)
 		link(type="text/css", href="/modules/jquery-ui/bootstrap-jquery-ui-1.10.1.custom.css", rel="stylesheet")
 		link(type="text/css", href="/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css", rel="stylesheet")
 		link(type="text/css", href="/css/style.css", rel="stylesheet")
-		script(type="text/javascript", src="/jquery/dist/jquery.min.js")
+		script(type="text/javascript", src="/jquery/jquery.min.js")
 
 
 	body
@@ -28,7 +28,7 @@ html(lang=_config.lang)
 							input(type="hidden", name="cof", value="FORID:10")
 							input(type="hidden", name="ie", value="UTF-8")
 							.form-group
-								input.form-control(type="text",	name="q", size="31", value=q)
+								input.form-control(type="text",	name="q", size="31", value=typeof q !== 'undefined' && q ? q : "")
 								button.btn.btn-default(type="submit", name="sa")=__("Cerca")
 									//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
 						ul.nav.navbar-nav
@@ -45,7 +45,7 @@ html(lang=_config.lang)
 						h2.col-md-4.logo
 							a(href="/", title="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
 								img(src="/img/logo.gif", alt="AV node - PERFORMING VIDEO NETWORK")
-						.col-md-8=bannerTop
+						.col-md-8=typeof(bannerTop) !== 'undefined' && bannerTop ? "navbar-fixed-top" : undefined
 					
 			nav.navbar.navbar-inverse#menu(class=(typeof(userpage) !== 'undefined' && userpage ? "navbar-fixed-top" : undefined))
 				//.navbar-fixed-top
@@ -55,7 +55,7 @@ html(lang=_config.lang)
 							a.navbar-brand(href="/")=" AV Node"
 					ul.nav.navbar-nav
 						- each item in _config.sections
-							- if (item.view_list)
+							- if (item.view_list && typeof(sez) !== 'undefined')
 								li(class=(_config.sections[sez] && _config.sections[sez].basepath==item.basepath ? "active" : undefined))
 									a(href="/"+item.basepath+"/")=item.title
 					ul.nav.navbar-nav.pull-right
@@ -67,9 +67,10 @@ html(lang=_config.lang)
 						- else
 							li
 								a(href="/controlpanel/logout/")=__("Logout")
-							li(style="position:relative")
-								a(href="/"+user_name+"/notifications/", title=__("Visualizza le notifiche"))=__("Notifiche")
-									span.jewelCount=notifiche
+							- if (typeof notifiche !== "undefined")
+								li(style="position:relative")
+									a(href="/"+user.user_name+"/notifications/", title=__("Visualizza le notifiche"))=__("Notifiche")
+										span.jewelCount=(typeof(notifiche) !== "undefined" && notifiche ? notifiche : 0)
 						li.dropdown
 							a.dropdown-toggle(href="#", data-toggle="dropdown")
 								!=__("Nuovo contenuto")+" "
@@ -130,9 +131,8 @@ html(lang=_config.lang)
 		script(type="text/javascript", src="/js/script.js")
 		- if(user)
 			script(type="text/javascript", src="/js/script-admin.js")
-		- if(reply && user)
-			script(type="text/javascript")
-			//
+		// - if(typeof(reply)!== undefined && reply && user)
+			script(type="text/javascript").
 				$(document).ready(function(){
 					sendDelay();
 				});
