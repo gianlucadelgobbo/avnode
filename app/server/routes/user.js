@@ -17,12 +17,12 @@ exports.get = function get(req, res) {
 						if (pathArray.length > 3) {
 							if (pathArray.length > 4) {
 								DB.users.findOne({permalink:pathArray[0]}, function(e, result) {
-									res.send(404);
+									res.sendStatus(404);
 									/*
 									if (result) {
 										res.render('performer', { userpage:true, title: result.display_name, result : result, Fnc:Fnc, user : req.session.passport.user });
 									} else {
-										res.send(404);
+										res.sendStatus(404);
 									}
 									*/
 								});
@@ -41,11 +41,11 @@ exports.get = function get(req, res) {
 											res.render('performer_dett_'+pathArray[1]+"_single", { userpage:true, title: result.display_name+": "+_config.sections[pathArray[1]].title+": "+_config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, dettdett : dettdett, Fnc:Fnc, user : req.session.passport.user });
 										}
 									} else {
-										res.send(404);
+										res.sendStatus(404);
 									}
 								});
 							} else {
-								res.send(404);
+								res.sendStatus(404);
 							}
 						} else if (_config.sections[pathArray[1]]) {
 							DB[_config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
@@ -58,25 +58,27 @@ exports.get = function get(req, res) {
 										res.render('performer_dett_'+pathArray[1], { userpage:true, title: result.display_name+": "+_config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : req.session.passport.user });
 									}
 								} else {
-									res.send(404);
+									res.sendStatus(404);
 								}
 							});
 						} else {
-							res.send(404);
+							res.sendStatus(404);
 						}
 					} else if (_config.sections[pathArray[1]]) {
 						res.render('performer_list', { userpage:true, title: result.display_name+": "+_config.sections[pathArray[1]].title, sez:pathArray[1], result : result, Fnc:Fnc, user : req.session.passport.user });
 					} else {
-						res.send(404);
+						res.sendStatus(404);
 					}
 				} else {
+					console.log("ecchime");
+					console.log(result.files);
 					res.render('performer', { userpage:true, title: result.display_name, result : result, Fnc:Fnc, user : req.session.passport.user });
 				}
 			} else {
-				res.send(404);
+				res.sendStatus(404);
 			}
 		});
 	} else {
-		res.send(404);
+		res.sendStatus(404);
 	}
 };

@@ -47,15 +47,17 @@ module.exports = function(app, exp) {
 	app.use(flash());
 
     passport.serializeUser(function(user, done) {
+		console.log("serializeUser");
+		console.log(user);
         done(null, user);
     });
     passport.deserializeUser(function(user, done) {
         DB.users.findOne({_id:new ObjectID(user._id)}, function(err, user){
-            if(!err) done(null, user);
-            else done(err, null);
+			if(!err) done(null, user);
+			else done(err, null);
         });
     });
-    passport.use('local', new LocalStrategy(function(username, password, done) {
+    passport.use(new LocalStrategy(function(username, password, done) {
 		DB.validateFormLogin(username, password, function(e, o) {
 			if (e && e.length) {
 				return done(null, false, { message: e[0].m });

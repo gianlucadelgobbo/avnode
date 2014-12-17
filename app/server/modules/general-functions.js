@@ -140,7 +140,9 @@ exports.getFileFormat = function (obj, w, h) {
 			var imgExt = ['jpg','jpeg','gif','png'];
 			var originalImg = fs.existsSync(_config.sitepath+_config.uploadpath+folder+"preview_files/"+previewfile) ? _config.sitepath+_config.uploadpath+folder+"preview_files/"+previewfile : fs.existsSync(_config.sitepath+_config.uploadpath+folder+file) && imgExt.indexOf(ext)!=-1  ? _config.sitepath+_config.uploadpath+folder+file : false;
 			if (originalImg) {
+				console.log("CROPPO");
 				mkdirp.sync(_config.sitepath+_config.uploadpath+formatfolder);
+				console.log("croppato"+_config.sitepath+_config.uploadpath+formatfolder);
 				im.crop({
 					srcPath: originalImg,
 					dstPath: _config.sitepath+_config.uploadpath+formatfolder+formatfile,
@@ -149,16 +151,18 @@ exports.getFileFormat = function (obj, w, h) {
 					quality: 1,
 					gravity: "North"
 				}, function(err, stdout, stderr){
-					//console.log("croppato"+_config.sitepath+_config.uploadpath+formatfolder+formatfile);
-					//console.dir(err);
-					//console.dir(stdout);
-					//console.dir(stderr);
-					//console.log("croppato"+formatfolder+formatfile);
+
+					if (err) return console.error(err.stack || err);
+					console.log("CROPPO2");
+					console.log("croppato"+_config.sitepath+_config.uploadpath+formatfolder+formatfile);
+					console.dir(err);
+					console.dir(stdout);
+					console.dir(stderr);
+					console.log("croppato"+formatfolder+formatfile);
+					return formatfolder+formatfile;
 				});
-				return formatfolder+formatfile;
 			} else {
 				return "/warehouse/defaults/"+w+"x"+h+".jpg";
-				//return "/warehouse/defaults/"+w+"x"+h+".jpg";
 			}
 		}
 	} else {

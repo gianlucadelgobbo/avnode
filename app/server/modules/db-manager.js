@@ -40,7 +40,7 @@ module.exports = DB;
 DB.validateFormLogin = function (login, password,callback) {
     var e = [];
 	console.log("stocazzo");
-	console.log(login);
+	//console.log(login);
     DB.users.findOne({login:login}, function(err, result) {
 		console.log(result);
         if (result == null){
@@ -50,10 +50,12 @@ DB.validateFormLogin = function (login, password,callback) {
         } else {
             if (result.password) {
                 bcrypt.compare(password, result.password, function(err, res) {
-                    if (res) {
-                        //console.dir("login interno");
+					console.dir("login interno");
+					if (res) {
+						console.dir("login success");
                         callback(e, result);
                     } else {
+						console.dir("login failed");
                         e.push({name:"user",m:__("Login failed")});
                         callback(e, result);
                     }
