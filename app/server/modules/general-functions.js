@@ -159,8 +159,8 @@ exports.getFileFormat = function (obj, w, h) {
 					console.dir(stdout);
 					console.dir(stderr);
 					console.log("croppato"+formatfolder+formatfile);
-					return formatfolder+formatfile;
 				});
+                return formatfolder+formatfile;
 			} else {
 				return "/warehouse/defaults/"+w+"x"+h+".jpg";
 			}
