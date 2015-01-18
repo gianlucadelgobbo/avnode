@@ -4,9 +4,6 @@ var express = require('express');
 var app = express();
 
 app.set('port', _config.port);
-app.set('views', './app/server/views');
-app.set('view engine', 'jade');
-
 app.root = __dirname;
 
 require('./app/server/setup')(app, express);
