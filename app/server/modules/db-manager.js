@@ -16,24 +16,24 @@ var ObjectID = require('mongodb').ObjectID;
 var request = require('request');
 
 var DB = {};
-	DB.db = new Db(dbName, new Server(dbHost, dbPort, {auto_reconnect: true,safe:true}, {}));
-	DB.db.open(function(e, d){
-		if (e) {
-			console.log(e);
-		} else {
-            DB.users = 			DB.db.collection('users');
-            DB.footage = 		DB.db.collection('footage');
-            DB.playlists = 		DB.db.collection('playlists');
-            DB.performances = 	DB.db.collection('performances');
-            DB.events = 		DB.db.collection('events');
-            DB.tvshow = 		DB.db.collection('tvshow');
-            DB.gallery = 		DB.db.collection('gallery');
-            DB.categories = 	DB.db.collection('categories');
-            DB.temp_users = 	DB.db.collection('temp_users');
-            DB.temp = 			DB.db.collection('temp');
-            console.log('connected to database :: ' + dbName);
-		}
-	});
+DB.db = new Db(dbName, new Server(dbHost, dbPort, {auto_reconnect: true,safe:true}, {}));
+DB.db.open(function(e, d){
+    if (e) {
+        console.log(e);
+    } else {
+        DB.users = 			DB.db.collection('users');
+        DB.footage = 		DB.db.collection('footage');
+        DB.playlists = 		DB.db.collection('playlists');
+        DB.performances = 	DB.db.collection('performances');
+        DB.events = 		DB.db.collection('events');
+        DB.tvshow = 		DB.db.collection('tvshow');
+        DB.gallery = 		DB.db.collection('gallery');
+        DB.categories = 	DB.db.collection('categories');
+        DB.temp_users = 	DB.db.collection('temp_users');
+        DB.temp = 			DB.db.collection('temp');
+        console.log('connected to database :: ' + dbName);
+    }
+});
 
 module.exports = DB;
 
