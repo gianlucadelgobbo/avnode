@@ -28,6 +28,7 @@ i18n.configure({
 module.exports = function(app, exp) {
 	//app.use(logger('combined'));
 	app.use(i18n.init);
+    app.set('port', _config.port);
 	app.set('views', './app/server/views');
 	app.set('view engine', 'jade');
 	app.set('view options', { doctype : 'html', layout: './app/server/views/layout.jade', pretty : true });
