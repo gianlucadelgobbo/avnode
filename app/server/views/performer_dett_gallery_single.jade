@@ -22,11 +22,11 @@
 					- if (dett.categories[item] && dett.categories[item].ancestors && dett.categories[item].ancestors[0].permalink=="lv-projects-categories")
 						li
 							!=__("Type")+": "
-							a(href="/"+_config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
+							a(href="/"+config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
 hr
 #flxerPlayer
 	- dettdett.files = [{file:'/'+dettdett.folder+'/'+dettdett.name}]
-	//a(href=dettdett.files[0].file,onclick="swfobject.embedSWF('/fp/flxerPlayer.swf?cnt="+_config.siteurl+"/"+result.permalink+"/tvshows/"+dettdett.permalink+"/?output=xml"+"', 'flxerPlayer', '700', '394', '9.0.0','/fp/expressInstall.swf');return false;")
+	//a(href=dettdett.files[0].file,onclick="swfobject.embedSWF('/fp/flxerPlayer.swf?cnt="+config.siteurl+"/"+result.permalink+"/tvshows/"+dettdett.permalink+"/?output=xml"+"', 'flxerPlayer', '700', '394', '9.0.0','/fp/expressInstall.swf');return false;")
 	img.media-object(alt=__("Thumbnail of")+": "+dettdett.titolo, src=Fnc.getFileFormat(dettdett.files, 940, 0))
 hr
 .row

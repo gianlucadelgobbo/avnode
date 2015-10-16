@@ -15,7 +15,7 @@ block content
 			.col-md-8
 				h1=dett.title
 				- if (dett.subtitle)
-					h3=Fnc.getTextFormat(dett.subtitle, _config.lang, true)
+					h3=Fnc.getTextFormat(dett.subtitle, config.lang, true)
 				.row
 					.col-md-5
 						ul.nav.nav-list.user_dett_ul
@@ -47,24 +47,24 @@ block content
 								- if (dett.categories[item] && dett.categories[item].ancestors && dett.categories[item].ancestors[0].permalink=="lv-projects-categories")
 									li
 										!=__("Type")+": "
-										a(href="/"+_config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
+										a(href="/"+config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
 	hr
 	ul.nav.nav-tabs
 		li(class=sez=="events" ? "active" : undefined)
 			a(href="#about",data-toggle="tab")=__("About")
 		- if(dett.performances)
 			li
-				a(href="#performances",data-toggle="tab")=_config.sections["performances"].title+" ["+dett.performances.length+"]"
+				a(href="#performances",data-toggle="tab")=config.sections["performances"].title+" ["+dett.performances.length+"]"
 		- if(dett.partners)
 			li
 				a(href="#partners",data-toggle="tab")=__("Partners")+" ["+dett.partners.length+"]"
 		- if(dett.gallery)
 			li
-				a(href="#gallery",data-toggle="tab")=_config.sections["gallery"].title+" ["+dett.gallery.length+"]"
+				a(href="#gallery",data-toggle="tab")=config.sections["gallery"].title+" ["+dett.gallery.length+"]"
 	.tab-content.col-md-10
 		- if (dett.text)
 			#about.tab-pane.active
-				!=Fnc.getTextFormat(dett.text, _config.lang, true)
+				!=Fnc.getTextFormat(dett.text, config.lang, true)
 		- if (dett.performances)
 			#performances.tab-pane
 				- tree = {};

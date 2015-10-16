@@ -18,12 +18,13 @@ var //dependencies
     fs = require("fs"),
     rimraf = require("rimraf"),
     mkdirp = require("mkdirp"),
+		config = require('getconfig'),
 
 // paths/constants
     fileInputName = "qqfile",
-    uploadedFilesPath   = _config.uploadedFilesPath,
+    uploadedFilesPath   = config.uploadedFilesPath,
     chunkDirName        = "chunks",
-    maxFileSize         = _config.maxFileSize; // in bytes, 0 for unlimited
+    maxFileSize         = config.maxFileSize; // in bytes, 0 for unlimited
 
 
 exports.post = function post(req, res) {

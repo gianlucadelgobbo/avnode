@@ -3,11 +3,11 @@
 		b=__("Subtitle")
 	.col-sm-10
 .form-group
-	.col-md-2.control-label.small!=_config.locales_labels[_config.defaultLocale]
+	.col-md-2.control-label.small!=config.locales_labels[config.defaultLocale]
 	.col-sm-10
-		input.form-control(name="subtitle["+_config.defaultLocale+"]",class=_config.defaultLocale, type="text",value=result.subtitle[_config.defaultLocale])
-each val, key in _config.locales_labels
-	- if (_config.defaultLocale!=key)
+		input.form-control(name="subtitle["+config.defaultLocale+"]",class=config.defaultLocale, type="text",value=result.subtitle[config.defaultLocale])
+each val, key in config.locales_labels
+	- if (config.defaultLocale!=key)
 		.form-group
 			.col-md-2.control-label.small!=val
 			.col-sm-10

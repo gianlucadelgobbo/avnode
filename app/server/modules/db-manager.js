@@ -2,15 +2,16 @@ var bcrypt = require('bcrypt-nodejs');
 var Db = require('mongodb').Db;
 var Server = require('mongodb').Server;
 var Fnc = require('./general-functions');
+var config = require('getconfig');
 
-var dbPort = _config.dbPort;
-var dbHost = _config.dbHost;
-var dbName = _config.dbName;
+var dbPort = config.dbPort;
+var dbHost = config.dbHost;
+var dbName = config.dbName;
 
 var moment = require('moment');
 
 var accounting = require('accounting');
-accounting.settings = _config.accountingSettings;
+accounting.settings = config.accountingSettings;
 
 var ObjectID = require('mongodb').ObjectID;
 var request = require('request');
@@ -126,7 +127,7 @@ DB.facebookCreate = function(profile, callback) {
         profile.emails[a].public = 0;
         profile.emails[a].valid = 1;
         profile.emails[a].public = a===0 ? 1 :0;
-        profile.emails[a].mailinglists = _config.mailinglists;
+        profile.emails[a].mailinglists = config.mailinglists;
     }
     var o = {
         name: profile.name.givenName,
@@ -134,7 +135,7 @@ DB.facebookCreate = function(profile, callback) {
         display_name: profile.displayName,
         gender: profile.gender == 'male' ? 'M' : profile.gender == 'female' ? 'F' : 'Other',
         is_crew: 0,
-        lang: _config.locales.indexOf(lang),
+        lang: config.locales.indexOf(lang),
         public: 1,
         //birth_date: "Mon Feb 28 1966 00:00:00 GMT+0100 (CET)",
         creation_date: new Date(),
@@ -234,7 +235,7 @@ DB.googleCreate = function(profile, callback) {
         profile.emails[a].public = 0;
         profile.emails[a].valid = 1;
         profile.emails[a].public = a===0 ? 1 :0;
-        profile.emails[a].mailinglists = _config.mailinglists;
+        profile.emails[a].mailinglists = config.mailinglists;
     }
     var o = {
         name: profile.name.givenName,
@@ -242,7 +243,7 @@ DB.googleCreate = function(profile, callback) {
         display_name: profile.displayName,
         gender: profile.gender == 'male' ? 'M' : profile.gender == 'female' ? 'F' : 'Other',
         is_crew: 0,
-        lang: _config.locales.indexOf(lang),
+        lang: config.locales.indexOf(lang),
         public: 1,
         //birth_date: "Mon Feb 28 1966 00:00:00 GMT+0100 (CET)",
         creation_date: new Date(),

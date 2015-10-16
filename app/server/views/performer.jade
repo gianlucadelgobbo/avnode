@@ -4,7 +4,7 @@ block content
 	- if (result.text)
 		.page-header
 			h3=__("About")
-		!=Fnc.getTextFormat(result.text, _config.lang, true)
+		!=Fnc.getTextFormat(result.text, config.lang, true)
 	hr
 	- var rows = 1;
 	- blocks = [];
@@ -30,11 +30,11 @@ block content
 				- if (b+(c*cols)<blocks.length)
 					div(class="col-md-"+myspan)
 						- console.dir("stocazzo"+myspan)
-						h3=(blocks[b+(c*cols)] == "members" ? __("Members") : (blocks[b+(c*cols)] == "crews" ? __("Crews") : _config.sections[blocks[b+(c*cols)]].title))
+						h3=(blocks[b+(c*cols)] == "members" ? __("Members") : (blocks[b+(c*cols)] == "crews" ? __("Crews") : config.sections[blocks[b+(c*cols)]].title))
 						.main-list.row
 							- sez = sez
 							- span = 12
-							- for(var a=0;a<_config.usersListItems;a++)
+							- for(var a=0;a<config.usersListItems;a++)
 								- if (result[sez][a])
 									- var box = result[sez][a]
 									- if (sez == "performances")
@@ -53,8 +53,8 @@ block content
 										include comp/box_gallery
 									- if (sez == "crews")
 										include comp/box_performers
-							- if (result[sez].length>_config.usersListItems)
+							- if (result[sez].length>config.usersListItems)
 								.pull-right
-									a.btn(href="/"+result.permalink+"/"+_config.sections[blocks[b+(c*cols)]].basepath+"/")
+									a.btn(href="/"+result.permalink+"/"+config.sections[blocks[b+(c*cols)]].basepath+"/")
 										!=__("Show all")+" "
 										i.glyphicon.glyphicon-globe

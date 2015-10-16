@@ -24,15 +24,15 @@ block content
 									- console.dir(dett.categories[item])
 									- if (dett.categories[item] && dett.categories[item].ancestors && dett.categories[item].ancestors[0].permalink=="type")
 										li=__("Type")+": "
-											a(href="/"+_config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
+											a(href="/"+config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
 											- for(item2 in dett.categories)
 												- if (dett.categories[item2] && dett.categories[item2].ancestors && dett.categories[item].permalink!=dett.categories[item2].permalink && dett.categories[item2].ancestors[0].permalink.indexOf(dett.categories[item].permalink)!=-1 && dett.categories[item2].ancestors[0].permalink.indexOf("technique")!=-1)
 													li=__("Technique")+": "
-														a(href="/"+_config.sections[sez].basepath+"/"+dett.categories[item2].permalink+"/")=dett.categories[item2].name
+														a(href="/"+config.sections[sez].basepath+"/"+dett.categories[item2].permalink+"/")=dett.categories[item2].name
 														- for(item3 in dett.categories)
 															- if (dett.categories[item3] && dett.categories[item3].ancestors && dett.categories[item].permalink!=dett.categories[item3].permalink && dett.categories[item3].ancestors[0].permalink.indexOf("genere")!=-1)
 																li=__("Genre")+": "
-																	a(href="/"+_config.sections[sez].basepath+"/"+dett.categories[item3].permalink+"/")=dett.categories[item3].name
+																	a(href="/"+config.sections[sez].basepath+"/"+dett.categories[item3].permalink+"/")=dett.categories[item3].name
 							li
 								button.btn
 									i.glyphicon.glyphicon-globe
@@ -54,22 +54,22 @@ block content
 						a(href="#tech_req",data-toggle="tab")=__("Technical rider")
 					- if(dett.gallery && dett.gallery.length)
 						li
-							a(href="#gallery",data-toggle="tab")=_config.sections["gallery"].title+" ["+dett.gallery.length+"]"
+							a(href="#gallery",data-toggle="tab")=config.sections["gallery"].title+" ["+dett.gallery.length+"]"
 					- if(dett.events && dett.events.length)
 						li
-							a(href="#events",data-toggle="tab")=_config.sections["events"].title+" ["+dett.events.length+"]"
+							a(href="#events",data-toggle="tab")=config.sections["events"].title+" ["+dett.events.length+"]"
 				.tab-content.col-md-10
 					#about.tab-pane.active
-						!=Fnc.getTextFormat(dett.text, _config.lang, true)
+						!=Fnc.getTextFormat(dett.text, config.lang, true)
 					#tech_req.tab-pane
-						!=Fnc.getTextFormat(dett.tech_req, _config.lang, true)
+						!=Fnc.getTextFormat(dett.tech_req, config.lang, true)
 					- if(dett.gallery && dett.gallery.length)
 						#gallery.tab-pane
 							.row
 								- for(item in dett.gallery)
 									.col-md-3
 										- var basepath = "/"
-										- //+dett.gallery[item].users[0].permalink+"/"+_config.sections["gallery"].basepath
+										- //+dett.gallery[item].users[0].permalink+"/"+config.sections["gallery"].basepath
 										.media
 											.pull-left
 												a(href=basepath+"/"+dett.gallery[item].permalink+"/")

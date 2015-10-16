@@ -21,6 +21,6 @@ ul.nav.nav-tabs
 	li(class=!sez ? "active" : undefined)
 		a(href="/"+result.permalink+"/")=__("About")
 	- for(item in result.stats)
-		- if(_config.sections[item] && result.stats[item])
-			li(class=sez==_config.sections[item].basepath ? "active" : undefined)
-				a(href="/"+result.permalink+"/"+_config.sections[item].basepath+"/")=_config.sections[item].title+" ["+result.stats[item]+"]"
+		- if(config.sections[item] && result.stats[item])
+			li(class=sez==config.sections[item].basepath ? "active" : undefined)
+				a(href="/"+result.permalink+"/"+config.sections[item].basepath+"/")=config.sections[item].title+" ["+result.stats[item]+"]"
