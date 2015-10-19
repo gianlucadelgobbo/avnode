@@ -8,6 +8,7 @@ block content
 	hr
 	- var rows = 1;
 	- blocks = [];
+	//- console.log(result.performances)
 	- if (result.performances 	&& result.performances.length) 	blocks.push("performances")
 	- if (result.events 			&& result.events.length) 		blocks.push("events")
 	- if (result.tvshow 			&& result.tvshow.length) 		blocks.push("tvshows")
@@ -16,12 +17,50 @@ block content
 	- if (result.gallery 		&& result.gallery.length) 		blocks.push("gallery")
 	- if (result.members 		&& result.members.length) 		blocks.push("members")
 	- if (result.crews 			&& result.crews.length) 			blocks.push("crews")
+	.er_blocchetto
+		h3= __("Er blocchetto de berny")
+		.row
+			.col-md-6.performances
+				h4=__("Le performances")
+				h5=__("Yess: ci sono ")+result.stats.performances+__(" ")+__(" performances")
+				//- console.dir(result.stats.performances)
+				ul
+					- for(item in result.performances)
+						li
+							a(href=result.performances[item].permalink)(title=result.performances[item].title)= result.performances[item].title
+			.col-md-6.eventi
+				h4=__("Gli eventi")
+				h5=__("Qui ci sono ") + result.stats.events + __(" ") + __(" eventi")
+				ul
+					- for(item in result.events)
+						li
+							h5= result.events[item].title
+							ul
+								li= __("Visite: ")+result.events[item].stats.visits
+								li= __("Voto: ")
+									!=result.events[item].stats.rates.stars //- vado a capo per inserire un'altra modalità di output che rispetti l'html
+								li= __("Voti espressi: ")+result.events[item].stats.rates.tot_rate
+							ul= __("Categorie")
+								- for (item2 in result.events[item].categories)
+									li
+										a(href=result.events[item].categories[item2].permalink)(title=result.events[item].categories[item2].name)= result.events[item].categories[item2].name
+
+
+
+
+
+						//- console.dir(result.events[item])
+
+
+
+
+
 	- if (blocks.length>4) rows = 2;
 	- var cols = Math.round(blocks.length/2);
 	- console.dir(blocks.length)
 	- var myspan = 12/cols;
-	- console.dir("myspan"+myspan)
-	- console.dir(blocks.length)
+	//- console.dir("myspan"+myspan)
+	//- console.dir(blocks.length)
 	- for(var c=0;c<rows;c++)
 		.row
 			- for(var b=0;b<cols;b++)
@@ -29,7 +68,7 @@ block content
 				- var tit = (blocks[b+(c*cols)] == "crews" || blocks[b+(c*cols)] == "members" ? "display_name" : "title")
 				- if (b+(c*cols)<blocks.length)
 					div(class="col-md-"+myspan)
-						- console.dir("stocazzo"+myspan)
+						//- console.dir("stocazzo"+myspan)
 						h3=(blocks[b+(c*cols)] == "members" ? __("Members") : (blocks[b+(c*cols)] == "crews" ? __("Crews") : _config.sections[blocks[b+(c*cols)]].title))
 						.main-list.row
 							- sez = sez

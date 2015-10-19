@@ -1,3 +1,48 @@
+//- console.log(result.stats)
+.row.user_dett.new
+	.col-md-5.avatar_map
+		.row
+			.col-md-6.performer_avatar
+				img.media-object(alt=__("Thumbnail of")+": "+result.display_name, src=Fnc.getFileFormat(result.files, 240, 180))
+			.col-md-6.performer_geolocalization
+				h1= result.display_name
+				p= result.locations[0].city+__(" // ")+result.locations[0].country
+				p= __("qui ci va la mappa")
+	.col-md-2.performer_details
+		ul
+			li= __("Download Pdf ")
+				a(href="#")
+					i(class="fa fa-download")
+			li= __("Share ")
+				a(href="#")
+					i(class="fa fa-share-alt")
+			li= __("Invite to event ")
+				a(href="#")
+					i(class="fa fa-chevron-right")
+			li= __("Message ")
+				a(href="#")
+					i(class="fa fa-comment")
+			li= __("Follow ")
+				a(href="#")
+					i(class="fa fa-user")
+	.col-md-5.performer_summary
+		.row
+			.col-md-6
+				ul
+
+						- console.log(result.stats)
+						- for(single_result in result.stats)
+							- if(_config.sections[single_result] && result.stats[single_result])
+							li
+								a(href="/"+result.permalink+"/"+_config.sections[single_result].basepath+"/")=_config.sections[single_result].title
+								=" ("+result.stats[single_result]+")"
+
+						//a(href="/"+result.permalink+"/"+_config.sections[single_result].basepath+"/")=_config.sections[single_result].title+" ["+result.stats[single_result]+"]"
+
+
+
+
+
 .row.user_dett
 	.col-md-9
 		.media
