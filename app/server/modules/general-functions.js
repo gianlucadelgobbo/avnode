@@ -1,4 +1,3 @@
-var bcrypt = require('bcrypt-nodejs');
 var DB = require('./db-manager');
 var http = require('http');
 var url = require('url');
