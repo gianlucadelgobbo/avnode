@@ -80,7 +80,6 @@
       "clientID": "345974507894-vo7uv0vqpf9eetekjoovk6ijs27tqqoj.apps.googleusercontent.com",
       "clientSecret": "-14m41fdFULwMlFv_HPB-5ul",
       "callbackURL": "/controlpanel/signup/google/callback"
-
     },
     "twitter_login": {
       "consumerKey": "3rJBZw4OEH4k8TpjK98FBFxpf",
@@ -190,7 +189,6 @@
       "basepath": "events",
       "coll": "events",
       "view_list": "events",
-
       "list_fields": {
         "title":1,
         "users":1,
@@ -200,7 +198,6 @@
         "stats":1,
         "date_time_venue":1
       },
-
       "orders": [
         "mostrecent",
         "mostviewed",
@@ -272,7 +269,6 @@
       "basepath": "performances",
       "coll": "performances",
       "view_list": "performances",
-
       "list_fields": {
         "title":1,
         "users":1,
@@ -341,7 +337,6 @@
       "basepath": "tvshows",
       "coll": "tvshow",
       "view_list": "tvshows",
-
       "list_fields": {
         "title":1,
         "users":1,
@@ -406,7 +401,6 @@
       "basepath": "footage",
       "coll": "footage",
       "view_list": "footage",
-
       "list_fields": {
         "title":1,
         "users":1,
@@ -465,7 +459,6 @@
       "basepath": "playlists",
       "coll": "playlists",
       "view_list": "playlists",
-
       "list_fields": {
         "title":1,
         "users":1,
@@ -509,7 +502,6 @@
       "basepath": "gallery",
       "coll": "gallery",
       "view_list": "gallery",
-
       "list_fields": {
         "title":1,
         "users":1,
