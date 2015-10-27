@@ -1,6 +1,8 @@
 AVnode
 =============
 
+[![Join the chat at https://gitter.im/gianlucadelgobbo/avnode](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gianlucadelgobbo/avnode?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [AVnode](https://github.com/gianlucadelgobbo/avnode) is a try to have the FLxER website based on [MongoDB](http://www.mongodb.org/) and [NodeJS](http://nodejs.org/).
 
 Authors: [Gianluca Del Gobbo](https://github.com/gianlucadelgobbo/)
