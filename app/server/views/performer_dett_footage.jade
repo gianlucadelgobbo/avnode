@@ -6,19 +6,19 @@ block content
 			.col-md-9
 				h1=dett.title
 				#flxerPlayer
-					a(href=dett.files[0].file,onclick="swfobject.embedSWF('/fp/flxerPlayer.swf?cnt="+_config.siteurl+"/"+result.permalink+"/footage/"+dett.permalink+"/?output=xml"+"', 'flxerPlayer', '700', '394', '9.0.0','/fp/expressInstall.swf');return false;")
+					a(href=dett.files[0].file,onclick="swfobject.embedSWF('/fp/flxerPlayer.swf?cnt="+config.siteurl+"/"+result.permalink+"/footage/"+dett.permalink+"/?output=xml"+"', 'flxerPlayer', '700', '394', '9.0.0','/fp/expressInstall.swf');return false;")
 						img.media-object(alt=__("Thumbnail of")+": "+dett.title, src=Fnc.getFileFormat(dett.files, 700, 394))
 				br
 				.row
 					.col-md-8
-						!=Fnc.getTextFormat(dett.text, _config.lang, true)
+						!=Fnc.getTextFormat(dett.text, config.lang, true)
 					.col-md-4
 						ul.nav.nav-list.user_dett_ul
 							li=__("Visits")+": "+dett.stats.visits
 							li.divider
 							li=__("Type")+": "
 								- for(item in dett.tag)
-									a(href="/"+_config.sections[sez].basepath+"/"+dett.tag[item].tag+"/")=dett.tag[item].tag
+									a(href="/"+config.sections[sez].basepath+"/"+dett.tag[item].tag+"/")=dett.tag[item].tag
 									!=" "
 							li.divider
 							li

@@ -13,3 +13,4 @@ _buttare
 tmp
 app/server/config.js
 locales
+config/local*

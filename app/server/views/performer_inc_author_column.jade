@@ -31,8 +31,8 @@ ul.nav.nav-pills.nav-stacked
 			i.glyphicon.glyphicon-globe
 			!=" "+__("About")
 	- for(item in result.stats)
-		- if(_config.sections[item] && result.stats[item])
+		- if(config.sections[item] && result.stats[item])
 			li(class=sez==item ? "active" : undefined)
-				a(href="/"+result.permalink+"/"+_config.sections[item].basepath+"/")
+				a(href="/"+result.permalink+"/"+config.sections[item].basepath+"/")
 					i.glyphicon.glyphicon-globe
-					!=" "+_config.sections[item].title+" ["+result.stats[item]+"]"
+					!=" "+config.sections[item].title+" ["+result.stats[item]+"]"

@@ -1,5 +1,6 @@
 var email   = require("emailjs");
-var server  = email.server.connect(_config.emaildispatcher.server);
+var config = require('getconfig');
+var server  = email.server.connect(config.emaildispatcher.server);
 var EM = {};
 /*
 email = {
@@ -9,10 +10,10 @@ email = {
 }
 */
 EM.sendMail = function(email, callback) {
-	email.from = _config.emaildispatcher.nameFrom+" <"+_config.emaildispatcher.emailFrom+">";
+	email.from = config.emaildispatcher.nameFrom+" <"+config.emaildispatcher.emailFrom+">";
 	server.send(email, function(err, message) {
 		console.log(err || message);
 		callback(err, message);
 	});
-}
+};
 module.exports = EM;

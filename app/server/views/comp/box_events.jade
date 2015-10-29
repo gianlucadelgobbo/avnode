@@ -2,7 +2,7 @@
 div(class="col-md-"+span)
 	.media
 		.pull-left
-			a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+_config.sections[sez].basepath+"/"+box.permalink+"/")
+			a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")
 				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=Fnc.getFileFormat(box.files, 90, 68))
 			br
 			ul.stats
@@ -10,10 +10,10 @@ div(class="col-md-"+span)
 				li=__("Likes")+": "+box.stats.rates.tot_rate
 		.media-body
 			h4.media-heading
-				a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+_config.sections[sez].basepath+"/"+box.permalink+"/")=box.title
+				a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")=box.title
 			- categories = "";
 			- for(item in box.categories)
-				- if (box.categories[item] && box.categories[item].ancestors && box.categories[item].ancestors[0].permalink=="lv-projects-categories") categories+="<li><a href=\"/"+_config.sections[sez].basepath+"/"+box.categories[item].permalink+"/\">"+box.categories[item].name+"</a></li>"
+				- if (box.categories[item] && box.categories[item].ancestors && box.categories[item].ancestors[0].permalink=="lv-projects-categories") categories+="<li><a href=\"/"+config.sections[sez].basepath+"/"+box.categories[item].permalink+"/\">"+box.categories[item].name+"</a></li>"
 			- if (categories)
 				ul.stats!=categories
 			ul.stats

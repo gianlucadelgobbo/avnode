@@ -1,0 +1,595 @@
+{
+  "port": 8002,
+  "dbHost": "192.168.99.100",
+  "dbPort": 27017,
+  "sitename": "AVnode",
+  "dbName": "avnode",
+  "sitepath": "/tmp/avnode",
+  "siteurl": "http://127.0.0.1:8002",
+  "uploadpath": "",
+  "uploadedFilesPath":"/tmp/avnode/tmp/",
+  "maxFileComment": "1 * 1024 * 1024 * 1024",
+  "maxFileSize": 1073741824,
+  "defaultLocale": "en",
+  "locales": [
+    "it",
+    "en",
+    "es",
+    "fr",
+    "pl",
+    "ru",
+    "hu",
+    "by",
+    "gr"
+  ],
+  "locales_labels": {
+    "it":"Italiano",
+    "en":"English",
+    "es":"Espa&ntilde;ol",
+    "fr":"Fran&ccedil;aise",
+    "pl":"Polski",
+    "ru":"Russian",
+    "hu":"Hungarian",
+    "by":"Belarusian",
+    "gr":"Greek"
+  },
+  "thumbnails": [{
+    "width": 400,
+    "height": 300
+  },{
+    "width": 55,
+    "height": 55
+  }],
+  "googleAnalytics": "UA-8844617-6",
+  "mailinglists": [
+    "livevisuals",
+    "flxer",
+    "flyer",
+    "updates"
+  ],
+  "emaildispatcher": {
+    "nameFrom": "AV node",
+    "emailFrom": "g.delgobbo@flyer.it",
+    "server": {
+      "user": "g.delgobbo@flyer.it",
+      "password": "",
+      "host": "smtp.gmail.com",
+      "ssl": true
+    }
+  },
+  "signature": "\n\nAVnode Team\n______________________________________\nAVnode\navnode.org | avnode.net",
+  "socials": {
+    "facebook": "AVnode",
+    "emailFrom": "",
+    "facebook_login": {
+      "clientID": "1420745254855757",
+      "clientSecret": "74a8e87a644964eeffbfcc4628954d00",
+      "callbackURL": "/controlpanel/login/facebook/callback"
+    },
+    "facebook_signup": {
+      "clientID": "1420745254855757",
+      "clientSecret": "74a8e87a644964eeffbfcc4628954d00",
+      "callbackURL": "/controlpanel/signup/facebook/callback"
+    },
+    "google_login": {
+      "clientID": "345974507894-vo7uv0vqpf9eetekjoovk6ijs27tqqoj.apps.googleusercontent.com",
+      "clientSecret": "-14m41fdFULwMlFv_HPB-5ul",
+      "callbackURL": "/controlpanel/login/google/callback"
+    },
+    "google_signup": {
+      "clientID": "345974507894-vo7uv0vqpf9eetekjoovk6ijs27tqqoj.apps.googleusercontent.com",
+      "clientSecret": "-14m41fdFULwMlFv_HPB-5ul",
+      "callbackURL": "/controlpanel/signup/google/callback"
+    },
+    "twitter_login": {
+      "consumerKey": "3rJBZw4OEH4k8TpjK98FBFxpf",
+      "consumerSecret": "hDBU8rzd7rY0PBH1kp7yo83obb4CgUwHSn1aex5kiTKNN9Mcut",
+      "callbackURL": "/controlpanel/login/twitter/callback"
+    }
+  },
+  "cp_basepath": "controlpanel",
+  "usersListItems": 6,
+  "cpanel": {
+    "account": {
+      "title": "Performers",
+      "limit": 20,
+      "basepath": "performers",
+      "coll": "users",
+      "view_list": "performers",
+      "view_edit": "user",
+      "list_fields": {
+        "title":1,
+        "users":1,
+        "permalink":1,
+        "files":1,
+        "categories":1,
+        "stats":1
+      },
+      "orders": [
+        "mostrecent",
+        "mostactive"
+      ],
+      "sortQ": {
+        "mostrecent": {
+          "creation_date": -1
+        },
+        "mostactive": {
+          "stats.performances": -1
+        }
+      },
+      "labels": {
+        "mostrecent":"Most recent",
+        "mostactive":"Most active"
+      }
+    }
+  },
+  "sections": {
+    "performers": {
+      "title": "Performers",
+      "limit": 20,
+      "basepath": "performers",
+      "coll": "users",
+      "view_list": "performers",
+      "view_edit": "user",
+      "list_fields": {
+        "display_name":1,
+        "permalink":1,
+        "files":1,
+        "stats":1
+      },
+      "orders": [
+        "mostactive",
+        "mostrecent"
+      ],
+      "categories": [
+        "all",
+        "individuals",
+        "crews"
+      ],
+      "searchQ": {
+        "all": {},
+        "individuals": {
+          "is_crew": 0
+        },
+        "crews": {
+          "is_crew": 1
+        }
+      },
+      "sortQ": {
+        "mostactive": {
+          "activity": -1
+        },
+        "mostrecent": {
+          "creation_date": -1
+        }
+      },
+      "labels": {
+        "mostrecent":"Most recent",
+        "mostactive":"Most active",
+        "all":"All",
+        "individuals":"Individuals",
+        "crews":"Crews"
+      }
+    },
+    "crews": {
+      "title": "Crews",
+      "limit": 20,
+      "basepath": "crews",
+      "coll": "users"
+    },
+    "members": {
+      "title": "Members",
+      "limit": 20,
+      "basepath": "members",
+      "coll": "users"
+    },
+    "events": {
+      "title": "Events",
+      "limit": 20,
+      "basepath": "events",
+      "coll": "events",
+      "view_list": "events",
+      "list_fields": {
+        "title":1,
+        "users":1,
+        "permalink":1,
+        "files":1,
+        "categories":1,
+        "stats":1,
+        "date_time_venue":1
+      },
+      "orders": [
+        "mostrecent",
+        "mostviewed",
+        "mostrated"
+      ],
+      "categories": [
+        "all",
+        "clubbing",
+        "corporate",
+        "festival",
+        "one-night",
+        "television", 
+        "workshops-learning"
+      ],
+      "searchQ": {
+        "all":  {},
+        "clubbing": {
+          "categories.permalink": "clubbing"
+        },
+        "corporate": {
+          "categories.permalink": "corporate"
+        },
+        "festival": {
+          "categories.permalink": "festival"
+        },
+        "one-night": {
+          "categories.permalink": "one-night"
+        },
+        "television": {
+          "categories.permalink": "television"
+        }, 
+        "workshops-learning": {
+          "categories.permalink": "workshops-learning"
+        }
+      },
+      "sortQ": {
+        "mostrecent": {
+          "date_time_venue.0.date": -1
+        },
+        "mostviewed": {
+          "stats.visits": -1
+        },
+        "mostrated": {
+          "stats.tot_rate": -1
+        }
+      },
+      "labels": {
+        "mostrecent": "Most recent",
+        "mostviewed": "Most viewed",
+        "mostrated": "Most rated",
+        "all":  "All",
+        "individuals": "Individuals",
+        "clubbing": "Clubbing",
+        "corporate": "Corporate",
+        "festival": "Festival",
+        "one-night": "One night",
+        "television": "Television", 
+        "workshops-learning": "Workshops & learning"
+      },
+      "permissions": {
+        "administrator": "Administrator",
+        "editor":  "Editor",
+        "viewer":  "Viewer"
+      }
+    },
+    "performances": {
+      "title": "Performances",
+      "limit": 20,
+      "basepath": "performances",
+      "coll": "performances",
+      "view_list": "performances",
+      "list_fields": {
+        "title":1,
+        "users":1,
+        "permalink":1,
+        "files":1,
+        "categories":1,
+        "stats":1
+      },
+      "orders": [
+        "mostrecent",
+        "mostviewed",
+        "mostrated"
+      ],
+      "categories": [
+        "all",
+        "av-performance",
+        "vj-set",
+        "workshop",
+        "project-showcase",
+        "dj-set"
+      ],
+      "searchQ": {
+        "all": {},
+        "av-performance": {
+          "categories.permalink": "av-performance"
+        },
+        "vj-set": {
+          "categories.permalink": "vj-set"
+        },
+        "workshop": {
+          "categories.permalink": "workshop"
+        },
+      "project-showcase": {
+        "categories.permalink": "project-showcase"
+      },
+      "dj-set": {
+        "categories.permalink": "dj-set"
+      }
+      },
+      "sortQ": {
+        "mostrecent": {
+          "creation_date": -1
+        },
+        "mostviewed": {
+          "stats.visits": -1
+        },
+        "mostrated": {
+          "stats.tot_rate": -1
+        }
+      },
+      "labels": {
+        "mostrecent": "Most recent",
+        "mostviewed": "Most viewed",
+        "mostrated": "Most rated",
+        "all": "All",
+        "av-performance": "AV Performance",
+        "vj-set": "VJ Set",
+        "dj-set": "DJ Set",
+      "project-showcase": "Project Showcase",
+        "workshop": "Workshop"
+      }
+    },
+    "tvshows": {
+      "title": "TV Shows",
+      "limit": 20,
+      "basepath": "tvshows",
+      "coll": "tvshow",
+      "view_list": "tvshows",
+      "list_fields": {
+        "title":1,
+        "users":1,
+        "permalink":1,
+        "files":1,
+        "categories":1,
+        "stats":1,
+        "palinsestodate":1
+      },
+      "orders": [
+        "mostrecent",
+        "mostviewed",
+        "mostrated"
+      ],
+      "categories": [
+        "all",
+        "performances",
+        "vj-dj-sets",
+        "docs",
+        "video"
+      ],
+      "searchQ": {
+        "all": {},
+        "performances": {
+          "categories.permalink": "performances"
+        },
+        "vj-dj-sets": {
+          "categories.permalink": "vj-dj-sets"
+        },
+        "docs": {
+          "categories.permalink": "docs"
+        },
+        "video": {
+          "categories.permalink": "video"
+        }
+      },
+      "sortQ": {
+        "mostrecent": {
+          "creation_date": -1
+        },
+        "mostviewed": {
+          "stats.visits": -1
+        },
+        "mostrated": {
+          "stats.tot_rate": -1
+        }
+      },
+      "labels": {
+        "mostrecent": "Most recent",
+        "mostviewed": "Most viewed",
+        "mostrated": "Most rated",
+        "all":"All",
+        "performances": "AV Performance",
+        "vj-dj-sets": "VJ-DJ Sets",
+        "docs": "Docs",
+        "video": "Video"
+      }
+    },
+    "footage": {
+      "title": "Footage",
+      "limit": 20,
+      "basepath": "footage",
+      "coll": "footage",
+      "view_list": "footage",
+      "list_fields": {
+        "title":1,
+        "users":1,
+        "permalink":1,
+        "files":1,
+        "categories":1,
+        "stats":1
+      },
+      "orders": [
+        "mostrecent",
+        "mostviewed",
+        "mostrated"
+      ],
+      "categories": [
+        "all",
+        "hole",
+        "no-hole",
+        "koncept"
+      ],
+      "searchQ": {
+        "all": {},
+        "hole": {
+          "tag.tag": "hole"
+        },
+        "no-hole": {
+          "tag.tag": "no-hole"
+        },
+        "koncept": {
+          "tag.tag": "koncept"
+        }
+      },
+      "sortQ": {
+        "mostrecent": {
+          "creation_date": -1
+        },
+        "mostviewed": {
+          "stats.visits": -1
+        },
+        "mostrated": {
+          "stats.tot_rate": -1
+        }
+      },
+      "labels": {
+        "mostrecent": "Most recent",
+        "mostviewed": "Most viewed",
+        "mostrated": "Most rated",
+        "all": "All",
+        "hole": "Hole",
+        "no-hole": "No Hole",
+        "koncept": "Koncept"
+      }
+    },
+    "playlists": {
+      "title": "Playlists",
+      "limit": 20,
+      "basepath": "playlists",
+      "coll": "playlists",
+      "view_list": "playlists",
+      "list_fields": {
+        "title":1,
+        "users":1,
+        "permalink":1,
+        "files":1,
+        "categories":1,
+        "stats":1
+      },
+      "orders": [
+        "mostrecent",
+        "mostviewed",
+        "mostrated"
+      ],
+      "categories": [
+        "all"
+      ],
+      "searchQ": {
+        "all": {}
+      },
+      "sortQ": {
+        "mostrecent": {
+          "creation_date": -1
+        },
+        "mostviewed": {
+          "stats.visits": -1
+        },
+        "mostrated": {
+          "stats.tot_rate": -1
+        }
+      },
+      "labels": {
+        "mostrecent": "Most recent",
+        "mostviewed": "Most viewed",
+        "mostrated": "Most rated",
+        "all": "All"
+      }
+    },
+    "gallery": {
+      "title": "Gallery",
+      "limit": 20,
+      "basepath": "gallery",
+      "coll": "gallery",
+      "view_list": "gallery",
+      "list_fields": {
+        "title":1,
+        "users":1,
+        "permalink":1,
+        "files":1,
+        "stats":1
+      },
+      "orders": [
+        "mostrecent",
+        "mostviewed",
+        "mostrated"
+      ],
+      "categories": [
+        "all"
+      ],
+      "searchQ": {
+        "all": {}
+      },
+      "sortQ": {
+        "mostrecent": {
+          "creation_date": -1
+        },
+        "mostviewed": {
+          "stats.visits": -1
+        },
+        "mostrated": {
+          "stats.tot_rate": -1
+        }
+      },
+      "labels": {
+        "mostrecent": "Most recent",
+        "mostviewed": "Most viewed",
+        "mostrated": "Most rated",
+        "all": "All"
+      }
+    }
+  },
+  "company": {
+    "logo": "/img/logo.png",
+    "name": "Flyer communication srl",
+    "row1": "Via del Verano 39, 00185 Rome, Italy<br />t +39.06.78147301 - f +39.06.78390805 - www.flyer.it - flyer@flyer.it",
+    "row2": "Legal address: Via Cardinal de Luca, 10 - 00196 Rome, Italy<br />VAT N° 06589171005 - NREA 977098"
+  },
+  "banks":[
+    [
+      "BPM 1753",
+      "BANCA POPOLARE DI MILANO - via Appia Nuova, 447-449 Roma IBAN: IT73Z0558403220000000001753 N°CC: 175 AG: 331 Cab: 03220 Abi: 05584"
+    ], [
+      "BPM 1817",
+      "BANCA POPOLARE DI MILANO - via Appia Nuova, 447-449 Roma IBAN: IT73Z0558403220000000001753 N°CC: 175 AG: 331 Cab: 03220 Abi: 05584"
+    ]
+  ],
+  "currency": [
+    "€"
+  ],
+  "vat_perc": 21,
+  "accountingSettings": {
+    "currency": {
+      "symbol": "",
+      "format": "%v",
+      "decimal": ",",
+      "thousand": ".",
+      "precision": 2
+    },
+    "number": {
+      "precision": 2,
+      "thousand": ".",
+      "decimal": ","
+    }
+  },
+  "roles": {
+    "admin": {
+      "display_name": "Administrator",
+      "admin": true,
+      "write": true,
+      "read": true
+    },
+    "editor": {
+      "display_name": "Editor",
+      "admin": false,
+      "write": true,
+      "read": true
+    },
+    "viewer": {
+      "display_name": "Viewer",
+      "admin": false,
+      "write": false,
+      "read": true
+    }
+  }
+}
