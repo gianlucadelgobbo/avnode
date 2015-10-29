@@ -214,3 +214,28 @@ a:hover img {
 .glyphicon-calendar {
   cursor: pointer;
 }
+.missing {
+  background: #f00;
+  color: #fff;
+}
+.performer_geolocalization img {
+  max-width: 100%;
+}
+.performer_geolocalization h1 {
+  font-size: 18px;
+  margin-top: 0;
+}
+.user_dett ul {
+  padding-left: 0;
+  list-style: none;
+}
+.performer_summary ul {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+.main_performer_box ul,
+.events_performer ul {
+  list-style: none;
+  padding-left: 0;
+}

@@ -1,49 +1,125 @@
 extends layout
 block content
 	include performer_inc_author_header
-	- if (result.text)
-		.page-header
-			h3=__("About")
-		!=Fnc.getTextFormat(result.text, _config.lang, true)
-	hr
-	- var rows = 1;
-	- blocks = [];
+
 	//- console.log(result.performances)
-	- if (result.performances 	&& result.performances.length) 	blocks.push("performances")
-	- if (result.events 			&& result.events.length) 		blocks.push("events")
-	- if (result.tvshow 			&& result.tvshow.length) 		blocks.push("tvshows")
-	- if (result.footage 		&& result.footage.length) 		blocks.push("footage")
-	- if (result.playlists 		&& result.playlists.length) 		blocks.push("playlists")
-	- if (result.gallery 		&& result.gallery.length) 		blocks.push("gallery")
-	- if (result.members 		&& result.members.length) 		blocks.push("members")
-	- if (result.crews 			&& result.crews.length) 			blocks.push("crews")
-	.er_blocchetto
-		h3= __("Er blocchetto de berny")
-		.row
-			.col-md-6.performances
-				h4=__("Le performances")
-				h5=__("Yess: ci sono ")+result.stats.performances+__(" ")+__(" performances")
-				//- console.dir(result.stats.performances)
-				ul
-					- for(item in result.performances)
-						li
-							a(href=result.performances[item].permalink)(title=result.performances[item].title)= result.performances[item].title
-			.col-md-6.eventi
-				h4=__("Gli eventi")
-				h5=__("Qui ci sono ") + result.stats.events + __(" ") + __(" eventi")
-				ul
-					- for(item in result.events)
-						li
-							h5= result.events[item].title
-							ul
-								li= __("Visite: ")+result.events[item].stats.visits
-								li= __("Voto: ")
-									!=result.events[item].stats.rates.stars //- vado a capo per inserire un'altra modalità di output che rispetti l'html
-								li= __("Voti espressi: ")+result.events[item].stats.rates.tot_rate
-							ul= __("Categorie")
-								- for (item2 in result.events[item].categories)
-									li
-										a(href=result.events[item].categories[item2].permalink)(title=result.events[item].categories[item2].name)= result.events[item].categories[item2].name
+		- if (result.performances 	&& result.performances.length) 	blocks.push("performances")
+		- if (result.events 			&& result.events.length) 		blocks.push("events")
+		- if (result.tvshow 			&& result.tvshow.length) 		blocks.push("tvshows")
+		- if (result.footage 		&& result.footage.length) 		blocks.push("footage")
+		- if (result.playlists 		&& result.playlists.length) 		blocks.push("playlists")
+		- if (result.gallery 		&& result.gallery.length) 		blocks.push("gallery")
+		- if (result.members 		&& result.members.length) 		blocks.push("members")
+		- if (result.crews 			&& result.crews.length) 			blocks.push("crews")
+
+	.row
+		.col-md-4.perfomances_performer
+			h2.box_performer_header=__("Performances")
+			.box_wrapper.row
+				- for(var i=0;i<result.performances.length;i++)
+					- if (i == 0)
+						a.col-sm-12(href=result.performances[i].permalink)(title=result.performances[i].title)
+							h3.box_header= result.performances[i].title
+						a.col-sm-12(href=result.performances[i].permalink)(title=result.performances[i].title)
+							img.main_performace_image(src=result.performances[i].files[0].file)
+						.main_performer_box
+							.col-sm-6
+								p.evidence-performance_owner
+									i(class="fa fa-caret-right")
+										a(href=result.performances[i].users[0].permalink)(title=result.performances[i].users[0].display_name)= result.performances[i].users[0].display_name
+								p.evidence-performance_stats
+									=__("Views ")
+										span
+											=result.performances[i].stats.visits
+									=__(" // ")
+										=__("Likes ")
+										span
+											=result.performances[i].stats.rates.tot_rate
+							.col-sm-6
+									ul.evidence-performance_categories
+										- for (category in result.performances[i].categories)
+											li
+												i(class="fa fa-cube")
+													a(href=result.performances[i].categories[category].permalink)(title=result.performances[i].categories[category].name)= result.performances[i].categories[category].name
+					- if (i > 0 && i < 3)
+						.col-sm-12.secondary_performance
+							a(href=result.performances[i].permalink)(title=result.performances[i].title)
+								h3= result.performances[i].title
+								img.secondary-performace_image(src=result.performances[i].files[0].file)
+
+
+
+				.col-sm-12.more_performance.more_button
+					a(href=)(title='More performances')
+						=__("More performances")
+						span=__("+")
+						span.big_slash=__("//")
+		.col-sm-4.events_performer
+			h2.box_performer_header=__("Events")
+			.box_wrapper.row
+				- for(var i=0;i<result.events.length;i++)
+					- if (i == 0)
+						a.col-sm-12(href=result.events[i].permalink)(title=result.events[i].title)
+							h3.box_header= result.events[i].title
+						a.col-sm-12(href=result.events[i].permalink)(title=result.events[i].title)
+							img.main_performace_image(src=result.events[i].files[0].file)
+						- console.log(result.events[i])
+						.main_event_box
+							.col-sm-6
+								p.evidence-event_owner
+									i(class="fa fa-caret-right")
+										a(href=result.events[i].users[0].permalink)(title=result.events[i].users[0].display_name)= result.events[i].users[0].display_name
+
+								.event_date
+									span.missing event date: db missing
+							.col-sm-6
+								- console.log(result.events[i])
+									ul.evidence-performance_categories
+										- for (category in result.events[i].categories)
+											li
+												i(class="fa fa-cube")
+													a(href=result.events[i].categories[category].permalink)(title=result.events[i].categories[category].name)= result.events[i].categories[category].name
+										li
+											span.missing db missing location, city, country
+										li
+											span.missing db missing time
+					- if (i > 0 && i < 3)
+						.col-sm-12.secondary_events
+							a(href=result.events[i].permalink)(title=result.events[i].title)
+								h3= result.events[i].title
+
+		.col-sm-4.crews_performer
+			h2=__("Crews")
+
+
+	//
+		.er_blocchetto
+			h3= __("Er blocchetto de berny")
+			.row
+				.col-md-6.performances
+					h4=__("Le performances")
+					h5=__("Yess: ci sono ")+result.stats.performances+__(" ")+__(" performances")
+					//- console.dir(result.stats.performances)
+					ul
+						- for(item in result.performances)
+							li
+								a(href=result.performances[item].permalink)(title=result.performances[item].title)= result.performances[item].title
+				.col-md-6.eventi
+					h4=__("Gli eventi")
+					h5=__("Qui ci sono ") + result.stats.events + __(" ") + __(" eventi")
+					ul
+						- for(item in result.events)
+							li
+								h5= result.events[item].title
+								ul
+									li= __("Visite: ")+result.events[item].stats.visits
+									li= __("Voto: ")
+										!=result.events[item].stats.rates.stars //- vado a capo per inserire un'altra modalità di output che rispetti l'html
+									li= __("Voti espressi: ")+result.events[item].stats.rates.tot_rate
+								ul= __("Categorie")
+									- for (item2 in result.events[item].categories)
+										li
+											a(href=result.events[item].categories[item2].permalink)(title=result.events[item].categories[item2].name)= result.events[item].categories[item2].name
 
 
 
@@ -54,10 +130,17 @@ block content
 
 
 
+	- if (result.text)
+	.page-header
+		h3=__("About")
+	!=Fnc.getTextFormat(result.text, _config.lang, true)
+	hr
+	- var rows = 1;
+	- blocks = [];
 
 	- if (blocks.length>4) rows = 2;
 	- var cols = Math.round(blocks.length/2);
-	- console.dir(blocks.length)
+	//- console.dir(blocks.length)
 	- var myspan = 12/cols;
 	//- console.dir("myspan"+myspan)
 	//- console.dir(blocks.length)
