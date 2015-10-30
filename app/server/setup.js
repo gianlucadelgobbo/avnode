@@ -34,7 +34,7 @@ module.exports = function(app, exp) {
 	app.use(bodyParser.json({limit: config.maxFileSize}));
 	app.use(bodyParser.urlencoded({parameterLimit: 30000000000, limit: config.maxFileSize, extended: true }));
 	app.use(methodOverride());
-	app.use(multer({ dest: config.uploadedFilesPath}));
+	//app.use(multer({ dest: config.uploadedFilesPath}));
 
 	app.use(session({ secret: 'avnode', resave: true, saveUninitialized: true }));
 	app.use(require('stylus').middleware({ src: './app/public' }));
