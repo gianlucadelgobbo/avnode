@@ -219,7 +219,7 @@ block content
 												button.btn.btn-primary.pull-right(type="button")=__("Add a user")
 											ul.nav
 												- if (result.settings.permissions[item] && result.settings.permissions[item].length)
-													- console.dir(result.settings.permissions[item])
+														//- console.dir(result.settings.permissions[item])
 													- for (var a=0;a<result.settings.permissions[item].length;a++)
 														li.alert.alert-info
 															button.close(type="button",data-dismiss="alert")!="&times"

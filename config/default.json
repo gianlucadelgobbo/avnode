@@ -1,6 +1,6 @@
 {
   "port": 8002,
-  "dbHost": "192.168.99.100",
+  "dbHost": "localhost",
   "dbPort": 27017,
   "sitename": "AVnode",
   "dbName": "avnode",

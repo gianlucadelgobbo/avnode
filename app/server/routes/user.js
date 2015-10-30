@@ -1,6 +1,7 @@
 var DB = require('../modules/db-manager');
 var Fnc = require('../modules/general-functions');
 var config = require('getconfig');
+GLOBAL._config = config;
 
 exports.get = function get(req, res) {
 	var pathArray = req.url.split("/");

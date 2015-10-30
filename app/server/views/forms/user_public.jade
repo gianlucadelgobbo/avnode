@@ -2,7 +2,7 @@ extends ../layout
 block content
 	- if(result.locations && result.locations.length && !result.locations[0].lat) result.locations[0].lat = 41.8929163;
 	- if(result.locations && result.locations.length && !result.locations[0].lng) result.locations[0].lng = 12.482519899999943;
-	- console.log(result)
+	//- console.log(result)
 	.tabbable.tabs-left.row
 		include ../comp/cp_menu
 		.tab-content.col-md-10
