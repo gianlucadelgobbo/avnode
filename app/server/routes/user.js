@@ -1,5 +1,6 @@
 var DB = require('../modules/db-manager');
 var Fnc = require('../modules/general-functions');
+var config = require('getconfig');
 
 exports.get = function get(req, res) {
 	var pathArray = req.url.split("/");
@@ -9,10 +10,6 @@ exports.get = function get(req, res) {
 	if (pathArray[pathArray.length-1].indexOf("output")!=-1) pathArray.pop();
 	console.dir(pathArray);
 	console.dir(pathArray[pathArray.length-1].indexOf("output"));
-	var uu;
-	if (req.session.passport && req.session.passport.user) {
-		uu = req.session.passport.user;
-	}
 	if (pathArray.length > 0) {
 		DB.users.findOne({permalink:pathArray[0]}, function(e, result) {
 			if (result) {
@@ -24,15 +21,15 @@ exports.get = function get(req, res) {
 									res.sendStatus(404);
 									/*
 									if (result) {
-										res.render('performer', { userpage:true, title: result.display_name, result : result, Fnc:Fnc, user : uu });
+										res.render('performer', { userpage:true, title: result.display_name, result : result, Fnc:Fnc, user : req.session.passport.user });
 									} else {
 										res.sendStatus(404);
 									}
 									*/
 								});
-							} else if (_config.sections[pathArray[1]]) {
+							} else if (config.sections[pathArray[1]]) {
 								- console.dir("bella"+pathArray.length)
-								DB[_config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2],"footage.permalink":pathArray[3]}, function(e, dett) {
+								DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2],"footage.permalink":pathArray[3]}, function(e, dett) {
 									if (dett) {
 										for (item in dett.footage) {
 											if (dett.footage[item].permalink==pathArray[3]) dettdett = dett.footage[item];
@@ -40,9 +37,9 @@ exports.get = function get(req, res) {
 										if (output=="json") {
 											res.send(result);
 										} else if (output=="xml") {
-											res.render('performer_dett_'+pathArray[1]+"_single"+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+_config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : uu });
+											res.render('performer_dett_'+pathArray[1]+"_single"+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : req.session.passport.user });
 										} else {
-											res.render('performer_dett_'+pathArray[1]+"_single", { userpage:true, title: result.display_name+": "+_config.sections[pathArray[1]].title+": "+_config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, dettdett : dettdett, Fnc:Fnc, user : uu });
+											res.render('performer_dett_'+pathArray[1]+"_single", { userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, dettdett : dettdett, Fnc:Fnc, user : req.session.passport.user });
 										}
 									} else {
 										res.sendStatus(404);
@@ -51,15 +48,15 @@ exports.get = function get(req, res) {
 							} else {
 								res.sendStatus(404);
 							}
-						} else if (_config.sections[pathArray[1]]) {
-							DB[_config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
+						} else if (config.sections[pathArray[1]]) {
+							DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
 								if (dett) {
 									if (output=="json") {
 										res.send(result);
 									} else if (output=="xml") {
-										res.render('performer_dett_'+pathArray[1]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+_config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : uu });
+										res.render('performer_dett_'+pathArray[1]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : req.session.passport.user });
 									} else {
-										res.render('performer_dett_'+pathArray[1], { userpage:true, title: result.display_name+": "+_config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : uu });
+										res.render('performer_dett_'+pathArray[1], { userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : req.session.passport.user });
 									}
 								} else {
 									res.sendStatus(404);
@@ -68,15 +65,15 @@ exports.get = function get(req, res) {
 						} else {
 							res.sendStatus(404);
 						}
-					} else if (_config.sections[pathArray[1]]) {
-						res.render('performer_list', { userpage:true, title: result.display_name+": "+_config.sections[pathArray[1]].title, sez:pathArray[1], result : result, Fnc:Fnc, user : uu });
+					} else if (config.sections[pathArray[1]]) {
+						res.render('performer_list', { userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, Fnc:Fnc, user : req.session.passport.user });
 					} else {
 						res.sendStatus(404);
 					}
 				} else {
 					console.log("ecchime");
 					console.log(result.files);
-					res.render('performer', { userpage:true, title: result.display_name, result : result, Fnc:Fnc, user : uu });
+					res.render('performer', { userpage:true, title: result.display_name, result : result, Fnc:Fnc, user : req.session.passport.user });
 				}
 			} else {
 				res.sendStatus(404);

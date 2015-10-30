@@ -1,7 +1,7 @@
 extends layout
 block content
-	h1=_config.sections[sez].title+" "
-		small=__("From")+" "+skip+" "+__("to")+" "+(skip+_config.sections[sez].limit)+" "+__("on")+" "+tot+" "+_config.sections[sez].title
+	h1=config.sections[sez].title+" "
+		small=__("From")+" "+skip+" "+__("to")+" "+(skip+config.sections[sez].limit)+" "+__("on")+" "+tot+" "+config.sections[sez].title
 	include comp/submenu_sez
 	.row.main-list
 		- for(a=0;a<result.length;a++)

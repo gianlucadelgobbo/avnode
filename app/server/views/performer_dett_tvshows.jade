@@ -6,7 +6,7 @@ block content
 			.col-md-9
 				h1=dett.title
 				#flxerPlayer
-					a(href=dett.files[0].file,onclick="swfobject.embedSWF('/fp/flxerPlayer.swf?cnt="+_config.siteurl+"/"+result.permalink+"/tvshows/"+dett.permalink+"/?output=xml"+"', 'flxerPlayer', '700', '394', '9.0.0','/fp/expressInstall.swf');return false;")
+					a(href=dett.files[0].file,onclick="swfobject.embedSWF('/fp/flxerPlayer.swf?cnt="+config.siteurl+"/"+result.permalink+"/tvshows/"+dett.permalink+"/?output=xml"+"', 'flxerPlayer', '700', '394', '9.0.0','/fp/expressInstall.swf');return false;")
 						img.media-object(alt=__("Thumbnail of")+": "+dett.title, src=Fnc.getFileFormat(dett.files, 700, 394))
 				br
 				.row
@@ -19,14 +19,14 @@ block content
 									a(href="#palinsestodate",data-toggle="tab")=__("TV Programming")
 						.tab-content.col-md-10
 							#about.tab-pane.active
-								!=Fnc.getTextFormat(dett.text, _config.lang, true)
+								!=Fnc.getTextFormat(dett.text, config.lang, true)
 							- if(dett.palinsestodate && dett.palinsestodate.length)
 								#palinsestodate.tab-pane
 									.row
 										- for(item in dett.palinsestodate)
 											.col-md-3
 												- var basepath = "/"
-												- //+dett.palinsestodate[item].users[0].permalink+"/"+_config.sections["palinsestodate"].basepath
+												- //+dett.palinsestodate[item].users[0].permalink+"/"+config.sections["palinsestodate"].basepath
 												.media
 													.pull-left
 														a(href=basepath+"/"+dett.palinsestodate[item].permalink+"/")
@@ -48,7 +48,7 @@ block content
 								- for(item in dett.categories)
 									- if (dett.categories[item] && dett.categories[item].ancestors && dett.categories[item].ancestors[0].permalink=="tv")
 										li=__("Type")+": "
-											a(href="/"+_config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
+											a(href="/"+config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
 							li.divider
 							li
 								button.btn.btn-primary

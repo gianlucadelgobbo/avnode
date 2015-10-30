@@ -1,104 +1,56 @@
-
-.row.user_dett.new
-	.col-md-5.avatar_map
-		.row
-			.col-md-5.performer_avatar
+.row.user_dett
+	.col-md-9
+		.media
+			.pull-left
 				img.media-object(alt=__("Thumbnail of")+": "+result.display_name, src=Fnc.getFileFormat(result.files, 240, 180))
-			.col-md-7.performer_geolocalization
-				h1= result.display_name
-				p= result.locations[0].city+__(" // ")+result.locations[0].country
-				//- City and country may link to the City/Country page with other performers
-				img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{result.locations[0].city},#{result.locations[0].country}&zoom=4&size=262x130&markers=#{result.locations[0].city},#{result.locations[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
-				//- static url = https://maps.googleapis.com/maps/api/staticmap?center=Rome,Italy&zoom=13&size=400x200&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs
-	.col-md-2.performer_details
-		ul
-			li= __("Download Pdf // ")
-				a(href="#")
-					i(class="fa fa-download")
-			li= __("Share // ")
-				a(href="#")
-					i(class="fa fa-share-alt")
-			li= __("Invite to event // ")
-				a(href="#")
-					i(class="fa fa-chevron-right")
-			li= __("Message // ")
-				a(href="#")
-					i(class="fa fa-comment")
-			li= __("Follow // ")
-				a(href="#")
-					i(class="fa fa-user")
-	.col-md-5.performer_summary
-		.row
-			.col-md-8
-				ul
-
-
-						- for(single_result in result.stats)
-							- if(_config.sections[single_result] && result.stats[single_result])
-							li
-								a(href="/"+result.permalink+"/"+_config.sections[single_result].basepath+"/")=_config.sections[single_result].title
-								=" ("+result.stats[single_result]+")"
-
-						//a(href="/"+result.permalink+"/"+_config.sections[single_result].basepath+"/")=_config.sections[single_result].title+" ["+result.stats[single_result]+"]"
-			.col-md-4
-				.visual_header_performer_summary
-
-
-
-//
-	.row.user_dett
-		.col-md-9
-			.media
-				.pull-left
-					img.media-object(alt=__("Thumbnail of")+": "+result.display_name, src=Fnc.getFileFormat(result.files, 240, 180))
-				.media-body
-					h1.media-heading=result.display_name
-					.cnt
-						ul.user_dett_ul
-							- if (result.websites)
-								- for(a=0;a<result.websites.length;a++)
-									li
-										a(href=result.websites[a].url,target="_blank")
-											i.glyphicon.glyphicon-globe
-											!=result.websites[a].url
-							- if (result.locations)
+			.media-body
+				h1.media-heading=result.display_name
+				.cnt
+					ul.user_dett_ul
+						- if (result.websites)
+							- for(a=0;a<result.websites.length;a++)
 								li
-									i.glyphicon.glyphicon-home
-									!=Fnc.formatLoc(result.locations)
-			.row
-				- for(a=0;a<result.length;a++)
-					.col-md-3
-						.row
-							.col-md-1
+									a(href=result.websites[a].url,target="_blank")
+										i.glyphicon.glyphicon-globe
+										!=result.websites[a].url
+						- if (result.locations)
+							li
+								i.glyphicon.glyphicon-home
+								!=Fnc.formatLoc(result.locations)
+		.row
+			- for(a=0;a<result.length;a++)
+				.col-md-3
+					.row
+						.col-md-1
 
-		.col-md-3
-			ul.user_dett_ul.pull-right.text-right
-				li
-					a.btn.btn-mini
-						i.glyphicon.glyphicon-globe
-						!=" "+__("Download PDF")
-					!=" "
-				li
-					a.btn.btn-mini.btn-primary
-						i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
-						!=" "+__("Share")
-				li
-					a.btn.btn-mini.btn-primary
-						i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
-						!=" "+__("Invite to event")
-				li
-					a.btn.btn-mini
-						i.glyphicon.glyphicon-globe
-						!=" "+__("Messagge")
-				li
-					a.btn.btn-mini.btn-primary
-						i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
-						!=" "+__("Follow")
-	hr
-	ul.nav.nav-tabs
-		li(class=!sez ? "active" : undefined)
-			a(href="#about",onclick="$('#about').show();")=__("About")
-		- for(item in result.stats)
-			- if(_config.sections[item] && result.stats[item])
-				li
-					a(href="/"+result.permalink+"/"+_config.sections[item].basepath+"/")=_config.sections[item].title+" ["+result.stats[item]+"]"
+	.col-md-3
+		ul.user_dett_ul.pull-right.text-right
+			li
+				a.btn.btn-mini
+					i.glyphicon.glyphicon-globe
+					!=" "+__("Download PDF")
+				!=" "
+			li
+				a.btn.btn-mini.btn-primary
+					i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
+					!=" "+__("Share")
+			li
+				a.btn.btn-mini.btn-primary
+					i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
+					!=" "+__("Invite to event")
+			li
+				a.btn.btn-mini
+					i.glyphicon.glyphicon-globe
+					!=" "+__("Messagge")
+			li
+				a.btn.btn-mini.btn-primary
+					i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
+					!=" "+__("Follow")
+hr
+ul.nav.nav-tabs
+	li(class=!sez ? "active" : undefined)
+		a(href="#about",onclick="$('#about').show();")=__("About")
+	- for(item in result.stats)
+		- if(config.sections[item] && result.stats[item])
+			li
+				a(href="/"+result.permalink+"/"+config.sections[item].basepath+"/")=config.sections[item].title+" ["+result.stats[item]+"]"

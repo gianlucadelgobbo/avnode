@@ -1,5 +1,5 @@
 doctype html
-html(lang=_config.lang)
+html(lang=config.lang)
 	head
 		title=(title ? title+" | FLxER" : "FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
 		//meta(name="viewport", content="width=device-width, initial-scale=1.0")
@@ -35,10 +35,10 @@ html(lang=_config.lang)
 						ul.nav.navbar-nav
 							li.dropdown
 								a.dropdown-toggle(href="#", data-toggle="dropdown")
-									!=__(_config.locales_labels[getLocale()])+" "
+									!=__(config.locales_labels[getLocale()])+" "
 									b.caret
 								ul.dropdown-menu
-									each val, index in _config.locales_labels
+									each val, index in config.locales_labels
 										li
 											a(href="/controlpanel/change_lang?lang="+index)=__(val)
 				header
@@ -55,9 +55,9 @@ html(lang=_config.lang)
 						.navbar-header
 							a.navbar-brand(href="/")=" AV Node"
 					ul.nav.navbar-nav
-						- each item in _config.sections
+						- each item in config.sections
 							- if (item.view_list && typeof(sez) !== 'undefined')
-								li(class=(_config.sections[sez] && _config.sections[sez].basepath==item.basepath ? "active" : undefined))
+								li(class=(config.sections[sez] && config.sections[sez].basepath==item.basepath ? "active" : undefined))
 									a(href="/"+item.basepath+"/")=item.title
 					ul.nav.navbar-nav.pull-right
 						li

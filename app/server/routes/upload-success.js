@@ -6,6 +6,7 @@ var im = require('imagemagick');
 var fs = require('fs');
 var path = require('path');
 var mkdirp = require('mkdirp');
+var config = require('getconfig');
  
 fs.mkdirParent = function(dirPath, mode, callback) {
   //Call the standard fs.mkdir
@@ -27,7 +28,7 @@ exports.post = function post(req, res) {
 	var form = new formidable.IncomingForm();
 	var files = [];
 	var fields = [];
-	form.uploadDir = _config.uploadedFilesPath;
+	form.uploadDir = config.uploadedFilesPath;
 	form.encoding = 'utf-8';
 	/*
 	console.dir(req);
@@ -81,8 +82,8 @@ exports.post = function post(req, res) {
 				if (req.query.id) {
 					var d = new Date();
 					newfolder = "/warehouse/"+d.getFullYear()+"/"+("0" + (d.getMonth() + 1)).slice(-2)+"/";
-					mkdirp.sync(_config.sitepath+_config.uploadpath+newfolder);
-			 		fs.renameSync(item[1].path,_config.sitepath+_config.uploadpath+newfolder+item[1].name);
+					mkdirp.sync(config.sitepath+config.uploadpath+newfolder);
+			 		fs.renameSync(item[1].path,config.sitepath+config.uploadpath+newfolder+item[1].name);
 			 		file = newfolder+item[1].name;
 					
 				}

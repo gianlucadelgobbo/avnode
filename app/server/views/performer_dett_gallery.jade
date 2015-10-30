@@ -22,7 +22,7 @@
 					- if (dett.categories[item] && dett.categories[item].ancestors && dett.categories[item].ancestors[0].permalink=="lv-projects-categories")
 						li
 							!=__("Type")+": "
-							a(href="/"+_config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
+							a(href="/"+config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
 hr
 .row
 	- for(item in dett.footage)
