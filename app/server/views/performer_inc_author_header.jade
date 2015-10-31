@@ -10,28 +10,29 @@
 						h1= result.display_name
 						p= result.locations[0].city+__(" // ")+result.locations[0].country
 						//- City and country may link to the City/Country page with other performers
-						img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{result.locations[0].city},#{result.locations[0].country}&zoom=4&size=262x130&markers=#{result.locations[0].city},#{result.locations[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
+						img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{result.locations[0].city},#{result.locations[0].country}&zoom=4&size=262x110&markers=#{result.locations[0].city},#{result.locations[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
 						//- static url = https://maps.googleapis.com/maps/api/staticmap?center=Rome,Italy&zoom=13&size=400x200&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs
 			.col-md-2.performer_details
-				ul
-					li= __("Download Pdf // ")
-						a(href="#")
-							i(class="fa fa-download")
-					li= __("Share // ")
-						a(href="#")
-							i(class="fa fa-share-alt")
-					li= __("Invite to event // ")
-						a(href="#")
-							i(class="fa fa-chevron-right")
-					li= __("Message // ")
-						a(href="#")
-							i(class="fa fa-comment")
-					li= __("Follow // ")
-						a(href="#")
-							i(class="fa fa-user")
+				.performer_details_wrapper
+					ul
+						li= __("Download Pdf // ")
+							a(href="#")
+								i(class="fa fa-download")
+						li= __("Share // ")
+							a(href="#")
+								i(class="fa fa-share-alt")
+						li= __("Invite to event // ")
+							a(href="#")
+								i(class="fa fa-chevron-right")
+						li= __("Message // ")
+							a(href="#")
+								i(class="fa fa-comment")
+						li= __("Follow // ")
+							a(href="#")
+								i(class="fa fa-user")
 			.col-md-5.performer_summary
 				.row
-					.col-md-8
+					.col-md-8.performer_summary_box
 						ul
 
 
@@ -42,8 +43,8 @@
 										=" ("+result.stats[single_result]+")"
 
 								//a(href="/"+result.permalink+"/"+_config.sections[single_result].basepath+"/")=_config.sections[single_result].title+" ["+result.stats[single_result]+"]"
-					.col-md-4
-						.visual_header_performer_summary
+					.col-md-4.visual_header_performer_summary
+
 
 
 
