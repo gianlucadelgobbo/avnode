@@ -1,5 +1,85 @@
 extends layout
 block content
+	// Populating the MISSING DATA
+
+	// EVENT
+	// missing event data
+	- for(var i=0;i<result.events.length;i++)
+		- if (i==0)
+			- result.events[i].date_str = "30/04 '12"
+		- if (i==1)
+			- result.events[i].date_str = "from 27/01 to 30/1 '14"
+		- else
+			- result.events[i].date_str = "16/02 '15"
+	// missing event location
+	- for(var i=0;i<result.events.length;i++)
+		- if (i==0)
+			- result.events[i].event_loc = "Olimpic Stadium"
+		- if (i==1)
+			- result.events[i].event_loc = "Royal Albert Hall"
+		- else
+			- result.events[i].event_loc = "Théâtre de la Ville"
+	// missing event city
+	- for(var i=0;i<result.events.length;i++)
+		- if (i==0)
+			- result.events[i].event_city = "Rome"
+		- if (i==1)
+			- result.events[i].event_city = "Berlin"
+		- else
+			- result.events[i].event_city = "Amsterdam"
+	// missing event time
+	- for(var i=0;i<result.events.length;i++)
+		- if (i==0)
+			- result.events[i].event_time = "22:00"
+		- if (i==1)
+			- result.events[i].event_time = "22:00-23:30"
+		- else
+			- result.events[i].event_time = "15:30-18:00"
+
+	// CREW
+	// missing crew performance number
+	- for(var i=0;i<result.crews.length;i++)
+		- if (i==0)
+			- result.crews[i].stats.performances = "23"
+		- if (i==1)
+			- result.crews[i].stats.performances = "41"
+		- else
+			- result.crews[i].stats.performances = "13"
+	// missing crew events number
+	- for(var i=0;i<result.crews.length;i++)
+		- if (i==0)
+			- result.crews[i].stats.events = "12"
+		- if (i==1)
+			- result.crews[i].stats.events = "23"
+		- else
+			- result.crews[i].stats.events = "34"
+
+	// FOOTAGE
+	// missing footage image
+	- for(var i=0;i<result.footage.length;i++)
+		- result.footage[i].files= "default_footage.jpg"
+	- console.log(result)
+	// missing footage tag list
+	- for(var i=0;i<result.footage.length;i++)
+		- if (i==0)
+			- result.footage[i].tags= ["koncept", "vectors"]
+		- if (i==1)
+			- result.footage[i].tags= ["vectors", "audiolatex", "experimental", "iOS"]
+		- else
+			- result.footage[i].tags= ["hole"]
+	// missing footage size
+	- for(var i=0;i<result.footage.length;i++)
+		- if (i==0)
+			- result.footage[i].sizes= "200kb"
+		- if (i==1)
+			- result.footage[i].sizes= "620kb"
+		- else
+			- result.footage[i].sizes= "800kb"
+	- console.log(result.footage)
+
+
+
+
 	include performer_inc_author_header
 
 	//MAIN BOXES
@@ -11,15 +91,15 @@ block content
 					.box_wrapper.row
 						- for(var i=0;i<result.performances.length;i++)
 							- if (i == 0)
-								a.col-sm-12(href=result.performances[i].permalink)(title=result.performances[i].title)
+								a.col-sm-12(href="/"+result.performances[i].permalink)(title=result.performances[i].title)
 									h3.box_header= result.performances[i].title
-								a.col-sm-12(href=result.performances[i].permalink)(title=result.performances[i].title)
+								a.col-sm-12(href="/"+result.performances[i].permalink)(title=result.performances[i].title)
 									img.main_performace_image(src=result.performances[i].files[0].file)(alt=result.performances[i].title)
 								.main_performer_box
 									.col-sm-6
 										p.evidence-performance_owner
 											i(class="fa fa-caret-right")
-												a(href=result.performances[i].users[0].permalink)(title=result.performances[i].users[0].display_name)= result.performances[i].users[0].display_name
+												a(href="/"+result.performances[i].users[0].permalink)(title=result.performances[i].users[0].display_name)= result.performances[i].users[0].display_name
 										p.evidence-performance_stats
 											=__("Views ")
 												span
@@ -33,10 +113,10 @@ block content
 												- for (category in result.performances[i].categories)
 													li
 														i(class="fa fa-cube")
-															a(href=result.performances[i].categories[category].permalink)(title=result.performances[i].categories[category].name)= result.performances[i].categories[category].name
+															a(href="/"+result.performances[i].categories[category].permalink)(title=result.performances[i].categories[category].name)= result.performances[i].categories[category].name
 							- if (i > 0 && i < 3)
 								.col-sm-12.secondary_performance
-									a(href=result.performances[i].permalink)(title=result.performances[i].title)
+									a(href="/"+result.performances[i].permalink)(title=result.performances[i].title)
 										h3= result.performances[i].title
 										img.secondary-performace_image(src=result.performances[i].files[0].file)(alt=result.performances[i].title)
 
@@ -54,36 +134,39 @@ block content
 						- for(var i=0;i<result.events.length;i++)
 							//- Main event
 							- if (i == 0)
-								a.col-sm-12(href=result.events[i].permalink)(title=result.events[i].title)
+								a.col-sm-12(href="/"+result.events[i].permalink)(title=result.events[i].title)
 									h3.box_header= result.events[i].title
-								a.col-sm-12(href=result.events[i].permalink)(title=result.events[i].title)
+								a.col-sm-12(href="/"+result.events[i].permalink)(title=result.events[i].title)
 									img.main_performace_image(src=result.events[i].files[0].file)
 								.main_event_box
 									.col-sm-6
 										p.evidence-event_owner
 											i(class="fa fa-caret-right")
-												a(href=result.events[i].users[0].permalink)(title=result.events[i].users[0].display_name)= result.events[i].users[0].display_name
+												a(href="/"+result.events[i].users[0].permalink)(title=result.events[i].users[0].display_name)= result.events[i].users[0].display_name
 
-										.event_date
-											span.missing event date: missing
+										.event_date=result.events[i].date_str
 									.col-sm-6
 											ul.evidence-performance_categories
 												- for (category in result.events[i].categories)
 													li
 														i(class="fa fa-cube")
-															a(href=result.events[i].categories[category].permalink)(title=result.events[i].categories[category].name)= result.events[i].categories[category].name
+															a(href="/"+result.events[i].categories[category].permalink)(title=result.events[i].categories[category].name)= result.events[i].categories[category].name
 												li
+													p
 													i(class="fa fa-map-marker")
-														span.missing missing location, city, country
+														span.event_location=result.events[i].event_loc+__(", ")
+														span.event_city= result.events[i].event_city+__(", ")
+														span.event_country= result.events[i].event_country
+
 												li
 													i(class="fa fa-clock-o")
-														span.missing missing time
+														span.event_time= result.events[i].event_time
 							//- Secondary events
 							- if (i > 0 && i < 3)
 								.col-sm-12.secondary_events
-									a(href=result.events[i].permalink)(title=result.events[i].title)
+									a(href="/"+result.events[i].permalink)(title=result.events[i].title)
 										.secondary_event
-											span.missing missing date
+											p.event_date= result.events[i].date_str
 											h3= result.events[i].title
 											img.secondary_image(src=result.events[i].files[0].file)(alt=result.events[i].title)
 
@@ -104,19 +187,16 @@ block content
 									.col-sm-9.crew_details
 										ul
 											li
-												i(class="fa fa-caret-right")
-												=result.crews[i].stats.members +__("Members ")
+												=result.crews[i].stats.members +__(" Members")
 											li
-												i(class="fa fa-caret-right")
-												span.missing performance number miss
+												= result.crews[i].stats.performances +__(" Performances")
 											li
-												i(class="fa fa-caret-right")
-												span.missing events number miss
+												= result.crews[i].stats.events +__(" Events")
 										h3= result.crews[i].display_name
 							//- Secondary crews
 							- if (i > 1 && i < 6)
 								li
-									a(href=result.crews[i].permalink)(title=result.crews[i].display_name)
+									a(href="/"+result.crews[i].permalink)(title=result.crews[i].display_name)
 										img(src=result.crews[i].files[0].file)(alt=result.crews[i].display_name)
 						.col-sm-12.more_events.more_button
 							a(href=)(title='More Crews')
@@ -141,6 +221,7 @@ block content
 	.secondary_boxes_bkg
 		.container
 			.row.secondary_boxes
+
 				// FOOTAGE BOX
 				.col-sm-6.footage_box.secondary_box
 					h2.secondary_box_header Footage
@@ -150,7 +231,7 @@ block content
 						//- Secondary events
 						- if (i > 0 && i < 7)
 							.col-sm-4
-								a(href=result.footage[i].permalink)(title=result.footage[i].title)
+								a(href="/"+result.footage[i].permalink)(title=result.footage[i].title)
 									.image_box
 										.footage_stats.box_stats
 											ul.list-inline
@@ -161,15 +242,15 @@ block content
 													i(class="fa fa-eye")
 													span= result.footage[i].stats.visits
 
-										img.missing(alt=result.footage[i].title)
+										img(alt=result.footage[i].title)(src="img/"+result.footage[i].files)
 									h3= result.footage[i].title
 									ul.list-inline.box_other_infos
 										li
 											i(class="fa fa-tags")
-											span.missing miss tag list
+											span= result.footage[i].tags
 										li
 											i(class="fa fa-floppy-o")
-											span.missing miss footage size
+											span= result.footage[i].sizes
 
 					.col-sm-12.more_footage.more_button
 						a(href=)(title='More Footage')
@@ -187,7 +268,7 @@ block content
 						- for(var i=0;i<result.playlists.length;i++)
 							- if (i > 0 && i < 5)
 								.col-sm-6
-									a(href=result.playlists[i].permalink)(title=result.playlists[i].title)
+									a(href="/"+result.playlists[i].permalink)(title=result.playlists[i].title)
 										.image_box
 											.playlists_stats.box_stats
 												ul.list-inline
@@ -232,7 +313,7 @@ block content
 					- for(var i=0;i<result.tvshow.length;i++)
 						- if (i > 0 && i < 5)
 							.col-sm-6
-								a(href=result.tvshow[i].permalink)(title=result.tvshow[i].title)
+								a(href="/"+result.tvshow[i].permalink)(title=result.tvshow[i].title)
 									.image_box
 										.tvshow_stats.box_stats
 											ul.list-inline
@@ -268,7 +349,7 @@ block content
 							//- Secondary events
 							- if (i > 0 && i < 5)
 								.col-sm-6
-									a(href=result.gallery[i].permalink)(title=result.gallery[i].title)
+									a(href="/"+result.gallery[i].permalink)(title=result.gallery[i].title)
 										.image_box
 											.gallery_stats.box_stats
 												ul.list-inline
