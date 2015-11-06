@@ -1,0 +1,154 @@
+// Populating the MISSING DATA
+
+
+// EVENT
+// missing event data
+- for(var i=0;i<result.events.length;i++)
+  - if (i==0)
+      - result.events[i].date_str = "30/04/12"
+  - if (i==1)
+      - result.events[i].date_str = "from 27/01 to 30/1 '14"
+  - else
+      - result.events[i].date_str = "16/02/15"
+// missing event location
+- for(var i=0;i<result.events.length;i++)
+  - if (i==0)
+      - result.events[i].event_loc = "Olimpic Stadium"
+  - if (i==1)
+      - result.events[i].event_loc = "Royal Albert Hall"
+  - else
+      - result.events[i].event_loc = "Théâtre de la Ville"
+// missing event city
+- for(var i=0;i<result.events.length;i++)
+  - if (i==0)
+      - result.events[i].event_city = "Rome"
+  - if (i==1)
+      - result.events[i].event_city = "Berlin"
+  - else
+      - result.events[i].event_city = "Amsterdam"
+// missing event time
+- for(var i=0;i<result.events.length;i++)
+  - if (i==0)
+      - result.events[i].event_time = "22:00"
+  - if (i==1)
+      - result.events[i].event_time = "22:00-23:30"
+  - else
+      - result.events[i].event_time = "15:30-18:00"
+
+
+// CREW
+// missing crew performance number
+- for(var i=0;i<result.crews.length;i++)
+  - if (i==0)
+      - result.crews[i].stats.performances = "23"
+  - if (i==1)
+      - result.crews[i].stats.performances = "41"
+  - else
+      - result.crews[i].stats.performances = "13"
+// missing crew events number
+- for(var i=0;i<result.crews.length;i++)
+  - if (i==0)
+      - result.crews[i].stats.events = "12"
+  - if (i==1)
+      - result.crews[i].stats.events = "23"
+  - else
+      - result.crews[i].stats.events = "34"
+
+
+// FOOTAGE
+// missing footage image
+- for(var i=0;i<result.footage.length;i++)
+  - result.footage[i].files= "default_footage.jpg"
+// missing footage tag list
+- for(var i=0;i<result.footage.length;i++)
+  - if (i==0)
+      - result.footage[i].tags= ["koncept", "vectors"]
+  - if (i==1)
+      - result.footage[i].tags= ["vectors", "audiolatex", "experimental", "iOS"]
+  - else
+      - result.footage[i].tags= ["hole"]
+// missing footage size
+- for(var i=0;i<result.footage.length;i++)
+  - if (i==0)
+      - result.footage[i].sizes= "200kb"
+  - if (i==1)
+      - result.footage[i].sizes= "620kb"
+  - else
+      - result.footage[i].sizes= "800kb"
+
+
+// PLAYLIST
+// missing playlist like number
+- for(var i=0;i<result.playlists.length;i++)
+  - if (i==0)
+      - result.playlists[i].stats.likes= "2"
+  - if (i==1)
+      - result.playlists[i].stats.likes= "5"
+  - else
+      - result.playlists[i].stats.likes= "73"
+// missing playlist video number
+- for(var i=0;i<result.playlists.length;i++)
+  - if (i==0)
+      - result.playlists[i].stats.videos= "34"
+  - if (i==1)
+      - result.playlists[i].stats.videos= "12"
+  - else
+      - result.playlists[i].stats.videos= "3"
+// missing playlist image
+- for(var i=0;i<result.playlists.length;i++)
+  - result.playlists[i].files= "default_playlist.jpg"
+
+// TVSHOWS
+// missing tvshows download number
+- for(var i=0;i<result.tvshow.length;i++)
+  - if (i==0)
+      - result.tvshow[i].stats.download= "22"
+  - if (i==1)
+      - result.tvshow[i].stats.download= "212"
+  - else
+      - result.tvshow[i].stats.download= "243"
+// missing tvshows download number
+- for(var i=0;i<result.tvshow.length;i++)
+  - if (i==0)
+      - result.tvshow[i].stats.likes= "43"
+  - if (i==1)
+      - result.tvshow[i].stats.likes= "345"
+  - else
+      - result.tvshow[i].stats.likes= "123"
+// missing tvshows image
+- for(var i=0;i<result.tvshow.length;i++)
+  - result.tvshow[i].files= "default_tvshow.jpg"
+// missing tv show categories
+- for(var i=0;i<result.tvshow.length;i++)
+  - if (i==0)
+      - result.tvshow[i].categories= ["live", "stage"]
+  - if (i==1)
+      - result.tvshow[i].categories= ["ascii", "lpm", "category", "iOS"]
+  - else
+      - result.tvshow[i].categories= ["tvshow category", "lpm"]
+
+// GALLERY
+// missing gallery video number
+- for(var i=0;i<result.gallery.length;i++)
+  - if (i==0)
+      - result.gallery[i].stats.video= "123"
+  - if (i==1)
+      - result.gallery[i].stats.video= "434"
+  - else
+      - result.gallery[i].stats.video= "23"
+// missing gallery related event
+- for(var i=0;i<result.gallery.length;i++)
+  - if (i==0)
+      - result.gallery[i].event= "lpm"
+  - if (i==1)
+      - result.gallery[i].event= "lcf"
+  - else
+      - result.gallery[i].event= "luminal"
+// missing gallery type
+- for(var i=0;i<result.gallery.length;i++)
+  - if (i==0)
+      - result.gallery[i].type= "Event"
+  - if (i==1)
+      - result.gallery[i].type= "Event"
+  - else
+      - result.gallery[i].type= "Performance"

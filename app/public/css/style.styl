@@ -1,3 +1,12 @@
+body
+  font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing: -0.01em;
+  font-size: 15px;
+  font-weight: 400;
+
+img
+  max-width 100%
+
 .performances a {
   color #D60000
   display block
@@ -173,12 +182,17 @@ a:hover img{opacity:.6;}
   color: #ffffff
 
 // header performer //
+
+.user_dett_bkg
+  padding-bottom 15px
+  margin-bottom 15px
+
 .performer_geolocalization img {
   max-width 100%
 }
 
 .performer_geolocalization h1 {
-  font-size: 19px;
+  font-size: 22px;
   margin-top: 0;
   font-weight: 200;
   margin-bottom: 5px;
@@ -192,6 +206,12 @@ a:hover img{opacity:.6;}
   columns 2
   -webkit-columns 2
   -moz-columns 2
+  -webkit-column-rule: 1px outset #A9ABAD; /* Chrome, Safari, Opera */
+  -moz-column-rule: 1px outset #A9ABAD; /* Firefox */
+  column-rule: 1px outset #A9ABAD;
+  -webkit-column-gap: 30px;
+  -moz-column-gap: 30px;
+  column-gap: 30px;
 }
 
 .visual_header_performer_summary
@@ -207,7 +227,7 @@ a:hover img{opacity:.6;}
   padding 15px 0
 
 .performer_summary_box ul li
-  line-height 24px
+  line-height 25px
 
 .performer_details_wrapper
   border-left 1px solid #0F8FCF
@@ -221,10 +241,110 @@ a:hover img{opacity:.6;}
 
 .performer_details_wrapper ul li
   line-height 24px
-// page performer //
+
+/**/
+/* Performer */
+/**/
+.main_boxes_bkg
+  background #F8F6F6
+
 .main_performer_box ul
 .events_performer ul
 .crews_performer ul
   list-style none
   padding-left 0
 
+.performer_geolocalization .country_geoloc
+  color: #0f8fcf
+
+.performer_avatar img
+  max-width 100%
+  border-radius 50%
+
+// main boxes
+.main_box_performer a
+  color #414042
+
+.box_header
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 15px 0 5px;
+  
+.box_header .diagonale
+  height: 34px;
+  left: 0px;
+  position: relative;
+  top: 10px;
+  width: 40px;
+.box_header .title_str
+  color #ffffff
+  padding: 5px 10px;
+
+.box_header.box_performer_header .title_str
+  background-color: #0f8fcf
+.box_header.box_events_header .title_str
+  background-color: #E4811E
+.box_header.box_crews_header .title_str
+  background-color: #004431
+
+.box_wrapper
+  border 1px solid #DEDFDF
+
+.main_event_title, .main_performance_title
+  font-size 18px
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 15px 0 5px;
+
+.main_performace_image
+  height: 186px;
+  width: 100%;
+.main_performer_box
+  font-size 14px
+.main_performer_box p
+  margin-bottom 0
+.main_performer_box i
+  color #0f8fcf
+  display inline-block
+  margin-right 5px
+
+.evidence-performance_stats .stat.value
+  color #0f8fcf
+
+.main_performer_box .performance_owner
+  font-weight 500
+.secondary_performance_wrapper
+  background #DEDFDF
+.secondary_performance h3
+    text-transform: uppercase;
+    font-size: 14px;
+    margin: 0;
+    position: relative;
+    top: 26px;
+    font-weight: 600;
+.secondary-performace_image img
+  width: 60px;
+  height: 40px;
+.secondary-performace_image
+  padding: 0;
+  width: 60px;
+.secondary_performance
+  padding 10px 0
+  float left
+  width 100%
+.more_button
+  background: #dedfdf;
+  font-size: 20px;
+  text-transform: uppercase;
+  padding: 15px;
+  font-weight: 600;
+.more_button.more_performance a
+  color #0f8fcf
+.more_button .big_slash
+  font-size: 50px;
+  position: absolute;
+  font-weight: 800;
+  top: -5px;
+  letter-spacing: -0.55em;
+  margin-left: 15px;

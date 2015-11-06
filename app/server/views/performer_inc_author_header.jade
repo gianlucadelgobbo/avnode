@@ -4,11 +4,11 @@
 			.col-md-5.avatar_map
 				.row
 					.col-md-5.performer_avatar
-						img.media-object.missing(alt=__("Thumbnail of")+": "+result.display_name, src=Fnc.getFileFormat(result.files, 240, 180))
-						- console.log(result.files)
+						img.media-object(alt=__("Thumbnail of")+": "+result.display_name, src=Fnc.getFileFormat(result.files, 240, 180))
 					.col-md-7.performer_geolocalization
 						h1= result.display_name
-						p= result.locations[0].city+__(" // ")+result.locations[0].country
+						p= result.locations[0].city+" // "
+							span.country_geoloc= result.locations[0].country
 						//- City and country may link to the City/Country page with other performers
 						img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{result.locations[0].city},#{result.locations[0].country}&zoom=4&size=262x110&markers=#{result.locations[0].city},#{result.locations[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
 						//- static url = https://maps.googleapis.com/maps/api/staticmap?center=Rome,Italy&zoom=13&size=400x200&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs
