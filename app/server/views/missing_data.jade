@@ -26,6 +26,14 @@
       - result.events[i].event_city = "Berlin"
   - else
       - result.events[i].event_city = "Amsterdam"
+// missing event country
+- for(var i=0;i<result.events.length;i++)
+  - if (i==0)
+      - result.events[i].event_country = "Italy"
+  - if (i==1)
+      - result.events[i].event_country = "Germany"
+  - else
+      - result.events[i].event_country = "Holland"
 // missing event time
 - for(var i=0;i<result.events.length;i++)
   - if (i==0)

@@ -290,6 +290,7 @@ a:hover img {
 /**/
 .main_boxes_bkg {
   background: #f8f6f6;
+  padding-bottom: 30px;
 }
 .main_performer_box ul,
 .events_performer ul,
@@ -318,7 +319,7 @@ a:hover img {
   left: 0px;
   position: relative;
   top: 10px;
-  width: 40px;
+  width: 22px;
 }
 .box_header .title_str {
   color: #fff;
@@ -334,7 +335,18 @@ a:hover img {
   background-color: #004431;
 }
 .box_wrapper {
-  border: 1px solid #dedfdf;
+  border: 1px dashed;
+  border-radius: 0 10px 0 0;
+  border-bottom: 1px solid;
+}
+.perfomances_performer .box_wrapper {
+  border-color: #0f8fcf;
+}
+.events_performer .box_wrapper {
+  border-color: #e4811e;
+}
+.crews_performer .box_wrapper {
+  border-color: #004431;
 }
 .main_event_title,
 .main_performance_title {
@@ -367,6 +379,7 @@ a:hover img {
 .secondary_performance_wrapper {
   background: #dedfdf;
 }
+.secondary_performance h3,
 .secondary_performance h3 {
   text-transform: uppercase;
   font-size: 14px;
@@ -375,13 +388,15 @@ a:hover img {
   top: 26px;
   font-weight: 600;
 }
-.secondary-performace_image img {
-  float: right;
+.secondary-performace_image img,
+.secondary-event_image img {
   width: 60px;
-  height: 40px;
+  height: 60px;
 }
-.secondary-performace_image {
+.secondary-performace_image,
+.secondary-event_image {
   padding: 0;
+  width: 60px;
 }
 .secondary_performance {
   padding: 10px 0;
@@ -398,11 +413,170 @@ a:hover img {
 .more_button.more_performance a {
   color: #0f8fcf;
 }
-.more_button .big_slash {
-  font-size: 50px;
-  position: absolute;
+.more_button.more_events a {
+  color: #e4811e;
+}
+.big_slash {
+  font-size: 40px;
   font-weight: 800;
-  top: -5px;
-  letter-spacing: -0.55em;
+  letter-spacing: -0.5em;
   margin-left: 15px;
+  position: absolute;
+  text-shadow: 4px 0 0;
+  top: 0;
+}
+.events_performer i.fa {
+  color: #e4811e;
+  display: inline-block;
+  margin-right: 5px;
+}
+.main_event_details p {
+  margin-bottom: 5px;
+}
+.main_event_details {
+  margin-bottom: 15px;
+}
+.main_event_details .event_date {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.secondary_events {
+  background: #dedfdf;
+  padding: 10px 15px;
+}
+.secondary_event h3 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 0 5px 0;
+}
+.secondary_event .event_date {
+  font-size: 12px;
+}
+.secondary_event_title {
+  padding-right: 0px;
+}
+.main_crews-box img {
+  height: 100px;
+  width: 100px;
+}
+.main_crews-box h3 {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 0 5px 0;
+}
+.main_crews-box {
+  padding: 15px;
+}
+.secondary_crew {
+  width: 20%;
+}
+.secondary_crew_container {
+  background: #dedfdf;
+  margin: 0;
+  text-align: center;
+  padding: 15px !important;
+}
+.more_crews.more_button a {
+  color: #004431;
+}
+.about-bkg {
+  background: #333 none repeat scroll 0 0;
+  color: #fff;
+  font-weight: 300;
+  padding: 30px 0;
+}
+.about_performer {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  -webkit-column-rule: 1px outset #fff;
+/* Chrome, Safari, Opera */
+  -moz-column-rule: 1px outset #fff;
+/* Firefox */
+  column-rule: 1px outset #fff;
+  -webkit-column-gap: 30px;
+  -moz-column-gap: 30px;
+  column-gap: 30px;
+}
+.about_performer h2 {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0 0 15px;
+  text-transform: uppercase;
+}
+.secondary_box_wrapper {
+  border: 1px solid #fff;
+  float: left;
+  width: 100%;
+}
+.secondary_boxes_bkg {
+  background: #333 none repeat scroll 0 0;
+  color: #fff;
+  font-weight: 300;
+  padding: 30px 0;
+}
+.secondary_box_header .big_slash {
+  margin-right: 20px;
+  position: relative;
+  top: 3px;
+}
+.secondary_box_header {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0 0 15px;
+  text-transform: uppercase;
+}
+.box_stats ul {
+  margin: 0;
+}
+.box_stats {
+  background: rgba(51,51,51,0.8) none repeat scroll 0 0;
+  height: 21px;
+  margin-bottom: -21px;
+  opacity: 0.8;
+  position: relative;
+  width: 100%;
+  font-size: 14px;
+}
+.box_stats i.fa,
+.box_other_infos i.fa,
+.playlist_categories_list i.fa,
+.gallery_details span.icon_at,
+.gallery_details i.fa {
+  color: #fff;
+  margin-right: 5px;
+}
+.secondary_box h3 {
+  margin: 10px 0;
+  font-size: 20px;
+}
+.secondary_box .more_button {
+  background: #303030 none repeat scroll 0 0;
+}
+.secondary_box {
+  margin-bottom: 30px;
+}
+.box_other_infos {
+  font-size: 13px;
+}
+.single_footage {
+  height: 210px;
+}
+.playlist_categories_list {
+  font-size: 13px;
+}
+.single_tvshow {
+  height: 270px;
+}
+.gallery_details {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.gallery_box .gallery_thumb {
+  height: 164px;
+  width: 247px;
 }
