@@ -53,14 +53,14 @@ html(lang=config.lang)
 				//.navbar-fixed-top
 				.container-fluid
 					- if (typeof(userpage) !== 'undefined' && userpage)
-						.navbar-header
+						.navbar-header.pull-left
 							a.navbar-brand(href="/")=" AV Node"
-					ul.nav.navbar-nav
+					ul.nav.navbar-nav.pull-left
 						- each item in config.sections
 							- if (item.view_list && typeof(sez) !== 'undefined')
 								li(class=(config.sections[sez] && config.sections[sez].basepath==item.basepath ? "active" : undefined))
 									a(href="/"+item.basepath+"/")=item.title
-					ul.nav.navbar-nav.pull-right
+					ul.nav.navbar-nav.pull-right.user_nav
 						li
 							a(href="/controlpanel/"+(user ? "user/" : "login/"))=(user ? __("Account") : __("Login"))
 						- if(!user)

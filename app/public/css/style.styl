@@ -1,3 +1,13 @@
+/* media sizes for media query */
+xs =  'screen and (min-width: 1px)'
+sm = 'screen and (min-width: 768px)'
+md = 'screen and (min-width: 992px)'
+lg = 'screen and (min-width: 1200px)'
+smart = 'screen and (max-width: 500px)'
+onlyxs = 'screen and (max-width: 768px)'
+onlysm = 'screen and (min-width:768px) and (max-width: 992px)'
+onlymd = 'screen and (min-width:992px) and (max-width: 1200px)'
+
 body
   font-family: 'Roboto Condensed', sans-serif;
   letter-spacing: -0.01em;
@@ -181,11 +191,20 @@ a:hover img{opacity:.6;}
   background red
   color: #ffffff
 
+// header navbar //
+.user_nav li
+  display inline-block
+.user_nav
+  @media smart
+    display none
 // header performer //
 
 .user_dett_bkg
   padding-bottom 15px
   margin-bottom 15px
+  @media smart
+    padding-bottom 5px
+    margin-bottom 0px
 
 .performer_geolocalization img {
   max-width 100%
@@ -197,22 +216,28 @@ a:hover img{opacity:.6;}
   font-weight: 200;
   margin-bottom: 5px;
 }
+.performer_geolocalization
+  @media smart
+    width 70%
+.performer_map
+  @media smart
+    display none
 .user_dett ul {
   padding-left 0
   list-style none
 }
 
-.performer_summary ul {
-  columns 2
-  -webkit-columns 2
-  -moz-columns 2
-  -webkit-column-rule: 1px outset #A9ABAD; /* Chrome, Safari, Opera */
-  -moz-column-rule: 1px outset #A9ABAD; /* Firefox */
-  column-rule: 1px outset #A9ABAD;
-  -webkit-column-gap: 30px;
-  -moz-column-gap: 30px;
-  column-gap: 30px;
-}
+.performer_summary ul
+  @media lg
+    columns 2
+    -webkit-columns 2
+    -moz-columns 2
+    -webkit-column-rule: 1px outset #A9ABAD; /* Chrome, Safari, Opera */
+    -moz-column-rule: 1px outset #A9ABAD; /* Firefox */
+    column-rule: 1px outset #A9ABAD;
+    -webkit-column-gap: 30px;
+    -moz-column-gap: 30px;
+    column-gap: 30px;
 
 .visual_header_performer_summary
   background url('../img/performer_summary.png')
@@ -220,28 +245,62 @@ a:hover img{opacity:.6;}
   background-position right
 
 .performer_summary_box
-  background #F2F2F2
+  background none
+  border-top 5px solid #F2F2F2
   height 165px
+  @media md
+    background #F2F2F2
+    border-top none
+  @media smart
+    width 100%
+    height auto
+    border-top none
 
+.performer_summary
+  @media smart
+    width 100%
+    display none
 .performer_summary_box ul
-  padding 15px 0
+  padding 10px 0
+  @media md
+    padding 15px 0
+  @media smart
+    padding 0
 
 .performer_summary_box ul li
   line-height 25px
+  @media smart
+    display inline-block
 
 .performer_details_wrapper
   border-left 1px solid #0F8FCF
   border-right 1px solid #0F8FCF
   padding 0 15px
   height 165px
+  @media smart
+    border-left none
+    border-right none
+    padding 0
+    height auto
+    display none
 
 .performer_details_wrapper ul
   border-top 5px solid #0f8fcf
   padding-top 12px
+  @media smart
+    border-top 0
+
 
 .performer_details_wrapper ul li
   line-height 24px
-
+  @media smart
+    display: inline-block
+.performer_details
+  @media smart
+    width 100%
+.avatar_map
+  @media smart
+    width 100%
 /**/
 /* Performer */
 /**/
@@ -254,6 +313,8 @@ a:hover img{opacity:.6;}
 .crews_performer ul
   list-style none
   padding-left 0
+  float: left;
+  width: 100%;
 
 .performer_geolocalization .country_geoloc
   color: #0f8fcf
@@ -261,8 +322,13 @@ a:hover img{opacity:.6;}
 .performer_avatar img
   max-width 100%
   border-radius 50%
-
+.performer_avatar
+  @media smart
+    width 30%
 // main boxes
+.main_box_performer
+  @media onlyxs
+    margin-bottom 15px
 .main_box_performer a
   color #414042
 
@@ -271,6 +337,7 @@ a:hover img{opacity:.6;}
   font-size: 20px;
   font-weight: 600;
   margin: 15px 0 5px;
+
   
 .box_header .diagonale
   height: 34px;
@@ -304,11 +371,25 @@ a:hover img{opacity:.6;}
   text-transform: uppercase;
   font-weight: 600;
   margin: 15px 0 5px;
-
+  @media onlyxs
+    padding 0 15px
+    margin 0
+  @media smart
+    margin 10px 0
+.main_performance_title_wrapper, .main_event_title_wrapper
+  @media onlyxs
+    padding 0 15px
+  @media smart
+    padding 0
 .main_performace_image
   height: 186px;
   width: 100%;
-  margin-bottom 10px
+  @media onlyxs
+    height: auto
+    padding: 0;
+.main_performace_image_wrapper
+  @media xs
+    margin-bottom 10px
 .main_performer_box
   font-size 14px
 .main_performer_box p
@@ -325,6 +406,11 @@ a:hover img{opacity:.6;}
   font-weight 500
 .secondary_performance_wrapper
   background #DEDFDF
+  @media onlyxs
+    display none
+  @media onlysm
+    background none
+
 .secondary_performance h3, .secondary_performance h3
     text-transform: uppercase;
     font-size: 14px;
@@ -342,12 +428,17 @@ a:hover img{opacity:.6;}
   padding 10px 0
   float left
   width 100%
+  @media smart
+    display none
 .more_button
   background: #dedfdf;
   font-size: 20px;
   text-transform: uppercase;
   padding: 15px;
   font-weight: 600;
+.main_box_performer .more_button
+  float: left
+  width 100%
 .more_button.more_performance a
   color #0f8fcf
 .more_button.more_events a
@@ -355,10 +446,10 @@ a:hover img{opacity:.6;}
 .big_slash {
   font-size: 40px;
   font-weight: 800;
-  letter-spacing: -0.5em;
+  letter-spacing: -0.55em;
   margin-left: 15px;
   position: absolute;
-  text-shadow: 4px 0 0;
+  text-shadow: 2px 0 0;
   top: 0;
 }
 
@@ -378,6 +469,12 @@ a:hover img{opacity:.6;}
 .secondary_events
   background: #DEDFDF
   padding 10px 15px
+  float: left;
+  width: 100%;
+  @media smart
+    display: none
+  @media onlysm
+    background none
 .secondary_event h3
   font-size 14px
   font-weight 600
@@ -391,6 +488,9 @@ a:hover img{opacity:.6;}
 .main_crews-box img
   height 100px
   width 100px
+  @media onlymd
+    height 91px
+    width 91px
 .main_crews-box h3
   font-size 18px
   font-weight 600
@@ -414,15 +514,17 @@ a:hover img{opacity:.6;}
   font-weight: 300;
   padding: 30px 0;
 .about_performer
-  columns 2
-  -webkit-columns 2
-  -moz-columns 2
-  -webkit-column-rule: 1px outset #fff; /* Chrome, Safari, Opera */
-  -moz-column-rule: 1px outset #fff; /* Firefox */
-  column-rule: 1px outset #fff;
-  -webkit-column-gap: 30px;
-  -moz-column-gap: 30px;
-  column-gap: 30px;
+  @media sm
+    columns 2
+    -webkit-columns 2
+    -moz-columns 2
+    -webkit-column-rule: 1px outset #fff; /* Chrome, Safari, Opera */
+    -moz-column-rule: 1px outset #fff; /* Firefox */
+    column-rule: 1px outset #fff;
+    -webkit-column-gap: 30px;
+    -moz-column-gap: 30px;
+    column-gap: 30px;
+
 .about_performer h2
   font-size: 30px;
   font-weight: 600;
@@ -432,19 +534,16 @@ a:hover img{opacity:.6;}
   border: 1px solid #fff;
   float: left;
   width: 100%;
+
 .secondary_boxes_bkg
   background: #333 none repeat scroll 0 0;
   color: #fff;
   font-weight: 300;
   padding: 30px 0;
-.secondary_box_header .big_slash
-  margin-right: 20px;
-  position: relative;
-  top: 3px;
 .secondary_box_header
   font-size: 30px;
   font-weight: 600;
-  margin: 0 0 15px;
+  margin: 10px 0 15px;
   text-transform: uppercase;
 .box_stats ul
   margin 0
@@ -452,7 +551,7 @@ a:hover img{opacity:.6;}
   background: rgba(51, 51, 51, 0.8) none repeat scroll 0 0;
   height: 21px;
   margin-bottom: -21px;
-  opacity: 0.8;
+  opacity: 0.9;
   position: relative;
   width: 100%;
   font-size 14px
@@ -466,18 +565,62 @@ a:hover img{opacity:.6;}
   background #303030 none repeat scroll 0 0
 .secondary_box
   margin-bottom 30px
+  float: left;
+  @media onlyxs
+    width 100%
 .box_other_infos
-  font-size 13px
+  font-size 10px
+.box_other_infos .fa-floppy-o
+  margin-left 3px
 .single_footage
-  height 210px
+  min-height 190px
+.single_footage h3
+  color #fff
 .playlist_categories_list
   font-size 13px
-.single_tvshow
-  height 270px
+  @media md
+    font-size 10px
 .gallery_details
   padding: 0
   margin 0
   list-style none
+.gallery_details li
+  padding 0 5px 0 0
 .gallery_box .gallery_thumb
   height 164px
   width 247px
+  @media onlyxs
+    width 100%
+    height auto
+.slash_svg
+  position: absolute;
+  top: 15px;
+  width: 48px;
+.secondary_box .slash_svg
+  top 0
+.secondary_box .slash_svg.before_title
+  margin-left 5px
+.slash_after_title .title_string
+  margin-left 55px
+.slash_svg.more_secondary_box
+  top: 10px
+.secondary_box a
+  color #0F8FCF
+.title_and_info_container h3
+  color: #fff;
+  margin-bottom: 5px;
+  font-size 16px
+.title_and_info_container
+  background: rgba(51, 51, 51, 0.8) none repeat scroll 0 0;
+  font-size: 14px;
+  height: 80px;
+  margin-bottom: -80px;
+  opacity: 0.9;
+  padding: 10px;
+  position: relative;
+  top: -80px;
+  width: 100%;
+.single_playlist, .single_tvshow, .single_gallery
+  margin-bottom 30px
+.single_gallery .image_box
+  min-height 163px

@@ -1,18 +1,18 @@
 .user_dett_bkg
 	.container
 		.row.user_dett.new
-			.col-md-5.avatar_map
+			.col-lg-5.col-md-5.col-sm-6.col-xs-6.avatar_map
 				.row
-					.col-md-5.performer_avatar
+					.col-lg-5.col-md-4.col-sm-4.col-xs-6.performer_avatar
 						img.media-object(alt=__("Thumbnail of")+": "+result.display_name, src=Fnc.getFileFormat(result.files, 240, 180))
-					.col-md-7.performer_geolocalization
+					.col-lg-7.col-sm-8.col-xs-6.performer_geolocalization
 						h1= result.display_name
 						p= result.locations[0].city+" // "
 							span.country_geoloc= result.locations[0].country
 						//- City and country may link to the City/Country page with other performers
-						img(src="https://maps.googleapis.com/maps/api/staticmap?center=#{result.locations[0].city},#{result.locations[0].country}&zoom=4&size=262x110&markers=#{result.locations[0].city},#{result.locations[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
+						img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?center=#{result.locations[0].city},#{result.locations[0].country}&zoom=4&size=262x110&markers=#{result.locations[0].city},#{result.locations[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
 						//- static url = https://maps.googleapis.com/maps/api/staticmap?center=Rome,Italy&zoom=13&size=400x200&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs
-			.col-md-2.performer_details
+			.col-lg-2.col-md-3.col-sm-3.col-xs-3.performer_details
 				.performer_details_wrapper
 					ul
 						li= __("Download Pdf // ")
@@ -30,7 +30,7 @@
 						li= __("Follow // ")
 							a(href="#")
 								i(class="fa fa-user")
-			.col-md-5.performer_summary
+			.col-lg-5.col-md-4.col-sm-3.col-xs-3.performer_summary
 				.row
 					.col-md-8.performer_summary_box
 						ul
@@ -43,7 +43,7 @@
 										=" ("+result.stats[single_result]+")"
 
 								//a(href="/"+result.permalink+"/"+_config.sections[single_result].basepath+"/")=_config.sections[single_result].title+" ["+result.stats[single_result]+"]"
-					.col-md-4.visual_header_performer_summary
+					.col-md-4.visual_header_performer_summary.hidden-sm.hidden-xs
 
 
 
