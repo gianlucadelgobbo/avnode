@@ -1,0 +1,9 @@
+extends ../layout
+block content
+	h1=title
+		small=info
+	include ../partials/filter-menu
+	.row.main-list
+		each box in result
+			include ./item
+	include ../comp/paginator
