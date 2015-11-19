@@ -1,23 +1,26 @@
-- if (typeof(username) === 'undefined' && typeof(span) === 'undefined') span = "3"
-div(class="col-md-"+span)
-	.media
-		.pull-left
-			a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")
-				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=Fnc.getFileFormat(box.files, 90, 68))
-			br
-			ul.stats
-				li=__("Visits")+": "+box.stats.visits
-				li=__("Likes")+": "+box.stats.rates.tot_rate
-		.media-body
-			h4.media-heading
-				a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")=box.title
-			- performers = "";
-			- for(item in box.users)
-				- if (box.users[item]) performers+="<li><a href=\"/"+box.users[item].permalink+"/\">"+box.users[item].display_name+"</a></li>"
-			- if (performers)
-				ul.stats!=performers
-			- categories = "";
-			- for(item in box.categories)
-				- if (box.categories[item]) categories+="<li><a href=\"/"+config.sections[sez].basepath+"/"+box.categories[item].permalink+"/\">"+box.categories[item].name+"</a></li>"
-			- if (categories)
-				ul.stats!=categories
+- if (typeof(username) === 'undefined' && typeof(span) === 'undefined') span = "6"
+	div.perfomances_performer.list_item_performer.grid-item.col-sm-4(class="col-md-" + span)
+		.box_wrapper.col-sm-12
+			a.main_event_title_wrapper(href="/" + box.permalink)(title=box.title)
+				h3.main_event_title= box.title
+			a.main_performace_image_wrapper(href="/" + box.permalink)(title=box.title)
+				img.main_performace_image(src=box.files ? box.files[0].file : '')
+			.main_event_box
+				.main_event_details
+					ul.list-inline
+						li
+							i(class="fa fa-user")
+							a.performance_owner(href="/"+box.users[0].permalink)(title=box.users[0].display_name)= box.users[0].display_name
+					ul.list-inline
+						li.evidence-performance_stats
+							span.stat.value= box.stats.visits
+							span= __(" Visits")
+						li.evidence-performance_stats
+							span.stat.value= box.stats.rates.tot_rate
+							span= __(" Likes")
+
+					ul.evidence-performance_categories.list-inline
+						- for (categoria in box.categories)
+							li
+								i(class="fa fa-cube")
+								a(href="/" + box.categories[categoria].permalink)(title=box.categories[categoria].name)= box.categories[categoria].name

@@ -1,27 +1,26 @@
 - if (typeof(username) === 'undefined' && typeof(span) === 'undefined') span = "6"
-div(class="col-md-"+span)
-	.media
-		.pull-left
-			a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")
-				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=Fnc.getFileFormat(box.files, 90, 68))
-			br
-			ul.stats
-				li=__("Visits")+": "+box.stats.visits
-				li=__("Likes")+": "+box.stats.rates.tot_rate
-		.media-body
-			h4.media-heading
-				a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")=box.title
-			- categories = "";
-			- for(item in box.categories)
-				- if (box.categories[item] && box.categories[item].ancestors && box.categories[item].ancestors[0].permalink=="lv-projects-categories") categories+="<li><a href=\"/"+config.sections[sez].basepath+"/"+box.categories[item].permalink+"/\">"+box.categories[item].name+"</a></li>"
-			- if (categories)
-				ul.stats!=categories
-			ul.stats
-			- for(item in box.users)
-				li!=box.users[item].display_name
-			- if (box.date_time_venue)
-				- categories = "";
-				- if (box.date_time_venue[0] && box.date_time_venue[0].date) categories+="<li>"+(box.date_time_venue.length>1 ? __("Starts")+": " : "")+Fnc.getEventDate(box.date_time_venue[0].date)+", "+box.date_time_venue[0].start_time+" | "+box.date_time_venue[0].venue+"</li>"
-				- if (box.date_time_venue[box.date_time_venue.length-1] && box.date_time_venue[box.date_time_venue.length-1].date && box.date_time_venue.length>1) categories+="<li>"+__("Ends")+": "+Fnc.getEventDate(box.date_time_venue[box.date_time_venue.length-1].date)+", "+box.date_time_venue[box.date_time_venue.length-1].end_time+" | "+box.date_time_venue[box.date_time_venue.length-1].venue+"</li>"
-				- if (categories)
-					ul.stats!=categories
+	div.events_performer.list_item_performer.grid-item.col-sm-4(class="col-md-" + span)
+		.box_wrapper.col-sm-12
+			a.main_event_title_wrapper(href="/" + box.permalink)(title=box.title)
+				h3.main_event_title= box.title
+			a.main_performace_image_wrapper(href="/" + box.permalink)(title=box.title)
+				img.main_performace_image(src=box.files ? box.files[0].file : '')
+			.main_event_box
+				.main_event_details
+					p.event_date=box.date_str
+						p
+							i(class="fa fa-map-marker")
+							span.event_location=box.event_loc + __(", ")
+							span.event_city= box.event_city + __(", ")
+							span.event_country= box.event_country
+						p
+							i(class="fa fa-clock-o")
+							span.event_time= box.event_time
+						p.evidence-event_owner
+							i(class="fa fa-user")
+							a(href="/" + box.users[0].permalink)(title=box.users[0].display_name)= box.users[0].display_name
+						ul.evidence-performance_categories.list-inline
+							- for (categoria in box.categories)
+								li
+									i(class="fa fa-cube")
+									a(href="/" + box.categories[categoria].permalink)(title=box.categories[categoria].name)= box.categories[categoria].name

@@ -8,3 +8,10 @@ function showModal(t, m, callback) {
 		})
 	}
 }
+
+// isotope layout in lists
+$('.grid').isotope({
+	// options
+	itemSelector: '.grid-item',
+	layoutMode: 'masonry'
+});
