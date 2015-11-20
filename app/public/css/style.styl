@@ -361,10 +361,9 @@ a:hover img{opacity:.6;}
   background-color: #004431
 
 .box_wrapper
-  border: 1px dashed;
+  border: 1px solid;
   border-radius: 0 10px 0 0;
-  border-bottom 1px solid
-.perfomances_performer .box_wrapper
+.performances_performer .box_wrapper
   border-color #0F8FCF
 .events_performer .box_wrapper
   border-color #E4811E
@@ -574,6 +573,7 @@ a:hover img{opacity:.6;}
     width 100%
 .box_other_infos
   font-size 10px
+  margin-bottom 0
 .box_other_infos .fa-floppy-o
   margin-left 3px
 .single_footage
@@ -667,10 +667,9 @@ footer.main_footer
   background #F8F6F6
   padding-top 30px
 .list_page_title
-  font-size: 22px;
+  font-size: 18px;
   margin-top: 0;
-  font-weight: 200;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 .list_item_performer i
   display: inline-block;
   margin-right: 5px;
@@ -678,3 +677,42 @@ footer.main_footer
   color: #0f8fcf;
 .list_item_performer .main_event_details
   margin 15px 0
+.list_page .list_page_title i
+  display: inline-block;
+  padding: 0 10px;
+.performances_list .list_page_title i
+  color: #0F8FCF;
+.events_list .list_page_title i
+  color: #E4811E;
+.crews_list .list_page_title i
+  color: #004431;
+.list_page .list_page_sez
+  font-weight 600
+.list_page .list_page_user
+  font-weight 200
+.list_page .slash_svg
+  margin-top: -18px;
+  position: relative;
+  top: 11px;
+  width: 48px;
+  margin-right: 5px;
+.performances_list .list_page_title polyline
+  fill #0F8FCF
+.events_list .list_page_title polyline
+  fill #E4811E
+.crews_list .list_page_title polyline
+  fill #004431
+.footage_list, .gallery_list, .playlists_list
+  .list_item_performer
+  .list_page_title
+  .list_item_performer a
+    color #fff
+.footage_list, .playlists_list, .gallery_list
+  polyline
+    fill #fff
+.footage_list, .gallery_list, .playlists_list
+  background #333
+.list_item_performer.gallery_performer .image_box img
+  min-height 150px
+.list_item_performer.gallery_performer
+  min-height 150px
