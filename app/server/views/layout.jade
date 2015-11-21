@@ -64,9 +64,8 @@ html(lang=config.lang)
 									a(href="/"+item.basepath+"/")=item.title
 					ul.nav.navbar-nav.pull-right.user_nav
 						li
-							a(href="/controlpanel/"+(user.login ? "user/" : "login/"))=(user.login ? __("Account") : __("Login"))
-						- console.log(user)
-						- if(!user.login)
+							a(href="/controlpanel/"+(user && user.login ? "user/" : "login/"))=(user && user.login ? __("Account") : __("Login"))
+						- if(!user)
 							li
 								a(href="/controlpanel/signup/")=__("Registrati")
 						- else
@@ -139,7 +138,7 @@ html(lang=config.lang)
 		script(type="text/javascript", src="/js/validators.js")
 		script(type="text/javascript", src="/swfobject/swfobject/swfobject.js")
 		script(type="text/javascript", src="/js/script.js")
-		- if(user.login)
+		- if(user && user.login)
 			script(type="text/javascript", src="/js/script-admin.js")
 		// - if(typeof(reply)!== undefined && reply && user.login)
 			script(type="text/javascript").
