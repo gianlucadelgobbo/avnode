@@ -15,10 +15,12 @@ accounting.settings = config.accountingSettings;
 
 var ObjectID = require('mongodb').ObjectID;
 var request = require('request');
+var querystring = require('querystring');
 
 var DB = {};
 DB.db = new Db(dbName, new Server(dbHost, dbPort, {auto_reconnect: true,safe:true}, {}));
 DB.db.open(function(e, d){
+    console.log(d);
     if (e) {
         console.log(e);
     } else {
@@ -49,6 +51,10 @@ DB.validateFormLogin = function (login, password,callback) {
             e.push({name:"user",m:__("User not found")});
             callback(e, result);
         } else {
+            console.log('aaaaa');
+            console.log(password);
+            console.log(result.password);
+            console.log('aaaaa');
             if (result.password) {
                 bcrypt.compare(password, result.password, function(err, res) {
 					console.dir("login interno");
@@ -65,11 +71,12 @@ DB.validateFormLogin = function (login, password,callback) {
                 request.post({
                     uri:"https://flxer.net/api/login",
                     headers:{'content-type': 'application/x-www-form-urlencoded'},
-                    body:require('querystring').stringify({login:login, password:password})
+                    body:querystring.stringify({login:login, password:password})
                 },function(err, res, body){
                     var ress = JSON.parse(body);
                     if (ress.login) {
                         DB.setPassword(login, password, function(e, o) {
+                            console.log(o);
                             callback(e, result);
                         });
                     } else {
@@ -97,6 +104,7 @@ DB.facebookFindOrCreate = function(profile, callback){
                     console.log("TROVATO 2 !!!");
                     res.facebook = profile;
                     DB.users.save(res, {safe:true}, function(e, resSave) {
+                        console.log(resSave);
                         console.log("salvato 2 !!!");
                         callback(e, res);
                     });
@@ -107,7 +115,7 @@ DB.facebookFindOrCreate = function(profile, callback){
             callback(err, res);
         }
     });
-}
+};
 DB.facebookFind = function(profile, callback){
     DB.users.findOne({"facebook.id":profile.id}, function(err, res){
         if (!res) {
@@ -118,7 +126,7 @@ DB.facebookFind = function(profile, callback){
             callback(err, res);
         }
     });
-}
+};
 DB.facebookCreate = function(profile, callback) {
     var lang = profile._json.locale.split("_")[0];
     for(var a=0;a<profile.emails.length;a++){
@@ -173,7 +181,7 @@ DB.facebookCreate = function(profile, callback) {
     DB.users.save(o, {safe:true}, function(err, res) {
         callback(err, o);
     });
-}
+};
 DB.twitterFind = function(profile, callback){
     console.log(profile);
     DB.users.findOne({"twitter.id":profile.id}, function(err, res){
@@ -185,7 +193,7 @@ DB.twitterFind = function(profile, callback){
             callback(err, res);
         }
     });
-}
+};
 
 DB.googleFindOrCreate = function(profile, callback){
     DB.users.findOne({"google.id":profile.id}, function(err, res){
@@ -225,7 +233,7 @@ DB.googleFind = function(profile, callback){
             callback(err, res);
         }
     });
-}
+};
 
 DB.googleCreate = function(profile, callback) {
     var lang = profile._json.locale.split("_")[0];
@@ -315,7 +323,7 @@ DB.updateDB = function(collection, id, values, callback) {
 			callback(e, o);
 		});
 	});
-}
+};
 
 DB.updateEventRel = function(id, callback) {
 	var status = {

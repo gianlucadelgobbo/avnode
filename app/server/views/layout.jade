@@ -6,7 +6,8 @@ html(lang=config.lang)
 		meta(name="author", content="FLYER COMMUNICATION, Gianluca Del Gobbo, Flavio Distefano")
 		meta(name="robots", content="all")
 		meta(name="keywords", content=__("meta-keywords"))
-		meta(name="description", content=typeof description !== 'undefined' && description ? description : "")
+		- description = typeof description !== 'undefined' && description ? description : ""
+		meta(name="description", content=description)
 
 		link(type="text/css", href="/bootstrap/dist/css/bootstrap.min.css", rel="stylesheet")
 		link(type="text/css", href="/bootstrap-datepicker/css/datepicker.css", rel="stylesheet")
@@ -17,7 +18,7 @@ html(lang=config.lang)
 		link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:400,300,500,300italic,400italic")
 		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
 		link(type="text/css", href="/css/style.css", rel="stylesheet")
-		script(type="text/javascript", src="/jquery/dist/jquery.min.js")
+		script(type="text/javascript", src="/jquery/jquery.min.js")
 
 
 	body
@@ -30,7 +31,8 @@ html(lang=config.lang)
 							input(type="hidden", name="cof", value="FORID:10")
 							input(type="hidden", name="ie", value="UTF-8")
 							.form-group
-								input.form-control(type="text",	name="q", size="31", value=typeof q !== 'undefined' && q ? q : "")
+								- q = typeof q !== 'undefined' && q ? q : ""
+								input.form-control(type="text",	name="q", size="31", value=q)
 								button.btn.btn-default(type="submit", name="sa")=__("Cerca")
 									//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
 						ul.nav.navbar-nav
@@ -62,8 +64,9 @@ html(lang=config.lang)
 									a(href="/"+item.basepath+"/")=item.title
 					ul.nav.navbar-nav.pull-right.user_nav
 						li
-							a(href="/controlpanel/"+(user ? "user/" : "login/"))=(user ? __("Account") : __("Login"))
-						- if(!user)
+							a(href="/controlpanel/"+(user.login ? "user/" : "login/"))=(user.login ? __("Account") : __("Login"))
+						- console.log(user)
+						- if(!user.login)
 							li
 								a(href="/controlpanel/signup/")=__("Registrati")
 						- else
@@ -71,7 +74,7 @@ html(lang=config.lang)
 								a(href="/controlpanel/logout/")=__("Logout")
 							- if (typeof notifiche !== "undefined")
 								li(style="position:relative")
-									a(href="/"+user.user_name+"/notifications/", title=__("Visualizza le notifiche"))=__("Notifiche")
+									a(href="/"+user.login+"/notifications/", title=__("Visualizza le notifiche"))=__("Notifiche")
 										span.jewelCount=(typeof(notifiche) !== "undefined" && notifiche ? notifiche : 0)
 						li.dropdown
 							a.dropdown-toggle(href="#", data-toggle="dropdown")
@@ -136,9 +139,9 @@ html(lang=config.lang)
 		script(type="text/javascript", src="/js/validators.js")
 		script(type="text/javascript", src="/swfobject/swfobject/swfobject.js")
 		script(type="text/javascript", src="/js/script.js")
-		- if(user)
+		- if(user.login)
 			script(type="text/javascript", src="/js/script-admin.js")
-		// - if(typeof(reply)!== undefined && reply && user)
+		// - if(typeof(reply)!== undefined && reply && user.login)
 			script(type="text/javascript").
 				$(document).ready(function(){
 					sendDelay();
