@@ -21,7 +21,7 @@ exports.post = function(req, res, next) {
 				if (err) {
 					console.log("ERRORE LOGIN 2");
 					console.log(err);
-					res.render('forms/login', {title : "Login", "from":req.body.from, result:req.body, msg:{e:[{m:["stocazzo"]}]}, user : passport_user });
+					res.render('forms/login', {title : "Login", "from":req.body.from, result:req.body, msg:{e:[{m:[err]}]}, user : passport_user });
 				} else {
 					return res.redirect(req.body.from ? req.body.from : '/' + user.login);
 				}
