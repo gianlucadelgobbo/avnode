@@ -257,6 +257,9 @@
         "television": "Television", 
         "workshops-learning": "Workshops & learning"
       },
+      "subsections":{
+        "participate":"Participate"
+      },
       "permissions": {
         "administrator": "Administrator",
         "editor":  "Editor",

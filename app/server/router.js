@@ -1,37 +1,37 @@
-var indexRoutes 			= require('./routes/index');
-var performersRoutes 		= require('./routes/performers');
-var performancesRoutes 		= require('./routes/performances');
-var footageRoutes 			= require('./routes/footage');
-var eventsRoutes 			= require('./routes/events');
-var playlistsRoutes 		= require('./routes/playlists');
-var forumRoutes 			= require('./routes/forum');
-var tvshowsRoutes 			= require('./routes/tvshows');
-var userRoutes 				= require('./routes/user');
-var apiRoutes 				= require('./routes/api');
-var searchRoutes 			= require('./routes/search');
-var cpanelChangeLangRoutes	= require('./routes/controlpanel/change_lang');
-var cpanelLoginRoutes 		= require('./routes/controlpanel/login');
-var cpanelConfirmRoutes 	= require('./routes/controlpanel/confirm');
-var cpanelLogoutRoutes 		= require('./routes/controlpanel/logout');
-var cpanelSignupRoutes 		= require('./routes/controlpanel/signup');
-var cpanelUserRoutes 		= require('./routes/controlpanel/user');
-var cpanelCrewsRoutes	 	= require('./routes/controlpanel/crews');
-var cpanelEventsRoutes	 	= require('./routes/controlpanel/events');
-var cpanelPerformancesRoutes= require('./routes/controlpanel/performances');
-var cpanelTvshowsRoutes	 	= require('./routes/controlpanel/tvshows');
-var cpanelFootageRoutes	 	= require('./routes/controlpanel/footage');
-var cpanelPlaylistsRoutes	= require('./routes/controlpanel/playlists');
-var cpanelGalleryRoutes		= require('./routes/controlpanel/gallery');
-var cpanelAjax		 		= require('./routes/controlpanel/ajax');
+var indexRoutes 					= require('./routes/index');
+var performersRoutes 				= require('./routes/performers');
+var performancesRoutes 				= require('./routes/performances');
+var footageRoutes 					= require('./routes/footage');
+var eventsRoutes 					= require('./routes/events');
+var playlistsRoutes 				= require('./routes/playlists');
+var forumRoutes 					= require('./routes/forum');
+var tvshowsRoutes 					= require('./routes/tvshows');
+var performerRoutes 				= require('./routes/performer');
+var apiRoutes 						= require('./routes/api');
+var searchRoutes 					= require('./routes/search');
+var cpanelChangeLangRoutes			= require('./routes/controlpanel/change_lang');
+var cpanelLoginRoutes 				= require('./routes/controlpanel/login');
+var cpanelConfirmRoutes 			= require('./routes/controlpanel/confirm');
+var cpanelLogoutRoutes 				= require('./routes/controlpanel/logout');
+var cpanelSignupRoutes 				= require('./routes/controlpanel/signup');
+var cpanelUserRoutes 				= require('./routes/controlpanel/user');
+var cpanelCrewsRoutes	 			= require('./routes/controlpanel/crews');
+var cpanelEventsRoutes	 			= require('./routes/controlpanel/events');
+var cpanelPerformancesRoutes        = require('./routes/controlpanel/performances');
+var cpanelTvshowsRoutes	 			= require('./routes/controlpanel/tvshows');
+var cpanelFootageRoutes	 			= require('./routes/controlpanel/footage');
+var cpanelPlaylistsRoutes			= require('./routes/controlpanel/playlists');
+var cpanelGalleryRoutes				= require('./routes/controlpanel/gallery');
+var cpanelAjax		 				= require('./routes/controlpanel/ajax');
 
 
 
-var uploadRoutes 			= require('./routes/upload');
-var uploadSuccessRoutes		= require('./routes/upload-success');
-var imageRoutes 			= require('./routes/image');
-var ajax		 			= require('./routes/ajax');
+var uploadRoutes 					= require('./routes/upload');
+var uploadSuccessRoutes				= require('./routes/upload-success');
+var imageRoutes 					= require('./routes/image');
+var ajax		 					= require('./routes/ajax');
 
-var passport 				= require('passport');
+var passport 						= require('passport');
 
 
 /*
@@ -227,8 +227,8 @@ module.exports = function(app) {
 	//app.get('/api/clients', apiRoutes.getClients);
 	//app.get('/api', apiRoutes.get);
 
-	// all other routes: User or 404
-	app.get('*', userRoutes.get);
+    // all other routes: User or 404
+    app.get('*', performerRoutes.get);
 	//app.post('*', userRoutes.post);
 	//app.get('*', function(req, res) { res.send(404); });
 };
