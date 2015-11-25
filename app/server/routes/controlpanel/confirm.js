@@ -8,9 +8,7 @@ exports.get = function get(req, res) {
 	if (req.query.code) {
 		DB.temp.findOne({code:req.query.code}, function(e, result) {
 			if (result) {
-				console.dir(result);
 				if (result.act == "password") {
-					console.dir(result);
 					DB[result.collection].findOne({_id:new ObjectID(result.doc_id)}, function(e, result2) {
 						if (result2) {
 					  		for(item in result.data) {
@@ -53,7 +51,6 @@ exports.get = function get(req, res) {
 					DB[result.collection].findOne({_id:new ObjectID(result.doc_id)}, function(e, result2) {
 				  		result2.members.push(result.data);
 				  		DB[result.collection].save(result2, {safe:true}, function(e, success) {
-                            console.log("SALVATOOOOO")
 				  			if (success) {
 						  		var msg = {c:[{m:result.msg.text}]};
 						  		DB.temp.remove({code:req.query.code});
@@ -73,13 +70,11 @@ exports.get = function get(req, res) {
 				}
 			} else {
 				var msg = {e:[{m:"Code is not valid or already used"}]};
-                console.log(msg);
 				res.render('forms/confirm', {title : __("Code confirm"), msg:msg, "from":req.query.from, user : req.session.passport.user });
 			}
 		});
 	} else {
         var msg = {e:[{m:"Code is not valid or already used"}]};
-        console.log(msg);
         res.render('forms/confirm', {title : __("Code confirm"), msg:msg, "from":req.query.from, user : req.session.passport.user });
 	}
 }

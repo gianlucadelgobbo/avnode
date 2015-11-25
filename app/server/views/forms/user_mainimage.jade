@@ -67,13 +67,6 @@ block content
 			}).on("complete", function(event, id, fileName, responseJSON){
 			/*
 			*/
-			console.log("complete");
-			console.log(event);
-			console.log((id));
-			console.log((fileName));
-			console.log((responseJSON));
-			//console.log(eval(responseJSON));
-			console.log("complete");
 			$.ajax({
 			type: "POST",
 			url: "/upload-success/?id=#{result._id}&c=users",

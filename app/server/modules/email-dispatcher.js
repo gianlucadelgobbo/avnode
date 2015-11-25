@@ -12,7 +12,6 @@ email = {
 EM.sendMail = function(email, callback) {
 	email.from = config.emaildispatcher.nameFrom+" <"+config.emaildispatcher.emailFrom+">";
 	server.send(email, function(err, message) {
-		console.log(err || message);
 		callback(err, message);
 	});
 };

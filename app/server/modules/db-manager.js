@@ -20,10 +20,7 @@ var querystring = require('querystring');
 var DB = {};
 DB.db = new Db(dbName, new Server(dbHost, dbPort, {auto_reconnect: true,safe:true}, {}));
 DB.db.open(function(e, d){
-    console.log(d);
-    if (e) {
-        console.log(e);
-    } else {
+    if (!e) {
         DB.users = 			DB.db.collection('users');
         DB.footage = 		DB.db.collection('footage');
         DB.playlists = 		DB.db.collection('playlists');
@@ -42,27 +39,16 @@ module.exports = DB;
 
 DB.validateFormLogin = function (login, password,callback) {
     var e = [];
-	console.log("stocazzo");
-	//console.log(login);
     DB.users.findOne({login:login}, function(err, result) {
-		console.log(result);
         if (result == null){
-			console.log("stocazzo2");
             e.push({name:"user",m:__("User not found")});
             callback(e, result);
         } else {
-            console.log('aaaaa');
-            console.log(password);
-            console.log(result.password);
-            console.log('aaaaa');
             if (result.password) {
                 bcrypt.compare(password, result.password, function(err, res) {
-					console.dir("login interno");
 					if (res) {
-						console.dir("login success");
                         callback(e, result);
                     } else {
-						console.dir("login failed");
                         e.push({name:"user",m:__("Login failed")});
                         callback(e, result);
                     }
@@ -76,7 +62,6 @@ DB.validateFormLogin = function (login, password,callback) {
                     var ress = JSON.parse(body);
                     if (ress.login) {
                         DB.setPassword(login, password, function(e, o) {
-                            console.log(o);
                             callback(e, result);
                         });
                     } else {
@@ -93,25 +78,19 @@ DB.validateFormLogin = function (login, password,callback) {
 DB.facebookFindOrCreate = function(profile, callback){
     DB.users.findOne({"facebook.id":profile.id}, function(err, res){
         if (!res) {
-            console.log("NON TROVATO 1 !!!");
             DB.users.findOne({"emails.email":profile.emails[0].value}, function(err, res){
                 if (!res) {
-                    console.log("NON TROVATO 2 !!!");
                     DB.facebookCreate(profile, function(err, res) {
                         callback(err, res);
                     });
                 } else {
-                    console.log("TROVATO 2 !!!");
                     res.facebook = profile;
                     DB.users.save(res, {safe:true}, function(e, resSave) {
-                        console.log(resSave);
-                        console.log("salvato 2 !!!");
                         callback(e, res);
                     });
                 }
             });
         } else {
-            console.log("TROVATO 1 !!!");
             callback(err, res);
         }
     });
@@ -119,10 +98,8 @@ DB.facebookFindOrCreate = function(profile, callback){
 DB.facebookFind = function(profile, callback){
     DB.users.findOne({"facebook.id":profile.id}, function(err, res){
         if (!res) {
-            console.log("NON TROVATO 1 !!!");
             res.redirect('/controlpanel/login/');
         } else {
-            console.log("TROVATO 1 !!!");
             callback(err, res);
         }
     });
@@ -183,13 +160,10 @@ DB.facebookCreate = function(profile, callback) {
     });
 };
 DB.twitterFind = function(profile, callback){
-    console.log(profile);
     DB.users.findOne({"twitter.id":profile.id}, function(err, res){
         if (!res) {
-            console.log("NON TROVATO 1 !!!");
             res.redirect('/controlpanel/login/');
         } else {
-            console.log("TROVATO 1 !!!");
             callback(err, res);
         }
     });
@@ -197,39 +171,29 @@ DB.twitterFind = function(profile, callback){
 
 DB.googleFindOrCreate = function(profile, callback){
     DB.users.findOne({"google.id":profile.id}, function(err, res){
-        console.log(res);
         if (!res) {
-            console.log("NON TROVATO 1 !!!");
             DB.users.findOne({"emails.email":profile.emails[0].value}, function(err, res){
-                console.log(res);
                 if (!res) {
-                    console.log("NON TROVATO 2 !!!");
                     DB.googleCreate(profile, function(err, res) {
                         callback(err, res);
                     });
                 } else {
-                    console.log("TROVATO 2 !!!");
                     res.google = profile;
                     DB.users.save(res, {safe:true}, function(e, resSave) {
-                        console.log("salvato 2 !!!");
                         callback(e, res);
                     });
                 }
             });
         } else {
-            console.log("TROVATO 1 !!!");
             callback(err, res);
         }
     });
 }
 DB.googleFind = function(profile, callback){
     DB.users.findOne({"google.id":profile.id}, function(err, res){
-        console.log(res);
         if (!res) {
-            console.log("NON TROVATO 1 !!!");
             res.redirect('/controlpanel/login/');
         } else {
-            console.log("TROVATO 1 !!!");
             callback(err, res);
         }
     });
@@ -316,7 +280,6 @@ DB.saltAndHash = function(pass, callback) {
 DB.updateDB = function(collection, id, values, callback) {
 	DB[collection].findOne({_id: new ObjectID(id)}, function(e, o){
 		for(var i=0;i<values.length;i++) {
-			console.dir(values[i].name);
 			o[values[i].name] = values[i].value;
 		}
 		DB[collection].save(o, {safe:true}, function(e, success) {
@@ -337,7 +300,7 @@ DB.updateEventRel = function(id, callback) {
 		var ids = [];
 		for (var item in event.users) {
 			ids.push(event.users[item]._id);
-			if (event.users[item].members || event.users[item].members.length) {
+			if (event.users[item].members && event.users[item].members.length) {
 				for (var item2 in event.users[item].members) {
 					ids.push(event.users[item].members[item2]._id);
 				} 
@@ -358,7 +321,6 @@ DB.updateEventRel = function(id, callback) {
 					if (add) subrecord.events.push(minievent);
 					DB.users.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir(" : "+conta);
 						if (conta==subrecords.length) {
 							status.users = true;
 							var end = true
@@ -393,7 +355,6 @@ DB.updateEventRel = function(id, callback) {
 					if (add) subrecord.events.push(minievent);
 					DB.performances.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir(" : "+conta);
 						if (conta==subrecords.length) {
 							status.performances = true;
 							var end = true
@@ -418,8 +379,6 @@ DB.updateEventRel = function(id, callback) {
 			var conta = 0;
 			if (subrecords.length) {
 				subrecords.forEach(function(subrecord){
-                    console.log("subrecord GALLERY");
-                    console.log(subrecord);
 					var add = true;
 					for (var a=0;a<subrecord.events.length;a++) {
                         if (subrecord.events[a]._id && subrecord.events[a]._id.equals(id)) {
@@ -430,7 +389,6 @@ DB.updateEventRel = function(id, callback) {
 					if (add) subrecord.events.push(minievent);
 					DB.gallery.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir(" : "+conta);
 						if (conta==subrecords.length) {
 							status.gallery = true;
 							var end = true
@@ -472,7 +430,6 @@ DB.updateUserRel = function(id, callback) {
 					}
 					DB.users.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir(""+q+": "+conta);
 						if (conta==subrecords.length) {
 							status.users = true;
 							var end = true
@@ -509,7 +466,6 @@ DB.updateUserRel = function(id, callback) {
 					}
 					DB.events.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir("events: "+conta);
 						if (conta==subrecords.length) {
 							status.events = true;
 							var end = true
@@ -534,7 +490,6 @@ DB.updateUserRel = function(id, callback) {
 					}
 					DB.footage.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir("footage: "+conta);
 						if (conta==subrecords.length) {
 							status.footage = true;
 							var end = true
@@ -559,7 +514,6 @@ DB.updateUserRel = function(id, callback) {
 					}
 					DB.playlists.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir("playlists: "+conta);
 						if (conta==subrecords.length) {
 							status.playlists = true;
 							var end = true
@@ -584,7 +538,6 @@ DB.updateUserRel = function(id, callback) {
 					}
 					DB.gallery.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir("gallery: "+conta);
 						if (conta==subrecords.length) {
 							status.gallery = true;
 							var end = true
@@ -609,7 +562,6 @@ DB.updateUserRel = function(id, callback) {
 					}
 					DB.performances.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir("performances: "+conta);
 						if (conta==subrecords.length) {
 							status.performances = true;
 							var end = true
@@ -634,7 +586,6 @@ DB.updateUserRel = function(id, callback) {
 					}
 					DB.tvshow.save(subrecord, {safe:true}, function(e, success) {
 						conta++;
-						console.dir("tvshow: "+conta);
 						if (conta==subrecords.length) {
 							status.tvshow = true;
 							var end = true;

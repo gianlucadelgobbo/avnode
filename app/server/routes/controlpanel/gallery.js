@@ -16,14 +16,12 @@ exports.get = function get(req, res) {
 			//var ids = [req.session.passport.user.permalink];
 			//for(var crew in req.session.passport.user.crews) ids.push(req.session.passport.user.crews[crew].permalink);
 			Fnc.getList(req.params[0], sez, res, ids, function(err, tot, records, conf){
-				console.dir("bella");
 				res.render('forms/'+_config.sections[sez].view_list, {locals: {title:_config.sections[sez].title, sez:sez, tot:tot, path:conf.path, sort:conf.sort, filter:conf.filter, skip:conf.skip, result:records, Fnc:Fnc}, user : req.session.passport.user});
 			});
 		} else {
 			var p = Fnc.parseParams(req.params[0]);
 			var page = p.page;
 			var params2 = p.params2;
-			console.dir(p);
 			DB.canIeditThis("performances", {"permalink":params2[0]}, req.session.passport.user, function (result) {
 				if (result) {
 					var sez = "performances";

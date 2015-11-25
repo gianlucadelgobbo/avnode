@@ -1,6 +1,6 @@
 extends ../layout
 block content
-	- //console.dir(result)
+	- if (!result.settings.call) result.settings.call = {}
 	- if (!result.settings.call.calls) result.settings.call.calls = [{prices:[{}],topics:[{}]}]
 	- if (!result.settings.call.calls.length) result.settings.call.calls[0] = {prices:[{}],topics:[{}]}
 	- if (!result.settings.call.calls[0].prices) result.settings.call.calls[0].prices = [{}]
@@ -8,8 +8,8 @@ block content
 	- if (!result.settings.call.calls[0].prices.length) result.settings.call.calls[0].prices[0] = {}
 	- if (!result.settings.call.calls[0].topics.length) result.settings.call.calls[0].topics[0] = {}
 	- if (!result.settings.rooms) result.settings.rooms = [{}]
-	- if (!result.settings.rooms.length) result.settings.rooms[0] = {}
-	//- result.settings.permissions = {"administrator":[user]}
+	//- if (!result.settings.rooms.length) result.settings.rooms[0] = {}
+	- if (!result.settings.permissions)  result.settings.permissions = {"administrator":[user]}
 	.tabbable.tabs-left.row
 		include ../comp/cp_menu
 		.tab-content.col-md-10
@@ -18,6 +18,7 @@ block content
 				form.form-horizontal(method="post")
 					input(type="hidden",name="_id",value=result._id)
 					input(type="hidden",name="title",value=result.title)
+					input(type="hidden",name="form", value=form)
 					fieldset
 						legend=title
 						include ../comp/msg
@@ -35,7 +36,7 @@ block content
 								p=__("All the AV node users can upload gallery")
 						.form-group
 							label.col-md-2.control-label
-								input.switch(value="1", name="settings[call][is_active]", onchange="$('#opencall').removeClass('hide').toggle('slide')",type="checkbox",autocomplete="off", checked=result.settings.callOpen ? "checked" : undefined)
+								input.switch(value="1", name="settings[call_is_active]", onchange="$('#opencall').slideToggle('slide')",type="checkbox",autocomplete="off", checked=result.settings.call_is_active ? "checked" : undefined)
 							.col-md-10
 								h4=__("Open call")
 								p=__("The users can submit a project to the event")
@@ -43,7 +44,7 @@ block content
 									b=__("This function is reserved to AVnode.org members")+". "
 									a(href="http://avnode.org/members/")=__("more info")
 								textarea(rows="3").form-control=JSON.stringify(result.settings, null, '\t')
-								#opencall(class=!result.settings.callOpen ? "hide" : undefined)
+								#opencall(style=!result.settings.call_is_active ? "display: none" : undefined)
 									fieldset
 										legend=__("Open call general settings")
 										.form-group
@@ -102,9 +103,10 @@ block content
 												label.col-md-3.control-label=__("Admitted projects")
 												.col-md-9
 													- for (var b=0;b<_config.sections.performances.categories.length;b++)
-														label.checkbox
-															input(name="settings[call][calls]["+a+"][admitted][]", checked=result.settings.call.calls[a].admitted && result.settings.call.calls[a].admitted.indexof(_config.sections.performances.categories[b])!=-1 ? "checked" : undefined,		value=_config.sections.performances.categories[b],		type="checkbox")
-															!=" "+_config.sections.performances.labels[_config.sections.performances.categories[b]]
+														.checkbox
+															label
+																input(name="settings[call][calls]["+a+"][admitted][]", checked=result.settings.call.calls[a].admitted && result.settings.call.calls[a].admitted.indexOf(_config.sections.performances.categories[b])!=-1 ? "checked" : undefined,		value=_config.sections.performances.categories[b],		type="checkbox")
+																!=" "+_config.sections.performances.labels[_config.sections.performances.categories[b]]
 											.form-group
 												label.col-md-3.control-label=__("Terms and conditions")
 												.col-md-9
@@ -112,10 +114,10 @@ block content
 											.form-group
 												- prices = result.settings.call.calls[a].prices && result.settings.call.calls[a].prices.length
 												label.col-md-3.control-label
-													input.switch(onchange="$('#prices').removeClass('hide').toggle('slide')",type="checkbox",autocomplete="off",checked=prices ? "checked" : undefined)
+													input.switch(onchange="$('#prices').slideToggle('slide')",type="checkbox",autocomplete="off",checked=prices ? "checked" : undefined)
 												.col-md-9
 													h5=__("This call have prices")
-													#prices(class=!prices ? "hide" : undefined)
+													#prices(style=!prices ? "display: none" : undefined)
 														- for (var b=0;b<result.settings.call.calls[a].prices.length;b++)
 															fieldset
 																legend.clearfix
@@ -141,10 +143,10 @@ block content
 											.form-group
 												- topics = result.settings.call.calls[a].topics && result.settings.call.calls[a].topics.length
 												label.col-md-3.control-label
-													input.switch(onchange="$('#topics').removeClass('hide').toggle('slide')",type="checkbox",autocomplete="off",checked=topics ? "checked" : undefined)
+													input.switch(onchange="$('#topics').slideToggle('slide')",type="checkbox",autocomplete="off",checked=topics ? "checked" : undefined)
 												.col-md-9
 													h5=__("This call have topics")
-													#topics(class=!topics ? "hide" : undefined)
+													#topics(style=!topics ? "display: none" : undefined)
 														- for (var b=0;b<result.settings.call.calls[a].topics.length;b++)
 															fieldset
 																legend.clearfix
@@ -170,14 +172,14 @@ block content
 
 						.form-group
 							label.col-md-2.control-label
-								input.switch(value="1", name="settings[call][program_builder]", onchange="$('#rooms').removeClass('hide').toggle('slide')",type="checkbox",autocomplete="off", checked=result.settings.call.program_builder ? "checked" : undefined)
+								input.switch(value="1", name="settings[program_builder]", onchange="$('#rooms').slideToggle('slide')",type="checkbox",autocomplete="off", checked=result.settings.program_builder ? "checked" : undefined)
 							.col-md-9
 								h4=__("Advanced program builder")
 								p=__("Tool to manage, evaluate, select and schedule every project involved in the event")
 								p
 									b=__("This function is reserved to AVnode.org members")+". "
 									a(href="http://avnode.org/members/")=__("more info")
-								#rooms(class=!result.settings.call.program_builder ? "hide" : undefined)
+								#rooms(style=!result.settings.program_builder ? "display: none" : undefined)
 									- for (var a=0;a<result.settings.rooms.length;a++)
 										fieldset
 											legend.clearfix
@@ -204,14 +206,14 @@ block content
 													input.form-control(name="settings[rooms]["+a+"][break]", value=result.settings.rooms[a].break, type="text")
 						.form-group
 							label.col-md-2.control-label
-								input.switch(value="1", name="settings[call][advanced_proposals_manager]", onchange="$('#permissions').removeClass('hide').toggle('slide')",type="checkbox",autocomplete="off", checked=result.settings.call.advanced_proposals_manager ? "checked" : undefined)
+								input.switch(value="1", name="settings[advanced_proposals_manager]", onchange="$('#permissions').slideToggle('slide')",type="checkbox",autocomplete="off", checked=result.settings.advanced_proposals_manager ? "checked" : undefined)
 							.col-md-10
 								h4=__("Advanced project proposals manager")
 								p=__("Tool to easily build the program based on custom rooms ad timetable with rules on performance accepted")
 								p
 									b=__("This function is reserved to AVnode.org members")+". "
 									a(href="http://avnode.org/members/")=__("more info")
-								#permissions(class=!result.settings.call.advanced_proposals_manager ? "hide" : undefined)
+								#permissions(style=!result.settings.advanced_proposals_manager ? "display: none" : undefined)
 									- for (item in _config.sections.events.permissions)
 										fieldset
 											legend.clearfix
@@ -219,7 +221,7 @@ block content
 												button.btn.btn-primary.pull-right(type="button")=__("Add a user")
 											ul.nav
 												- if (result.settings.permissions[item] && result.settings.permissions[item].length)
-														//- console.dir(result.settings.permissions[item])
+													//- console.dir(result.settings.permissions[item])
 													- for (var a=0;a<result.settings.permissions[item].length;a++)
 														li.alert.alert-info
 															button.close(type="button",data-dismiss="alert")!="&times"
@@ -227,14 +229,14 @@ block content
 															input(type="hidden",name="settings[permissions]["+item+"]["+a+"]",value=JSON.stringify(result.settings.permissions[item][a]))
 												- else
 													li.alert.text-center=__("No users")
-				hr.clearfix
-				.form-group
-					label.col-sm-2.control-label
-					.col-sm-10
-						button(type="submit").btn.btn-primary.btn-lg=__("Save")
-				script(type="text/javascript").
-							$(function() {
-								$(".switch").bootstrapSwitch();
-								$(".bootstrap-timepicker input").timepicker();
-								$(".datepicker").datepicker();
-							});
+						hr.clearfix
+						.form-group
+							label.col-sm-2.control-label
+							.col-sm-10
+								button(type="submit").btn.btn-primary.btn-lg=__("Save")
+						script(type="text/javascript").
+									$(function() {
+										$(".switch").bootstrapSwitch();
+										$(".bootstrap-timepicker input").timepicker();
+										$(".datepicker").datepicker();
+									});

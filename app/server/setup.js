@@ -46,8 +46,6 @@ module.exports = function(app, exp) {
 	app.use(flash());
 
     passport.serializeUser(function(user, done) {
-		console.log("serializeUser");
-		console.log(user);
         done(null, user);
     });
     passport.deserializeUser(function(user, done) {

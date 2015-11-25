@@ -9,8 +9,6 @@ exports.get = function get(req, res) {
 	if (pathArray[0]=="") pathArray.shift();
 	if (pathArray[pathArray.length-1]=="") pathArray.pop();
 	if (pathArray[pathArray.length-1].indexOf("output")!=-1) pathArray.pop();
-	console.dir(pathArray);
-	console.dir(pathArray[pathArray.length-1].indexOf("output"));
 	var passport_user = req.session.passport && req.session.passport.user ? req.session.passport.user : {};
 	if (pathArray.length > 0) {
 		DB.users.findOne({permalink:pathArray[0]}, function(e, result) {
@@ -48,9 +46,7 @@ exports.get = function get(req, res) {
 						break;
 					case 4 :
 						if (config.sections[pathArray[1]] && config.sections[pathArray[1]].subsections && config.sections[pathArray[1]].subsections[pathArray[3]]) {
-							- console.dir("bella"+pathArray.length)
 							DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
-								console.log(dett.settings);
 								if (dett) {
 									if (output=="json") {
 										res.send(result);

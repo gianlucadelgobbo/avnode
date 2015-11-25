@@ -53,7 +53,6 @@ module.exports = function(app) {
     // Index //
 	app.get('/', indexRoutes.get);
 	app.post('/', indexRoutes.post);
-	console.log("trace");
 
 	// ajax //
 	//app.get('/ajax*', ajax.get);

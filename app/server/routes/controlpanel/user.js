@@ -18,7 +18,6 @@ exports.get = function get(req, res) {
 	if (req.session.passport.user == null) {
 		res.redirect('/controlpanel/login/?from='+req.url);
 	} else {
-		console.dir(req.params);
 		var id = (req.query.id ? req.query.id : req.session.passport.user._id);
 		DB.users.findOne({_id:new ObjectID(id)}, function(err, result){
 			var sez = "user";
@@ -105,22 +104,12 @@ exports.post = function post(req, res) {
 				  		for(var item in o) {
 				  			newItem[item] = o[item];
 				  		}
-						console.dir("CAZZO");
-						console.dir(newItem);
 						var sections = ["events","footage","playlists","gallery","performances","tvshow"];
 						var miniuser = {_id:newItem._id,old_id:newItem.old_id,display_name:newItem.display_name,permalink:newItem.permalink,files:newItem.files,stats:newItem.stats,members:newItem.members};
 						for (var item in sections) {
-							console.dir("bella item "+sections[item]);
 							if (newItem[sections[item]] && newItem[sections[item]].length) {
 								for (var a=0;a<newItem[sections[item]].length;a++) {
-										console.dir("bella2 sections[item]"+sections[item]);
-										console.dir("bella2 newItem[sections[item]].length"+newItem[sections[item]].length);
 									for (var b=0;b<newItem[sections[item]][a].users.length;b++) {
-										console.dir("bella3 sections[item]"+sections[item]);
-										console.dir(newItem[sections[item]][a].users[b].permalink);
-										console.dir(newItem[sections[item]][a].users[b]._id);
-										console.dir(miniuser._id);
-										console.dir(newItem._id);
 //										if (newItem[sections[item]][a].users[b].permalink == miniuser.permalink) newItem[sections[item]][a].users[b] = miniuser;
 										if (newItem[sections[item]][a].users[b]._id.equals(miniuser._id)) newItem[sections[item]][a].users[b] = miniuser;
 									}
@@ -157,9 +146,6 @@ exports.validate_user_private = function (req,callback) {
 	if (o.gender=="") errors.push({name:"gender",m:__("Gender can not be empty")});
 	if (o.citizenship=="") errors.push({name:"gender",m:__("Country of citizenship can not be empty")});
 	if (!((parseFloat(tmp[2])==o.birth_date.getDate()) && (parseFloat(tmp[1])-1==o.birth_date.getMonth()) && (parseFloat(tmp[0])==o.birth_date.getFullYear()))) errors.push({name:"birthdate",m:__("Birth date is not valid")});
-	console.dir(o);
-	console.dir(o.birth_date.getFullYear());
-	console.dir(parseFloat(tmp[0]));
 	callback(errors, o, __("Data saved"));
 }
 

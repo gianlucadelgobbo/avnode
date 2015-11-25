@@ -36,22 +36,14 @@ exports.get = function get(req, res) {
 				}
 				delete user.crew_display_name;
 				delete user.crew_permalink;
-				console.dir(user);
-				console.dir(crew);
 				DB.users.insert(user, {safe: true}, function(err, record){
 					user = record[0];
-					console.dir("DB.users.insert-user");
-					console.dir(user);
 					if (crew) {
 						crew.members.push({permalink: user.permalink,display_name:user.display_name,_id:user._id, stats:user.stats });
 						DB.users.insert(crew, {safe: true}, function(err, record){
-							console.dir("DB.users.insert-crew");
-							console.dir(record);
 							crew = record[0];
 							user.crews.push({permalink: crew.permalink,display_name:crew.display_name,_id:crew._id, stats:crew.stats });
 							DB.users.save(user, {safe: true}, function(err, record){
-								console.dir("DB.users.insert-user 2");
-								console.dir(record);
 								DB.temp_users.remove({"code":req.query.code}, {safe: true}, function(err, record){
 									res.render('forms/user_signup', {title : __('Signup'), countries: CT, result:record, msg:{c:[{m:__("Data saved, please login")}]} , user : req.session.passport.user });
 									/*
@@ -112,7 +104,6 @@ exports.post = function get(req, res) {
 					DB.temp_users.remove({"email":o.email}, {safe: true}, function(err, record){
 						DB.temp_users.insert(temp, {safe: true}, function(err, record){
 							var text = "";
-							console.dir(record);
 							text+= __('Ciao')+" "+o.name+"," + "\n";
 							text+= __('please confirm your registration to')+" "+_config.sitename+"," + "\n";
 							text+= _config.siteurl+"/controlpanel/signup/?code="+temp.code + "\n";
@@ -140,7 +131,6 @@ exports.post = function get(req, res) {
 
 */
 exports.validateFormSignup = function (o,callback) {
-	console.log(o);
 	var e = [];
 	if (typeof o.is_crew === "undefined") {
 		e.push({name:"is_crew",m:__("Please select the type of account: individual or crew")});
