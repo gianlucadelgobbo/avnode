@@ -15,3 +15,12 @@ $('.grid').isotope({
 	itemSelector: '.grid-item',
 	layoutMode: 'masonry'
 });
+
+// isotope layout in bootstrap tabs
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	$('.grid').isotope({
+		// options
+		itemSelector: '.grid-item',
+		layoutMode: 'masonry'
+	});
+});

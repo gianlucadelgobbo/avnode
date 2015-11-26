@@ -596,6 +596,8 @@ a:hover img{opacity:.6;}
   @media onlyxs
     width 100%
     height auto
+.gallery_thumb_container
+  min-height 200px
 .slash_svg
   position: absolute;
   top: 15px;
@@ -699,7 +701,7 @@ footer.main_footer
 .performances_list .list_page_title polyline
   fill #0F8FCF
 .events_list .list_page_title polyline
-  fill #E4811E
+  fill #e4811e
 .crews_list .list_page_title polyline
   fill #004431
 .footage_list, .gallery_list, .playlists_list
@@ -716,3 +718,36 @@ footer.main_footer
   min-height 150px
 .list_item_performer.gallery_performer
   min-height 150px
+
+// single event
+
+.single_event_thumb_container
+  position relative
+  float left
+.single_event_thumb_container .overlay_container
+  color: #fff;
+  position: absolute;
+  background: rgba(51,51,51,0.8) none repeat scroll 0 0;
+  top: 0px;
+  left 0px
+  width: 100%;
+  padding: 15px 30px;
+
+.event_events_list
+  margin 15px 0
+  padding: 0
+.event_events_list li
+  padding: 5px 10px;
+  margin: 0 15px 15px 0;
+  color: #fff;
+  background: url("../img/single_event_list_bkg.png");
+  background-position: right;
+  background-color #e4811e
+.event_events_list i
+  margin-right 5px
+.event_events_list span
+  display block
+.single_event_page a
+  color: #E4811E
+.tabs-bkg
+  margin-top 30px

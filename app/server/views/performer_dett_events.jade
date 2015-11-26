@@ -1,128 +1,170 @@
 extends layout
 block content
-	.user_dett
-		.row
-			.col-md-4
-				img.img-responsive(alt=__("Thumbnail of")+": "+dett.title, src=Fnc.getFileFormat(dett.files, 400, 300))
-				br
-				ul.nav.nav-list
-					- if (dett.websites)
-						- for(a=0;a<dett.websites.length;a++)
-							li
-								a(href=dett.websites[a],target="_blank")
-									i.glyphicon.glyphicon-globe
-									!=dett.websites[a]
-			.col-md-8
-				h1=dett.title
-				- if (dett.subtitle)
-					h3=Fnc.getTextFormat(dett.subtitle, config.lang, true)
+	- console.log(dett)
+		.user_dett.single_event_page
+			.container
 				.row
-					.col-md-5
-						ul.nav.nav-list.user_dett_ul
+					.col-md-12
+						.single_event_thumb_container
+							.image
+								img.img-responsive(alt=__("Thumbnail of")+": "+dett.title, src=Fnc.getFileFormat(dett.files, 400, 300))//immagine grande
+							// immagine grande con titolo
+							.row
+								.overlay_container
+									h1.title=dett.title
+									- if (dett.subtitle)
+										h3.subtitle=Fnc.getTextFormat(dett.subtitle, config.lang, true)
+
+									// DETTAGLI
+									ul.list-inline
+										- if (dett.websites)
+											- for(a=0;a<dett.websites.length;a++)
+
+
+
+												li
+													i.fa.fa-external-link
+													a(href=dett.websites[a],target="_blank")
+														=" site"
+												li
+													span
+														i(class="fa fa-eye")
+														=" "+dett.stats.visits
+												li
+													span
+														i(class="fa fa-heart")
+														=" "
+														=dett.stats.rates.tot_rate
+												li
+													i(class="fa fa-user")
+													=" "
+													a(href="/"+result.permalink+"/")=result.display_name
+												- for(item in dett.categories)
+												- if (dett.categories[item] && dett.categories[item].ancestors && dett.categories[item].ancestors[0].permalink=="lv-projects-categories")
+												li
+													i(class="fa fa-cube")
+													=" "
+													a(href="/"+config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
+
+					// LISTA GIORNI E LOCATION
+					.col-md-12
+						ul.list-inline.event_events_list
 							- if (dett.date_time_venue)
 								- for(a=0;a<dett.date_time_venue.length;a++)
-									li.divider
 									li
-										i.glyphicon.glyphicon-time
-										!=Fnc.getEventDate(dett.date_time_venue[a].date)+" | "+dett.date_time_venue[a].start_time+" / "+dett.date_time_venue[a].end_time+"<br />"
-									li
-										i.glyphicon.glyphicon-home
-										!=dett.date_time_venue[a].venue+" | "+dett.date_time_venue[a].city+", "+dett.date_time_venue[a].country
-					.col-md-3
-						ul.nav.nav-list.user_dett_ul
-							li.divider
-							li.clearfix
-								span.pull-left=__("Visits")+": "+dett.stats.visits
-								span.pull-right
-									button.btn.btn-primary.btn-mini
-										i.glyphicon.glyphicon-globe.glyphicon.glyphicon-white
-										!=" "+__("Like")
-									!=" "
-									code=dett.stats.rates.tot_rate
-							li.divider
-							li=__("Author")+": "
-								a(href="/"+result.permalink+"/")=result.display_name
-							li.divider
-							- for(item in dett.categories)
-								- if (dett.categories[item] && dett.categories[item].ancestors && dett.categories[item].ancestors[0].permalink=="lv-projects-categories")
-									li
-										!=__("Type")+": "
-										a(href="/"+config.sections[sez].basepath+"/"+dett.categories[item].permalink+"/")=dett.categories[item].name
-	hr
-	ul.nav.nav-tabs
-		li(class=sez=="events" ? "active" : undefined)
-			a(href="#about",data-toggle="tab")=__("About")
-		- if(dett.performances)
-			li
-				a(href="#performances",data-toggle="tab")=config.sections["performances"].title+" ["+dett.performances.length+"]"
-		- if(dett.partners)
-			li
-				a(href="#partners",data-toggle="tab")=__("Partners")+" ["+dett.partners.length+"]"
-		- if(dett.gallery)
-			li
-				a(href="#gallery",data-toggle="tab")=config.sections["gallery"].title+" ["+dett.gallery.length+"]"
-	.tab-content.col-md-10
-		- if (dett.text)
-			#about.tab-pane.active
-				!=Fnc.getTextFormat(dett.text, config.lang, true)
-		- if (dett.performances)
-			#performances.tab-pane
-				- tree = {};
-				- for(item in dett.performances) {
-				-	if (dett.performances[item].event_data.day) {
-				-		if (!tree[dett.performances[item].event_data.day]) tree[dett.performances[item].event_data.day] = {};
-				-		if (dett.performances[item].event_data.room) tree[dett.performances[item].event_data.day][dett.performances[item].event_data.room] = 1;
-				-	} else {
-				-		tree["To be sheduled"] = {};
-				-	}
-				- }
-				- for(day in tree) {
-				- 	var dayPerf = dett.performances.filter( function (value, index, self) {
-				-		return value.event_data.day==day
-				- 	});
-					.page-header
-						h3=day
-					.row
-						- for(room in tree[day]) {
-						- 	var dayRoomPerf = dayPerf.filter( function (value, index, self) {
-						-		return value.event_data.room==room
-						- 	});
-							.col-md-3
+										span
+											i(class="fa fa-clock-o")
+											!=Fnc.getEventDate(dett.date_time_venue[a].date)+" | "+dett.date_time_venue[a].start_time+" / "+dett.date_time_venue[a].end_time+"<br />"
+										span
+											i(class="fa fa-map-marker")
+											!=dett.date_time_venue[a].venue+" | "+dett.date_time_venue[a].city+", "+dett.date_time_venue[a].country
+
+
+
+
+
+
+
+
+
+
+		// ABOUT
+		.about-bkg
+			.container
+				- if (result.text)
+				.about_performer
+					h2=__("About")
+					!=Fnc.getTextFormat(dett.text, config.lang, true)
+
+		.tabs-bkg
+			.container
+				// TABS
+				ul.nav.nav-tabs
+					//li(class=sez=="events" ? "active" : undefined)
+					//	a(href="#about",data-toggle="tab")=__("About")
+					- if(dett.performances)
+						li
+							a(href="#performances",data-toggle="tab")=config.sections["performances"].title+" ["+dett.performances.length+"]"
+					- if(dett.partners)
+						li
+							a(href="#partners",data-toggle="tab")=__("Partners")+" ["+dett.partners.length+"]"
+					- if(dett.gallery)
+						li
+							a(href="#gallery",data-toggle="tab")=config.sections["gallery"].title+" ["+dett.gallery.length+"]"
+
+
+
+				.tab-content.col-md-12
+					// TESTO DESCR
+					//- if (dett.text)
+						#about.tab-pane.active
+							!=Fnc.getTextFormat(dett.text, config.lang, true)
+
+					// ELENCO PERFORMANCES
+					- if (dett.performances)
+						#performances.tab-pane.active
+							- tree = {};
+							- for(item in dett.performances) {
+							-	if (dett.performances[item].event_data.day) {
+							-		if (!tree[dett.performances[item].event_data.day]) tree[dett.performances[item].event_data.day] = {};
+							-		if (dett.performances[item].event_data.room) tree[dett.performances[item].event_data.day][dett.performances[item].event_data.room] = 1;
+							-	} else {
+							-		tree["To be sheduled"] = {};
+							-	}
+							- }
+							- for(day in tree) {
+							- 	var dayPerf = dett.performances.filter( function (value, index, self) {
+							-		return value.event_data.day==day
+							- 	});
 								.page-header
-									h3=room
-								.row.main-list
-									- for(item in dayRoomPerf)
-										- var box = dayRoomPerf[item]
-										- sez = "performances"
-										include comp/box_performances
-						- }
-				- }
-		- if (dett.partners)
-			#partners.tab-pane
-				- tree = {};
-				- for(item in dett.partners) {
-				-	if (dett.partners[item].partner_type) {
-				-		if (!tree[dett.partners[item].partner_type]) tree[dett.partners[item].partner_type] = 1;
-				-	} else {
-				-		tree["To be sheduled"] = {};
-				-	}
-				- }
-				.row
-					- for(partner_type in tree) {
-					- 	var partnersType = dett.partners.filter( function (value, index, self) {
-					-		return value.partner_type==partner_type
-					- 	});
-					.col-md-3
-						.page-header
-							h3=partner_type
-						.row.main-list
-							- for(partner in partnersType)
-								- var box = partnersType[partner]
-								include comp/box_performers
-					- }
-		- if (dett.gallery)
-			#gallery.tab-pane
-				.row.main-list
-					- for(item in dett.gallery)
-						- var box = dett.gallery[item]
-						include comp/box_gallery
+									h3=day
+								.row
+									- for(room in tree[day]) {
+									- 	var dayRoomPerf = dayPerf.filter( function (value, index, self) {
+									-		return value.event_data.room==room
+									- 	});
+										.col-md-12
+										- var span = 4
+											.page-header
+												h3=room
+											.row.main-list.grid
+												- for(item in dayRoomPerf)
+													- var box = dayRoomPerf[item]
+													- sez = "performances"
+													include comp/box_performances
+									- }
+							- }
+
+					// ELENCO PARTNERS
+					- if (dett.partners)
+						#partners.tab-pane
+							- tree = {};
+							- for(item in dett.partners) {
+							-	if (dett.partners[item].partner_type) {
+							-		if (!tree[dett.partners[item].partner_type]) tree[dett.partners[item].partner_type] = 1;
+							-	} else {
+							-		tree["To be sheduled"] = {};
+							-	}
+							- }
+							.row
+								- for(partner_type in tree) {
+								- 	var partnersType = dett.partners.filter( function (value, index, self) {
+								-		return value.partner_type==partner_type
+								- 	});
+								.col-md-12
+									.page-header
+										h3=partner_type
+									.row.main-list
+										- for(partner in partnersType)
+											- var box = partnersType[partner]
+											- var span = 3
+											include comp/box_performers
+								- }
+
+					// ELENCO GALLERY
+					- if (dett.gallery)
+						#gallery.tab-pane
+							.row.main-list
+								- for(item in dett.gallery)
+									- var box = dett.gallery[item]
+									include comp/box_gallery

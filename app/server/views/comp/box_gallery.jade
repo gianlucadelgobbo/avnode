@@ -14,7 +14,8 @@ div.list_item_performer.grid-item.col-sm-4(class="col-md-" + span + " "+sez+"_pe
 						i(class="fa fa-video-camera")
 						span= box.stats.video
 			- if(box.files)
-				img.gallery_thumb(src=box.files[0].file)(alt=box.title)
+				.gallery_thumb_container
+					img.gallery_thumb(src=box.files[0].file)(alt=box.title)
 		.title_and_info_container
 			h3= box.title
 			ul.gallery_details.list-inline
