@@ -1,11 +1,11 @@
 extends ../layout
 block content
 	- if (!result.settings.call) result.settings.call = {}
-	- if (!result.settings.call.calls) result.settings.call.calls = [{prices:[{}],topics:[{}]}]
-	- if (!result.settings.call.calls.length) result.settings.call.calls[0] = {prices:[{}],topics:[{}]}
-	- if (!result.settings.call.calls[0].prices) result.settings.call.calls[0].prices = [{}]
+	- if (!result.settings.call.calls) result.settings.call.calls = [{packages:[{}],topics:[{}]}]
+	- if (!result.settings.call.calls.length) result.settings.call.calls[0] = {packages:[{}],topics:[{}]}
+	- if (!result.settings.call.calls[0].packages) result.settings.call.calls[0].packages = [{}]
 	- if (!result.settings.call.calls[0].topics) result.settings.call.calls[0].topics = [{}]
-	- if (!result.settings.call.calls[0].prices.length) result.settings.call.calls[0].prices[0] = {}
+	- if (!result.settings.call.calls[0].packages.length) result.settings.call.calls[0].packages[0] = {}
 	- if (!result.settings.call.calls[0].topics.length) result.settings.call.calls[0].topics[0] = {}
 	- if (!result.settings.rooms) result.settings.rooms = [{}]
 	//- if (!result.settings.rooms.length) result.settings.rooms[0] = {}
@@ -43,7 +43,7 @@ block content
 								p
 									b=__("This function is reserved to AVnode.org members")+". "
 									a(href="http://avnode.org/members/")=__("more info")
-								textarea(rows="3").form-control=JSON.stringify(result.settings, null, '\t')
+								//textarea(rows="3").form-control=JSON.stringify(result.settings, null, '\t')
 								#opencall(style=!result.settings.call_is_active ? "display: none" : undefined)
 									fieldset
 										legend=__("Open call general settings")
@@ -73,129 +73,132 @@ block content
 									legend.clearfix
 										h4.pull-left=__("Calls")
 										button.btn.btn-primary.pull-right.add_call(type="button")=__("Add a call")
-									- for (var a=0;a<result.settings.call.calls.length;a++)
+									.calls(style=!result.settings.call.calls ? "display: none" : undefined)
 										fieldset
-											legend=__("Open call")+" ID: "+(a+1)
-											.form-group
-												label.col-md-3.control-label=__("Title")
-												.col-md-9
-													input.form-control(name="settings[call][calls]["+a+"][title]",			value=result.settings.call.calls[a].title,		type="text")
-											.form-group
-												label.col-md-3.control-label=__("Identifier")
-												.col-md-9
-													input.form-control(name="settings[call][calls]["+a+"][permalink]",		value=result.settings.call.calls[a].permalink,	type="text")
-													.help-block="https://flxer.net/"
-														span#permalink=result.users[0].permalink+"/events/"+result.permalink+"/participate/?c="+"performers"
-											.form-group
-												label.col-md-3.control-label=__("Open call start day")
-												.col-md-9
-													.input-group.date.datepicker(data-date=result.settings.call.calls[a].start_date,data-date-format="yyyy-mm-dd")
-														input.form-control(name="settings[call][calls]["+a+"][start_date]", value=result.settings.call.calls[a].start_date,	type="text").disabled
-														span.input-group-addon
-															i.glyphicon.glyphicon-calendar
-											.form-group
-												label.col-md-3.control-label=__("Open call end day")
-												.col-md-9
-													.input-group.date.datepicker(data-date=result.settings.call.calls[a].end_date,data-date-format="yyyy-mm-dd")
-														input.form-control(name="settings[call][calls]["+a+"][end_date]", value=result.settings.call.calls[a].end_date,		type="text").disabled
-														span.input-group-addon
-															i.glyphicon.glyphicon-calendar
-											.form-group
-												label.col-md-3.control-label=__("Admitted projects")
-												.col-md-9
-													- for (var b=0;b<_config.sections.performances.categories.length;b++)
-														.checkbox
-															label
-																input(name="settings[call][calls]["+a+"][admitted][]", checked=result.settings.call.calls[a].admitted && result.settings.call.calls[a].admitted.indexOf(_config.sections.performances.categories[b])!=-1 ? "checked" : undefined,		value=_config.sections.performances.categories[b],		type="checkbox")
-																!=" "+_config.sections.performances.labels[_config.sections.performances.categories[b]]
-											.form-group
-												label.col-md-3.control-label=__("Terms and conditions")
-												.col-md-9
-													textarea.form-control(name="settings[call][calls]["+a+"][terms]",rows="4")=result.settings.call.calls[a].terms
-											.form-group
-												- prices = result.settings.call.calls[a].prices && result.settings.call.calls[a].prices.length
-												label.col-md-3.control-label
-													input.switch(onchange="$(this).parent().parent().find('.prices').slideToggle('slide')",type="checkbox",autocomplete="off",checked=prices ? "checked" : undefined)
-												.col-md-9
-													.clearfix
-														.pull-left
-															h4=__("Packages")
-															p=__("This call have prices")
-														button.btn.btn-primary.pull-right.add_package(type="button")=__("Add a package")
-													.prices(style=!prices ? "display: none" : undefined)
-														fieldset
-															.prices_container
-																- for (var b=0;b<result.settings.call.calls[a].prices.length;b++)
-																	.element
-																		legend=__("Package")+" ID: "
-																			span=(b+1)
-																		.form-group
-																			label.col-md-3.control-label=__("Name")
-																			.col-md-9
-																				input.form-control(name="settings[call][calls]["+a+"][prices]["+b+"][name]", value=result.settings.call.calls[a].prices[b].name, type="text")
-																		.form-group
-																			label.col-md-3.control-label=__("Price")
-																			.col-md-9
-																				.input-group
-																					input.form-control(name="settings[call][calls]["+a+"][prices]["+b+"][price]", value=result.settings.call.calls[a].prices[b].price, type="text")
-																					span.input-group-addon €
-																				small.help-block=__("Use a negative amount if the event will pay, 0 if the project don't have to pay and a positive number if they have to pay")
-																				br
-																		.form-group
-																			label.col-md-3.control-label=__("Package description")
-																			.col-md-9
-																				textarea.form-control(name="settings[call][calls]["+a+"][prices]["+b+"][description]")=result.settings.call.calls[a].prices[b].description
-																		.form-group
-																			label.col-md-3.control-label.switch_container
-																				input.switch(name="settings[call][calls][" + a + "][prices][" + b + "][daily]", value="1", onchange="$(this).parent().parent().parent().parent().find('.daily').slideToggle('slide')",type="checkbox",autocomplete="off",checked=result.settings.call.calls[a].prices[b].daily ? "checked" : undefined)
-																			.col-md-9
-																				h5=__("Daily Package")
-																				.daily(style=!result.settings.call.calls[a].prices[b].daily ? "display: none" : undefined)
+											.calls_container
+												- for (var a=0;a<result.settings.call.calls.length;a++)
+													.element
+														legend=__("Open call")+" ID: "
+															span.calls_count=(a+1)
+														.form-group
+															label.col-md-3.control-label=__("Title")
+															.col-md-9
+																input.form-control(name="settings[call][calls]["+a+"][title]",			value=result.settings.call.calls[a].title,		type="text")
+														.form-group
+															label.col-md-3.control-label=__("Identifier")
+															.col-md-9
+																input.form-control(name="settings[call][calls]["+a+"][permalink]",		value=result.settings.call.calls[a].permalink,	type="text")
+																.help-block="https://flxer.net/"
+																	span#permalink=result.users[0].permalink+"/events/"+result.permalink+"/participate/?c="+"performers"
+														.form-group
+															label.col-md-3.control-label=__("Open call start day")
+															.col-md-9
+																.input-group.date.datepicker(data-date=result.settings.call.calls[a].start_date,data-date-format="yyyy-mm-dd")
+																	input.form-control(name="settings[call][calls]["+a+"][start_date]", value=result.settings.call.calls[a].start_date,	type="text").disabled
+																	span.input-group-addon
+																		i.glyphicon.glyphicon-calendar
+														.form-group
+															label.col-md-3.control-label=__("Open call end day")
+															.col-md-9
+																.input-group.date.datepicker(data-date=result.settings.call.calls[a].end_date,data-date-format="yyyy-mm-dd")
+																	input.form-control(name="settings[call][calls]["+a+"][end_date]", value=result.settings.call.calls[a].end_date,		type="text").disabled
+																	span.input-group-addon
+																		i.glyphicon.glyphicon-calendar
+														.form-group
+															label.col-md-3.control-label=__("Admitted projects")
+															.col-md-9.admitted
+																- for (var b=0;b<_config.sections.performances.categories.length;b++)
+																	.checkbox
+																		label
+																			input(name="settings[call][calls]["+a+"][admitted][]", checked=result.settings.call.calls[a].admitted && result.settings.call.calls[a].admitted.indexOf(_config.sections.performances.categories[b])!=-1 ? "checked" : undefined,		value=_config.sections.performances.categories[b],		type="checkbox")
+																			!=" "+_config.sections.performances.labels[_config.sections.performances.categories[b]]
+														.form-group
+															label.col-md-3.control-label=__("Terms and conditions")
+															.col-md-9
+																textarea.form-control(name="settings[call][calls]["+a+"][terms]",rows="4")=result.settings.call.calls[a].terms
+														.form-group
+															- packages = result.settings.call.calls[a].packages && result.settings.call.calls[a].packages.length
+															label.col-md-3.control-label
+																input.switch(onchange="$(this).parent().parent().find('.packages').slideToggle('slide')",type="checkbox",autocomplete="off",checked=packages ? "checked" : undefined)
+															.col-md-9
+																.clearfix
+																	.pull-left
+																		h4=__("Packages")
+																		p=__("This call have packages")
+																	button.btn.btn-primary.pull-right.add_package(type="button")=__("Add a package")
+																.packages(style=!packages ? "display: none" : undefined)
+																	fieldset
+																		.packages_container
+																			- for (var b=0;b<result.settings.call.calls[a].packages.length;b++)
+																				.element
+																					legend=__("Package")+" ID: "
+																						span.packages_count=(b+1)
 																					.form-group
-																						label.col-md-3.control-label=__("Package start day")
+																						label.col-md-3.control-label=__("Name")
 																						.col-md-9
-																							.input-group.date.datepicker(data-date=result.settings.call.calls[a].prices[b].start_date,data-date-format="yyyy-mm-dd")
-																								input.form-control(name="settings[call][calls][" + a + "][prices][" + b + "][start_date]", value=result.settings.call.calls[a].prices[b].start_date,    type="text").disabled
-																								span.input-group-addon
-																									i.glyphicon.glyphicon-calendar
+																							input.form-control(name="settings[call][calls]["+a+"][packages]["+b+"][name]", value=result.settings.call.calls[a].packages[b].name, type="text")
 																					.form-group
-																						label.col-md-3.control-label=__("Package end day")
+																						label.col-md-3.control-label=__("package")
 																						.col-md-9
-																							.input-group.date.datepicker(data-date=result.settings.call.calls[a].prices[b].end_date,data-date-format="yyyy-mm-dd")
-																								input.form-control(name="settings[call][calls][" + a + "][prices][" + b + "][end_date]", value=result.settings.call.calls[a].prices[b].end_date,        type="text").disabled
-																								span.input-group-addon
-																									i.glyphicon.glyphicon-calendar
+																							.input-group
+																								input.form-control(name="settings[call][calls]["+a+"][packages]["+b+"][package]", value=result.settings.call.calls[a].packages[b].package, type="text")
+																								span.input-group-addon €
+																							small.help-block=__("Use a negative amount if the event will pay, 0 if the project don't have to pay and a positive number if they have to pay")
+																							br
+																					.form-group
+																						label.col-md-3.control-label=__("Package description")
+																						.col-md-9
+																							textarea.form-control(name="settings[call][calls]["+a+"][packages]["+b+"][description]")=result.settings.call.calls[a].packages[b].description
+																					.form-group
+																						label.col-md-3.control-label
+																							input.switch(name="settings[call][calls][" + a + "][packages][" + b + "][daily]", value="1", onchange="$(this).parent().parent().parent().parent().find('.daily').slideToggle('slide')",type="checkbox",autocomplete="off",checked=result.settings.call.calls[a].packages[b].daily ? "checked" : undefined)
+																						.col-md-9
+																							h5=__("Daily Package")
+																							.daily(style=!result.settings.call.calls[a].packages[b].daily ? "display: none" : undefined)
+																								.form-group
+																									label.col-md-3.control-label=__("Package start day")
+																									.col-md-9
+																										.input-group.date.datepicker(data-date=result.settings.call.calls[a].packages[b].start_date,data-date-format="yyyy-mm-dd")
+																											input.form-control(name="settings[call][calls][" + a + "][packages][" + b + "][start_date]", value=result.settings.call.calls[a].packages[b].start_date,    type="text").disabled
+																											span.input-group-addon
+																												i.glyphicon.glyphicon-calendar
+																								.form-group
+																									label.col-md-3.control-label=__("Package end day")
+																									.col-md-9
+																										.input-group.date.datepicker(data-date=result.settings.call.calls[a].packages[b].end_date,data-date-format="yyyy-mm-dd")
+																											input.form-control(name="settings[call][calls][" + a + "][packages][" + b + "][end_date]", value=result.settings.call.calls[a].packages[b].end_date,        type="text").disabled
+																											span.input-group-addon
+																												i.glyphicon.glyphicon-calendar
 
-																		hr
-											.form-group
-												- topics = result.settings.call.calls[a].topics && result.settings.call.calls[a].topics.length
-												label.col-md-3.control-label
-													input.switch(onchange="$(this).parent().parent().find('.topics').slideToggle('slide')",type="checkbox",autocomplete="off",checked=topics ? "checked" : undefined)
-												.col-md-9
-													.clearfix
-														.pull-left
-															h4=__("Topics")
-															p=__("This call have topics")
-														button.btn.btn-primary.pull-right.add_topic(type="button")=__("Add a topic")
-													.topics(style=!topics ? "display: none" : undefined)
-														fieldset
-															.topics_container
-																- for (var b=0;b<result.settings.call.calls[a].topics.length;b++)
-																	.element
-																		legend.clearfix
-																			.pull-left=__("Topic")+" ID: "
-																				span=(b+1)
-																		.form-group
-																			label.col-md-3.control-label=__("Name")
-																			.col-md-9
-																				input.form-control(name="settings[call][calls]["+a+"][topics]["+b+"][name]", value=result.settings.call.calls[a].topics[b].name, type="text")
-																		.form-group
-																			label.col-md-3.control-label=__("Description")
-																			.col-md-9
-																				textarea.form-control(name="settings[call][calls]["+a+"][topics]["+b+"][description]")=result.settings.call.calls[a].topics[b].description
-																		hr
+																					hr
+														.form-group
+															- topics = result.settings.call.calls[a].topics && result.settings.call.calls[a].topics.length
+															label.col-md-3.control-label
+																input.switch(onchange="$(this).parent().parent().find('.topics').slideToggle('slide')",type="checkbox",autocomplete="off",checked=topics ? "checked" : undefined)
+															.col-md-9
+																.clearfix
+																	.pull-left
+																		h4=__("Topics")
+																		p=__("This call have topics")
+																	button.btn.btn-primary.pull-right.add_topic(type="button")=__("Add a topic")
+																.topics(style=!topics ? "display: none" : undefined)
+																	fieldset
+																		.topics_container
+																			- for (var b=0;b<result.settings.call.calls[a].topics.length;b++)
+																				.element
+																					legend=__("Topic")+" ID: "
+																						span.topics_count=(b+1)
+																					.form-group
+																						label.col-md-3.control-label=__("Name")
+																						.col-md-9
+																							input.form-control(name="settings[call][calls]["+a+"][topics]["+b+"][name]", value=result.settings.call.calls[a].topics[b].name, type="text")
+																					.form-group
+																						label.col-md-3.control-label=__("Description")
+																						.col-md-9
+																							textarea.form-control(name="settings[call][calls]["+a+"][topics]["+b+"][description]")=result.settings.call.calls[a].topics[b].description
+																					hr
 
-										hr
+														hr
 
 
 
@@ -274,26 +277,47 @@ block content
 										$(".bootstrap-timepicker input").timepicker();
 										$(".datepicker").datepicker();
 									});
-									$(".add_package").click(function () {
-										console.log($(this).parent().parent().find(".prices_container .element"));
-										var n = $(this).parent().parent().find(".prices_container .element").length;
-										var clone = $(this).parent().parent().find(".prices_container .element").first().clone();
-										clone.find("input").val("");
-										clone.find("input").attr("name", clone.find("input").attr("name").replace(/\[prices\]\[0\]/g, "[prices][" + n + "]"));
-										clone.find("legend span").html(n + 1);
+									$(".add_call").click(function () {
+										var n = $(this).parent().parent().find(".calls_container > .element").length;
+										var clone = $(this).parent().parent().find(".calls_container .element").first().clone();
+										clone.find("input:text").val("");
 										clone.find("textarea").val("");
-										clone.find("textarea").attr("name", clone.find("textarea").attr("name").replace(/\[prices\]\[0\]/g, "[prices][" + n + "]"));
-										clone.find(".switch_container").html(clone.find(".switch"));
+										clone.find(".admitted input:checkbox").removeAttr("checked");
+										clone.find("input").each(function(){
+											if ($(this).attr("name")) $(this).attr("name", $(this).attr("name").replace(/\[calls\]\[0\]/g, "[calls][" + n + "]"));
+										});
+										clone.find("textarea").each(function(){
+											if ($(this).attr("name")) $(this).attr("name", $(this).attr("name").replace(/\[calls\]\[0\]/g, "[calls][" + n + "]"));
+										});
+										clone.find(".calls_count").html(n + 1);
+										clone.find(".bootstrap-switch").each(function(){
+											$(this).find(".switch").appendTo($(this).parent());
+											$(this).remove();
+										});
 										clone.find(".switch").bootstrapSwitch();
 										clone.find(".datepicker").datepicker();
-										clone.appendTo($(this).parent().parent().find(".prices_container"));
+										clone.appendTo($(this).parent().parent().find(".calls_container"));
+									});
+									$(".add_package").click(function () {
+										console.log($(this).parent().parent().find(".packages_container .element"));
+										var n = $(this).parent().parent().find(".packages_container .element").length;
+										var clone = $(this).parent().parent().find(".packages_container .element").first().clone();
+										clone.find("input").val("");
+										clone.find("input").attr("name", clone.find("input").attr("name").replace(/\[packages\]\[0\]/g, "[packages][" + n + "]"));
+										clone.find(".packages_count").html(n + 1);
+										clone.find("textarea").val("");
+										clone.find("textarea").attr("name", clone.find("textarea").attr("name").replace(/\[packages\]\[0\]/g, "[packages][" + n + "]"));
+										clone.find(".bootstrap-switch").html(clone.find(".switch"));
+										clone.find(".switch").bootstrapSwitch();
+										clone.find(".datepicker").datepicker();
+										clone.appendTo($(this).parent().parent().find(".packages_container"));
 									});
 									$(".add_topic").click(function () {
 										var n = $(this).parent().parent().find(".topics_container .element").length;
 										var clone = $(this).parent().parent().find(".topics_container .element").first().clone();
 										clone.find("input").val("");
 										clone.find("input").attr("name", clone.find("input").attr("name").replace(/\[topics\]\[0\]/g, "[topics][" + n + "]"));
-										clone.find("legend span").html(n + 1);
+										clone.find(".topics_count").html(n + 1);
 										clone.find("textarea").val("");
 										clone.find("textarea").attr("name", clone.find("textarea").attr("name").replace(/\[topics\]\[0\]/g, "[topics][" + n + "]"));
 										clone.appendTo($(this).parent().parent().find(".topics_container"));
