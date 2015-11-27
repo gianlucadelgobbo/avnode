@@ -983,3 +983,38 @@ footer.main_footer {
 .tabs-bkg {
   margin-top: 30px;
 }
+.nav-tabs {
+  border-bottom: 1px solid #e4811e;
+  margin-bottom: 30px;
+}
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+  border: none;
+  color: #fff;
+  background: url("../img/single_event_list_bkg.png");
+  background-position: right;
+  background-color: #e4811e;
+}
+.nav-tabs>li>a {
+  border-radius: 0;
+  color: #e4811e;
+}
+.nav-tabs>li {
+  float: left;
+  margin-bottom: -2px;
+  padding: 0;
+  margin: 0;
+}
+.nav-tabs>li>a:hover {
+  border-color: none;
+}
+.nav>li>a:hover,
+.nav>li>a:focus {
+  text-decoration: none;
+  background-color: none !important;
+}
+.date_bkg {
+  background: #e4811e;
+  color: #fff;
+}

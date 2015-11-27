@@ -77,94 +77,100 @@ block content
 					!=Fnc.getTextFormat(dett.text, config.lang, true)
 
 		.tabs-bkg
-			.container
-				// TABS
-				ul.nav.nav-tabs
-					//li(class=sez=="events" ? "active" : undefined)
-					//	a(href="#about",data-toggle="tab")=__("About")
-					- if(dett.performances)
-						li
-							a(href="#performances",data-toggle="tab")=config.sections["performances"].title+" ["+dett.performances.length+"]"
-					- if(dett.partners)
-						li
-							a(href="#partners",data-toggle="tab")=__("Partners")+" ["+dett.partners.length+"]"
-					- if(dett.gallery)
-						li
-							a(href="#gallery",data-toggle="tab")=config.sections["gallery"].title+" ["+dett.gallery.length+"]"
+				.container
+					// TABS
+					ul.nav.nav-tabs.event_tabs
+						//li(class=sez=="events" ? "active" : undefined)
+						//	a(href="#about",data-toggle="tab")=__("About")
+						- if(dett.performances)
+							li.active
+								a(href="#performances",data-toggle="tab")=config.sections["performances"].title+" ["+dett.performances.length+"]"
+						- if(dett.partners)
+							li
+								a(href="#partners",data-toggle="tab")=__("Partners")+" ["+dett.partners.length+"]"
+						- if(dett.gallery)
+							li
+								a(href="#gallery",data-toggle="tab")=config.sections["gallery"].title+" ["+dett.gallery.length+"]"
+				div
 
 
 
-				.tab-content.col-md-12
-					// TESTO DESCR
-					//- if (dett.text)
-						#about.tab-pane.active
-							!=Fnc.getTextFormat(dett.text, config.lang, true)
+					.tab-content.row
+						// TESTO DESCR
+						//- if (dett.text)
+							#about.tab-pane.active
+								!=Fnc.getTextFormat(dett.text, config.lang, true)
 
-					// ELENCO PERFORMANCES
-					- if (dett.performances)
-						#performances.tab-pane.active
-							- tree = {};
-							- for(item in dett.performances) {
-							-	if (dett.performances[item].event_data.day) {
-							-		if (!tree[dett.performances[item].event_data.day]) tree[dett.performances[item].event_data.day] = {};
-							-		if (dett.performances[item].event_data.room) tree[dett.performances[item].event_data.day][dett.performances[item].event_data.room] = 1;
-							-	} else {
-							-		tree["To be sheduled"] = {};
-							-	}
-							- }
-							- for(day in tree) {
-							- 	var dayPerf = dett.performances.filter( function (value, index, self) {
-							-		return value.event_data.day==day
-							- 	});
-								.page-header
-									h3=day
-								.row
-									- for(room in tree[day]) {
-									- 	var dayRoomPerf = dayPerf.filter( function (value, index, self) {
-									-		return value.event_data.room==room
-									- 	});
-										.col-md-12
-										- var span = 4
-											.page-header
-												h3=room
-											.row.main-list.grid
-												- for(item in dayRoomPerf)
-													- var box = dayRoomPerf[item]
-													- sez = "performances"
-													include comp/box_performances
-									- }
-							- }
-
-					// ELENCO PARTNERS
-					- if (dett.partners)
-						#partners.tab-pane
-							- tree = {};
-							- for(item in dett.partners) {
-							-	if (dett.partners[item].partner_type) {
-							-		if (!tree[dett.partners[item].partner_type]) tree[dett.partners[item].partner_type] = 1;
-							-	} else {
-							-		tree["To be sheduled"] = {};
-							-	}
-							- }
-							.row
-								- for(partner_type in tree) {
-								- 	var partnersType = dett.partners.filter( function (value, index, self) {
-								-		return value.partner_type==partner_type
+						// ELENCO PERFORMANCES
+						- if (dett.performances)
+							#performances.tab-pane.active
+								- tree = {};
+								- for(item in dett.performances) {
+								-	if (dett.performances[item].event_data.day) {
+								-		if (!tree[dett.performances[item].event_data.day]) tree[dett.performances[item].event_data.day] = {};
+								-		if (dett.performances[item].event_data.room) tree[dett.performances[item].event_data.day][dett.performances[item].event_data.room] = 1;
+								-	} else {
+								-		tree["To be sheduled"] = {};
+								-	}
+								- }
+								- for(day in tree) {
+								- 	var dayPerf = dett.performances.filter( function (value, index, self) {
+								-		return value.event_data.day==day
 								- 	});
-								.col-md-12
-									.page-header
-										h3=partner_type
-									.row.main-list
-										- for(partner in partnersType)
-											- var box = partnersType[partner]
-											- var span = 3
-											include comp/box_performers
+
+									.date_bkg
+										.container
+												h3=day
+											.row
+
+									.container
+										- for(room in tree[day]) {
+										- 	var dayRoomPerf = dayPerf.filter( function (value, index, self) {
+										-		return value.event_data.room==room
+										- 	});
+											.col-md-12
+											- var span = 4
+													h3=room
+												.row.main-list.grid_tab
+													- for(item in dayRoomPerf)
+														- var box = dayRoomPerf[item]
+														- sez = "performances"
+														include comp/box_performances
+										- }
 								- }
 
-					// ELENCO GALLERY
-					- if (dett.gallery)
-						#gallery.tab-pane
-							.row.main-list
-								- for(item in dett.gallery)
-									- var box = dett.gallery[item]
-									include comp/box_gallery
+						// ELENCO PARTNERS
+						- if (dett.partners)
+							#partners.tab-pane
+								- tree = {};
+								- for(item in dett.partners) {
+								-	if (dett.partners[item].partner_type) {
+								-		if (!tree[dett.partners[item].partner_type]) tree[dett.partners[item].partner_type] = 1;
+								-	} else {
+								-		tree["To be sheduled"] = {};
+								-	}
+								- }
+								.row
+									- for(partner_type in tree) {
+									- 	var partnersType = dett.partners.filter( function (value, index, self) {
+									-		return value.partner_type==partner_type
+									- 	});
+										.date_bkg
+											.container
+												h3=partner_type
+										.container
+											.row.main-list.grid_tab
+												- for(partner in partnersType)
+													- var box = partnersType[partner]
+													- var span = 3
+													include comp/box_performers
+									- }
+
+						// ELENCO GALLERY
+						- if (dett.gallery)
+							#gallery.tab-pane
+								.container
+									.row.main-list.grid_tab
+										- for(item in dett.gallery)
+											- var box = dett.gallery[item]
+											include comp/box_gallery
