@@ -131,7 +131,7 @@ block content
 											.col-md-12
 											- var span = 4
 													h3=room
-												.row.main-list.grid
+												.row.main-list.grid_tab
 													- for(item in dayRoomPerf)
 														- var box = dayRoomPerf[item]
 														- sez = "performances"
@@ -159,7 +159,7 @@ block content
 											.container
 												h3=partner_type
 										.container
-											.row.main-list
+											.row.main-list.grid_tab
 												- for(partner in partnersType)
 													- var box = partnersType[partner]
 													- var span = 3
@@ -169,7 +169,8 @@ block content
 						// ELENCO GALLERY
 						- if (dett.gallery)
 							#gallery.tab-pane
-								.row.main-list
-									- for(item in dett.gallery)
-										- var box = dett.gallery[item]
-										include comp/box_gallery
+								.container
+									.row.main-list.grid_tab
+										- for(item in dett.gallery)
+											- var box = dett.gallery[item]
+											include comp/box_gallery

@@ -9,18 +9,22 @@ function showModal(t, m, callback) {
 	}
 }
 
+
+
+
+
+// isotope layout in bootstrap tabs
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	$('.grid_tab').isotope({
+		// options
+		itemSelector: '.grid-item',
+		layoutMode: 'masonry'
+	});
+});
+
 // isotope layout in lists
 $('.grid').isotope({
 	// options
 	itemSelector: '.grid-item',
 	layoutMode: 'masonry'
-});
-
-// isotope layout in bootstrap tabs
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-	$('.grid').isotope({
-		// options
-		itemSelector: '.grid-item',
-		layoutMode: 'masonry'
-	});
 });
