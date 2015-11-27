@@ -24,32 +24,34 @@ html(lang=config.lang)
 	body
 		.wrapper
 			if (typeof(userpage) === 'undefined')
-				div.navbar.navbar-default.pull-right#menu_search_lang
-					.container-fluid
-						form.navbar-form.navbar-left(action="/search/",role="search")#cse-search-box
-							input(type="hidden", name="cx", value="008270153029254647808:_czuhrjkjpk")
-							input(type="hidden", name="cof", value="FORID:10")
-							input(type="hidden", name="ie", value="UTF-8")
-							.form-group
-								- q = typeof q !== 'undefined' && q ? q : ""
-								input.form-control(type="text",	name="q", size="31", value=q)
-								button.btn.btn-default(type="submit", name="sa")=__("Cerca")
-									//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
-						ul.nav.navbar-nav
-							li.dropdown
-								a.dropdown-toggle(href="#", data-toggle="dropdown")
-									!=__(config.locales_labels[getLocale()])+" "
-									b.caret
-								ul.dropdown-menu
-									each val, index in config.locales_labels
-										li
-											a(href="/controlpanel/change_lang?lang="+index)=__(val)
-				header
-					.row
-						h2.col-md-4.logo
-							a(href="/", title="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
-								img(src="/img/logo.gif", alt="AV node - PERFORMING VIDEO NETWORK")
-						.col-md-8=typeof(bannerTop) !== 'undefined' && bannerTop ? "navbar-fixed-top" : undefined
+				.container
+					div.navbar.navbar-default#menu_search_lang
+						.container-fluid
+							form.navbar-form.navbar-left(action="/search/",role="search")#cse-search-box
+								input(type="hidden", name="cx", value="008270153029254647808:_czuhrjkjpk")
+								input(type="hidden", name="cof", value="FORID:10")
+								input(type="hidden", name="ie", value="UTF-8")
+								.form-group
+									- q = typeof q !== 'undefined' && q ? q : ""
+									input.form-control(type="text",	name="q", size="31", value=q)
+									button.btn.btn-default(type="submit", name="sa")=__("Cerca")
+										//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
+							ul.nav.navbar-nav
+								li.dropdown
+									a.dropdown-toggle(href="#", data-toggle="dropdown")
+										!=__(config.locales_labels[getLocale()])+" "
+										b.caret
+									ul.dropdown-menu
+										each val, index in config.locales_labels
+											li
+												a(href="/controlpanel/change_lang?lang="+index)=__(val)
+				.container
+					header
+						.row
+							h2.col-md-4.logo
+								a(href="/", title="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
+									img(src="/img/logo.gif", alt="AV node - PERFORMING VIDEO NETWORK")
+							.col-md-8=typeof(bannerTop) !== 'undefined' && bannerTop ? "navbar-fixed-top" : undefined
 
 			nav.navbar.navbar-inverse#menu(class=(typeof(userpage) !== 'undefined' && userpage ? "navbar-fixed-top" : undefined))
 				//.navbar-fixed-top

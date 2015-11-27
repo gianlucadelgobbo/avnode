@@ -3,88 +3,89 @@ block content
 	- if(result.locations && result.locations.length && !result.locations[0].lat) result.locations[0].lat = 41.8929163;
 	- if(result.locations && result.locations.length && !result.locations[0].lng) result.locations[0].lng = 12.482519899999943;
 	//- console.log(result)
-	.tabbable.tabs-left.row
-		include ../comp/cp_menu
-		.tab-content.col-md-10
-			.tab-pane.active
-				form.form-horizontal(method="post")
-					include ../comp/cp_submenu_user
-					input(name="collection", value="users", type="hidden")
-					input(name="_id", value=result._id, type="hidden")
-					input(name="form", value=form, type="hidden")
-					fieldset
-						legend=title
-						include ../comp/msg
-						.form-group
-							label.col-sm-2.control-label=__("Stage name")
-							.col-sm-10
-								input(autocomplete="off", name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).form-control
-						.form-group
-							label.col-sm-2.control-label(for="permalink")=__("Profile url")
-							.col-sm-10
-								input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
-								span.glyphicon.form-control-feedback(aria-hidden="true")
-								.row
-									.help-block.col-sm-9="https://avnode.net/"
-										span.permalink_print=result.permalink.toLowerCase()
-									input(type="hidden", value="users", name="collection")
-									.control-label.col-sm-3
-						include ../comp/text_multilang
-						include ../comp/websites
-						.form-group
-							label.col-sm-2.control-label=__("Working and living places")
-							.col-sm-10
-								#map_canvas
-								hr
-								#sortable
-									- if (result.locations && result.locations.length)
-										- var n = 0
-										- var connectedSortable = []
-										each location,key in result.locations
-											.alert.alert-info
+	.container
+		.tabbable.tabs-left.row
+			include ../comp/cp_menu
+			.tab-content.col-md-10
+				.tab-pane.active
+					form.form-horizontal(method="post")
+						include ../comp/cp_submenu_user
+						input(name="collection", value="users", type="hidden")
+						input(name="_id", value=result._id, type="hidden")
+						input(name="form", value=form, type="hidden")
+						fieldset
+							legend=title
+							include ../comp/msg
+							.form-group
+								label.col-sm-2.control-label=__("Stage name")
+								.col-sm-10
+									input(autocomplete="off", name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).form-control
+							.form-group
+								label.col-sm-2.control-label(for="permalink")=__("Profile url")
+								.col-sm-10
+									input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
+									span.glyphicon.form-control-feedback(aria-hidden="true")
+									.row
+										.help-block.col-sm-9="https://avnode.net/"
+											span.permalink_print=result.permalink.toLowerCase()
+										input(type="hidden", value="users", name="collection")
+										.control-label.col-sm-3
+							include ../comp/text_multilang
+							include ../comp/websites
+							.form-group
+								label.col-sm-2.control-label=__("Working and living places")
+								.col-sm-10
+									#map_canvas
+									hr
+									#sortable
+										- if (result.locations && result.locations.length)
+											- var n = 0
+											- var connectedSortable = []
+											each location,key in result.locations
+												.alert.alert-info
+													.clearfix
+														.pull-left
+															input(name="locations[]", value=JSON.stringify(location), type="hidden")
+															h4=location.country+(location.locality ? ", "+location.locality : "")
+															- if (location.lat && location.lng)
+																div=location.lat+" / "+location.lng
+														.pull-right
+															a.btn.btn-mini(href="#",onclick="deleteLocation(this);return false;")
+																i.glyphicon.glyphicon-remove
+															!=" "
+															i.glyphicon.glyphicon-move(style="margin:3px 0 0 25px;")
+										- else
+											.alert.alert-info.hide
 												.clearfix
 													.pull-left
-														input(name="locations[]", value=JSON.stringify(location), type="hidden")
-														h4=location.country+(location.locality ? ", "+location.locality : "")
-														- if (location.lat && location.lng)
-															div=location.lat+" / "+location.lng
 													.pull-right
 														a.btn.btn-mini(href="#",onclick="deleteLocation(this);return false;")
 															i.glyphicon.glyphicon-remove
 														!=" "
 														i.glyphicon.glyphicon-move(style="margin:3px 0 0 25px;")
-									- else
-										.alert.alert-info.hide
-											.clearfix
-												.pull-left
-												.pull-right
-													a.btn.btn-mini(href="#",onclick="deleteLocation(this);return false;")
-														i.glyphicon.glyphicon-remove
-													!=" "
-													i.glyphicon.glyphicon-move(style="margin:3px 0 0 25px;")
 
 
-								.text-right
-										a.btn.btn-mini.btn-primary(href="#", onclick="showMapAdd();return false;")
-											i.glyphicon.glyphicon-plus.glyphicon.glyphicon-white
-											!=" "+__("Add a Location")
-						hr.clearfix
-						.form-group
-							label.col-sm-2.control-label
-							.col-sm-10
-								button(type="submit").btn.btn-primary.btn-lg=__("Save")
-		script(type="text/javascript").
-			$(function(){
-				var dataA='!{result.locations}';
-				var data = {};
-				if (dataA) {
-					data=jQuery.parseJSON('!{JSON.stringify(result.locations)}');
-				}
-				initializeMap(data);
+									.text-right
+											a.btn.btn-mini.btn-primary(href="#", onclick="showMapAdd();return false;")
+												i.glyphicon.glyphicon-plus.glyphicon.glyphicon-white
+												!=" "+__("Add a Location")
+							hr.clearfix
+							.form-group
+								label.col-sm-2.control-label
+								.col-sm-10
+									button(type="submit").btn.btn-primary.btn-lg=__("Save")
+			script(type="text/javascript").
+				$(function(){
+					var dataA='!{result.locations}';
+					var data = {};
+					if (dataA) {
+						data=jQuery.parseJSON('!{JSON.stringify(result.locations)}');
+					}
+					initializeMap(data);
 
-				$('#sortable').sortable({
-					placeholder: "ui-state-highlight"
-				}).disableSelection();
+					$('#sortable').sortable({
+						placeholder: "ui-state-highlight"
+					}).disableSelection();
 
-			});
-	include ../modals/search_map
+				});
+		include ../modals/search_map

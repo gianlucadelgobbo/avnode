@@ -524,11 +524,12 @@ a:hover img {
     display: none;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 992px) {
+@media screen and (min-width:768px) and (max-width: 992px) {
   .secondary_performance_wrapper {
     background: none;
   }
 }
+.secondary_performance h3,
 .secondary_performance h3 {
   text-transform: uppercase;
   font-size: 14px;
@@ -610,7 +611,7 @@ a:hover img {
     display: none;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 992px) {
+@media screen and (min-width:768px) and (max-width: 992px) {
   .secondary_events {
     background: none;
   }
@@ -631,7 +632,7 @@ a:hover img {
   height: 100px;
   width: 100px;
 }
-@media screen and (min-width: 992px) and (max-width: 1200px) {
+@media screen and (min-width:992px) and (max-width: 1200px) {
   .main_crews-box img {
     height: 91px;
     width: 91px;

@@ -1,92 +1,93 @@
 extends ../layout
 block content
 	//- console.dir(result.gallery)
-	.tabbable.tabs-left.row
-		include ../comp/cp_menu
-		.tab-content.col-md-10
-			.tab-pane.active
-				include ../comp/cp_submenu_event
-				form.form-horizontal(method="post", action="#")
-					fieldset
-						legend=title
-						#file-uploader(class=(result.files.length ? 'hide' : undefined))
-							.qq-uploader
-								.qq-upload-drop-area
-									span=__("Drop here files to upload (only jpg, png, gif)")
-								.qq-upload-button=__("Upload a file (only jpg, png, gif)")
-								input(type="file",name="file")
-								ul.qq-upload-list
-						.clearfix
-							button.btn.btn-primary.pull-right(style="margin-bottom:20px;",type="button",onclick="$('#playerPreview').hide();$('#file-uploader').show();return false")=__("Add a gallery")
-						- if (result.gallery && result.gallery.length)
-							.sortable
-								each p,key in result.gallery
-									.control-group
-										label.control-label=key
-										.controls
-											.alert.alert-info
-												.clearfix
-													.pull-left
-														b=p.title
-														br
-														//a(href="#")=p.users[0].display_name
-														a(href="#")="Author"
-														ul
-															each item,k in p.stats
-																if (item>0)
-																	li=k+": "+item
+	.container
+		.tabbable.tabs-left.row
+			include ../comp/cp_menu
+			.tab-content.col-md-10
+				.tab-pane.active
+					include ../comp/cp_submenu_event
+					form.form-horizontal(method="post", action="#")
+						fieldset
+							legend=title
+							#file-uploader(class=(result.files.length ? 'hide' : undefined))
+								.qq-uploader
+									.qq-upload-drop-area
+										span=__("Drop here files to upload (only jpg, png, gif)")
+									.qq-upload-button=__("Upload a file (only jpg, png, gif)")
+									input(type="file",name="file")
+									ul.qq-upload-list
+							.clearfix
+								button.btn.btn-primary.pull-right(style="margin-bottom:20px;",type="button",onclick="$('#playerPreview').hide();$('#file-uploader').show();return false")=__("Add a gallery")
+							- if (result.gallery && result.gallery.length)
+								.sortable
+									each p,key in result.gallery
+										.control-group
+											label.control-label=key
+											.controls
+												.alert.alert-info
+													.clearfix
+														.pull-left
+															b=p.title
+															br
+															//a(href="#")=p.users[0].display_name
+															a(href="#")="Author"
+															ul
+																each item,k in p.stats
+																	if (item>0)
+																		li=k+": "+item
 
-													.pull-right
-														a.btn.btn-mini(href="#")
-															i.glyphicon.glyphicon-pencil
-														!=" "
-														a.btn.btn-mini(href="#")
-															i.glyphicon.glyphicon-remove
-														!=" "
-														a.btn.btn-mini(href="#")
-															i.glyphicon.glyphicon-eye-open
-														!=" "
-														i.glyphicon.glyphicon-move(style="margin:3px 0 0 25px;")
-							script(type="text/javascript").
-								$(function() {
-									$('.sortable').sortable({
-										placeholder: "ui-state-highlight"
-									}).disableSelection();
-								});
-						- else
-							.alert.text-center=__("Please add a gallery")
-				script(type="text/javascript").
-					var uploader;
-					$(document).ready(function () {
-						//nuovo uploader
-						uploader = new qq.FileUploader({
-							element: document.getElementById('file-uploader'),
-							action: '/upload/?id=#{result._id}&c=events',
-							debug: 				true,
-							minWidth: 			#{_config.thumbnails[0].width},
-							minHeight: 			300,
-							validFormats: 		["JPEG"],
-							multiple: 			false,
-							maxConnections: 	3,
-							allowedExtensions: 	["jpg", "png", "gif"],	// .zip, .jpg, .png, .gif, .mov, .mp4, .m4v, .mpg, .mpeg, .flv, .f4v, .wmv, .avi
-							sizeLimit: 			1024000,
-							minSizeLimit: 		0,
-							onSubmit: function(id, fileName){
-								//clearError($('#file-uploader'));
-							},
-							onComplete: function(id, fileName, responseJSON){
-								if (responseJSON[responseJSON.length-1].width>=this.minWidth && responseJSON[responseJSON.length-1].height>=this.minHeight && this.validFormats.indexOf(responseJSON[responseJSON.length-1].format)>-1) {
-									file = responseJSON[responseJSON.length-1].file;
-									//var json = eval(responseJSON);
-									$('#playerPreview').show();
-									$('#playerPreview').html('<img src="/image/?f='+file+'&w=400&h=300" /><input type="hidden" id="avatar_name" name="avatar_name" value="'+file+'" />');
-								} else if (this.validFormats.indexOf(responseJSON[responseJSON.length-1].format)==-1) {
-									showModal('error', '#{__("You can upload only jpg, png, gif")}');
-								} else {
-									showModal('error', '#{__("You have to upload an image at least")}'+': '+this.minWidth+' x '+this.minHeight+' '+'#{__("pixels")}');
+														.pull-right
+															a.btn.btn-mini(href="#")
+																i.glyphicon.glyphicon-pencil
+															!=" "
+															a.btn.btn-mini(href="#")
+																i.glyphicon.glyphicon-remove
+															!=" "
+															a.btn.btn-mini(href="#")
+																i.glyphicon.glyphicon-eye-open
+															!=" "
+															i.glyphicon.glyphicon-move(style="margin:3px 0 0 25px;")
+								script(type="text/javascript").
+									$(function() {
+										$('.sortable').sortable({
+											placeholder: "ui-state-highlight"
+										}).disableSelection();
+									});
+							- else
+								.alert.text-center=__("Please add a gallery")
+					script(type="text/javascript").
+						var uploader;
+						$(document).ready(function () {
+							//nuovo uploader
+							uploader = new qq.FileUploader({
+								element: document.getElementById('file-uploader'),
+								action: '/upload/?id=#{result._id}&c=events',
+								debug: 				true,
+								minWidth: 			#{_config.thumbnails[0].width},
+								minHeight: 			300,
+								validFormats: 		["JPEG"],
+								multiple: 			false,
+								maxConnections: 	3,
+								allowedExtensions: 	["jpg", "png", "gif"],	// .zip, .jpg, .png, .gif, .mov, .mp4, .m4v, .mpg, .mpeg, .flv, .f4v, .wmv, .avi
+								sizeLimit: 			1024000,
+								minSizeLimit: 		0,
+								onSubmit: function(id, fileName){
+									//clearError($('#file-uploader'));
+								},
+								onComplete: function(id, fileName, responseJSON){
+									if (responseJSON[responseJSON.length-1].width>=this.minWidth && responseJSON[responseJSON.length-1].height>=this.minHeight && this.validFormats.indexOf(responseJSON[responseJSON.length-1].format)>-1) {
+										file = responseJSON[responseJSON.length-1].file;
+										//var json = eval(responseJSON);
+										$('#playerPreview').show();
+										$('#playerPreview').html('<img src="/image/?f='+file+'&w=400&h=300" /><input type="hidden" id="avatar_name" name="avatar_name" value="'+file+'" />');
+									} else if (this.validFormats.indexOf(responseJSON[responseJSON.length-1].format)==-1) {
+										showModal('error', '#{__("You can upload only jpg, png, gif")}');
+									} else {
+										showModal('error', '#{__("You have to upload an image at least")}'+': '+this.minWidth+' x '+this.minHeight+' '+'#{__("pixels")}');
+									}
 								}
-							}
+							});
 						});
-					});
-	include ../modals/errors
-	include ../modals/confirm
+		include ../modals/errors
+		include ../modals/confirm
