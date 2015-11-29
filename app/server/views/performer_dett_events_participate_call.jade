@@ -2,7 +2,7 @@ extends layout
 block content
 	.user_dett.single_event_page
 		.container
-			- console.log (user)
+			- console.log (call)
 			h1=dett.title
 			- if (dett.subtitle)
 				h3=Fnc.getTextFormat(dett.subtitle, config.lang, true)
@@ -15,9 +15,12 @@ block content
 			- else
 				h1="Step 1"
 				- for(var a=0;a<dett.settings.call.calls.length;a++)
-					h2=dett.settings.call.calls[a].title
-					p=__("Start date")+": "+dett.settings.call.calls[a].start_date
-					p=__("End date")+": "+dett.settings.call.calls[a].end_date
-					p=__("Email")+": "+dett.settings.call.calls[a].email
-					a.btn.btn-primary(href="/"+dett.users[0].permalink+"/events/"+dett.permalink+"/participate/"+dett.settings.call.calls[a].permalink+"/")=__("NEXT >>")
+					- if (dett.settings.call.calls[a].permalink==call.permalink)
+						h2=dett.settings.call.calls[a].title
+						p=__("Start date")+": "+dett.settings.call.calls[a].start_date
+						p=__("End date")+": "+dett.settings.call.calls[a].end_date
+						p=__("Email")+": "+dett.settings.call.calls[a].email
+						h3=__("Terms & conditions")
+						.terms=dett.settings.call.calls[a].terms
+						a.btn.btn-primary(href="/"+dett.users[0].permalink+"/events/"+dett.permalink+"/participate/"+dett.settings.call.calls[a].permalink+"/step1/")=__("NEXT >>")
 

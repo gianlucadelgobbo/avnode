@@ -260,6 +260,11 @@
       "subsections":{
         "participate":"Participate"
       },
+      "subsubsections":{
+        "participate":{
+          "step1": "Step 1"
+        }
+      },
       "permissions": {
         "administrator": "Administrator",
         "editor":  "Editor",

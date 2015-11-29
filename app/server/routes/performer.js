@@ -53,7 +53,48 @@ exports.get = function get(req, res) {
 									} else if (output=="xml") {
 										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user });
 									} else {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], { userpage:true, title: result.display_name+":  "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user });
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user });
+									}
+								} else {
+									res.sendStatus(404);
+								}
+							});
+						} else {
+							res.sendStatus(404);
+						}
+						break;
+					case 5 :
+						if (config.sections[pathArray[1]] && config.sections[pathArray[1]].subsections && config.sections[pathArray[1]].subsections[pathArray[3]]) {
+							DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
+								if (dett) {
+									req.session.call = {
+										permalink : pathArray[4]
+									}
+									if (output=="json") {
+										res.send(result);
+									} else if (output=="xml") {
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+'_call_xml', {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
+									} else {
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+'_call', {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
+									}
+								} else {
+									res.sendStatus(404);
+								}
+							});
+						} else {
+							res.sendStatus(404);
+						}
+						break;
+					case 6 :
+						if (config.sections[pathArray[1]] && config.sections[pathArray[1]].subsections && config.sections[pathArray[1]].subsections[pathArray[3]] && config.sections[pathArray[1]].subsubsections[pathArray[3]][pathArray[5]]) {
+							DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
+								if (dett) {
+									if (output=="json") {
+										res.send(result);
+									} else if (output=="xml") {
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+'_'+pathArray[5]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user });
+									} else {
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+'_'+pathArray[5], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user });
 									}
 								} else {
 									res.sendStatus(404);

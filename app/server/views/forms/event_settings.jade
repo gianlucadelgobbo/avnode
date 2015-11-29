@@ -67,10 +67,6 @@ block content
 												label.col-md-3.control-label=__("Background color")
 												.col-md-9
 													input.form-control(name="settings[call][colBkg]",	value=result.settings.call.colBkg,	type="text")
-											.form-group
-												label.col-md-3.control-label=__("Support email")
-												.col-md-9
-													input.form-control(name="settings[call][email]",	value=result.settings.call.email,	type="text")
 										legend.clearfix
 											h4.pull-left=__("Calls")
 											button.btn.btn-primary.pull-right.add_call(type="button")=__("Add a call")
@@ -85,6 +81,10 @@ block content
 																label.col-md-3.control-label=__("Title")
 																.col-md-9
 																	input.form-control(name="settings[call][calls]["+a+"][title]",			value=result.settings.call.calls[a].title,		type="text")
+															.form-group
+																label.col-md-3.control-label=__("Support email")
+																.col-md-9
+																	input.form-control(name="settings[call][calls]["+a+"][email]",	value=result.settings.call.calls[a].email,	type="text")
 															.form-group
 																label.col-md-3.control-label=__("Identifier")
 																.col-md-9
@@ -303,12 +303,19 @@ block content
 											console.log($(this).parent().parent().find(".packages_container .element"));
 											var n = $(this).parent().parent().find(".packages_container .element").length;
 											var clone = $(this).parent().parent().find(".packages_container .element").first().clone();
-											clone.find("input").val("");
-											clone.find("input").attr("name", clone.find("input").attr("name").replace(/\[packages\]\[0\]/g, "[packages][" + n + "]"));
-											clone.find(".packages_count").html(n + 1);
+											clone.find("input:text").val("");
 											clone.find("textarea").val("");
-											clone.find("textarea").attr("name", clone.find("textarea").attr("name").replace(/\[packages\]\[0\]/g, "[packages][" + n + "]"));
-											clone.find(".bootstrap-switch").html(clone.find(".switch"));
+											clone.find("input").each(function () {
+												if ($(this).attr("name")) $(this).attr("name", $(this).attr("name").replace(/\[packages\]\[0\]/g, "[packages][" + n + "]"));
+											});
+											clone.find("textarea").each(function () {
+												if ($(this).attr("name")) $(this).attr("name", $(this).attr("name").replace(/\[packages\]\[0\]/g, "[packages][" + n + "]"));
+											});
+											clone.find(".bootstrap-switch").each(function () {
+												$(this).find(".switch").appendTo($(this).parent());
+												$(this).remove();
+											});
+											clone.find(".packages_count").html(n + 1);
 											clone.find(".switch").bootstrapSwitch();
 											clone.find(".datepicker").datepicker();
 											clone.appendTo($(this).parent().parent().find(".packages_container"));
@@ -316,11 +323,15 @@ block content
 										$(".add_topic").click(function () {
 											var n = $(this).parent().parent().find(".topics_container .element").length;
 											var clone = $(this).parent().parent().find(".topics_container .element").first().clone();
-											clone.find("input").val("");
-											clone.find("input").attr("name", clone.find("input").attr("name").replace(/\[topics\]\[0\]/g, "[topics][" + n + "]"));
+											clone.find("input:text").val("");
 											clone.find(".topics_count").html(n + 1);
 											clone.find("textarea").val("");
-											clone.find("textarea").attr("name", clone.find("textarea").attr("name").replace(/\[topics\]\[0\]/g, "[topics][" + n + "]"));
+											clone.find("input").each(function () {
+												if ($(this).attr("name")) $(this).attr("name", $(this).attr("name").replace(/\[topics\]\[0\]/g, "[topics][" + n + "]"));
+											});
+											clone.find("textarea").each(function () {
+												if ($(this).attr("name")) $(this).attr("name", $(this).attr("name").replace(/\[topics\]\[0\]/g, "[topics][" + n + "]"));
+											});
 											clone.appendTo($(this).parent().parent().find(".topics_container"));
 										});
 

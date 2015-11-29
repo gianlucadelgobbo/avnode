@@ -14,10 +14,8 @@ block content
 				a.btn.btn-default(href="/controlpanel/register/?from=/"+dett.users[0].permalink+"/events/"+dett.permalink+"/participate/")=__("REGISTER")
 			- else
 				h1="Step 1"
-				- for(var a=0;a<dett.settings.call.calls.length;a++)
-					h2=dett.settings.call.calls[a].title
-					p=__("Start date")+": "+dett.settings.call.calls[a].start_date
-					p=__("End date")+": "+dett.settings.call.calls[a].end_date
-					p=__("Email")+": "+dett.settings.call.calls[a].email
-					a.btn.btn-primary(href="/"+dett.users[0].permalink+"/events/"+dett.permalink+"/participate/"+dett.settings.call.calls[a].permalink+"/")=__("NEXT >>")
-
+				- for(var a=0;a<user.performances.length;a++)
+					.checkbox
+						label
+							input(type="checkbox" value="user.performances[a]._id")
+							!=user.performances[a].title
