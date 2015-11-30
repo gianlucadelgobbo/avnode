@@ -48,12 +48,23 @@ exports.get = function get(req, res) {
 						if (config.sections[pathArray[1]] && config.sections[pathArray[1]].subsections && config.sections[pathArray[1]].subsections[pathArray[3]]) {
 							DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
 								if (dett) {
+									if (!req.session.call){
+										req.session.call = {
+											step: 0,
+											event: {
+												_id : dett._id,
+												permalink: dett.permalink
+											},
+											//user: req.session.passport.user
+										}
+									}
+
 									if (output=="json") {
 										res.send(result);
 									} else if (output=="xml") {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user });
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
 									} else {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user });
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
 									}
 								} else {
 									res.sendStatus(404);
@@ -67,9 +78,7 @@ exports.get = function get(req, res) {
 						if (config.sections[pathArray[1]] && config.sections[pathArray[1]].subsections && config.sections[pathArray[1]].subsections[pathArray[3]]) {
 							DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
 								if (dett) {
-									req.session.call = {
-										permalink : pathArray[4]
-									}
+
 									if (output=="json") {
 										res.send(result);
 									} else if (output=="xml") {
@@ -115,3 +124,64 @@ exports.get = function get(req, res) {
 		res.sendStatus(404);
 	}
 };
+
+exports.post = function post(req, res) {
+	var pathArray = req.url.split("/");
+	var output = (req.query.output ? req.query.output : false);
+	if (pathArray[0]=="") pathArray.shift();
+	if (pathArray[pathArray.length-1]=="") pathArray.pop();
+	if (pathArray[pathArray.length-1].indexOf("output")!=-1) pathArray.pop();
+	var passport_user = req.session.passport && req.session.passport.user ? req.session.passport.user : {};
+	if (pathArray.length > 0) {
+		DB.users.findOne({permalink:pathArray[0]}, function(e, result) {
+			if (result) {
+				switch (pathArray.length) {
+					case 4 :
+						if (config.sections[pathArray[1]] && config.sections[pathArray[1]].subsections && config.sections[pathArray[1]].subsections[pathArray[3]]) {
+							DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
+								console.log("POSTPOSTPOSTPOSTPOST");
+								console.log(req.body);
+								if (dett && req.body.step!=undefined) {
+									switch (req.body.step) {
+										case 0 :
+											req.session.call.step++;
+											req.session.call.index = req.body.index;
+										case 1 :
+											req.session.call.step++;
+											console.log("STOCAZZO "+req.body.step);
+									}
+									/*req.session.call = {
+										step: 0,
+										event: {
+											_id : dett._id,
+											permalink: dett.permalink
+										}
+									}*/
+									if (output=="json") {
+										res.send(result);
+									} else if (output=="xml") {
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
+									} else {
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
+									}
+								} else {
+									res.sendStatus(404);
+								}
+							});
+						} else {
+							res.sendStatus(404);
+						}
+						break;
+
+					default :
+						res.sendStatus(404);
+				}
+			} else {
+				res.sendStatus(404);
+			}
+		});
+	} else {
+		res.sendStatus(404);
+	}
+};
+

@@ -114,6 +114,10 @@ block content
 																				input(name="settings[call][calls]["+a+"][admitted][]", checked=result.settings.call.calls[a].admitted && result.settings.call.calls[a].admitted.indexOf(_config.sections.performances.categories[b])!=-1 ? "checked" : undefined,		value=_config.sections.performances.categories[b],		type="checkbox")
 																				!=" "+_config.sections.performances.labels[_config.sections.performances.categories[b]]
 															.form-group
+																label.col-md-3.control-label=__("Excerpt")
+																.col-md-9
+																	textarea.form-control(name="settings[call][calls]["+a+"][excerpt]",rows="4")=result.settings.call.calls[a].excerpt
+															.form-group
 																label.col-md-3.control-label=__("Terms and conditions")
 																.col-md-9
 																	textarea.form-control(name="settings[call][calls]["+a+"][terms]",rows="4")=result.settings.call.calls[a].terms

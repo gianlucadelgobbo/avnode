@@ -2,7 +2,7 @@ extends layout
 block content
 	.user_dett.single_event_page
 		.container
-			- console.log (user)
+			- console.log (call)
 			h1=dett.title
 			- if (dett.subtitle)
 				h3=Fnc.getTextFormat(dett.subtitle, config.lang, true)
@@ -13,11 +13,28 @@ block content
 				a.btn.btn-primary(href="/controlpanel/login/?from=/"+dett.users[0].permalink+"/events/"+dett.permalink+"/participate/")=__("LOGIN")
 				a.btn.btn-default(href="/controlpanel/register/?from=/"+dett.users[0].permalink+"/events/"+dett.permalink+"/participate/")=__("REGISTER")
 			- else
-				h1="Step 1"
-				- for(var a=0;a<dett.settings.call.calls.length;a++)
-					h2=dett.settings.call.calls[a].title
-					p=__("Start date")+": "+dett.settings.call.calls[a].start_date
-					p=__("End date")+": "+dett.settings.call.calls[a].end_date
-					p=__("Email")+": "+dett.settings.call.calls[a].email
-					a.btn.btn-primary(href="/"+dett.users[0].permalink+"/events/"+dett.permalink+"/participate/"+dett.settings.call.calls[a].permalink+"/")=__("NEXT >>")
-
+				h1="Step "+(call.step+1)
+				form(method="post")
+					case call.step
+						when 0
+							.row
+							- for(var a=0;a<dett.settings.call.calls.length;a++)
+								- var admitted = []
+								- for(var b=0;b<dett.settings.call.calls[a].admitted.length;b++)
+									- admitted.push(dett.settings.call.calls[a].admitted[b])
+								.radio
+									label
+										input(type="radio" name="index" value=a checked=call.index==a ? "checked" : undefined)
+										h2=dett.settings.call.calls[a].title
+										p=__("Start date")+": "+dett.settings.call.calls[a].start_date+" | "+__("End date")+": "+dett.settings.call.calls[a].end_date+" | "+__("Email")+": "+dett.settings.call.calls[a].email
+										p=__("Admitted projects") + ": " + admitted.join(", ")
+										p=dett.settings.call.calls[a].excerpt
+							input.btn.btn-primary(type="submit" value=__("NEXT >>"))
+						when 1
+							h2=__("Terms and conditions")
+							p=dett.settings.call.calls[a].terms
+							.checkbox
+								label
+									input(type="checkbox" name="accept" value=1)
+									!=__("I accept this terms")
+					input(type="hidden" name="step" value=call.step)

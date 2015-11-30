@@ -228,6 +228,6 @@ module.exports = function(app) {
 
     // all other routes: User or 404
     app.get('*', performerRoutes.get);
-	//app.post('*', userRoutes.post);
+	app.post('*', performerRoutes.post);
 	//app.get('*', function(req, res) { res.send(404); });
 };
