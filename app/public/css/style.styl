@@ -754,12 +754,21 @@ footer.main_footer
 .nav-tabs
   border-bottom 1px solid #e4811e
   margin-bottom 30px
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus
-  border none
-  color: #fff;
-  background: url("../img/single_event_list_bkg.png");
-  background-position: right;
-  background-color: #e4811e;
+.single_event_page
+  .nav-tabs>li.active>a,
+  .nav-tabs>li.active>a:hover,
+  .nav-tabs>li.active>a:focus
+    border none
+    color: #fff;
+    background: url("../img/single_event_list_bkg.png");
+    background-position: right;
+    background-color: #e4811e;
+.single_event_page
+  .nav-tabs>li>a,
+  .nav-tabs>li>a:hover,
+  .nav-tabs>li>a:focus
+    border none
+    margin: 0px;
 .nav-tabs>li>a
   border-radius 0
   color #e4811e
@@ -774,5 +783,20 @@ footer.main_footer
   text-decoration: none;
   background-color: none !important;
 .date_bkg
-  background #E4811E
-  color #fff
+  background: #E4811E url("../img/single_event_list_bkg.png") repeat scroll right center;
+  color: #FFF;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #E4811E;
+  border-top: 1px solid #E4811E;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+.single_event_details li span.value
+  color #E4811E
+.single_date_of_series h3, .single_partner_of_series h3
+  margin 15px 0
+.single_event-room_title
+  margin 0 0 15px 0px
+.single_event_page .performances_performer .box_wrapper
+  border-color #E4811E
+.single_event_page .evidence-performance_stats .stat.value
+  color: #E4811E

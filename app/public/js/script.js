@@ -22,6 +22,12 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 });
 
 
+
+
+
+
+
+
 // isotope layout in lists
 $('.grid').isotope({
 	// options

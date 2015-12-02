@@ -1,6 +1,7 @@
 extends layout
 block content
-	- console.log(req.session.call)
+	.single_event_page
+		// console.log(req.session.call)
 		.user_dett.single_event_page
 			.container
 				.row
@@ -8,8 +9,6 @@ block content
 						.single_event_thumb_container
 							.image
 								img.img-responsive(alt=__("Thumbnail of")+": "+dett.title, src=Fnc.getFileFormat(dett.files, 400, 300))
-								//immagine grande
-								// immagine grande con titolo
 							.row
 								.overlay_container
 									h1.title=dett.title
@@ -17,12 +16,9 @@ block content
 										h3.subtitle=Fnc.getTextFormat(dett.subtitle, config.lang, true)
 
 									// DETTAGLI
-									ul.list-inline
+									ul.list-inline.single_event_details
 										- if (dett.websites)
 											- for(a=0;a<dett.websites.length;a++)
-
-
-
 												li
 													i.fa.fa-external-link
 													a(href=dett.websites[a],target="_blank")
@@ -30,12 +26,12 @@ block content
 												li
 													span
 														i(class="fa fa-eye")
-														=" "+dett.stats.visits
+														span.value=" "+dett.stats.visits
 												li
 													span
 														i(class="fa fa-heart")
 														=" "
-														=dett.stats.rates.tot_rate
+														span.value=dett.stats.rates.tot_rate
 												li
 													i(class="fa fa-user")
 													=" "
@@ -120,7 +116,7 @@ block content
 								- 	});
 
 									.date_bkg
-										.container
+										.container.single_date_of_series
 												h3=day
 											.row
 
@@ -131,8 +127,8 @@ block content
 										- 	});
 											.col-md-12
 											- var span = 4
-													h3=room
-												.row.main-list.grid_tab
+													h3.single_event-room_title= room
+												.row.main-list.grid_tab.performance_single-event_list
 													- for(item in dayRoomPerf)
 														- var box = dayRoomPerf[item]
 														- sez = "performances"
@@ -157,7 +153,7 @@ block content
 									-		return value.partner_type==partner_type
 									- 	});
 										.date_bkg
-											.container
+											.container.single_partner_of_series
 												h3=partner_type
 										.container
 											.row.main-list.grid_tab
