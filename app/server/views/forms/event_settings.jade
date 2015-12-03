@@ -146,7 +146,7 @@ block content
 																							label.col-md-3.control-label=__("package")
 																							.col-md-9
 																								.input-group
-																									input.form-control(name="settings[call][calls]["+a+"][packages]["+b+"][package]", value=result.settings.call.calls[a].packages[b].package, type="text")
+																									input.form-control(name="settings[call][calls]["+a+"][packages]["+b+"][price]", value=result.settings.call.calls[a].packages[b].price, type="text")
 																									span.input-group-addon €
 																								small.help-block=__("Use a negative amount if the event will pay, 0 if the project don't have to pay and a positive number if they have to pay")
 																								br
@@ -154,6 +154,36 @@ block content
 																							label.col-md-3.control-label=__("Package description")
 																							.col-md-9
 																								textarea.form-control(name="settings[call][calls]["+a+"][packages]["+b+"][description]")=result.settings.call.calls[a].packages[b].description
+																						.form-group
+																							label.col-md-3.control-label
+																								input.switch(name="settings[call][calls][" + a + "][packages][" + b + "][personal]", value="1", type="checkbox",autocomplete="off",checked=result.settings.call.calls[a].packages[b].personal ? "checked" : undefined)
+																							.col-md-9
+																								h5=__("Personal Package")
+																						.form-group
+																							label.col-md-3.control-label
+																								input.switch(name="settings[call][calls][" + a + "][packages][" + b + "][requested]", value="1", type="checkbox",autocomplete="off",checked=result.settings.call.calls[a].packages[b].requested ? "checked" : undefined)
+																							.col-md-9
+																								h5=__("Requested Package")
+																						.form-group
+																							label.col-md-3.control-label
+																								input.switch(name="settings[call][calls][" + a + "][packages][" + b + "][allow_multiple]", value="1", type="checkbox",autocomplete="off",checked=result.settings.call.calls[a].packages[b].allow_multiple ? "checked" : undefined)
+																							.col-md-9
+																								h5=__("Allow Multiple")
+																						.form-group
+																							label.col-md-3.control-label
+																								input.switch(name="settings[call][calls][" + a + "][packages][" + b + "][allow_options]", value="1", onchange="$(this).parent().parent().parent().parent().find('.allow_options').slideToggle('slide')",type="checkbox",autocomplete="off",checked=result.settings.call.calls[a].packages[b].allow_options ? "checked" : undefined)
+																							.col-md-9
+																								h5=__("Allow Options")
+																								.allow_options(style=!result.settings.call.calls[a].packages[b].allow_options ? "display: none" : undefined)
+																									.form-group
+																										label.col-md-3.control-label=__("Option name")
+																										.col-md-9
+																											input.form-control(name="settings[call][calls][" + a + "][packages][" + b + "][options_name]", value=result.settings.call.calls[a].packages[b].options_name,    type="text")
+																									.form-group
+																										label.col-md-3.control-label=__("Options")
+																										.col-md-9
+																											textarea.form-control(name="settings[call][calls][" + a + "][packages][" + b + "][options]")=result.settings.call.calls[a].packages[b].options
+																											small=__("Use comma separated values")
 																						.form-group
 																							label.col-md-3.control-label
 																								input.switch(name="settings[call][calls][" + a + "][packages][" + b + "][daily]", value="1", onchange="$(this).parent().parent().parent().parent().find('.daily').slideToggle('slide')",type="checkbox",autocomplete="off",checked=result.settings.call.calls[a].packages[b].daily ? "checked" : undefined)

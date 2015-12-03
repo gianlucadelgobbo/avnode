@@ -14,27 +14,148 @@ block content
 				a.btn.btn-default(href="/controlpanel/register/?from=/"+dett.users[0].permalink+"/events/"+dett.permalink+"/participate/")=__("REGISTER")
 			- else
 				h1="Step "+(call.step+1)
+				include comp/msg
 				form(method="post")
 					case call.step
 						when 0
-							.row
+							h2=__("Active calls")
 							- for(var a=0;a<dett.settings.call.calls.length;a++)
 								- var admitted = []
 								- for(var b=0;b<dett.settings.call.calls[a].admitted.length;b++)
 									- admitted.push(dett.settings.call.calls[a].admitted[b])
+								- var topics = []
+								- for(var b=0;b<dett.settings.call.calls[a].topics.length;b++)
+									- topics.push(dett.settings.call.calls[a].topics[b].name)
 								.radio
 									label
 										input(type="radio" name="index" value=a checked=call.index==a ? "checked" : undefined)
-										h2=dett.settings.call.calls[a].title
+										h3=dett.settings.call.calls[a].title
 										p=__("Start date")+": "+dett.settings.call.calls[a].start_date+" | "+__("End date")+": "+dett.settings.call.calls[a].end_date+" | "+__("Email")+": "+dett.settings.call.calls[a].email
 										p=__("Admitted projects") + ": " + admitted.join(", ")
+										p=__("Topics") + ": " + topics.join(", ")
 										p=dett.settings.call.calls[a].excerpt
 							input.btn.btn-primary(type="submit" value=__("NEXT >>"))
 						when 1
 							h2=__("Terms and conditions")
-							p=dett.settings.call.calls[a].terms
+							p=dett.settings.call.calls[call.index].terms
 							.checkbox
 								label
 									input(type="checkbox" name="accept" value=1)
 									!=__("I accept this terms")
+							input.btn.btn-primary(type="submit" value=__("NEXT >>"))
+						when 2
+							h2=__("Performance selection")
+							- for(var a=0;a<user.performances.length;a++)
+								- var users = []
+								- for(var b=0;b<user.performances[a].users.length;b++)
+									- users.push(user.performances[a].users[b].display_name)
+								- var categories = []
+								- for(var b=0;b<user.performances[a].categories.length;b++)
+									- categories.push(user.performances[a].categories[b].name)
+								.radio
+									label
+										input(type="radio" name="performance" value=user.performances[a]._id checked=call.performance && call.performance._id && call.performance._id==user.performances[a]._id ? "checked" : undefined)
+										h3=user.performances[a].title
+										p=__("Type")+": "+ categories.join(", ")
+										p=__("Authors") + ": " + users.join(", ")
+
+							input.btn.btn-primary(type="submit" value=__("NEXT >>"))
+						when 3
+							h2=__("Topics selection")
+							- for(var b=0;b<dett.settings.call.calls[call.index].topics.length;b++)
+								.checkbox
+									label
+										input(type="checkbox" name="topics["+b+"]" value=dett.settings.call.calls[call.index].topics[b].name checked=call.topics && call.topics.indexOf(dett.settings.call.calls[call.index].topics[b].name)!=-1 ? "checked" : undefined)
+										h3=dett.settings.call.calls[call.index].topics[b].name
+										p=dett.settings.call.calls[call.index].topics[b].description
+							input.btn.btn-primary(type="submit" value=__("NEXT >>"))
+						when 4
+							h2=__("Packages")
+							- console.log(call.index)
+							- console.log(dett.settings.call.calls[call.index].packages)
+							- for (var b=0;b<dett.settings.call.calls[call.index].packages.length;b++)
+								.element
+									legend=__("Package")+" ID: "
+										span.packages_count=(b+1)
+									.form-group
+										label.col-md-3.control-label=__("Name")
+										.col-md-9
+											input.form-control(name="packages["+b+"][name]", value=dett.settings.call.calls[call.index].packages[b].name, type="text")
+									.form-group
+										label.col-md-3.control-label=__("package")
+										.col-md-9
+											.input-group
+												input.form-control(name="packages["+b+"][package]", value=dett.settings.call.calls[call.index].packages[b].package, type="text")
+												span.input-group-addon €
+											small.help-block=__("Use a negative amount if the event will pay, 0 if the project don't have to pay and a positive number if they have to pay")
+											br
+									.form-group
+										label.col-md-3.control-label=__("Package description")
+										.col-md-9
+											textarea.form-control(name="packages["+b+"][description]")=dett.settings.call.calls[call.index].packages[b].description
+									.form-group
+										label.col-md-3.control-label
+											input.switch(name="settings[call][calls][" + a + "][packages][" + b + "][allow_options]", value="1", onchange="$(this).parent().parent().parent().parent().find('.daily').slideToggle('slide')",type="checkbox",autocomplete="off",checked=dett.settings.call.calls[call.index].packages[b].allow_options ? "checked" : undefined)
+										.col-md-9
+											h5=__("Allow Options")
+											.allow_options(style=!dett.settings.call.calls[call.index].allow_options ? "display: none" : undefined)
+												.form-group
+													label.col-md-3.control-label=__("Package start day")
+													.col-md-9
+														.input-group
+															span.input-group-addon
+																i.glyphicon.glyphicon-minus
+															input.form-control(name="settings[call][calls][" + a + "][packages][" + b + "][start_date]", value=dett.settings.call.calls[call.index].packages[b].start_date,    type="text").disabled
+															span.input-group-addon
+																i.glyphicon.glyphicon-plus
+									.form-group
+										label.col-md-3.control-label
+											input.switch(name="settings[call][calls][" + a + "][packages][" + b + "][daily]", value="1", onchange="$(this).parent().parent().parent().parent().find('.daily').slideToggle('slide')",type="checkbox",autocomplete="off",checked=dett.settings.call.calls[call.index].packages[b].daily ? "checked" : undefined)
+										.col-md-9
+											h5=__("Daily Package")
+											.daily(style=!dett.settings.call.calls[call.index].packages[b].daily ? "display: none" : undefined)
+												.form-group
+													label.col-md-3.control-label=__("Package start day")
+													.col-md-9
+														.input-group.date.datepicker(data-date=dett.settings.call.calls[call.index].packages[b].start_date,data-date-format="yyyy-mm-dd")
+															input.form-control(name="settings[call][calls][" + a + "][packages][" + b + "][start_date]", value=dett.settings.call.calls[call.index].packages[b].start_date,    type="text").disabled
+															span.input-group-addon
+																i.glyphicon.glyphicon-calendar
+												.form-group
+													label.col-md-3.control-label=__("Package end day")
+													.col-md-9
+														.input-group.date.datepicker(data-date=dett.settings.call.calls[call.index].packages[b].end_date,data-date-format="yyyy-mm-dd")
+															input.form-control(name="settings[call][calls][" + a + "][packages][" + b + "][end_date]", value=dett.settings.call.calls[call.index].packages[b].end_date,        type="text").disabled
+															span.input-group-addon
+																i.glyphicon.glyphicon-calendar
+							//.form-group
+								- topics = dett.settings.call.calls[call.index].topics && dett.settings.call.calls[call.index].topics.length
+								label.col-md-3.control-label
+								input.switch(onchange="$(this).parent().parent().find('.topics').slideToggle('slide')",type="checkbox",autocomplete="off",checked=topics ? "checked" : undefined)
+								.col-md-9
+								.clearfix
+								.pull-left
+								h4=__("Topics")
+								p=__("This call have topics")
+								button.btn.btn-primary.pull-right.add_topic(type="button")=__("Add a topic")
+								.topics(style=!topics ? "display: none" : undefined)
+								fieldset
+								.topics_container
+								- for (var b=0;b<dett.settings.call.calls[call.index].topics.length;b++)
+								.element
+									legend=__("Topic")+" ID: "
+									span.topics_count=(b+1)
+									.form-group
+										label.col-md-3.control-label=__("Name")
+										.col-md-9
+											input.form-control(name="settings[call][calls]["+a+"][topics]["+b+"][name]", value=dett.settings.call.calls[call.index].topics[b].name, type="text")
+									.form-group
+										label.col-md-3.control-label=__("Description")
+										.col-md-9
+											textarea.form-control(name="settings[call][calls]["+a+"][topics]["+b+"][description]")=dett.settings.call.calls[call.index].topics[b].description
+									hr
+
+								hr
+
+							input.btn.btn-primary(type="submit" value=__("NEXT >>"))
 					input(type="hidden" name="step" value=call.step)

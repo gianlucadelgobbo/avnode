@@ -4,7 +4,7 @@ var config = require('getconfig');
 GLOBAL._config = config;
 
 exports.get = function get(req, res) {
-	var pathArray = req.url.split("/");
+	var pathArray = req.url.split("?")[0].split("/");
 	var output = (req.query.output ? req.query.output : false);
 	if (pathArray[0]=="") pathArray.shift();
 	if (pathArray[pathArray.length-1]=="") pathArray.pop();
@@ -48,6 +48,11 @@ exports.get = function get(req, res) {
 						if (config.sections[pathArray[1]] && config.sections[pathArray[1]].subsections && config.sections[pathArray[1]].subsections[pathArray[3]]) {
 							DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
 								if (dett) {
+									console.log("GETGETGETGETGETGET");
+									console.log(req.session.call);
+									if(typeof req.query.step!='undefined'){
+										req.session.call = req.query.step;
+									}
 									if (!req.session.call){
 										req.session.call = {
 											step: 0,
@@ -65,45 +70,6 @@ exports.get = function get(req, res) {
 										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
 									} else {
 										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
-									}
-								} else {
-									res.sendStatus(404);
-								}
-							});
-						} else {
-							res.sendStatus(404);
-						}
-						break;
-					case 5 :
-						if (config.sections[pathArray[1]] && config.sections[pathArray[1]].subsections && config.sections[pathArray[1]].subsections[pathArray[3]]) {
-							DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
-								if (dett) {
-
-									if (output=="json") {
-										res.send(result);
-									} else if (output=="xml") {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+'_call_xml', {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
-									} else {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+'_call', {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
-									}
-								} else {
-									res.sendStatus(404);
-								}
-							});
-						} else {
-							res.sendStatus(404);
-						}
-						break;
-					case 6 :
-						if (config.sections[pathArray[1]] && config.sections[pathArray[1]].subsections && config.sections[pathArray[1]].subsections[pathArray[3]] && config.sections[pathArray[1]].subsubsections[pathArray[3]][pathArray[5]]) {
-							DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
-								if (dett) {
-									if (output=="json") {
-										res.send(result);
-									} else if (output=="xml") {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+'_'+pathArray[5]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user });
-									} else {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+'_'+pathArray[5], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user });
 									}
 								} else {
 									res.sendStatus(404);
@@ -141,15 +107,51 @@ exports.post = function post(req, res) {
 							DB[config.sections[pathArray[1]].coll].findOne({permalink:pathArray[2]}, function(e, dett) {
 								console.log("POSTPOSTPOSTPOSTPOST");
 								console.log(req.body);
-								if (dett && req.body.step!=undefined) {
-									switch (req.body.step) {
+								console.log(req.body.step);
+								console.log(typeof req.body.step);
+								if (dett && typeof req.body.step!='undefined') {
+									var msg;
+									switch (parseInt(req.body.step)) {
 										case 0 :
-											req.session.call.step++;
-											req.session.call.index = req.body.index;
+											if (dett && typeof req.body.index!='undefined') {
+												req.session.call.step = parseInt(req.body.step)+1;
+												req.session.call.index = parseInt(req.body.index);
+											} else {
+												msg = {e:[{name:"index",m:__("Please select a call")}]}
+											}
+											break;
 										case 1 :
-											req.session.call.step++;
-											console.log("STOCAZZO "+req.body.step);
+											if (dett && req.body.accept=='1') {
+												req.session.call.step = parseInt(req.body.step)+1;
+											} else {
+												msg = {e:[{name:"accept",m:__("Please accept the terms and conditions to go forward")}]}
+											}
+											break;
+										case 2 :
+											if (dett && typeof req.body.performance!='undefined') {
+												req.session.call.step = parseInt(req.body.step)+1;
+												for (var a; a<passport_user.performances.length; a++) {
+													if (passport_user.performances[a]._id==req.body.performance){
+														req.session.call.performance = passport_user.performances[a];
+														console.log("staminchia");
+														console.log(req.session.call.performance);
+													}
+												}
+
+											} else {
+												msg = {e:[{name:"accept",m:__("Please select a performance to go forward")}]}
+											}
+											break;
+										case 3 :
+											if (dett && req.body.topics.length) {
+												req.session.call.step = parseInt(req.body.step)+1;
+												req.session.call.topics = req.body.topics;
+											} else {
+												msg = {e:[{name:"accept",m:__("Please select at least 1 topic to go forward")}]}
+											}
+											break;
 									}
+									console.log(req.session.call);
 									/*req.session.call = {
 										step: 0,
 										event: {
@@ -160,9 +162,9 @@ exports.post = function post(req, res) {
 									if (output=="json") {
 										res.send(result);
 									} else if (output=="xml") {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call, msg:msg });
 									} else {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call, msg:msg });
 									}
 								} else {
 									res.sendStatus(404);
