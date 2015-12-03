@@ -6,7 +6,8 @@
 					.col-lg-5.col-md-4.col-sm-4.col-xs-6.performer_avatar
 						img.media-object(alt=__("Thumbnail of")+": "+result.display_name, src=Fnc.getFileFormat(result.files, 240, 180))
 					.col-lg-7.col-sm-8.col-xs-6.performer_geolocalization
-						h1= result.display_name
+						a(href="/"+result.permalink)(title=result.display_name)
+							h1= result.display_name
 						p= result.locations[0].city+" // "
 							span.country_geoloc= result.locations[0].country
 						//- City and country may link to the City/Country page with other performers

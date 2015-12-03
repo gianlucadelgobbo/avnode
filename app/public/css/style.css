@@ -524,11 +524,12 @@ a:hover img {
     display: none;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 992px) {
+@media screen and (min-width:768px) and (max-width: 992px) {
   .secondary_performance_wrapper {
     background: none;
   }
 }
+.secondary_performance h3,
 .secondary_performance h3 {
   text-transform: uppercase;
   font-size: 14px;
@@ -610,7 +611,7 @@ a:hover img {
     display: none;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 992px) {
+@media screen and (min-width:768px) and (max-width: 992px) {
   .secondary_events {
     background: none;
   }
@@ -631,7 +632,7 @@ a:hover img {
   height: 100px;
   width: 100px;
 }
-@media screen and (min-width: 992px) and (max-width: 1200px) {
+@media screen and (min-width:992px) and (max-width: 1200px) {
   .main_crews-box img {
     height: 91px;
     width: 91px;
@@ -987,14 +988,20 @@ footer.main_footer {
   border-bottom: 1px solid #e4811e;
   margin-bottom: 30px;
 }
-.nav-tabs>li.active>a,
-.nav-tabs>li.active>a:hover,
-.nav-tabs>li.active>a:focus {
+.single_event_page .nav-tabs>li.active>a,
+.single_event_page .nav-tabs>li.active>a:hover,
+.single_event_page .nav-tabs>li.active>a:focus {
   border: none;
   color: #fff;
   background: url("../img/single_event_list_bkg.png");
   background-position: right;
   background-color: #e4811e;
+}
+.single_event_page .nav-tabs>li>a,
+.single_event_page .nav-tabs>li>a:hover,
+.single_event_page .nav-tabs>li>a:focus {
+  border: none;
+  margin: 0px;
 }
 .nav-tabs>li>a {
   border-radius: 0;
@@ -1015,6 +1022,25 @@ footer.main_footer {
   background-color: none !important;
 }
 .date_bkg {
-  background: #e4811e;
+  background: #f6a500 none repeat scroll 0% 0%;
   color: #fff;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #e4811e;
+  border-top: 1px solid #e4811e;
+}
+.single_event_details li span.value {
+  color: #e4811e;
+}
+.single_date_of_series h3,
+.single_partner_of_series h3 {
+  margin: 15px 0;
+}
+.single_event-room_title {
+  margin: 0 0 15px 0px;
+}
+.single_event_page .performances_performer .box_wrapper {
+  border-color: #e4811e;
+}
+.single_event_page .evidence-performance_stats .stat.value {
+  color: #e4811e;
 }
