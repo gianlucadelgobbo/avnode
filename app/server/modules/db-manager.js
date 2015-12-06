@@ -26,10 +26,11 @@ DB.db.open(function(e, d){
         DB.playlists = 		DB.db.collection('playlists');
         DB.performances = 	DB.db.collection('performances');
         DB.events = 		DB.db.collection('events');
-        DB.tvshow = 		DB.db.collection('tvshow');
+		DB.subscriptions = 	DB.db.collection('subscriptions');
+		DB.tvshow = 		DB.db.collection('tvshow');
         DB.gallery = 		DB.db.collection('gallery');
         DB.categories = 	DB.db.collection('categories');
-        DB.temp_users = 	DB.db.collection('temp_users');
+		DB.temp_users = 	DB.db.collection('temp_users');
         DB.temp = 			DB.db.collection('temp');
         console.log('connected to database :: ' + dbName);
     }

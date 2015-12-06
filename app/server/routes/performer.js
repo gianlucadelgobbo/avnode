@@ -2,6 +2,7 @@ var DB = require('../modules/db-manager');
 var Fnc = require('../modules/general-functions');
 var config = require('getconfig');
 GLOBAL._config = config;
+var ObjectID = require('mongodb').ObjectID;
 
 exports.get = function get(req, res) {
 	var pathArray = req.url.split("?")[0].split("/");
@@ -50,9 +51,7 @@ exports.get = function get(req, res) {
 								if (dett) {
 									console.log("GETGETGETGETGETGET");
 									console.log(req.session.call);
-									if(typeof req.query.step!='undefined'){
-										req.session.call = req.query.step;
-									}
+
 									if (!req.session.call){
 										req.session.call = {
 											step: 0,
@@ -63,13 +62,17 @@ exports.get = function get(req, res) {
 											//user: req.session.passport.user
 										}
 									}
+									if(typeof req.query.step!='undefined'){
+										req.session.call.step = req.query.step;
+									}
+									var subscriptions = {};
 
 									if (output=="json") {
 										res.send(result);
 									} else if (output=="xml") {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call, subscriptions:subscriptions });
 									} else {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call });
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call, subscriptions:subscriptions });
 									}
 								} else {
 									res.sendStatus(404);
@@ -130,11 +133,28 @@ exports.post = function post(req, res) {
 										case 2 :
 											if (dett && typeof req.body.performance!='undefined') {
 												req.session.call.step = parseInt(req.body.step)+1;
-												for (var a; a<passport_user.performances.length; a++) {
+												for (var a=0; a<passport_user.performances.length; a++) {
 													if (passport_user.performances[a]._id==req.body.performance){
 														req.session.call.performance = passport_user.performances[a];
-														console.log("staminchia");
-														console.log(req.session.call.performance);
+														req.session.call.subscriptions = [];
+														for (var b=0; b<req.session.call.performance.users.length; b++) {
+															if (req.session.call.performance.users[b].members) {
+																for (var c=0; c<req.session.call.performance.users[b].members.length; c++) {
+																	DB.subscriptions.findOne({subscriber_id:req.session.call.performance.users[b].members[c]._id}, function(e, subscription) {
+																		if (subscription) {
+																			req.session.call.subscriptions.push(subscription);
+																		}
+																	});
+																}
+															} else {
+																DB.subscriptions.findOne({subscriber_id:req.session.call.performance.users[b]._id}, function(e, subscription) {
+																	if (subscription) {
+																		req.session.call.subscriptions.push(subscription);
+																	}
+																});
+
+															}
+														}
 													}
 												}
 
@@ -150,6 +170,21 @@ exports.post = function post(req, res) {
 												msg = {e:[{name:"accept",m:__("Please select at least 1 topic to go forward")}]}
 											}
 											break;
+										case 4 :
+											if (dett && req.body.subscriptions && req.body.subscriptions.length) {
+												req.session.call.step = parseInt(req.body.step)+1;
+												var subscriptions = [];
+												for (var a=0; a<req.body.subscriptions.length; a++) {
+													if (req.body.subscriptions[a].subscriber_id){
+														var subscriptionA = req.body.subscriptions[a];
+														subscriptions.push(subscriptionA);
+													}
+												}
+												req.session.call.subscriptions = subscriptions;
+											} else {
+												msg = {e:[{name:"accept",m:__("Please select at least 1 person to go forward")}]}
+											}
+											break;
 									}
 									console.log(req.session.call);
 									/*req.session.call = {
@@ -162,9 +197,9 @@ exports.post = function post(req, res) {
 									if (output=="json") {
 										res.send(result);
 									} else if (output=="xml") {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call, msg:msg });
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3]+"_xml", {	layout: false, userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call, msg:msg  });
 									} else {
-										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call, msg:msg });
+										res.render('performer_dett_'+pathArray[1]+'_'+pathArray[3], {                          userpage:true, title: result.display_name+": "+config.sections[pathArray[1]].title, sez:pathArray[1], result : result, dett : dett, Fnc:Fnc, user : passport_user, call: req.session.call, msg:msg  });
 									}
 								} else {
 									res.sendStatus(404);

@@ -2,7 +2,7 @@ extends layout
 block content
 	.user_dett.single_event_page
 		.container
-			- console.log (call)
+			- //console.log (call.subscriber_id)
 			h1=dett.title
 			- if (dett.subtitle)
 				h3=Fnc.getTextFormat(dett.subtitle, config.lang, true)
@@ -70,64 +70,63 @@ block content
 										p=dett.settings.call.calls[call.index].topics[b].description
 							input.btn.btn-primary(type="submit" value=__("NEXT >>"))
 						when 4
+							h2=__("Availability")
+							- var count = 0;
+							- for (var b=0;b<call.performance.users.length;b++)
+								- if (call.performance.users[b].members)
+									- for (var c=0;c<call.performance.users[b].members.length;c++)
+										.form-group
+											label.col-md-3.control-label
+												input.switch(name="subscriptions[" + count + "][subscriber_id]", value=call.performance.users[b].members[c]._id, onchange="$(this).parent().parent().find('.subscription').slideToggle('slide');var display_name = this.checked ? '"+call.performance.users[b].members[c].display_name+"' : '';$(this).parent().find('.display_name').val(display_name);",type="checkbox",autocomplete="off", checked=(call.subscriptions[count] && call.subscriptions[count].subscriber_id ? "checked" : undefined))
+												input.display_name(name="subscriptions[" + count + "][display_name]", type="hidden")
+											.col-md-9
+												h3=call.performance.users[b].members[c].display_name
+												.subscription(style=!call.subscriptions[count] || !call.subscriptions[count].subscriber_id ? "display: none" : undefined)
+													- for (var d=0;d<dett.date_time_venue.length;d++)
+														.checkbox
+															label
+																input(name="subscriptions[" + count + "][days][" + d + "]", value=dett.date_time_venue[d].date,    type="checkbox",checked=call.subscriptions[count] && call.subscriptions[count].days && call.subscriptions[count].days[d] == dett.date_time_venue[d].date ? "checked" : undefined)
+																!=dett.date_time_venue[d].date
+										- count++
+								- else
+									.form-group
+											label.col-md-3.control-label
+												input.switch(name="subscriptions[" + count + "][subscriber_id]", value=call.performance.users[b]._id, onchange="$(this).parent().parent().parent().parent().find('.subscription').slideToggle('slide');var display_name = this.checked ? '"+call.performance.users[b].members[c].display_name+"' : '';$(this).parent().find('.display_name').val(display_name);",type="checkbox",autocomplete="off",checked=call.subscriptions[count] && call.subscriptions[count].subscriber_id ? "checked" : undefined)
+												input.display_name(name="subscriptions[" + count + "][display_name]", type="hidden")
+									.col-md-9
+												h3=call.performance.users[b].display_name
+												.subscription(style=!call.subscriptions[count] || !call.subscriptions[count].subscriber_id ? "display: none" : undefined)
+													- for (var c=0;c<dett.date_time_venue.length;c++)
+														.checkbox
+															label
+																input(name="subscriptions[" + count + "][days][" + c + "]", value=dett.date_time_venue[c].date,    type="checkbox",checked=call.subscriptions[count] && call.subscriptions[count].days && call.subscriptions[count].days[c]==dett.date_time_venue[c].date ? "checked" : undefined)
+																!=dett.date_time_venue[c].date
+									- count++
+							input.btn.btn-primary(type="submit" value=__("NEXT >>"))
+						when 5
 							h2=__("Packages")
-							- console.log(call.index)
-							- console.log(dett.settings.call.calls[call.index].packages)
 							- for (var b=0;b<dett.settings.call.calls[call.index].packages.length;b++)
-								.element
-									legend=__("Package")+" ID: "
-										span.packages_count=(b+1)
-									.form-group
-										label.col-md-3.control-label=__("Name")
-										.col-md-9
-											input.form-control(name="packages["+b+"][name]", value=dett.settings.call.calls[call.index].packages[b].name, type="text")
-									.form-group
-										label.col-md-3.control-label=__("package")
-										.col-md-9
-											.input-group
-												input.form-control(name="packages["+b+"][package]", value=dett.settings.call.calls[call.index].packages[b].package, type="text")
-												span.input-group-addon €
-											small.help-block=__("Use a negative amount if the event will pay, 0 if the project don't have to pay and a positive number if they have to pay")
-											br
-									.form-group
-										label.col-md-3.control-label=__("Package description")
-										.col-md-9
-											textarea.form-control(name="packages["+b+"][description]")=dett.settings.call.calls[call.index].packages[b].description
-									.form-group
-										label.col-md-3.control-label
-											input.switch(name="settings[call][calls][" + a + "][packages][" + b + "][allow_options]", value="1", onchange="$(this).parent().parent().parent().parent().find('.daily').slideToggle('slide')",type="checkbox",autocomplete="off",checked=dett.settings.call.calls[call.index].packages[b].allow_options ? "checked" : undefined)
-										.col-md-9
-											h5=__("Allow Options")
-											.allow_options(style=!dett.settings.call.calls[call.index].allow_options ? "display: none" : undefined)
-												.form-group
-													label.col-md-3.control-label=__("Package start day")
-													.col-md-9
-														.input-group
-															span.input-group-addon
-																i.glyphicon.glyphicon-minus
-															input.form-control(name="settings[call][calls][" + a + "][packages][" + b + "][start_date]", value=dett.settings.call.calls[call.index].packages[b].start_date,    type="text").disabled
-															span.input-group-addon
-																i.glyphicon.glyphicon-plus
-									.form-group
-										label.col-md-3.control-label
-											input.switch(name="settings[call][calls][" + a + "][packages][" + b + "][daily]", value="1", onchange="$(this).parent().parent().parent().parent().find('.daily').slideToggle('slide')",type="checkbox",autocomplete="off",checked=dett.settings.call.calls[call.index].packages[b].daily ? "checked" : undefined)
-										.col-md-9
-											h5=__("Daily Package")
-											.daily(style=!dett.settings.call.calls[call.index].packages[b].daily ? "display: none" : undefined)
-												.form-group
-													label.col-md-3.control-label=__("Package start day")
-													.col-md-9
-														.input-group.date.datepicker(data-date=dett.settings.call.calls[call.index].packages[b].start_date,data-date-format="yyyy-mm-dd")
-															input.form-control(name="settings[call][calls][" + a + "][packages][" + b + "][start_date]", value=dett.settings.call.calls[call.index].packages[b].start_date,    type="text").disabled
-															span.input-group-addon
-																i.glyphicon.glyphicon-calendar
-												.form-group
-													label.col-md-3.control-label=__("Package end day")
-													.col-md-9
-														.input-group.date.datepicker(data-date=dett.settings.call.calls[call.index].packages[b].end_date,data-date-format="yyyy-mm-dd")
-															input.form-control(name="settings[call][calls][" + a + "][packages][" + b + "][end_date]", value=dett.settings.call.calls[call.index].packages[b].end_date,        type="text").disabled
-															span.input-group-addon
-																i.glyphicon.glyphicon-calendar
+								- if (dett.settings.call.calls[call.index].packages[b].personal)
+									- for (var c=0;c<call.subscriptions.length;c++)
+										.row
+											.col-md-9
+												.checkbox
+													label
+														input(name="subscriptions[" + c + "][packages][" + b + "]", value=dett.settings.call.calls[call.index].packages[b].name,    type="checkbox",checked=(call.subscriptions[c] && call.subscriptions[c].packages && call.subscriptions[c].packages[b]==dett.settings.call.calls[call.index].packages[b].name) || dett.settings.call.calls[call.index].packages[b].requested ? "checked" : undefined, disabled=dett.settings.call.calls[call.index].packages[b].requested ? "disabled" : undefined)
+														h3!="<b>"+dett.settings.call.calls[call.index].packages[b].name + "</b> " + __("for") + " " + call.subscriptions[c].display_name + (dett.settings.call.calls[call.index].packages[b].requested ? " ("+__("requested")+")" : "")
+											.col-md-3
+												.text-right
+													h3!=(dett.settings.call.calls[call.index].packages[b].daily ? " ("+__("per day")+")" : "") + " € "+dett.settings.call.calls[call.index].packages[b].price
+										!=dett.settings.call.calls[call.index].packages[b].description
+										- if (dett.settings.call.calls[call.index].packages[b].allow_options)
+											h3=dett.settings.call.calls[call.index].packages[b].options_name
+											- var options = dett.settings.call.calls[call.index].packages[b].options.split(",")
+											- for (var d=0;d<options.length;d++)
+												.checkbox
+													label
+														input(name="subscriptions[" + c + "][packages][" + b + "][option]", value=options[d],    type="checkbox",checked=call.subscriptions[c] && call.subscriptions[c].packages && call.subscriptions[c].packages[b].option==options[d] ? "checked" : undefined)
+														!=options[d]
+
 							//.form-group
 								- topics = dett.settings.call.calls[call.index].topics && dett.settings.call.calls[call.index].topics.length
 								label.col-md-3.control-label

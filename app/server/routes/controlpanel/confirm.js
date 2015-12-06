@@ -75,6 +75,6 @@ exports.get = function get(req, res) {
 		});
 	} else {
         var msg = {e:[{m:"Code is not valid or already used"}]};
-        res.render('forms/confirm', {title : __("Code confirm"), msg:msg, "from":req.query.from, user : req.session.passport.user });
+         res.render('forms/confirm', {title : __("Code confirm"), msg:msg, "from":req.query.from, user : req.session.passport.user });
 	}
 }

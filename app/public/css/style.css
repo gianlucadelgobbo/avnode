@@ -524,12 +524,11 @@ a:hover img {
     display: none;
   }
 }
-@media screen and (min-width:768px) and (max-width: 992px) {
+@media screen and (min-width: 768px) and (max-width: 992px) {
   .secondary_performance_wrapper {
     background: none;
   }
 }
-.secondary_performance h3,
 .secondary_performance h3 {
   text-transform: uppercase;
   font-size: 14px;
@@ -611,7 +610,7 @@ a:hover img {
     display: none;
   }
 }
-@media screen and (min-width:768px) and (max-width: 992px) {
+@media screen and (min-width: 768px) and (max-width: 992px) {
   .secondary_events {
     background: none;
   }
@@ -632,7 +631,7 @@ a:hover img {
   height: 100px;
   width: 100px;
 }
-@media screen and (min-width:992px) and (max-width: 1200px) {
+@media screen and (min-width: 992px) and (max-width: 1200px) {
   .main_crews-box img {
     height: 91px;
     width: 91px;
@@ -1022,11 +1021,13 @@ footer.main_footer {
   background-color: none !important;
 }
 .date_bkg {
-  background: #f6a500 none repeat scroll 0% 0%;
+  background: #e4811e url("../img/single_event_list_bkg.png") repeat scroll right center;
   color: #fff;
   margin-bottom: 30px;
   border-bottom: 1px solid #e4811e;
   border-top: 1px solid #e4811e;
+  background-repeat: no-repeat;
+  background-position: 0 0;
 }
 .single_event_details li span.value {
   color: #e4811e;
