@@ -12,8 +12,7 @@ block content
 								img.img-responsive(alt=__("Thumbnail of")+": "+dett.title, src=Fnc.getFileFormat(dett.files, 400, 300))
 							.row
 								.overlay_container.col-sm-12
-									button
-										= "partecipate"
+									a.btn.btn-info.paticipate.pull-right(href='participate', role='button') Participate
 									h1.title=dett.title
 									- if (dett.subtitle)
 										h3.subtitle=Fnc.getTextFormat(dett.subtitle, config.lang, true)
