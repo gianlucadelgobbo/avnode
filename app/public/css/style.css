@@ -119,9 +119,6 @@ a:hover img {
 .logo {
   height: 75px;
 }
-.user_dett {
-  margin-top: 70px;
-}
 .navbar .brand {
   margin: 0;
 }
@@ -231,6 +228,15 @@ a:hover img {
   background: #f00;
   color: #fff;
 }
+.readmore_button {
+  font-size: 30px;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+#menu .navbar {
+  margin-bottom: 0px;
+}
 .user_nav li {
   display: inline-block;
 }
@@ -239,9 +245,27 @@ a:hover img {
     display: none;
   }
 }
+.logo_banner {
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
+#header #menu {
+  font-size: 14px;
+  font-weight: 300;
+}
+#menu .nav > li > a {
+  padding: 15px 5px;
+}
+.navbar-brand {
+  color: #0f8fcf !important;
+}
+.navbar-brand:hover {
+  color: #fff !important;
+}
 .user_dett_bkg {
   padding-bottom: 15px;
   margin-bottom: 15px;
+  margin-top: 80px;
 }
 @media screen and (max-width: 500px) {
   .user_dett_bkg {
@@ -381,8 +405,10 @@ a:hover img {
 /* Performer */
 /**/
 .main_boxes_bkg {
-  background: #f8f6f6;
+/*background #F8F6F6*/
+  background-color: #fff;
   padding-bottom: 30px;
+  padding-top: 15px;
 }
 .main_performer_box ul,
 .events_performer ul,
@@ -418,6 +444,7 @@ a:hover img {
   font-weight: 600;
   margin: 15px 0 5px;
   float: left;
+  margin-bottom: 10px;
 }
 .box_header .diagonale {
   height: 34px;
@@ -524,11 +551,12 @@ a:hover img {
     display: none;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 992px) {
+@media screen and (min-width:768px) and (max-width: 992px) {
   .secondary_performance_wrapper {
     background: none;
   }
 }
+.secondary_performance h3,
 .secondary_performance h3 {
   text-transform: uppercase;
   font-size: 14px;
@@ -551,6 +579,7 @@ a:hover img {
   padding: 10px 0;
   float: left;
   width: 100%;
+  display: none;
 }
 @media screen and (max-width: 500px) {
   .secondary_performance {
@@ -604,13 +633,14 @@ a:hover img {
   padding: 10px 15px;
   float: left;
   width: 100%;
+  display: none;
 }
 @media screen and (max-width: 500px) {
   .secondary_events {
     display: none;
   }
 }
-@media screen and (min-width: 768px) and (max-width: 992px) {
+@media screen and (min-width:768px) and (max-width: 992px) {
   .secondary_events {
     background: none;
   }
@@ -631,7 +661,7 @@ a:hover img {
   height: 100px;
   width: 100px;
 }
-@media screen and (min-width: 992px) and (max-width: 1200px) {
+@media screen and (min-width:992px) and (max-width: 1200px) {
   .main_crews-box img {
     height: 91px;
     width: 91px;
@@ -654,6 +684,7 @@ a:hover img {
   margin: 0;
   text-align: center;
   padding: 15px !important;
+  display: none;
 }
 .more_crews.more_button a {
   color: #004431;
@@ -744,7 +775,7 @@ a:hover img {
   margin-left: 3px;
 }
 .single_footage {
-  min-height: 205px;
+  margin-bottom: 30px;
 }
 .single_footage h3 {
   color: #fff;
@@ -777,6 +808,13 @@ a:hover img {
 }
 .gallery_thumb_container {
   min-height: 200px;
+}
+svg.coda {
+  width: 52px;
+  position: relative;
+  top: 10px;
+  margin-top: -10px;
+  left: -1px;
 }
 .slash_svg {
   position: absolute;
@@ -821,6 +859,72 @@ a:hover img {
 }
 .single_gallery .image_box {
   min-height: 163px;
+}
+.box_wrapper.coloured {
+  border-radius: 0px;
+}
+.box_performer_header {
+  top: 10px;
+}
+.performances_performer .box_wrapper.coloured {
+  border-color: #0f8fcf;
+  background: #0f8fcf none repeat scroll 0% 0%;
+}
+.performances_performer .box_wrapper.coloured .main_performer_box {
+  color: #fff;
+}
+.performances_performer .box_wrapper.coloured a {
+  color: #fff;
+}
+.performances_performer .box_wrapper.coloured i,
+.performances_performer .box_wrapper.coloured .stat.value {
+  color: #0c2e4c;
+}
+.performances_performer .box_wrapper.coloured .more_button a {
+  color: #0f8fcf;
+}
+.performances_performer .box_wrapper.coloured .secondary_performance a {
+  color: #414042;
+}
+.events_performer .box_wrapper.coloured {
+  border-color: #e4811e;
+  background: #e4811e none repeat scroll 0% 0%;
+}
+.events_performer .box_wrapper.coloured .main_event_box {
+  color: #fff;
+}
+.events_performer .box_wrapper.coloured a {
+  color: #fff;
+}
+.events_performer .box_wrapper.coloured i,
+.events_performer .box_wrapper.coloured .stat.value {
+  color: #5c2e15;
+}
+.events_performer .box_wrapper.coloured .more_button a {
+  color: #e4811e;
+}
+.events_performer .box_wrapper.coloured .secondary_event {
+  color: #414042;
+}
+.crews_performer .box_wrapper.coloured {
+  border-color: #004431;
+  background: #004431 none repeat scroll 0% 0%;
+}
+.crews_performer .box_wrapper.coloured {
+  color: #fff;
+}
+.crews_performer .box_wrapper.coloured a {
+  color: #fff;
+}
+.crews_performer .box_wrapper.coloured i,
+.crews_performer .box_wrapper.coloured .stat.value {
+  color: #005b3f;
+}
+.crews_performer .box_wrapper.coloured .more_button a {
+  color: #004431;
+}
+.crews_performer .box_wrapper.coloured .secondary_event {
+  color: #414042;
 }
 footer.main_footer {
   background: #303030;
@@ -867,18 +971,18 @@ footer.main_footer {
 }
 .list_bkg {
   background: #f8f6f6;
-  padding-top: 30px;
 }
 .list_page_title {
   font-size: 18px;
   margin-top: 0;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  color: #fff;
 }
 .list_item_performer i {
   display: inline-block;
   margin-right: 5px;
 }
-.perfomances_performer.list_item_performer i {
+.performances_performer.list_item_performer i {
   color: #0f8fcf;
 }
 .list_item_performer .main_event_details {
@@ -889,13 +993,25 @@ footer.main_footer {
   padding: 0 10px;
 }
 .performances_list .list_page_title i {
-  color: #0f8fcf;
+  color: #fff;
 }
 .events_list .list_page_title i {
-  color: #e4811e;
+  color: #fff;
+}
+.title_performer_list_bkg {
+  margin-bottom: 30px;
+}
+.events_list .title_performer_list_bkg {
+  background: #e4811e;
+}
+.performances_list .title_performer_list_bkg {
+  background: #0f8fcf;
+}
+.crews_list .title_performer_list_bkg {
+  background: #004431;
 }
 .crews_list .list_page_title i {
-  color: #004431;
+  color: #fff;
 }
 .list_page .list_page_sez {
   font-weight: 600;
@@ -904,20 +1020,20 @@ footer.main_footer {
   font-weight: 200;
 }
 .list_page .slash_svg {
-  margin-top: -18px;
+  margin-top: 0px;
   position: relative;
   top: 11px;
   width: 48px;
   margin-right: 5px;
 }
 .performances_list .list_page_title polyline {
-  fill: #0f8fcf;
+  fill: #fff;
 }
 .events_list .list_page_title polyline {
-  fill: #e4811e;
+  fill: #fff;
 }
 .crews_list .list_page_title polyline {
-  fill: #004431;
+  fill: #fff;
 }
 .footage_list .list_item_performer,
 .gallery_list .list_item_performer,
@@ -949,6 +1065,7 @@ footer.main_footer {
 .single_event_thumb_container {
   position: relative;
   float: left;
+  width: 100%;
 }
 .single_event_thumb_container .overlay_container {
   color: #fff;
@@ -963,9 +1080,9 @@ footer.main_footer {
   margin: 15px 0;
   padding: 0;
 }
-.event_events_list li {
+.event_events_list .event_list_content_container {
   padding: 5px 10px;
-  margin: 0 15px 15px 0;
+  margin-bottom: 15px;
   color: #fff;
   background: url("../img/single_event_list_bkg.png");
   background-position: right;
@@ -976,6 +1093,9 @@ footer.main_footer {
 }
 .event_events_list span {
   display: block;
+}
+.single_event_page {
+  margin-top: 80px;
 }
 .single_event_page a {
   color: #e4811e;

@@ -145,7 +145,6 @@ a:hover img{opacity:.6;}
 
 a:hover img{opacity:.6;}
 .logo{height:75px;}
-.user_dett{margin-top:70px;}
 .navbar .brand{margin:0;}
 .user_dett .nav-tabs{margin-top:20px;}
 .stats{list-style:none;margin:0 0 5px 0;padding:0;font-size:10px;}
@@ -194,18 +193,37 @@ a:hover img{opacity:.6;}
 .missing
   background red
   color: #ffffff
-
-// header navbar //
+.readmore_button
+  font-size 30px
+  text-align center
+  margin-top 15px
+  margin-bottom 15px
+// header  //
+#menu .navbar
+  margin-bottom 0px
 .user_nav li
   display inline-block
 .user_nav
   @media smart
     display none
+.logo_banner
+  margin-top 50px
+  margin-bottom 15px
+#header #menu
+  font-size: 14px;
+  font-weight: 300;
+#menu .nav > li > a
+  padding 15px 5px
+.navbar-brand
+  color #0F8FCF !important
+.navbar-brand:hover
+  color #fff !important
 // header performer //
 
 .user_dett_bkg
   padding-bottom 15px
   margin-bottom 15px
+  margin-top 80px
   @media smart
     padding-bottom 5px
     margin-bottom 0px
@@ -309,8 +327,10 @@ a:hover img{opacity:.6;}
 /* Performer */
 /**/
 .main_boxes_bkg
-  background #F8F6F6
+  /*background #F8F6F6*/
+  background-color: #fff
   padding-bottom 30px
+  padding-top 15px
 
 .main_performer_box ul
 .events_performer ul
@@ -342,6 +362,7 @@ a:hover img{opacity:.6;}
   font-weight: 600;
   margin: 15px 0 5px;
   float left
+  margin-bottom 10px
   
 .box_header .diagonale
   height: 34px;
@@ -431,6 +452,7 @@ a:hover img{opacity:.6;}
   padding 10px 0
   float left
   width 100%
+  display none
   @media smart
     display none
 .more_button
@@ -474,6 +496,7 @@ a:hover img{opacity:.6;}
   padding 10px 15px
   float: left;
   width: 100%;
+  display none
   @media smart
     display: none
   @media onlysm
@@ -508,6 +531,7 @@ a:hover img{opacity:.6;}
   margin 0
   text-align center
   padding 15px !important
+  display: none
 .more_crews.more_button a
   color #004431
 
@@ -577,7 +601,7 @@ a:hover img{opacity:.6;}
 .box_other_infos .fa-floppy-o
   margin-left 3px
 .single_footage
-  min-height 205px
+  margin-bottom 30px
 .single_footage h3
   color #fff
 .playlist_categories_list
@@ -598,6 +622,13 @@ a:hover img{opacity:.6;}
     height auto
 .gallery_thumb_container
   min-height 200px
+
+svg.coda
+  width: 52px;
+  position: relative;
+  top: 10px;
+  margin-top: -10px;
+  left: -1px;
 .slash_svg
   position: absolute;
   top: 15px;
@@ -630,6 +661,57 @@ a:hover img{opacity:.6;}
   margin-bottom 30px
 .single_gallery .image_box
   min-height 163px
+
+
+// coloured boxes //
+.box_wrapper.coloured
+  border-radius 0px
+.box_performer_header
+  top: 10px
+.performances_performer .box_wrapper.coloured
+  border-color: #0F8FCF;
+  background: #0F8FCF none repeat scroll 0% 0%;
+.performances_performer .box_wrapper.coloured .main_performer_box
+  color: #FFF;
+.performances_performer .box_wrapper.coloured a
+  color: #FFF;
+.performances_performer .box_wrapper.coloured
+  i, .stat.value
+    color #0c2e4c
+.performances_performer .box_wrapper.coloured .more_button a
+  color #0F8FCF
+.performances_performer .box_wrapper.coloured .secondary_performance a
+  color #414042
+
+.events_performer .box_wrapper.coloured
+  border-color: #E4811E;
+  background: #E4811E none repeat scroll 0% 0%;
+.events_performer .box_wrapper.coloured .main_event_box
+  color: #FFF;
+.events_performer .box_wrapper.coloured a
+  color: #FFF;
+.events_performer .box_wrapper.coloured
+  i, .stat.value
+    color #5c2e15
+.events_performer .box_wrapper.coloured .more_button a
+  color #E4811E
+.events_performer .box_wrapper.coloured .secondary_event
+  color #414042
+
+.crews_performer .box_wrapper.coloured
+  border-color: #004431;
+  background: #004431 none repeat scroll 0% 0%;
+.crews_performer .box_wrapper.coloured
+  color: #FFF;
+.crews_performer .box_wrapper.coloured a
+  color: #FFF;
+.crews_performer .box_wrapper.coloured
+  i, .stat.value
+    color #005b3f
+.crews_performer .box_wrapper.coloured .more_button a
+  color #004431
+.crews_performer .box_wrapper.coloured .secondary_event
+  color #414042
 
 // footer //
 footer.main_footer
@@ -667,15 +749,15 @@ footer.main_footer
   max-height 100px
 .list_bkg
   background #F8F6F6
-  padding-top 30px
 .list_page_title
   font-size: 18px;
   margin-top: 0;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  color: #fff
 .list_item_performer i
   display: inline-block;
   margin-right: 5px;
-.perfomances_performer.list_item_performer i
+.performances_performer.list_item_performer i
   color: #0f8fcf;
 .list_item_performer .main_event_details
   margin 15px 0
@@ -683,27 +765,35 @@ footer.main_footer
   display: inline-block;
   padding: 0 10px;
 .performances_list .list_page_title i
-  color: #0F8FCF;
+  color: #fff;
 .events_list .list_page_title i
-  color: #E4811E;
+  color: #fff;
+.title_performer_list_bkg
+  margin-bottom 30px
+.events_list .title_performer_list_bkg
+  background #e4811e
+.performances_list .title_performer_list_bkg
+  background #0F8FCF
+.crews_list .title_performer_list_bkg
+  background #004431
 .crews_list .list_page_title i
-  color: #004431;
+  color: #fff;
 .list_page .list_page_sez
   font-weight 600
 .list_page .list_page_user
   font-weight 200
 .list_page .slash_svg
-  margin-top: -18px;
+  margin-top: 0px;
   position: relative;
   top: 11px;
   width: 48px;
   margin-right: 5px;
 .performances_list .list_page_title polyline
-  fill #0F8FCF
+  fill #ffffff
 .events_list .list_page_title polyline
-  fill #e4811e
+  fill #fff
 .crews_list .list_page_title polyline
-  fill #004431
+  fill #fff
 .footage_list, .gallery_list, .playlists_list
   .list_item_performer
   .list_page_title
@@ -724,6 +814,7 @@ footer.main_footer
 .single_event_thumb_container
   position relative
   float left
+  width 100%
 .single_event_thumb_container .overlay_container
   color: #fff;
   position: absolute;
@@ -736,9 +827,9 @@ footer.main_footer
 .event_events_list
   margin 15px 0
   padding: 0
-.event_events_list li
+.event_events_list .event_list_content_container
   padding: 5px 10px;
-  margin: 0 15px 15px 0;
+  margin-bottom 15px
   color: #fff;
   background: url("../img/single_event_list_bkg.png");
   background-position: right;
@@ -747,6 +838,8 @@ footer.main_footer
   margin-right 5px
 .event_events_list span
   display block
+.single_event_page
+  margin-top 80px
 .single_event_page a
   color: #E4811E
 .tabs-bkg

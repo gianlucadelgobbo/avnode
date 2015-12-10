@@ -8,14 +8,18 @@ block content
 		.container
 			.row
 				- if(result.performances)
-					.col-md-4.perfomances_performer.main_box_performer
+					.col-md-4.performances_performer.main_box_performer
 						h2.box_performer_header.box_header
 							span.title_str Performances
+
 							span
-								svg.diagonale(preserveAspectRatio="none")(viewBox="0 0 1000 120")
-									polygon(style="fill:#0f8fcf;stroke:none;")(points="0,0 1000,-15 0,120")
+								svg.coda(version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', x='0px', y='0px', viewbox='-41.1 0 636.4 419.5', enable-background='new -41.1 0 636.4 419.5', xml:space='preserve')
+									polyline(fill='#0F8FCF', points='1.6,419.5 246.3,0 396.7,0 150.9,419.5 ')
+									polyline(fill='#0F8FCF', points='-41.1,419.5 -41.1,0 204.7,0 -41.1,419.5 ')
+									polyline(fill='#0F8FCF', points='198.6,419.5 444.4,0 593.6,0 347.8,419.5 ')
+
 						.col-sm-12
-							.row.box_wrapper
+							.row.box_wrapper.coloured
 									- for(var i=0;i<result.performances.length;i++)
 										- if (i == 0)
 											a.col-sm-12.main_performance_title_wrapper(href="/"+result.performances[i].users[0].permalink+"/performances/"+result.performances[i].permalink)(title=result.performances[i].title)
@@ -54,7 +58,7 @@ block content
 
 									.col-sm-12.more_performance.more_button
 											a(href="/"+result.permalink+"/performances")(title='More performances')
-												=__("More performances")
+												=__("All the performances")
 												span=__("+")
 												span
 													svg.slash_svg(version="1.1", id="Livello_1", xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", x="0px", y="0px", viewBox="0 0 48.4 34.3", enable-background="new 0 0 48.4 34.3", xml:space="preserve")
@@ -67,10 +71,12 @@ block content
 						h2.box_events_header.box_header
 							span.title_str Events
 							span
-								svg.diagonale(preserveAspectRatio="none")(viewBox="0 0 1000 120")
-									polygon(style="fill:#E4811E;stroke:none;")(points="0,0 1000,-15 0,120")
+								svg.coda(version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', x='0px', y='0px', viewbox='-41.1 0 636.4 419.5', enable-background='new -41.1 0 636.4 419.5', xml:space='preserve')
+									polyline(fill='#E4811E', points='1.6,419.5 246.3,0 396.7,0 150.9,419.5 ')
+									polyline(fill='#E4811E', points='-41.1,419.5 -41.1,0 204.7,0 -41.1,419.5 ')
+									polyline(fill='#E4811E', points='198.6,419.5 444.4,0 593.6,0 347.8,419.5 ')
 						.col-sm-12
-							.box_wrapper.row
+							.box_wrapper.row.coloured
 									- for(var i=0;i<result.events.length;i++)
 										//- Main event
 										- if (i == 0)
@@ -116,7 +122,7 @@ block content
 
 									.col-sm-12.more_events.more_button
 										a(href="/"+result.permalink+"/events")(title='More Events')
-											=__("More Events")
+											=__("All the Events")
 											span=__("+")
 											span
 												svg.slash_svg(version="1.1", id="Livello_1", xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", x="0px", y="0px", viewBox="0 0 48.4 34.3", enable-background="new 0 0 48.4 34.3", xml:space="preserve")
@@ -129,12 +135,14 @@ block content
 						h2.box_crews_header.box_header
 							span.title_str Crews
 							span
-								svg.diagonale(preserveAspectRatio="none")(viewBox="0 0 1000 120")
-									polygon(style="fill:#004431;stroke:none;")(points="0,0 1000,-15 0,120")
+								svg.coda(version='1.1', xmlns='http://www.w3.org/2000/svg', xmlns:xlink='http://www.w3.org/1999/xlink', x='0px', y='0px', viewbox='-41.1 0 636.4 419.5', enable-background='new -41.1 0 636.4 419.5', xml:space='preserve')
+									polyline(fill='#004431', points='1.6,419.5 246.3,0 396.7,0 150.9,419.5 ')
+									polyline(fill='#004431', points='-41.1,419.5 -41.1,0 204.7,0 -41.1,419.5 ')
+									polyline(fill='#004431', points='198.6,419.5 444.4,0 593.6,0 347.8,419.5 ')
 
 
 						.col-sm-12
-							.box_wrapper.row
+							.box_wrapper.row.coloured
 									- for(var i=0;i<result.crews.length;i++) {
 										//- Main crews
 										- if (i < 2)
@@ -166,7 +174,7 @@ block content
 
 									.col-sm-12.more_crews.more_button
 										a(href="/"+result.permalink+"/crews")(title='More Crews')
-											=__("More Crews")
+											=__("All the Crews")
 											span=__("+")
 											span
 													svg.slash_svg(version="1.1", id="Livello_1", xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", x="0px", y="0px", viewBox="0 0 48.4 34.3", enable-background="new 0 0 48.4 34.3", xml:space="preserve")
@@ -182,7 +190,7 @@ block content
 	.about-bkg
 		.container
 			- if (result.text)
-				.about_performer
+				.about_performer.readmore
 					h2=__("About")
 					!=Fnc.getTextFormat(result.text, _config.lang, true)
 
@@ -200,10 +208,10 @@ block content
 									svg.slash_svg.before_title(version="1.1", id="Livello_1", xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", x="0px", y="0px", viewBox="0 0 48.4 34.3", enable-background="new 0 0 48.4 34.3", xml:space="preserve")
 										polyline(fill="#fff", points="0,34.3 20,0 32.3,0 12.2,34.3 ")
 										polyline(fill="#fff", points="16.1,34.3 36.2,0 48.4,0 28.3,34.3 ")
-							.row.secondary_box_container
+							.secondary_box_container
 									- for(var i=0;i<result.footage.length;i++)
-										- if (i > 0 && i < 7)
-											.col-sm-4.single_footage
+										- if (i > 0 && i < 5)
+											.col-sm-6.single_footage
 												a(href="/"+result.footage[i].permalink)(title=result.footage[i].title)
 													.image_box
 														.footage_stats.box_stats
@@ -216,15 +224,16 @@ block content
 																	span= result.footage[i].stats.visits
 
 														img(alt=result.footage[i].title)(src="/img/"+result.footage[i].files)
-													h3= result.footage[i].title
-													ul.list-inline.box_other_infos
-														li
-															i(class="fa fa-tags")
-															- for (var t=0;t<result.footage[i].tags.length;t++) {
-																	span= result.footage[i].tags[t]+" "
-															- }
-															i(class="fa fa-floppy-o")
-															span= result.footage[i].sizes
+													.title_and_info_container
+														h3= result.footage[i].title
+														ul.list-inline.box_other_infos
+															li
+																i(class="fa fa-tags")
+																- for (var t=0;t<result.footage[i].tags.length;t++) {
+																		span= result.footage[i].tags[t]+" "
+																- }
+																i(class="fa fa-floppy-o")
+																span= result.footage[i].sizes
 
 									.col-sm-12
 										.more_footage.more_button.row
@@ -295,7 +304,7 @@ block content
 									svg.slash_svg.before_title(version="1.1", id="Livello_1", xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", x="0px", y="0px", viewBox="0 0 48.4 34.3", enable-background="new 0 0 48.4 34.3", xml:space="preserve")
 										polyline(fill="#fff", points="0,34.3 20,0 32.3,0 12.2,34.3 ")
 										polyline(fill="#fff", points="16.1,34.3 36.2,0 48.4,0 28.3,34.3 ")
-							.row.tvshow_box_container
+							.tvshow_box_container
 								- for(var i=0;i<result.tvshow.length;i++)
 									- if (i > 0 && i < 5)
 										.col-sm-6.single_tvshow

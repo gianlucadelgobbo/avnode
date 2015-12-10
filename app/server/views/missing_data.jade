@@ -1,9 +1,9 @@
-// Populating the MISSING DATA
+//- Populating the MISSING DATA
 
 
-// EVENT
+//- EVENT
 - if (result.events)
-    // missing event data
+    //- missing event data
     - for(var i=0;i<result.events.length;i++)
       - if (i==0)
           - result.events[i].date_str = "30/04/12"
@@ -11,7 +11,7 @@
           - result.events[i].date_str = "from 27/01 to 30/1 '14"
       - else
           - result.events[i].date_str = "16/02/15"
-    // missing event location
+    //- missing event location
     - for(var i=0;i<result.events.length;i++)
       - if (i==0)
           - result.events[i].event_loc = "Olimpic Stadium"
@@ -19,7 +19,7 @@
           - result.events[i].event_loc = "Royal Albert Hall"
       - else
           - result.events[i].event_loc = "Théâtre de la Ville"
-    // missing event city
+    //- missing event city
     - for(var i=0;i<result.events.length;i++)
       - if (i==0)
           - result.events[i].event_city = "Rome"
@@ -27,7 +27,7 @@
           - result.events[i].event_city = "Berlin"
       - else
           - result.events[i].event_city = "Amsterdam"
-    // missing event country
+    //- missing event country
     - for(var i=0;i<result.events.length;i++)
       - if (i==0)
           - result.events[i].event_country = "Italy"
@@ -35,7 +35,7 @@
           - result.events[i].event_country = "Germany"
       - else
           - result.events[i].event_country = "Holland"
-    // missing event time
+    //- missing event time
     - for(var i=0;i<result.events.length;i++)
       - if (i==0)
           - result.events[i].event_time = "22:00"
@@ -45,8 +45,8 @@
           - result.events[i].event_time = "15:30-18:00"
 
 
-// CREW
-// missing crew performance number
+//- CREW
+//- missing crew performance number
 - if (result.crews)
     - for(var i=0;i<result.crews.length;i++)
       - if (i==0)
@@ -55,7 +55,7 @@
           - result.crews[i].stats.performances = "41"
       - else
           - result.crews[i].stats.performances = "13"
-        // missing crew events number
+        //- missing crew events number
     - for(var i=0;i<result.crews.length;i++)
       - if (i==0)
           - result.crews[i].stats.events = "12"
@@ -65,12 +65,12 @@
           - result.crews[i].stats.events = "34"
 
 
-// FOOTAGE
-// missing footage image
+//- FOOTAGE
+//- missing footage image
 - if (result.footage)
     - for(var i=0;i<result.footage.length;i++)
       - result.footage[i].files= "default_footage.jpg"
-    // missing footage tag list
+    //- missing footage tag list
     - for(var i=0;i<result.footage.length;i++)
       - if (i==0)
           - result.footage[i].tags= ["koncept", "vectors"]
@@ -78,7 +78,7 @@
           - result.footage[i].tags= ["vectors", "audiolatex", "experimental", "iOS"]
       - else
           - result.footage[i].tags= ["hole"]
-    // missing footage size
+    //- missing footage size
     - for(var i=0;i<result.footage.length;i++)
       - if (i==0)
           - result.footage[i].sizes= "200kb"
@@ -88,9 +88,9 @@
           - result.footage[i].sizes= "800kb"
 
 
-// PLAYLIST
+//- PLAYLIST
 - if (result.playlists)
-    // missing playlist like number
+    //- missing playlist like number
     - for(var i=0;i<result.playlists.length;i++)
       - if (i==0)
           - result.playlists[i].stats.likes= "2"
@@ -98,7 +98,7 @@
           - result.playlists[i].stats.likes= "5"
       - else
           - result.playlists[i].stats.likes= "73"
-    // missing playlist video number
+    //- missing playlist video number
     - for(var i=0;i<result.playlists.length;i++)
       - if (i==0)
           - result.playlists[i].stats.videos= "34"
@@ -106,13 +106,13 @@
           - result.playlists[i].stats.videos= "12"
       - else
           - result.playlists[i].stats.videos= "3"
-    // missing playlist image
+    //- missing playlist image
     - for(var i=0;i<result.playlists.length;i++)
       - result.playlists[i].files= "default_playlist.jpg"
 
-// TVSHOWS
+//- TVSHOWS
 - if (result.tvshow)
-    // missing tvshows download number
+    //- missing tvshows download number
     - for(var i=0;i<result.tvshow.length;i++)
       - if (i==0)
           - result.tvshow[i].stats.download= "22"
@@ -120,7 +120,7 @@
           - result.tvshow[i].stats.download= "212"
       - else
           - result.tvshow[i].stats.download= "243"
-    // missing tvshows download number
+    //- missing tvshows download number
     - for(var i=0;i<result.tvshow.length;i++)
       - if (i==0)
           - result.tvshow[i].stats.likes= "43"
@@ -128,10 +128,10 @@
           - result.tvshow[i].stats.likes= "345"
       - else
           - result.tvshow[i].stats.likes= "123"
-    // missing tvshows image
+    //- missing tvshows image
     - for(var i=0;i<result.tvshow.length;i++)
       - result.tvshow[i].files= "default_tvshow.jpg"
-    // missing tv show categories
+    //- missing tv show categories
     - for(var i=0;i<result.tvshow.length;i++)
       - if (i==0)
           - result.tvshow[i].categories= ["live", "stage"]
@@ -140,9 +140,9 @@
       - else
           - result.tvshow[i].categories= ["tvshow category", "lpm"]
 
-// GALLERY
+//- GALLERY
 - if (result.gallery)
-    // missing gallery video number
+    //- missing gallery video number
     - for(var i=0;i<result.gallery.length;i++)
       - if (i==0)
           - result.gallery[i].stats.video= "123"
@@ -150,7 +150,7 @@
           - result.gallery[i].stats.video= "434"
       - else
           - result.gallery[i].stats.video= "23"
-    // missing gallery related event
+    //- missing gallery related event
     - for(var i=0;i<result.gallery.length;i++)
       - if (i==0)
           - result.gallery[i].event= "lpm"
@@ -158,7 +158,7 @@
           - result.gallery[i].event= "lcf"
       - else
           - result.gallery[i].event= "luminal"
-    // missing gallery type
+    //- missing gallery type
     - for(var i=0;i<result.gallery.length;i++)
       - if (i==0)
           - result.gallery[i].type= "Event"
