@@ -1,6 +1,6 @@
 - if (typeof(username) === 'undefined' && typeof(span) === 'undefined') span = "3"
 div.list_item_performer.grid-item.col-sm-4(class="col-md-" + span + " "+sez+"_performer")
-	a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")(title=box.title)
+	a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/", title=box.title)
 		.image_box
 			.footage_stats.box_stats
 				ul.list-inline
@@ -11,7 +11,7 @@ div.list_item_performer.grid-item.col-sm-4(class="col-md-" + span + " "+sez+"_pe
 						i(class="fa fa-eye")
 						span= box.stats.visits
 
-			img(alt=box.title)(src="/img/"+box.files)
+			img(alt=box.title, src="/img/"+box.files)
 		.title_and_info_container
 			h3= box.title
 			ul.list-inline.box_other_infos

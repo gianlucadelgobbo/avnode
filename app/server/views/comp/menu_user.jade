@@ -1,0 +1,17 @@
+nav.navbar.navbar-inverse#user_menu
+						button.navbar-toggle.pull-right(type='button', data-target='#navbarCollapse_user_menu', data-toggle='collapse')
+							span.sr-only Toggle navigation
+							span.icon-bar
+							span.icon-bar
+							span.icon-bar
+						//- Collection of nav links and other content for toggling
+						#navbarCollapse_user_menu.collapse.navbar-collapse
+							ul.nav.navbar-nav.pull-left
+								li
+									a(href="/"+result.permalink)
+										!='<i class="fa fa-user"></i> '+result.display_name
+								- for(single_result in result.stats)
+									- if(_config.sections[single_result] && result.stats[single_result])
+									li
+										a(href="/"+result.permalink+"/"+_config.sections[single_result].basepath+"/")=_config.sections[single_result].title
+											=" ("+result.stats[single_result]+")"
