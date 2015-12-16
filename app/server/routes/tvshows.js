@@ -1,11 +1,38 @@
-var DB = require('../modules/db-manager');
-var Fnc = require('../modules/general-functions');
 var config = require('getconfig');
+var Tvshow = require('../models/tvshow');
+var _ = require('lodash');
 
 exports.get = function get(req, res) {
-	var sez = "tvshows";
-	var passport_user = req.session.passport && req.session.passport.user ? req.session.passport.user : {};
-	Fnc.getList(req.params[0], sez, res, 0, function(err, tot, records, conf){
-		res.render("list", {title:config.sections[sez].title, sez:sez, tot:tot, path:conf.path, sort:conf.sort, filter:conf.filter, skip:conf.skip, result:records, Fnc:Fnc, user : passport_user});
+	var params = _.filter(req.params, function(v, k) {
+		return (k === 'filter' || k === 'page' || k === 'sorting');
+	});
+	var section = 'tvshows';
+	var page = req.params.page || 1;
+	var skip = (page - 1) * config.sections[section].limit;
+	var filter = req.params.filter || config.sections[section].categories[0];
+	var query = config.sections[section].searchQ[filter];
+	var sorting = req.params.sorting || config.sections[section].orders[0];
+
+  var path = '/' + section + '/' + _.map(req.params, function(p) { return p; }).join('/') + '/';
+	path = path.replace('//', '/');
+
+	Tvshow.count(query, function(error, total) {
+		Tvshow.find(query)
+		.limit(config.sections[section].limit)
+		.skip(skip)
+		.sort(config.sections[section].sortQ[sorting])
+		.exec(function(error, tvshow) {
+			res.render('list', {
+				title: config.sections[section].title,
+				sez: section,
+				tot: total,
+				path: path,
+				sort: sorting,
+				filter: filter,
+				skip: skip,
+				result: tvshow,
+				user: req.user
+			});
+		});
 	});
 };
