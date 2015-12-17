@@ -7,6 +7,6 @@ app.root = __dirname;
 require('./app/server/setup')(app, express);
 require('./app/server/router')(app);
 
-app.listen(config.port, function(){
-	console.log('Express server listening on port ' + app.get('port'));
+app.listen(config.port, config.host, function(){
+	console.log('Express server listening on ' + config.host + ':' + config.port);
 });
