@@ -73,12 +73,8 @@ module.exports = function(app) {
 	//app.post('/performances*', performancesRoutes.post);
 
 	// footage //
-	app.get('/footage/(:filter)/(:sorting)/page-(:page)', footageRoutes.get);
-	app.get('/footage/(:filter)/page-(:page)', footageRoutes.get);
-	app.get('/footage/(:filter)/(:sorting)', footageRoutes.get);
-	app.get('/footage/page-(:page)', footageRoutes.get);
-	app.get('/footage/(:filter)', footageRoutes.get);
-	app.get('/footage/', footageRoutes.get);
+	app.get('/footage/(:filter)/(:sorting)/(:page)', footageRoutes.get);
+	app.get('/footage(*)', footageRoutes.get);
 	//app.post('/footage*', footageRoutes.post);
 
 	// events //
