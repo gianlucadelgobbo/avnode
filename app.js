@@ -15,8 +15,9 @@ mongoose.connection.on('error', function(error) {
 });
 mongoose.connection.once('open', function() {
 	mongoose.set('debug', true);
-	server = app.listen(config.port, function(){
+	server = app.listen(config.port, config.host, function(){
 		console.log('Express server listening on port ' + app.get('port'));
+		console.log('Express server listening on ' + config.host + ':' + config.port);
 	});
 });
 

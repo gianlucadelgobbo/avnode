@@ -48,5 +48,11 @@ $('.readmore').readmore({
 	speed: 500,
 	moreLink: '<a title="Read more..." href="#" class="readmore_button"><i class="fa fa-plus-circle"></i></a>',
 	lessLink: '<a title="Read less..." href="#" class="readmore_button"><i class="fa fa-minus-circle"></i></a>',
+});
 
+// swiping menu
+$(document).ready(function() {
+	$('#simple-menu').sidr({
+		side: 'right'
+	});
 });

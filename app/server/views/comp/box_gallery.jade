@@ -1,6 +1,6 @@
 - if (typeof(username) === 'undefined' && typeof(span) === 'undefined') span = "3"
 div.list_item_performer.grid-item.col-sm-4(class="col-md-" + span + " "+sez+"_performer")
-	a(href="/"+box.permalink)(title=box.title)
+	a(href="/"+box.permalink, title=box.title)
 		.image_box
 			.gallery_stats.box_stats
 				ul.list-inline
@@ -15,7 +15,7 @@ div.list_item_performer.grid-item.col-sm-4(class="col-md-" + span + " "+sez+"_pe
 						span= box.stats.video
 			- if(box.files)
 				.gallery_thumb_container
-					img.gallery_thumb(src=box.files[0].file)(alt=box.title)
+					img.gallery_thumb(src=box.files[0].file, alt=box.title)
 		.title_and_info_container
 			h3= box.title
 			ul.gallery_details.list-inline

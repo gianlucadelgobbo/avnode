@@ -17,84 +17,92 @@ html(lang=config.lang)
 		link(type="text/css", href="/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css", rel="stylesheet")
 		link(rel="stylesheet", type="text/css", href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700|Roboto:400,300,500,300italic,400italic")
 		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
+		link(rel='stylesheet', href='/modules/sidr/stylesheets/jquery.sidr.dark.css')
 		link(type="text/css", href="/css/style.css", rel="stylesheet")
 		script(type="text/javascript", src="/jquery/jquery.min.js")
 
 
 	body
 		.wrapper
-			if (typeof(userpage) === 'undefined')
-				.container
-					div.navbar.navbar-default#menu_search_lang
-						.container-fluid
-							form.navbar-form.navbar-left(action="/search/",role="search")#cse-search-box
-								input(type="hidden", name="cx", value="008270153029254647808:_czuhrjkjpk")
-								input(type="hidden", name="cof", value="FORID:10")
-								input(type="hidden", name="ie", value="UTF-8")
-								.form-group
-									- q = typeof q !== 'undefined' && q ? q : ""
-									input.form-control(type="text",	name="q", size="31", value=q)
-									button.btn.btn-default(type="submit", name="sa")=__("Cerca")
-										//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
-							ul.nav.navbar-nav
-								li.dropdown
-									a.dropdown-toggle(href="#", data-toggle="dropdown")
-										!=__(config.locales_labels[getLocale()])+" "
-										b.caret
-									ul.dropdown-menu
-										each val, index in config.locales_labels
-											li
-												a(href="/controlpanel/change_lang?lang="+index)=__(val)
-				.container
-					header
+			header#header
+				- console.log(user.login)
+
+				//- home and general pages
+				if (typeof(userpage) === 'undefined')
+
+					// - general menu and login
+					include comp/menu_general
+
+					//- interaction menu
+					- if (user.login) {
+						include comp/menu_logged
+					- }
+
+					//- searchform e lan selector
+					.container
 						.row
-							h2.col-md-4.logo
+							// logo
+							.col-sm-4.logo
 								a(href="/", title="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
 									img(src="/img/logo.gif", alt="AV node - PERFORMING VIDEO NETWORK")
-							.col-md-8=typeof(bannerTop) !== 'undefined' && bannerTop ? "navbar-fixed-top" : undefined
 
-			nav.navbar.navbar-inverse#menu(class=(typeof(userpage) !== 'undefined' && userpage ? "navbar-fixed-top" : undefined))
-				//.navbar-fixed-top
-				.container-fluid
-					- if (typeof(userpage) !== 'undefined' && userpage)
-						.navbar-header.pull-left
-							a.navbar-brand(href="/")=" AV Node"
-					ul.nav.navbar-nav.pull-left
-						- each item in config.sections
-							- if (item.view_list && typeof(sez) !== 'undefined')
-								li(class=(config.sections[sez] && config.sections[sez].basepath==item.basepath ? "active" : undefined))
-									a(href="/"+item.basepath+"/")=item.title
-					ul.nav.navbar-nav.pull-right.user_nav
-						li
-							a(href="/controlpanel/"+(user && user.login ? "user/" : "login/"))=(user && user.login ? __("Account") : __("Login"))
-						- if(!user)
-							li
-								a(href="/controlpanel/signup/")=__("Registrati")
-						- else
-							li
-								a(href="/controlpanel/logout/")=__("Logout")
-							- if (typeof notifiche !== "undefined")
-								li(style="position:relative")
-									a(href="/"+user.login+"/notifications/", title=__("Visualizza le notifiche"))=__("Notifiche")
-										span.jewelCount=(typeof(notifiche) !== "undefined" && notifiche ? notifiche : 0)
-						li.dropdown
-							a.dropdown-toggle(href="#", data-toggle="dropdown")
-								!=__("Nuovo contenuto")+" "
-								b.caret
-							ul.dropdown-menu(role="menu")
-								li
-									a(href="/controlpanel/?edit=performances&amp;perfid=0")=__("Nuova performance")
-								li
-									a(href="/controlpanel/?edit=footage&amp;footageid=0")=__("Nuovo post")
-								li
-									a(href="/controlpanel/?edit=events&amp;eventid=0")=__("Nuovo evento")
-								li
-									a(href="/controlpanel/?edit=tvshows&amp;tvshowid=0")=__("Nuovo TV Show")
-								li
-									a(href="/controlpanel/?edit=postiflxer&amp;postiflxerid=0")=__("Nuovo iFLxER file")
-								li
-									a(href="/controlpanel/?edit=forum&amp;forumid=0")=__("Nuova discussione")
-			block content
+							.col-sm-8
+								div.navbar.navbar-default#menu_search_lang
+									.container-fluid
+										//- search form
+										form.navbar-form.navbar-left(action="/search/",role="search")#cse-search-box
+											input(type="hidden", name="cx", value="008270153029254647808:_czuhrjkjpk")
+											input(type="hidden", name="cof", value="FORID:10")
+											input(type="hidden", name="ie", value="UTF-8")
+											.form-group
+												- q = typeof q !== 'undefined' && q ? q : ""
+												input.form-control(type="text",	name="q", size="31", value=q)
+												button.btn.btn-default(type="submit", name="sa")=__("Cerca")
+													//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
+
+										//- lan selector
+										ul.nav.navbar-nav
+											li.dropdown
+												a.dropdown-toggle(href="#", data-toggle="dropdown")
+													!=__(config.locales_labels[getLocale()])+" "
+													b.caret
+												ul.dropdown-menu
+													each val, index in config.locales_labels
+														li
+															a(href="/controlpanel/change_lang?lang="+index)=__(val)
+
+
+
+				//- user based page
+				if (typeof(userpage) !== 'undefined')
+
+					// - general menu and login
+					include comp/menu_general
+
+					//- interaction menu
+					- if (user.login)
+					include comp/menu_logged
+
+					// - user menu
+					include comp/menu_user
+
+
+
+
+
+
+
+
+
+				//- logged based page
+					if (user.login)
+						//- interaction menu
+						include comp/menu_logged
+
+
+
+			#content
+				block content
 			footer.main_footer
 				.container
 					.media
@@ -141,6 +149,7 @@ html(lang=config.lang)
 		script(type="text/javascript", src="/js/validators.js")
 		script(type="text/javascript", src="/swfobject/swfobject/swfobject.js")
 		script(type="text/javascript", src="/modules/readmore-js/readmore.js")
+		script(type="text/javascript", src='/modules/sidr/jquery.sidr.min.js')
 
 		script(type="text/javascript", src="/js/script.js")
 		- if(user && user.login)
@@ -157,3 +166,127 @@ html(lang=config.lang)
 					clearTimeout(c);
 					openSendMsgPanel('<? echo($this->u_id) ?>','sendMsg','<? echo($this->getLabel("Invia un messaggio a")) ?> <? echo($this->u_name) ?>','');
 				}
+				body
+						.wrapper
+							if (typeof(userpage) === 'undefined')
+								.container
+									div.navbar.navbar-default#menu_search_lang
+										.container-fluid
+											form.navbar-form.navbar-left(action="/search/",role="search")#cse-search-box
+												input(type="hidden", name="cx", value="008270153029254647808:_czuhrjkjpk")
+												input(type="hidden", name="cof", value="FORID:10")
+												input(type="hidden", name="ie", value="UTF-8")
+												.form-group
+													- q = typeof q !== 'undefined' && q ? q : ""
+													input.form-control(type="text",	name="q", size="31", value=q)
+													button.btn.btn-default(type="submit", name="sa")=__("Cerca")
+													//script(type="text/javascript", src="https://www.google.com/cse/brand?form=cse-search-box&amp;lang"+_config.lang)
+											ul.nav.navbar-nav
+												li.dropdown
+													a.dropdown-toggle(href="#", data-toggle="dropdown")
+														!=__(config.locales_labels[getLocale()])+" "
+														b.caret
+													ul.dropdown-menu
+														each val, index in config.locales_labels
+															li
+																a(href="/controlpanel/change_lang?lang="+index)=__(val)
+								.container
+									header
+										.row
+											h2.col-md-4.logo
+												a(href="/", title="FLxER - PERFORMING VIDEO NETWORK AND SOFTWARE")
+													img(src="/img/logo.gif", alt="AV node - PERFORMING VIDEO NETWORK")
+											.col-md-8=typeof(bannerTop) !== 'undefined' && bannerTop ? "navbar-fixed-top" : undefined
+
+							nav.navbar.navbar-inverse#menu(class=(typeof(userpage) !== 'undefined' && userpage ? "navbar-fixed-top" : undefined))
+								//.navbar-fixed-top
+								.container-fluid
+									- if (typeof(userpage) !== 'undefined' && userpage)
+									.navbar-header.pull-left
+										a.navbar-brand(href="/")=" AV Node"
+									ul.nav.navbar-nav.pull-left
+										- each item in config.sections
+										- if (item.view_list && typeof(sez) !== 'undefined')
+										li(class=(config.sections[sez] && config.sections[sez].basepath==item.basepath ? "active" : undefined))
+											a(href="/"+item.basepath+"/")=item.title
+									ul.nav.navbar-nav.pull-right.user_nav
+										li
+											a(href="/controlpanel/"+(user && user.login ? "user/" : "login/"))=(user && user.login ? __("Account") : __("Login"))
+										- if(!user)
+										li
+											a(href="/controlpanel/signup/")=__("Registrati")
+										- else
+										li
+											a(href="/controlpanel/logout/")=__("Logout")
+										- if (typeof notifiche !== "undefined")
+										li(style="position:relative")
+											a(href="/"+user.login+"/notifications/", title=__("Visualizza le notifiche"))=__("Notifiche")
+											span.jewelCount=(typeof(notifiche) !== "undefined" && notifiche ? notifiche : 0)
+										li.dropdown
+											a.dropdown-toggle(href="#", data-toggle="dropdown")
+												!=__("Nuovo contenuto")+" "
+												b.caret
+											ul.dropdown-menu(role="menu")
+												li
+													a(href="/controlpanel/?edit=performances&amp;perfid=0")=__("Nuova performance")
+												li
+													a(href="/controlpanel/?edit=footage&amp;footageid=0")=__("Nuovo post")
+												li
+													a(href="/controlpanel/?edit=events&amp;eventid=0")=__("Nuovo evento")
+												li
+													a(href="/controlpanel/?edit=tvshows&amp;tvshowid=0")=__("Nuovo TV Show")
+												li
+													a(href="/controlpanel/?edit=postiflxer&amp;postiflxerid=0")=__("Nuovo iFLxER file")
+												li
+													a(href="/controlpanel/?edit=forum&amp;forumid=0")=__("Nuova discussione")
+							block content
+							footer.main_footer
+								.container
+									.media
+										.pull-right.logo_flyer
+											a(href="http://www.flyer.it", target="_blank", data-toggle="tooltip", onmouseover="$(this).tooltip('show')", title=__("This website is developed with NodeJS and MongoDB from Flyer communication"))
+												img(alt="Flyer.it", src="/img/logo_flyer.png")
+										.pull-left
+											img.logo_piede(alt="AVnode.net", src="/img/logo_piede.png")
+										.media-body
+											h4.media-heading.brand_name_footer="AVnode.net"
+											small=" | "+__("a project of AVnode.org")
+
+
+											nav.footer_menu
+												ul.list-inline
+													li
+														a(href="http://avnode.org")=__("AVnode.org")
+													li
+														a(href="/disclaimers/about/")=__("About")
+													li
+														a(href="/disclaimers/about/")=__("Developers & API")
+													li
+														a(href="/disclaimers/privacy/")=__("Privacy")
+													li
+														a(href="/disclaimers/terms/")=__("Terms and conditions")
+													li
+														a(href="/disclaimers/guidelines/")=__("Guidelines")
+
+											- d = new Date()
+											p
+												span.nocopy="NO &copy; "+d.getFullYear()
+						script(type="text/javascript", src="/bootstrap/dist/js/bootstrap.min.js")
+						script(type="text/javascript", src="/bootstrap-datepicker/js/bootstrap-datepicker.js")
+						script(type="text/javascript", src="/bootstrap-timepicker/js/bootstrap-timepicker.min.js")
+						script(type="text/javascript", src="/fine-uploader/_dist/jquery.fineuploader-4.4.0/jquery.fineuploader-4.4.0.min.js")
+						script(type="text/javascript", src="/modules/jquery-ui/jquery-ui-1.10.2.custom.js")
+						script(type="text/javascript", src="/modules/birthdaypicker/bday-picker.min.js")
+						script(type="text/javascript", src="/bootstrap-switch/dist/js/bootstrap-switch.min.js")
+						script(type="text/javascript", src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places")
+						script(type="text/javascript", src="/modules/geocomplete/jquery.geocomplete.min.js")
+
+						script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.js")
+						script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js")
+						script(type="text/javascript", src="/js/validators.js")
+						script(type="text/javascript", src="/swfobject/swfobject/swfobject.js")
+						script(type="text/javascript", src="/modules/readmore-js/readmore.js")
+
+						script(type="text/javascript", src="/js/script.js")
+						- if(user && user.login)
+						script(type="text/javascript", src="/js/script-admin.js")

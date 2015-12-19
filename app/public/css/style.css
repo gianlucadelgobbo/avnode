@@ -234,6 +234,29 @@ a:hover img {
   margin-top: 15px;
   margin-bottom: 15px;
 }
+#user_menu {
+  background-color: #0f8fcf;
+  border: none;
+}
+#user_menu {
+  color: #fff;
+}
+#user_menu a {
+  color: #fff;
+}
+#menu_user_interaction {
+  background: #e4811e;
+  border: none;
+}
+#menu_user_interaction .dropdown-menu {
+  background: #e4811e;
+}
+#menu_user_interaction a {
+  color: #fff;
+}
+.logo_header_user {
+  height: 20px;
+}
 #menu .navbar {
   margin-bottom: 0px;
 }
@@ -249,17 +272,27 @@ a:hover img {
   margin-top: 50px;
   margin-bottom: 15px;
 }
-#header #menu {
+#header {
   font-size: 14px;
   font-weight: 300;
 }
-#menu .nav > li > a {
+#header .nav > li > a {
   padding: 15px 5px;
 }
-.navbar-brand {
-  color: #0f8fcf !important;
-}
 .navbar-brand:hover {
+  color: #fff !important;
+}
+.user_manager_button {
+  position: absolute;
+  display: inline-block;
+  height: 33px;
+  top: 5px;
+  right: 15px;
+  color: #fff;
+  font-size: 30px;
+}
+.user_manager_button:active,
+.user_manager_button:hover {
   color: #fff !important;
 }
 .user_dett_bkg {
@@ -551,12 +584,11 @@ a:hover img {
     display: none;
   }
 }
-@media screen and (min-width:768px) and (max-width: 992px) {
+@media screen and (min-width: 768px) and (max-width: 992px) {
   .secondary_performance_wrapper {
     background: none;
   }
 }
-.secondary_performance h3,
 .secondary_performance h3 {
   text-transform: uppercase;
   font-size: 14px;
@@ -640,7 +672,7 @@ a:hover img {
     display: none;
   }
 }
-@media screen and (min-width:768px) and (max-width: 992px) {
+@media screen and (min-width: 768px) and (max-width: 992px) {
   .secondary_events {
     background: none;
   }
@@ -661,7 +693,7 @@ a:hover img {
   height: 100px;
   width: 100px;
 }
-@media screen and (min-width:992px) and (max-width: 1200px) {
+@media screen and (min-width: 992px) and (max-width: 1200px) {
   .main_crews-box img {
     height: 91px;
     width: 91px;
@@ -1167,4 +1199,12 @@ footer.main_footer {
 }
 .btn-info.paticipate {
   color: #fff;
+  top: 15px;
+  position: relative;
+  background: #e4811e;
+  border: none;
+}
+.btn-info.paticipate:hover {
+  background: #fff;
+  color: #e4811e;
 }
