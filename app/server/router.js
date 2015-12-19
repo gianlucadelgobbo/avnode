@@ -86,12 +86,8 @@ module.exports = function(app) {
 	//app.post('/footage*', footageRoutes.post);
 
 	// events //
-	app.get('/events/(:filter)/(:sorting)/page-(:page)', eventsRoutes.get);
-	app.get('/events/(:filter)/page-(:page)', eventsRoutes.get);
-	app.get('/events/(:filter)/(:sorting)', eventsRoutes.get);
-	app.get('/events/page-(:page)', eventsRoutes.get);
-	app.get('/events/(:filter)', eventsRoutes.get);
-	app.get('/events/', eventsRoutes.get);
+	app.get('/events/(:filter)/(:sorting)/(:page)', eventsRoutes.get);
+	app.get('/events(/*)', eventsRoutes.get);
 	//app.post('/events*', eventsRoutes.post);
 
 	// playlists //

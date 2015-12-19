@@ -3,10 +3,18 @@
 		.pull-left
 			ul.nav.nav-pills
 				each category in categories
-					li(class=(category === filter ? 'active' : ''))
-						a(href="#{basename}/#{category}/")=__(category)
+					if category === filter
+						li(class="active")
+							a(href="#{basename}/#{category}/#{sort}/#{page}")=__(category)
+					else
+						li
+							a(href="#{basename}/#{category}/#{sort}/1")=__(category)
 		.pull-right
 			ul.nav.nav-pills
 				each order in orderings
-					li(class=(order === sort ? 'active' : ''))
-						a(href="#{basename}/#{filter}/#{order}")=__(order)
+					if order === sort
+						li(class="active")
+							a(href="#{basename}/#{filter}/#{order}/#{page}")=__(order)
+					else
+						li
+							a(href="#{basename}/#{filter}/#{order}/1")=__(order)
