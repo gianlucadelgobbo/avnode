@@ -1,11 +1,11 @@
-- skippa = skip/config.sections[sez].limit
+- skippa = skip/config.sections[section].limit
 - if (skippa<6) skippa = 6
 ul.pagination.pagination-sm.pagination-centered
     li(class=(skip==0 ? "disabled" : ""))
-        a(href=(skip>0 ? path+"page-"+((skip/config.sections[sez].limit))+"/" : "#"))="«"
+        a(href=(skip>0 ? path+"page-"+((skip/config.sections[section].limit))+"/" : "#"))="«"
     - for (a=skippa-5;a<skippa+6;a++)
-        - if ((a-1)*config.sections[sez].limit<tot)
-            li(class=(a==(skip/config.sections[sez].limit)+1 ? "active" : ""))
+        - if ((a-1)*config.sections[section].limit<total)
+            li(class=(a==(skip/config.sections[section].limit)+1 ? "active" : ""))
                 a(href=path+"page-"+a+"/")=a
-    li(class=(skip+config.sections[sez].limit>=tot ? "disabled" : ""))
-        a(href=((a-1)*config.sections[sez].limit<tot ? path+"page-"+((skip/config.sections[sez].limit)+1) : "#"))="»"
+    li(class=(skip+config.sections[section].limit>=total ? "disabled" : ""))
+        a(href=((a-1)*config.sections[section].limit<total ? path+"page-"+((skip/config.sections[section].limit)+1) : "#"))="»"

@@ -2,6 +2,9 @@ var config = require('getconfig');
 var Event = require('../models/event');
 var _ = require('lodash');
 
+var MediaHelper = require('../helper/media');
+var DateHelper = require('../helper/date');
+
 exports.get = function get(req, res) {
 	var params = _.filter(req.params, function(v, k) {
 		return (k === 'filter' || k === 'page' || k === 'sorting');
@@ -22,21 +25,28 @@ exports.get = function get(req, res) {
 	//
 
 	Event.count(query, function(error, total) {
+    var title = config.sections[section].title;
+    var info = " From " + config.skip + " to " + (config.skip + config.sections[section].limit) + " on " + total + " " + title;
 		Event.find(query)
 		.limit(config.sections[section].limit)
 		.skip(skip)
 		.sort(config.sections[section].sortQ[sorting])
 		.exec(function(error, events) {
-			res.render('list', {
-				title: config.sections[section].title,
-				sez: section,
-				tot: total,
+			res.render('events/list', {
+        config: config,
+        basename: '/events',
+				title: title,
+				section: section,
+				total: total,
 				path: path,
 				sort: sorting,
 				filter: filter,
 				skip: skip,
+        info: info,
 				result: events,
-				user: req.user
+				user: req.user,
+        MediaHelper: MediaHelper,
+        DateHelper: DateHelper
 			});
 		});
 	});
