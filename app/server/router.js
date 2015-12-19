@@ -59,12 +59,8 @@ module.exports = function(app) {
 	//app.post('/ajax*', ajax.post);
 
 	// performers //
-	app.get('/performers/(:filter)/(:sorting)/page-(:page)', performersRoutes.get);
-	app.get('/performers/(:filter)/page-(:page)', performersRoutes.get);
-	app.get('/performers/(:filter)/(:sorting)', performersRoutes.get);
-	app.get('/performers/page-(:page)', performersRoutes.get);
-	app.get('/performers/(:filter)', performersRoutes.get);
-	app.get('/performers/', performersRoutes.get);
+	app.get('/performers/(:filter)/(:sorting)/(:page)', performersRoutes.get);
+	app.get('/performers(*)', performersRoutes.get);
 	//app.post('/performers*', performersRoutes.post);
 
 	// performances //
