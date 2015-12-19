@@ -3,6 +3,7 @@ var Gallery = require('./gallery');
 var File = require('./file');
 var User = require('./user');
 var Category = require('./category');
+var config = require('getconfig');
 
 // Reuse the configured locales…
 var text = {};

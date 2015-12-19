@@ -16,8 +16,9 @@ nav.navbar.navbar-inverse#sections_menu
                        a(href="/"+item.basepath+"/")=item.title
 
        unless user
+           //.login
            ul.nav.navbar-nav.pull-right.login_nav
-               li
-                   a(href="/controlpanel/login/")=__("Login")
-               li
-                   a(href="/controlpanel/signup/")=__("Registrati")
+             li
+               a(href="/controlpanel/login/")=__("Login")
+             li
+               a(href="/controlpanel/signup/")=__("Registrati")

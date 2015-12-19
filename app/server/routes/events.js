@@ -21,6 +21,8 @@ exports.get = function get(req, res) {
 	// => 404 or 500…
 	//
 
+	console.log('WOHSOIHSIHISHOS', req.user);
+	console.log('WOHSOIHSIHISHOS', req.session);
 	Event.count(query, function(error, total) {
 		Event.find(query)
 		.limit(config.sections[section].limit)
