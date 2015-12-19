@@ -97,12 +97,8 @@ module.exports = function(app) {
 
 	// tvshows //
 	//app.get('/tvshows*', tvshowsRoutes.get);
-	app.get('/tvshows/(:filter)/(:sorting)/page-(:page)', tvshowsRoutes.get);
-	app.get('/tvshows/(:filter)/page-(:page)', tvshowsRoutes.get);
-	app.get('/tvshows/(:filter)/(:sorting)', tvshowsRoutes.get);
-	app.get('/tvshows/page-(:page)', tvshowsRoutes.get);
-	app.get('/tvshows/(:filter)', tvshowsRoutes.get);
-	app.get('/tvshows/', tvshowsRoutes.get);
+	app.get('/tvshows/(:filter)/(:sorting)/(:page)', tvshowsRoutes.get);
+	app.get('/tvshows(*)', tvshowsRoutes.get);
 	//app.post('/tvshows*', tvshowsRoutes.post);
 
 	// cpanel //
