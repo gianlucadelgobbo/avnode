@@ -506,10 +506,10 @@
         "all": "All"
       }
     },
-    "gallery": {
+    "galleries": {
       "title": "Gallery",
       "limit": 20,
-      "basepath": "gallery",
+      "basepath": "galleries",
       "coll": "gallery",
       "view_list": "gallery",
       "list_fields": {
@@ -520,9 +520,7 @@
         "stats":1
       },
       "orders": [
-        "mostrecent",
-        "mostviewed",
-        "mostrated"
+        "mostrecent"
       ],
       "categories": [
         "all"

@@ -4,6 +4,7 @@ var performancesRoutes 				= require('./routes/performances');
 var footageRoutes 					= require('./routes/footage');
 var eventsRoutes 					= require('./routes/events');
 var playlistsRoutes 				= require('./routes/playlists');
+var galleriesRoutes 				= require('./routes/galleries');
 var forumRoutes 					= require('./routes/forum');
 var tvshowsRoutes 					= require('./routes/tvshows');
 var performerRoutes 				= require('./routes/performer');
@@ -82,6 +83,10 @@ module.exports = function(app) {
 	app.get('/playlists/(:filter)/(:sorting)/(:page)', playlistsRoutes.get);
 	app.get('/playlists(*)', playlistsRoutes.get);
 	//app.post('/playlists*', playlistsRoutes.post);
+
+  // playlists //
+	app.get('/galleries/(:filter)/(:sorting)/(:page)', galleriesRoutes.get);
+	app.get('/galleries(*)', galleriesRoutes.get);
 
 	// forum //
 	//app.get('/forum ', forumRoutes.get);
