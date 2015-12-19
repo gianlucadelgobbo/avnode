@@ -16,7 +16,7 @@ nav.navbar.navbar-inverse#sections_menu
                    li(class=(config.sections[sez] && config.sections[sez].basepath==item.basepath ? "active" : undefined))
                        a(href="/"+item.basepath+"/")=item.title
 
-       - if(!user.login)
+       unless user
            ul.nav.navbar-nav.pull-right.login_nav
                li
                    a(href="/controlpanel/login/")=__("Login")

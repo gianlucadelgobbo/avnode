@@ -34,7 +34,7 @@ html(lang=config.lang)
 					include comp/menu_general
 
 					//- interaction menu
-					- if (user.login) {
+					- if (user) {
 						include comp/menu_logged
 					- }
 
