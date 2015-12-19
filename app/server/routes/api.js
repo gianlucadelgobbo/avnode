@@ -1,18 +1,30 @@
-var DB = require('../modules/db-manager');
+var User = require('../models/user');
 
 exports.getClients = function getClients(req, res) {
-  if (req.session.passport.user == null) {
+	if (req.user === undefined) {
     res.redirect('/?from='+req.url);
-  } else {
-    var query = {name:{$regex: req.query.term, $options: 'i' }};
-    console.dir(query);
-    DB.clients.find(query).toArray(function(e, result) {
-      console.dir(result);
-      res.send(result);
-    });
+	} else {
+		var term = req.query.term;
+		if (term === null) {
+			res.status(500).send('missing term parameter');
+		}
+		var query = {
+			name: {
+				$regex: term,
+				$options: 'i'
+			}
+		};
+		User.find(query, function(error, user) {
+			if (error !== null) {
+				return res.status(500).send(e.message);
+			}
+
+			return res.send(user);
+		});
   }
 };
 
+/*
 exports.getPayments = function getPayments(req, res) {
   if (req.session.passport.user == null) {
     res.redirect('/?from='+req.url);
@@ -48,3 +60,4 @@ exports.getProducts = function getProducts(req, res) {
     });
   }
 };
+*/

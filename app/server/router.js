@@ -254,7 +254,7 @@ module.exports = function(app) {
 	//app.post('/image', imageRoutes.post);
 
 	// Api //
-	//app.get('/api/clients', apiRoutes.getClients);
+	app.get('/api/clients', apiRoutes.getClients);
 	//app.get('/api', apiRoutes.get);
 
     // all other routes: User or 404
