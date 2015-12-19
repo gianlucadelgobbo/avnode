@@ -3,6 +3,7 @@
   "host": "127.0.0.1",
   "dbHost": "localhost",
   "dbPort": 27017,
+  "mongo": "mongodb://127.0.0.1/avnode",
   "sitename": "AVnode",
   "dbName": "avnode",
   "sitepath": "/tmp/avnode",
