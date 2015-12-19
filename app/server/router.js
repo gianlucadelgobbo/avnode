@@ -87,7 +87,7 @@ module.exports = function(app) {
 
 	// events //
 	app.get('/events/(:filter)/(:sorting)/(:page)', eventsRoutes.get);
-	app.get('/events(/*)', eventsRoutes.get);
+	app.get('/events(*)', eventsRoutes.get);
 	//app.post('/events*', eventsRoutes.post);
 
 	// playlists //

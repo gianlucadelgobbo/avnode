@@ -2,9 +2,7 @@ var config = require('getconfig');
 var Event = require('../models/event');
 var _ = require('lodash');
 
-var MediaHelper = require('../helper/media');
-var DateHelper = require('../helper/date');
-var MiscHelper = require('../helper/misc');
+var _h = require('../helper/index');
 
 exports.get = function get(req, res) {
   redirect = false
@@ -43,7 +41,7 @@ exports.get = function get(req, res) {
       var title = config.sections[section].title;
       var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
       var link = "/events/" + filter + "/" + sorting + "/";
-      var pages = MiscHelper.createPagination(link, skip, config.sections[section].limit, total);
+      var pages = _h.pagination(link, skip, config.sections[section].limit, total);
 			res.render('events/list', {
         config: config,
         basename: '/events',
@@ -61,8 +59,7 @@ exports.get = function get(req, res) {
 				user: req.user,
         categories: config.sections[section].categories,
         orderings: config.sections[section].orders,
-        MediaHelper: MediaHelper,
-        DateHelper: DateHelper
+        _h: _h
 			});
 		});
 	});
