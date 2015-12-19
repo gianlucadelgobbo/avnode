@@ -68,12 +68,8 @@ module.exports = function(app) {
 	//app.post('/performers*', performersRoutes.post);
 
 	// performances //
-	app.get('/performances/(:filter)/(:sorting)/page-(:page)', performancesRoutes.get);
-	app.get('/performances/(:filter)/page-(:page)', performancesRoutes.get);
-	app.get('/performances/(:filter)/(:sorting)', performancesRoutes.get);
-	app.get('/performances/page-(:page)', performancesRoutes.get);
-	app.get('/performances/(:filter)', performancesRoutes.get);
-	app.get('/performances/', performancesRoutes.get);
+	app.get('/performances/(:filter)/(:sorting)/(:page)', performancesRoutes.get);
+	app.get('/performances(*)', performancesRoutes.get);
 	//app.post('/performances*', performancesRoutes.post);
 
 	// footage //

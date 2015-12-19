@@ -1,0 +1,25 @@
+div.list_item_performer.grid-item.col-sm-4(class="col-md-6 #{section}_performer")
+	.box_wrapper.col-sm-12
+		a(href="/#{box.users[0].permalink}#{basename}/#{box.permalink}/", title=box.title)
+			h3.main_event_title= box.title
+		a(href="/#{box.users[0].permalink}#{basename}/#{box.permalink}/", title=box.title)
+			img.main_performace_image(src=box.files.length ? box.files[0].file : '')
+		.main_event_box
+			.main_event_details
+				p.event_date=box.date_str
+					p
+						i(class="fa fa-map-marker")
+						span.event_location= box.event_loc + __(", ")
+						span.event_city= box.event_city + __(", ")
+						span.event_country= box.event_country
+					p
+						i(class="fa fa-clock-o")
+						span.event_time= box.event_time
+					p.evidence-event_owner
+						i(class="fa fa-user")
+						a(href="/" + box.users[0].permalink, title=box.users[0].display_name)= box.users[0].display_name
+					ul.evidence-performance_categories.list-inline
+						each category in box.categories
+							li
+								i(class="fa fa-cube")
+								a(href="/" + category.permalink, title=category.name)= category.name
