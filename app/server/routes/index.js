@@ -3,7 +3,7 @@ var CT = require('../modules/country-list');
 
 exports.get = function get(req, res) {
 	//console.log(req.cookies);
-	console.log(req);
+	//console.log(req);
 	//console.log(req.session.passport.user);
 	if (req.cookies.user) {
 		if (req.cookies && req.cookies.user) {
@@ -31,7 +31,7 @@ exports.get = function get(req, res) {
 			user: {}
 		});
 	}
-}
+};
 exports.post = function post(req, res) {
 
 };

@@ -13,7 +13,6 @@ exports.post = function get(req, res) {
         if (pathArray[0] == "") pathArray.shift();
         if (pathArray[pathArray.length - 1] == "") pathArray.pop();
         if (pathArray[pathArray.length - 1].indexOf("output") != -1) pathArray.pop();
-        console.dir(pathArray);
         if (pathArray.length > 0) {
 // CHECK PERMALINK
             if (pathArray[2] == "checkPermalink") {
@@ -42,8 +41,6 @@ exports.post = function get(req, res) {
             } else if (pathArray[2] == "deleteTemp") {
                 if (req.body.id) {
                     DB.temp.remove({"_id": new ObjectID(req.body.id)}, {safe: true}, function (err, result) {
-                        console.dir("deleteTempdeleteTempdeleteTempdeleteTempdeleteTempdeleteTemp");
-                        console.dir(result);
                         res.send({n: result});
                     });
                 } else {
@@ -53,7 +50,6 @@ exports.post = function get(req, res) {
             } else if (pathArray[2] == "searchPartners") {
                 if (req.body.search) {
                     DB.users.find({"display_name": new RegExp(req.body.search, "i"), "is_crew": 1}, {fields: {_id: 1, old_id: 1, display_name: 1, permalink: 1, files: 1, stats: 1, emails: 1}}).toArray(function (e, o) {
-                        console.dir(o);
                         res.send(o);
                     });
                 } else {
@@ -64,7 +60,6 @@ exports.post = function get(req, res) {
                     DB[req.body.collection].findOne({"_id": new ObjectID(req.body._id)}, function (e, o) {
                         o.partners = req.body.partners;
                         DB[req.body.collection].save(o, {safe: true}, function (e, success) {
-                            console.dir(o);
                             res.send(o);
                         });
                     });
@@ -79,7 +74,6 @@ exports.post = function get(req, res) {
                                 return (element._id.toString() !== req.body._id);
                             });
                             DB.users.save(o, {safe: true}, function (e, success) {
-                                console.dir("SEND AN EMAIL TO THE PARTNER REMOVED");
                                 res.send(o);
                             });
                         } else {
@@ -87,7 +81,6 @@ exports.post = function get(req, res) {
                                 //if (o.partnership) delete o.partnership;
                                 if (subrecords) o.partnerships = subrecords;
                                 DB.users.save(o, {safe: true}, function (e, success) {
-                                    console.dir("SEND AN EMAIL TO THE PARTNER REMOVED");
                                     res.send(o);
                                 });
                             });
@@ -104,7 +97,6 @@ exports.post = function get(req, res) {
                         req.body.collection = "users";
                         req.body.redirect = "/" + req.body.permalink + "/";
                         req.body.msg = {title: __("Accept invitation to be partner of") + ": " + req.body.title, text: __("Invitation accepted with success, please continue")};
-                        console.dir(req.body);
                         DB.temp.insert(req.body, {safe: true}, function (err, record) {
                             text = _config.siteurl + "/confirm/?code=" + req.body.code;
                             EM.sendMail({
@@ -159,7 +151,6 @@ exports.post = function get(req, res) {
             } else if (pathArray[2] == "searchMembers") {
                 if (req.body.search) {
                     DB.users.find({"display_name": new RegExp(req.body.search, "i"), "is_crew": 0}, {fields: {_id: 1, old_id: 1, display_name: 1, permalink: 1, files: 1, stats: 1, emails: 1}}).toArray(function (e, o) {
-                        console.dir(o);
                         res.send(o);
                     });
                 } else {
@@ -170,7 +161,6 @@ exports.post = function get(req, res) {
                     DB[req.body.collection].findOne({"_id": new ObjectID(req.body._id)}, function (e, o) {
                         o.members = req.body.members;
                         DB[req.body.collection].save(o, {safe: true}, function (e, success) {
-                            console.dir(o);
                             res.send(o);
                         });
                     });
@@ -185,9 +175,6 @@ exports.post = function get(req, res) {
                         req.body.collection = "users";
                         req.body.redirect = "/" + req.body.permalink + "/";
                         req.body.msg = {title: __("Accept invitation to") + ": " + req.body.crew_name, text: __("Invitation accepted with success, please continue")};
-                        console.dir("insert temp:");
-                        console.dir(req.body);
-                        console.dir(req.session.passport.user.display_name);
                         DB.temp.insert(req.body, {safe: true}, function (err, record) {
                             text = "Ciao "+req.body.data.display_name+",\n"+req.session.passport.user.display_name+" invited you to be member of " + req.body.crew_name+" " + _config.siteurl+"/"+req.body.permalink+"\n\nTo accept the invitation click here:\n"+_config.siteurl + "/confirm/?code=" + req.body.code+"\n\n"+_config.signature;
                             EM.sendMail({
@@ -211,8 +198,6 @@ exports.post = function get(req, res) {
                     DB.users.findOne({_id: new ObjectID(req.body.id)}, function (e, user) {
                         DB.users.find({"members._id": new ObjectID(req.body.id)}, {fields: {_id: 1, old_id: 1, display_name: 1, permalink: 1, files: 1, stats: 1}}).toArray(function (err, subrecords) {
                             if (subrecords.length) user.crews = subrecords;
-                            console.log({"members._id": req.body.id});
-                            console.log(subrecords);
                             DB.users.save(user, {safe: true}, function (e, success) {
                                 res.send({success: success});
                             });
@@ -227,16 +212,12 @@ exports.post = function get(req, res) {
                     DB[req.body.collection].find({"emails.email": req.body.email}).toArray(function (e, results) {
                         if (results) {
                             results.forEach(function (result, index, theArray) {
-                                console.dir(result.emails.length);
-                                console.dir(result.emails);
                                 for (var a = result.emails.length - 1; a >= 0; a--) {
                                     if (result.emails[a].email == req.body.email && result.emails[a].primary != 1) result.emails.splice(a, a);
                                 }
-                                console.dir(result.emails.length);
                                 if (index == theArray.length - 1) {
                                     DB[req.body.collection].save(result, {safe: true}, function (e, success) {
                                         res.send({success: true, msg: __("Email deleted")});
-                                        console.dir(result.emails);
                                     });
                                 }
                             });
@@ -252,8 +233,6 @@ exports.post = function get(req, res) {
                     DB[req.body.collection].find({"emails.email": req.body.email, "_id": new ObjectID(req.body.doc_id)}).toArray(function (e, results) {
                         if (results) {
                             results.forEach(function (result, index, theArray) {
-                                console.dir(result.emails.length);
-                                console.dir(result.emails);
                                 var newMails = [];
                                 for (var a = 0; a < result.emails.length; a++) {
                                     if (result.emails[a].email == req.body.email) {
@@ -269,11 +248,9 @@ exports.post = function get(req, res) {
                                     }
                                 }
                                 result.emails = newMails;
-                                console.dir(result.emails.length);
                                 if (index == theArray.length - 1) {
                                     DB[req.body.collection].save(result, {safe: true}, function (e, success) {
                                         res.send({success: true, msg: __("Email is primary")});
-                                        console.dir(result.emails);
                                     });
                                 }
                             });
@@ -291,7 +268,6 @@ exports.post = function get(req, res) {
                     MC.lists.memberInfo({id: '6be13adfd8', emails: [
                         {email: 'g.delgobbo@flyer.it'}
                     ]}, function (data) {
-                        console.log(data.data[0].merges);
                         req.body.newsletters.pop();
                         var mcReq = {
                             id: "6be13adfd8",
@@ -307,15 +283,10 @@ exports.post = function get(req, res) {
                                 ]
                             }
                         };
-                        console.log(mcReq.merge_vars.GROUPINGS);
                         MC.lists.subscribe(mcReq, function (data) {
                             res.send(data);
-                            console.log("response");
-                            console.log(data);
                         }, function (error) {
                             res.send(error);
-                            console.log("error");
-                            console.log(error);
                         });
                     });
                     /*
@@ -360,7 +331,6 @@ exports.post = function get(req, res) {
                                         delete req.body.email;
                                         req.body.redirect = "/controlpanel/user/emails/";
                                         req.body.msg = {title: __("Email verification"), text: __("Email verified with success, please continue")};
-                                        console.dir(req.body);
                                         DB.temp.insert(req.body, {safe: true}, function (err, record) {
                                             text = _config.siteurl + "/confirm/?code=" + req.body.code;
                                             EM.sendMail({

@@ -1,0 +1,24 @@
+nav.navbar.navbar-inverse#sections_menu
+   a.navbar-brand(href="/")
+       img.logo_header_user(alt="AVnode.net", src="/img/logo_piede.png")
+
+   button.navbar-toggle.pull-right(type='button', data-target='#navbarCollapse', data-toggle='collapse')
+       span.sr-only Toggle navigation
+       span.icon-bar
+       span.icon-bar
+       span.icon-bar
+   //- Collection of nav links and other content for toggling
+   #navbarCollapse.collapse.navbar-collapse
+       ul.nav.navbar-nav.pull-left
+            - each item in config.sections
+                -console.log(item.view_list)
+                - if (item.view_list)
+                   li(class=(config.sections[sez] && config.sections[sez].basepath==item.basepath ? "active" : undefined))
+                       a(href="/"+item.basepath+"/")=item.title
+
+       unless user
+           ul.nav.navbar-nav.pull-right.login_nav
+               li
+                   a(href="/controlpanel/login/")=__("Login")
+               li
+                   a(href="/controlpanel/signup/")=__("Registrati")

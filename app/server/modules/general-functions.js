@@ -13,6 +13,7 @@ exports.getList = function (params, sez, res, ids, callback) {
     var DB = require('./db-manager');
 	var conf = exports.getConf(params, sez, res);
 	var searchQ = config.sections[sez].searchQ[conf.filter];
+	console.log('SEARCH Q', searchQ);
 	//ids = ["515c07ccdad037523c000903"];
 	//if (ids && sez=="performers") searchQ = {"permalink":ids[0]};
 	if (ids && sez=="performers") {
@@ -28,7 +29,6 @@ exports.getList = function (params, sez, res, ids, callback) {
 
 	DB[config.sections[sez].coll].find(searchQ, {"_id": 1 }).count(function(err, tot){
 		DB[config.sections[sez].coll].find(searchQ, config.sections[sez].list_fields, {skip:conf.skip, limit:config.sections[sez].limit}).sort(config.sections[sez].sortQ[conf.sort]).toArray(function(err, records){
-            console.dir(err);
 			callback(err, tot, records, conf);
 		});
 	});
@@ -134,15 +134,12 @@ exports.getFileFormat = function (obj, w, h) {
 		*/
 		//console.log(_config.sitepath+_config.uploadpath+formatfolder+formatfile);
 		if (fs.existsSync(config.sitepath+config.uploadpath+formatfolder+formatfile)) {
-			console.log(formatfolder+formatfile);
 			return formatfolder+formatfile;
 		} else {
 			var imgExt = ['jpg','jpeg','gif','png'];
 			var originalImg = fs.existsSync(config.sitepath+config.uploadpath+folder+"preview_files/"+previewfile) ? config.sitepath+config.uploadpath+folder+"preview_files/"+previewfile : fs.existsSync(config.sitepath+config.uploadpath+folder+file) && imgExt.indexOf(ext)!=-1  ? config.sitepath+config.uploadpath+folder+file : false;
 			if (originalImg) {
-				console.log("CROPPO");
 				mkdirp.sync(config.sitepath+config.uploadpath+formatfolder);
-				console.log("croppato"+config.sitepath+config.uploadpath+formatfolder);
 				im.crop({
 					srcPath: originalImg,
 					dstPath: config.sitepath+config.uploadpath+formatfolder+formatfile,
@@ -153,12 +150,6 @@ exports.getFileFormat = function (obj, w, h) {
 				}, function(err, stdout, stderr){
 
 					if (err) return console.error(err.stack || err);
-					console.log("CROPPO2");
-					console.log("croppato"+config.sitepath+config.uploadpath+formatfolder+formatfile);
-					console.dir(err);
-					console.dir(stdout);
-					console.dir(stderr);
-					console.log("croppato"+formatfolder+formatfile);
 				});
                 return formatfolder+formatfile;
 			} else {

@@ -6,7 +6,8 @@
 					.col-lg-5.col-md-4.col-sm-4.col-xs-6.performer_avatar
 						img.media-object(alt=__("Thumbnail of")+": "+result.display_name, src=Fnc.getFileFormat(result.files, 240, 180))
 					.col-lg-7.col-sm-8.col-xs-6.performer_geolocalization
-						h1= result.display_name
+						a(href="/"+result.permalink, title=result.display_name)
+							h1= result.display_name
 						p= result.locations[0].city+" // "
 							span.country_geoloc= result.locations[0].country
 						//- City and country may link to the City/Country page with other performers
@@ -44,14 +45,3 @@
 
 								//a(href="/"+result.permalink+"/"+_config.sections[single_result].basepath+"/")=_config.sections[single_result].title+" ["+result.stats[single_result]+"]"
 					.col-md-4.visual_header_performer_summary.hidden-sm.hidden-xs
-
-
-
-
-//ul.nav.nav-tabs
-	li(class=!sez ? "active" : undefined)
-		a(href="#about",onclick="$('#about').show();")=__("About")
-	- for(item in result.stats)
-		- if(config.sections[item] && result.stats[item])
-			li
-				a(href="/"+result.permalink+"/"+config.sections[item].basepath+"/")=config.sections[item].title+" ["+result.stats[item]+"]"

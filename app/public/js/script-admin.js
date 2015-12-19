@@ -67,7 +67,6 @@ function disableOnEnter(field_name) {
 
 $(function () {
 	$('.permalink').keyup(function() {
-        console.log("checkPermalink");
         checkPermalink($(this));
 	});
 });
@@ -86,8 +85,6 @@ function checkPermalink(field) {
 		type: 'POST',
 		data:{_id:_id, permalink:permalink, collection:collection},
 		success: function(data) {
-			console.log(data);
-			console.log(field.parent());
 			if(data.success){
 				field.parent().find(".control-label").html(data.msg)
 				field.parent().addClass("has-success has-feedback");
@@ -120,7 +117,6 @@ function invitePartner(id) {
 		type: 'POST',
 		data:{doc_id:_id, data:data, event_name:event_name, collection:collection},
 		success: function(data) {
-			console.log(data);
 			if(data.success){
 				$('#'+id).parent().find("button").html(__("Invited"));
 				$('#'+id).parent().find(".loading-box").remove();
@@ -141,7 +137,6 @@ function updatePartners( event, ui ) {
 	$(".main-list").find("input").each(function(){
 		partners.push(JSON.parse($(this).val()));
 	});
-	console.log(partners);
 	$.ajax({
 		url: "/controlpanel/ajax/updatePartners/",
 		type: 'POST',
@@ -162,7 +157,6 @@ function deletePartner(t,id) {
 	$(".main-list").find("input").each(function(){
 		partners.push(JSON.parse($(this).val()));
 	});
-	console.log(partners);
 	$.ajax({
 		url: "/controlpanel/ajax/updatePartners/",
 		type: 'POST',
@@ -360,7 +354,6 @@ function emailAdd(t){
 	$('#email_add').parent().parent().find("button").attr("disabled","disabled");
 	var email = $("#email_add").val();
 	if (Validators.is_email(email)) {
-		console.log("Sending verification email");
 		$('#email_add').parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />&nbsp;&nbsp;Sending verification email");
 		var _id = $('[name="_id"]').val();
 		var collection = $('[name="collection"]').val();
@@ -369,8 +362,6 @@ function emailAdd(t){
 			type: 'POST',
 			data:{doc_id:_id, email:email, collection:collection},
 			success: function(data) {
-				console.log(data);
-				console.log($('#permalink').parent().parent());
 				if(data.success){
 					$('#email_add').parent().parent().find(".help-inline").html("<i class=\"glyphicon glyphicon-ok\"></i> "+data.msg)
 					$('#email_add').parent().parent().parent().removeClass("error");
@@ -395,7 +386,6 @@ function emailRemove(t){
 	var _id = $('[name="_id"]').val();
 	var collection = $('[name="collection"]').val();
 	var email = $($(t).parent().parent().parent().find('input')[0]).val();
-	console.log($($(t).parent().parent().parent().find('input')[0]).val());
 	$(t).parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />&nbsp;&nbsp;Deleting");
     var divremove = $(t).parent().parent().parent();
 
@@ -404,8 +394,6 @@ function emailRemove(t){
 		type: 'POST',
 		data:{doc_id:_id, email:email, collection:collection},
 		success: function(data) {
-			console.log(data);
-			console.log($('#permalink').parent().parent());
 			if(data.success){
                 divremove.remove()
 			} else {
@@ -423,21 +411,16 @@ function setPrimary(t){
 	var collection = $('[name="collection"]').val();
 	var email = $($(t).parent().parent().parent().find('input')[0]).val();
 	var div = $(t).parent().parent().parent();
-	console.log($($(t).parent().parent().parent().find('input')[0]).val());
 	var oldHelp = $(t).parent().parent().find(".help-inline").html();
-	console.log(oldHelp);
 	var oldDelete = $(t).parent().parent().find(".add-on");
-	console.log(oldDelete);
 	$(t).parent().parent().find(".add-on").remove();
 	$(t).parent().parent().find(".input-append").append("<span class=\"add-on\"><i class=\"glyphicon glyphicon-lock\"></i></span>");
-	console.log($(t).parent().parent());
 	$(t).parent().parent().find(".help-inline").html("<img src=\"/img/loading-small.gif\" />&nbsp;&nbsp;Deleting");
 	$.ajax({
 		url: "/controlpanel/ajax/setPrimary/",
 		type: 'POST',
 		data:{doc_id:_id, email:email, collection:collection},
 		success: function(data) {
-			console.log(data);
 			if(data.success){
 				div.find(".help-inline").html("");
 			} else {
@@ -457,7 +440,6 @@ function setNewsletter(email, t){
 		if (this.checked) val.push($(this).attr("name"));
 	});
 	var lang = $(t).parent().parent().find("select").val();
-	console.log(val);
 	$.ajax({
 		url: "/controlpanel/ajax/setNewsletter/",
 		type: 'POST',
@@ -495,8 +477,7 @@ function initializeMap(data) {
 	});
 	*/
 	$.each(data, function(index, c) {
-		console.log(c);
-		var latlng = new google.maps.LatLng(c.lat,c.lng); 
+		var latlng = new google.maps.LatLng(c.lat,c.lng);
 		var marker = new google.maps.Marker({
 			map: map,
 			position: latlng,
@@ -587,10 +568,7 @@ function addOnClose() {
 function deleteLocation(button) {
 	var div = $(button).parent().parent().parent();
 	var obj = $.parseJSON(div.find('input').val())
-	console.log(div);
-	console.log(obj);
 	for (item in allMarkers) {
-		console.log(allMarkers[item].position.lat()+" - "+allMarkers[item].position.lng());
 		if (allMarkers[item].position.lat()==obj.lat && allMarkers[item].position.lng()==obj.lng) {
 			allMarkers[item].setMap(null);
 			delete allMarkers[item];

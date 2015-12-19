@@ -1,18 +1,41 @@
 - if (typeof(username) === 'undefined' && typeof(span) === 'undefined') span = "3"
-div(class="col-md-"+span)
-	.media
-		.pull-left
-			a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")
-				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=Fnc.getFileFormat(box.files, 90, 68))
-		.media-body
-			h4.media-heading
-				a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")=box.title
-			- performers = "";
-			- for(item in box.users)
-				- if (box.users[item]) performers+="<li><a href=\"/"+box.users[item].permalink+"/\">"+box.users[item].display_name+"</a></li>"
-			- if (performers)
-				ul.stats!=performers
-			ul.stats
-				li=__("Visits")+": "+box.stats.visits
-				li=__("Downloads")+": "+box.stats.visits
-				li=__("Likes")+": "+box.stats.rates.tot_rate
+div.list_item_performer.grid-item.col-sm-4(class="col-md-" + span + " " + sez + "_performer")
+	a(href="/"+box.permalink, title=box.title)
+		.image_box
+			.playlists_stats.box_stats
+				ul.list-inline
+					li
+						i(class="fa fa-download")
+						span= box.stats.downloads
+					li
+						i(class="fa fa-eye")
+						span= box.stats.visits
+					li
+						i(class="fa fa-heart")
+						span= box.stats.likes
+					li
+						i(class="fa fa-video-camera")
+						span= box.stats.videos
+
+			img(alt=box.title, src="/img/"+box.files)
+			.title_and_info_container
+				h3= box.title
+//-
+	- if (typeof(username) === 'undefined' && typeof(span) === 'undefined') span = "3"
+	div(class="col-md-"+span)
+		.media
+			.pull-left
+				a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")
+					img.media-object(alt=__("Thumbnail of")+": "+box.title, src=Fnc.getFileFormat(box.files, 90, 68))
+			.media-body
+				h4.media-heading
+					a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")=box.title
+				- performers = "";
+				- for(item in box.users)
+					- if (box.users[item]) performers+="<li><a href=\"/"+box.users[item].permalink+"/\">"+box.users[item].display_name+"</a></li>"
+				- if (performers)
+					ul.stats!=performers
+				ul.stats
+					li=__("Visits")+": "+box.stats.visits
+					li=__("Downloads")+": "+box.stats.visits
+					li=__("Likes")+": "+box.stats.rates.tot_rate

@@ -1,0 +1,1172 @@
+
+{
+    "nextEdition": "LPM 2016 Amsterdam",
+    "subImg": "\/_lpm\/subImg.png",
+    "subBkg": "\/_lpm\/fondo.jpg",
+    "colBkg": "#000000",
+    "mailto": "subscriptions@liveperformersmeeting.net",
+    "tshirtsizes": [
+        "S - Men",
+        "M - Men",
+        "L - Men",
+        "XL - Men",
+        "XXL - Men",
+        "S - Women",
+        "M - Women",
+        "L - Women"
+    ],
+    "accommodation-period": {
+        "it": "da 1 a 5 notti dal 27 al 31 Maggio",
+        "en": "from 1 to 5 nights from 27 to 31 of May",
+        "fr": "de 1 \u00e0 5 nuits 27-31 Mai",
+        "es": "de 1 a 5 noches desde el 27 al 31 Mayo",
+        "pl": "od 1 do 5 nocy od 27 do 31 Maj",
+        "by": "\u0430\u0434 1 \u0434\u0430 5 \u043d\u043e\u0447\u044b \u0437 27 \u043f\u0430 31 \u041c\u0430\u044f",
+        "ru": "\u043e\u0442 1 \u0434\u043e 5 \u043d\u043e\u0447\u0438 \u0441 27 \u043f\u043e 31 \u043c\u0430\u044f",
+        "hu": "1 - 5 \u00e9jszaka m\u00e1jus 27 - 31",
+        "gr": "1 - 5 \u03b4\u03b9\u03b1\u03bd\u03c5\u03ba\u03c4\u03b5\u03c1\u03b5\u03cd\u03c3\u03b5\u03b9\u03c2 \u03b1\u03c0\u03cc 27 \u03ad\u03c9\u03c2 31 \u03b5\u03bd\u03b4\u03ad\u03c7\u03b5\u03c4\u03b1\u03b9"
+    },
+    "rooms": {
+        "|855|856|": {
+            "availablefor": [],
+            "admittedtypes": [],
+            "mag": "",
+            "h": "21",
+            "m": "00",
+            "name": "Piazza dellImmacolata",
+            "message": "Start at 21:00 to 23:00 with Performance AV"
+        },
+        "|855|857|": {
+            "availablefor": [],
+            "admittedtypes": [],
+            "mag": "",
+            "h": "17",
+            "m": "00",
+            "name": "Ex Vetrerie Sciarra",
+            "message": "Start at 17:00 to 19:00 with AV Conference"
+        }
+    },
+    "valid": {
+        "performers": {
+            "starts": "2015-01-28 00:01:00",
+            "ends": "2015-07-28 23:59:59",
+            "mag": {
+                "open": "\/subscriptions-extra-help\/performers-terms-conditions\/",
+                "closed": "\/subscriptions-extra-help\/performance-subscription-closed\/"
+            }
+        },
+        "contest": {
+            "starts": "2015-01-26 00:01:00",
+            "ends": "2015-04-21 23:59:59",
+            "mag": {
+                "open": "\/subscriptions-extra-help\/performers-terms-conditions\/",
+                "closed": "\/subscriptions-extra-help\/subscription-closed\/"
+            }
+        },
+        "artists": {
+            "starts": "2015-01-26 00:01:00",
+            "ends": "2015-05-01 23:59:59",
+            "mag": {
+                "open": "\/subscriptions-extra-help\/artists-terms-conditions\/",
+                "closed": "\/subscriptions-extra-help\/subscription-closed\/"
+            }
+        },
+        "pro": {
+            "starts": "2015-01-26 00:01:00",
+            "ends": "2015-05-01 23:59:59",
+            "mag": {
+                "open": "\/subscriptions-extra-help\/artists-terms-conditions\/",
+                "closed": "\/subscriptions-extra-help\/subscription-closed\/"
+            }
+        },
+        "visitors": {
+            "starts": "2015-01-26 00:01:00",
+            "ends": "2015-05-01 23:59:59",
+            "mag": {
+                "open": "\/subscriptions-extra-help\/visitors-terms-conditions\/",
+                "closed": "\/subscriptions-extra-help\/subscription-closed\/"
+            }
+        },
+        "press": {
+            "starts": "2015-01-26 00:01:00",
+            "ends": "2015-05-01 23:59:59",
+            "mag": {
+                "open": "\/subscriptions-extra-help\/visitors-terms-conditions\/",
+                "closed": "\/subscriptions-extra-help\/subscription-closed\/"
+            }
+        }
+    },
+    "prices": {
+        "performers": {
+            "subscription": {
+                "performers": {
+                    "price": 10,
+                    "tit": "Performing artist",
+                    "items": {
+                        "1 pass": [],
+                        "1 drink per day": [],
+                        "1 T-Shirt": [
+                            "S - Men",
+                            "M - Men",
+                            "L - Men",
+                            "XL - Men",
+                            "XXL - Men",
+                            "S - Women",
+                            "M - Women",
+                            "L - Women"
+                        ],
+                        "Slot for": []
+                    },
+                    "daily": false
+                }
+            },
+            "accommodation": {
+                "NO": {
+                    "price": 0,
+                    "tit": "No Accommodation required",
+                    "items": [
+                        "No Accommodation required"
+                    ],
+                    "daily": false
+                },
+                "SI": {
+                    "price": 20,
+                    "tit": "1 bed in triple \/ quadruple \/ double rooms",
+                    "items": [
+                        "1 bed in triple \/ quadruple \/ double rooms",
+                        "2 ways daily transfer"
+                    ],
+                    "daily": true
+                },
+                "SIlusso": {
+                    "price": 30,
+                    "tit": "1 bed in single and double rooms",
+                    "items": [
+                        "1 bed in single and double rooms",
+                        "2 ways daily transfer"
+                    ],
+                    "daily": true
+                }
+            },
+            "extra": {
+                "ResolumeAvenue4": {
+                    "price": 240,
+                    "regularprice": 362,
+                    "tit": "Resolume Avenue 4",
+                    "items": [
+                        "1 License Resolume Avenue 4"
+                    ],
+                    "daily": false
+                },
+                "ResolumeArena4": {
+                    "price": 604,
+                    "regularprice": 846,
+                    "tit": "Resolume Arena 4",
+                    "items": [
+                        "1 License Resolume Arena 4"
+                    ],
+                    "daily": false
+                },
+                "TextMachine3D": {
+                    "price": 97,
+                    "regularprice": 120,
+                    "tit": "TextMachine 3D",
+                    "items": [
+                        "1 License TextMachine 3D"
+                    ],
+                    "daily": false
+                },
+                "Mapstard": {
+                    "price": 390,
+                    "regularprice": 490,
+                    "tit": "Mapstard",
+                    "items": [
+                        "1 License Mapstard"
+                    ],
+                    "daily": false
+                },
+                "Mapio2Pro": {
+                    "price": 250,
+                    "regularprice": 300,
+                    "tit": "Mapio 2 Pro",
+                    "items": [
+                        "1 License Mapio 2 Pro"
+                    ],
+                    "daily": false
+                },
+                "Mapio2Light ": {
+                    "price": 125,
+                    "regularprice": 150,
+                    "tit": "Mapio 2 Light ",
+                    "items": [
+                        "1 License Mapio 2 Light "
+                    ],
+                    "daily": false
+                },
+                "BlendyDomeVj": {
+                    "price": 600,
+                    "regularprice": 800,
+                    "tit": "Blendy Dome Vj ",
+                    "items": [
+                        "1 License Blendy Dome Vj "
+                    ],
+                    "daily": false
+                },
+                "design-in-code-intro-to-processing-80": {
+                    "price": "50",
+                    "regularprice": "80",
+                    "tit": "Design in Code - Intro to Processing [80 \u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/vjfader\/performances\/design-in-code-intro-to-processing-80\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "video-mapping-with-telenoika-150": {
+                    "price": "100",
+                    "regularprice": "150",
+                    "tit": "Video Mapping with Telenoika [150 \u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/telenoika\/performances\/video-mapping-with-telenoika-150\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "quartz-composer-150": {
+                    "price": "100",
+                    "regularprice": "150",
+                    "tit": "Quartz Composer [150\u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/xxxyvisuals\/performances\/quartz-composer-150\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "tagtool-painting-in-3d-150": {
+                    "price": "100",
+                    "regularprice": "150",
+                    "tit": "Tagtool: painting in 3D [150\u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/lunchmeat\/performances\/tagtool-painting-in-3d-150\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "cinder-workshop-80": {
+                    "price": "50",
+                    "regularprice": "80",
+                    "tit": "Cinder Workshop [80 \u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/ReyMentaTIA\/performances\/cinder-workshop-80\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "projection-mapping-with-heavym-80": {
+                    "price": "50",
+                    "regularprice": "80",
+                    "tit": "Projection mapping with HeavyM [80\u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/HeavyM\/performances\/projection-mapping-with-heavym-80\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                }
+            }
+        },
+        "artists": {
+            "subscription": {
+                "artists": {
+                    "price": 20,
+                    "tit": "Not Performing artist",
+                    "items": {
+                        "1 pass": [],
+                        "1 drink per day": [],
+                        "1 T-Shirt": [
+                            "S - Men",
+                            "M - Men",
+                            "L - Men",
+                            "XL - Men",
+                            "XXL - Men",
+                            "S - Women",
+                            "M - Women",
+                            "L - Women"
+                        ]
+                    },
+                    "daily": false
+                }
+            },
+            "accommodation": {
+                "NO": {
+                    "price": 0,
+                    "tit": "No Accommodation required",
+                    "items": [
+                        "No Accommodation required"
+                    ],
+                    "daily": false
+                },
+                "SI": {
+                    "price": 30,
+                    "tit": "1 bed in triple \/ quadruple \/ double rooms",
+                    "items": [
+                        "1 bed in triple \/ quadruple \/ double rooms",
+                        "2 ways daily transfer"
+                    ],
+                    "daily": true
+                },
+                "SIlusso": {
+                    "price": 30,
+                    "tit": "1 bed in single and double rooms",
+                    "items": [
+                        "1 bed in single and double rooms",
+                        "2 ways daily transfer"
+                    ],
+                    "daily": true
+                }
+            },
+            "extra": {
+                "ResolumeAvenue4": {
+                    "price": 240,
+                    "regularprice": 362,
+                    "tit": "Resolume Avenue 4",
+                    "items": [
+                        "1 License Resolume Avenue 4"
+                    ],
+                    "daily": false
+                },
+                "ResolumeArena4": {
+                    "price": 604,
+                    "regularprice": 846,
+                    "tit": "Resolume Arena 4",
+                    "items": [
+                        "1 License Resolume Arena 4"
+                    ],
+                    "daily": false
+                },
+                "TextMachine3D": {
+                    "price": 97,
+                    "regularprice": 120,
+                    "tit": "TextMachine 3D",
+                    "items": [
+                        "1 License TextMachine 3D"
+                    ],
+                    "daily": false
+                },
+                "Mapstard": {
+                    "price": 390,
+                    "regularprice": 490,
+                    "tit": "Mapstard",
+                    "items": [
+                        "1 License Mapstard"
+                    ],
+                    "daily": false
+                },
+                "Mapio2Pro": {
+                    "price": 250,
+                    "regularprice": 300,
+                    "tit": "Mapio 2 Pro",
+                    "items": [
+                        "1 License Mapio 2 Pro"
+                    ],
+                    "daily": false
+                },
+                "Mapio2Light ": {
+                    "price": 125,
+                    "regularprice": 150,
+                    "tit": "Mapio 2 Light ",
+                    "items": [
+                        "1 License Mapio 2 Light "
+                    ],
+                    "daily": false
+                },
+                "BlendyDomeVj": {
+                    "price": 600,
+                    "regularprice": 800,
+                    "tit": "Blendy Dome Vj ",
+                    "items": [
+                        "1 License Blendy Dome Vj "
+                    ],
+                    "daily": false
+                },
+                "design-in-code-intro-to-processing-80": {
+                    "price": "50",
+                    "regularprice": "80",
+                    "tit": "Design in Code - Intro to Processing [80 \u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/vjfader\/performances\/design-in-code-intro-to-processing-80\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "video-mapping-with-telenoika-150": {
+                    "price": "100",
+                    "regularprice": "150",
+                    "tit": "Video Mapping with Telenoika [150 \u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/telenoika\/performances\/video-mapping-with-telenoika-150\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "quartz-composer-150": {
+                    "price": "100",
+                    "regularprice": "150",
+                    "tit": "Quartz Composer [150\u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/xxxyvisuals\/performances\/quartz-composer-150\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "tagtool-painting-in-3d-150": {
+                    "price": "100",
+                    "regularprice": "150",
+                    "tit": "Tagtool: painting in 3D [150\u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/lunchmeat\/performances\/tagtool-painting-in-3d-150\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "cinder-workshop-80": {
+                    "price": "50",
+                    "regularprice": "80",
+                    "tit": "Cinder Workshop [80 \u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/ReyMentaTIA\/performances\/cinder-workshop-80\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "projection-mapping-with-heavym-80": {
+                    "price": "50",
+                    "regularprice": "80",
+                    "tit": "Projection mapping with HeavyM [80\u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/HeavyM\/performances\/projection-mapping-with-heavym-80\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                }
+            }
+        },
+        "visitors": {
+            "subscription": {
+                "visitors": {
+                    "price": 10,
+                    "tit": "One Night (from 19.00 till 03.00)",
+                    "items": {
+                        "Night ticket includes access to AV performances and interactive installations": []
+                    },
+                    "daily": true
+                },
+                "One-Day-Night": {
+                    "price": 15,
+                    "tit": "One Day & Night (from 15.00.00 till 03.00)",
+                    "items": {
+                        "Day & Night ticket includes access to lectures, project showcases , AV performances and interactive installations": []
+                    },
+                    "daily": true
+                },
+                "Four-Days": {
+                    "price": 20,
+                    "tit": "Four Days (from 15.00 to 19.00)",
+                    "items": {
+                        "Four Days ticket includes access to lectures, project showcases and interactive installations": []
+                    },
+                    "daily": false
+                },
+                "PRO-pass": {
+                    "price": 50,
+                    "tit": "PRO pass",
+                    "items": {
+                        "1 pass": [],
+                        "1 drink per day": [],
+                        "1 T-Shirt": [
+                            "S - Men",
+                            "M - Men",
+                            "L - Men",
+                            "XL - Men",
+                            "XXL - Men",
+                            "S - Women",
+                            "M - Women",
+                            "L - Women"
+                        ]
+                    },
+                    "daily": false
+                }
+            },
+            "accommodation": {
+                "NO": {
+                    "price": 0,
+                    "tit": "No Accommodation required",
+                    "items": [
+                        "No Accommodation required"
+                    ],
+                    "daily": false
+                },
+                "SI": {
+                    "price": 30,
+                    "tit": "1 bed in triple \/ quadruple \/ double rooms",
+                    "items": [
+                        "1 bed in triple \/ quadruple \/ double rooms",
+                        "2 ways daily transfer"
+                    ],
+                    "daily": true
+                },
+                "SIlusso": {
+                    "price": 40,
+                    "tit": "1 bed in single and double rooms",
+                    "items": [
+                        "1 bed in single and double rooms",
+                        "2 ways daily transfer"
+                    ],
+                    "daily": true
+                }
+            },
+            "extra": {
+                "ResolumeAvenue4": {
+                    "price": 240,
+                    "regularprice": 362,
+                    "tit": "Resolume Avenue 4",
+                    "items": [
+                        "1 License Resolume Avenue 4"
+                    ],
+                    "daily": false
+                },
+                "ResolumeArena4": {
+                    "price": 604,
+                    "regularprice": 846,
+                    "tit": "Resolume Arena 4",
+                    "items": [
+                        "1 License Resolume Arena 4"
+                    ],
+                    "daily": false
+                },
+                "TextMachine3D": {
+                    "price": 97,
+                    "regularprice": 120,
+                    "tit": "TextMachine 3D",
+                    "items": [
+                        "1 License TextMachine 3D"
+                    ],
+                    "daily": false
+                },
+                "Mapstard": {
+                    "price": 390,
+                    "regularprice": 490,
+                    "tit": "Mapstard",
+                    "items": [
+                        "1 License Mapstard"
+                    ],
+                    "daily": false
+                },
+                "Mapio2Pro": {
+                    "price": 250,
+                    "regularprice": 300,
+                    "tit": "Mapio 2 Pro",
+                    "items": [
+                        "1 License Mapio 2 Pro"
+                    ],
+                    "daily": false
+                },
+                "Mapio2Light ": {
+                    "price": 125,
+                    "regularprice": 150,
+                    "tit": "Mapio 2 Light ",
+                    "items": [
+                        "1 License Mapio 2 Light "
+                    ],
+                    "daily": false
+                },
+                "BlendyDomeVj": {
+                    "price": 600,
+                    "regularprice": 800,
+                    "tit": "Blendy Dome Vj ",
+                    "items": [
+                        "1 License Blendy Dome Vj "
+                    ],
+                    "daily": false
+                },
+                "design-in-code-intro-to-processing-80": {
+                    "price": "50",
+                    "regularprice": "80",
+                    "tit": "Design in Code - Intro to Processing [80 \u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/vjfader\/performances\/design-in-code-intro-to-processing-80\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "video-mapping-with-telenoika-150": {
+                    "price": "100",
+                    "regularprice": "150",
+                    "tit": "Video Mapping with Telenoika [150 \u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/telenoika\/performances\/video-mapping-with-telenoika-150\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "quartz-composer-150": {
+                    "price": "100",
+                    "regularprice": "150",
+                    "tit": "Quartz Composer [150\u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/xxxyvisuals\/performances\/quartz-composer-150\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "tagtool-painting-in-3d-150": {
+                    "price": "100",
+                    "regularprice": "150",
+                    "tit": "Tagtool: painting in 3D [150\u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/lunchmeat\/performances\/tagtool-painting-in-3d-150\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "cinder-workshop-80": {
+                    "price": "50",
+                    "regularprice": "80",
+                    "tit": "Cinder Workshop [80 \u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/ReyMentaTIA\/performances\/cinder-workshop-80\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                },
+                "projection-mapping-with-heavym-80": {
+                    "price": "50",
+                    "regularprice": "80",
+                    "tit": "Projection mapping with HeavyM [80\u20ac]",
+                    "items": [
+                        "12 hour, 4 days, 3 hour per day workshop",
+                        "<a target=\"_blank\" href=\"http:\/\/liveperformersmeeting.net\/lpm-2015-rome\/artists\/HeavyM\/performances\/projection-mapping-with-heavym-80\/\">More info<\/a>"
+                    ],
+                    "daily": false
+                }
+            }
+        }
+    },
+    "steps": {
+        "performers": [
+            {
+                "mag": "\/subscriptions-extra-help\/terms-conditions\/",
+                "name": "terms-conditions",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/login-or-register\/",
+                "name": "login",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-account\/",
+                        "path": "_php\/form\/",
+                        "name": "user_new"
+                    },
+                    {
+                        "mag": "\/online-help\/registration-confirm\/",
+                        "path": "_php2\/form\/",
+                        "name": "register_confirm"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/author\/",
+                "name": "partmode",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-crew\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_new"
+                    },
+                    {
+                        "mag": "\/subscriptions-extra-help\/crew-add-members\/",
+                        "path": "_php2\/form\/",
+                        "name": "crew_add_members"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/performance-selection\/",
+                "name": "selectperf",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-performance\/",
+                        "path": "_php\/form\/",
+                        "name": "performance_new"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/subscription-dates\/",
+                "name": "accommodation",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submit\/",
+                "name": "submit",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/performance-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "performance_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/my-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "user_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/crew-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/subscription-dates\/",
+                        "path": "_php2\/form\/",
+                        "name": "accommodation"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submission-completed\/",
+                "path": "_php2\/form\/",
+                "name": "submitsuccess",
+                "substeps": []
+            }
+        ],
+        "contest": [
+            {
+                "mag": "\/subscriptions-extra-help\/terms-conditions\/",
+                "name": "terms-conditions",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/login-or-register\/",
+                "name": "login",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-account\/",
+                        "path": "_php\/form\/",
+                        "name": "user_new"
+                    },
+                    {
+                        "mag": "\/online-help\/registration-confirm\/",
+                        "path": "_php2\/form\/",
+                        "name": "register_confirm"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/author\/",
+                "name": "partmode",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-crew\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_new"
+                    },
+                    {
+                        "mag": "\/subscriptions-extra-help\/crew-add-members\/",
+                        "path": "_php2\/form\/",
+                        "name": "crew_add_members"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/vj-set-selection\/",
+                "name": "selectperf",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-performance\/",
+                        "path": "_php\/form\/",
+                        "name": "performance_new"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/category\/",
+                "name": "topic-choice",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/accommodation-dates\/",
+                "name": "accommodation",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submit\/",
+                "name": "submit",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/performance-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "performance_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/my-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "user_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/crew-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/accommodation-dates\/",
+                        "path": "_php2\/form\/",
+                        "name": "accommodation"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submission-completed\/",
+                "path": "_php2\/form\/",
+                "name": "submitsuccess",
+                "substeps": []
+            }
+        ],
+        "visitors": [
+            {
+                "mag": "\/subscriptions-extra-help\/terms-conditions\/",
+                "name": "terms-conditions",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/login-or-register\/",
+                "name": "login",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-account\/",
+                        "path": "_php\/form\/",
+                        "name": "user_new"
+                    },
+                    {
+                        "mag": "\/online-help\/registration-confirm\/",
+                        "path": "_php2\/form\/",
+                        "name": "register_confirm"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/author\/",
+                "name": "partmode",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-crew\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_new"
+                    },
+                    {
+                        "mag": "\/subscriptions-extra-help\/crew-add-members\/",
+                        "path": "_php2\/form\/",
+                        "name": "crew_add_members"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/accommodation-dates\/",
+                "name": "accommodation",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submit\/",
+                "name": "submit",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/performance-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "performance_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/my-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "user_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/crew-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/accommodation-dates\/",
+                        "path": "_php2\/form\/",
+                        "name": "accommodation"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submission-completed\/",
+                "path": "_php2\/form\/",
+                "name": "submitsuccess",
+                "substeps": []
+            }
+        ],
+        "press": [
+            {
+                "mag": "\/subscriptions-extra-help\/terms-conditions\/",
+                "name": "terms-conditions",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/login-or-register\/",
+                "name": "login",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-account\/",
+                        "path": "_php\/form\/",
+                        "name": "user_new"
+                    },
+                    {
+                        "mag": "\/online-help\/registration-confirm\/",
+                        "path": "_php2\/form\/",
+                        "name": "register_confirm"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/author\/",
+                "name": "partmode",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-crew\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_new"
+                    },
+                    {
+                        "mag": "\/subscriptions-extra-help\/crew-add-members\/",
+                        "path": "_php2\/form\/",
+                        "name": "crew_add_members"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/accommodation-dates\/",
+                "name": "accommodation",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submit\/",
+                "name": "submit",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/performance-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "performance_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/my-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "user_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/crew-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/accommodation-dates\/",
+                        "path": "_php2\/form\/",
+                        "name": "accommodation"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submission-completed\/",
+                "path": "_php2\/form\/",
+                "name": "submitsuccess",
+                "substeps": []
+            }
+        ],
+        "pro": [
+            {
+                "mag": "\/subscriptions-extra-help\/terms-conditions\/",
+                "name": "terms-conditions",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/login-or-register\/",
+                "name": "login",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-account\/",
+                        "path": "_php\/form\/",
+                        "name": "user_new"
+                    },
+                    {
+                        "mag": "\/online-help\/registration-confirm\/",
+                        "path": "_php2\/form\/",
+                        "name": "register_confirm"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/author\/",
+                "name": "partmode",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-crew\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_new"
+                    },
+                    {
+                        "mag": "\/subscriptions-extra-help\/crew-add-members\/",
+                        "path": "_php2\/form\/",
+                        "name": "crew_add_members"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/accommodation-dates\/",
+                "name": "accommodation",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submit\/",
+                "name": "submit",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/performance-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "performance_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/my-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "user_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/crew-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/accommodation-dates\/",
+                        "path": "_php2\/form\/",
+                        "name": "accommodation"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submission-completed\/",
+                "path": "_php2\/form\/",
+                "name": "submitsuccess",
+                "substeps": []
+            }
+        ],
+        "artists": [
+            {
+                "mag": "\/subscriptions-extra-help\/terms-conditions\/",
+                "name": "terms-conditions",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/login-or-register\/",
+                "name": "login",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-account\/",
+                        "path": "_php\/form\/",
+                        "name": "user_new"
+                    },
+                    {
+                        "mag": "\/online-help\/registration-confirm\/",
+                        "path": "_php2\/form\/",
+                        "name": "register_confirm"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/author\/",
+                "name": "partmode",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/new-crew\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_new"
+                    },
+                    {
+                        "mag": "\/subscriptions-extra-help\/crew-add-members\/",
+                        "path": "_php2\/form\/",
+                        "name": "crew_add_members"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/accommodation-dates\/",
+                "name": "accommodation",
+                "path": "_php2\/form\/",
+                "substeps": []
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submit\/",
+                "name": "submit",
+                "path": "_php2\/form\/",
+                "substeps": [
+                    {
+                        "mag": "\/online-help\/performance-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "performance_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/my-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "user_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/crew-profile\/",
+                        "path": "_php\/form\/",
+                        "name": "crew_edit"
+                    },
+                    {
+                        "mag": "\/online-help\/accommodation-dates\/",
+                        "path": "_php2\/form\/",
+                        "name": "accommodation"
+                    }
+                ]
+            },
+            {
+                "mag": "\/subscriptions-extra-help\/submission-completed\/",
+                "path": "_php2\/form\/",
+                "name": "submitsuccess",
+                "substeps": []
+            }
+        ]
+    }
+}

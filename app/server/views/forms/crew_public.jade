@@ -1,36 +1,37 @@
 extends ../layout
 block content
-	.tabbable.tabs-left.row
-		include ../comp/cp_menu
-		.tab-content.col-md-10
-			.tab-pane.active
-				- if(result._id)
-					include ../comp/cp_submenu_crew
-				form.form-horizontal(method="post")
-					input(name="collection", value="users", type="hidden")
-					input(name="_id", value=result._id, type="hidden")
-					input(name="form", value=form, type="hidden")
-					fieldset
-						legend=title
-						include ../comp/msg
-						.form-group
-							label.col-sm-2.control-label=__("Stage name")
-							.col-sm-10
-								input(name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).form-control
-						.form-group
-							label.col-sm-2.control-label(for="permalink")=__("Profile url")
-							.col-sm-10
-								input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
-								span.glyphicon.form-control-feedback(aria-hidden="true")
-								.row
-									.help-block.col-sm-9="https://avnode.net/"
-										span.permalink_print=result.permalink.toLowerCase()
-									input(type="hidden", value="users", name="collection")
-									.control-label.col-sm-3
+	.container
+		.tabbable.tabs-left.row
+			include ../comp/cp_menu
+			.tab-content.col-md-10
+				.tab-pane.active
+					- if(result._id)
+						include ../comp/cp_submenu_crew
+					form.form-horizontal(method="post")
+						input(name="collection", value="users", type="hidden")
+						input(name="_id", value=result._id, type="hidden")
+						input(name="form", value=form, type="hidden")
+						fieldset
+							legend=title
+							include ../comp/msg
+							.form-group
+								label.col-sm-2.control-label=__("Stage name")
+								.col-sm-10
+									input(name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).form-control
+							.form-group
+								label.col-sm-2.control-label(for="permalink")=__("Profile url")
+								.col-sm-10
+									input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
+									span.glyphicon.form-control-feedback(aria-hidden="true")
+									.row
+										.help-block.col-sm-9="https://avnode.net/"
+											span.permalink_print=result.permalink.toLowerCase()
+										input(type="hidden", value="users", name="collection")
+										.control-label.col-sm-3
 
-						include ../comp/text_multilang
-						include ../comp/websites
-						.form-group
-							label.col-sm-2.control-label
-							.col-sm-10
-								button(type="submit").btn.btn-lg.btn-primary=__("Save")
+							include ../comp/text_multilang
+							include ../comp/websites
+							.form-group
+								label.col-sm-2.control-label
+								.col-sm-10
+									button(type="submit").btn.btn-lg.btn-primary=__("Save")

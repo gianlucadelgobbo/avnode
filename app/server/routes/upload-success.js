@@ -19,7 +19,6 @@ fs.mkdirParent = function(dirPath, mode, callback) {
       fs.mkdirParent(dirPath, mode, callback);
     }
     //Manually run the callback since we used our own callback to do all these
-  console.log(dirPath);
     callback && callback(error);
   });
 };
@@ -89,7 +88,6 @@ exports.post = function post(req, res) {
 				}
 				result.push({file:file,name:item[1].name,type:item[1].type,height:features.height,width:features.width,format:features.format,lastModifiedDate:item[1].lastModifiedDate});
 				if (err) throw err;
-			 	console.dir(files);
 		    	if (e.length-1==index) {
 					if (req.query.id) {
 						DB.updateDB("users",req.query.id,[{name:"files",value:result}], function() {

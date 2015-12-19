@@ -1,71 +1,72 @@
 extends ../layout
 block content
 	//- console.log(result)
-	.tabbable.tabs-left.row
-		include ../comp/cp_menu
-		.tab-content.col-md-10
-			.tab-pane.active
-				include ../comp/cp_submenu_user
-				form.form-horizontal(method="post")
-					input(name="collection", value="users", type="hidden")
-					input(name="_id", value=result._id, type="hidden")
-					input(name="form", value=form, type="hidden")
-					fieldset
-						legend=title
-						include ../comp/msg
-						.form-group
-							label.col-sm-2.control-label=__("Name")
-							.col-sm-10
-								input(name="name", value=result.name, type="text", placeholder=__("Name")).form-control
-						.form-group
-							label.col-sm-2.control-label=__("Surname")
-							.col-sm-10
-								input(name="surname", value=result.surname, type="text", placeholder=__("Surname")).form-control
-						.form-group
-							label.col-sm-2.control-label=__("Birth date")
-							.col-sm-10
-								- d = new Date(result.birth_date)
-								- birth_date = d.getFullYear()+"-"+("0" + (d.getMonth()+1)).slice(-2)+"-"+("0" + d.getDate()).slice(-2)
-								.birthday-picker
-						.form-group
-							label.col-sm-2.control-label=__("Gender")
-							.col-sm-10
-								select(name="gender",style="width:100px;").form-control
-									option(value="")=__("Gender")
-									option(value="M",selected=(result.gender=="M" ? "selected" : undefined))=__("M")
-									option(value="F",selected=(result.gender=="F" ? "selected" : undefined))=__("F")
-									option(value="Other",selected=(result.gender=="Other" ? "selected" : undefined))=__("Other")
-						.form-group
-							label.col-sm-2.control-label=__("Country of citizenship")
-							.col-sm-10
-								select(name="citizenship").form-control
-									option(value="")=__("Country")
-									each country in countries
-										option(value=country.name,selected=(result.citizenship && country.name==result.citizenship ? "selected" : undefined))=country.name
-						.form-group
-							label.col-sm-2.control-label=__("Phone numbers")
-							.col-sm-10
-								- if (result.phonenumbers)
-									each phone in result.phonenumbers
-										.clearfix
-											.input-group
-												input(value=phone,name="phonenumbers[]",type="text",placeholder=__("Phone number")).form-control
-												.input-group-btn
-													button.btn(type="button",onclick="$(this).parent().parent().remove()")
-														i.glyphicon.glyphicon-remove
-											br
-											br
-								input(name="phonenumbers[]",type="text",placeholder=__("Phone number")).form-control
-						hr.clearfix
-						.form-group
-							label.col-sm-2.control-label
-							.col-sm-10
-								button(type="submit").btn.btn-primary.btn-lg=__("Save")
-					script(type="text/javascript").
-						$(function () {
-							$(".birthday-picker").birthdaypicker(options={
-								dateFormat:		"bigEndian",
-								monthFormat:	"long",
-								defaultDate:	"#{birth_date}"
+	.container
+		.tabbable.tabs-left.row
+			include ../comp/cp_menu
+			.tab-content.col-md-10
+				.tab-pane.active
+					include ../comp/cp_submenu_user
+					form.form-horizontal(method="post")
+						input(name="collection", value="users", type="hidden")
+						input(name="_id", value=result._id, type="hidden")
+						input(name="form", value=form, type="hidden")
+						fieldset
+							legend=title
+							include ../comp/msg
+							.form-group
+								label.col-sm-2.control-label=__("Name")
+								.col-sm-10
+									input(name="name", value=result.name, type="text", placeholder=__("Name")).form-control
+							.form-group
+								label.col-sm-2.control-label=__("Surname")
+								.col-sm-10
+									input(name="surname", value=result.surname, type="text", placeholder=__("Surname")).form-control
+							.form-group
+								label.col-sm-2.control-label=__("Birth date")
+								.col-sm-10
+									- d = new Date(result.birth_date)
+									- birth_date = d.getFullYear()+"-"+("0" + (d.getMonth()+1)).slice(-2)+"-"+("0" + d.getDate()).slice(-2)
+									.birthday-picker
+							.form-group
+								label.col-sm-2.control-label=__("Gender")
+								.col-sm-10
+									select(name="gender",style="width:100px;").form-control
+										option(value="")=__("Gender")
+										option(value="M",selected=(result.gender=="M" ? "selected" : undefined))=__("M")
+										option(value="F",selected=(result.gender=="F" ? "selected" : undefined))=__("F")
+										option(value="Other",selected=(result.gender=="Other" ? "selected" : undefined))=__("Other")
+							.form-group
+								label.col-sm-2.control-label=__("Country of citizenship")
+								.col-sm-10
+									select(name="citizenship").form-control
+										option(value="")=__("Country")
+										each country in countries
+											option(value=country.name,selected=(result.citizenship && country.name==result.citizenship ? "selected" : undefined))=country.name
+							.form-group
+								label.col-sm-2.control-label=__("Phone numbers")
+								.col-sm-10
+									- if (result.phonenumbers)
+										each phone in result.phonenumbers
+											.clearfix
+												.input-group
+													input(value=phone,name="phonenumbers[]",type="text",placeholder=__("Phone number")).form-control
+													.input-group-btn
+														button.btn(type="button",onclick="$(this).parent().parent().remove()")
+															i.glyphicon.glyphicon-remove
+												br
+												br
+									input(name="phonenumbers[]",type="text",placeholder=__("Phone number")).form-control
+							hr.clearfix
+							.form-group
+								label.col-sm-2.control-label
+								.col-sm-10
+									button(type="submit").btn.btn-primary.btn-lg=__("Save")
+						script(type="text/javascript").
+							$(function () {
+								$(".birthday-picker").birthdaypicker(options={
+									dateFormat:		"bigEndian",
+									monthFormat:	"long",
+									defaultDate:	"#{birth_date}"
+								});
 							});
-						});

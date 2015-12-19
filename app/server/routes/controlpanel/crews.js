@@ -18,16 +18,13 @@ exports.get = function get(req, res) {
 			//for(var crew in req.session.passport.user.crews) ids.push(req.session.passport.user.crews[crew]._id);
 			for(var crew in req.session.passport.user.crews) ids.push(new ObjectID(req.session.passport.user.crews[crew]._id));
 			//var ids = [req.session.passport.user.permalink];
-			console.dir(ids);
 			Fnc.getList(req.params[0], sez, res, ids, function(err, tot, records, conf){
-				console.dir("bella");
 				res.render('forms/crews', {title:__("Crews"), sez:sez, tot:tot, path:conf.path, sort:conf.sort, filter:conf.filter, skip:conf.skip, result:records, Fnc:Fnc, user : req.session.passport.user});
 			});
 		} else {
 			var p = Fnc.parseParams(req.params[0]);
 			var page = p.page;
 			var params2 = p.params2;
-            console.dir("bella"+params2[0]);
             if (params2[0] == "new") {
                 var subsez = "new";
                 var msg = [];
@@ -49,8 +46,6 @@ exports.get = function get(req, res) {
                             var msg = [];
                             //DB.temp.findOne({doc_id:new ObjectID(result._id)}, function(e, result2) {
                             DB.temp.find({doc_id:result._id.toString()}).toArray(function(e, result2) {
-                                console.dir("NOT CONFIRMED");
-                                console.dir(result2);
                                 if (result2.length) result.membersnotconfirmed = result2;
                                 res.render('forms/crew_members', {form:"crew_members", title:result.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
                             });
@@ -77,8 +72,6 @@ exports.post = function get(req, res) {
                 if (result){
                     exports["validate_"+form](req, function(errors, o, m){
                         if (errors.length === 0){
-                            console.dir("CAZZO");
-                            console.dir(o);
                             if (o._id) {
                                 delete o._id;
                                 delete o.collection;
@@ -88,8 +81,6 @@ exports.post = function get(req, res) {
                                 for(item in o) {
                                     newItem[item] = o[item];
                                 }
-                                console.dir("CAZZO");
-                                console.dir(newItem);
                                 DB.users.save(newItem, {safe:true}, function(e, success) {
                                     DB.users.findOne({_id:result._id},function(e, result3) {
                                         result3.form = form;
@@ -100,7 +91,6 @@ exports.post = function get(req, res) {
                                     });
                                 });
                             } else {
-                                console.dir("CAZZO");
                             }
                         } else {
                             res.render('forms/'+form, {form:"user_public", title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:req.body, msg:{e:errors},Fnc:Fnc, user : req.session.passport.user });
@@ -113,8 +103,6 @@ exports.post = function get(req, res) {
         } else {
             exports["validate_"+form](req, function(errors, o, m){
                 if (errors.length === 0){
-                    console.dir("CAZZO new");
-                    console.dir(req.session.passport.user);
                     delete o._id;
                     delete o.collection;
                     delete o.form;
@@ -130,8 +118,6 @@ exports.post = function get(req, res) {
                         files: [Object],
                         stats: [Object]
                     };
-                        console.dir("CAZZO");
-                    console.dir(newItem);
                     if (o._id) {
                         /*
                         DB.users.save(newItem, {safe:true}, function(e, success) {
@@ -145,7 +131,6 @@ exports.post = function get(req, res) {
                         });
                        */
                     } else {
-                        console.dir("CAZZO");
                     }
                 } else {
                     res.render('forms/'+form, {form:"user_public", title:result3.display_name+": "+titles[subsez], sez:sez, subsez:subsez, result:req.body, msg:{e:errors},Fnc:Fnc, user : req.session.passport.user });

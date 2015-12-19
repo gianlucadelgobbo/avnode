@@ -8,6 +8,9 @@ body {
 img {
   max-width: 100%;
 }
+a {
+  color: #0f8fcf;
+}
 .performances a {
   color: #d60000;
   display: block;
@@ -115,9 +118,6 @@ a:hover img {
 }
 .logo {
   height: 75px;
-}
-.user_dett {
-  margin-top: 70px;
 }
 .navbar .brand {
   margin: 0;
@@ -228,6 +228,38 @@ a:hover img {
   background: #f00;
   color: #fff;
 }
+.readmore_button {
+  font-size: 30px;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+#user_menu {
+  background-color: #0f8fcf;
+  border: none;
+}
+#user_menu {
+  color: #fff;
+}
+#user_menu a {
+  color: #fff;
+}
+#menu_user_interaction {
+  background: #e4811e;
+  border: none;
+}
+#menu_user_interaction .dropdown-menu {
+  background: #e4811e;
+}
+#menu_user_interaction a {
+  color: #fff;
+}
+.logo_header_user {
+  height: 20px;
+}
+#menu .navbar {
+  margin-bottom: 0px;
+}
 .user_nav li {
   display: inline-block;
 }
@@ -236,9 +268,37 @@ a:hover img {
     display: none;
   }
 }
+.logo_banner {
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
+#header {
+  font-size: 14px;
+  font-weight: 300;
+}
+#header .nav > li > a {
+  padding: 15px 5px;
+}
+.navbar-brand:hover {
+  color: #fff !important;
+}
+.user_manager_button {
+  position: absolute;
+  display: inline-block;
+  height: 33px;
+  top: 5px;
+  right: 15px;
+  color: #fff;
+  font-size: 30px;
+}
+.user_manager_button:active,
+.user_manager_button:hover {
+  color: #fff !important;
+}
 .user_dett_bkg {
   padding-bottom: 15px;
   margin-bottom: 15px;
+  margin-top: 80px;
 }
 @media screen and (max-width: 500px) {
   .user_dett_bkg {
@@ -378,8 +438,10 @@ a:hover img {
 /* Performer */
 /**/
 .main_boxes_bkg {
-  background: #f8f6f6;
+/*background #F8F6F6*/
+  background-color: #fff;
   padding-bottom: 30px;
+  padding-top: 15px;
 }
 .main_performer_box ul,
 .events_performer ul,
@@ -414,6 +476,8 @@ a:hover img {
   font-size: 20px;
   font-weight: 600;
   margin: 15px 0 5px;
+  float: left;
+  margin-bottom: 10px;
 }
 .box_header .diagonale {
   height: 34px;
@@ -436,11 +500,10 @@ a:hover img {
   background-color: #004431;
 }
 .box_wrapper {
-  border: 1px dashed;
+  border: 1px solid;
   border-radius: 0 10px 0 0;
-  border-bottom: 1px solid;
 }
-.perfomances_performer .box_wrapper {
+.performances_performer .box_wrapper {
   border-color: #0f8fcf;
 }
 .events_performer .box_wrapper {
@@ -521,12 +584,11 @@ a:hover img {
     display: none;
   }
 }
-@media screen and (min-width:768px) and (max-width: 992px) {
+@media screen and (min-width: 768px) and (max-width: 992px) {
   .secondary_performance_wrapper {
     background: none;
   }
 }
-.secondary_performance h3,
 .secondary_performance h3 {
   text-transform: uppercase;
   font-size: 14px;
@@ -549,6 +611,7 @@ a:hover img {
   padding: 10px 0;
   float: left;
   width: 100%;
+  display: none;
 }
 @media screen and (max-width: 500px) {
   .secondary_performance {
@@ -602,13 +665,14 @@ a:hover img {
   padding: 10px 15px;
   float: left;
   width: 100%;
+  display: none;
 }
 @media screen and (max-width: 500px) {
   .secondary_events {
     display: none;
   }
 }
-@media screen and (min-width:768px) and (max-width: 992px) {
+@media screen and (min-width: 768px) and (max-width: 992px) {
   .secondary_events {
     background: none;
   }
@@ -629,7 +693,7 @@ a:hover img {
   height: 100px;
   width: 100px;
 }
-@media screen and (min-width:992px) and (max-width: 1200px) {
+@media screen and (min-width: 992px) and (max-width: 1200px) {
   .main_crews-box img {
     height: 91px;
     width: 91px;
@@ -652,6 +716,7 @@ a:hover img {
   margin: 0;
   text-align: center;
   padding: 15px !important;
+  display: none;
 }
 .more_crews.more_button a {
   color: #004431;
@@ -736,12 +801,13 @@ a:hover img {
 }
 .box_other_infos {
   font-size: 10px;
+  margin-bottom: 0;
 }
 .box_other_infos .fa-floppy-o {
   margin-left: 3px;
 }
 .single_footage {
-  min-height: 190px;
+  margin-bottom: 30px;
 }
 .single_footage h3 {
   color: #fff;
@@ -771,6 +837,16 @@ a:hover img {
     width: 100%;
     height: auto;
   }
+}
+.gallery_thumb_container {
+  min-height: 200px;
+}
+svg.coda {
+  width: 52px;
+  position: relative;
+  top: 10px;
+  margin-top: -10px;
+  left: -1px;
 }
 .slash_svg {
   position: absolute;
@@ -815,4 +891,320 @@ a:hover img {
 }
 .single_gallery .image_box {
   min-height: 163px;
+}
+.box_wrapper.coloured {
+  border-radius: 0px;
+}
+.box_performer_header {
+  top: 10px;
+}
+.performances_performer .box_wrapper.coloured {
+  border-color: #0f8fcf;
+  background: #0f8fcf none repeat scroll 0% 0%;
+}
+.performances_performer .box_wrapper.coloured .main_performer_box {
+  color: #fff;
+}
+.performances_performer .box_wrapper.coloured a {
+  color: #fff;
+}
+.performances_performer .box_wrapper.coloured i,
+.performances_performer .box_wrapper.coloured .stat.value {
+  color: #0c2e4c;
+}
+.performances_performer .box_wrapper.coloured .more_button a {
+  color: #0f8fcf;
+}
+.performances_performer .box_wrapper.coloured .secondary_performance a {
+  color: #414042;
+}
+.events_performer .box_wrapper.coloured {
+  border-color: #e4811e;
+  background: #e4811e none repeat scroll 0% 0%;
+}
+.events_performer .box_wrapper.coloured .main_event_box {
+  color: #fff;
+}
+.events_performer .box_wrapper.coloured a {
+  color: #fff;
+}
+.events_performer .box_wrapper.coloured i,
+.events_performer .box_wrapper.coloured .stat.value {
+  color: #5c2e15;
+}
+.events_performer .box_wrapper.coloured .more_button a {
+  color: #e4811e;
+}
+.events_performer .box_wrapper.coloured .secondary_event {
+  color: #414042;
+}
+.crews_performer .box_wrapper.coloured {
+  border-color: #004431;
+  background: #004431 none repeat scroll 0% 0%;
+}
+.crews_performer .box_wrapper.coloured {
+  color: #fff;
+}
+.crews_performer .box_wrapper.coloured a {
+  color: #fff;
+}
+.crews_performer .box_wrapper.coloured i,
+.crews_performer .box_wrapper.coloured .stat.value {
+  color: #005b3f;
+}
+.crews_performer .box_wrapper.coloured .more_button a {
+  color: #004431;
+}
+.crews_performer .box_wrapper.coloured .secondary_event {
+  color: #414042;
+}
+footer.main_footer {
+  background: #303030;
+  padding: 60px 0;
+  color: #fff;
+}
+.logo_piede {
+  width: 100px;
+}
+.footer_menu ul {
+  padding: 15px 0 5px;
+  margin: 0;
+}
+.footer_menu ul li {
+  padding-left: 0;
+  padding-right: 15px;
+}
+.nocopy {
+  font-weight: 200;
+  font-size: 12px;
+}
+.logo_flyer img {
+  width: 50px;
+}
+.list_item_performer {
+  margin-bottom: 30px;
+}
+@media screen and (max-width: 768px) {
+  .list_item_performer {
+    width: 100%;
+    padding: 0 15%;
+  }
+}
+.list_item_performer a {
+  color: #333;
+}
+.list_item_performer .box_wrapper {
+  border-style: solid;
+  float: left;
+  width: 100%;
+}
+.list_item_performer .main_performace_image {
+  max-height: 100px;
+}
+.list_bkg {
+  background: #f8f6f6;
+}
+.list_page_title {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #fff;
+}
+.list_item_performer i {
+  display: inline-block;
+  margin-right: 5px;
+}
+.performances_performer.list_item_performer i {
+  color: #0f8fcf;
+}
+.list_item_performer .main_event_details {
+  margin: 15px 0;
+}
+.list_page .list_page_title i {
+  display: inline-block;
+  padding: 0 10px;
+}
+.performances_list .list_page_title i {
+  color: #fff;
+}
+.events_list .list_page_title i {
+  color: #fff;
+}
+.title_performer_list_bkg {
+  margin-bottom: 30px;
+}
+.events_list .title_performer_list_bkg {
+  background: #e4811e;
+}
+.performances_list .title_performer_list_bkg {
+  background: #0f8fcf;
+}
+.crews_list .title_performer_list_bkg {
+  background: #004431;
+}
+.crews_list .list_page_title i {
+  color: #fff;
+}
+.list_page .list_page_sez {
+  font-weight: 600;
+}
+.list_page .list_page_user {
+  font-weight: 200;
+}
+.list_page .slash_svg {
+  margin-top: 0px;
+  position: relative;
+  top: 11px;
+  width: 48px;
+  margin-right: 5px;
+}
+.performances_list .list_page_title polyline {
+  fill: #fff;
+}
+.events_list .list_page_title polyline {
+  fill: #fff;
+}
+.crews_list .list_page_title polyline {
+  fill: #fff;
+}
+.footage_list .list_item_performer,
+.gallery_list .list_item_performer,
+.playlists_list .list_item_performer,
+.footage_list .list_page_title,
+.gallery_list .list_page_title,
+.playlists_list .list_page_title,
+.footage_list .list_item_performer a,
+.gallery_list .list_item_performer a,
+.playlists_list .list_item_performer a {
+  color: #fff;
+}
+.footage_list polyline,
+.playlists_list polyline,
+.gallery_list polyline {
+  fill: #fff;
+}
+.footage_list,
+.gallery_list,
+.playlists_list {
+  background: #333;
+}
+.list_item_performer.gallery_performer .image_box img {
+  min-height: 150px;
+}
+.list_item_performer.gallery_performer {
+  min-height: 150px;
+}
+.single_event_thumb_container {
+  position: relative;
+  float: left;
+  width: 100%;
+}
+.single_event_thumb_container .overlay_container {
+  color: #fff;
+  position: absolute;
+  background: rgba(51,51,51,0.8) none repeat scroll 0 0;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  padding: 15px 30px;
+}
+.event_events_list {
+  margin: 15px 0;
+  padding: 0;
+}
+.event_events_list .event_list_content_container {
+  padding: 5px 10px;
+  margin-bottom: 15px;
+  color: #fff;
+  background: url("../img/single_event_list_bkg.png");
+  background-position: right;
+  background-color: #e4811e;
+}
+.event_events_list i {
+  margin-right: 5px;
+}
+.event_events_list span {
+  display: block;
+}
+.single_event_page {
+  margin-top: 80px;
+}
+.single_event_page a {
+  color: #e4811e;
+}
+.tabs-bkg {
+  margin-top: 30px;
+}
+.nav-tabs {
+  border-bottom: 1px solid #e4811e;
+  margin-bottom: 30px;
+}
+.single_event_page .nav-tabs>li.active>a,
+.single_event_page .nav-tabs>li.active>a:hover,
+.single_event_page .nav-tabs>li.active>a:focus {
+  border: none;
+  color: #fff;
+  background: url("../img/single_event_list_bkg.png");
+  background-position: right;
+  background-color: #e4811e;
+}
+.single_event_page .nav-tabs>li>a,
+.single_event_page .nav-tabs>li>a:hover,
+.single_event_page .nav-tabs>li>a:focus {
+  border: none;
+  margin: 0px;
+}
+.nav-tabs>li>a {
+  border-radius: 0;
+  color: #e4811e;
+}
+.nav-tabs>li {
+  float: left;
+  margin-bottom: -2px;
+  padding: 0;
+  margin: 0;
+}
+.nav-tabs>li>a:hover {
+  border-color: none;
+}
+.nav>li>a:hover,
+.nav>li>a:focus {
+  text-decoration: none;
+  background-color: none !important;
+}
+.date_bkg {
+  background: #e4811e url("../img/single_event_list_bkg.png") repeat scroll right center;
+  color: #fff;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #e4811e;
+  border-top: 1px solid #e4811e;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+}
+.single_event_details li span.value {
+  color: #e4811e;
+}
+.single_date_of_series h3,
+.single_partner_of_series h3 {
+  margin: 15px 0;
+}
+.single_event-room_title {
+  margin: 0 0 15px 0px;
+}
+.single_event_page .performances_performer .box_wrapper {
+  border-color: #e4811e;
+}
+.single_event_page .evidence-performance_stats .stat.value {
+  color: #e4811e;
+}
+.btn-info.paticipate {
+  color: #fff;
+  top: 15px;
+  position: relative;
+  background: #e4811e;
+  border: none;
+}
+.btn-info.paticipate:hover {
+  background: #fff;
+  color: #e4811e;
 }

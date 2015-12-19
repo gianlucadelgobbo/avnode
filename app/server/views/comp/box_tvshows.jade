@@ -3,7 +3,7 @@ div(class="col-md-"+span)
 	.media
 		.pull-left
 			a(href="/"+(typeof(boxpath) === 'undefined' ? box.users[0].permalink : boxpath)+"/"+config.sections[sez].basepath+"/"+box.permalink+"/")
-				img.media-object(alt=__("Thumbnail of")+": "+box.title, src=Fnc.getFileFormat(box.files, 90, 68))
+				//img.media-object(alt=__("Thumbnail of")+": "+box.title, src=Fnc.getFileFormat(box.files, 90, 68))
 			br
 			ul.stats
 				li=__("Visits")+": "+box.stats.visits

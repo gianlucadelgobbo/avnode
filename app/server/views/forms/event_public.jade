@@ -1,86 +1,86 @@
 extends ../layout
 block content
-		//- console.dir(result)
-	.tabbable.tabs-left.row
-		include ../comp/cp_menu
-		.tab-content.col-md-10
-			.tab-pane.active
-				include ../comp/cp_submenu_event
-				form.form-horizontal(method="post")
-					input(name="collection", value="events", type="hidden")
-					input(name="_id", value=result._id, type="hidden")
-					input(name="form", value=form, type="hidden")
-					fieldset
-						legend=title
-						include ../comp/msg
-						.form-group
-							label.col-sm-2.control-label=__("Event name")
-							.col-sm-10
-								input(name="title", value=result.title, type="text", placeholder=__("Event name")).form-control
-						include ../comp/subtitle_multilang
-						include ../comp/text_multilang
-						include ../comp/websites
-						.form-group
-							label.col-sm-2.control-label(for="permalink")=__("Event url")
-							.col-sm-10
-								input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
-								span.glyphicon.form-control-feedback(aria-hidden="true")
-								.row
-									.help-block.col-sm-9="https://avnode.net/"
-										span.permalink_print=result.permalink.toLowerCase()
-									input(type="hidden", value="events", name="collection")
-									.control-label.col-sm-3
-						legend=__("Dates and locations")
-						each item,index in result.date_time_venue
+	.container
+		.tabbable.tabs-left.row
+			include ../comp/cp_menu
+			.tab-content.col-md-10
+				.tab-pane.active
+					include ../comp/cp_submenu_event
+					form.form-horizontal(method="post")
+						input(name="collection", value="events", type="hidden")
+						input(name="_id", value=result._id, type="hidden")
+						input(name="form", value=form, type="hidden")
+						fieldset
+							legend=title
+							include ../comp/msg
 							.form-group
-								label.col-sm-2.control-label=__("Date")+" "+(index+1)
+								label.col-sm-2.control-label=__("Event name")
 								.col-sm-10
-									.input-group.date.datepicker(data-date=item.date,data-date-format="yyyy-mm-dd")
-										input(name="date_time_venue["+index+"][date]", value=item.date, readonly, type="text", placeholder=__("Profile url")).form-control
-										span.input-group-addon
-											i.glyphicon.glyphicon-calendar
+									input(name="title", value=result.title, type="text", placeholder=__("Event name")).form-control
+							include ../comp/subtitle_multilang
+							include ../comp/text_multilang
+							include ../comp/websites
 							.form-group
-								label.col-sm-2.control-label=__("Venue")+" "+(index+1)
+								label.col-sm-2.control-label(for="permalink")=__("Event url")
 								.col-sm-10
-									input(name="date_time_venue["+index+"][venue]", value=item.venue, type="text", placeholder=__("Venue")).form-control
-							.form-group
-								label.col-sm-2.control-label=__("Venue address")+" "+(index+1)
-								.col-sm-10
-									input(name="date_time_venue["+index+"][venue_address]", value=item.venue_address, type="text", placeholder=__("Venue address")).form-control
-							include ../comp/time_start_end
-							.form-group
-								label.col-sm-2.control-label=__("City")+" "+(index+1)
-								.col-sm-10
-									input(name="date_time_venue["+index+"][city]", value=item.city, type="text", placeholder=__("City")).form-control
-							.form-group
-								label.col-sm-2.control-label=__("Country")+" "+(index+1)
-								.col-sm-10
-									select(name="date_time_venue["+index+"][country]", default="country").form-control
-										option(value="")=__("Country")
-										each country in countries
-											option(value=item.name,selected=(item.country==country.name ? "selected" : undefined))=country.name
+									input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
+									span.glyphicon.form-control-feedback(aria-hidden="true")
+									.row
+										.help-block.col-sm-9="https://avnode.net/"
+											span.permalink_print=result.permalink.toLowerCase()
+										input(type="hidden", value="events", name="collection")
+										.control-label.col-sm-3
+							legend=__("Dates and locations")
+							each item,index in result.date_time_venue
+								.form-group
+									label.col-sm-2.control-label=__("Date")+" "+(index+1)
+									.col-sm-10
+										.input-group.date.datepicker(data-date=item.date,data-date-format="yyyy-mm-dd")
+											input(name="date_time_venue["+index+"][date]", value=item.date, readonly, type="text", placeholder=__("Profile url")).form-control
+											span.input-group-addon
+												i.glyphicon.glyphicon-calendar
+								.form-group
+									label.col-sm-2.control-label=__("Venue")+" "+(index+1)
+									.col-sm-10
+										input(name="date_time_venue["+index+"][venue]", value=item.venue, type="text", placeholder=__("Venue")).form-control
+								.form-group
+									label.col-sm-2.control-label=__("Venue address")+" "+(index+1)
+									.col-sm-10
+										input(name="date_time_venue["+index+"][venue_address]", value=item.venue_address, type="text", placeholder=__("Venue address")).form-control
+								include ../comp/time_start_end
+								.form-group
+									label.col-sm-2.control-label=__("City")+" "+(index+1)
+									.col-sm-10
+										input(name="date_time_venue["+index+"][city]", value=item.city, type="text", placeholder=__("City")).form-control
+								.form-group
+									label.col-sm-2.control-label=__("Country")+" "+(index+1)
+									.col-sm-10
+										select(name="date_time_venue["+index+"][country]", default="country").form-control
+											option(value="")=__("Country")
+											each country in countries
+												option(value=item.name,selected=(item.country==country.name ? "selected" : undefined))=country.name
+								.form-group
+									label.col-sm-2.control-label
+									.col-sm-10
+										.text-right
+											a.btn.btn-mini.btn-danger(href="#", onclick="datelocRemove(this);return false;")
+												i.glyphicon.glyphicon-remove.glyphicon.glyphicon-white
+												!=" "+__("Remove Date & location")
+								hr
 							.form-group
 								label.col-sm-2.control-label
 								.col-sm-10
 									.text-right
-										a.btn.btn-mini.btn-danger(href="#", onclick="datelocRemove(this);return false;")
-											i.glyphicon.glyphicon-remove.glyphicon.glyphicon-white
-											!=" "+__("Remove Date & location")
+										a.btn.btn-mini.btn-primary(href="#", onclick="datelocAdd(this);return false;")
+											i.glyphicon.glyphicon-plus.glyphicon.glyphicon-white
+											!=" "+__("Add a Date & location")
 							hr
-						.form-group
-							label.col-sm-2.control-label
-							.col-sm-10
-								.text-right
-									a.btn.btn-mini.btn-primary(href="#", onclick="datelocAdd(this);return false;")
-										i.glyphicon.glyphicon-plus.glyphicon.glyphicon-white
-										!=" "+__("Add a Date & location")
-						hr
-						hr.clearfix
-						.form-group
-							label.col-sm-2.control-label
-							.col-sm-10
-								button(type="submit").btn.btn-primary.btn-lg=__("Save")
-				script(type="text/javascript").
-					$(function() {
-						$(".datepicker").datepicker()
-					});
+							hr.clearfix
+							.form-group
+								label.col-sm-2.control-label
+								.col-sm-10
+									button(type="submit").btn.btn-primary.btn-lg=__("Save")
+					script(type="text/javascript").
+						$(function() {
+							$(".datepicker").datepicker()
+						});

@@ -1,57 +1,58 @@
 extends ../layout
 block content
 		//- console.dir(result.performances)
-	.tabbable.tabs-left.row
-		include ../comp/cp_menu
-		.tab-content.col-md-10
-			.tab-pane.active
-				include ../comp/cp_submenu_event
-				form.form-horizontal(method="post", action="#")
-					fieldset
-						legend=title
-						.clearfix
-							button.btn.btn-primary.pull-right(style="margin-bottom:20px;")=__("Add a performance")
-						- if (result.performances && result.performances.length)
-							- var n = 0
-							- var connectedSortable = []
-							each performance,key in result.performances
-								.form-group
-									label.col-md-3.control-label=key
-									.col-md-9.connectedSortable(id="connectedSortable_"+n)
-										- connectedSortable.push("#connectedSortable_"+n)
-										- n++
-										each p,key in performance
-											.alert.alert-info
-												.clearfix
-													.pull-left
-														b=performance.title
-														//p
-														//	each item,k in p.categories
-														//		a(href="#")=item.name
-														//		if (k<p.categories.length)
-														//			!=", "
-														//ul
-														//	each item,k in p.users
-														//		li
-														//			a(href="#")=item.display_name
-													.pull-right
-														a.btn.btn-mini(href="#")
-															i.glyphicon.glyphicon-pencil
-														!="&nbsp;&nbsp;&nbsp;"
-														a.btn.btn-mini(href="#")
-															i.glyphicon.glyphicon-remove
-														!="&nbsp;&nbsp;&nbsp;"
-														a.btn.btn-mini(href="#")
-															i.glyphicon.glyphicon-eye-open
-														!="&nbsp;&nbsp;&nbsp;"
-														i.glyphicon.glyphicon-move
-										- connectedSortableStr = connectedSortable.join(",")
-										script(type="text/javascript").
-											$(function() {
-												$('#{connectedSortableStr}').sortable({
-													connectWith: ".connectedSortable",
-													placeholder: "ui-state-highlight"
-												}).disableSelection();
-											});
-						- else
-							.alert.text-center=__("Please add a performance")
+	.container
+		.tabbable.tabs-left.row
+			include ../comp/cp_menu
+			.tab-content.col-md-10
+				.tab-pane.active
+					include ../comp/cp_submenu_event
+					form.form-horizontal(method="post", action="#")
+						fieldset
+							legend=title
+							.clearfix
+								button.btn.btn-primary.pull-right(style="margin-bottom:20px;")=__("Add a performance")
+							- if (result.performances && result.performances.length)
+								- var n = 0
+								- var connectedSortable = []
+								each performance,key in result.performances
+									.form-group
+										label.col-md-3.control-label=key
+										.col-md-9.connectedSortable(id="connectedSortable_"+n)
+											- connectedSortable.push("#connectedSortable_"+n)
+											- n++
+											each p,key in performance
+												.alert.alert-info
+													.clearfix
+														.pull-left
+															b=performance.title
+															//p
+															//	each item,k in p.categories
+															//		a(href="#")=item.name
+															//		if (k<p.categories.length)
+															//			!=", "
+															//ul
+															//	each item,k in p.users
+															//		li
+															//			a(href="#")=item.display_name
+														.pull-right
+															a.btn.btn-mini(href="#")
+																i.glyphicon.glyphicon-pencil
+															!="&nbsp;&nbsp;&nbsp;"
+															a.btn.btn-mini(href="#")
+																i.glyphicon.glyphicon-remove
+															!="&nbsp;&nbsp;&nbsp;"
+															a.btn.btn-mini(href="#")
+																i.glyphicon.glyphicon-eye-open
+															!="&nbsp;&nbsp;&nbsp;"
+															i.glyphicon.glyphicon-move
+											- connectedSortableStr = connectedSortable.join(",")
+											script(type="text/javascript").
+												$(function() {
+													$('#{connectedSortableStr}').sortable({
+														connectWith: ".connectedSortable",
+														placeholder: "ui-state-highlight"
+													}).disableSelection();
+												});
+							- else
+								.alert.text-center=__("Please add a performance")
