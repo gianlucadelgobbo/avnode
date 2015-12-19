@@ -1,6 +1,6 @@
 var DB = require('./modules/db-manager.js');
 var passport = require('passport');
-//var logger = require('morgan');
+var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
@@ -24,7 +24,11 @@ i18n.configure({
 });
 
 module.exports = function(app, exp) {
-	//app.use(logger('combined'));
+	// In development, we don't need that…
+	if (process.env.NODE_ENV === 'staging' ||
+		process.env.NODE_ENV === 'production') {
+		app.use(logger('combined'));
+	}
 	app.use(i18n.init);
 	app.set('port', config.port);
 	app.set('views', './app/server/views');
