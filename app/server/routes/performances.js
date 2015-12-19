@@ -34,11 +34,13 @@ exports.get = function get(req, res) {
 		.skip(skip)
 		.sort(config.sections[section].sortQ[sorting])
 		.exec(function(error, performer) {
+      var title = config.sections[section].title;
+      var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
       var link = '/' + section + '/' + filter + "/" + sorting + "/";
       var pages = _h.pagination(link, skip, config.sections[section].limit, total);
 			res.render(section + '/list', {
-				title: config.sections[section].title,
-        basename: '/' + section,
+				title: title,
+        info: info,
 				section: section,
 				total: total,
 				path: path,

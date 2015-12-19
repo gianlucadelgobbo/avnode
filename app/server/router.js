@@ -83,12 +83,8 @@ module.exports = function(app) {
 	//app.post('/events*', eventsRoutes.post);
 
 	// playlists //
-	app.get('/playlists/(:filter)/(:sorting)/page-(:page)', playlistsRoutes.get);
-	app.get('/playlists/(:filter)/page-(:page)', playlistsRoutes.get);
-	app.get('/playlists/(:filter)/(:sorting)', playlistsRoutes.get);
-	app.get('/playlists/page-(:page)', playlistsRoutes.get);
-	app.get('/playlists/(:filter)', playlistsRoutes.get);
-	app.get('/playlists/', playlistsRoutes.get);
+	app.get('/playlists/(:filter)/(:sorting)/(:page)', playlistsRoutes.get);
+	app.get('/playlists(*)', playlistsRoutes.get);
 	//app.post('/playlists*', playlistsRoutes.post);
 
 	// forum //
