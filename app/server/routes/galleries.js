@@ -1,5 +1,5 @@
 var config = require('getconfig');
-var Performance = require('../models/performance');
+var Gallery = require('../models/gallery');
 var _ = require('lodash');
 
 var _h = require('../helper/index');
@@ -11,10 +11,11 @@ exports.get = function get(req, res) {
     || req.params.page === undefined) {
     redirect = true
   }
+
 	var params = _.filter(req.params, function(v, k) {
 		return (k === 'filter' || k === 'page' || k === 'sorting');
 	});
-	var section = 'performances';
+	var section = 'galleries';
 	var page = req.params.page || 1;
 	var skip = (page - 1) * config.sections[section].limit;
 	var filter = req.params.filter || config.sections[section].categories[0];
@@ -28,12 +29,12 @@ exports.get = function get(req, res) {
   var path = '/' + section + '/' + _.map(req.params, function(p) { return p; }).join('/') + '/';
 	path = path.replace('//', '/');
 
-	Performance.count(query, function(error, total) {
-		Performance.find(query)
+	Gallery.count(query, function(error, total) {
+		Gallery.find(query)
 		.limit(config.sections[section].limit)
 		.skip(skip)
 		.sort(config.sections[section].sortQ[sorting])
-		.exec(function(error, performer) {
+		.exec(function(error, galleries) {
       var title = config.sections[section].title;
       var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
       var link = '/' + section + '/' + filter + "/" + sorting + "/";
@@ -49,7 +50,7 @@ exports.get = function get(req, res) {
 				skip: skip,
         page: page,
         pages: pages,
-				result: performer,
+				result: galleries,
         categories: config.sections[section].categories,
         orderings: config.sections[section].orders,
 				user: req.user

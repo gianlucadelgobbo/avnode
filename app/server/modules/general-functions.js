@@ -5,7 +5,6 @@ var request = require('request');
 var im = require('imagemagick');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
-var moment = require('moment');
 var config = require('getconfig');
 var ObjectID = require('mongodb').ObjectID;
 

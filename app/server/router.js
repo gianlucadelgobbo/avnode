@@ -4,6 +4,7 @@ var performancesRoutes 				= require('./routes/performances');
 var footageRoutes 					= require('./routes/footage');
 var eventsRoutes 					= require('./routes/events');
 var playlistsRoutes 				= require('./routes/playlists');
+var galleriesRoutes 				= require('./routes/galleries');
 var forumRoutes 					= require('./routes/forum');
 var tvshowsRoutes 					= require('./routes/tvshows');
 var performerRoutes 				= require('./routes/performer');
@@ -59,49 +60,33 @@ module.exports = function(app) {
 	//app.post('/ajax*', ajax.post);
 
 	// performers //
-	app.get('/performers/(:filter)/(:sorting)/page-(:page)', performersRoutes.get);
-	app.get('/performers/(:filter)/page-(:page)', performersRoutes.get);
-	app.get('/performers/(:filter)/(:sorting)', performersRoutes.get);
-	app.get('/performers/page-(:page)', performersRoutes.get);
-	app.get('/performers/(:filter)', performersRoutes.get);
-	app.get('/performers/', performersRoutes.get);
+	app.get('/performers/(:filter)/(:sorting)/(:page)', performersRoutes.get);
+	app.get('/performers(*)', performersRoutes.get);
 	//app.post('/performers*', performersRoutes.post);
 
 	// performances //
-	app.get('/performances/(:filter)/(:sorting)/page-(:page)', performancesRoutes.get);
-	app.get('/performances/(:filter)/page-(:page)', performancesRoutes.get);
-	app.get('/performances/(:filter)/(:sorting)', performancesRoutes.get);
-	app.get('/performances/page-(:page)', performancesRoutes.get);
-	app.get('/performances/(:filter)', performancesRoutes.get);
-	app.get('/performances/', performancesRoutes.get);
+	app.get('/performances/(:filter)/(:sorting)/(:page)', performancesRoutes.get);
+	app.get('/performances(*)', performancesRoutes.get);
 	//app.post('/performances*', performancesRoutes.post);
 
 	// footage //
-	app.get('/footage/(:filter)/(:sorting)/page-(:page)', footageRoutes.get);
-	app.get('/footage/(:filter)/page-(:page)', footageRoutes.get);
-	app.get('/footage/(:filter)/(:sorting)', footageRoutes.get);
-	app.get('/footage/page-(:page)', footageRoutes.get);
-	app.get('/footage/(:filter)', footageRoutes.get);
-	app.get('/footage/', footageRoutes.get);
+	app.get('/footage/(:filter)/(:sorting)/(:page)', footageRoutes.get);
+	app.get('/footage(*)', footageRoutes.get);
 	//app.post('/footage*', footageRoutes.post);
 
 	// events //
-	app.get('/events/(:filter)/(:sorting)/page-(:page)', eventsRoutes.get);
-	app.get('/events/(:filter)/page-(:page)', eventsRoutes.get);
-	app.get('/events/(:filter)/(:sorting)', eventsRoutes.get);
-	app.get('/events/page-(:page)', eventsRoutes.get);
-	app.get('/events/(:filter)', eventsRoutes.get);
-	app.get('/events/', eventsRoutes.get);
+	app.get('/events/(:filter)/(:sorting)/(:page)', eventsRoutes.get);
+	app.get('/events(*)', eventsRoutes.get);
 	//app.post('/events*', eventsRoutes.post);
 
 	// playlists //
-	app.get('/playlists/(:filter)/(:sorting)/page-(:page)', playlistsRoutes.get);
-	app.get('/playlists/(:filter)/page-(:page)', playlistsRoutes.get);
-	app.get('/playlists/(:filter)/(:sorting)', playlistsRoutes.get);
-	app.get('/playlists/page-(:page)', playlistsRoutes.get);
-	app.get('/playlists/(:filter)', playlistsRoutes.get);
-	app.get('/playlists/', playlistsRoutes.get);
+	app.get('/playlists/(:filter)/(:sorting)/(:page)', playlistsRoutes.get);
+	app.get('/playlists(*)', playlistsRoutes.get);
 	//app.post('/playlists*', playlistsRoutes.post);
+
+  // playlists //
+	app.get('/galleries/(:filter)/(:sorting)/(:page)', galleriesRoutes.get);
+	app.get('/galleries(*)', galleriesRoutes.get);
 
 	// forum //
 	//app.get('/forum ', forumRoutes.get);
@@ -109,12 +94,8 @@ module.exports = function(app) {
 
 	// tvshows //
 	//app.get('/tvshows*', tvshowsRoutes.get);
-	app.get('/tvshows/(:filter)/(:sorting)/page-(:page)', tvshowsRoutes.get);
-	app.get('/tvshows/(:filter)/page-(:page)', tvshowsRoutes.get);
-	app.get('/tvshows/(:filter)/(:sorting)', tvshowsRoutes.get);
-	app.get('/tvshows/page-(:page)', tvshowsRoutes.get);
-	app.get('/tvshows/(:filter)', tvshowsRoutes.get);
-	app.get('/tvshows/', tvshowsRoutes.get);
+	app.get('/tvshows/(:filter)/(:sorting)/(:page)', tvshowsRoutes.get);
+	app.get('/tvshows(*)', tvshowsRoutes.get);
 	//app.post('/tvshows*', tvshowsRoutes.post);
 
 	// cpanel //

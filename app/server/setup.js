@@ -14,6 +14,7 @@ i18n.configure({
 	locales: config.locales,
 	defaultLocale: config.defaultLocale,
 	cookie: "avnode",
+	directory: __dirname + '/locales',
 	register: global
 });
 
