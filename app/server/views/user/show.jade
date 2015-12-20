@@ -1,0 +1,22 @@
+include ../mixins
+extends ../layout
+block content
+	h1=title
+	include ./menu
+	include ./summary
+
+	.main_boxes_bkg
+		.container
+			.row
+				if user.performances
+					include ./teaser/performances
+				if user.events
+					include ./teaser/events
+				if user.crews
+					include ./teaser/crews
+
+	if user.text
+		.about-bkg
+			.about_performer.readmore
+				h2=__("About")
+				//!=Fnc.getTextFormat(result.text, _config.lang, true)
