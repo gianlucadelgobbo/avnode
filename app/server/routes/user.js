@@ -8,14 +8,22 @@ exports.get = function get(req, res) {
 	var section = 'performer';
   var query = { 'permalink': req.params.name };
 
+  // FIXME
   User.findOne(query)
   .exec(function(error, user) {
-    console.log(user.locations);
-	  res.render('user/show', {
-      title: user.display_name,
-      user: user,
-      _h: _h
-    });
+    if (user !== null) {
+      // FIXME TBD
+      if (user.text[getLocale()]) {
+        user.text = user.text[getLocale()];
+      } else {
+        user.text = user.text['en'];
+      }
+      res.render('user/show', {
+        title: user.display_name,
+        user: user,
+        _h: _h
+      });
+    }
   });
 };
 
