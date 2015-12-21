@@ -238,8 +238,10 @@ module.exports = function(app) {
 	app.get('/api/clients', apiRoutes.getClients);
 	//app.get('/api', apiRoutes.get);
 
-    // all other routes: User or 404
-  app.get('/(:name)/(:section)', userRoutes.getCategory);
+  // all other routes: User or 404
+  // FIXME discuss url scheme
+  app.get('/(:name)/(:section)/(:item)', userRoutes.getSectionItem);
+  app.get('/(:name)/(:section)', userRoutes.getSection);
   app.get('/(:name)', userRoutes.get);
 	//app.post('*', performerRoutes.post);
 	//app.get('*', function(req, res) { res.send(404); });

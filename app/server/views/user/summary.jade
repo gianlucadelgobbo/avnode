@@ -8,11 +8,12 @@
 					.col-lg-7.col-sm-8.col-xs-6.performer_geolocalization
 						a(href="/"+user.permalink, title=user.display_name)
 							h1= user.display_name
-						each location in user.locations
-							p=location.city + " // "
-								span.country_geoloc= location.country
-							img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?center=#{location.city},#{location.country}&zoom=4&size=262x110&markers=#{location.city},#{location.country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
-							//- static url = https://maps.googleapis.com/maps/api/staticmap?center=Rome,Italy&zoom=13&size=400x200&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs
+						each location, i in user.locations
+							if i === 0
+								p=location.city + " // "
+									span.country_geoloc= location.country
+								img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?center=#{location.city},#{location.country}&zoom=4&size=262x110&markers=#{location.city},#{location.country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
+								//- static url = https://maps.googleapis.com/maps/api/staticmap?center=Rome,Italy&zoom=13&size=400x200&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs
 			.col-lg-2.col-md-3.col-sm-3.col-xs-3.performer_details
 				.performer_details_wrapper
 					ul

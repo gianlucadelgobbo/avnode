@@ -24,10 +24,10 @@
 										span= __(" Likes")
 						.col-sm-6.col-xs-12.col-md-12
 								ul.evidence-event_categories.list-inline
-									- for (category in event.categories)
+									each category in event.categories
 										li
 											i(class="fa fa-cube")
-											a(href="/"+event.categories[category].permalink, title=event.categories[category].name)= event.categories[category].name
+												a(href="/#{category.permalink}", title=category.name)= category.name
 				if (i > 0 && i < 3)
 					.col-sm-12.secondary_event_wrapper
 						.secondary_event.hidden-xs
