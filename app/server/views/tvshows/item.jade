@@ -1,7 +1,7 @@
 div(class="col-md-6")
 	.media
 		.pull-left
-			a(href="/#{box.users[0].permalink}/#{section}/#{box.permalink/")
+			a(href="/#{box.users[0].permalink}/tvshows/#{box.permalink}/")
 				img.media-obejct(alt=box.title, src="img/default_tvshow.jpg")
 			br
 			ul.stats
@@ -9,7 +9,7 @@ div(class="col-md-6")
 				li=__("Likes") + ": " + box.stats.rates.tot_rate
 		.media-body
 			h4.media-heading
-				a(href="/#{box.users[0].permalink}/#{section}/#{box.permalink}/")=box.title
+				a(href="/#{box.users[0].permalink}/tvshows/#{box.permalink}/")=box.title
 				p
 					each user in box.users
 						a(href="/#{user.permalink}")
@@ -18,4 +18,4 @@ div(class="col-md-6")
 				ul.list-inline
 					each category in box.categories
 						li
-							a(href="/#{section}/#{category.permalink}/")=category.name
+							a(href="/tvshows/#{category.permalink}/")=category.name
