@@ -7,8 +7,7 @@ var playlistsRoutes 				= require('./routes/playlists');
 var galleriesRoutes 				= require('./routes/galleries');
 var forumRoutes 					= require('./routes/forum');
 var tvshowsRoutes 					= require('./routes/tvshows');
-// FIXME !!!
-var performerRoutes 				= require('./routes/user');
+var userRoutes 				= require('./routes/user');
 var apiRoutes 						= require('./routes/api');
 var searchRoutes 					= require('./routes/search');
 var cpanelChangeLangRoutes			= require('./routes/controlpanel/change_lang');
@@ -240,7 +239,8 @@ module.exports = function(app) {
 	//app.get('/api', apiRoutes.get);
 
     // all other routes: User or 404
-  app.get('/(:name)', performerRoutes.get);
+  app.get('/(:name)/(:section)', userRoutes.getCategory);
+  app.get('/(:name)', userRoutes.get);
 	//app.post('*', performerRoutes.post);
 	//app.get('*', function(req, res) { res.send(404); });
 };

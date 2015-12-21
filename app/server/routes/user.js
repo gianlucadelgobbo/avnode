@@ -13,10 +13,10 @@ exports.get = function get(req, res) {
   .exec(function(error, user) {
     if (user !== null) {
       // FIXME TBD
-      if (user.text[getLocale()]) {
+      if (user.text !== null && user.text[getLocale()]) {
         user.text = user.text[getLocale()];
       } else {
-        user.text = user.text['en'];
+        user.text = '';
       }
       res.render('user/show', {
         title: user.display_name,
@@ -26,6 +26,39 @@ exports.get = function get(req, res) {
     }
   });
 };
+
+exports.getCategory = function get(req, res) {
+	var section = 'performer';
+  var query = { 'permalink': req.params.name };
+
+  // FIXME
+  User.findOne(query)
+  .exec(function(error, user) {
+    if (user !== null) {
+      var section = null
+      switch (req.params.section) {
+        case 'performances':
+          section = 'performances';
+          break;
+        case 'events':
+          section = 'events';
+          break;
+        case 'crews':
+          section = 'crews';
+          break;
+      }
+      if (section !== null) {
+        res.render('user/categories/' + section, {
+          title: user.display_name,
+          section: section,
+          user: user,
+          _h: _h
+        });
+      }
+    }
+  });
+};
+
 
 exports.post = function post(req, res) {
   //FIXME

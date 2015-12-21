@@ -1,10 +1,6 @@
-include ../mixins
-extends ../layout
-block content
-	h1=title
-	include ./menu
-	include ./summary
+extends ./layout
 
+block user-content
 	.main_boxes_bkg
 		.container
 			.row
@@ -17,9 +13,10 @@ block content
 
 	if user.text
 		.about-bkg
-			.about_performer.readmore
-				h2=__("About")
-				!{user.text.replace(/\r\n/g, '<br />')}
+			.container
+				.about_performer.readmore
+					h2= __("About")
+					!= user.text.replace(/\r\n/g, '<br />')
 
 	.secondary_boxes_bkg
 		.container

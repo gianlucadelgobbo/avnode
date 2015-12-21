@@ -1,0 +1,6 @@
+extends ../layout
+
+block user-content
+	.container
+		each box in user.performances
+			include ../../performances/item
