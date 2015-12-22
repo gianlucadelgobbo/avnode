@@ -238,11 +238,21 @@ module.exports = function(app) {
 	app.get('/api/clients', apiRoutes.getClients);
 	//app.get('/api', apiRoutes.get);
 
-  // all other routes: User or 404
-  // FIXME discuss url scheme
-  app.get('/(:name)/(:section)/(:item)', userRoutes.getSectionItem);
-  app.get('/(:name)/(:section)', userRoutes.getSection);
-  app.get('/(:name)', userRoutes.get);
+  app.get('/(:user)/events/(:event)', userRoutes.getUserEvent);
+  app.get('/(:user)/performances/(:performance)', userRoutes.getUserPerformance);
+  app.get('/(:user)/playlists/(:playlist)', userRoutes.getUserPlaylist);
+  app.get('/(:user)/footage/(:footage)', userRoutes.getUserFootage);
+  app.get('/(:user)/gallery/(:gallery)', userRoutes.getUserGallery);
+  app.get('/(:user)/crews/(:crew)', userRoutes.getUserCrew);
+
+  app.get('/(:user)/events', userRoutes.getUserEvents);
+  app.get('/(:user)/performances', userRoutes.getUserPerformances);
+  app.get('/(:user)/playlists', userRoutes.getUserPlaylists);
+  app.get('/(:user)/footage', userRoutes.getUserFootages);
+  app.get('/(:user)/gallery', userRoutes.getUserGalleries);
+  app.get('/(:user)/crews', userRoutes.getUserCrews);
+
+  app.get('/(:user)', userRoutes.getUser);
 	//app.post('*', performerRoutes.post);
 	//app.get('*', function(req, res) { res.send(404); });
 };

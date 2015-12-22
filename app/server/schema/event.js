@@ -13,7 +13,7 @@ config.locales.forEach(function(locale) {
 	text[locale] = String;
 });
 
-// Derived from the entry: 
+// Derived from the entry:
 // "permalink" : "3x3-smil-stereoscopy-mapping-in-live1re-ditionoctober-11-12-13-paris-2013",
 module.exports = new Schema({
 	websites: [String],
@@ -25,7 +25,7 @@ module.exports = new Schema({
 	subtitle: subtitle,
 	text: text,
 	files: [File],
-	users: [User],
+	users: [User], //{ type: Schema.Types.ObjectId, ref: 'User' }],
 	date_time_venue: [], //FIXME
 	settings: {
 		is_public: Boolean,

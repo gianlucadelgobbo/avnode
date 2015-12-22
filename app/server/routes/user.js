@@ -10,44 +10,8 @@ var _ = require('lodash');
 
 var _h = require('../helper/index');
 
-var getSectionInfo = function(param) {
-  var section = {}
-  switch (param) {
-    case 'events':
-      section.name = 'events';
-      section.model = Event;
-    break;
-    case 'performances':
-      section.name = 'performances';
-      section.model = Performance;
-    break;
-    case 'playlists':
-      section.name = 'playlists';
-      section.model = Playlist;
-    break;
-    case 'footage':
-      section.name = 'footage';
-      section.model = Footage;
-    break;
-    case 'tvshows':
-      section.name = 'tvshows';
-      section.model = TVShow;
-    break;
-    case 'gallery':
-      section.name = 'gallery';
-      section.model = Gallery;
-    break;
-    case 'crews':
-      section.name = 'crews';
-      section.model = User;
-    break;
-  }
-  return section;
-}
-
-exports.get = function get(req, res) {
-  var query = { 'permalink': req.params.name };
-
+exports.getUser = function get(req, res) {
+  var query = { 'permalink': req.params.permalink };
   // FIXME
   User.findOne(query)
   .exec(function(error, user) {
@@ -67,41 +31,153 @@ exports.get = function get(req, res) {
   });
 };
 
-exports.getSection = function get(req, res) {
-  var query = { 'permalink': req.params.name };
+var localsList = function(user) {
+  return {
+    title: user.display_name,
+    user: user,
+    _h: _h
+  }
+}
 
-  // FIXME
+exports.getUserEvents = function get(req, res) {
+  var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    if (user !== null) {
-      var section = getSectionInfo(req.params.section);
-      res.render('user/sections/' + section.name, {
-        title: user.display_name,
-        user: user,
-        _h: _h
-      });
-    }
+    res.render('user/sections/events', localsList(user));
+  });
+}
+
+exports.getUserPerformances = function get(req, res) {
+  var query = { 'permalink': req.params.user };
+  User.findOne(query)
+  .exec(function(error, user) {
+    res.render('user/sections/performances', localsList(user));
+  });
+}
+
+exports.getUserPlaylists = function get(req, res) {
+  var query = { 'permalink': req.params.user };
+  User.findOne(query)
+  .exec(function(error, user) {
+    res.render('user/sections/playlists', localsList(user));
+  });
+}
+
+exports.getUserFootages = function get(req, res) {
+  var query = { 'permalink': req.params.user };
+  User.findOne(query)
+  .exec(function(error, user) {
+    res.render('user/sections/footage', localsList(user));
+  });
+}
+
+exports.getUserGalleries = function get(req, res) {
+  var query = { 'permalink': req.params.user };
+  User.findOne(query)
+  .exec(function(error, user) {
+    res.render('user/sections/gallery', localsList(user));
+  });
+}
+
+exports.getUserCrews = function get(req, res) {
+  var query = { 'permalink': req.params.user };
+  User.findOne(query)
+  .exec(function(error, user) {
+    res.render('user/sections/crews', localsList(user));
+  });
+}
+
+var localsDetail = function(user, result) {
+  return {
+    title: user.display_name,
+    result: result,
+    user: user,
+    _h: _h
+  }
+}
+
+exports.getUserEvent = function get(req, res) {
+  var query = { 'permalink': req.params.user };
+  User
+  .findOne(query)
+  .exec(function(error, user) {
+    var query = { 'permalink': req.params.event };
+    Event
+    .findOne(query)
+    .exec(function(error, result) {
+      res.render('user/sections/show', localsDetail(user, result));
+    });
   });
 };
 
-// FIXME feels like its the wrong route
-exports.getSectionItem = function get(req, res) {
-  var query = { 'permalink': req.params.name };
-  User.findOne(query)
+exports.getUserPerformance = function get(req, res) {
+  var query = { 'permalink': req.params.user };
+  User
+  .findOne(query)
   .exec(function(error, user) {
-    query = { 'permalink': req.params.item };
-    var section = getSectionInfo(req.params.section);
-    section.model.findOne(query)
+    var query = { 'permalink': req.params.performance };
+    Performance
+    .findOne(query)
     .exec(function(error, result) {
-      if (section !== null) {
-        res.render('user/sections/show', {
-          title: user.display_name,
-          section: section.name,
-          user: user,
-          result: result,
-          _h: _h
-        });
-      }
+      res.render('user/sections/show', localsDetail(user, result));
+    });
+  });
+};
+
+exports.getUserPlaylist = function get(req, res) {
+  var query = { 'permalink': req.params.user };
+  User
+  .findOne(query)
+  .exec(function(error, user) {
+    var query = { 'permalink': req.params.playlist };
+    Playlist
+    .findOne(query)
+    .exec(function(error, result) {
+      res.render('user/sections/show', localsDetail(user, result));
+    });
+  });
+};
+
+exports.getUserFootage = function get(req, res) {
+  var query = { 'permalink': req.params.user };
+  User
+  .findOne(query)
+  .exec(function(error, user) {
+    var query = { 'permalink': req.params.footage };
+    Footage
+    .findOne(query)
+    .exec(function(error, result) {
+      res.render('user/sections/show', localsDetail(user, result));
+    });
+  });
+};
+
+exports.getUserGallery = function get(req, res) {
+  var query = { 'permalink': req.params.user };
+  User
+  .findOne(query)
+  .exec(function(error, user) {
+    var query = { 'permalink': req.params.gallery };
+    Gallery
+    .findOne(query)
+    .exec(function(error, result) {
+      console.log('----', req.params.gallery);
+      console.log('----', result);
+      res.render('user/sections/show', localsDetail(user, result));
+    });
+  });
+};
+
+exports.getUserCrew = function get(req, res) {
+  var query = { 'permalink': req.params.user };
+  User
+  .findOne(query)
+  .exec(function(error, user) {
+    var query = { 'permalink': req.params.crew };
+    User
+    .findOne(query)
+    .exec(function(error, result) {
+      res.render('user/sections/show', localsDetail(user, result));
     });
   });
 };
