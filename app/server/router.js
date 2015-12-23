@@ -146,15 +146,14 @@ module.exports = function(app) {
 
   // google login //
   app.get('/controlpanel/login/google',
-      passport.authenticate('google-login', { scope: ['email','profile'] })
+      passport.authenticate('google', { scope: ['email','profile'] })
   );
   // google will redirect the user to this URL after approval.
   app.get('/controlpanel/login/google/callback',
-      passport.authenticate('google-login', {failureRedirect: '/controlpanel/login/'}),
-      function(req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-      }
+      passport.authenticate('google', {
+          successRedirect: '/',
+          failureRedirect: '/controlpanel/login/'
+      })
   );
 
     // cp Log Out //

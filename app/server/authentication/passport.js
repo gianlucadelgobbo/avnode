@@ -1,7 +1,8 @@
 var passport = require('passport')
 var local = require('./strategies/local');
-var twitter = require('./strategies/twitter');
 var facebook = require('./strategies/facebook');
+var twitter = require('./strategies/twitter');
+var google = require('./strategies/google');
 
 var User = require('../models/user');
 
@@ -9,6 +10,7 @@ module.exports = function(app) {
   passport.use(local);
   passport.use(facebook);
   passport.use(twitter);
+  passport.use(google);
 
   passport.serializeUser(function(user, done) {
     console.log('serializeUser', user.id);
