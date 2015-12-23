@@ -1,31 +1,25 @@
 var LocalStrategy = require('passport-local').Strategy;
-var bcrypt = require('bcrypt-nodejs');
 var request = require('request');
 var querystring = require('querystring');
 var User = require('../../models/user');
 
 module.exports = new LocalStrategy(function(username, password, done) {
-	var e = [];
-	User.findOne({'login': username}, function(err, result) {
+	User.findOne({'login': username}, function(err, user) {
 		if (err) {
 			return done(err, null);
-		} else if (result !== null) {
-			if (result.password) {
-				bcrypt.compare(password, result.password, function(err, res) {
-					if (err) {
-						e.push({name: 'user', m: __('Login failed')});
-						return done(e, null);
-					} else {
-						done(null, result);
-					}
-				});
-			} else {
-				tryFlxer(username, password, done);
-			}
-		} else {
-			e.push({name:"user", m:__("Login failed")});
-			done(e, result);
 		}
+    if (!user) {
+      return done(null, false, { message: 'Incorrect username' });
+    }
+		if (user.password) {
+      console.log('compare');
+      user.comparePassword(password, function(err, isMatch) {
+        if (err || !isMatch) {
+          return done(null, false, { message: 'Incorrect password' });
+        }
+        return done(null, user);
+      });
+    }
 	});
 });
 

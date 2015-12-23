@@ -102,12 +102,19 @@ module.exports = function(app) {
 	//app.get('/controlpanel', cpanelRoutes.get);
 	//app.post('/controlpanel', cpanelRoutes.post);
 
-    // cpanel ajax //
-    //app.get('/controlpanel/ajax*', ajax.get);
-    app.post('/controlpanel/ajax*', cpanelAjax.post);
+  // cpanel ajax //
+  //app.get('/controlpanel/ajax*', ajax.get);
+  app.post('/controlpanel/ajax*', cpanelAjax.post);
 
-    // local login //
-	app.post('/controlpanel/login/', cpanelLoginRoutes.post);
+  // local login //
+  app.post(
+    '/controlpanel/login',
+    passport.authenticate('local', { failureRedirect: '/controlpanel/login'}),
+    function(req, res) {
+      console.log('redirect');
+      res.redirect('/');// + req.user.permalink);
+    }
+  );
 	app.get('/controlpanel/login', cpanelLoginRoutes.get);
 
     // facebook login //

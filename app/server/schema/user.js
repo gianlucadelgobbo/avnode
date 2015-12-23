@@ -9,12 +9,15 @@ var Playlist = require('./playlist');
 var TVShow = require('./tvshow');
 var User = require('./user');
 
-module.exports = new Schema({
+var bcrypt = require('bcrypt-nodejs');
+
+var UserSchema = new Schema({
   old_id: Number,
   permalink: String,
   display_name: String,
   locations: Array,
-  // FIXME
+  login: { type: String, required: true, index: { unique: true } },
+  password: { type: String, required: true },
   crews: [User],
   footage: [Footage],
   events: [Event ],
@@ -28,3 +31,12 @@ module.exports = new Schema({
     // FIXME
   }
 });
+
+UserSchema.methods.comparePassword = function(password, cb) {
+  bcrypt.compare(password, this.password, function(err, isMatch) {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
+};
+
+module.exports = UserSchema
