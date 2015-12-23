@@ -10,6 +10,7 @@ var tvshowsRoutes 					= require('./routes/tvshows');
 var userRoutes 				= require('./routes/user');
 var apiRoutes 						= require('./routes/api');
 var searchRoutes 					= require('./routes/search');
+
 var cpanelChangeLangRoutes			= require('./routes/controlpanel/change_lang');
 var cpanelLoginRoutes 				= require('./routes/controlpanel/login');
 var cpanelConfirmRoutes 			= require('./routes/controlpanel/confirm');
@@ -133,11 +134,11 @@ module.exports = function(app) {
 
     // twitter login //
     app.get('/controlpanel/login/twitter',
-        passport.authenticate('twitter-login')
+        passport.authenticate('twitter')
     );
     // twitter will redirect the user to this URL after approval.
     app.get('/controlpanel/login/twitter/callback',
-        passport.authenticate('twitter-login', {
+        passport.authenticate('twitter', {
             successRedirect: '/',
             failureRedirect: '/controlpanel/login/'
         })

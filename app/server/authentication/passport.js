@@ -1,10 +1,12 @@
 var passport = require('passport')
 var local = require('./strategies/local');
+var twitter = require('./strategies/twitter');
 
 var User = require('../models/user');
 
 module.exports = function(app) {
   passport.use(local);
+  passport.use(twitter);
 
   passport.serializeUser(function(user, done) {
     console.log('serializeUser', user.id);
