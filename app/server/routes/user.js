@@ -11,11 +11,12 @@ var _ = require('lodash');
 var _h = require('../helper/index');
 
 exports.getUser = function get(req, res) {
-  var query = { 'permalink': req.params.permalink };
+  var query = { 'permalink': req.params.user };
+  console.log('get user', query);
   // FIXME
   User.findOne(query)
-  .exec(function(error, user) {
-    if (user !== null) {
+  .exec(function(err, user) {
+    if (user) {
       // FIXME TBD
       if (user.text !== null && user.text[getLocale()]) {
         user.text = user.text[getLocale()];

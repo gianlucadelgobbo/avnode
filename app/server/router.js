@@ -10,6 +10,7 @@ var tvshowsRoutes 					= require('./routes/tvshows');
 var userRoutes 				= require('./routes/user');
 var apiRoutes 						= require('./routes/api');
 var searchRoutes 					= require('./routes/search');
+
 var cpanelChangeLangRoutes			= require('./routes/controlpanel/change_lang');
 var cpanelLoginRoutes 				= require('./routes/controlpanel/login');
 var cpanelConfirmRoutes 			= require('./routes/controlpanel/confirm');
@@ -102,52 +103,58 @@ module.exports = function(app) {
 	//app.get('/controlpanel', cpanelRoutes.get);
 	//app.post('/controlpanel', cpanelRoutes.post);
 
-    // cpanel ajax //
-    //app.get('/controlpanel/ajax*', ajax.get);
-    app.post('/controlpanel/ajax*', cpanelAjax.post);
+  // cpanel ajax //
+  //app.get('/controlpanel/ajax*', ajax.get);
+  app.post('/controlpanel/ajax*', cpanelAjax.post);
 
-    // local login //
-	app.post('/controlpanel/login/', cpanelLoginRoutes.post);
+  // local login //
+  app.post(
+    '/controlpanel/login',
+    passport.authenticate('local', { failureRedirect: '/controlpanel/login'}),
+    function(req, res) {
+      console.log('redirect');
+      res.redirect('/');// + req.user.permalink);
+    }
+  );
 	app.get('/controlpanel/login', cpanelLoginRoutes.get);
 
-    // facebook login //
-    app.get('/controlpanel/login/facebook',
-        passport.authenticate('facebook-login', {
-            scope: ['public_profile', 'email']
-        })
-    );
-    // Facebook will redirect the user to this URL after approval.
-    app.get('/controlpanel/login/facebook/callback',
-        passport.authenticate('facebook-login', {
-            successRedirect: '/',
-            failureRedirect: '/controlpanel/login/'
-        })
-    );
+  // facebook login //
+  app.get('/controlpanel/login/facebook',
+      passport.authenticate('facebook', {
+          scope: ['public_profile', 'email']
+      })
+  );
+  // Facebook will redirect the user to this URL after approval.
+  app.get('/controlpanel/login/facebook/callback',
+      passport.authenticate('facebook', {
+          successRedirect: '/',
+          failureRedirect: '/controlpanel/login/'
+      })
+  );
 
-    // twitter login //
-    app.get('/controlpanel/login/twitter',
-        passport.authenticate('twitter-login')
-    );
-    // twitter will redirect the user to this URL after approval.
-    app.get('/controlpanel/login/twitter/callback',
-        passport.authenticate('twitter-login', {
-            successRedirect: '/',
-            failureRedirect: '/controlpanel/login/'
-        })
-    );
+  // twitter login //
+  app.get('/controlpanel/login/twitter',
+      passport.authenticate('twitter')
+  );
+  // twitter will redirect the user to this URL after approval.
+  app.get('/controlpanel/login/twitter/callback',
+      passport.authenticate('twitter', {
+          successRedirect: '/',
+          failureRedirect: '/controlpanel/login/'
+      })
+  );
 
-    // google login //
-    app.get('/controlpanel/login/google',
-        passport.authenticate('google-login', { scope: ['email','profile'] })
-    );
-    // google will redirect the user to this URL after approval.
-    app.get('/controlpanel/login/google/callback',
-        passport.authenticate('google-login', {failureRedirect: '/controlpanel/login/'}),
-        function(req, res) {
-            // Successful authentication, redirect home.
-            res.redirect('/');
-        }
-    );
+  // google login //
+  app.get('/controlpanel/login/google',
+      passport.authenticate('google', { scope: ['email','profile'] })
+  );
+  // google will redirect the user to this URL after approval.
+  app.get('/controlpanel/login/google/callback',
+      passport.authenticate('google', {
+          successRedirect: '/',
+          failureRedirect: '/controlpanel/login/'
+      })
+  );
 
     // cp Log Out //
 	app.get('/controlpanel/logout', cpanelLogoutRoutes.get);
@@ -159,31 +166,6 @@ module.exports = function(app) {
 	// cp Confirm //
 	app.get('/confirm', cpanelConfirmRoutes.get);
 	//app.post('/confirm', cpanelConfirmRoutes.post);
-
-    // facebook signup //
-    app.get('/controlpanel/signup/facebook',
-        passport.authenticate('facebook-signup', {
-            scope: ['public_profile', 'email']
-        })
-    );
-    app.get('/controlpanel/signup/facebook/callback',
-        passport.authenticate('facebook-signup', {
-            successRedirect: '/controlpanel/user/',
-            failureRedirect: '/controlpanel/signup/'
-        })
-    );
-
-    // google signup //
-    app.get('/controlpanel/signup/google',
-        passport.authenticate('google-signup', { scope: ['email','profile'] })
-    );
-    app.get('/controlpanel/signup/google/callback',
-        passport.authenticate('google-signup', {failureRedirect: '/controlpanel/signup/'}),
-        function(req, res) {
-            // Successful authentication, redirect home.
-            res.redirect('/controlpanel/user/');
-        }
-    );
 
     // cp Change Lang //
 	app.get('/controlpanel/change_lang*', cpanelChangeLangRoutes.get);
