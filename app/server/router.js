@@ -54,7 +54,6 @@ var flxerappRoutes = require('./routes/flxerapp');
 module.exports = function(app) {
     // Index //
 	app.get('/', indexRoutes.get);
-	app.post('/', indexRoutes.post);
 
 	// ajax //
 	//app.get('/ajax*', ajax.get);
