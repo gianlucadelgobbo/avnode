@@ -12,9 +12,7 @@ html(lang=config.lang)
 					include comp/menu_general
 
 					//- interaction menu
-					- if (user) {
-						include comp/menu_logged
-					- }
+					include login/menu
 
 					//- searchform e lan selector
 					.container
@@ -48,19 +46,6 @@ html(lang=config.lang)
 													each val, index in config.locales_labels
 														li
 															a(href="/controlpanel/change_lang?lang="+index)=__(val)
-
-				//- user based page
-				if (typeof(userpage) !== 'undefined')
-
-					// - general menu and login
-					include comp/menu_general
-
-					//- interaction menu
-					- if (user.login)
-					include comp/menu_logged
-
-					// - user menu
-					include comp/menu_user
 
 			#content
 				block content

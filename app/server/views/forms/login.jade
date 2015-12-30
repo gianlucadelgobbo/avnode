@@ -16,9 +16,12 @@ block content
 				include ../comp/msg
 				form(name="formLogin", method="post", action="/controlpanel/login/")
 					.form-group
-						input(name="username", type="text", value=result.username, placeholder=__("Username")).form-control
+						if user
+							input(name="username", type="text", value="#{user.login}", placeholder=__("Username")).form-control
+						else
+							input(name="username", type="text", value="", placeholder=__("Username")).form-control
 					.form-group
-						input(name="password", type="password", value=result.password, placeholder=__("Password")).form-control
+						input(name="password", type="password", value="", placeholder=__("Password")).form-control
 					.row
 						.col-md-6
 							.checkbox

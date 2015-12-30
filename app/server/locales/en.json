@@ -110,5 +110,10 @@
 	"Remember_me": "Remember_me",
 	"Enter": "Enter",
 	"Recover_data": "Recover_data",
-	"Register": "Register"
+	"Register": "Register",
+	"logout": "logout",
+	"performaces": "performaces",
+	"tv-show": "tv-show",
+	"login": "login",
+	"Signup": "Signup"
 }

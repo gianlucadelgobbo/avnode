@@ -1,0 +1,25 @@
+a.user_manager_button#simple-menu(href='#sidr')
+	i.fa.fa-cog
+#sidr(style="display: none;")
+	nav.navbar.navbar-inverse#menu_user_interaction
+		button.navbar-toggle.pull-right(type='button', data-target='#navbarCollapse_user_interaction', data-toggle='collapse')
+			span.sr-only Toggle navigation
+		//- Collection of nav links and other content for toggling
+		#navbarCollapse_user_interaction.collapse.navbar-collapse
+			ul
+				if user
+					li
+						a(href="/controlpanel/profile")= user.display_name
+					li
+						a(href="/controlpanel/logout")=__("logout")
+					li
+						a(href="/controlpanel/performances")=__("performaces")
+					li
+						a(href="/controlpanel/footage")=__("footage")
+					li
+						a(href="/controlpanel/events")=__("events")
+					li
+						a(href="/controlpanel/tv-show")=__("tv-show")
+				else
+					li
+						a(href="/controlpanel/login")=__("login")
