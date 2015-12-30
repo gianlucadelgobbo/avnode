@@ -1,15 +1,15 @@
 div(class="col-md-6")
 	.media
 		.pull-left
-			a(href="/#{box.users[0].permalink}/#{section}/#{box.permalink/")
-				//img.media-object(alt=__("Thumbnail of")+": "+box.title, src=Fnc.getFileFormat(box.files, 90, 68))
+			a(href="/#{box.users[0].permalink}/tvshows/#{box.permalink}/")
+				img.media-obejct(alt=box.title, src="img/default_tvshow.jpg")
 			br
 			ul.stats
 				li=__("Visits") + ": " + box.stats.visits
 				li=__("Likes") + ": " + box.stats.rates.tot_rate
 		.media-body
 			h4.media-heading
-				a(href="/#{box.users[0].permalink}/#{section}/#{box.permalink}/")=box.title
+				a(href="/#{box.users[0].permalink}/tvshows/#{box.permalink}/")=box.title
 				p
 					each user in box.users
 						a(href="/#{user.permalink}")
@@ -18,4 +18,4 @@ div(class="col-md-6")
 				ul.list-inline
 					each category in box.categories
 						li
-							a(href="/#{section}/#{category.permalink}/")=category.name
+							a(href="/tvshows/#{category.permalink}/")=category.name

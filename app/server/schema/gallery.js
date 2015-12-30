@@ -19,4 +19,8 @@ module.exports = new Schema({
 	events: [Event],
 	creation_date: Date,
 	footage: [Footage]
-});
+  }, {
+    // FIXME maybe would be better to rename the collection
+    collection: 'gallery'
+  }
+);

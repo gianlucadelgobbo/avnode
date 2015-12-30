@@ -1,3 +1,4 @@
+var config = require('getconfig');
 var im = require('imagemagick');
 var fs = require('fs');
 var mkdirp = require('mkdirp');

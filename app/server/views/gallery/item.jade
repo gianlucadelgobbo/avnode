@@ -1,5 +1,5 @@
-div.list_item_performer.grid-item.col-sm-4(class="col-md-4 #{section}_footage")
-	a(href="/#{box.users[0].permalink}/#{section}/#{box.permalink}/", title=box.title)
+div.list_item_performer.grid-item.col-sm-4(class="col-md-4 gallery_footage")
+	a(href="/#{box.users[0].permalink}/gallery/#{box.permalink}/", title=box.title)
 		.image_box
 			.footage_stats.box_stats
 				ul.list-inline
@@ -9,7 +9,9 @@ div.list_item_performer.grid-item.col-sm-4(class="col-md-4 #{section}_footage")
 					li
 						i(class="fa fa-eye")
 						span= box.stats.visits
-			img(alt=box.title, src="/img/"+box.files)
+			each file, i in box.files
+				if i === 0
+					img(alt=box.title, src=file.file)
 		.title_and_info_container
 			h3= box.title
 			ul.list-inline.box_other_infos

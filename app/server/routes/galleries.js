@@ -15,7 +15,7 @@ exports.get = function get(req, res) {
 	var params = _.filter(req.params, function(v, k) {
 		return (k === 'filter' || k === 'page' || k === 'sorting');
 	});
-	var section = 'galleries';
+	var section = 'gallery';
 	var page = req.params.page || 1;
 	var skip = (page - 1) * config.sections[section].limit;
 	var filter = req.params.filter || config.sections[section].categories[0];

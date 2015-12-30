@@ -1,0 +1,41 @@
+.col-md-4.events_performer.main_box_performer
+	h2.box_events_header.box_header
+		span.title_str Events
+		+coda('#E4811E')
+	.col-sm-12
+		.row.box_wrapper.coloured
+			each event, i in user.events
+				if i === 0
+					a.col-sm-12.main_event_title_wrapper(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
+						h3.main_event_title=event.title
+					a.col-sm-6.col-xs-12.col-md-12.main_performace_image_wrapper(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
+						img.main_performace_image(src=event.files[0].file, alt=event.title)
+					.main_performer_box
+						.col-sm-6.col-xs-12.col-md-12
+								ul.list-inline
+									li
+										i(class="fa fa-user")
+											a.event_owner(href="/#{event.users[0].permalink}", title=event.users[0].display_name)= event.users[0].display_name
+									li.evidence-event_stats
+										span.stat.value= event.stats.visits
+										span= __(" Visits")
+									li.evidence-event_stats
+										span.stat.value= event.stats.rates.tot_rate
+										span= __(" Likes")
+						.col-sm-6.col-xs-12.col-md-12
+								ul.evidence-event_categories.list-inline
+									each category in event.categories
+										li
+											i(class="fa fa-cube")
+												a(href="/#{category.permalink}", title=category.name)= category.name
+				if (i > 0 && i < 3)
+					.col-sm-12.secondary_event_wrapper
+						.secondary_event.hidden-xs
+							a(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
+								.col-sm-3.secondary-performace_image
+									img.img-circle(src=event.files[0].file, alt=event.title)
+								h3.col-sm-9= event.title
+			.col-sm-12.more_event.more_button
+				a(href="/#{user.permalink}/events", title='More events')=__("All the events")
+					span=__("+")
+					+slashes("#E4811E")

@@ -1,0 +1,59 @@
+extends ./layout
+
+block user-content
+	.main_boxes_bkg
+		.container
+			.row
+				if user.performances
+					include ./teaser/performances
+				if user.events
+					include ./teaser/events
+				if user.crews
+					include ./teaser/crews
+
+	if user.text
+		.about-bkg
+			.container
+				.about_performer.readmore
+					h2= __("About")
+					!= user.text.replace(/\r\n/g, '<br />')
+
+	.secondary_boxes_bkg
+		.container
+			.row.secondary_boxes
+				.col-md-6.footage_box.secondary_box
+					.secondary_box_wrapper
+						if user.footage
+							h2.secondary_box_header.col-sm-12 Footage
+								+slashes('#fff')
+							.secondary_box_container
+								each box, i in user.footage
+									if (i > 0 && i < 5)
+										include ../footage/item
+				.col-md-6.footage_box.secondary_box
+					.secondary_box_wrapper
+						if user.playlists
+							h2.secondary_box_header.col-sm-12 Playlists
+								+slashes('#fff')
+							.secondary_box_container
+								each box, i in user.playlists
+									if (i > 0 && i < 5)
+										include ../playlists/item
+				.col-md-6.footage_box.secondary_box
+					.secondary_box_wrapper
+						if user.tvshow
+							h2.secondary_box_header.col-sm-12 TV Shows
+								+slashes('#fff')
+							.secondary_box_container
+								each box, i in user.tvshow
+									if (i > 0 && i < 5)
+										include ../tvshows/item
+				.col-md-6.footage_box.secondary_box
+					.secondary_box_wrapper
+						if user.gallery
+							h2.secondary_box_header.col-sm-12 Galleries
+								+slashes('#fff')
+							.secondary_box_container
+								each box, i in user.gallery
+									if (i > 0 && i < 5)
+										include ../gallery/item
