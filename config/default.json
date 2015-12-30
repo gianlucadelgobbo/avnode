@@ -3,6 +3,7 @@
   "host": "127.0.0.1",
   "dbHost": "localhost",
   "dbPort": 27017,
+  "mongo": "mongodb://127.0.0.1/avnode",
   "sitename": "AVnode",
   "dbName": "avnode",
   "sitepath": "/tmp/avnode",
@@ -505,10 +506,10 @@
         "all": "All"
       }
     },
-    "gallery": {
+    "galleries": {
       "title": "Gallery",
       "limit": 20,
-      "basepath": "gallery",
+      "basepath": "galleries",
       "coll": "gallery",
       "view_list": "gallery",
       "list_fields": {
@@ -519,9 +520,7 @@
         "stats":1
       },
       "orders": [
-        "mostrecent",
-        "mostviewed",
-        "mostrated"
+        "mostrecent"
       ],
       "categories": [
         "all"

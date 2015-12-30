@@ -25,8 +25,6 @@ html(lang=config.lang)
 	body
 		.wrapper
 			header#header
-				- console.log(user.login)
-
 				//- home and general pages
 				if (typeof(userpage) === 'undefined')
 
@@ -34,7 +32,7 @@ html(lang=config.lang)
 					include comp/menu_general
 
 					//- interaction menu
-					- if (user.login) {
+					- if (user) {
 						include comp/menu_logged
 					- }
 
@@ -102,7 +100,8 @@ html(lang=config.lang)
 
 
 			#content
-				block content
+				.container
+					block content
 			footer.main_footer
 				.container
 					.media

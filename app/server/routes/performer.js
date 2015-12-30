@@ -1,8 +1,9 @@
-var DB = require('../modules/db-manager');
+//var DB = require('../modules/db-manager');
 var Fnc = require('../modules/general-functions');
 var config = require('getconfig');
-GLOBAL._config = config;
-var ObjectID = require('mongodb').ObjectID;
+//GLOBAL._config = config;
+//
+var User = require('../models/user');
 
 exports.get = function get(req, res) {
 	var pathArray = req.url.split("?")[0].split("/");
@@ -12,16 +13,29 @@ exports.get = function get(req, res) {
 	if (pathArray[pathArray.length-1].indexOf("output")!=-1) pathArray.pop();
 	var passport_user = req.session.passport && req.session.passport.user ? req.session.passport.user : {};
 	if (pathArray.length > 0) {
-		DB.users.findOne({permalink:pathArray[0]}, function(e, result) {
+		User.findOne({permalink:pathArray[0]}, function(e, result) {
 			if (result) {
 				switch (pathArray.length) {
 					case 1 :
-						res.render('performer', { userpage:true, title: result.display_name, result : result, Fnc:Fnc, user : passport_user });
+						res.render('performer', {
+							userpage:true,
+							title: result.display_name,
+							result : result,
+							Fnc:Fnc,
+							user: passport_user
+						});
 						break;
 					case 2 :
 						if (config.sections[pathArray[1]]) {
-							res.render('performer_list', { userpage:true, title: result.display_name, title2: config.sections[pathArray[1]].title, sez:pathArray[1], result : result, Fnc:Fnc, user : passport_user });
-
+							res.render('performer_list', {
+								userpage:true,
+								title: result.display_name,
+								title2: config.sections[pathArray[1]].title,
+								sez:pathArray[1],
+								result: result,
+								Fnc:Fnc,
+								user: passport_user
+							});
 						} else {
 							res.sendStatus(404);
 						}

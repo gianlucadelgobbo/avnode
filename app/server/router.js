@@ -4,6 +4,7 @@ var performancesRoutes 				= require('./routes/performances');
 var footageRoutes 					= require('./routes/footage');
 var eventsRoutes 					= require('./routes/events');
 var playlistsRoutes 				= require('./routes/playlists');
+var galleriesRoutes 				= require('./routes/galleries');
 var forumRoutes 					= require('./routes/forum');
 var tvshowsRoutes 					= require('./routes/tvshows');
 var performerRoutes 				= require('./routes/performer');
@@ -59,31 +60,42 @@ module.exports = function(app) {
 	//app.post('/ajax*', ajax.post);
 
 	// performers //
-	app.get('/performers*', performersRoutes.get);
+	app.get('/performers/(:filter)/(:sorting)/(:page)', performersRoutes.get);
+	app.get('/performers(*)', performersRoutes.get);
 	//app.post('/performers*', performersRoutes.post);
 
 	// performances //
-	app.get('/performances*', performancesRoutes.get);
+	app.get('/performances/(:filter)/(:sorting)/(:page)', performancesRoutes.get);
+	app.get('/performances(*)', performancesRoutes.get);
 	//app.post('/performances*', performancesRoutes.post);
 
 	// footage //
-	app.get('/footage*', footageRoutes.get);
+	app.get('/footage/(:filter)/(:sorting)/(:page)', footageRoutes.get);
+	app.get('/footage(*)', footageRoutes.get);
 	//app.post('/footage*', footageRoutes.post);
 
 	// events //
-	app.get('/events*', eventsRoutes.get);
+	app.get('/events/(:filter)/(:sorting)/(:page)', eventsRoutes.get);
+	app.get('/events(*)', eventsRoutes.get);
 	//app.post('/events*', eventsRoutes.post);
 
 	// playlists //
-	app.get('/playlists*', playlistsRoutes.get);
+	app.get('/playlists/(:filter)/(:sorting)/(:page)', playlistsRoutes.get);
+	app.get('/playlists(*)', playlistsRoutes.get);
 	//app.post('/playlists*', playlistsRoutes.post);
+
+  // playlists //
+	app.get('/galleries/(:filter)/(:sorting)/(:page)', galleriesRoutes.get);
+	app.get('/galleries(*)', galleriesRoutes.get);
 
 	// forum //
 	//app.get('/forum ', forumRoutes.get);
 	//app.post('/forum ', forumRoutes.post);
 
 	// tvshows //
-	app.get('/tvshows*', tvshowsRoutes.get);
+	//app.get('/tvshows*', tvshowsRoutes.get);
+	app.get('/tvshows/(:filter)/(:sorting)/(:page)', tvshowsRoutes.get);
+	app.get('/tvshows(*)', tvshowsRoutes.get);
 	//app.post('/tvshows*', tvshowsRoutes.post);
 
 	// cpanel //
@@ -223,7 +235,7 @@ module.exports = function(app) {
 	//app.post('/image', imageRoutes.post);
 
 	// Api //
-	//app.get('/api/clients', apiRoutes.getClients);
+	app.get('/api/clients', apiRoutes.getClients);
 	//app.get('/api', apiRoutes.get);
 
     // all other routes: User or 404

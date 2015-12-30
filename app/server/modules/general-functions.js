@@ -5,7 +5,6 @@ var request = require('request');
 var im = require('imagemagick');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
-var moment = require('moment');
 var config = require('getconfig');
 var ObjectID = require('mongodb').ObjectID;
 
@@ -13,6 +12,7 @@ exports.getList = function (params, sez, res, ids, callback) {
     var DB = require('./db-manager');
 	var conf = exports.getConf(params, sez, res);
 	var searchQ = config.sections[sez].searchQ[conf.filter];
+	console.log('SEARCH Q', searchQ);
 	//ids = ["515c07ccdad037523c000903"];
 	//if (ids && sez=="performers") searchQ = {"permalink":ids[0]};
 	if (ids && sez=="performers") {
