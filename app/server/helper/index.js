@@ -22,10 +22,12 @@ module.exports = {
       if (groupedEvents[event.event_data.day] === undefined) {
         groupedEvents[event.event_data.day] = {};
       }
-      if (groupedEvents[event.event_data.day][event.event_data.room] === undefined) {
-        groupedEvents[event.event_data.day][event.event_data.room] = [];
+      if (event.event_data.room !== null) {
+        if (groupedEvents[event.event_data.day][event.event_data.room] === undefined) {
+          groupedEvents[event.event_data.day][event.event_data.room] = [];
+        }
+        groupedEvents[event.event_data.day][event.event_data.room].push(event);
       }
-      groupedEvents[event.event_data.day][event.event_data.room].push(event);
     });
     return groupedEvents;
   },
