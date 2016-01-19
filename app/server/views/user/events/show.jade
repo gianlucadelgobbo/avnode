@@ -94,8 +94,7 @@ block content
 														.col-md-12
 															h3.single_event-room_title=name
 													each box in room
-														.row.main-list.grid_tab.performance_single-event_list
-															include ../../performances/item
+														include ../../performances/item
 
 							if result.partners
 								#partners.tab-pane
@@ -104,8 +103,8 @@ block content
 											.container.single_partner_of_series
 												h3=name
 										.container
-											each box in type
-												.row.main-list.grid_tab
+											.row.main-list.grid_tab
+												each box in type
 													include ../../performers/item
 
 							if result.partners
