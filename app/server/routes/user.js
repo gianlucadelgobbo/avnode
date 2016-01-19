@@ -26,16 +26,18 @@ exports.getUser = function get(req, res) {
       res.render('user/show', {
         title: user.display_name,
         performer: user,
+        user: req.user,
         _h: _h
       });
     }
   });
 };
 
-var localsList = function(user) {
+var localsList = function(user, req) {
   return {
     title: user.display_name,
     performer: user,
+		user: req.user,
     _h: _h
   }
 }
@@ -44,7 +46,7 @@ exports.getUserEvents = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    res.render('user/sections/events', localsList(user));
+    res.render('user/sections/events', localsList(user, req));
   });
 }
 
@@ -52,7 +54,7 @@ exports.getUserPerformances = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    res.render('user/sections/performances', localsList(user));
+    res.render('user/sections/performances', localsList(user, req));
   });
 }
 
@@ -60,7 +62,7 @@ exports.getUserPlaylists = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    res.render('user/sections/playlists', localsList(user));
+    res.render('user/sections/playlists', localsList(user, req));
   });
 }
 
@@ -68,7 +70,7 @@ exports.getUserFootages = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    res.render('user/sections/footage', localsList(user));
+    res.render('user/sections/footage', localsList(user, req));
   });
 }
 
@@ -76,7 +78,7 @@ exports.getUserGalleries = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    res.render('user/sections/gallery', localsList(user));
+    res.render('user/sections/gallery', localsList(user, req));
   });
 }
 
@@ -84,15 +86,16 @@ exports.getUserCrews = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    res.render('user/sections/crews', localsList(user));
+    res.render('user/sections/crews', localsList(user, req));
   });
 }
 
-var localsDetail = function(user, result) {
+var localsDetail = function(user, result, req) {
   return {
     title: user.display_name,
     result: result,
     performer: user,
+    user: req.user,
     _h: _h
   }
 }
@@ -106,7 +109,7 @@ exports.getUserEvent = function get(req, res) {
     Event
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/events/show', localsDetail(user, result));
+      res.render('user/events/show', localsDetail(user, result, req));
     });
   });
 };
@@ -120,7 +123,7 @@ exports.getUserPerformance = function get(req, res) {
     Performance
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/sections/show', localsDetail(user, result));
+      res.render('user/sections/show', localsDetail(user, result, req));
     });
   });
 };
@@ -134,7 +137,7 @@ exports.getUserPlaylist = function get(req, res) {
     Playlist
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/sections/show', localsDetail(user, result));
+      res.render('user/sections/show', localsDetail(user, result, req));
     });
   });
 };
@@ -148,7 +151,7 @@ exports.getUserFootage = function get(req, res) {
     Footage
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/sections/show', localsDetail(user, result));
+      res.render('user/sections/show', localsDetail(user, result, req));
     });
   });
 };
@@ -162,7 +165,7 @@ exports.getUserGallery = function get(req, res) {
     Gallery
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/sections/show', localsDetail(user, result));
+      res.render('user/sections/show', localsDetail(user, result, req));
     });
   });
 };
@@ -176,7 +179,7 @@ exports.getUserCrew = function get(req, res) {
     User
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/sections/show', localsDetail(user, result));
+      res.render('user/sections/show', localsDetail(user, result, req));
     });
   });
 };
