@@ -4,7 +4,7 @@
 		+coda('#E4811E')
 	.col-sm-12
 		.row.box_wrapper.coloured
-			each event, i in user.events
+			each event, i in performer.events
 				if i === 0
 					a.col-sm-12.main_event_title_wrapper(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
 						h3.main_event_title=event.title
@@ -36,6 +36,6 @@
 									img.img-circle(src=event.files[0].file, alt=event.title)
 								h3.col-sm-9= event.title
 			.col-sm-12.more_event.more_button
-				a(href="/#{user.permalink}/events", title='More events')=__("All the events")
+				a(href="/#{performer.permalink}/events", title='More events')=__("All the events")
 					span=__("+")
 					+slashes("#E4811E")

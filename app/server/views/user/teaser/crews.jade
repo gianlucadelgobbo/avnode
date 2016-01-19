@@ -4,7 +4,7 @@
 		+coda('#004431')
 	.col-sm-12
 		.box_wrapper.row.coloured
-			each crew, i in user.crews
+			each crew, i in performer.crews
 				if i < 2
 					.main_crews-box.col-xs-6.col-sm-12
 						.col-sm-3.col-md-5
@@ -17,7 +17,7 @@
 								li= crew.stats.events +__(" Events")
 							a(href="/#{crew.permalink}", title=crew.display_name)
 								h3= crew.display_name
-			each crew, i in user.crews
+			each crew, i in performer.crews
 				ul.list-inline.secondary_crew_container
 					if (i > 1 && i < 7)
 						li.secondary_crew
@@ -25,7 +25,7 @@
 								if crew.files
 									img(src=crew.files[0].file, alt=crew.display_name)
 			.col-sm-12.more_crews.more_button
-				a(href="/#{user.permalink}/crews", title='More Crews')
+				a(href="/#{performer.permalink}/crews", title='More Crews')
 					=__("All the Crews")
 					span=__("+")
 					+slashes("#004431")
