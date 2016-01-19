@@ -106,7 +106,7 @@ exports.getUserEvent = function get(req, res) {
     Event
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/sections/show', localsDetail(user, result));
+      res.render('user/events/show', localsDetail(user, result));
     });
   });
 };

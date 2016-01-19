@@ -1,9 +1,34 @@
 var media = require('./media');
 var date = require('./date');
+var text = require('./text');
 
 module.exports = {
   media: media,
   date: date,
+  text: text,
+  groupPartnersByType: function(partners) {
+    var groupedPartners = {};
+    partners.forEach(function(partner) {
+      if (groupedPartners[partner.partner_type] === undefined) {
+        groupedPartners[partner.partner_type] = [];
+      }
+      groupedPartners[partner.partner_type].push(partner);
+    });
+    return groupedPartners;
+  },
+  groupEventsByDayAndRoom: function(events) {
+    var groupedEvents = {};
+    events.forEach(function(event) {
+      if (groupedEvents[event.event_data.day] === undefined) {
+        groupedEvents[event.event_data.day] = {};
+      }
+      if (groupedEvents[event.event_data.day][event.event_data.room] === undefined) {
+        groupedEvents[event.event_data.day][event.event_data.room] = [];
+      }
+      groupedEvents[event.event_data.day][event.event_data.room].push(event);
+    });
+    return groupedEvents;
+  },
   pagination: function(link, skip, limit, total) {
     var pages = [];
     var total = Math.floor(total / limit);

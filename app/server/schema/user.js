@@ -20,7 +20,7 @@ var UserSchema = new Schema({
   password: { type: String, required: true },
   crews: [User],
   footage: [Footage],
-  events: [Event ],
+  events: [Event],
   gallery: [Gallery],
   performances: [Performance],
   playlists: [Playlist],
