@@ -25,7 +25,7 @@ exports.getUser = function get(req, res) {
       }
       res.render('user/show', {
         title: user.display_name,
-        user: user,
+        performer: user,
         _h: _h
       });
     }
@@ -35,7 +35,7 @@ exports.getUser = function get(req, res) {
 var localsList = function(user) {
   return {
     title: user.display_name,
-    user: user,
+    performer: user,
     _h: _h
   }
 }

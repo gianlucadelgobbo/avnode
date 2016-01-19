@@ -4,11 +4,11 @@
 			.col-lg-5.col-md-5.col-sm-6.col-xs-6.avatar_map
 				.row
 					.col-lg-5.col-md-4.col-sm-4.col-xs-6.performer_avatar
-						img.media-object(alt=__("Thumbnail of")+": "+user.display_name, src=_h.media.getFileFormat(user.files, 240, 180))
+						img.media-object(alt=__("Thumbnail of")+": "+performer.display_name, src=_h.media.getFileFormat(performer.files, 240, 180))
 					.col-lg-7.col-sm-8.col-xs-6.performer_geolocalization
-						a(href="/"+user.permalink, title=user.display_name)
-							h1= user.display_name
-						each location, i in user.locations
+						a(href="/"+performer.permalink, title=performer.display_name)
+							h1= performer.display_name
+						each location, i in performer.locations
 							if i === 0
 								p=location.city + " // "
 									span.country_geoloc= location.country
@@ -36,6 +36,6 @@
 				.row
 					.col-md-8.performer_summary_box
 						ul
-							each stat, name in user.stats
+							each stat, name in performer.stats
 								li
-									a(href="/#{user.permalink}/#{name}/")=__(name) + ' (' + stat + ')'
+									a(href="/#{performer.permalink}/#{name}/")=__(name) + ' (' + stat + ')'

@@ -34,7 +34,7 @@ block content
 											li
 												i(class="fa fa-user")
 												=" "
-												a(href="/"+result.permalink+"/")=user.display_name
+												a(href="/"+result.permalink+"/")=performer.display_name
 											each category in result.categories
 												if category.ancestors
 													each ancestor in category.ancestors

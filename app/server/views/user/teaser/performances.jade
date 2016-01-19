@@ -4,7 +4,7 @@
 		+coda('#0F8FCF')
 	.col-sm-12
 		.row.box_wrapper.coloured
-			each performance, i in user.performances
+			each performance, i in performer.performances
 				if i === 0
 					a.col-sm-12.main_performance_title_wrapper(href="/#{performance.users[0].permalink}/performances/#{performance.permalink}", title=performance.title)
 						h3.main_performance_title=performance.title
@@ -36,6 +36,6 @@
 									img.img-circle(src=performance.files[0].file, alt=performance.title)
 								h3.col-sm-9= performance.title
 			.col-sm-12.more_performance.more_button
-				a(href="/#{user.permalink}/performances", title='More performances')=__("All the performances")
+				a(href="/#{performer.permalink}/performances", title='More performances')=__("All the performances")
 					span=__("+")
 					+slashes("#0F8FCF")
