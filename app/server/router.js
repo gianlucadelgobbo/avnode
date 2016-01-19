@@ -219,6 +219,7 @@ module.exports = function(app) {
 	app.get('/api/clients', apiRoutes.getClients);
 	//app.get('/api', apiRoutes.get);
 
+  app.get('/(:user)/events/(:event)/participate', userRoutes.participateAtUserEvent);
   app.get('/(:user)/events/(:event)', userRoutes.getUserEvent);
   app.get('/(:user)/performances/(:performance)', userRoutes.getUserPerformance);
   app.get('/(:user)/playlists/(:playlist)', userRoutes.getUserPlaylist);
