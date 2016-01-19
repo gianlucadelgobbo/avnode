@@ -92,7 +92,7 @@ var localsDetail = function(user, result) {
   return {
     title: user.display_name,
     result: result,
-    user: user,
+    performer: user,
     _h: _h
   }
 }
@@ -162,8 +162,6 @@ exports.getUserGallery = function get(req, res) {
     Gallery
     .findOne(query)
     .exec(function(error, result) {
-      console.log('----', req.params.gallery);
-      console.log('----', result);
       res.render('user/sections/show', localsDetail(user, result));
     });
   });
