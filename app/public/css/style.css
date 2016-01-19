@@ -1101,16 +1101,16 @@ footer.main_footer {
 }
 .single_event_thumb_container .overlay_container {
   color: #fff;
-  position: absolute;
   background: rgba(51,51,51,0.8) none repeat scroll 0 0;
-  top: 0px;
-  left: 0px;
   width: 100%;
   padding: 15px 30px;
 }
 .event_events_list {
   margin: 15px 0;
   padding: 0;
+}
+li {
+  list-style-type: none;
 }
 .event_events_list .event_list_content_container {
   padding: 5px 10px;

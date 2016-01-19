@@ -20,6 +20,7 @@ module.exports = new Schema({
 	permalink: String,
 	performances: [], //FIXME
 	gallery: [], //FIXME
+  partners: [], //FIXME
 	old_id: String,
 	title: String,
 	subtitle: subtitle,

@@ -1,0 +1,116 @@
+extends ../layout
+block content
+	.single_event_page
+		.user_result.single_event_page
+			.container
+				.row
+					.col-md-12
+						.single_event_thumb_container
+							//.image
+							//	img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src=_h.media.getFileFormat(result.files, 400, 300))
+							.row
+								.overlay_container.col-sm-12
+									a.btn.btn-info.paticipate.pull-right(href='participate', role='button') Participate
+									h1.title=result.title
+									if result.subtitle
+										h3.subtitle=_h.text.getTextFormat(result.subtitle, config.lang, true)
+
+									ul.list-inline.single_event_details
+										if result.websites
+											each url in result.websites
+												li
+													i.fa.fa-external-link
+													a(href=url,target="_blank")
+														=" site"
+											li
+												span
+													i(class="fa fa-eye")
+													span.value=" "+result.stats.visits
+											li
+												span
+													i(class="fa fa-heart")
+													=" "
+													span.value=result.stats.rates.tot_rate
+											li
+												i(class="fa fa-user")
+												=" "
+												a(href="/"+result.permalink+"/")=user.display_name
+											each category in result.categories
+												if category.ancestors
+													each ancestor in category.ancestors
+														if ancestor.permalink == "lv-projects-categories"
+															li
+																i(class="fa fa-cube")
+																=" "
+																a(href="/events/#{category.permalink}")=category.name
+					.col-md-12
+						ul.row.event_events_list
+							if result.date_time_venue
+								each venue in result.date_time_venue
+									li.col-sm-4
+										.event_list_content_container
+											span
+												i(class="fa fa-clock-o")
+												!=_h.date.getEventDate(venue.date) + " | " + venue.start_time + " / " + venue.end_time + "<br />"
+											span
+												i(class="fa fa-map-marker")
+												!=venue.venue + " | " + venue.city + ", " + venue.country
+
+		if result.text
+			.about-bkg
+				.container
+					.about_performer.readmore
+						h2=__("About")
+						!= _h.text.getTextFormat(result.text, config.lang, true)
+
+		if result.performances || result.partners || result.gallery
+			.tabs-bkg
+				.container
+					// TABS
+					ul.nav.nav-tabs.event_tabs
+						if result.performances
+							li.active
+								a(href="#performances", data-toggle="tab")=__("performances") + " (" + result.performances.length + ")"
+						if result.partners
+							li
+								a(href="#partners", data-toggle="tab")=__("partners") + " (" + result.partners.length + ")"
+						if result.gallery
+							li
+								a(href="#gallery", data-toggle="tab")=__("gallery") + " (" + result.gallery.length + ")"
+
+					div
+						.tab-content.row
+							if result.performances
+								#performances.tab-pane.active
+									each day,date in _h.groupEventsByDayAndRoom(result.performances)
+										.date_bkg
+											.container.single_date_of_series
+												h3=date
+										each rooms,name in day
+											.container
+												h1=day[i]
+												each room,name in day
+													.row
+														.col-md-12
+															h3.single_event-room_title=name
+													each box in room
+														.row.main-list.grid_tab.performance_single-event_list
+															include ../../performances/item
+
+							if result.partners
+								#partners.tab-pane
+									each type,name in _h.groupPartnersByType(result.partners)
+										.date_bkg
+											.container.single_partner_of_series
+												h3=name
+										.container
+											each box in type
+												.row.main-list.grid_tab
+													include ../../performers/item
+
+							if result.partners
+								#gallery.tab-pane
+									.container
+										.row.main-list.grid_tab
+											each box in result.gallery
+												include ../../gallery/item
