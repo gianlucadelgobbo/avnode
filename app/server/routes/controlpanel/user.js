@@ -59,9 +59,18 @@ exports.post = function post(req, res) {
           }
         });
         var errors = req.validationErrors();
-        res.render('controlpanel/user/public', {
-          result: req.user,
-          errors: errors
+        var data = {};
+        if (!errors) {
+          data = req.body;
+        }
+        User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+          if (err) {
+            res.redirect('public');
+          }
+          res.render('controlpanel/user/public', {
+            result: user,
+            errors: errors
+          });
         });
       break;
       case 'image':
@@ -88,8 +97,29 @@ exports.post = function post(req, res) {
         });
       break;
       case 'private':
-        res.render('controlpanel/user/private', {
-          result: req.user
+        req.checkBody({
+          'name': {
+            isLength: {
+              options: [2, 120],
+              errorMessage: ''
+            },
+            errorMessage: ''
+          }
+        });
+        var errors = req.validationErrors();
+        var data = {};
+        if (!errors) {
+          data = req.body;
+        }
+        User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+          if (err) {
+            res.redirect('public');
+          }
+          res.render('controlpanel/user/private', {
+            result: user,
+            countries: require('country-list')().getData(),
+            errors: errors
+          });
         });
       break;
       case 'connections':

@@ -7,6 +7,8 @@ mixin websites(websites)
 				if websites
 					each website in websites
 						input(autocomplete="off", name="websites[]", value=website, type="text", placeholder="http://").form-control
+						a(onclick="$(this).prev().remove();$(this).remove();")
+							i.fa.fa-trash
 				input(autocomplete="off", name="websites[]", value=website, type="text", placeholder="http://").form-control
 
 mixin multilanguage-text(texts)
