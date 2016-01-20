@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('express-session');
 var flash = require('connect-flash');
-var multer  = require('multer');
 var passport = require('passport');
 var authentication = require('./authentication/passport');
+var expressValidator = require('express-validator');
 
 
 GLOBAL.i18n = require('i18n');
@@ -45,8 +45,8 @@ module.exports = function(app, exp) {
   app.use(cookieParser());
   app.use(bodyParser.json({limit: config.maxFileSize}));
   app.use(bodyParser.urlencoded({parameterLimit: 30000000000, limit: config.maxFileSize, extended: true }));
+  app.use(expressValidator());
   app.use(methodOverride());
-  //app.use(multer({ dest: config.uploadedFilesPath}));
 
   app.use(session({ secret: 'avnode', resave: true, saveUninitialized: true }));
 

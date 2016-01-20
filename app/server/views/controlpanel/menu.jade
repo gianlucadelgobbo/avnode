@@ -1,0 +1,8 @@
+.col-md-2
+	ul.nav.nav-tabs
+		li(class=(sez=="user" ? "active" : undefined))
+			a(href="/controlpanel/user/")=__("User")
+		- each item in config.sections
+			- if(item.basepath!="performers" && item.basepath!="members")
+				li(class=(sez==item.basepath || (sez=="performers" && item.basepath=="crews") ? "active" : undefined))
+					a(href="/controlpanel/"+item.basepath+"/")=item.title

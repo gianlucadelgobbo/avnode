@@ -1,0 +1,28 @@
+mixin websites(websites)
+	hr
+	.form-group
+		label.col-sm-2.control-label=__("websites")
+		.col-sm-10
+			#websites
+				if websites
+					each website in websites
+						input(autocomplete="off", name="websites[]", value=website, type="text", placeholder="http://").form-control
+				input(autocomplete="off", name="websites[]", value=website, type="text", placeholder="http://").form-control
+
+mixin multilanguage-text(texts)
+	hr
+	.form-group
+		label.col-sm-2.control-label=__("description")
+		.col-sm-10
+			each text, language in texts
+				label.control-label=__(language)
+				textarea.form-control(name="text[#{language}]",rows="5")=text
+
+mixin render-errors(errors)
+	if errors
+		ul.bg-danger
+			each error in errors
+				li
+					strong=error.param
+					=" "
+					span=error.msg

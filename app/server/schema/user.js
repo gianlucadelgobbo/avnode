@@ -26,6 +26,8 @@ var UserSchema = new Schema({
   playlists: [Playlist],
   tvshow: [TVShow],
   files: [File],
+  emails: [],
+  mailinglists: [],
   text: Object,
   stats: {
     // FIXME
