@@ -16,6 +16,7 @@ var cpanelConfirmRoutes 			= require('./routes/controlpanel/confirm');
 var cpanelLogoutRoutes 				= require('./routes/controlpanel/logout');
 var cpanelSignupRoutes 				= require('./routes/controlpanel/signup');
 var cpanelUserRoutes 				= require('./routes/controlpanel/user');
+var cpanelCrewsRoutes 				= require('./routes/controlpanel/crews');
 
 var uploadRoutes 					= require('./routes/upload');
 var uploadSuccessRoutes				= require('./routes/upload-success');
@@ -23,7 +24,6 @@ var imageRoutes 					= require('./routes/image');
 var ajax		 					= require('./routes/ajax');
 
 var passport 						= require('passport');
-
 
 /*
 var lostPasswordRoutes = require('./routes/lost-password');
@@ -170,6 +170,10 @@ module.exports = function(app) {
 
   app.get('/controlpanel/user(/:section?)', cpanelUserRoutes.get);
   app.post('/controlpanel/user(/:section?)', cpanelUserRoutes.post);
+
+  app.get('/controlpanel/crews/:crew/:section', cpanelCrewsRoutes.editCrew);
+  app.get('/controlpanel/crews', cpanelCrewsRoutes.getAll);
+  app.post('/controlpanel/crews', cpanelCrewsRoutes.post);
 
 	// search //
 	app.get('/search', searchRoutes.get);

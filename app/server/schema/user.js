@@ -28,6 +28,7 @@ var UserSchema = new Schema({
   files: [File],
   emails: [],
   mailinglists: [],
+  members: [],
   text: Object,
   stats: {
     // FIXME

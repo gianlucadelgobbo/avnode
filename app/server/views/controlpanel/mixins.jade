@@ -14,9 +14,10 @@ mixin multilanguage-text(texts)
 	.form-group
 		label.col-sm-2.control-label=__("description")
 		.col-sm-10
-			each text, language in texts
-				label.control-label=__(language)
-				textarea.form-control(name="text[#{language}]",rows="5")=text
+			if texts
+				each text, language in texts
+					label.control-label=__(language)
+					textarea.form-control(name="text[#{language}]",rows="5")=text
 
 mixin render-errors(errors)
 	if errors
