@@ -5,14 +5,6 @@ var File = require('./file');
 var User = require('./user');
 var config = require('getconfig');
 
-// Reuse the configured locales…
-var subtitle = {};
-var text = {};
-config.locales.forEach(function(locale) {
-	subtitle[locale] = String;
-	text[locale] = String;
-});
-
 // Derived from the entry:
 // "permalink" : "3x3-smil-stereoscopy-mapping-in-live1re-ditionoctober-11-12-13-paris-2013",
 module.exports = new Schema({
@@ -23,8 +15,8 @@ module.exports = new Schema({
   partners: [], //FIXME
 	old_id: String,
 	title: String,
-	subtitle: subtitle,
-	text: text,
+	subtitle: {},
+	text: {},
 	files: [File],
 	users: [User], //{ type: Schema.Types.ObjectId, ref: 'User' }],
 	date_time_venue: [], //FIXME

@@ -1,0 +1,9 @@
+extends ../list-layout
+
+block list
+	ul
+		each box in result.events
+			li
+				span=box.title
+				a(href="/controlpanel/events/#{box.permalink}/public")
+					i.fa.fa-pencil

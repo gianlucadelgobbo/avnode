@@ -17,6 +17,7 @@ var cpanelLogoutRoutes = require('./routes/controlpanel/logout');
 var cpanelSignupRoutes = require('./routes/controlpanel/signup');
 var cpanelUserRoutes = require('./routes/controlpanel/user');
 var cpanelCrewsRoutes = require('./routes/controlpanel/crews');
+var cpanelEventsRoutes = require('./routes/controlpanel/events');
 
 var uploadRoutes = require('./routes/upload');
 var uploadSuccessRoutes = require('./routes/upload-success');
@@ -121,6 +122,10 @@ module.exports = function(app) {
   app.get('/controlpanel/crews/:crew/:section', cpanelCrewsRoutes.editCrew);
   app.get('/controlpanel/crews', cpanelCrewsRoutes.getAll);
   app.post('/controlpanel/crews', cpanelCrewsRoutes.post);
+
+  app.get('/controlpanel/events/:event/:section', cpanelEventsRoutes.editEvent);
+  app.get('/controlpanel/events', cpanelEventsRoutes.getAll);
+  app.post('/controlpanel/events', cpanelEventsRoutes.post);
 
 	app.get('/search', searchRoutes.get);
 
