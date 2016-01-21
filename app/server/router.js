@@ -127,6 +127,10 @@ module.exports = function(app) {
   app.get('/controlpanel/crews', cpanelCrewsRoutes.getAll);
   app.post('/controlpanel/crews', cpanelCrewsRoutes.post);
 
+  app.get('/controlpanel/events/:event/calls/new', cpanelEventsRoutes.newEventCall);
+  app.get('/controlpanel/events/:event/calls/:call/delete', cpanelEventsRoutes.deleteEventCall);
+  app.get('/controlpanel/events/:event/calls/:call', cpanelEventsRoutes.editEventCall);
+  app.post('/controlpanel/events/:event/calls/:call', cpanelEventsRoutes.editEventCall);
   app.get('/controlpanel/events/:event/:section', cpanelEventsRoutes.editEvent);
   app.put('/controlpanel/events/:permalink', cpanelEventsRoutes.newEvent);
   app.get('/controlpanel/events', cpanelEventsRoutes.getAll);

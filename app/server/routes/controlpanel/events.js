@@ -1,5 +1,6 @@
 var User = require('../../models/user');
 var Event = require('../../models/event');
+var _ = require('lodash');
 
 exports.getAll = function get(req, res) {
   res.render('controlpanel/events/list', {
@@ -56,12 +57,54 @@ exports.editEvent = function get(req, res) {
           result: event
         });
       break;
-      case 'call':
-        res.render('controlpanel/events/call', {
+      case 'calls':
+        res.render('controlpanel/events/calls', {
           result: event
         });
       break;
     }
+  });
+};
+
+exports.newEventCall = function get(req, res) {
+  var query = { 'permalink': req.params.event };
+  Event.findOne(query)
+  .exec(function(error, event) {
+    if (event.settings.call.calls === undefined) {
+      event.settings.call.calls = [];
+    }
+    event.settings.call.calls.push({title: ''});
+    var call = _.last(event.settings.call.calls);
+    event.save(function (err, event) {
+      res.redirect(call._id);
+    });
+  });
+};
+
+exports.deleteEventCall = function get(req, res) {
+  var query = { 'permalink': req.params.event };
+  Event.findOne(query)
+  .exec(function(error, event) {
+    var call = event.settings.call.calls.id(req.params.call);
+    call.remove();
+    event.save(function (err, event) {
+      res.redirect('../../calls');
+    });
+  });
+}
+
+exports.editEventCall = function get(req, res) {
+  var query = { 'permalink': req.params.event };
+  Event.findOne(query)
+  .exec(function(error, event) {
+    var call = event.settings.call.calls.id(req.params.call);
+    call = _.merge(call, req.body);
+    event.save(function(err, event) {
+      res.render('controlpanel/events/call/edit', {
+        call: call,
+        result: event
+      });
+    });
   });
 };
 

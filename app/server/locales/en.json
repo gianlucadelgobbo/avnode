@@ -201,5 +201,9 @@
 	"Advanced program builder": "Advanced program builder",
 	"Tool to manage, evaluate, select and schedule every project involved in the event": "Tool to manage, evaluate, select and schedule every project involved in the event",
 	"permissions": "permissions",
-	"calls": "calls"
+	"calls": "calls",
+	"no calls": "no calls",
+	"add call": "add call",
+	"edit call": "edit call",
+	"delete call": "delete call"
 }

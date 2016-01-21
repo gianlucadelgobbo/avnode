@@ -1,0 +1,11 @@
+extends ../../form-layout
+
+block form
+	include ../menu
+	h2=__("edit call")
+	form.form-horizontal(method="post")
+		fieldset
+			legend=title
+			input(type="text", name="title", value=call.title)
+		input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
+	a.btn.btn-danger(href="#{call._id}/delete")=__("delete call")

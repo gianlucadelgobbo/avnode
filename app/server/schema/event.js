@@ -26,7 +26,10 @@ module.exports = new Schema({
 		call: {
 			is_active: Boolean,
 			program_builder: Boolean,
-			advanced_proposals_manager: Boolean
+			advanced_proposals_manager: Boolean,
+      calls: [{
+        title: String
+      }]
 		},
 		permissions: {
 			administrator: [User], // FIXME
