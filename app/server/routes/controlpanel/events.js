@@ -2,13 +2,32 @@ var User = require('../../models/user');
 var Event = require('../../models/event');
 
 exports.getAll = function get(req, res) {
-  User.findById({_id: '5170871ad931639094001b1d'}, function(err, user) {
-    req.user = user;
-    res.render('controlpanel/events/list', {
-      result: req.user
-    });
+  res.render('controlpanel/events/list', {
+    result: req.user
   });
 };
+
+// FIXME
+exports.newEvent = function put(req, res) {
+  var permalink = req.params.permalink
+  permalink = permalink.toLowerCase();
+  permalink = permalink.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+  var query = { 'permalink': permalink };
+  Event.findOne(query, function(err, event) {
+    var response = '';
+    if (err) {}
+    if (event === null) {
+      Event.create({ permalink: permalink }, function (err, event) {
+        if (!err) {
+          response = '/controlpanel/events/' + permalink + '/public';
+        }
+        res.json(response);
+      });
+    } else {
+      res.json(response);
+    }
+  });
+}
 
 exports.editEvent = function get(req, res) {
   var query = { 'permalink': req.params.event };

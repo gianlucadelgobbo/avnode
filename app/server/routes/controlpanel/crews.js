@@ -2,11 +2,8 @@ var User = require('../../models/user');
 var Crew = require('../../models/user');
 
 exports.getAll = function get(req, res) {
-  User.findById({_id: '5170871ad931639094001b1d'}, function(err, user) {
-    req.user = user;
-    res.render('controlpanel/crews/list', {
-      result: req.user
-    });
+  res.render('controlpanel/crews/list', {
+    result: req.user
   });
 };
 

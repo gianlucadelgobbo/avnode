@@ -108,7 +108,11 @@ module.exports = function(app) {
 
   // FIXME
 	app.use('/controlpanel*', function(req, res, next) {
-    next();
+    var User = require('./models/user');
+    User.findById({_id: '5170871ad931639094001b1d'}, function(err, user) {
+      req.user = user;
+      next();
+    });
     //if (!req.user) {
     //  res.redirect('/controlpanel/login/?from='+req.url);
     //} else {
@@ -124,6 +128,7 @@ module.exports = function(app) {
   app.post('/controlpanel/crews', cpanelCrewsRoutes.post);
 
   app.get('/controlpanel/events/:event/:section', cpanelEventsRoutes.editEvent);
+  app.put('/controlpanel/events/:permalink', cpanelEventsRoutes.newEvent);
   app.get('/controlpanel/events', cpanelEventsRoutes.getAll);
   app.post('/controlpanel/events', cpanelEventsRoutes.post);
 
