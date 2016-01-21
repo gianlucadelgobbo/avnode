@@ -46,8 +46,18 @@ exports.editEvent = function get(req, res) {
           result: event
         });
       break;
-      case 'settings':
-        res.render('controlpanel/events/settings', {
+      case 'visibility':
+        res.render('controlpanel/events/visibility', {
+          result: event
+        });
+      break;
+      case 'permissions':
+        res.render('controlpanel/events/permissions', {
+          result: event
+        });
+      break;
+      case 'call':
+        res.render('controlpanel/events/call', {
           result: event
         });
       break;

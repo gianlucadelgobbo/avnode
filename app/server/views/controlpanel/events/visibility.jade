@@ -1,0 +1,50 @@
+extends ../form-layout
+
+block form
+	include ./menu
+	h2=__("visibility")
+	form.form-horizontal(method="post")
+		input(type="hidden",name="_id",value=result._id)
+		fieldset
+			legend=__("visibility")
+
+			.form-group
+				label.col-md-2.control-label
+					input.switch(value="1", name="settings[is_public]", type="checkbox", checked=result.settings.is_public ? "checked" : undefined)
+				.col-md-10
+					h4=__("Public")
+					p=__("The event is published")
+
+			.form-group
+				label.col-md-2.control-label
+					input.switch(value="1", name="settings[gallery_is_public]", type="checkbox",autocomplete="off",checked=result.settings.gallery_is_public ? "checked" : undefined)
+				.col-md-10
+					h4=__("Public Gallery")
+					p=__("All the AV node users can upload gallery")
+
+			.form-group
+				label.col-md-2.control-label
+					input.switch(value="1", name="settings[call_is_active]", type="checkbox", checked=result.settings.call_is_active ? "checked" : undefined)
+				.col-md-10
+					h4=__("Open call")
+					p=__("The users can submit a project to the event")
+
+			.form-group
+				label.col-md-2.control-label
+					input.switch(value="1", name="settings[program_builder]", onchange="$(this).parent().parent().find('.rooms').slideToggle('slide')",type="checkbox",autocomplete="off", checked=result.settings.program_builder ? "checked" : undefined)
+				.col-md-9
+					h4=__("Advanced program builder")
+					p=__("Tool to manage, evaluate, select and schedule every project involved in the event")
+					p
+						b=__("This function is reserved to AVnode.org members")+". "
+						a(href="http://avnode.org/members/")=__("more info")
+
+			.form-group
+				label.col-md-2.control-label
+					input.switch(value="1", name="settings[advanced_proposals_manager]", onchange="$('#permissions').slideToggle('slide')",type="checkbox",autocomplete="off", checked=result.settings.advanced_proposals_manager ? "checked" : undefined)
+				.col-md-10
+					h4=__("Advanced project proposals manager")
+					p=__("Tool to easily build the program based on custom rooms ad timetable with rules on performance accepted")
+					p
+						b=__("This function is reserved to AVnode.org members")+". "
+						a(href="http://avnode.org/members/")=__("more info")
