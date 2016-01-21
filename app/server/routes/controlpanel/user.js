@@ -1,4 +1,5 @@
 var User = require('../../models/user');
+var _ = require('lodash');
 
 exports.get = function get(req, res) {
   User.findById({_id: '5170871ad931639094001b1d'}, function(err, user) {
@@ -10,10 +11,7 @@ exports.get = function get(req, res) {
         });
       break;
       case 'image':
-        var image = null;
-        if (req.user.files.length) {
-          image = req.user.files[0].file;
-        }
+        var image = _.first(req.user.files);
         res.render('controlpanel/user/image', {
           image: image,
           result: req.user
@@ -76,14 +74,12 @@ exports.post = function post(req, res) {
       case 'image':
         // FIXME
         var errors = false;
-        var image = null;
-        if (req.user.files.length) {
-          image = req.user.files[0].file;
+        var data = {
+          'files.0.file': req.body.image
         }
-        res.render('controlpanel/user/image', {
-          image: image,
-          errors: errors,
-          result: req.user
+        User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+          if (err) res.json({success: false});
+          res.json({success: true});
         });
       break;
       case 'password':

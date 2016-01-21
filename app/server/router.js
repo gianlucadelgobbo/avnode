@@ -25,6 +25,13 @@ var ajax = require('./routes/ajax');
 
 var passport = require('passport');
 
+var fs = require('fs');
+var process = require('process');
+var multer = require('multer');
+var upload = multer({ dest: process.cwd() + '/warehouse/tmp/' });
+var mime = require('mime');
+var sha1 = require('sha1');
+
 module.exports = function(app) {
 	app.get('/', indexRoutes.get);
 
@@ -138,4 +145,16 @@ module.exports = function(app) {
   app.get('/(:user)/crews', userRoutes.getUserCrews);
 
   app.get('/(:user)', userRoutes.getUser);
+
+  app.post('/api/upload/image', upload.single('image'), function (req, res, next) {
+    var response = '';
+    var extension = mime.extension(req.file.mimetype);
+    if (extension === 'png' || extension === 'jpeg') {
+      var response = '/warehouse/uploads/' + sha1(req.file.originalname) + '.' + extension;
+      var destAbsolute = process.cwd() + response;
+      fs.createReadStream(req.file.path).pipe(fs.createWriteStream(destAbsolute));
+      fs.unlink(req.file.path);
+    }
+    res.send(response);
+  });
 };
