@@ -32,7 +32,14 @@ module.exports = new Schema({
       background_image: String,
       background_color: String,
       calls: [{
-        title: String
+        title: String,
+        email: String,
+        permalink: String,
+        start_date: Date,
+        end_date: Date,
+        admitted: [String],
+        excerpt: String,
+        terms: String
       }]
 		},
 		permissions: {

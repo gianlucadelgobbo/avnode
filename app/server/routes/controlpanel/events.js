@@ -120,6 +120,7 @@ exports.editEventCall = function get(req, res) {
   .exec(function(error, event) {
     var call = event.settings.call.calls.id(req.params.call);
     call = _.merge(call, req.body);
+    call.markModified('admitted');
     event.save(function(err, event) {
       res.render('controlpanel/events/call/edit', {
         call: call,

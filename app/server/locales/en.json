@@ -206,5 +206,13 @@
 	"add call": "add call",
 	"edit call": "edit call",
 	"delete call": "delete call",
-	"Call visibility": "Call visibility"
+	"Call visibility": "Call visibility",
+	"title": "title",
+	"Support email": "Support email",
+	"Identifier": "Identifier",
+	"Open call start day": "Open call start day",
+	"Open call end day": "Open call end day",
+	"Admitted projects": "Admitted projects",
+	"Excerpt": "Excerpt",
+	"Title": "Title"
 }

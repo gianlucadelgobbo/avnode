@@ -6,6 +6,48 @@ block form
 	form.form-horizontal(method="post")
 		fieldset
 			legend=title
-			input(type="text", name="title", value=call.title)
-		input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
-	a.btn.btn-danger(href="#{call._id}/delete")=__("delete call")
+			.form-group
+				label.col-md-2.control-label=__("Title")
+				.col-md-10
+					input.form-control(type="text", name="title", value=call.title)
+			.form-group
+				label.col-md-2.control-label=__("Support email")
+				.col-md-10
+					input.form-control(name="email",	value=call.email,	type="text")
+			.form-group
+				label.col-md-2.control-label=__("Identifier")
+				.col-md-10
+					input.form-control(name="permalink", value=call.permalink,	type="text")
+			.form-group
+				label.col-md-2.control-label=__("Open call start day")
+				.col-md-10
+					.input-group.date.datepicker(data-date=call.start_date,data-date-format="yyyy-mm-dd")
+						input.form-control(name="start_date", value=call.start_date,	type="text").disabled
+						span.input-group-addon
+							i.glyphicon.glyphicon-calendar
+			.form-group
+				label.col-md-2.control-label=__("Open call end day")
+				.col-md-10
+					.input-group.date.datepicker(data-date=call.end_date,data-date-format="yyyy-mm-dd")
+						input.form-control(name="end_date", value=call.end_date, type="text").disabled
+						span.input-group-addon
+							i.glyphicon.glyphicon-calendar
+			.form-group
+				label.col-md-2.control-label=__("Admitted projects")
+				.col-md-10.admitted
+					each category in config.sections.performances.categories
+						.checkbox
+							label
+								input(value=category, name="admitted[]", type="checkbox", checked=(call.admitted.indexOf(category) !=-1))
+								span=__(category)
+			.form-group
+				label.col-md-2.control-label=__("Excerpt")
+				.col-md-10
+					textarea.form-control(name="excerpt",rows="4")=call.excerpt
+			.form-group
+				label.col-md-2.control-label=__("Terms and conditions")
+				.col-md-10
+					textarea.form-control(name="terms",rows="4")=call.terms
+		fieldset.text-right
+			input(type="submit", value=__("Save")).btn.btn-primary
+			a.btn.btn-danger(href="#{call._id}/delete")=__("delete call")
