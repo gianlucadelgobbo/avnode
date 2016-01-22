@@ -39,7 +39,13 @@ module.exports = new Schema({
         end_date: Date,
         admitted: [String],
         excerpt: String,
-        terms: String
+        terms: String,
+        topics: [{
+          title: String
+        }],
+        packages: [{
+          title: String
+        }]
       }]
 		},
 		permissions: {

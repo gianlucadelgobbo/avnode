@@ -48,6 +48,26 @@ block form
 				label.col-md-2.control-label=__("Terms and conditions")
 				.col-md-10
 					textarea.form-control(name="terms",rows="4")=call.terms
+
+		fieldset
+			legend=__("topics")
+			if call.topics
+				each topic,i in call.topics
+					.form-group
+						label.col-md-2.control-label=__("Title")
+						.col-md-10
+							input.form-control(type="text", name="topics[#{i}][title]", value=topic.title)
+
+		fieldset
+			legend=__("packages")
+			if call.packages
+				each package,i in call.packages
+					.form-group
+						label.col-md-2.control-label=__("Title")
+						.col-md-10
+							input.form-control(type="text", name="packages[#{i}][title]", value=package.title)
+
 		fieldset.text-right
 			input(type="submit", value=__("Save")).btn.btn-primary
 			a.btn.btn-danger(href="#{call._id}/delete")=__("delete call")
+
