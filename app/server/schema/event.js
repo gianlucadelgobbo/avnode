@@ -27,6 +27,10 @@ module.exports = new Schema({
 			is_active: Boolean,
 			program_builder: Boolean,
 			advanced_proposals_manager: Boolean,
+      next_edition: String,
+      header_image: String,
+      background_image: String,
+      background_color: String,
       calls: [{
         title: String
       }]

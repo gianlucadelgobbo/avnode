@@ -2,6 +2,59 @@ extends ../list-layout
 
 block list
 	include ./menu
+	form.form-horizontal(method="POST")
+		fieldset
+			legend=__("Call visibility")
+			.form-group
+				label.col-md-2.control-label
+					input.switch(value="1", name="settings[call][is_active]", type="checkbox", checked=result.settings.call.is_active)
+				.col-md-10
+					h4=__("Open call")
+					p=__("The users can submit a project to the event")
+
+			.form-group
+				label.col-md-2.control-label
+					input.switch(value="1", name="settings[call][program_builder]", type="checkbox", checked=result.settings.call.program_builder)
+				.col-md-9
+					h4=__("Advanced program builder")
+					p=__("Tool to manage, evaluate, select and schedule every project involved in the event")
+					p
+						b=__("This function is reserved to AVnode.org members")+". "
+						a(href="http://avnode.org/members/")=__("more info")
+
+			.form-group
+				label.col-md-2.control-label
+					input.switch(value="1", name="settings[call][advanced_proposals_manager]", type="checkbox" checked=result.settings.call.advanced_proposals_manager)
+				.col-md-10
+					h4=__("Advanced project proposals manager")
+					p=__("Tool to easily build the program based on custom rooms ad timetable with rules on performance accepted")
+					p
+						b=__("This function is reserved to AVnode.org members")+". "
+						a(href="http://avnode.org/members/")=__("more info")
+		fieldset
+			legend=__("Open call general settings")
+			.form-group
+				label.col-md-3.control-label=__("Next Edition")
+				.col-md-9
+					input.form-control(name="settings[call][next_edition]",value=result.settings.call.next_edition,type="text")
+			.form-group
+				label.col-md-3.control-label
+					!=__("Header image")
+					br
+					!="(960 x 100px)"
+				.col-md-9
+					input.form-control(name="settings[call][header_image]",	value=result.settings.call.header_image,	type="text")
+			.form-group
+				label.col-md-3.control-label=__("Background image")+" (optional)"
+				.col-md-9
+					input.form-control(name="settings[call][background_image]",	value=result.settings.call.background_image,	type="text")
+			.form-group
+				label.col-md-3.control-label=__("Background color")
+				.col-md-9
+					input.form-control(name="settings[call][background_color]",	value=result.settings.call.background_color,	type="text")
+			.form-group
+				input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
+
 	h2=__("calls")
 	a.btn.btn-primary(href="calls/new")
 		i.fa.fa-plus
@@ -14,3 +67,13 @@ block list
 					a(href="calls/#{call._id}")=call.title
 	else
 		p.bg-info=__("no calls")
+
+	script(type="text/javascript").
+		$(document).ready(function() {
+			$("input.switch").bootstrapSwitch({
+				onSwitchChange: function(ev, state, el) {
+					console.log($(ev.currentTarget));
+					$(ev.currentTarget).prop('checked', state);
+				}
+			});
+		});

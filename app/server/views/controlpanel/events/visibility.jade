@@ -21,30 +21,3 @@ block form
 				.col-md-10
 					h4=__("Public Gallery")
 					p=__("All the AV node users can upload gallery")
-
-			.form-group
-				label.col-md-2.control-label
-					input.switch(value="1", name="settings[call][is_active]", type="checkbox", checked=result.settings.call.is_active ? "checked" : undefined)
-				.col-md-10
-					h4=__("Open call")
-					p=__("The users can submit a project to the event")
-
-			.form-group
-				label.col-md-2.control-label
-					input.switch(value="1", name="settings[call][program_builder]", type="checkbox", checked=result.settings.call.program_builder ? "checked" : undefined)
-				.col-md-9
-					h4=__("Advanced program builder")
-					p=__("Tool to manage, evaluate, select and schedule every project involved in the event")
-					p
-						b=__("This function is reserved to AVnode.org members")+". "
-						a(href="http://avnode.org/members/")=__("more info")
-
-			.form-group
-				label.col-md-2.control-label
-					input.switch(value="1", name="settings[call][advanced_proposals_manager]", checked=result.settings.call.advanced_proposals_manager ? "checked" : undefined)
-				.col-md-10
-					h4=__("Advanced project proposals manager")
-					p=__("Tool to easily build the program based on custom rooms ad timetable with rules on performance accepted")
-					p
-						b=__("This function is reserved to AVnode.org members")+". "
-						a(href="http://avnode.org/members/")=__("more info")

@@ -132,6 +132,7 @@ module.exports = function(app) {
   app.get('/controlpanel/events/:event/calls/:call', cpanelEventsRoutes.editEventCall);
   app.post('/controlpanel/events/:event/calls/:call', cpanelEventsRoutes.editEventCall);
   app.get('/controlpanel/events/:event/:section', cpanelEventsRoutes.editEvent);
+  app.post('/controlpanel/events/:event/:section', cpanelEventsRoutes.editEvent);
   app.put('/controlpanel/events/:permalink', cpanelEventsRoutes.newEvent);
   app.get('/controlpanel/events', cpanelEventsRoutes.getAll);
   app.post('/controlpanel/events', cpanelEventsRoutes.post);

@@ -1,6 +1,7 @@
 var User = require('../../models/user');
 var Event = require('../../models/event');
 var _ = require('lodash');
+var flatten = require('flat');
 
 exports.getAll = function get(req, res) {
   res.render('controlpanel/events/list', {
@@ -30,7 +31,7 @@ exports.newEvent = function put(req, res) {
   });
 }
 
-exports.editEvent = function get(req, res) {
+exports.editEvent = function (req, res) {
   var query = { 'permalink': req.params.event };
   Event.findOne(query)
   .exec(function(error, event) {
@@ -58,9 +59,29 @@ exports.editEvent = function get(req, res) {
         });
       break;
       case 'calls':
-        res.render('controlpanel/events/calls', {
-          result: event
-        });
+        var render = function(event) {
+          res.render('controlpanel/events/calls', {
+            result: event
+          });
+        }
+        if (!_.isEmpty(req.body)) {
+          var data = req.body;
+          _.defaultsDeep(data, {
+            settings: {
+              call: {
+                is_active: false,
+                program_builder: false,
+                advanced_proposals_manager: false
+              }
+            }
+          });
+          Event.findByIdAndUpdate(event._id, {$set: flatten(data)}, {new: true}, function (err, event) {
+            if (err) {}
+            render(event);
+          });
+        } else {
+          render(event);
+        }
       break;
     }
   });

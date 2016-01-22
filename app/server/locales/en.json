@@ -205,5 +205,6 @@
 	"no calls": "no calls",
 	"add call": "add call",
 	"edit call": "edit call",
-	"delete call": "delete call"
+	"delete call": "delete call",
+	"Call visibility": "Call visibility"
 }
