@@ -49,23 +49,88 @@ block form
 				.col-md-10
 					textarea.form-control(name="terms",rows="4")=call.terms
 
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js")
+		script(id="topic", type="text/x-handlebars-template")
+			div(data-topic="{{i}}")
+				button.delete.btn.btn-danger
+					i.fa.fa-trash
+				{{#if _id}}
+				input(type="hidden", name="topics[{{i}}][_id]", value="{{_id}}")
+				{{/if}}
+				.form-group
+					label.col-md-2.control-label=__("Title")
+					.col-md-10
+						input.form-control(type="text", name="topics[{{i}}][title]", value="{{title}}")
+		script(type="text/javascript").
+			$(document).ready(function() {
+				var source   = $("#topic").html();
+				var template = Handlebars.compile(source);
+				var data = !{JSON.stringify(call.topics)};
+				data.forEach(function(item, i) {
+					item.i = i;
+					$(template(item)).appendTo($('#topics'));
+				});
+				var total = data.length;
+				$('button.delete').on('click', function(ev) {
+					ev.preventDefault();
+					$(this).parent().remove();
+				});
+				$('#new-topic').on('click', function(ev) {
+					ev.preventDefault();
+					var item = { };
+					item.i = total;
+					$(template(item)).appendTo($('#topics'));
+					++total;
+				});
+			});
 		fieldset
 			legend=__("topics")
-			if call.topics
-				each topic,i in call.topics
-					.form-group
-						label.col-md-2.control-label=__("Title")
-						.col-md-10
-							input.form-control(type="text", name="topics[#{i}][title]", value=topic.title)
+			div#topics
+			button.btn.btn-primary#new-topic
+				i.fa.fa-plus
+				=" "
+				=__("new topic")
 
+		script(id="package", type="text/x-handlebars-template")
+			div(data-package="{{i}}")
+				button.delete.btn.btn-danger
+					i.fa.fa-trash
+				{{#if _id}}
+				input(type="hidden", name="packages[{{i}}][_id]", value="{{_id}}")
+				{{/if}}
+				.form-group
+					label.col-md-2.control-label=__("Title")
+					.col-md-10
+						input.form-control(type="text", name="packages[{{i}}][title]", value="{{title}}")
+		script(type="text/javascript").
+			$(document).ready(function() {
+				var source   = $("#package").html();
+				var template = Handlebars.compile(source);
+				var data = !{JSON.stringify(call.packages)};
+				data.forEach(function(item, i) {
+					item.i = i;
+					$(template(item)).appendTo($('#packages'));
+				});
+				var total = data.length;
+				$('button.delete').on('click', function(ev) {
+					ev.preventDefault();
+					$(this).parent().remove();
+				});
+				$('#new-package').on('click', function(ev) {
+					ev.preventDefault();
+					var item = { };
+					item.i = total;
+					$(template(item)).appendTo($('#packages'));
+					++total;
+				});
+			});
 		fieldset
 			legend=__("packages")
-			if call.packages
-				each package,i in call.packages
-					.form-group
-						label.col-md-2.control-label=__("Title")
-						.col-md-10
-							input.form-control(type="text", name="packages[#{i}][title]", value=package.title)
+			div#packages
+			button.btn.btn-primary#new-package
+				i.fa.fa-plus
+				=" "
+				=__("new package")
 
 		fieldset.text-right
 			input(type="submit", value=__("Save")).btn.btn-primary

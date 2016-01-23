@@ -216,5 +216,9 @@
 	"Excerpt": "Excerpt",
 	"Title": "Title",
 	"topics": "topics",
-	"packages": "packages"
+	"packages": "packages",
+	"new topic": "new topic",
+	"packagess": "packagess",
+	"new packages": "new packages",
+	"new package": "new package"
 }
