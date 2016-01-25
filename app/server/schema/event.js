@@ -41,10 +41,21 @@ module.exports = new Schema({
         excerpt: String,
         terms: String,
         topics: [{
-          title: String
+          title: String,
+          description: String
         }],
         packages: [{
-          title: String
+          title: String,
+          price: Number,
+          description: String,
+          personal: Boolean,
+          requested: Boolean,
+          allow_multiple: Boolean,
+          allow_options: Boolean,
+          daily: {
+            start_date: Date,
+            end_date: Date
+          }
         }]
       }]
 		},

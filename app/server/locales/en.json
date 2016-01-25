@@ -220,5 +220,15 @@
 	"new topic": "new topic",
 	"packagess": "packagess",
 	"new packages": "new packages",
-	"new package": "new package"
+	"new package": "new package",
+	"Description": "Description",
+	"package": "package",
+	"Use a negative amount if the event will pay, 0 if the project don't have to pay and a positive number if they have to pay": "Use a negative amount if the event will pay, 0 if the project don't have to pay and a positive number if they have to pay",
+	"Package description": "Package description",
+	"Personal Package": "Personal Package",
+	"Requested Package": "Requested Package",
+	"Allow Multiple": "Allow Multiple",
+	"Allow Options": "Allow Options",
+	"Package start day": "Package start day",
+	"Package end day": "Package end day"
 }

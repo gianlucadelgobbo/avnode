@@ -118,8 +118,23 @@ exports.editEventCall = function get(req, res) {
   var query = { 'permalink': req.params.event };
   Event.findOne(query)
   .exec(function(error, event) {
+    var data = _.defaults(req.body, {
+      packages: [],
+      topics: [],
+      admitted: []
+    });
+    data.packages.map(function(pkg) {
+      _.defaults(pkg, {
+        personal: false,
+        requested: false,
+        allow_multiple: false,
+        allow_options: false
+      });
+    });
     var call = event.settings.call.calls.id(req.params.call);
-    call = _.assign(call, req.body);
+    call = _.assign(call, data);
+    call.markModified('packages');
+    call.markModified('topics');
     call.markModified('admitted');
     event.save(function(err) {
       res.render('controlpanel/events/call/edit', {

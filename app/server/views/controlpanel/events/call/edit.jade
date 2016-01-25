@@ -38,7 +38,7 @@ block form
 					each category in config.sections.performances.categories
 						.checkbox
 							label
-								input(value=category, name="admitted[]", type="checkbox", checked=(call.admitted.indexOf(category) !=-1))
+								input(value=category, name="admitted[]", type="checkbox", checked=(call.admitted.indexOf(category) != -1))
 								span=__(category)
 			.form-group
 				label.col-md-2.control-label=__("Excerpt")
@@ -49,18 +49,24 @@ block form
 				.col-md-10
 					textarea.form-control(name="terms",rows="4")=call.terms
 
+		//- FIXME
 		script(src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js")
 		script(id="topic", type="text/x-handlebars-template")
 			div(data-topic="{{i}}")
-				button.delete.btn.btn-danger
+				button.delete-topic.btn.btn-danger
 					i.fa.fa-trash
-				{{#if _id}}
+				="{{#if _id}}"
 				input(type="hidden", name="topics[{{i}}][_id]", value="{{_id}}")
-				{{/if}}
+				="{{/if}}"
 				.form-group
 					label.col-md-2.control-label=__("Title")
 					.col-md-10
 						input.form-control(type="text", name="topics[{{i}}][title]", value="{{title}}")
+				.form-group
+					label.col-md-2.control-label=__("Description")
+					.col-md-10
+						textarea.form-control(name="topics[{{i}}][description]")="{{description}}"
+		//- FIXME
 		script(type="text/javascript").
 			$(document).ready(function() {
 				var source   = $("#topic").html();
@@ -71,7 +77,7 @@ block form
 					$(template(item)).appendTo($('#topics'));
 				});
 				var total = data.length;
-				$('button.delete').on('click', function(ev) {
+				$(document).on('click', 'button.delete-topic', function(ev) {
 					ev.preventDefault();
 					$(this).parent().remove();
 				});
@@ -93,15 +99,64 @@ block form
 
 		script(id="package", type="text/x-handlebars-template")
 			div(data-package="{{i}}")
-				button.delete.btn.btn-danger
+				button.delete-package.btn.btn-danger
 					i.fa.fa-trash
-				{{#if _id}}
+				="{{#if _id}}"
 				input(type="hidden", name="packages[{{i}}][_id]", value="{{_id}}")
-				{{/if}}
+				="{{/if}}"
 				.form-group
 					label.col-md-2.control-label=__("Title")
 					.col-md-10
 						input.form-control(type="text", name="packages[{{i}}][title]", value="{{title}}")
+				.form-group
+					label.col-md-2.control-label=__("package")
+					.col-md-10
+						.input-group
+							input.form-control(name="packages[{{i}}][price]", value="{{price}}")
+							span.input-group-addon €
+						small.help-block=__("Use a negative amount if the event will pay, 0 if the project don't have to pay and a positive number if they have to pay")
+				.form-group
+					label.col-md-2.control-label=__("Package description")
+					.col-md-10
+						textarea.form-control(name="packages[{{i}}][description]")="{{description}}"
+				.form-group
+					.col-md-10.col-md-offset-2
+						.checkbox
+							label
+								input.switch(name="packages[{{i}}][personal]", value="1", type="checkbox", data-checked="{{personal}}")
+								span=__("Personal Package")
+				.form-group
+					.col-md-10.col-md-offset-2
+						.checkbox
+							label
+								input.switch(name="packages[{{i}}][requested]", value="1", type="checkbox", data-checked="{{requested}}")
+								span=__("Requested Package")
+				.form-group
+					.col-md-10.col-md-offset-2
+						.checkbox
+							label
+								input.switch(name="packages[{{i}}][allow_multiple]", value="1", type="checkbox", data-checked="{{allow_multiple}}")
+								span=__("Allow Multiple")
+				.form-group
+					.col-md-10.col-md-offset-2
+						.checkbox
+							label
+								input.switch(name="packages[{{i}}][allow_options]", value="1", type="checkbox", data-checked="{{allow_options}}")
+								span=__("Allow Options")
+				.form-group
+					.col-md-5.col-md-offset-2
+						label.control-label=__("Package start day")
+						.input-group.date.datepicker(data-date="{{daily.start_date}}" ,data-date-format="yyyy-mm-dd")
+							input.form-control(name="packages[{{i}}][daily][start_date]", value="{{daily.start_date}}", type="text").disabled
+							span.input-group-addon
+								i.glyphicon.glyphicon-calendar
+					.col-md-5
+						label.control-label=__("Package end day")
+						.input-group.date.datepicker(data-date="{{daily.end_date}}" ,data-date-format="yyyy-mm-dd")
+							input.form-control(name="packages[{{i}}][daily][end_date]", value="{{daily.end_date}}", type="text").disabled
+							span.input-group-addon
+								i.glyphicon.glyphicon-calendar
+		//- FIXME
 		script(type="text/javascript").
 			$(document).ready(function() {
 				var source   = $("#package").html();
@@ -111,8 +166,9 @@ block form
 					item.i = i;
 					$(template(item)).appendTo($('#packages'));
 				});
+				$('#packages').find('[data-checked=true]').prop('checked', 'checked');
 				var total = data.length;
-				$('button.delete').on('click', function(ev) {
+				$(document).on('click', 'button.delete-package', function(ev) {
 					ev.preventDefault();
 					$(this).parent().remove();
 				});
@@ -122,6 +178,7 @@ block form
 					item.i = total;
 					$(template(item)).appendTo($('#packages'));
 					++total;
+					$(".date").datepicker();
 				});
 			});
 		fieldset
@@ -136,3 +193,8 @@ block form
 			input(type="submit", value=__("Save")).btn.btn-primary
 			a.btn.btn-danger(href="#{call._id}/delete")=__("delete call")
 
+	//- FIXME
+	script(type="text/javascript").
+		$(document).ready(function() {
+			$(".date").datepicker();
+		});
