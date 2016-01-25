@@ -4,7 +4,7 @@ block list
 	include ./menu
 	form.form-horizontal(method="POST")
 		fieldset
-			legend=__("Call visibility")
+			legend=__("Visibility")
 			.form-group
 				label.col-md-2.control-label
 					input.switch(value="1", name="settings[call][is_active]", type="checkbox", checked=result.settings.call.is_active)
@@ -32,7 +32,7 @@ block list
 						b=__("This function is reserved to AVnode.org members")+". "
 						a(href="http://avnode.org/members/")=__("more info")
 		fieldset
-			legend=__("Open call general settings")
+			legend=__("General")
 			.form-group
 				label.col-md-3.control-label=__("Next Edition")
 				.col-md-9
@@ -53,21 +53,27 @@ block list
 				.col-md-9
 					input.form-control(name="settings[call][background_color]",	value=result.settings.call.background_color,	type="text")
 			.form-group
-				input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
+				.col-md-12
+					input(type="submit", value=__("Save")).btn.btn-primary
 
-	h3=__("calls")
-	hr
+	h3=__("Calls")
+	if result.settings.call.calls
+		.list-group
+			each call in result.settings.call.calls
+				.list-group-item
+					.row
+						.col-sm-9
+							a(href="calls/#{call._id}")=call.title
+						.col-sm-3.text-right
+							a.btn.btn-default(href="calls/#{call._id}")
+								i.fa.fa-pencil
+	else
+		p.bg-info=__("no calls")
+
 	a.btn.btn-primary(href="calls/new")
 		i.fa.fa-plus
 		=" "
-		=__("add call")
-	if result.settings.call.calls
-		ul
-			each call in result.settings.call.calls
-				li
-					a(href="calls/#{call._id}")=call.title
-	else
-		p.bg-info=__("no calls")
+		=__("Add new call")
 
 	script(type="text/javascript").
 		$(document).ready(function() {
