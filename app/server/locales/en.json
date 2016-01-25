@@ -230,5 +230,16 @@
 	"Allow Multiple": "Allow Multiple",
 	"Allow Options": "Allow Options",
 	"Package start day": "Package start day",
-	"Package end day": "Package end day"
+	"Package end day": "Package end day",
+	"New": "New",
+	"Edit Call": "Edit Call",
+	"General": "General",
+	"Topics": "Topics",
+	"Add new topic": "Add new topic",
+	"Packages": "Packages",
+	"Add new package": "Add new package",
+	"Save Call Information": "Save Call Information",
+	"Delete Call": "Delete Call",
+	"Save call information": "Save call information",
+	"Delete call": "Delete call"
 }
