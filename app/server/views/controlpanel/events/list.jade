@@ -1,0 +1,34 @@
+extends ../list-layout
+
+block list
+	div.row
+		div.col-md-12.text-right
+			form
+				div.input-group
+					input.form-control(type="text", id="permalink", name="permalink", placeholder="Event URL")
+					span.input-group-btn
+						button#new.btn.btn-primary
+							i.fa.fa-plus
+							=" "
+							=__("new event")
+	ul
+		each box in result.events
+			li
+				span=box.title
+				a(href="/controlpanel/events/#{box.permalink}/public")
+					i.fa.fa-pencil
+	script(type="text/javascript").
+		$(document).ready(function() {
+			$('#new').on('click', function(ev) {
+				$.ajax({
+					type: "PUT",
+					url: "/controlpanel/events/" + encodeURIComponent($('#permalink').val()),
+					success: function(data) {
+						// FIXME
+						if (data) {
+							window.location.href = document.location.protocol + '//' + document.location.host + data;
+						}
+					}
+				});
+			});
+		});

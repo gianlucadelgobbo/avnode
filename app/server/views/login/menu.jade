@@ -9,7 +9,7 @@ a.user_manager_button#simple-menu(href='#sidr')
 			ul
 				if user
 					li
-						a(href="/controlpanel/profile")= user.display_name
+						a(href="/controlpanel/user/public")= user.display_name
 					li
 						a(href="/controlpanel/logout")=__("logout")
 					li

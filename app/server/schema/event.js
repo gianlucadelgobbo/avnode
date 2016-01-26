@@ -5,14 +5,6 @@ var File = require('./file');
 var User = require('./user');
 var config = require('getconfig');
 
-// Reuse the configured locales…
-var subtitle = {};
-var text = {};
-config.locales.forEach(function(locale) {
-	subtitle[locale] = String;
-	text[locale] = String;
-});
-
 // Derived from the entry:
 // "permalink" : "3x3-smil-stereoscopy-mapping-in-live1re-ditionoctober-11-12-13-paris-2013",
 module.exports = new Schema({
@@ -23,8 +15,8 @@ module.exports = new Schema({
   partners: [], //FIXME
 	old_id: String,
 	title: String,
-	subtitle: subtitle,
-	text: text,
+	subtitle: {},
+	text: {},
 	files: [File],
 	users: [User], //{ type: Schema.Types.ObjectId, ref: 'User' }],
 	date_time_venue: [], //FIXME
@@ -34,7 +26,38 @@ module.exports = new Schema({
 		call: {
 			is_active: Boolean,
 			program_builder: Boolean,
-			advanced_proposals_manager: Boolean
+			advanced_proposals_manager: Boolean,
+      next_edition: String,
+      header_image: String,
+      background_image: String,
+      background_color: String,
+      calls: [{
+        title: String,
+        email: String,
+        permalink: String,
+        start_date: Date,
+        end_date: Date,
+        admitted: [String],
+        excerpt: String,
+        terms: String,
+        topics: [{
+          title: String,
+          description: String
+        }],
+        packages: [{
+          title: String,
+          price: Number,
+          description: String,
+          personal: Boolean,
+          requested: Boolean,
+          allow_multiple: Boolean,
+          allow_options: Boolean,
+          daily: {
+            start_date: Date,
+            end_date: Date
+          }
+        }]
+      }]
 		},
 		permissions: {
 			administrator: [User], // FIXME

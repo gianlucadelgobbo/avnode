@@ -1,0 +1,9 @@
+extends ../form-layout
+
+block form
+	include ./menu
+	h2=__("permissions")
+	form.form-horizontal(method="post")
+		input(type="hidden",name="_id",value=result._id)
+		fieldset
+			legend=__("permissions")

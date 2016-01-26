@@ -10,7 +10,7 @@ block content
 							//	img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src=_h.media.getFileFormat(result.files, 400, 300))
 							.row
 								.overlay_container.col-sm-12
-									a.btn.btn-info.paticipate.pull-right(href='participate', role='button') Participate
+									a.btn.btn-info.paticipate.pull-right(href="#{result.permalink}/participate", role='button') Participate
 									h1.title=result.title
 									if result.subtitle
 										h3.subtitle=_h.text.getTextFormat(result.subtitle, config.lang, true)

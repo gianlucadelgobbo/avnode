@@ -23,6 +23,7 @@ exports.get = function get(req, res) {
 
   if (redirect) {
     res.redirect('/events/' + filter + '/' + sorting + '/' + page);
+    return
   }
 
 	// FIXME:

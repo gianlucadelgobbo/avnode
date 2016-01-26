@@ -1,0 +1,145 @@
+mixin websites(websites)
+	hr
+	.form-group
+		label.col-sm-2.control-label=__("Websites")
+		.col-sm-10
+			if websites
+				#websites
+			button.add-website.btn.btn-default
+				i.fa.fa-plus
+				=" "
+				=__("Add website")
+	script(id="website", type="text/x-handlebars-template")
+		.input-group.website
+			input.form-control(autocomplete="off", name="websites[]", value="{{website}}", type="text")
+			.input-group-btn
+				button.delete-website.btn.btn-danger
+					i.fa.fa-trash
+	//- FIXME
+	script.
+		$(document).ready(function() {
+			var source   = $("#website").html();
+			var template = Handlebars.compile(source);
+			var data = !{JSON.stringify(websites)};
+			data.forEach(function(website) {
+				$(template({ website: website})).appendTo($('#websites'));
+			});
+			$(document).on('click', '.delete-website', function(ev) {
+				ev.preventDefault();
+				$(this).closest('.website').remove();
+			});
+			$(document).on('click', '.add-website', function(ev) {
+				ev.preventDefault();
+				$(template({})).appendTo($('#websites'));
+			});
+		});
+
+mixin locations(locations)
+	fieldset
+		legend=__("Locations")
+		#locations
+		.col-md-10.col-md-offset-2
+			.form-group
+				button.add-location.btn.btn-default
+					i.fa.fa-plus
+					=" "
+					=__("Add location")
+	script(id="location", type="text/x-handlebars-template")
+		.location.col-md-offset-2
+			.form-group
+				.col-md-12.text-right
+					button.show-location.btn.btn-default
+						i.fa.fa-search
+					button.show-location.btn.btn-default
+						i.fa.fa-map
+					button.delete-location.btn.btn-danger
+						i.fa.fa-trash
+			.form-group
+				.col-md-8
+					label.control-label=__("Street")
+					input.form-control(name="locations[{{i}}][street]", value="{{street}}", type="text")
+				.col-md-4
+					label.control-label=__("Streetnumber")
+					input.form-control(name="locations[{{i}}][streetnumber]", value="{{streetnumber}}", type="text")
+			.form-group
+				.col-md-2
+					label.control-label=__("ZIP")
+					input.form-control(name="locations[{{i}}][zip]", value="{{zip}}", type="text")
+				.col-md-5
+					label.control-label=__("City")
+					input.form-control(name="locations[{{i}}][city]", value="{{city}}", type="text")
+				.col-md-5
+					label.control-label=__("Country")
+					input.form-control(name="locations[{{i}}][country]", value="{{country}}", type="text")
+			.form-group
+				.col-md-6
+					label.control-label=__("Latitude")
+					input.form-control(name="locations[{{i}}][lat]", value="{{lat}}", type="text" disabled)
+				.col-md-6
+					label.control-label=__("Longitude")
+					input.form-control(name="locations[{{i}}][lng]", value="{{lng}}", type="text" disabled)
+	//- FIXME
+	script.
+		$(document).ready(function() {
+			var source   = $("#location").html();
+			var template = Handlebars.compile(source);
+			var data = !{JSON.stringify(locations)};
+			var total = data.length;
+			data.forEach(function(location, i) {
+				location.i = i;
+				$(template(location)).appendTo($('#locations'));
+			});
+			$(document).on('click', '.delete-location', function(ev) {
+				ev.preventDefault();
+				$(this).closest('.location').remove();
+			});
+			$(document).on('click', '.add-location', function(ev) {
+				ev.preventDefault();
+				$(template({i: total})).appendTo($('#locations'));
+				total++;
+			});
+		});
+
+mixin multilanguage-text(texts)
+	hr
+	.form-group#descriptions
+		label.col-md-2.control-label=__("Description")
+		.col-md-2
+			.list-group
+				each language in config.locales
+					a.list-group-item(data-toggle="collapse", data-parent="#descriptions", href="#description-#{language}")=__(language)
+		.col-md-8.panel
+			each language,i in config.locales
+				- var cls = i === 0 ? "in" : "";
+				.collapse(id="description-#{language}", class=cls)
+					textarea.form-control(name="text[#{language}]",rows="18")
+						if texts[language]
+							=texts[language]
+						else
+							=""
+
+mixin render-errors(errors)
+	if errors
+		ul.bg-danger
+			each error in errors
+				li
+					strong=error.param
+					=" "
+					span=error.msg
+
+mixin start-end-time(result, index)
+	- var hours = ["00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30","04:00","04:30","05:00","05:30","06:00","06:30","07:00","07:30","08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00","22:30","23:00","23:30"]
+	.form-group
+		label.col-sm-2.control-label=__("Start time")+" "+(index+1)
+		.col-sm-10
+			select.form-control(name="date_time_venue["+index+"][start_time]",autocomplete="off")
+				option=__("Choose")
+					each hour in hours
+						option(value=hour,selected=(result.date_time_venue[index].start_time == hour ? "selected" : undefined))=hour
+	.form-group
+		label.col-sm-2.control-label=__("End time")+" "+(index+1)
+		.col-sm-10
+			select.form-control(name="date_time_venue["+index+"][end_time]",autocomplete="off")
+				option=__("Choose")
+					each hour in hours
+						option(value=hour,selected=(result.date_time_venue[index].end_time == hour ? "selected" : undefined))=hour

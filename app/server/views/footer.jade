@@ -28,7 +28,9 @@ footer.main_footer
 
 				- d = new Date()
 				p
-					span.nocopy="NO &copy; "+d.getFullYear()
+					span.nocopy="NO &copy; " + d.getFullYear()
+
+
 
 script(type="text/javascript", src="/bootstrap/dist/js/bootstrap.min.js")
 script(type="text/javascript", src="/bootstrap-datepicker/js/bootstrap-datepicker.js")
@@ -36,7 +38,6 @@ script(type="text/javascript", src="/bootstrap-timepicker/js/bootstrap-timepicke
 script(type="text/javascript", src="/modules/jquery-ui/jquery-ui-1.10.2.custom.js")
 script(type="text/javascript", src="/modules/birthdaypicker/bday-picker.min.js")
 script(type="text/javascript", src="/bootstrap-switch/dist/js/bootstrap-switch.min.js")
-script(type="text/javascript", src="//maps.googleapis.com/maps/api/js?libraries=places")
 script(type="text/javascript", src="/modules/geocomplete/jquery.geocomplete.min.js")
 
 script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.js")
@@ -49,3 +50,5 @@ script(type="text/javascript", src='/modules/sidr/jquery.sidr.min.js')
 script(type="text/javascript", src="/js/script.js")
 - if(user && user.login)
 	script(type="text/javascript", src="/js/script-admin.js")
+
+script(src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js")

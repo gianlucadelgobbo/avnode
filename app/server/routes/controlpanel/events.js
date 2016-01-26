@@ -1,148 +1,149 @@
-var DB = require('../../modules/db-manager');
-var Fnc = require('../../modules/general-functions');
-var CT = require('../../modules/country-list');
-var ObjectID = require('mongodb').ObjectID;
-var CT = require('../../modules/country-list');
-var util = require("util");
-function ins(value) { console.log(util.inspect(value, false, null)); }
+var User = require('../../models/user');
+var Event = require('../../models/event');
+var _ = require('lodash');
+var flatten = require('flat');
 
-var titles = {
-	"public": 		__("Main data"),
-	"mainimage": 	__("Main image"),
-	"partners": 	__("Partners"),
-	"performances": __("Performances"),
-	"partners": 	__("Partners"),
-	"gallery": 		__("Gallery"),
-	"settings": 	__("Settings")
-}
-
-exports.get = function get(req, res) {
-	if (!req.session.passport || !req.session.passport.user || req.session.passport.user == null) {
-		res.redirect('/controlpanel/login/?from='+req.url);
-	} else {
-		var sez = "events";
-		if (req.params.length==0 || req.params[0]=="" || req.params[0]=="/") {
-			var ids = [new ObjectID(req.session.passport.user._id)];
-			for(var crew in req.session.passport.user.crews) ids.push(new ObjectID(req.session.passport.user.crews[crew]._id));
-			//var ids = [req.session.passport.user.permalink];
-			//for(var crew in req.session.passport.user.crews) ids.push(req.session.passport.user.crews[crew].permalink);
-			Fnc.getList(req.params[0], sez, res, ids, function(err, tot, records, conf){
-				res.render('forms/'+_config.sections[sez].view_list, {title:_config.sections[sez].title, sez:sez, tot:tot, path:conf.path, sort:conf.sort, filter:conf.filter, skip:conf.skip, result:records, Fnc:Fnc, user : req.session.passport.user});
-			});
-		} else {
-			var p = Fnc.parseParams(req.params[0]);
-			var page = p.page;
-			var params2 = p.params2;
-			DB.canIeditThis("events", {"permalink":params2[0]}, req.session.passport.user, function (result) {
-				if (result) {
-					var sez = "events";
-					if (params2.length==1) {
-						var subsez = "public";
-						var msg = [];
-						res.render('forms/event_public', {form:"event_public", 				title:result.title+": "+titles[subsez], sez:sez, subsez:subsez, result:result, countries: CT, msg:msg,Fnc:Fnc, user : req.session.passport.user });
-					} else if (params2[1]=="mainimage") {
-						var subsez = "mainimage";
-						var msg = [];
-						res.render('forms/event_mainimage', {form:"event_mainimage", 		title:result.title+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
-					} else if (params2[1]=="partners") {
-						var subsez = "partners";
-						var msg = [];
-                        DB.temp.find({doc_id:result._id.toString()}).toArray(function(e, result2) {
-                            if (result2.length) result.partnersnotconfirmed = result2;
-                            //res.render('forms/crew_partners', {title:result.display_name+": "+__("Partners"), sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
-                            res.render('forms/event_partners', {form:"event_partners", 		title:result.title+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
-                        });
-					} else if (params2[1]=="performances") {
-						var subsez = "performances";
-						var msg = [];
-						res.render('forms/event_performances', {form:"event_performances", 	title:result.title+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
-					} else if (params2[1]=="gallery") {
-						var subsez = "gallery";
-						var msg = [];
-						res.render('forms/event_gallery', {form:"event_gallery", 			title:result.title+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
-					} else if (params2[1]=="settings") {
-						var subsez = "settings";
-						var msg = [];
-						ins(result.settings);
-						res.render('forms/event_settings', {form:"event_settings", 			title:result.title+": "+titles[subsez], sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc, user : req.session.passport.user });
-					}
-				} else {
-					res.render('forms/cannotedit', {user : req.session.passport.user });
-				}
-			});
-		}
-	}
-};
-exports.post = function get(req, res) {
-	if (!req.session.passport || !req.session.passport.user || req.session.passport.user == null) {
-		res.redirect('/controlpanel/login/?from='+req.url);
-	} else {
-		var tmp = req.body.form.split("_");
-		var form = req.body.form;
-		var sez = tmp[0];
-		var subsez = tmp[1];
-		DB.canIeditThis("events", {_id:new ObjectID(req.body._id)}, req.session.passport.user, function (result) {
-			if (result){
-				exports["validate_"+form](req, function(errors, o, m){
-					if (errors.length === 0){
-						if (o._id) {
-					  		delete o._id;
-					  		delete o.collection;
-					  		delete o.form;
-					  		var newItem = result;
-					  		//var newItem = {};
-					  		for(item in o) {
-					  			newItem[item] = o[item];
-					  		}
-					  		DB.events.save(newItem, {safe:true}, function(e, success) {
-					  		  	DB.events.findOne({_id:result._id},function(e, result3) {
-							  		result3.form = form;
-							  		result3.collection = sez;
-							  		DB.updateEventRel(result._id, function(success) {
-										res.render('forms/'+form, {form:form, title:result3.title+": "+titles[subsez], sez:sez, subsez:subsez, countries: CT, result:result3, msg:{c:[{m:m}]},Fnc:Fnc, user : req.session.passport.user });
-							  		});
-						  		});
-					  		});
-                            /*
-                            */
-                        }
-					} else {
-						res.render('forms/'+form, {form:form, title:result.title+": "+titles[subsez], sez:sez, subsez:subsez, countries: CT, result:o, msg:{e:errors},Fnc:Fnc, user : req.session.passport.user });
-					}
-		  		});
-			} else {
-				res.render('forms/cannotedit', {user : req.session.passport.user });
-			}
-  		});
-	}
+exports.getAll = function get(req, res) {
+  res.render('controlpanel/events/list', {
+    result: req.user
+  });
 };
 
-exports.validate_event_public = function (req,callback) {
-	var o = req.body;
-	var errors = [];
-	var q = {permalink:o.permalink};
-	if (o._id) q._id = {$ne:new ObjectID(o._id)};
-	DB.events.findOne(q, function(err, result) {
-		if (result) errors.push({name:"permalink",m:__("Events url already in use")});
-		if (o.title=="") errors.push({name:"title",m:__("Stage name can not be empty")});
-		callback(errors, o, __("Data saved"));
-	});
+// FIXME
+exports.newEvent = function put(req, res) {
+  var permalink = req.params.permalink
+  permalink = permalink.toLowerCase();
+  permalink = permalink.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+  var query = { 'permalink': permalink };
+  Event.findOne(query, function(err, event) {
+    var response = '';
+    if (err) {}
+    if (event === null) {
+      Event.create({ permalink: permalink }, function (err, event) {
+        if (!err) {
+          response = '/controlpanel/events/' + permalink + '/public';
+        }
+        res.json(response);
+      });
+    } else {
+      res.json(response);
+    }
+  });
 }
 
-exports.validate_event_settings = function (req,callback) {
-	var o = req.body;
-	var errors = [];
-	var q = {};
-	if (o._id) q._id = new ObjectID(o._id);
-	DB.events.findOne(q, function(err, result) {
-		//if (result) errors.push({name:"permalink",m:__("Events url already in use")});
-		//errors.push({name:"permalink",m:__("Stoca url already in use")});
-		//if (o.title=="") errors.push({name:"title",m:__("Stage name can not be empty")});
-		//result.settings = o.settings;
-		if (!o.settings.call_is_active) delete o.settings.call;
-		if (!o.settings.program_builder) delete o.settings.rooms;
-		if (!o.settings.advanced_proposals_manager) delete o.settings.permissions;
-		callback(errors, o, __("Data saved"));
-	});
+exports.editEvent = function (req, res) {
+  var query = { 'permalink': req.params.event };
+  Event.findOne(query)
+  .exec(function(error, event) {
+    switch (req.params.section) {
+      case 'public':
+        res.render('controlpanel/events/public', {
+          countries: require('country-list')().getData(),
+          result: event
+        });
+      break;
+      case 'image':
+        res.render('controlpanel/events/image', {
+          image: null,
+          result: event
+        });
+      break;
+      case 'visibility':
+        res.render('controlpanel/events/visibility', {
+          result: event
+        });
+      break;
+      case 'permissions':
+        res.render('controlpanel/events/permissions', {
+          result: event
+        });
+      break;
+      case 'calls':
+        var render = function(event) {
+          res.render('controlpanel/events/calls', {
+            result: event
+          });
+        }
+        if (!_.isEmpty(req.body)) {
+          var data = req.body;
+          _.defaultsDeep(data, {
+            settings: {
+              call: {
+                is_active: false,
+                program_builder: false,
+                advanced_proposals_manager: false
+              }
+            }
+          });
+          Event.findByIdAndUpdate(event._id, {$set: flatten(data)}, {new: true}, function (err, event) {
+            if (err) {}
+            render(event);
+          });
+        } else {
+          render(event);
+        }
+      break;
+    }
+  });
+};
+
+exports.newEventCall = function get(req, res) {
+  var query = { 'permalink': req.params.event };
+  Event.findOne(query)
+  .exec(function(error, event) {
+    if (event.settings.call.calls === undefined) {
+      event.settings.call.calls = [];
+    }
+    event.settings.call.calls.push({title: ''});
+    var call = _.last(event.settings.call.calls);
+    event.save(function (err, event) {
+      res.redirect(call._id);
+    });
+  });
+};
+
+exports.deleteEventCall = function get(req, res) {
+  var query = { 'permalink': req.params.event };
+  Event.findOne(query)
+  .exec(function(error, event) {
+    var call = event.settings.call.calls.id(req.params.call);
+    call.remove();
+    event.save(function (err, event) {
+      res.redirect('../../calls');
+    });
+  });
 }
 
+exports.editEventCall = function get(req, res) {
+  var query = { 'permalink': req.params.event };
+  Event.findOne(query)
+  .exec(function(error, event) {
+    var data = _.defaults(req.body, {
+      packages: [],
+      topics: [],
+      admitted: []
+    });
+    data.packages.map(function(pkg) {
+      _.defaults(pkg, {
+        personal: false,
+        requested: false,
+        allow_multiple: false,
+        allow_options: false
+      });
+    });
+    var call = event.settings.call.calls.id(req.params.call);
+    call = _.assign(call, data);
+    call.markModified('packages');
+    call.markModified('topics');
+    call.markModified('admitted');
+    event.save(function(err) {
+      res.render('controlpanel/events/call/edit', {
+        call: call,
+        result: event
+      });
+    });
+  });
+};
+
+exports.post = function post(req, res) {
+};

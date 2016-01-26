@@ -24,6 +24,7 @@ exports.get = function get(req, res) {
 
   if (redirect) {
     res.redirect('/' + section + '/' + filter + '/' + sorting + '/' + page);
+    return
   }
 
   var path = '/' + section + '/' + _.map(req.params, function(p) { return p; }).join('/') + '/';

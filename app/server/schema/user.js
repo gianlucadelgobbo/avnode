@@ -15,7 +15,14 @@ var UserSchema = new Schema({
   old_id: Number,
   permalink: String,
   display_name: String,
-  locations: Array,
+  name: String,
+  surname: String,
+  citizenship: String,
+  birth_date: Date,
+  locations: {
+    latitude: Number,
+    longitude: Number
+  },
   login: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
   crews: [User],
@@ -26,6 +33,10 @@ var UserSchema = new Schema({
   playlists: [Playlist],
   tvshow: [TVShow],
   files: [File],
+  emails: [],
+  websites: [],
+  mailinglists: [],
+  members: [],
   text: Object,
   stats: {
     // FIXME

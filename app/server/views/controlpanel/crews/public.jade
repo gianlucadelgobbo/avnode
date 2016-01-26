@@ -1,0 +1,32 @@
+extends ../form-layout
+
+block form
+	include ./menu
+	h2=__("public")
+	form.form-horizontal(method="post")
+		input(name="_id", value=result._id, type="hidden")
+		fieldset
+			legend=title
+			.form-group
+				label.col-sm-2.control-label=__("Stage name")
+				.col-sm-10
+					input(name="display_name", value=result.display_name, type="text", placeholder=__("Stage name")).form-control
+			.form-group
+				label.col-sm-2.control-label(for="permalink")=__("Profile url")
+				.col-sm-10
+					input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
+					span.glyphicon.form-control-feedback(aria-hidden="true")
+					.row
+						.help-block.col-sm-9="https://avnode.net/"
+							span.permalink_print=result.permalink.toLowerCase()
+						input(type="hidden", value="users", name="collection")
+						.control-label.col-sm-3
+		fieldset
+			+multilanguage-text(result.text)
+		fieldset
+			+websites(result.websites)
+
+			.form-group
+				label.col-sm-2.control-label
+				.col-sm-10
+					button(type="submit").btn.btn-lg.btn-primary=__("Save")
