@@ -2,11 +2,10 @@ extends ../form-layout
 
 block form
 	include ./menu
-	h2=__("Your public data")
-	hr
 	form.form-horizontal(method="post")
 		input(name="_id", value=result._id, type="hidden")
 		fieldset
+			legend=__("General")
 			.form-group
 				label.col-sm-2.control-label=__("Stage name")
 				.col-sm-10

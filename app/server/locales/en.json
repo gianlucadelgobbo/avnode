@@ -255,5 +255,7 @@
 	"Streetnumber": "Streetnumber",
 	"ZIP": "ZIP",
 	"Latitude": "Latitude",
-	"Longitude": "Longitude"
+	"Longitude": "Longitude",
+	"Profile image": "Profile image",
+	"Drop files here or click to upload.": "Drop files here or click to upload."
 }
