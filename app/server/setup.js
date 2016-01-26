@@ -45,7 +45,13 @@ module.exports = function(app, exp) {
   app.use(cookieParser());
   app.use(bodyParser.json({limit: config.maxFileSize}));
   app.use(bodyParser.urlencoded({parameterLimit: 30000000000, limit: config.maxFileSize, extended: true }));
-  app.use(expressValidator());
+  app.use(expressValidator({
+    customValidators: {
+      isIdentical: function(param, str) {
+        return param === str;
+      }
+    }
+  }));
   app.use(methodOverride());
 
   app.use(session({ secret: 'avnode', resave: true, saveUninitialized: true }));

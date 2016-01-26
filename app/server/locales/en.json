@@ -257,5 +257,8 @@
 	"Latitude": "Latitude",
 	"Longitude": "Longitude",
 	"Profile image": "Profile image",
-	"Drop files here or click to upload.": "Drop files here or click to upload."
+	"Drop files here or click to upload.": "Drop files here or click to upload.",
+	"Current password": "Current password",
+	"Your password is too short": "Your password is too short",
+	"Password confirm needs to be identical": "Password confirm needs to be identical"
 }

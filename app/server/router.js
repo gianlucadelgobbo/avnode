@@ -120,8 +120,8 @@ module.exports = function(app) {
     //}
   });
 
-  app.get('/controlpanel/user(/:section?)', cpanelUserRoutes.get);
-  app.post('/controlpanel/user(/:section?)', cpanelUserRoutes.post);
+  app.get('/controlpanel/user(/:section?)', cpanelUserRoutes.editUser);
+  app.post('/controlpanel/user(/:section?)', cpanelUserRoutes.editUser);
 
   app.get('/controlpanel/crews/:crew/:section', cpanelCrewsRoutes.editCrew);
   app.get('/controlpanel/crews', cpanelCrewsRoutes.getAll);
