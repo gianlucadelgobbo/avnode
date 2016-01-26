@@ -2,7 +2,8 @@ extends ../form-layout
 
 block form
 	include ./menu
-	h2=__("my account")
+	h2=__("Your public data")
+	hr
 	form.form-horizontal(method="post")
 		input(name="_id", value=result._id, type="hidden")
 		fieldset
@@ -21,7 +22,7 @@ block form
 		fieldset
 			+websites(result.websites)
 		fieldset
-			legend="FIXME LOCATION"
+			+locations(result.locations)
 		fieldset
 			.form-group
 				label.col-sm-2.control-label

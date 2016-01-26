@@ -19,7 +19,10 @@ var UserSchema = new Schema({
   surname: String,
   citizenship: String,
   birth_date: Date,
-  locations: Array,
+  locations: {
+    latitude: Number,
+    longitude: Number
+  },
   login: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
   crews: [User],

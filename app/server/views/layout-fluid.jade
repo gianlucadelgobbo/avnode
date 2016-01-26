@@ -40,12 +40,12 @@ html(lang=config.lang)
 										ul.nav.navbar-nav
 											li.dropdown
 												a.dropdown-toggle(href="#", data-toggle="dropdown")
-													!=__(config.locales_labels[getLocale()])+" "
+													!=__(getLocale())+" "
 													b.caret
 												ul.dropdown-menu
-													each val, index in config.locales_labels
+													each language in config.locales
 														li
-															a(href="/controlpanel/change_lang?lang="+index)=__(val)
+															a(href="/controlpanel/change_lang?lang=#{language}")=__(language)
 
 			#content
 				block content

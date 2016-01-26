@@ -245,5 +245,15 @@
 	"Calls": "Calls",
 	"Add new call": "Add new call",
 	"General settings": "General settings",
-	"Visibility": "Visibility"
+	"Visibility": "Visibility",
+	"Your public data": "Your public data",
+	"Add website": "Add website",
+	"Websites": "Websites",
+	"Add location": "Add location",
+	"Locations": "Locations",
+	"Street": "Street",
+	"Streetnumber": "Streetnumber",
+	"ZIP": "ZIP",
+	"Latitude": "Latitude",
+	"Longitude": "Longitude"
 }

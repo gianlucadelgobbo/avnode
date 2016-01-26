@@ -1,24 +1,122 @@
 mixin websites(websites)
 	hr
 	.form-group
-		label.col-sm-2.control-label=__("websites")
+		label.col-sm-2.control-label=__("Websites")
 		.col-sm-10
-			#websites
-				if websites
-					each website in websites
-						input(autocomplete="off", name="websites[]", value=website, type="text", placeholder="http://").form-control
-						a(onclick="$(this).prev().remove();$(this).remove();")
-							i.fa.fa-trash
+			if websites
+				#websites
+			button.add-website.btn.btn-default
+				i.fa.fa-plus
+				=" "
+				=__("Add website")
+	script(id="website", type="text/x-handlebars-template")
+		.input-group.website
+			input.form-control(autocomplete="off", name="websites[]", value="{{website}}", type="text")
+			.input-group-btn
+				button.delete-website.btn.btn-danger
+					i.fa.fa-trash
+	//- FIXME
+	script.
+		$(document).ready(function() {
+			var source   = $("#website").html();
+			var template = Handlebars.compile(source);
+			var data = !{JSON.stringify(websites)};
+			data.forEach(function(website) {
+				$(template({ website: website})).appendTo($('#websites'));
+			});
+			$(document).on('click', '.delete-website', function(ev) {
+				ev.preventDefault();
+				$(this).closest('.website').remove();
+			});
+			$(document).on('click', '.add-website', function(ev) {
+				ev.preventDefault();
+				$(template({})).appendTo($('#websites'));
+			});
+		});
+
+mixin locations(locations)
+	fieldset
+		legend=__("Locations")
+		#locations
+		.col-md-10.col-md-offset-2
+			.form-group
+				button.add-location.btn.btn-default
+					i.fa.fa-plus
+					=" "
+					=__("Add location")
+	script(id="location", type="text/x-handlebars-template")
+		.location.col-md-offset-2
+			.form-group
+				.col-md-12.text-right
+					button.show-location.btn.btn-default
+						i.fa.fa-search
+					button.show-location.btn.btn-default
+						i.fa.fa-map
+					button.delete-location.btn.btn-danger
+						i.fa.fa-trash
+			.form-group
+				.col-md-8
+					label.control-label=__("Street")
+					input.form-control(name="locations[{{i}}][street]", value="{{street}}", type="text")
+				.col-md-4
+					label.control-label=__("Streetnumber")
+					input.form-control(name="locations[{{i}}][streetnumber]", value="{{streetnumber}}", type="text")
+			.form-group
+				.col-md-2
+					label.control-label=__("ZIP")
+					input.form-control(name="locations[{{i}}][zip]", value="{{zip}}", type="text")
+				.col-md-5
+					label.control-label=__("City")
+					input.form-control(name="locations[{{i}}][city]", value="{{city}}", type="text")
+				.col-md-5
+					label.control-label=__("Country")
+					input.form-control(name="locations[{{i}}][country]", value="{{country}}", type="text")
+			.form-group
+				.col-md-6
+					label.control-label=__("Latitude")
+					input.form-control(name="locations[{{i}}][lat]", value="{{lat}}", type="text" disabled)
+				.col-md-6
+					label.control-label=__("Longitude")
+					input.form-control(name="locations[{{i}}][lng]", value="{{lng}}", type="text" disabled)
+	//- FIXME
+	script.
+		$(document).ready(function() {
+			var source   = $("#location").html();
+			var template = Handlebars.compile(source);
+			var data = !{JSON.stringify(locations)};
+			var total = data.length;
+			data.forEach(function(location, i) {
+				location.i = i;
+				$(template(location)).appendTo($('#locations'));
+			});
+			$(document).on('click', '.delete-location', function(ev) {
+				ev.preventDefault();
+				$(this).closest('.location').remove();
+			});
+			$(document).on('click', '.add-location', function(ev) {
+				ev.preventDefault();
+				$(template({i: total})).appendTo($('#locations'));
+				total++;
+			});
+		});
 
 mixin multilanguage-text(texts)
 	hr
-	.form-group
-		label.col-sm-2.control-label=__("description")
-		.col-sm-10
-			if texts
-				each text, language in texts
-					label.control-label=__(language)
-					textarea.form-control(name="text[#{language}]",rows="5")=text
+	.form-group#descriptions
+		label.col-md-2.control-label=__("Description")
+		.col-md-2
+			.list-group
+				each language in config.locales
+					a.list-group-item(data-toggle="collapse", data-parent="#descriptions", href="#description-#{language}")=__(language)
+		.col-md-8.panel
+			each language,i in config.locales
+				- var cls = i === 0 ? "in" : "";
+				.collapse(id="description-#{language}", class=cls)
+					textarea.form-control(name="text[#{language}]",rows="18")
+						if texts[language]
+							=texts[language]
+						else
+							=""
 
 mixin render-errors(errors)
 	if errors
