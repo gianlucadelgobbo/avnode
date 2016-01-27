@@ -120,8 +120,11 @@ module.exports = function(app) {
     //}
   });
 
-  app.get('/controlpanel/user(/:section?)', cpanelUserRoutes.editUser);
-  app.post('/controlpanel/user(/:section?)', cpanelUserRoutes.editUser);
+  app.get('/controlpanel/user/:section', cpanelUserRoutes.editUser);
+  app.post('/controlpanel/user/:section', cpanelUserRoutes.editUser);
+  app.get('/controlpanel/user', function(req, res) {
+    res.redirect('/controlpanel/user/public');
+  });
 
   app.get('/controlpanel/crews/:crew/:section', cpanelCrewsRoutes.editCrew);
   app.get('/controlpanel/crews', cpanelCrewsRoutes.getAll);

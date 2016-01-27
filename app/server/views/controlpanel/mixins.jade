@@ -113,10 +113,9 @@ mixin multilanguage-text(texts)
 				- var cls = i === 0 ? "in" : "";
 				.collapse(id="description-#{language}", class=cls)
 					textarea.form-control(name="text[#{language}]",rows="18")
-						if texts[language]
-							=texts[language]
-						else
-							=""
+						if texts
+							if texts[language]
+								=texts[language]
 
 mixin render-errors(errors)
 	if errors

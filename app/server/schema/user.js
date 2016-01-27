@@ -36,6 +36,7 @@ var UserSchema = new Schema({
   files: [File],
   emails: [],
   websites: [],
+  phonenumbers: [],
   mailinglists: [],
   members: [],
   text: Object,

@@ -1,10 +1,14 @@
 var User = require('../../models/user');
 var Event = require('../../models/event');
 var _ = require('lodash');
+var config = require('getconfig');
 var flatten = require('flat');
 
 exports.getAll = function get(req, res) {
   res.render('controlpanel/events/list', {
+    activeChapter: 'events',
+    activeSection: req.params.section,
+    config: config,
     result: req.user
   });
 };
@@ -32,38 +36,39 @@ exports.newEvent = function put(req, res) {
 }
 
 exports.editEvent = function (req, res) {
+  var render = function(template, data) {
+    data.activeChapter = 'events';
+    data.activeSection = req.params.section;
+    data.config = config;
+    res.render(template, data);
+  }
   var query = { 'permalink': req.params.event };
   Event.findOne(query)
   .exec(function(error, event) {
     switch (req.params.section) {
       case 'public':
-        res.render('controlpanel/events/public', {
+        render('controlpanel/events/public', {
           countries: require('country-list')().getData(),
           result: event
         });
       break;
       case 'image':
-        res.render('controlpanel/events/image', {
+        render('controlpanel/events/image', {
           image: null,
           result: event
         });
       break;
       case 'visibility':
-        res.render('controlpanel/events/visibility', {
+        render('controlpanel/events/visibility', {
           result: event
         });
       break;
       case 'permissions':
-        res.render('controlpanel/events/permissions', {
+        render('controlpanel/events/permissions', {
           result: event
         });
       break;
       case 'calls':
-        var render = function(event) {
-          res.render('controlpanel/events/calls', {
-            result: event
-          });
-        }
         if (!_.isEmpty(req.body)) {
           var data = req.body;
           _.defaultsDeep(data, {
@@ -77,17 +82,17 @@ exports.editEvent = function (req, res) {
           });
           Event.findByIdAndUpdate(event._id, {$set: flatten(data)}, {new: true}, function (err, event) {
             if (err) {}
-            render(event);
+            render('controlpanel/events/calls', {result: event});
           });
         } else {
-          render(event);
+          render('controlpanel/events/calls', {result: event});
         }
       break;
     }
   });
 };
 
-exports.newEventCall = function get(req, res) {
+exports.newEventCall = function (req, res) {
   var query = { 'permalink': req.params.event };
   Event.findOne(query)
   .exec(function(error, event) {
@@ -102,7 +107,7 @@ exports.newEventCall = function get(req, res) {
   });
 };
 
-exports.deleteEventCall = function get(req, res) {
+exports.deleteEventCall = function (req, res) {
   var query = { 'permalink': req.params.event };
   Event.findOne(query)
   .exec(function(error, event) {
@@ -114,7 +119,7 @@ exports.deleteEventCall = function get(req, res) {
   });
 }
 
-exports.editEventCall = function get(req, res) {
+exports.editEventCall = function (req, res) {
   var query = { 'permalink': req.params.event };
   Event.findOne(query)
   .exec(function(error, event) {
@@ -139,6 +144,9 @@ exports.editEventCall = function get(req, res) {
     event.save(function(err) {
       res.render('controlpanel/events/call/edit', {
         call: call,
+        activeChapter: 'events',
+        activeSection: req.params.section,
+        config: config,
         result: event
       });
     });

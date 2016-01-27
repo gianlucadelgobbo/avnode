@@ -1,8 +1,12 @@
 var User = require('../../models/user');
 var _ = require('lodash');
+var config = require('getconfig');
 
 exports.editUser = function (req, res) {
   var render = function(template, data) {
+    data.activeChapter = 'user';
+    data.activeSection = req.params.section;
+    data.config = config;
     res.render(template, data);
   }
   switch (req.params.section) {
@@ -86,36 +90,32 @@ exports.editUser = function (req, res) {
         render(template, { result: req.user});
       }
     break;
+    case 'private':
+      if (!_.isEmpty(req.body)) {
+        var data = req.body;
+        User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+          render('controlpanel/user/private', {
+            result: user,
+            countries: require('country-list')().getData(),
+            errors: errors
+          });
+        });
+      } else {
+        render('controlpanel/user/private', {
+          result: req.user,
+          countries: require('country-list')().getData()
+        });
+      }
+    break;
+    //- FIXME
     case 'emails':
-      res.render('controlpanel/user/emails', {
+      render('controlpanel/user/emails', {
         result: req.user
       });
     break;
-    case 'private':
-      req.checkBody({
-        'name': {
-          isLength: {
-            options: [2, 120],
-            errorMessage: ''
-          },
-          errorMessage: ''
-        }
-      });
-      var errors = req.validationErrors();
-      var data = {};
-      if (!errors) {
-        data = req.body;
-      }
-      User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
-        res.render('controlpanel/user/private', {
-          result: user,
-          countries: require('country-list')().getData(),
-          errors: errors
-        });
-      });
-    break;
+    //- FIXME
     case 'connections':
-      res.render('controlpanel/user/connections', {
+      render('controlpanel/user/connections', {
         result: req.user
       });
     break;
