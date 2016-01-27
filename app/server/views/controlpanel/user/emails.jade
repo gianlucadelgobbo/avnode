@@ -2,42 +2,68 @@ extends ../form-layout
 
 block form
 	include ./menu
-	h2=__("emails")
 	form.form-horizontal(method="post")
 		input(name="_id", value=result._id, type="hidden")
+
 		fieldset
+			legend=__("E-mails")
+			#emails
 			.form-group
-				label.col-sm-2.control-label=__("Emails")
-				.col-sm-10
-					#emails
-						each item,index in result.emails
-							.email
-								div(class=item.valid ? "" : "error")
-									.input-group
-										input(name="emails["+index+"][email]",type="text",value=item.email,placeholder=__("Email"),class=item.primary ? "disabled" : undefined).form-control
-										input(name="emails["+index+"][valid]",type="hidden",value=item.valid)
-										input(name="emails["+index+"][primary]",type="hidden",value=item.primary)
-										input(name="emails["+index+"][public]",type="hidden",value=item.public)
-										- if (item.primary)
-											span.input-group-addon
-												i.glyphicon.glyphicon-lock
-										- else
-											a.input-group-addon(href="#",onclick="emailRemove(this);return false;",onmouseover="$(this).tooltip('show')",data-toggle="tooltip",title="",data-original-title=__("Remove email"))
-												i.glyphicon.glyphicon-remove
-									- if (item.valid && !item.primary)
-										.help-inline
-											a(href="#",onclick="setPrimary(this);return false;")=__("Set as primary")
-									- if (!item.valid)
-											span.help-inline=__("Waiting email validation")
+				.col-md-10.col-md-offset-2
+					button.success.add-email.btn.btn-default
+						i.fa.fa-plus
+						=" "
+						=__("Add another E-mail")
+
+		hr.clearfix
+		.form-group
+			label.col-sm-2.control-label
+			.col-sm-10
+				input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
+
+		script(id="email", type="text/x-handlebars-template")
 			.email.form-group
-				label.col-sm-2.control-label=__("Add a new email")
-				.col-sm-10
+				label.col-md-2.control-label
+					="{{#if valid}}"
+					span.label.label-success=__("confirmed")
+					="{{else}}"
+					span.label.label-warning=__("not confirmed")
+					="{{/if}}"
+				.col-md-10
 					.input-group
-						input#email_add(autocomplete="off",type="text",placeholder=__("Email")).form-control
+						="{{#if email}}"
+						input.form-control(name="emails[{{i}}][email]", value="{{email}}", type="text", disabled)
+						="{{else}}"
+						input.form-control(name="emails[{{i}}][email]", value="", type="text")
+						="{{/if}}"
+						label.input-group-addon
+							input(name="primary-email", type="radio", value="{{_id}}", checked="{{primary}}")
+							=" " + __("primary")
+						label.input-group-addon
+							input(name="emails[{{i}}][public]", type="checkbox", value="1")
+							=" " + __("public")
 						span.input-group-btn
-							button.btn.btn-success(autocomplete="off", type="button", onclick="emailAdd();return false;")
-								i.glyphicon.glyphicon-ok.glyphicon.glyphicon-white
-								!=" "
-								!=__("Validate")
-					.help-inline
-			hr.clearfix
+							button.delete-email.btn.btn-danger
+								i.fa.fa-trash
+
+		//- FIXME
+		script.
+			$(document).ready(function() {
+				var source   = $("#email").html();
+				var template = Handlebars.compile(source);
+				var data = !{JSON.stringify(result.emails)};
+				var total = data.length;
+				data.forEach(function(email, i) {
+					email.i = i;
+					$(template(email)).appendTo($('#emails'));
+				});
+				$(document).on('click', '.delete-email', function(ev) {
+					ev.preventDefault();
+					$(this).closest('.email').remove();
+				});
+				$(document).on('click', '.add-email', function(ev) {
+					ev.preventDefault();
+					$(template({i: total})).appendTo($('#emails'));
+					total++;
+				});
+			});

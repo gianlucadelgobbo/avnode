@@ -263,5 +263,12 @@
 	"Password confirm needs to be identical": "Password confirm needs to be identical",
 	"Birthday": "Birthday",
 	"Phonenumbers": "Phonenumbers",
-	"Add phonenumber": "Add phonenumber"
+	"Add phonenumber": "Add phonenumber",
+	"Add email": "Add email",
+	"E-mail": "E-mail",
+	"E-mails": "E-mails",
+	"Add another E-mail": "Add another E-mail",
+	"primary": "primary",
+	"confirmed": "confirmed",
+	"not confirmed": "not confirmed"
 }

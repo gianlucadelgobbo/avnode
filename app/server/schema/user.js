@@ -34,7 +34,13 @@ var UserSchema = new Schema({
   playlists: [Playlist],
   tvshow: [TVShow],
   files: [File],
-  emails: [],
+  emails: [{
+    email: String,
+    public: Boolean,
+    valid: Boolean,
+    primary: Boolean,
+    mailingslists: []
+  }],
   websites: [],
   phonenumbers: [],
   mailinglists: [],
