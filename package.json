@@ -25,6 +25,7 @@
     "lodash": "^3.10.1",
     "mailchimp": "^1.1.3",
     "mailchimp-api": "^2.0.7",
+    "mandrill-api": "^1.0.45",
     "method-override": "^2.3.5",
     "mime": "^1.3.4",
     "mkdirp": "^0.5.1",

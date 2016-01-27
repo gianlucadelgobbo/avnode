@@ -1,6 +1,7 @@
 var User = require('../../models/user');
 var _ = require('lodash');
 var config = require('getconfig');
+var _h = require('../../helper/index');
 
 exports.editUser = function (req, res) {
   var render = function(template, data) {
@@ -109,6 +110,10 @@ exports.editUser = function (req, res) {
     break;
     //- FIXME
     case 'emails':
+      if (!_.isEmpty(req.body)) {
+        var mail = req.body.emails[0].email;
+        _h.mail.sendVerificationMail(mail);
+      }
       render('controlpanel/user/emails', {
         result: req.user
       });

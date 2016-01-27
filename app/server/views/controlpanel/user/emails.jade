@@ -3,8 +3,6 @@ extends ../form-layout
 block form
 	include ./menu
 	form.form-horizontal(method="post")
-		input(name="_id", value=result._id, type="hidden")
-
 		fieldset
 			legend=__("E-mails")
 			#emails
@@ -23,25 +21,28 @@ block form
 
 		script(id="email", type="text/x-handlebars-template")
 			.email.form-group
-				label.col-md-2.control-label
+				.col-md-2.control-label
 					="{{#if valid}}"
 					span.label.label-success=__("confirmed")
-					="{{else}}"
+					="{{else if email}}"
 					span.label.label-warning=__("not confirmed")
+					="{{else}}"
+					span.label.label-default=__("new, save to verify")
 					="{{/if}}"
 				.col-md-10
 					.input-group
 						="{{#if email}}"
-						input.form-control(name="emails[{{i}}][email]", value="{{email}}", type="text", disabled)
-						="{{else}}"
-						input.form-control(name="emails[{{i}}][email]", value="", type="text")
-						="{{/if}}"
+						input.form-control(name="emails[{{i}}][email]", value="{{email}}", type="text", readonly)
 						label.input-group-addon
-							input(name="primary-email", type="radio", value="{{_id}}", checked="{{primary}}")
+							input(name="primary-email", type="radio", value="{{email}}")
 							=" " + __("primary")
 						label.input-group-addon
 							input(name="emails[{{i}}][public]", type="checkbox", value="1")
 							=" " + __("public")
+						="{{else}}"
+						input.form-control(name="emails[{{i}}][email]", value="", type="text")
+						input(name="emails[{{i}}][new]", value="1", type="hidden")
+						="{{/if}}"
 						span.input-group-btn
 							button.delete-email.btn.btn-danger
 								i.fa.fa-trash

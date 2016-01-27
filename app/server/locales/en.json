@@ -270,5 +270,9 @@
 	"Add another E-mail": "Add another E-mail",
 	"primary": "primary",
 	"confirmed": "confirmed",
-	"not confirmed": "not confirmed"
+	"not confirmed": "not confirmed",
+	"new": "new",
+	"new, save to verify": "new, save to verify",
+	"Invalid Email": "Invalid Email",
+	"Invalid E-mail": "Invalid E-mail"
 }
