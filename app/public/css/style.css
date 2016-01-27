@@ -958,8 +958,25 @@ svg.coda {
 .crews_performer .box_wrapper.coloured .secondary_event {
   color: #414042;
 }
+html,
+body {
+  height: 100%;
+}
+.wrapper {
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 240px;
+}
+#content {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
 footer.main_footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   background: #303030;
+  height: 240px;
   padding: 60px 0;
   color: #fff;
 }
