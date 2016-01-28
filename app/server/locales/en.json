@@ -274,5 +274,7 @@
 	"new": "new",
 	"new, save to verify": "new, save to verify",
 	"Invalid Email": "Invalid Email",
-	"Invalid E-mail": "Invalid E-mail"
+	"Invalid E-mail": "Invalid E-mail",
+	"Field is required": "Field is required",
+	"Sorry, only alphanummeric values allowed": "Sorry, only alphanummeric values allowed"
 }

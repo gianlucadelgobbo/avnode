@@ -11,7 +11,7 @@ mixin websites(websites)
 				=__("Add website")
 	script(id="website", type="text/x-handlebars-template")
 		.input-group.website
-			input.form-control(autocomplete="off", name="websites[]", value="{{website}}", type="text")
+			input.form-control(autocomplete="off", name="websites[]", value="{{website}}", type="url", required)
 			.input-group-btn
 				button.delete-website.btn.btn-danger
 					i.fa.fa-trash

@@ -17,14 +17,15 @@ exports.editUser = function (req, res) {
       if (!_.isEmpty(req.body)) {
         req.checkBody({
           'display_name': {
-            isLength: {
-              options: [2, 60],
-              errorMessage: ''
-            },
-            errorMessage: ''
+            notEmpty: true,
+            errorMessage: __('Field is required')
+          },
+          'permalink': {
+            isPermalink: true,
+            errorMessage: __('Sorry, only alphanummeric values allowed')
           }
         });
-        var errors = req.validationErrors();
+        var errors = req.validationErrors(true);
         var data = {};
         if (!errors) {
           data = req.body;

@@ -49,6 +49,9 @@ module.exports = function(app, exp) {
     customValidators: {
       isIdentical: function(param, str) {
         return param === str;
+      },
+      isPermalink: function(value) {
+        return /^[a-zA-Z0-9]+$/.test(value);
       }
     }
   }));
