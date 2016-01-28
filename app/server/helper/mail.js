@@ -2,9 +2,9 @@ var config = require('getconfig');
 var mandrill = require('mandrill-api/mandrill');
 var mandrill_client = new mandrill.Mandrill(config.mandrill.key);
 
-exports.sendVerificationMail = function(to) {
+exports.sendVerificationMail = function(to, uuid) {
   var message = {
-    "text": "Test Content",
+    "text": "https://www.avnode.net/api/verify-email/" + uuid,
     "subject": "AVNode E-mail Verification",
     "from_email": "info@avnode.net",
     "from_name": "AVNode",

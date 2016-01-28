@@ -2,6 +2,7 @@ var User = require('../../models/user');
 var _ = require('lodash');
 var config = require('getconfig');
 var _h = require('../../helper/index');
+var uuid = require('uuid');
 
 exports.editUser = function (req, res) {
   var render = function(template, data) {
@@ -111,12 +112,21 @@ exports.editUser = function (req, res) {
     //- FIXME
     case 'emails':
       if (!_.isEmpty(req.body)) {
-        var mail = req.body.emails[0].email;
-        _h.mail.sendVerificationMail(mail);
+        var emails = req.body.emails;
+        emails[0].verify = uuid.v4();
+        _h.mail.sendVerificationMail(emails[0].email, emails[0].verify);
+        var user = req.user;
+        user.emails = emails;
+        user.save(function(err) {
+          render('controlpanel/user/emails', {
+            result: user
+          });
+        });
+      } else {
+        render('controlpanel/user/emails', {
+          result: req.user
+        });
       }
-      render('controlpanel/user/emails', {
-        result: req.user
-      });
     break;
     //- FIXME
     case 'connections':

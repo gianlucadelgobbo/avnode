@@ -41,7 +41,7 @@ block form
 							=" " + __("public")
 						="{{else}}"
 						input.form-control(name="emails[{{i}}][email]", value="", type="text")
-						input(name="emails[{{i}}][new]", value="1", type="hidden")
+						input(name="emails[{{i}}][verify]", value="1", type="hidden")
 						="{{/if}}"
 						span.input-group-btn
 							button.delete-email.btn.btn-danger
@@ -61,6 +61,7 @@ block form
 				$(document).on('click', '.delete-email', function(ev) {
 					ev.preventDefault();
 					$(this).closest('.email').remove();
+					total--;
 				});
 				$(document).on('click', '.add-email', function(ev) {
 					ev.preventDefault();

@@ -175,4 +175,22 @@ module.exports = function(app) {
     }
     res.send(response);
   });
+  app.get('/api/verify-email/:uuid', function (req, res) {
+    //- FIXME
+    var User = require('./models/user');
+    var uuid = req.params.uuid;
+    var _ = require('lodash');
+    User.findOne({'emails.verify': uuid}, function(err, user) {
+      if (err || user === null) {
+        res.send('Sorry');
+      } else {
+        var email = _.find(user.emails, {verify: uuid});
+        email.valid = 1;
+        email.verify = '';
+        user.save(function(err) {
+          res.send('Ok');
+        });
+      }
+    });
+  });
 };

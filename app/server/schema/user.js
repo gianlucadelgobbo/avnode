@@ -39,6 +39,7 @@ var UserSchema = new Schema({
     public: Boolean,
     valid: Boolean,
     primary: Boolean,
+    verify: String,
     mailingslists: []
   }],
   websites: [],
