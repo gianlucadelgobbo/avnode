@@ -1,9 +1,8 @@
 extends ../form-layout
 
 block form
-	include ./menu
+	+section-menu('public')
 	form.form-horizontal(method="post", data-parsley-validate)
-		input(name="_id", value=result._id, type="hidden")
 		fieldset
 			legend=__("General")
 			.form-group
@@ -16,6 +15,7 @@ block form
 					.input-group
 						span.input-group-addon=config.baseurl
 						input.permalink(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="[a-zA-z0-9]+").form-control
+
 		fieldset
 			+multilanguage-text(result.text)
 		fieldset

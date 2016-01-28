@@ -1,9 +1,8 @@
 extends ../form-layout
 
 block form
-	include ./menu
-	form.form-horizontal(method="post")
-		input(name="_id", value=result._id, type="hidden")
+	+section-menu('private')
+	form.form-horizontal(method="post", data-parsley-validate)
 		fieldset
 			legend=__("General")
 			.form-group
@@ -18,7 +17,7 @@ block form
 				label.col-sm-2.control-label=__("Birthday")
 				.col-sm-10
 					.input-group.date.datepicker(data-date=result.birth_date, data-date-format="yyyy-mm-dd")
-						input.form-control(name="birth_date", value=result.birth_date,	type="text" disabled)
+						input.form-control(name="birth_date", value=result.birth_date, type="text", readonly)
 						span.input-group-addon
 							i.glyphicon.glyphicon-calendar
 			.form-group
@@ -46,7 +45,7 @@ block form
 						=__("Add phonenumber")
 			script(id="phonenumber", type="text/x-handlebars-template")
 				.input-group.phonenumber
-					input.form-control(autocomplete="off", name="phonenumbers[]", value="{{phonenumber}}", type="text")
+					input.form-control(autocomplete="off", name="phonenumbers[]", value="{{phonenumber}}", type="text", required)
 					.input-group-btn
 						button.delete-phonenumber.btn.btn-danger
 							i.fa.fa-trash

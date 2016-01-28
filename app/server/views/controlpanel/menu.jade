@@ -1,9 +1,0 @@
-.col-md-2
-	ul.nav.nav-tabs
-		each chapter in config.controlpanel.chapters
-			if activeChapter == chapter
-				li.active
-					a(href="/controlpanel/#{chapter}")=__(chapter)
-			else
-				li
-					a(href="/controlpanel/#{chapter}")=__(chapter)

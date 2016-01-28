@@ -33,6 +33,9 @@ var upload = multer({ dest: process.cwd() + '/warehouse/tmp/' });
 var mime = require('mime');
 var sha1 = require('sha1');
 
+var Joi = require('joi');
+var _ = require('lodash');
+
 module.exports = function(app) {
 	app.get('/', indexRoutes.get);
 
@@ -120,11 +123,39 @@ module.exports = function(app) {
     //}
   });
 
-  app.get('/controlpanel/user/:section', cpanelUserRoutes.editUser);
-  app.post('/controlpanel/user/:section', cpanelUserRoutes.editUser);
+  var joiValidate = function(schema) {
+    return function (req, res, next) {
+      Joi.validate(req.body, schema, function (err, value) {
+        if (err !== null) {
+          var msgs = err.details.map(function(item) {
+            return item.message;
+          });
+          res.status(400).send(msgs);
+        } else {
+          req.body = value;
+          next();
+        }
+      });
+    }
+  }
+
+  app.get('/controlpanel/user/public', cpanelUserRoutes.editUserPublicGet);
+  app.post('/controlpanel/user/public', joiValidate(cpanelUserRoutes.editUserPublicSchema), cpanelUserRoutes.editUserPublicPost);
   app.get('/controlpanel/user', function(req, res) {
     res.redirect('/controlpanel/user/public');
   });
+
+  app.get('/controlpanel/user/image', cpanelUserRoutes.editUserImageGet);
+  app.post('/controlpanel/user/image', joiValidate(cpanelUserRoutes.editUserImageSchema), cpanelUserRoutes.editUserImagePost);
+
+  app.get('/controlpanel/user/password', cpanelUserRoutes.editUserPasswordGet);
+  app.post('/controlpanel/user/password', joiValidate(cpanelUserRoutes.editUserPasswordSchema), cpanelUserRoutes.editUserPasswordPost);
+
+  app.get('/controlpanel/user/private', cpanelUserRoutes.editUserPrivateGet);
+  app.post('/controlpanel/user/private', joiValidate(cpanelUserRoutes.editUserPrivateSchema), cpanelUserRoutes.editUserPrivatePost);
+
+  app.get('/controlpanel/user/emails', cpanelUserRoutes.editUserEmailsGet);
+  app.post('/controlpanel/user/emails', joiValidate(cpanelUserRoutes.editUserEmailsSchema), cpanelUserRoutes.editUserEmailsPost);
 
   app.get('/controlpanel/crews/:crew/:section', cpanelCrewsRoutes.editCrew);
   app.get('/controlpanel/crews', cpanelCrewsRoutes.getAll);

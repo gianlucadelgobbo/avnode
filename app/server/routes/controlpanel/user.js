@@ -3,137 +3,175 @@ var _ = require('lodash');
 var config = require('getconfig');
 var _h = require('../../helper/index');
 var uuid = require('uuid');
+var Joi = require('joi');
+var countries = require('country-list')().getData();
+var flatten = require('flat');
 
-exports.editUser = function (req, res) {
-  var render = function(template, data) {
-    data.activeChapter = 'user';
-    data.activeSection = req.params.section;
-    data.config = config;
-    res.render(template, data);
-  }
-  switch (req.params.section) {
-    case 'public':
-      var template = 'controlpanel/user/public';
-      if (!_.isEmpty(req.body)) {
-        req.checkBody({
-          'display_name': {
-            notEmpty: true,
-            errorMessage: __('Field is required')
-          },
-          'permalink': {
-            isPermalink: true,
-            errorMessage: __('Sorry, only alphanummeric values allowed')
-          }
-        });
-        var errors = req.validationErrors(true);
-        var data = {};
-        if (!errors) {
-          data = req.body;
-        }
-        User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
-          render(template, {
-            result: user,
-            errors: errors
-          });
-        });
-      } else {
-        render(template, {
-          result: req.user
-        });
-      }
-    break;
-    case 'image':
-      var template = 'controlpanel/user/image';
-      if (!_.isEmpty(req.body)) {
-        var errors = false;
-        var data = {
-          'files.0.file': req.body.image
-        }
-        User.findByIdAndUpdate(req.user._id, { $set: data }, function (err, user) {
-          if (err) res.json({success: false});
-          res.json({success: true});
-        });
-      } else {
-        render(template, {
-          image: req.user.files[0]
-        });
-      }
-    break;
-    case 'password':
-      var template = 'controlpanel/user/password';
-      if (!_.isEmpty(req.body)) {
-        req.checkBody({
-          'new_password': {
-            isLength: {
-              options: [8, 255],
-              errorMessage: __('Your password is too short')
-            },
-            isIdentical: {
-              options: [req.body.new_password_confirm],
-              errorMessage: __('Password confirm needs to be identical')
-            }
-          }
-        });
-        var errors = req.validationErrors();
-        if (_.isEmpty(errors)) {
-          req.user.comparePassword(req.body.password, function(err, isMatch) {
-            if (isMatch) {
-              User.findById(req.user._id, function(err, user) {
-                user.password = req.body.new_password;
-                user.save(function(err) {
-                  render(template, { result: user });
-                });
-              });
-            }
-          });
-        } else {
-          render(template, { result: req.user, errors: errors });
-        }
-      } else {
-        render(template, { result: req.user});
-      }
-    break;
-    case 'private':
-      if (!_.isEmpty(req.body)) {
-        var data = req.body;
-        User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
-          render('controlpanel/user/private', {
-            result: user,
-            countries: require('country-list')().getData(),
-            errors: errors
-          });
-        });
-      } else {
-        render('controlpanel/user/private', {
-          result: req.user,
-          countries: require('country-list')().getData()
-        });
-      }
-    break;
-    //- FIXME
-    case 'emails':
-      if (!_.isEmpty(req.body)) {
-        var emails = req.body.emails;
-        emails[0].verify = uuid.v4();
-        _h.mail.sendVerificationMail(emails[0].email, emails[0].verify);
-        var user = req.user;
-        user.emails = emails;
+exports.editUserPublicGet = function(req, res) {
+  res.render('controlpanel/user/public', {
+    config: config,
+    result: req.user
+  });
+}
+exports.editUserPublicSchema = {
+  display_name: Joi.string().required(),
+  permalink: Joi.string().required(),
+  text: Joi.object().allow(config.locales),
+  websites: Joi.array().items(
+    Joi.string().uri()
+  ),
+  locations: Joi.array().items(
+    Joi.object().keys({
+      street: Joi.string().allow('').alphanum(),
+      streetnumber: Joi.string().allow('').alphanum(),
+      zip: Joi.string().allow('').alphanum(),
+      city: Joi.string().allow('').alphanum(),
+      country: Joi.string().allow('').alphanum(),
+      lat: Joi.number().allow(''),
+      lng: Joi.number().allow('')
+    })
+  )
+};
+exports.editUserPublicPost = function(req, res) {
+  var data = _.defaults(req.body, {
+    locations: [],
+    websites: []
+  });
+  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+    res.render('controlpanel/user/public', {
+      config: config,
+      result: user
+    });
+  });
+}
+
+exports.editUserImageGet = function(req, res) {
+  res.render('controlpanel/user/image', {
+    config: config,
+    image: req.user.files[0],
+    result: req.user
+  });
+}
+exports.editUserImageSchema = {
+  image: Joi.string().required()
+};
+exports.editUserImagePost = function(req, res) {
+  var data = {
+    'files.0.file': req.body.image
+  };
+  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+    if (err) res.status(400).send('error');
+    res.json({success: true});
+  });
+}
+
+exports.editUserPasswordGet = function(req, res) {
+  res.render('controlpanel/user/password', {
+    config: config,
+    result: req.user
+  });
+}
+exports.editUserPasswordSchema = {
+  password: Joi.string().min(8).required(),
+  new_password: Joi.string().min(8).required(),
+  new_password_confirm: Joi.any().valid(Joi.ref('new_password')).required()
+};
+exports.editUserPasswordPost = function(req, res) {
+  req.user.comparePassword(req.body.password, function(err, isMatch) {
+    if (isMatch) {
+      User.findById(req.user._id, function(err, user) {
+        user.password = req.body.new_password;
         user.save(function(err) {
-          render('controlpanel/user/emails', {
+          res.render('controlpanel/user/password', {
+            config: config,
+            alerts: [{
+              type: 'success',
+              msg: __('Password changed')
+            }],
             result: user
           });
         });
-      } else {
-        render('controlpanel/user/emails', {
-          result: req.user
-        });
-      }
-    break;
-    //- FIXME
-    case 'connections':
-      render('controlpanel/user/connections', {
+      });
+    } else {
+      res.render('controlpanel/user/password', {
+        config: config,
+        alerts: [{
+          type: 'danger',
+          msg: __('Sorry, wrong password')
+        }],
         result: req.user
       });
-    break;
-  }
+    }
+  });
+}
+
+exports.editUserPrivateGet = function(req, res) {
+  res.render('controlpanel/user/private', {
+    config: config,
+    countries: countries,
+    result: req.user
+  });
+}
+exports.editUserPrivateSchema = {
+  name: Joi.string().allow(''),
+  surname: Joi.string().allow(''),
+  birth_date: Joi.date().allow(null).max('now').format('YYYY-MM-DD'),
+  gender: Joi.string().allow(''),
+  citizenship: Joi.string().allow(''),
+  phonenumbers: Joi.array().items(
+    Joi.string().required()
+  )
 };
+exports.editUserPrivatePost = function(req, res) {
+  var data = _.defaults(req.body, {
+    phonenumbers: []
+  });
+  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+    res.render('controlpanel/user/private', {
+      config: config,
+      countries: countries,
+      result: user
+    });
+  });
+}
+
+exports.editUserEmailsGet = function(req, res) {
+  res.render('controlpanel/user/emails', {
+    config: config,
+    result: req.user
+  });
+}
+exports.editUserEmailsSchema = {
+  primary_email: Joi.string().email().required(),
+  emails: Joi.array().items(
+    Joi.object().keys({
+      email: Joi.string().email().required(),
+      verify: Joi.boolean(),
+      public: Joi.boolean(),
+    })
+  )
+};
+exports.editUserEmailsPost = function(req, res) {
+  var data = req.body;
+  data.emails.forEach(function(item, i) {
+    item = _.defaults(item, {
+      public: false,
+      primary: false,
+    });
+    if (item.email === data.primary_email) {
+      item.primary = true;
+    }
+    if (item.verify) {
+      item.verify = uuid.v4();
+      _h.mail.sendVerificationMail(item.email, item.verify);
+    }
+  });
+  // FIXME
+  data = flatten(data);
+  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+    res.render('controlpanel/user/emails', {
+      config: config,
+      result: user
+    });
+  });
+}

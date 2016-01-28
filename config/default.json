@@ -13,7 +13,7 @@
   "maxFileComment": "1 * 1024 * 1024 * 1024",
   "maxFileSize": 1073741824,
   "defaultLocale": "en",
-  "baseurl": "http://localhost:8002/",
+  "baseurl": "https://dev.avnode.net/",
   "controlpanel": {
     "chapters": ["user", "events", "crews"],
     "user": {

@@ -1,7 +1,7 @@
 extends ../form-layout
 
 block form
-	include ./menu
+	+section-menu('image')
 	h3=__("Profile image")
 	if image
 		img.img-thumbnail(src="#{image.file}")

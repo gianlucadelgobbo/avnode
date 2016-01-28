@@ -20,10 +20,15 @@ var UserSchema = new Schema({
   surname: String,
   citizenship: String,
   birth_date: Date,
-  locations: {
+  locations: [{
+    street: String,
+    streetnumber: String,
+    zip: String,
+    city: String,
+    country: String,
     latitude: Number,
     longitude: Number
-  },
+  }],
   login: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
   crews: [User],
@@ -36,9 +41,9 @@ var UserSchema = new Schema({
   files: [File],
   emails: [{
     email: String,
-    public: Boolean,
-    valid: Boolean,
-    primary: Boolean,
+    public: {type: Boolean, default: false},
+    valid: {type: Boolean, default: false},
+    primary: {type: Boolean, default: false},
     verify: String,
     mailingslists: []
   }],

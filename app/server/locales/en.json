@@ -276,5 +276,11 @@
 	"Invalid Email": "Invalid Email",
 	"Invalid E-mail": "Invalid E-mail",
 	"Field is required": "Field is required",
-	"Sorry, only alphanummeric values allowed": "Sorry, only alphanummeric values allowed"
+	"Sorry, only alphanummeric values allowed": "Sorry, only alphanummeric values allowed",
+	"Not a valid email": "Not a valid email",
+	"Invalid email": "Invalid email",
+	"Blöd": "Blöd",
+	"Required field": "Required field",
+	"Sorry, wrong password": "Sorry, wrong password",
+	"Password changed": "Password changed"
 }

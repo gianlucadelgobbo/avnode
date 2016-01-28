@@ -1,7 +1,7 @@
 extends ../form-layout
 
 block form
-	include ./menu
+	+section-menu('email')
 	form.form-horizontal(method="post")
 		fieldset
 			legend=__("E-mails")
@@ -33,19 +33,35 @@ block form
 					.input-group
 						="{{#if email}}"
 						input.form-control(name="emails[{{i}}][email]", value="{{email}}", type="text", readonly)
+						="{{#if valid}}"
 						label.input-group-addon
-							input(name="primary-email", type="radio", value="{{email}}")
+							="{{#if primary}}"
+								input(name="primary_email", type="radio", value="{{email}}", checked)
+							="{{else}}"
+								input(name="primary_email", type="radio", value="{{email}}")
+							="{{/if}}"
 							=" " + __("primary")
+						="{{/if}}"
 						label.input-group-addon
-							input(name="emails[{{i}}][public]", type="checkbox", value="1")
+							="{{#if public}}"
+							input(name="emails[{{i}}][public]", type="checkbox", value="true", checked)
+							="{{else}}"
+							input(name="emails[{{i}}][public]", type="checkbox", value="true")
+							="{{/if}}"
 							=" " + __("public")
 						="{{else}}"
 						input.form-control(name="emails[{{i}}][email]", value="", type="text")
-						input(name="emails[{{i}}][verify]", value="1", type="hidden")
+						input(name="emails[{{i}}][verify]", value="true", type="hidden")
 						="{{/if}}"
+						="{{#if primary}}"
+						span.input-group-btn
+							button.disabled.btn.btn-danger
+								i.fa.fa-trash
+						="{{else}}"
 						span.input-group-btn
 							button.delete-email.btn.btn-danger
 								i.fa.fa-trash
+						="{{/if}}"
 
 		//- FIXME
 		script.

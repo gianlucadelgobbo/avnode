@@ -1,3 +1,24 @@
+mixin chapter-menu(activeChapter)
+	.col-md-2
+		ul.nav.nav-tabs
+			each chapter in config.controlpanel.chapters
+				if activeChapter == chapter
+					li.active
+						a(href="/controlpanel/#{chapter}")=__(chapter)
+				else
+					li
+						a(href="/controlpanel/#{chapter}")=__(chapter)
+
+mixin section-menu(activeSection)
+	ul.nav.nav-pills
+		each section in config.controlpanel.user.sections
+			if activeSection == section
+				li.active
+					a(href="/controlpanel/user/#{section}")=__(section)
+			else
+				li
+					a(href="/controlpanel/user/#{section}")=__(section)
+
 mixin websites(websites)
 	hr
 	.form-group
@@ -74,10 +95,10 @@ mixin locations(locations)
 			.form-group
 				.col-md-6
 					label.control-label=__("Latitude")
-					input.form-control(name="locations[{{i}}][lat]", value="{{lat}}", type="text" disabled)
+					input.form-control(name="locations[{{i}}][lat]", value="{{lat}}", type="text")
 				.col-md-6
 					label.control-label=__("Longitude")
-					input.form-control(name="locations[{{i}}][lng]", value="{{lng}}", type="text" disabled)
+					input.form-control(name="locations[{{i}}][lng]", value="{{lng}}", type="text")
 	//- FIXME
 	script.
 		$(document).ready(function() {
@@ -117,14 +138,11 @@ mixin multilanguage-text(texts)
 							if texts[language]
 								=texts[language]
 
-mixin render-errors(errors)
-	if errors
-		ul.bg-danger
-			each error in errors
-				li
-					strong=error.param
-					=" "
-					span=error.msg
+mixin render-alerts(alerts)
+	if alerts
+		each alert in alerts
+			div(class="alert alert-#{alert.type}")
+				span=alert.msg
 
 mixin start-end-time(result, index)
 	- var hours = ["00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30","04:00","04:30","05:00","05:30","06:00","06:30","07:00","07:30","08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30","22:00","22:30","23:00","23:30"]
