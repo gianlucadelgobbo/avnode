@@ -42,6 +42,7 @@
     "passport-twitter": "^1.0.2",
     "request": "^2.67.0",
     "rimraf": "^2.4.4",
+    "sha1": "^1.1.1",
     "stylus": "^0.52.4",
     "uuid": "^2.0.1"
   },
