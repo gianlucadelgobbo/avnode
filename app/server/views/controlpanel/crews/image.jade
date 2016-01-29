@@ -1,8 +1,12 @@
-extends ../form-layout
+extends ../layout
 
-block form
+block variables
+	- var chapter='crews'
+	- var activeSection='image'
+
+block inner-content
 	include ./menu
-	h2=__("image")
+	+render-alerts(alerts)
 	img(src="#{image}")
 	form.form-horizontal(method="post", enctype="multipart/form-data")
 		input(type="file", name="image")

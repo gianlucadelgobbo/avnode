@@ -1,6 +1,11 @@
-extends ../list-layout
+extends ../layout
 
-block list
+block variables
+	- var chapter='crews'
+	- var activeSection='list'
+
+block inner-content
+	+render-alerts(alerts)
 	ul
 		each box in result.crews
 			li

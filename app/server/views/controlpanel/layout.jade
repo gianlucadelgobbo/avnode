@@ -1,0 +1,10 @@
+extends ../layout
+include ./mixins
+
+block content
+	block variables
+	.container
+		.col-md-2
+			+chapter-menu(chapter)
+		.col-md-10
+			block inner-content

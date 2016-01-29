@@ -1,9 +1,11 @@
-extends ../form-layout
+extends ../layout
 
-block form
+block variables
+	- var chapter='events'
+
+block inner-content
 	include ./menu
-	h2=__("public")
-	input(name="_id", value=result._id, type="hidden")
+	+render-alerts(alerts)
 	fieldset
 		legend=title
 		.form-group

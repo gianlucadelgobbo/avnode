@@ -1,8 +1,12 @@
-extends ../form-layout
+extends ../layout
 
-block form
+block variables
+	- var chapter='crews'
+	- var activeSection='public'
+
+block inner-content
 	include ./menu
-	h2=__("public")
+	+render-alerts(alerts)
 	form.form-horizontal(method="post")
 		input(name="_id", value=result._id, type="hidden")
 		fieldset

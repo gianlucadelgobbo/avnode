@@ -1,0 +1,8 @@
+ul.nav.nav-pills
+	each section in config.controlpanel.user.sections
+		if activeSection == section
+			li.active
+				a(href="/controlpanel/user/#{section}")=__(section)
+		else
+			li
+				a(href="/controlpanel/user/#{section}")=__(section)

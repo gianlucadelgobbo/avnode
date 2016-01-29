@@ -1,22 +1,52 @@
-extends ../list-layout
+extends ../layout
 
-block list
+block variables
+	- var chapter='events'
+
+block inner-content
 	div.row
-		div.col-md-12.text-right
+		div.col-md-12
 			form
 				div.input-group
+					span.input-group-addon=config.baseurl
+					.input-group-btn
+						button.btn.btn-default.dropdown-toggle(type="button", data-toggle="dropdown")
+							="Select Crew"
+							span.caret
+						ul.dropdown-menu
+							each crew in result.crews
+								li
+									a=crew.permalink
+					span.input-group-addon="events/"
 					input.form-control(type="text", id="permalink", name="permalink", placeholder="Event URL")
 					span.input-group-btn
 						button#new.btn.btn-primary
 							i.fa.fa-plus
 							=" "
-							=__("new event")
-	ul
-		each box in result.events
-			li
-				span=box.title
-				a(href="/controlpanel/events/#{box.permalink}/public")
-					i.fa.fa-pencil
+							=__("Create new event")
+
+	hr
+
+	div.row
+		div.col-md-12
+			each box in result.events
+				.panel.panel-default
+					.panel-heading
+						.row
+							.col-sm-10
+								=box.title
+							.col-sm-2.text-right
+								.btn-group
+									a.btn.btn-default(href="/#{box.users[0].permalink}/events/#{box.permalink}")
+										i.fa.fa-eye
+									a.btn.btn-default(href="/controlpanel/events/#{box.permalink}/public")
+										i.fa.fa-pencil
+									a.btn.btn-danger(href="/controlpanel/events/#{box.permalink}/public")
+										i.fa.fa-trash
+					.panel-body
+						each category in box.categories
+							span=category.name
+
 	script(type="text/javascript").
 		$(document).ready(function() {
 			$('#new').on('click', function(ev) {

@@ -1,7 +1,11 @@
-extends ../list-layout
+extends ../layout
 
-block list
+block variables
+	- var chapter='events'
+
+block inner-content
 	include ./menu
+	+render-alerts(alerts)
 	form.form-horizontal(method="POST")
 		fieldset
 			legend=__("Visibility")

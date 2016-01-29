@@ -1,8 +1,11 @@
-extends ../../form-layout
+extends ../../layout
 
-block form
+block variables
+	- var chapter='events'
+
+block inner-content
 	include ../menu
-	h2=__("Edit Call")
+	+render-alerts(alerts)
 	form.form-horizontal(method="post")
 		fieldset
 			legend=__("General")

@@ -1,6 +1,10 @@
-extends ../form-layout
+extends ../layout
 
-block form
+block variables
+	- var chapter='user'
+	- var activeSection='connections'
+
+block inner-content
 	include ./menu
-	h2=__("connections")
+	+render-alerts(alerts)
 	form.form-horizontal(method="post")
