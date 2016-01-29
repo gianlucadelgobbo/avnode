@@ -2,7 +2,7 @@ extends ../form-layout
 
 block form
 	+section-menu('email')
-	form.form-horizontal(method="post")
+	form.form-horizontal(method="post", data-parsley-validate)
 		fieldset
 			legend=__("E-mails")
 			#emails
@@ -32,7 +32,7 @@ block form
 				.col-md-10
 					.input-group
 						="{{#if email}}"
-						input.form-control(name="emails[{{i}}][email]", value="{{email}}", type="text", readonly)
+						input.form-control(name="emails[{{i}}][email]", value="{{email}}", type="email", required, readonly)
 						="{{#if valid}}"
 						label.input-group-addon
 							="{{#if primary}}"
@@ -50,7 +50,7 @@ block form
 							="{{/if}}"
 							=" " + __("public")
 						="{{else}}"
-						input.form-control(name="emails[{{i}}][email]", value="", type="text")
+						input.form-control(name="emails[{{i}}][email]", value="", type="email", required)
 						input(name="emails[{{i}}][verify]", value="true", type="hidden")
 						="{{/if}}"
 						="{{#if primary}}"

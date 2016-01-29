@@ -213,13 +213,13 @@ module.exports = function(app) {
     var _ = require('lodash');
     User.findOne({'emails.verify': uuid}, function(err, user) {
       if (err || user === null) {
-        res.send('Sorry');
+        res.status(400).send('Error');
       } else {
         var email = _.find(user.emails, {verify: uuid});
         email.valid = 1;
         email.verify = '';
         user.save(function(err) {
-          res.send('Ok');
+          res.redirect('/controlpanel/user/emails');
         });
       }
     });

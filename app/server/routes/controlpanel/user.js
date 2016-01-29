@@ -152,23 +152,31 @@ exports.editUserEmailsSchema = {
   )
 };
 exports.editUserEmailsPost = function(req, res) {
-  var data = req.body;
-  data.emails.forEach(function(item, i) {
-    item = _.defaults(item, {
+  var newData = req.body;
+  var existingData = req.user;
+  var newEmails = {
+    emails: []
+  };
+  newData.emails.forEach(function(newEmail, i) {
+    _.defaults(newEmail, {
       public: false,
       primary: false,
     });
-    if (item.email === data.primary_email) {
-      item.primary = true;
+    if (newEmail.email === newData.primary_email) {
+      newEmail.primary = true;
     }
-    if (item.verify) {
-      item.verify = uuid.v4();
-      _h.mail.sendVerificationMail(item.email, item.verify);
+    existingData.emails.forEach(function(existingEmail, i) {
+      if (existingEmail.email === newEmail.email) {
+        newEmail = _.merge(existingEmail, newEmail);
+      }
+    });
+    if (newEmail.verify) {
+      newEmail.verify = uuid.v4();
+      _h.mail.sendVerificationMail(newEmail.email, newEmail.verify);
     }
+    newEmails.emails.push(newEmail);
   });
-  // FIXME
-  data = flatten(data);
-  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+  User.findByIdAndUpdate(req.user._id, { $set: newEmails }, { new: true }, function (err, user) {
     res.render('controlpanel/user/emails', {
       config: config,
       result: user
