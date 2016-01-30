@@ -19,6 +19,7 @@ block inner-content
 					.input-group
 						span.input-group-addon=config.baseurl + result.users[0].permalink + "/events/"
 						input.form-control(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="[a-zA-z0-9]+")
+			+multilanguage-subtitle(result.subtitle)
 			+multilanguage-text(result.text)
 			+websites(result.websites)
 

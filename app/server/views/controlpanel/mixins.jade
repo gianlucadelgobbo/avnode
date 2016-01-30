@@ -112,12 +112,21 @@ mixin locations(locations)
 			});
 		});
 
+mixin multilanguage-subtitle(subtitles)
+	.form-group
+		label.col-md-2.control-label=__("Subtitles")
+		.col-md-10
+			each language in config.locales
+				.input-group.subtitle
+					span.input-group-addon=__(language)
+					input.form-control(name="subtitle[#{language}]", type="subtitle", value=subtitles[language])
+
 mixin multilanguage-text(texts)
 	.form-group#descriptions
 		label.col-md-2.control-label=__("Description")
 		.col-md-2
 			.list-group
-				each language in config.locales
+				each language, i in config.locales
 					a.list-group-item(data-toggle="collapse", data-parent="#descriptions", href="#description-#{language}")=__(language)
 		.col-md-8.panel
 			each language,i in config.locales

@@ -1269,3 +1269,10 @@ textarea.parsley-error {
 .parsley-errors-list.filled {
   opacity: 1;
 }
+.subtitle.input-group {
+  width: 100%;
+}
+.subtitle.input-group .input-group-addon {
+  text-align: right;
+  width: 130px;
+}
