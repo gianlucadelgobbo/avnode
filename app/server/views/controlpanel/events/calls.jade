@@ -35,55 +35,65 @@ block inner-content
 					p
 						b=__("This function is reserved to AVnode.org members")+". "
 						a(href="http://avnode.org/members/")=__("more info")
+
 		fieldset
 			legend=__("General")
 			.form-group
-				label.col-md-3.control-label=__("Next Edition")
-				.col-md-9
+				label.col-md-2.control-label=__("Next Edition")
+				.col-md-10
 					input.form-control(name="settings[call][next_edition]",value=result.settings.call.next_edition,type="text")
 			.form-group
-				label.col-md-3.control-label
+				label.col-md-2.control-label
 					!=__("Header image")
 					br
 					!="(960 x 100px)"
-				.col-md-9
+				.col-md-10
 					input.form-control(name="settings[call][header_image]",	value=result.settings.call.header_image,	type="text")
 			.form-group
-				label.col-md-3.control-label=__("Background image")+" (optional)"
-				.col-md-9
+				label.col-md-2.control-label=__("Background image")+" (optional)"
+				.col-md-10
 					input.form-control(name="settings[call][background_image]",	value=result.settings.call.background_image,	type="text")
 			.form-group
-				label.col-md-3.control-label=__("Background color")
-				.col-md-9
+				label.col-md-2.control-label=__("Background color")
+				.col-md-10
 					input.form-control(name="settings[call][background_color]",	value=result.settings.call.background_color,	type="text")
-			.form-group
-				.col-md-12
-					input(type="submit", value=__("Save")).btn.btn-primary
 
-	h3=__("Calls")
-	if result.settings.call.calls
-		.list-group
-			each call in result.settings.call.calls
-				.list-group-item
-					.row
-						.col-sm-9
-							a(href="calls/#{call._id}")=call.title
-						.col-sm-3.text-right
-							a.btn.btn-default(href="calls/#{call._id}")
-								i.fa.fa-pencil
-	else
-		p.bg-info=__("no calls")
+		fieldset
+			legend=__("Calls")
+			.row
+				.col-md-10.col-md-offset-2
+					if result.settings.call.calls
+						.list-group
+							each call in result.settings.call.calls
+								.list-group-item
+									.row
+										.col-sm-9
+											h4
+												a(href="calls/#{call._id}")=call.title
+										.col-sm-3.text-right
+											.btn-group
+												//- FIXME TBD if a single call can be opened/closed
+												a.btn.btn-default(href="calls/#{call._id}/open")
+													i.fa.fa-unlock
+												a.btn.btn-default(href="calls/#{call._id}")
+													i.fa.fa-pencil
+												a.btn.btn-danger(href="calls/#{call._id}/delete")
+													i.fa.fa-trash
+					else
+						p.bg-info=__("no calls")
 
-	a.btn.btn-primary(href="calls/new")
-		i.fa.fa-plus
-		=" "
-		=__("Add new call")
+					a.btn.btn-default(href="calls/new")
+						i.fa.fa-plus
+						=" "
+						=__("Add new call")
 
-	script(type="text/javascript").
+		+save-button
+
+	//- FIXME no inline scripts for generic functionality
+	script.
 		$(document).ready(function() {
 			$("input.switch").bootstrapSwitch({
 				onSwitchChange: function(ev, state, el) {
-					console.log($(ev.currentTarget));
 					$(ev.currentTarget).prop('checked', state);
 				}
 			});

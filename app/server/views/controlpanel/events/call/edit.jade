@@ -4,7 +4,9 @@ block variables
 	- var chapter='events'
 
 block inner-content
-	include ../menu
+	nav.navbar.navbar-default
+		.navbar-header
+			.navbar-brand=result.title + ": " + call.title
 	+render-alerts(alerts)
 	form.form-horizontal(method="post")
 		fieldset
@@ -57,7 +59,7 @@ block inner-content
 				div.panel-heading
 					.row
 						.col-sm-9
-							h5.panel-title
+							h5
 								a(data-toggle="collapse", data-target="#topic-body{{i}}")="{{#if title}}{{title}}{{else}}" + __('New') + "{{/if}}"
 						.col-sm-3.text-right
 							a.btn.btn-default(data-toggle="collapse", data-target="#topic-body{{i}}")
@@ -107,7 +109,7 @@ block inner-content
 		fieldset
 			legend=__("Topics")
 			div#topics.panel-group(aria-multiselectable="true")
-			button.btn.btn-primary#new-topic
+			button.btn.btn-default#new-topic
 				i.fa.fa-plus
 				=" "
 				=__("Add new topic")
@@ -119,7 +121,7 @@ block inner-content
 				div.panel-heading
 					.row
 						.col-sm-9
-							h5.panel-title
+							h5
 								a(data-toggle="collapse", data-target="#package-body{{i}}")="{{#if title}}{{title}}{{else}}" + __('New') + "{{/if}}"
 						.col-sm-3.text-right
 							a.btn.btn-default(data-toggle="collapse", data-target="#package-body{{i}}")
@@ -215,17 +217,14 @@ block inner-content
 		fieldset
 			legend=__("Packages")
 			div#packages.panel-group(aria-multiselectable="true")
-			button.btn.btn-primary#new-package
+			button.btn.btn-default#new-package
 				i.fa.fa-plus
 				=" "
 				=__("Add new package")
 
-		hr
-		fieldset.text-right
-			input(type="submit", value=__("Save call information")).btn.btn-lg.btn-primary
-			a.btn.btn-lg.btn-danger(href="#{call._id}/delete")=__("Delete call")
+		+save-button
 
-	//- FIXME
+	//- FIXME no inline js for generic functionality
 	script.
 		$(document).ready(function() {
 			$(".date").datepicker({

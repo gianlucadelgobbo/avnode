@@ -7,6 +7,7 @@ block inner-content
 	include ./menu
 	+render-alerts(alerts)
 	form.form-horizontal(method="post")
-		input(type="hidden",name="_id",value=result._id)
 		fieldset
-			legend=__("permissions")
+			legend=__("Permissions")
+
+		+save-button

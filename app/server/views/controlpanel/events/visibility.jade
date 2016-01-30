@@ -7,9 +7,8 @@ block inner-content
 	include ./menu
 	+render-alerts(alerts)
 	form.form-horizontal(method="post")
-		input(type="hidden",name="_id",value=result._id)
 		fieldset
-			legend=__("visibility")
+			legend=__("Visibility")
 
 			.form-group
 				label.col-md-2.control-label
@@ -24,3 +23,15 @@ block inner-content
 				.col-md-10
 					h4=__("Public Gallery")
 					p=__("All the AV node users can upload gallery")
+
+		+save-button
+
+	//- FIXME no inline scripts for generic functionality
+	script.
+		$(document).ready(function() {
+			$("input.switch").bootstrapSwitch({
+				onSwitchChange: function(ev, state, el) {
+					$(ev.currentTarget).prop('checked', state);
+				}
+			});
+		});

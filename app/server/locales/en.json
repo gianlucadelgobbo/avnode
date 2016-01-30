@@ -286,5 +286,8 @@
 	"Create new event": "Create new event",
 	"FLxER": "FLxER",
 	"Connect": "Connect",
-	"Disconnect": "Disconnect"
+	"Disconnect": "Disconnect",
+	"back to list": "back to list",
+	"Permissions": "Permissions",
+	"Edit call": "Edit call"
 }

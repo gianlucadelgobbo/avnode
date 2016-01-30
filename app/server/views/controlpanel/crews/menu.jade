@@ -1,9 +1,14 @@
-.panel.panel-default
-	ul.nav.nav-pills
-		each section in config.controlpanel.crews.sections
-			if activeSection == section
-				li.active
-					a(href="/controlpanel/crews/#{result.permalink}/#{section}")=__(section)
-			else
-				li
-					a(href="/controlpanel/crews/#{result.permalink}/#{section}")=__(section)
+nav.navbar.navbar-default
+	.navbar-header
+		.navbar-brand=result.display_name
+		button.navbar-toggle.collapsed(data-toggle="collapse", data-target="#section-menu")
+			i.fa.fa-bars
+	#section-menu.collapse.navbar-collapse
+		ul.nav.navbar-nav
+			each section in config.controlpanel.crews.sections
+				if activeSection == section
+					li.active
+						a(href="/controlpanel/crews/#{result.permalink}/#{section}")=__(section)
+				else
+					li
+						a(href="/controlpanel/crews/#{result.permalink}/#{section}")=__(section)

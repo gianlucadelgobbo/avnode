@@ -7,7 +7,17 @@ block variables
 block inner-content
 	include ./menu
 	+render-alerts(alerts)
-	ul
-		each box in result.members
-			li
-				span=box.display_name
+	div.row
+		div.col-md-12
+			each box in result.members
+				.panel.panel-default
+					.panel-heading
+						.row
+							.col-sm-9
+								h5=box.display_name
+							.col-sm-3.text-right
+								.btn-group
+									a.btn.btn-default(href="/#{box.permalink}")
+										i.fa.fa-eye
+											a.btn.btn-warning(href="/controlpanel/crews/#{box.permalink}/unlink/#{box.permalink}")
+										i.fa.fa-chain-broken

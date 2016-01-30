@@ -15,7 +15,7 @@
   "defaultLocale": "en",
   "baseurl": "https://dev.avnode.net/",
   "controlpanel": {
-    "chapters": ["user", "events", "crews"],
+    "chapters": ["user", "crews", "events"],
     "user": {
       "sections": ["public", "image", "password", "private", "emails", "connections"]
     },
