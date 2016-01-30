@@ -1,7 +1,0 @@
-.form-group
-	label.col-sm-2.control-label=__("Author")
-	.col-sm-10
-		select(name="users[]",autocomplete="off").form-control
-			option(value=user._id,selected=(result.users[0]._id == user._id ? "selected" : undefined))=user.display_name
-			each u in user.crews
-				option(value=u._id,selected=(result.users[0]._id == u._id ? "selected" : undefined))=u.display_name
