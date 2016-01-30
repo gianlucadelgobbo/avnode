@@ -22,52 +22,5 @@ block inner-content
 			+multilanguage-text(result.text)
 			+websites(result.websites)
 
-		fieldset
-			legend=__("Dates and locations")
-
-			each item,index in result.date_time_venue
-				.form-group
-					label.col-sm-2.control-label=__("Date")+" "+(index+1)
-					.col-sm-10
-						.input-group.date.datepicker(data-date=item.date,data-date-format="yyyy-mm-dd")
-							input(name="date_time_venue["+index+"][date]", value=item.date, readonly, type="text", placeholder=__("Profile url")).form-control
-							span.input-group-addon
-								i.glyphicon.glyphicon-calendar
-				.form-group
-					label.col-sm-2.control-label=__("Venue")+" "+(index+1)
-					.col-sm-10
-						input(name="date_time_venue["+index+"][venue]", value=item.venue, type="text", placeholder=__("Venue")).form-control
-				.form-group
-					label.col-sm-2.control-label=__("Venue address")+" "+(index+1)
-					.col-sm-10
-						input(name="date_time_venue["+index+"][venue_address]", value=item.venue_address, type="text", placeholder=__("Venue address")).form-control
-
-				+start-end-time(result, index)
-
-				.form-group
-					label.col-sm-2.control-label=__("City")+" "+(index+1)
-					.col-sm-10
-						input(name="date_time_venue["+index+"][city]", value=item.city, type="text", placeholder=__("City")).form-control
-				.form-group
-					label.col-sm-2.control-label=__("Country")+" "+(index+1)
-					.col-sm-10
-						select(name="date_time_venue["+index+"][country]", default="country").form-control
-							option(value="")=__("Country")
-							each country in countries
-								option(value=item.name,selected=(item.country==country.name ? "selected" : undefined))=country.name
-				.form-group
-					label.col-sm-2.control-label
-					.col-sm-10
-						.text-right
-							a.btn.btn-mini.btn-danger(href="#", onclick="datelocRemove(this);return false;")
-								i.glyphicon.glyphicon-remove.glyphicon.glyphicon-white
-								!=" "+__("Remove Date & location")
-				hr
-			.form-group
-				label.col-sm-2.control-label
-				.col-sm-10
-					.text-right
-						a.btn.btn-mini.btn-primary(href="#", onclick="datelocAdd(this);return false;")
-							i.glyphicon.glyphicon-plus.glyphicon.glyphicon-white
-							!=" "+__("Add a Date & location")
+		+venues(result.date_time_venue)
 		+save-button

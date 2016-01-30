@@ -150,3 +150,86 @@ mixin start-end-time(result, index)
 				option=__("Choose")
 					each hour in hours
 						option(value=hour,selected=(result.date_time_venue[index].end_time == hour ? "selected" : undefined))=hour
+
+mixin venues(venues)
+	fieldset
+		legend=__("Venues")
+		#venues.row
+		.row
+			.col-md-10.col-md-offset-2
+				button.add-venue.btn.btn-default
+					i.fa.fa-plus
+					=" "
+					=__("Add venue")
+	script(id="venue", type="text/x-handlebars-template")
+		.venue.col-md-10.col-md-offset-2
+			.panel.panel-default
+				.panel-body
+					.row
+						.col-md-12.text-right
+							.btn-group
+								button.show-venue.btn.btn-default
+									i.fa.fa-map
+								button.delete-venue.btn.btn-danger
+									i.fa.fa-trash
+					.row
+						.col-md-12
+							label.control-label=__("Venue")
+							input.form-control(name="venues[{{i}}][venue]", value="{{venue}}", type="text")
+					.row
+						.col-md-4
+							label.control-label=__("Date")
+							.input-group.date.datepicker(data-date-format="yyyy-mm-dd", data-date="{{date}}")
+								input.form-control(name="venues[{{i}}][date]", value="{{date}}", type="text", readonly)
+								span.input-group-addon
+									i.glyphicon.glyphicon-calendar
+						.col-md-4
+							label.control-label=__("Begin")
+							.input-group.date.timepicker(data-date-format="LT", data-date="{{start_time}}")
+								input.form-control(name="venues[{{i}}][start_time]", value="{{start_time}}", type="text", readonly)
+								span.input-group-addon
+									i.glyphicon.glyphicon-time
+						.col-md-4
+							label.control-label=__("End")
+							.input-group.date.timepicker(data-date-format="LT", data-date="{{end_time}}")
+								input.form-control(name="venues[{{i}}][end_time]", value="{{end_time}}", type="text", readonly)
+								span.input-group-addon
+									i.glyphicon.glyphicon-time
+					.row
+						.col-md-8
+							label.control-label=__("Street")
+							input.form-control(name="venues[{{i}}][street]", value="{{street}}", type="text")
+						.col-md-4
+							label.control-label=__("Streetnumber")
+							input.form-control(name="venues[{{i}}][streetnumber]", value="{{streetnumber}}", type="text")
+					.row
+						.col-md-2
+							label.control-label=__("ZIP")
+							input.form-control(name="venues[{{i}}][zip]", value="{{zip}}", type="text")
+						.col-md-5
+							label.control-label=__("City")
+							input.form-control(name="venues[{{i}}][city]", value="{{city}}", type="text")
+						.col-md-5
+							label.control-label=__("Country")
+							input.form-control(name="venues[{{i}}][country]", value="{{country}}", type="text")
+	//- FIXME
+	script.
+		$(document).ready(function() {
+			var source   = $("#venue").html();
+			var template = Handlebars.compile(source);
+			var data = !{JSON.stringify(venues)};
+			var total = data.length;
+			data.forEach(function(venue, i) {
+				venue.i = i;
+				$(template(venue)).appendTo($('#venues'));
+			});
+			$(document).on('click', '.delete-venue', function(ev) {
+				ev.preventDefault();
+				$(this).closest('.venue').remove();
+			});
+			$(document).on('click', '.add-venue', function(ev) {
+				ev.preventDefault();
+				$(template({i: total})).appendTo($('#venues'));
+				total++;
+			});
+		});
