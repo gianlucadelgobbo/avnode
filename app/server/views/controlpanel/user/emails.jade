@@ -18,11 +18,7 @@ block inner-content
 						=" "
 						=__("Add another E-mail")
 
-		hr.clearfix
-		.form-group
-			label.col-sm-2.control-label
-			.col-sm-10
-				input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
+		+save-button
 
 		script(id="email", type="text/x-handlebars-template")
 			.email.form-group

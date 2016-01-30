@@ -73,13 +73,9 @@ block inner-content
 					});
 				});
 
-			hr.clearfix
-			.form-group
-				label.col-sm-2.control-label
-				.col-sm-10
-					input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
+			+save-button
 
-	//- FIXME
+	//- FIXME remove generic inline scripts
 	script.
 		$(document).ready(function() {
 			$(".date").datepicker({ });

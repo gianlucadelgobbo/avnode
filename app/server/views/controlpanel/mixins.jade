@@ -1,15 +1,14 @@
-mixin chapter-menu(activeChapter)
-	ul.nav.nav-pills.nav-stacked
-		each chapter in config.controlpanel.chapters
-			if activeChapter == chapter
-				li.active
-					a(href="/controlpanel/#{chapter}")=__(chapter)
-			else
-				li
-					a(href="/controlpanel/#{chapter}")=__(chapter)
+mixin save-button
+	hr.clearfix
+	.form-group
+		label.col-sm-2.control-label
+		.col-sm-10
+			button.btn.btn-success.btn-lg(type="submit")
+				i.fa.fa-check
+				=" "
+				=__("Save")
 
 mixin websites(websites)
-	hr
 	.form-group
 		label.col-sm-2.control-label=__("Websites")
 		.col-sm-10
@@ -47,47 +46,50 @@ mixin websites(websites)
 mixin locations(locations)
 	fieldset
 		legend=__("Locations")
-		#locations
-		.col-md-10.col-md-offset-2
-			.form-group
+		#locations.row
+		.row
+			.col-md-10.col-md-offset-2
 				button.add-location.btn.btn-default
 					i.fa.fa-plus
 					=" "
 					=__("Add location")
 	script(id="location", type="text/x-handlebars-template")
-		.location.col-md-offset-2
-			.form-group
-				.col-md-12.text-right
-					button.show-location.btn.btn-default
-						i.fa.fa-search
-					button.show-location.btn.btn-default
-						i.fa.fa-map
-					button.delete-location.btn.btn-danger
-						i.fa.fa-trash
-			.form-group
-				.col-md-8
-					label.control-label=__("Street")
-					input.form-control(name="locations[{{i}}][street]", value="{{street}}", type="text")
-				.col-md-4
-					label.control-label=__("Streetnumber")
-					input.form-control(name="locations[{{i}}][streetnumber]", value="{{streetnumber}}", type="text")
-			.form-group
-				.col-md-2
-					label.control-label=__("ZIP")
-					input.form-control(name="locations[{{i}}][zip]", value="{{zip}}", type="text")
-				.col-md-5
-					label.control-label=__("City")
-					input.form-control(name="locations[{{i}}][city]", value="{{city}}", type="text")
-				.col-md-5
-					label.control-label=__("Country")
-					input.form-control(name="locations[{{i}}][country]", value="{{country}}", type="text")
-			.form-group
-				.col-md-6
-					label.control-label=__("Latitude")
-					input.form-control(name="locations[{{i}}][lat]", value="{{lat}}", type="text")
-				.col-md-6
-					label.control-label=__("Longitude")
-					input.form-control(name="locations[{{i}}][lng]", value="{{lng}}", type="text")
+		.location.col-md-10.col-md-offset-2
+			.panel.panel-default
+				.panel-body
+					.row
+						.col-md-12.text-right
+							.btn-group
+								button.show-location.btn.btn-default
+									i.fa.fa-search
+								button.show-location.btn.btn-default
+									i.fa.fa-map
+								button.delete-location.btn.btn-danger
+									i.fa.fa-trash
+					.row
+						.col-md-8
+							label.control-label=__("Street")
+							input.form-control(name="locations[{{i}}][street]", value="{{street}}", type="text")
+						.col-md-4
+							label.control-label=__("Streetnumber")
+							input.form-control(name="locations[{{i}}][streetnumber]", value="{{streetnumber}}", type="text")
+					.row
+						.col-md-2
+							label.control-label=__("ZIP")
+							input.form-control(name="locations[{{i}}][zip]", value="{{zip}}", type="text")
+						.col-md-5
+							label.control-label=__("City")
+							input.form-control(name="locations[{{i}}][city]", value="{{city}}", type="text")
+						.col-md-5
+							label.control-label=__("Country")
+							input.form-control(name="locations[{{i}}][country]", value="{{country}}", type="text")
+					.row
+						.col-md-6
+							label.control-label=__("Latitude")
+							input.form-control(name="locations[{{i}}][lat]", value="{{lat}}", type="text")
+						.col-md-6
+							label.control-label=__("Longitude")
+							input.form-control(name="locations[{{i}}][lng]", value="{{lng}}", type="text")
 	//- FIXME
 	script.
 		$(document).ready(function() {
@@ -111,7 +113,6 @@ mixin locations(locations)
 		});
 
 mixin multilanguage-text(texts)
-	hr
 	.form-group#descriptions
 		label.col-md-2.control-label=__("Description")
 		.col-md-2

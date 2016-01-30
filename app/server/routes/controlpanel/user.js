@@ -183,3 +183,22 @@ exports.editUserEmailsPost = function(req, res) {
     });
   });
 }
+
+exports.editUserConnectionsGet = function(req, res) {
+  res.render('controlpanel/user/connections', {
+    config: config,
+    result: req.user
+  });
+}
+exports.editUserConnectionsSchema = {
+};
+exports.editUserConnectionsPost = function(req, res) {
+  var data = _.defaults(req.body, {
+  });
+  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+    res.render('controlpanel/user/connections', {
+      config: config,
+      result: user
+    });
+  });
+}

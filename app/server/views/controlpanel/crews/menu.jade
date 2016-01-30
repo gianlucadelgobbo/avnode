@@ -1,8 +1,9 @@
-ul.nav.nav-pills
-	each section in config.controlpanel.crews.sections
-		if activeSection == section
-			li.active
-				a(href="/controlpanel/crews/#{result.permalink}/#{section}")=__(section)
-		else
-			li
-				a(href="/controlpanel/crews/#{result.permalink}/#{section}")=__(section)
+.panel.panel-default
+	ul.nav.nav-pills
+		each section in config.controlpanel.crews.sections
+			if activeSection == section
+				li.active
+					a(href="/controlpanel/crews/#{result.permalink}/#{section}")=__(section)
+			else
+				li
+					a(href="/controlpanel/crews/#{result.permalink}/#{section}")=__(section)

@@ -93,6 +93,9 @@ router.post('/user/private', validate(user.editUserPrivateSchema), user.editUser
 router.get('/user/emails', user.editUserEmailsGet);
 router.post('/user/emails', validate(user.editUserEmailsSchema), user.editUserEmailsPost);
 
+router.get('/user/connections', user.editUserConnectionsGet);
+router.post('/user/connections', validate(user.editUserConnectionsSchema), user.editUserConnectionsPost);
+
 router.get('/crews/:crew/:section', crews.editCrew);
 router.get('/crews', crews.getAll);
 router.post('/crews', crews.post);

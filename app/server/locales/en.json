@@ -283,5 +283,8 @@
 	"Required field": "Required field",
 	"Sorry, wrong password": "Sorry, wrong password",
 	"Password changed": "Password changed",
-	"Create new event": "Create new event"
+	"Create new event": "Create new event",
+	"FLxER": "FLxER",
+	"Connect": "Connect",
+	"Disconnect": "Disconnect"
 }

@@ -19,17 +19,9 @@ block inner-content
 				.col-sm-10
 					.input-group
 						span.input-group-addon=config.baseurl
-						input.permalink(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="[a-zA-z0-9]+").form-control
+						input.form-control(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="[a-zA-z0-9]+")
+		+multilanguage-text(result.text)
+		+websites(result.websites)
+		+locations(result.locations)
 
-		fieldset
-			+multilanguage-text(result.text)
-		fieldset
-			+websites(result.websites)
-		fieldset
-			+locations(result.locations)
-
-		hr.clearfix
-		.form-group
-			label.col-sm-2.control-label
-			.col-sm-10
-				input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
+		+save-button
