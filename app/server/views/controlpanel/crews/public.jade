@@ -18,13 +18,9 @@ block inner-content
 			.form-group
 				label.col-sm-2.control-label(for="permalink")=__("Profile url")
 				.col-sm-10
-					input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
-					span.glyphicon.form-control-feedback(aria-hidden="true")
-					.row
-						.help-block.col-sm-9="https://avnode.net/"
-							span.permalink_print=result.permalink.toLowerCase()
-						input(type="hidden", value="users", name="collection")
-						.control-label.col-sm-3
+					.input-group
+						span.input-group-addon=config.baseurl
+						input.form-control(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="[a-zA-z0-9]+")
 		fieldset
 			+multilanguage-text(result.text)
 		fieldset

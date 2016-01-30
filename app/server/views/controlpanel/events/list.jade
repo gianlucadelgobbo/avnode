@@ -33,9 +33,9 @@ block inner-content
 				.panel.panel-default
 					.panel-heading
 						.row
-							.col-sm-10
-								=box.title
-							.col-sm-2.text-right
+							.col-sm-9
+								h5=box.title
+							.col-sm-3.text-right
 								.btn-group
 									a.btn.btn-default(href="/#{box.users[0].permalink}/events/#{box.permalink}")
 										i.fa.fa-eye
@@ -44,8 +44,19 @@ block inner-content
 									a.btn.btn-danger(href="/controlpanel/events/#{box.permalink}/public")
 										i.fa.fa-trash
 					.panel-body
-						each category in box.categories
-							span=category.name
+						ul.list-inline
+							li
+								i.fa.fa-eye
+								=" "
+								span=box.stats.visits
+
+						ul.list-inline
+							each category in box.categories
+								li
+									a(href="/events/#{category.permalink}")
+										i.fa.fa-tag
+										=" "
+										span=category.name
 
 	script(type="text/javascript").
 		$(document).ready(function() {
@@ -54,7 +65,7 @@ block inner-content
 					type: "PUT",
 					url: "/controlpanel/events/" + encodeURIComponent($('#permalink').val()),
 					success: function(data) {
-						// FIXME
+						//- FIXME
 						if (data) {
 							window.location.href = document.location.protocol + '//' + document.location.host + data;
 						}

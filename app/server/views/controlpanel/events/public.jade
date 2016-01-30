@@ -22,10 +22,12 @@ block inner-content
 						span.permalink_print=result.permalink.toLowerCase()
 					input(type="hidden", value="events", name="collection")
 					.control-label.col-sm-3
-	fieldset
-		+multilanguage-text(result.text)
-	fieldset
-		+websites(result.websites)
+				.input-group
+					span.input-group-addon=config.baseurl
+					input.form-control(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="[a-zA-z0-9]+")
+	+multilanguage-text(result.text)
+	+websites(result.websites)
+
 	fieldset
 		legend=__("Dates and locations")
 
