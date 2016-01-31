@@ -7,13 +7,13 @@ var Joi = require('joi');
 var countries = require('country-list')().getData();
 var flatten = require('flat');
 
-exports.editUserPublicGet = function(req, res) {
+exports.publicGet = function(req, res) {
   res.render('controlpanel/user/public', {
     config: config,
     result: req.user
   });
 }
-exports.editUserPublicSchema = {
+exports.publicSchemaPost = {
   display_name: Joi.string().required(),
   permalink: Joi.string().required(),
   text: Joi.object().allow(config.locales),
@@ -32,7 +32,7 @@ exports.editUserPublicSchema = {
     })
   )
 };
-exports.editUserPublicPost = function(req, res) {
+exports.publicPost = function(req, res) {
   var data = _.defaults(req.body, {
     locations: [],
     websites: []
@@ -45,17 +45,17 @@ exports.editUserPublicPost = function(req, res) {
   });
 }
 
-exports.editUserImageGet = function(req, res) {
+exports.imageGet = function(req, res) {
   res.render('controlpanel/user/image', {
     config: config,
     image: req.user.files[0],
     result: req.user
   });
 }
-exports.editUserImageSchema = {
+exports.imageSchemaPost = {
   image: Joi.string().required()
 };
-exports.editUserImagePost = function(req, res) {
+exports.imagePost = function(req, res) {
   var data = {
     'files.0.file': req.body.image
   };
@@ -65,18 +65,18 @@ exports.editUserImagePost = function(req, res) {
   });
 }
 
-exports.editUserPasswordGet = function(req, res) {
+exports.passwordGet = function(req, res) {
   res.render('controlpanel/user/password', {
     config: config,
     result: req.user
   });
 }
-exports.editUserPasswordSchema = {
+exports.passwordSchemaPost = {
   password: Joi.string().min(8).required(),
   new_password: Joi.string().min(8).required(),
   new_password_confirm: Joi.any().valid(Joi.ref('new_password')).required()
 };
-exports.editUserPasswordPost = function(req, res) {
+exports.passwordPost = function(req, res) {
   req.user.comparePassword(req.body.password, function(err, isMatch) {
     if (isMatch) {
       User.findById(req.user._id, function(err, user) {
@@ -105,14 +105,14 @@ exports.editUserPasswordPost = function(req, res) {
   });
 }
 
-exports.editUserPrivateGet = function(req, res) {
+exports.privateGet = function(req, res) {
   res.render('controlpanel/user/private', {
     config: config,
     countries: countries,
     result: req.user
   });
 }
-exports.editUserPrivateSchema = {
+exports.privateSchemaPost = {
   name: Joi.string().allow(''),
   surname: Joi.string().allow(''),
   birth_date: Joi.date().allow(null).max('now').format('YYYY-MM-DD'),
@@ -122,7 +122,7 @@ exports.editUserPrivateSchema = {
     Joi.string().required()
   )
 };
-exports.editUserPrivatePost = function(req, res) {
+exports.privatePost = function(req, res) {
   var data = _.defaults(req.body, {
     phonenumbers: []
   });
@@ -135,13 +135,13 @@ exports.editUserPrivatePost = function(req, res) {
   });
 }
 
-exports.editUserEmailsGet = function(req, res) {
+exports.emailsGet = function(req, res) {
   res.render('controlpanel/user/emails', {
     config: config,
     result: req.user
   });
 }
-exports.editUserEmailsSchema = {
+exports.emailsSchemaPost = {
   primary_email: Joi.string().email().required(),
   emails: Joi.array().items(
     Joi.object().keys({
@@ -151,7 +151,7 @@ exports.editUserEmailsSchema = {
     })
   )
 };
-exports.editUserEmailsPost = function(req, res) {
+exports.emailsPost = function(req, res) {
   var newData = req.body;
   var existingData = req.user;
   var newEmails = {
@@ -184,15 +184,15 @@ exports.editUserEmailsPost = function(req, res) {
   });
 }
 
-exports.editUserConnectionsGet = function(req, res) {
+exports.connectionsGet = function(req, res) {
   res.render('controlpanel/user/connections', {
     config: config,
     result: req.user
   });
 }
-exports.editUserConnectionsSchema = {
+exports.connectionsSchemaPost = {
 };
-exports.editUserConnectionsPost = function(req, res) {
+exports.connectionsPost = function(req, res) {
   var data = _.defaults(req.body, {
   });
   User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {

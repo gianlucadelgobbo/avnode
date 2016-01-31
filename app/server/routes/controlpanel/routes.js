@@ -10,7 +10,8 @@ var signup = require('./signup');
 var user = require('./user');
 var crews = require('./crews');
 var events = require('./events');
-var validate = require('../../validation.js');
+var validateParams = require('../../validation.js').validateParams;
+var validateBody = require('../../validation.js').validateBody;
 
 router.post(
   '/login',
@@ -75,30 +76,40 @@ router.use('/*', function(req, res, next) {
   //}
 });
 
-router.get('/user/public', user.editUserPublicGet);
-router.post('/user/public', validate(user.editUserPublicSchema), user.editUserPublicPost);
+router.get('/user/public', user.publicGet);
+router.post('/user/public', validateBody(user.publicSchemaPost), user.publicPost);
 router.get('/user', function(req, res) {
   res.redirect('/controlpanel/user/public');
 });
 
-router.get('/user/image', user.editUserImageGet);
-router.post('/user/image', validate(user.editUserImageSchema), user.editUserImagePost);
+router.get('/user/image', user.imageGet);
+router.post('/user/image', validateBody(user.imageSchemaPost), user.imagePost);
 
-router.get('/user/password', user.editUserPasswordGet);
-router.post('/user/password', validate(user.editUserPasswordSchema), user.editUserPasswordPost);
+router.get('/user/password', user.passwordGet);
+router.post('/user/password', validateBody(user.passwordSchemaPost), user.passwordPost);
 
-router.get('/user/private', user.editUserPrivateGet);
-router.post('/user/private', validate(user.editUserPrivateSchema), user.editUserPrivatePost);
+router.get('/user/private', user.privateGet);
+router.post('/user/private', validateBody(user.privateSchemaPost), user.privatePost);
 
-router.get('/user/emails', user.editUserEmailsGet);
-router.post('/user/emails', validate(user.editUserEmailsSchema), user.editUserEmailsPost);
+router.get('/user/emails', user.emailsGet);
+router.post('/user/emails', validateBody(user.emailsSchemaPost), user.emailsPost);
 
-router.get('/user/connections', user.editUserConnectionsGet);
-router.post('/user/connections', validate(user.editUserConnectionsSchema), user.editUserConnectionsPost);
+router.get('/user/connections', user.connectionsGet);
+router.post('/user/connections', validateBody(user.connectionsSchemaPost), user.connectionsPost);
 
-router.get('/crews/:crew/:section', crews.editCrew);
-router.get('/crews', crews.getAll);
-router.post('/crews', crews.post);
+router.get('/crews/:crew/public', validateParams(crews.publicSchemaGet), crews.publicGet);
+router.post('/crews/:crew/public', validateBody(crews.publicSchemaPost), crews.publicPost);
+
+router.get('/crews/:crew/image', validateParams(crews.imageSchemaGet), crews.imageGet);
+router.post('/crews/:crew/image', validateBody(crews.imageSchemaPost), crews.imagePost);
+
+router.get('/crews/:crew/members', validateParams(crews.membersSchemaGet), crews.membersGet);
+router.post('/crews/:crew/members', validateBody(crews.membersSchemaPost), crews.membersPost);
+
+router.get('/crews/list', crews.listGet);
+router.get('/crews', function(req, res) {
+  res.redirect('/controlpanel/crews/list');
+});
 
 router.get('/events/:event/calls/new', events.newEventCall);
 router.get('/events/:event/calls/:call/delete', events.deleteEventCall);
