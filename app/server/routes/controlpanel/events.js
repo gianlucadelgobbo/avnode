@@ -37,7 +37,7 @@ exports.publicSchemaPost = {
   venues: Joi.array().items(
     Joi.object().keys({
       venue: Joi.string().alphanum().required(),
-      date: Joi.date().min('now').format('YYYY-MM-DD'),
+      date: Joi.date().format('YYYY-MM-DD'),
       start_time: Joi.date().format('H:i'),
       end_time: Joi.date().format('H:i'),
       street: Joi.string().allow(''),

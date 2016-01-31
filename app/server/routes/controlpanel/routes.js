@@ -15,11 +15,10 @@ var validateBody = require('../../validation.js').validateBody;
 
 router.post(
   '/login',
-  passport.authenticate('local', { failureRedirect: '/login'}),
-  function(req, res) {
-    console.log('redirect');
-    res.redirect('/');// + req.user.permalink);
-  }
+  passport.authenticate('local', {
+    failureRedirect: '/controlpanel/login',
+    successRedirect: '/controlpanel/user'
+  })
 );
 router.get('/login', login.get);
 
@@ -30,8 +29,8 @@ router.get('/login/facebook',
 );
 router.get('/login/facebook/callback',
     passport.authenticate('facebook', {
-        successRedirect: '/',
-        failureRedirect: '/login/'
+        successRedirect: '/controlpanel/user',
+        failureRedirect: '/controlpanel/login'
     })
 );
 
@@ -40,8 +39,8 @@ router.get('/login/twitter',
 );
 router.get('/login/twitter/callback',
     passport.authenticate('twitter', {
-        successRedirect: '/',
-        failureRedirect: '/login/'
+        successRedirect: '/controlpanel/user',
+        failureRedirect: '/controlpanel/login'
     })
 );
 
@@ -50,8 +49,8 @@ router.get('/login/google',
 );
 router.get('/login/google/callback',
     passport.authenticate('google', {
-        successRedirect: '/',
-        failureRedirect: '/login/'
+        successRedirect: '/controlpanel/user',
+        failureRedirect: '/controlpanel/login'
     })
 );
 
@@ -64,16 +63,11 @@ router.get('/confirm', confirm.get);
 
 // FIXME
 router.use('/*', function(req, res, next) {
-  var User = require('./../../models/user');
-  User.findById({_id: '5170871ad931639094001b1d'}, function(err, user) {
-    req.user = user;
+  if (!req.user) {
+    res.redirect('/controlpanel/login');
+  } else {
     next();
-  });
-  //if (!req.user) {
-  //  res.redirect('/login/?from='+req.url);
-  //} else {
-  //  next();
-  //}
+  }
 });
 
 router.get('/user/public', user.publicGet);
