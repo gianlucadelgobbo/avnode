@@ -1,40 +1,43 @@
 extends ../../layout
 
 block variables
-	- var chapter='events'
+	- var activeChapter='events'
+	- var activeSection='calls'
 
 block inner-content
 	nav.navbar.navbar-default
 		.navbar-header
 			.navbar-brand=result.title + ": " + call.title
 	+render-alerts(alerts)
-	form.form-horizontal(method="post")
+	form.form-horizontal(method="post", data-parsley-validate)
+		input(name="_id", value=result._id, type="hidden")
+		input(name="call_id", value=call._id, type="hidden")
 		fieldset
 			legend=__("General")
 			.form-group
 				label.col-md-2.control-label=__("Title")
 				.col-md-10
-					input.form-control(type="text", name="title", value=call.title)
+					input.form-control(type="text", name="title", value=call.title, required)
 			.form-group
 				label.col-md-2.control-label=__("Support email")
 				.col-md-10
-					input.form-control(name="email",	value=call.email,	type="text")
+					input.form-control(name="email",	value=call.email,	type="email")
 			.form-group
-				label.col-md-2.control-label=__("Identifier")
+				label.col-md-2.control-label=__("Permalink")
 				.col-md-10
-					input.form-control(name="permalink", value=call.permalink,	type="text")
+					input.form-control(name="permalink", value=call.permalink, type="text", required, pattern=config.regex.permalink)
 			.form-group
 				label.col-md-2.control-label=__("Open call start day")
 				.col-md-10
 					.input-group.date.datepicker(data-date=call.start_date,data-date-format="yyyy-mm-dd")
-						input.form-control(name="start_date", value=call.start_date,	type="text", disabled)
+						input.form-control(name="start_date", value=call.start_date,	type="text")
 						span.input-group-addon
 							i.glyphicon.glyphicon-calendar
 			.form-group
 				label.col-md-2.control-label=__("Open call end day")
 				.col-md-10
 					.input-group.date.datepicker(data-date=call.end_date,data-date-format="yyyy-mm-dd")
-						input.form-control(name="end_date", value=call.end_date, type="text", disabled)
+						input.form-control(name="end_date", value=call.end_date, type="text")
 						span.input-group-addon
 							i.glyphicon.glyphicon-calendar
 			.form-group
@@ -138,10 +141,10 @@ block inner-content
 							.col-md-10
 								input.form-control(type="text", name="packages[{{i}}][title]", value="{{title}}")
 						.form-group
-							label.col-md-2.control-label=__("package")
+							label.col-md-2.control-label=__("Price")
 							.col-md-10
 								.input-group
-									input.form-control(name="packages[{{i}}][price]", value="{{price}}")
+									input.form-control(name="packages[{{i}}][price]", value="{{price}}", data-parsley-type="number")
 									span.input-group-addon €
 								small.help-block=__("Use a negative amount if the event will pay, 0 if the project don't have to pay and a positive number if they have to pay")
 						.form-group
@@ -152,25 +155,25 @@ block inner-content
 							.col-md-10.col-md-offset-2
 								.checkbox
 									label
-										input.switch(name="packages[{{i}}][personal]", value="1", type="checkbox", data-checked="{{personal}}")
+										input.switch(name="packages[{{i}}][personal]", value="true", type="checkbox", data-checked="{{personal}}")
 										span=__("Personal Package")
 						.form-group
 							.col-md-10.col-md-offset-2
 								.checkbox
 									label
-										input.switch(name="packages[{{i}}][requested]", value="1", type="checkbox", data-checked="{{requested}}")
+										input.switch(name="packages[{{i}}][requested]", value="true", type="checkbox", data-checked="{{requested}}")
 										span=__("Requested Package")
 						.form-group
 							.col-md-10.col-md-offset-2
 								.checkbox
 									label
-										input.switch(name="packages[{{i}}][allow_multiple]", value="1", type="checkbox", data-checked="{{allow_multiple}}")
+										input.switch(name="packages[{{i}}][allow_multiple]", value="true", type="checkbox", data-checked="{{allow_multiple}}")
 										span=__("Allow Multiple")
 						.form-group
 							.col-md-10.col-md-offset-2
 								.checkbox
 									label
-										input.switch(name="packages[{{i}}][allow_options]", value="1", type="checkbox", data-checked="{{allow_options}}")
+										input.switch(name="packages[{{i}}][allow_options]", value="true", type="checkbox", data-checked="{{allow_options}}")
 										span=__("Allow Options")
 						.form-group
 							.col-md-5.col-md-offset-2

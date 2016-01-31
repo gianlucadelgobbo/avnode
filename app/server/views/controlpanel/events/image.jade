@@ -1,12 +1,10 @@
 extends ../layout
 
 block variables
-	- var chapter='events'
+	- var activeChapter='events'
+	- var activeSection='image'
 
 block inner-content
 	include ./menu
 	+render-alerts(alerts)
-	img(src="#{image}")
-	form.form-horizontal(method="post", enctype="multipart/form-data")
-		input(type="file", name="image")
-		input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
+	//- FIXME TBD after controlpanel > user > image is defined

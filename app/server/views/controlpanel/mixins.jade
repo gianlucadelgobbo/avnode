@@ -188,20 +188,20 @@ mixin venues(venues)
 					.row
 						.col-md-4
 							label.control-label=__("Date")
-							.input-group.date.datepicker(data-date-format="yyyy-mm-dd", data-date="{{date}}")
-								input.form-control(name="venues[{{i}}][date]", value="{{date}}", type="text", readonly)
+							.input-group.date(data-date-format="yyyy-mm-dd", data-date="{{date}}")
+								input.form-control(name="venues[{{i}}][date]", value="{{date}}", type="text")
 								span.input-group-addon
 									i.glyphicon.glyphicon-calendar
 						.col-md-4
 							label.control-label=__("Begin")
-							.input-group.date.timepicker(data-date-format="LT", data-date="{{start_time}}")
-								input.form-control(name="venues[{{i}}][start_time]", value="{{start_time}}", type="text", readonly)
+							.input-group
+								input.form-control(name="venues[{{i}}][start_time]", value="{{start_time}}", type="text")
 								span.input-group-addon
 									i.glyphicon.glyphicon-time
 						.col-md-4
 							label.control-label=__("End")
-							.input-group.date.timepicker(data-date-format="LT", data-date="{{end_time}}")
-								input.form-control(name="venues[{{i}}][end_time]", value="{{end_time}}", type="text", readonly)
+							.input-group
+								input.form-control(name="venues[{{i}}][end_time]", value="{{end_time}}", type="text")
 								span.input-group-addon
 									i.glyphicon.glyphicon-time
 					.row
@@ -239,6 +239,7 @@ mixin venues(venues)
 			$(document).on('click', '.add-venue', function(ev) {
 				ev.preventDefault();
 				$(template({i: total})).appendTo($('#venues'));
+				$('.date').datepicker({ });
 				total++;
 			});
 		});

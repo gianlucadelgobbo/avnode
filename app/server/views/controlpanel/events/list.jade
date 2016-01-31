@@ -1,16 +1,16 @@
 extends ../layout
 
 block variables
-	- var chapter='events'
+	- var activeChapter='events'
 
 block inner-content
 	div.row
 		div.col-md-12
 			form
-				div.input-group
+				.input-group
 					span.input-group-addon=config.baseurl
 					.input-group-btn
-						button.btn.btn-default.dropdown-toggle(type="button", data-toggle="dropdown")
+						button.btn.btn-default.btn-lg.dropdown-toggle(type="button", data-toggle="dropdown")
 							="Select Crew"
 							span.caret
 						ul.dropdown-menu
@@ -18,9 +18,9 @@ block inner-content
 								li
 									a=crew.permalink
 					span.input-group-addon="events/"
-					input.form-control(type="text", id="permalink", name="permalink", placeholder="Event URL")
+					input.form-control.input-lg(type="text", id="permalink", name="permalink", placeholder="Event URL")
 					span.input-group-btn
-						button#new.btn.btn-primary
+						button#new.btn.btn-default.btn-lg
 							i.fa.fa-plus
 							=" "
 							=__("Create new event")

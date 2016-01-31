@@ -1,25 +1,27 @@
 extends ../layout
 
 block variables
-	- var chapter='events'
+	- var activeChapter='events'
+	- var activeSection='visibility'
 
 block inner-content
 	include ./menu
 	+render-alerts(alerts)
 	form.form-horizontal(method="post")
+		input(name="_id", value=result._id, type="hidden")
 		fieldset
 			legend=__("Visibility")
 
 			.form-group
 				label.col-md-2.control-label
-					input.switch(value="1", name="settings[is_public]", type="checkbox", checked=result.settings.is_public ? "checked" : undefined)
+					input.switch(value="true", name="settings[is_public]", type="checkbox", checked=result.settings.is_public)
 				.col-md-10
 					h4=__("Public")
 					p=__("The event is published")
 
 			.form-group
 				label.col-md-2.control-label
-					input.switch(value="1", name="settings[gallery_is_public]", type="checkbox",autocomplete="off",checked=result.settings.gallery_is_public ? "checked" : undefined)
+					input.switch(value="true", name="settings[gallery_is_public]", type="checkbox", checked=result.settings.gallery_is_public)
 				.col-md-10
 					h4=__("Public Gallery")
 					p=__("All the AV node users can upload gallery")

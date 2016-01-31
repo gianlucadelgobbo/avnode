@@ -1,13 +1,30 @@
 extends ../layout
 
 block variables
-	- var chapter='events'
+	- var activeChapter='events'
+	- var activeSection='permissions'
 
 block inner-content
 	include ./menu
 	+render-alerts(alerts)
 	form.form-horizontal(method="post")
+		input(name="_id", value=result._id, type="hidden")
 		fieldset
 			legend=__("Permissions")
-
+			fieldset
+				legend=__("Admin")
+			fieldset
+				legend=__("Editor")
+			fieldset
+				legend=__("Viewer")
 		+save-button
+
+	//- FIXME no inline scripts for generic functionality
+	script.
+		$(document).ready(function() {
+			$("input.switch").bootstrapSwitch({
+				onSwitchChange: function(ev, state, el) {
+					$(ev.currentTarget).prop('checked', state);
+				}
+			});
+		});

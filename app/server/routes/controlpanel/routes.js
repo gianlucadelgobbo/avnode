@@ -111,14 +111,30 @@ router.get('/crews', function(req, res) {
   res.redirect('/controlpanel/crews/list');
 });
 
-router.get('/events/:event/calls/new', events.newEventCall);
-router.get('/events/:event/calls/:call/delete', events.deleteEventCall);
-router.get('/events/:event/calls/:call', events.editEventCall);
-router.post('/events/:event/calls/:call', events.editEventCall);
-router.get('/events/:event/:section', events.editEvent);
-router.post('/events/:event/:section', events.editEvent);
-router.put('/events/:permalink', events.newEvent);
-router.get('/events', events.getAll);
-router.post('/events', events.post);
+router.get('/events/:event/public', validateParams(events.publicSchemaGet), events.publicGet);
+router.post('/events/:event/public', validateBody(events.publicSchemaPost), events.publicPost);
+
+router.get('/events/:event/image', validateParams(events.imageSchemaGet), events.imageGet);
+router.post('/events/:event/image', validateBody(events.imageSchemaPost), events.imagePost);
+
+router.get('/events/:event/visibility', validateParams(events.visibilitySchemaGet), events.visibilityGet);
+router.post('/events/:event/visibility', validateBody(events.visibilitySchemaPost), events.visibilityPost);
+
+router.get('/events/:event/permissions', validateParams(events.permissionsSchemaGet), events.permissionsGet);
+router.post('/events/:event/permissions', validateBody(events.permissionsSchemaPost), events.permissionsPost);
+
+router.get('/events/:event/calls', validateParams(events.callsSchemaGet), events.callsGet);
+router.post('/events/:event/calls', validateBody(events.callsSchemaPost), events.callsPost);
+
+router.get('/events/list', events.listGet);
+router.get('/events', function(req, res) {
+  res.redirect('/controlpanel/events/list');
+});
+
+router.get('/events/:event/calls/new', validateParams(events.newCallSchemaGet), events.newCallGet);
+router.get('/events/:event/calls/:call/delete', validateParams(events.deleteCallSchemaGet), events.deleteCallGet);
+router.get('/events/:event/calls/:call', validateParams(events.editCallSchemaGet), events.editCallGet);
+router.post('/events/:event/calls/:call', validateBody(events.editCallSchemaPost), events.editCallPost);
+router.get('/events', events.listGet);
 
 module.exports = router;

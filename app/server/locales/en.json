@@ -297,5 +297,11 @@
 	"Venues": "Venues",
 	"Subtitles": "Subtitles",
 	"Invite": "Invite",
-	"Search for users to invite": "Search for users to invite"
+	"Search for users to invite": "Search for users to invite",
+	"Admin": "Admin",
+	"Editor": "Editor",
+	"Viewer": "Viewer",
+	"New call": "New call",
+	"Permalink": "Permalink",
+	"Price": "Price"
 }

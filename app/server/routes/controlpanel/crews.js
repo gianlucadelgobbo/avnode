@@ -61,9 +61,7 @@ exports.imageSchemaPost = {
   _id: Joi.string().alphanum().min(24).max(24).required()
 };
 exports.imagePost = function(req, res) {
-  var data = _.defaults(req.body, {
-    websites: []
-  });
+  var data = _.defaults(req.body, { });
   User.findByIdAndUpdate(req.body._id, { $set: data }, { new: true }, function (err, crew) {
     res.render('controlpanel/crews/image', {
       config: config,

@@ -22,11 +22,11 @@ exports.publicSchemaPost = {
   ),
   locations: Joi.array().items(
     Joi.object().keys({
-      street: Joi.string().allow('').alphanum(),
-      streetnumber: Joi.string().allow('').alphanum(),
-      zip: Joi.string().allow('').alphanum(),
-      city: Joi.string().allow('').alphanum(),
-      country: Joi.string().allow('').alphanum(),
+      street: Joi.string().allow(''),
+      streetnumber: Joi.string().allow(''),
+      zip: Joi.string().allow(''),
+      city: Joi.string().allow(''),
+      country: Joi.string().allow(''),
       lat: Joi.number().allow(''),
       lng: Joi.number().allow('')
     })
@@ -115,7 +115,7 @@ exports.privateGet = function(req, res) {
 exports.privateSchemaPost = {
   name: Joi.string().allow(''),
   surname: Joi.string().allow(''),
-  birth_date: Joi.date().allow(null).max('now').format('YYYY-MM-DD'),
+  birth_date: Joi.date().allow('').max('now').format('YYYY-MM-DD'),
   gender: Joi.string().allow(''),
   citizenship: Joi.string().allow(''),
   phonenumbers: Joi.array().items(
