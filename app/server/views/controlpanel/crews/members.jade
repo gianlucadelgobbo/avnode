@@ -9,6 +9,17 @@ block inner-content
 	+render-alerts(alerts)
 	div.row
 		div.col-md-12
+			.navbar
+				.input-group
+					input.form-control.input-lg.typeahead(autocomplete="off", type="text", name="invite")
+					.input-group-btn
+						button.search.btn.btn-default.btn-lg
+							i.fa.fa-search
+							=" "
+							=__("Search for users to invite")
+
+	div.row
+		div.col-md-12
 			each box in result.members
 				.panel.panel-default
 					.panel-heading
@@ -21,3 +32,8 @@ block inner-content
 										i.fa.fa-eye
 									a.btn.btn-warning(href="#")
 										i.fa.fa-chain-broken
+
+	//- FIXME connect with API /api/search/users/...
+	script.
+		$(document).ready(function() {
+		});

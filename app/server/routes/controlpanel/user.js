@@ -15,7 +15,7 @@ exports.publicGet = function(req, res) {
 }
 exports.publicSchemaPost = {
   display_name: Joi.string().required(),
-  permalink: Joi.string().required(),
+  permalink: Joi.string().alphanum().required(),
   text: Joi.object().allow(config.locales),
   websites: Joi.array().items(
     Joi.string().uri()

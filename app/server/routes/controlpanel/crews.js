@@ -11,7 +11,7 @@ exports.listGet = function get(req, res) {
 };
 
 exports.publicSchemaGet = {
-  crew: Joi.string().alphanum().required()
+  crew: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
 }
 exports.publicGet = function(req, res) {
   var query = { 'permalink': req.params.crew };
@@ -26,7 +26,7 @@ exports.publicGet = function(req, res) {
 exports.publicSchemaPost = {
   _id: Joi.string().alphanum().min(24).max(24).required(),
   display_name: Joi.string().required(),
-  permalink: Joi.string().alphanum().required(),
+  permalink: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
   text: Joi.object().allow(config.locales),
   websites: Joi.array().items(
     Joi.string().uri()
@@ -45,7 +45,7 @@ exports.publicPost = function(req, res) {
 }
 
 exports.imageSchemaGet = {
-  crew: Joi.string().alphanum().required()
+  crew: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
 }
 exports.imageGet = function(req, res) {
   var query = { 'permalink': req.params.crew };
@@ -73,7 +73,7 @@ exports.imagePost = function(req, res) {
 }
 
 exports.membersSchemaGet = {
-  crew: Joi.string().alphanum().required()
+  crew: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
 }
 exports.membersGet = function(req, res) {
   var query = { 'permalink': req.params.crew };

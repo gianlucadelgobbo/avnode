@@ -295,5 +295,7 @@
 	"Begin": "Begin",
 	"End": "End",
 	"Venues": "Venues",
-	"Subtitles": "Subtitles"
+	"Subtitles": "Subtitles",
+	"Invite": "Invite",
+	"Search for users to invite": "Search for users to invite"
 }

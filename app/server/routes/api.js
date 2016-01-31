@@ -12,6 +12,11 @@ var sha1 = require('sha1');
 var User = require('./../models/user');
 var _ = require('lodash');
 
+var validateParams = require('../validation.js').validateParams;
+var Joi = require('joi');
+
+var config = require('getconfig');
+
 router.post('/upload/image', upload.single('image'), function (req, res, next) {
   var response = '';
   var extension = mime.extension(req.file.mimetype);
@@ -40,5 +45,31 @@ router.get('/verify-email/:uuid', function (req, res) {
     }
   });
 });
+
+router.get(
+  '/search/users/:q',
+  validateParams({
+    q: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
+  }),
+  function (req, res) {
+    // FIXME, validation missing
+    var query = {
+      '$text': {
+        '$search': req.params.q
+      }
+    }
+    User.find(query)
+    .limit(5)
+    .exec(function(err, users) {
+      var data = [];
+      if (users) {
+        data = users.map(function(user) {
+          return _.pick(user, ['display_name', 'permalink']);
+        });
+      }
+      res.json(data);
+    });
+  }
+);
 
 module.exports = router

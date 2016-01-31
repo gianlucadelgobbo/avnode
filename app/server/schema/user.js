@@ -14,8 +14,12 @@ var SALT_WORK_FACTOR = 10;
 
 var UserSchema = new Schema({
   old_id: Number,
-  permalink: String,
-  display_name: String,
+  permalink: {
+    type: String
+  },
+  display_name: {
+    type: String
+  },
   name: String,
   surname: String,
   citizenship: String,
@@ -29,7 +33,7 @@ var UserSchema = new Schema({
     latitude: Number,
     longitude: Number
   }],
-  login: { type: String, required: true, index: { unique: true } },
+  login: { type: String, required: true },
   password: { type: String, required: true },
   crews: [User],
   footage: [Footage],
@@ -56,6 +60,12 @@ var UserSchema = new Schema({
     // FIXME
   }
 });
+
+// FIXME
+// Strange index behaviour, maybe mongoose has some issues
+// autoIndex should be false in production
+UserSchema.set('autoIndex', true);
+UserSchema.index({permalink: 'text', display_name: 'text'});
 
 UserSchema.pre('save', function(next) {
   var user = this;
