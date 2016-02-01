@@ -23,6 +23,8 @@ module.exports = new Schema({
 	settings: {
 		is_public: Boolean,
 		gallery_is_public: Boolean,
+		program_builder: Boolean,
+		advanced_proposals_manager: Boolean,
 		call: {
 			is_active: Boolean,
 			program_builder: Boolean,

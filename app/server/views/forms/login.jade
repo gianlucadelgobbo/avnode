@@ -13,7 +13,6 @@ block content
 						!=" "
 						a.btn.btn-primary(href="/controlpanel/login/facebook/")=__("Facebook")
 					p=__("or")
-				include ../comp/msg
 				form(name="formLogin", method="post", action="/controlpanel/login/")
 					.form-group
 						if user

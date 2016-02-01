@@ -13,6 +13,22 @@
   "maxFileComment": "1 * 1024 * 1024 * 1024",
   "maxFileSize": 1073741824,
   "defaultLocale": "en",
+  "baseurl": "https://dev.avnode.net/",
+  "regex": {
+    "permalink": "^[\\w-_]+$"
+  },
+  "controlpanel": {
+    "chapters": ["user", "crews", "events"],
+    "user": {
+      "sections": ["public", "image", "password", "private", "emails", "connections"]
+    },
+    "crews": {
+      "sections": ["public", "image", "members"]
+    },
+    "events": {
+      "sections": ["public", "image", "visibility", "permissions", "calls"]
+    }
+  },
   "locales": [
     "it",
     "en",

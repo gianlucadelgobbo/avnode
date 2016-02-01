@@ -1,9 +1,10 @@
-extends ../form-layout
+extends ../layout
 
-block form
+block variables
+	- var activeChapter='crews'
+	- var activeSection='image'
+
+block inner-content
 	include ./menu
-	h2=__("image")
-	img(src="#{image}")
-	form.form-horizontal(method="post", enctype="multipart/form-data")
-		input(type="file", name="image")
-		input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
+	+render-alerts(alerts)
+	//- FIXME TBD after controlpanel > user > image is defined

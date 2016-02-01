@@ -1,11 +1,13 @@
 var media = require('./media');
 var date = require('./date');
 var text = require('./text');
+var mail = require('./mail');
 
 module.exports = {
   media: media,
   date: date,
   text: text,
+  mail: mail,
   groupPartnersByType: function(partners) {
     var groupedPartners = {};
     partners.forEach(function(partner) {

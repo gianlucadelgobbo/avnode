@@ -1,6 +1,27 @@
-extends ../form-layout
+extends ../layout
 
-block form
+block variables
+	- var activeChapter='user'
+	- var activeSection='connections'
+
+block inner-content
 	include ./menu
-	h2=__("connections")
+	+render-alerts(alerts)
 	form.form-horizontal(method="post")
+		fieldset
+			legend=__("Connections")
+			.form-group
+				label.col-sm-2.control-label=__("FLxER")
+				.col-sm-10
+					button.disabled.btn.btn-success(type="button")=__("Connect")
+					button.disabled.btn.btn-danger(type="button")=__("Disconnect")
+			.form-group
+				label.col-sm-2.control-label=__("Facebook")
+				.col-sm-10
+					button.disabled.btn.btn-success(type="button")=__("Connect")
+					button.disabled.btn.btn-danger(type="button")=__("Disconnect")
+			.form-group
+				label.col-sm-2.control-label=__("Twitter")
+				.col-sm-10
+					button.disabled.btn.btn-success(type="button")=__("Connect")
+					button.disabled.btn.btn-danger(type="button")=__("Disconnect")

@@ -1,12 +1,15 @@
-extends ../form-layout
+extends ../layout
 
-block form
+block variables
+	- var activeChapter='user'
+	- var activeSection='private'
+
+block inner-content
 	include ./menu
-	h2=__("private data")
-	form.form-horizontal(method="post")
-		input(name="_id", value=result._id, type="hidden")
+	+render-alerts(alerts)
+	form.form-horizontal(method="post", data-parsley-validate)
 		fieldset
-			legend=title
+			legend=__("General")
 			.form-group
 				label.col-sm-2.control-label=__("Name")
 				.col-sm-10
@@ -16,11 +19,12 @@ block form
 				.col-sm-10
 					input(name="surname", value=result.surname, type="text", placeholder=__("Surname")).form-control
 			.form-group
-				label.col-sm-2.control-label=__("Birth date")
+				label.col-sm-2.control-label=__("Birthday")
 				.col-sm-10
-					- d = new Date(result.birth_date)
-					- birth_date = d.getFullYear()+"-"+("0" + (d.getMonth()+1)).slice(-2)+"-"+("0" + d.getDate()).slice(-2)
-					.birthday-picker
+					.input-group.date.datepicker(data-date=result.birth_date, data-date-format="yyyy-mm-dd")
+						input.form-control(name="birth_date", value=result.birth_date, type="text", readonly)
+						span.input-group-addon
+							i.glyphicon.glyphicon-calendar
 			.form-group
 				label.col-sm-2.control-label=__("Gender")
 				.col-sm-10
@@ -37,21 +41,42 @@ block form
 						each country in countries
 							option(value=country.name,selected=(result.citizenship && country.name==result.citizenship ? "selected" : undefined))=country.name
 			.form-group
-				label.col-sm-2.control-label=__("Phone numbers")
+				label.col-sm-2.control-label=__("Phonenumbers")
 				.col-sm-10
-					- if (result.phonenumbers)
-						each phone in result.phonenumbers
-							.clearfix
-								.input-group
-									input(value=phone,name="phonenumbers[]",type="text",placeholder=__("Phone number")).form-control
-									.input-group-btn
-										button.btn(type="button",onclick="$(this).parent().parent().remove()")
-											i.glyphicon.glyphicon-remove
-								br
-								br
-					input(name="phonenumbers[]",type="text",placeholder=__("Phone number")).form-control
-			hr.clearfix
-			.form-group
-				label.col-sm-2.control-label
-				.col-sm-10
-					input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
+					#phonenumbers
+					button.add-phonenumber.btn.btn-default
+						i.fa.fa-plus
+						=" "
+						=__("Add phonenumber")
+			script(id="phonenumber", type="text/x-handlebars-template")
+				.input-group.phonenumber
+					input.form-control(autocomplete="off", name="phonenumbers[]", value="{{phonenumber}}", type="text", required)
+					.input-group-btn
+						button.delete-phonenumber.btn.btn-danger
+							i.fa.fa-trash
+			//- FIXME
+			script.
+				$(document).ready(function() {
+					var source   = $("#phonenumber").html();
+					var template = Handlebars.compile(source);
+					var data = !{JSON.stringify(result.phonenumbers)};
+					data.forEach(function(phonenumber) {
+						$(template({ phonenumber: phonenumber})).appendTo($('#phonenumbers'));
+					});
+					$(document).on('click', '.delete-phonenumber', function(ev) {
+						ev.preventDefault();
+						$(this).closest('.phonenumber').remove();
+					});
+					$(document).on('click', '.add-phonenumber', function(ev) {
+						ev.preventDefault();
+						$(template({})).appendTo($('#phonenumbers'));
+					});
+				});
+
+			+save-button
+
+	//- FIXME remove generic inline scripts
+	script.
+		$(document).ready(function() {
+			$(".date").datepicker({ });
+		});

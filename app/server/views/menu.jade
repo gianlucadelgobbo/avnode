@@ -7,5 +7,5 @@ nav.navbar.navbar-inverse#sections_menu
 		ul.nav.navbar-nav.pull-left
 			each item in config.sections
 				if item.view_list
-					li(class=(config.sections[sez] && config.sections[sez].basepath==item.basepath ? "active" : undefined))
-						a(href="/"+item.basepath+"/")=item.title
+					li
+						a(href="/#{item.basepath}")=item.title

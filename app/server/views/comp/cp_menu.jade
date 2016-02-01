@@ -1,8 +1,0 @@
-.col-md-2
-	ul.nav.nav-tabs
-		li
-			a(href="/controlpanel/user/")=__("User")
-			each item in config.sections
-				if item.basepath != "performers" && item.basepath != "members"
-					li
-						a(href="/controlpanel/#{item.basepath}/")=item.title

@@ -1,79 +1,35 @@
-extends ../form-layout
+extends ../layout
 
-block form
+block variables
+	- var activeChapter='events'
+	- var activeSection='public'
+
+block inner-content
 	include ./menu
-	h2=__("public")
-	input(name="_id", value=result._id, type="hidden")
-	fieldset
-		legend=title
-		.form-group
-			label.col-sm-2.control-label=__("Event name")
-			.col-sm-10
-				input(name="title", value=result.title, type="text", placeholder=__("Event name")).form-control
-		.form-group
-			label.col-sm-2.control-label(for="permalink")=__("Event url")
-			.col-sm-10
-				input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
-				span.glyphicon.form-control-feedback(aria-hidden="true")
-				.row
-					.help-block.col-sm-9="https://avnode.net/"
-						span.permalink_print=result.permalink.toLowerCase()
-					input(type="hidden", value="events", name="collection")
-					.control-label.col-sm-3
-	fieldset
-		+multilanguage-text(result.text)
-	fieldset
-		+websites(result.websites)
-	fieldset
-		legend=__("Dates and locations")
+	+render-alerts(alerts)
+	form.form-horizontal(method="post", data-parsley-validate)
+		input(name="_id", value=result._id, type="hidden")
+		fieldset
+			legend=__("General")
+			.form-group
+				label.col-sm-2.control-label=__("Event name")
+				.col-sm-10
+					input.form-control(name="title", value=result.title, type="text", placeholder=__("Event name"), required)
+			.form-group
+				label.col-sm-2.control-label(for="permalink")=__("Event url")
+				.col-sm-10
+					.input-group
+						span.input-group-addon=config.baseurl + result.users[0].permalink + "/events/"
+						input.form-control(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern=config.regex.permalink)
+			+multilanguage-subtitle(result.subtitle)
+			+multilanguage-text(result.text)
+			+websites(result.websites)
 
-		each item,index in result.date_time_venue
-			.form-group
-				label.col-sm-2.control-label=__("Date")+" "+(index+1)
-				.col-sm-10
-					.input-group.date.datepicker(data-date=item.date,data-date-format="yyyy-mm-dd")
-						input(name="date_time_venue["+index+"][date]", value=item.date, readonly, type="text", placeholder=__("Profile url")).form-control
-						span.input-group-addon
-							i.glyphicon.glyphicon-calendar
-			.form-group
-				label.col-sm-2.control-label=__("Venue")+" "+(index+1)
-				.col-sm-10
-					input(name="date_time_venue["+index+"][venue]", value=item.venue, type="text", placeholder=__("Venue")).form-control
-			.form-group
-				label.col-sm-2.control-label=__("Venue address")+" "+(index+1)
-				.col-sm-10
-					input(name="date_time_venue["+index+"][venue_address]", value=item.venue_address, type="text", placeholder=__("Venue address")).form-control
+		+venues(result.date_time_venue)
+		+save-button
 
-			+start-end-time(result, index)
-
-			.form-group
-				label.col-sm-2.control-label=__("City")+" "+(index+1)
-				.col-sm-10
-					input(name="date_time_venue["+index+"][city]", value=item.city, type="text", placeholder=__("City")).form-control
-			.form-group
-				label.col-sm-2.control-label=__("Country")+" "+(index+1)
-				.col-sm-10
-					select(name="date_time_venue["+index+"][country]", default="country").form-control
-						option(value="")=__("Country")
-						each country in countries
-							option(value=item.name,selected=(item.country==country.name ? "selected" : undefined))=country.name
-			.form-group
-				label.col-sm-2.control-label
-				.col-sm-10
-					.text-right
-						a.btn.btn-mini.btn-danger(href="#", onclick="datelocRemove(this);return false;")
-							i.glyphicon.glyphicon-remove.glyphicon.glyphicon-white
-							!=" "+__("Remove Date & location")
-			hr
-		.form-group
-			label.col-sm-2.control-label
-			.col-sm-10
-				.text-right
-					a.btn.btn-mini.btn-primary(href="#", onclick="datelocAdd(this);return false;")
-						i.glyphicon.glyphicon-plus.glyphicon.glyphicon-white
-						!=" "+__("Add a Date & location")
-		hr
-		.form-group
-			label.col-sm-2.control-label
-			.col-sm-10
-				button(type="submit").btn.btn-primary.btn-lg=__("Save")
+	//- FIXME remove generic inline scripts
+	script.
+		$(document).ready(function() {
+			$('.date').datepicker({ });
+		});

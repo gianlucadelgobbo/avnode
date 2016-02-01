@@ -1,122 +1,204 @@
 var User = require('../../models/user');
 var _ = require('lodash');
+var config = require('getconfig');
+var _h = require('../../helper/index');
+var uuid = require('uuid');
+var Joi = require('joi');
+var countries = require('country-list')().getData();
+var flatten = require('flat');
 
-exports.get = function get(req, res) {
-  switch (req.params.section) {
-    case 'public':
-      res.render('controlpanel/user/public', {
-        result: req.user
-      });
-    break;
-    case 'image':
-      var image = _.first(req.user.files);
-      res.render('controlpanel/user/image', {
-        image: image,
-        result: req.user
-      });
-    break;
-    case 'password':
-      res.render('controlpanel/user/password', {
-        result: req.user
-      });
-    break;
-    case 'emails':
-      res.render('controlpanel/user/emails', {
-        result: req.user
-      });
-    break;
-    case 'private':
-      res.render('controlpanel/user/private', {
-        countries: require('country-list')().getData(),
-        result: req.user
-      });
-    break;
-    case 'connections':
-      res.render('controlpanel/user/connections', {
-        result: req.user
-      });
-    break;
-  }
+exports.publicGet = function(req, res) {
+  res.render('controlpanel/user/public', {
+    config: config,
+    result: req.user
+  });
+}
+exports.publicSchemaPost = {
+  display_name: Joi.string().required(),
+  permalink: Joi.string().alphanum().required(),
+  text: Joi.object().allow(config.locales),
+  websites: Joi.array().items(
+    Joi.string().uri()
+  ),
+  locations: Joi.array().items(
+    Joi.object().keys({
+      street: Joi.string().allow(''),
+      streetnumber: Joi.string().allow(''),
+      zip: Joi.string().allow(''),
+      city: Joi.string().allow(''),
+      country: Joi.string().allow(''),
+      lat: Joi.number().allow(''),
+      lng: Joi.number().allow('')
+    })
+  )
 };
+exports.publicPost = function(req, res) {
+  var data = _.defaults(req.body, {
+    locations: [],
+    websites: []
+  });
+  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+    res.render('controlpanel/user/public', {
+      config: config,
+      result: user
+    });
+  });
+}
 
-exports.post = function post(req, res) {
-  switch (req.params.section) {
-    case 'public':
-      req.checkBody({
-        'display_name': {
-          isLength: {
-            options: [2, 60],
-            errorMessage: ''
-          },
-          errorMessage: ''
-        }
-      });
-      var errors = req.validationErrors();
-      var data = {};
-      if (!errors) {
-        data = req.body;
-      }
-      User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
-        if (err) {
-          res.redirect('public');
-        }
-        res.render('controlpanel/user/public', {
-          result: user,
-          errors: errors
+exports.imageGet = function(req, res) {
+  res.render('controlpanel/user/image', {
+    config: config,
+    image: req.user.files[0],
+    result: req.user
+  });
+}
+exports.imageSchemaPost = {
+  image: Joi.string().required()
+};
+exports.imagePost = function(req, res) {
+  var data = {
+    'files.0.file': req.body.image
+  };
+  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+    if (err) res.status(400).send('error');
+    res.json({success: true});
+  });
+}
+
+exports.passwordGet = function(req, res) {
+  res.render('controlpanel/user/password', {
+    config: config,
+    result: req.user
+  });
+}
+exports.passwordSchemaPost = {
+  password: Joi.string().min(8).required(),
+  new_password: Joi.string().min(8).required(),
+  new_password_confirm: Joi.any().valid(Joi.ref('new_password')).required()
+};
+exports.passwordPost = function(req, res) {
+  req.user.comparePassword(req.body.password, function(err, isMatch) {
+    if (isMatch) {
+      User.findById(req.user._id, function(err, user) {
+        user.password = req.body.new_password;
+        user.save(function(err) {
+          res.render('controlpanel/user/password', {
+            config: config,
+            alerts: [{
+              type: 'success',
+              msg: __('Password changed')
+            }],
+            result: user
+          });
         });
       });
-    break;
-    case 'image':
-      // FIXME
-      var errors = false;
-      var data = {
-        'files.0.file': req.body.image
-      }
-      User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
-        if (err) res.json({success: false});
-        res.json({success: true});
-      });
-    break;
-    case 'password':
+    } else {
       res.render('controlpanel/user/password', {
+        config: config,
+        alerts: [{
+          type: 'danger',
+          msg: __('Sorry, wrong password')
+        }],
         result: req.user
       });
-    break;
-    case 'emails':
-      res.render('controlpanel/user/emails', {
-        result: req.user
-      });
-    break;
-    case 'private':
-      req.checkBody({
-        'name': {
-          isLength: {
-            options: [2, 120],
-            errorMessage: ''
-          },
-          errorMessage: ''
-        }
-      });
-      var errors = req.validationErrors();
-      var data = {};
-      if (!errors) {
-        data = req.body;
-      }
-      User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
-        if (err) {
-          res.redirect('public');
-        }
-        res.render('controlpanel/user/private', {
-          result: user,
-          countries: require('country-list')().getData(),
-          errors: errors
-        });
-      });
-    break;
-    case 'connections':
-      res.render('controlpanel/user/connections', {
-        result: req.user
-      });
-    break;
-  }
+    }
+  });
+}
+
+exports.privateGet = function(req, res) {
+  res.render('controlpanel/user/private', {
+    config: config,
+    countries: countries,
+    result: req.user
+  });
+}
+exports.privateSchemaPost = {
+  name: Joi.string().allow(''),
+  surname: Joi.string().allow(''),
+  birth_date: Joi.date().allow('').max('now').format('YYYY-MM-DD'),
+  gender: Joi.string().allow(''),
+  citizenship: Joi.string().allow(''),
+  phonenumbers: Joi.array().items(
+    Joi.string().required()
+  )
 };
+exports.privatePost = function(req, res) {
+  var data = _.defaults(req.body, {
+    phonenumbers: []
+  });
+  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+    res.render('controlpanel/user/private', {
+      config: config,
+      countries: countries,
+      result: user
+    });
+  });
+}
+
+exports.emailsGet = function(req, res) {
+  res.render('controlpanel/user/emails', {
+    config: config,
+    result: req.user
+  });
+}
+exports.emailsSchemaPost = {
+  primary_email: Joi.string().email().required(),
+  emails: Joi.array().items(
+    Joi.object().keys({
+      email: Joi.string().email().required(),
+      verify: Joi.boolean(),
+      public: Joi.boolean(),
+    })
+  )
+};
+exports.emailsPost = function(req, res) {
+  var newData = req.body;
+  var existingData = req.user;
+  var newEmails = {
+    emails: []
+  };
+  newData.emails.forEach(function(newEmail, i) {
+    _.defaults(newEmail, {
+      public: false,
+      primary: false,
+    });
+    if (newEmail.email === newData.primary_email) {
+      newEmail.primary = true;
+    }
+    existingData.emails.forEach(function(existingEmail, i) {
+      if (existingEmail.email === newEmail.email) {
+        newEmail = _.merge(existingEmail, newEmail);
+      }
+    });
+    if (newEmail.verify) {
+      newEmail.verify = uuid.v4();
+      _h.mail.sendVerificationMail(newEmail.email, newEmail.verify);
+    }
+    newEmails.emails.push(newEmail);
+  });
+  User.findByIdAndUpdate(req.user._id, { $set: newEmails }, { new: true }, function (err, user) {
+    res.render('controlpanel/user/emails', {
+      config: config,
+      result: user
+    });
+  });
+}
+
+exports.connectionsGet = function(req, res) {
+  res.render('controlpanel/user/connections', {
+    config: config,
+    result: req.user
+  });
+}
+exports.connectionsSchemaPost = {
+};
+exports.connectionsPost = function(req, res) {
+  var data = _.defaults(req.body, {
+  });
+  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
+    res.render('controlpanel/user/connections', {
+      config: config,
+      result: user
+    });
+  });
+}

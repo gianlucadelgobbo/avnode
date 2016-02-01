@@ -1,0 +1,18 @@
+extends ../layout
+include ./mixins
+
+block content
+	block variables
+	.row
+		.col-md-2
+			.panel.panel-default
+				ul.nav.nav-pills.nav-stacked
+					each chapter in config.controlpanel.chapters
+						if activeChapter == chapter
+							li.active
+								a(href="/controlpanel/#{chapter}")=__(chapter)
+						else
+							li
+								a(href="/controlpanel/#{chapter}")=__(chapter)
+		.col-md-10
+			block inner-content

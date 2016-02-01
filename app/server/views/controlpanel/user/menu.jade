@@ -1,13 +1,14 @@
-ul.nav.nav-pills
-	li
-		a(href="/controlpanel/user/public")=__("public data")
-	li
-		a(href="/controlpanel/user/image")=__("image")
-	li
-		a(href="/controlpanel/user/password")=__("password")
-	li
-		a(href="/controlpanel/user/emails")=__("emails")
-	li
-		a(href="/controlpanel/user/private")=__("private")
-	li
-		a(href="/controlpanel/user/connections")=__("connections")
+nav.navbar.navbar-default
+	.navbar-header
+		.navbar-brand=result.display_name
+		button.navbar-toggle.collapsed(data-toggle="collapse", data-target="#section-menu")
+			i.fa.fa-bars
+	#section-menu.collapse.navbar-collapse
+		ul.nav.navbar-nav
+			each section in config.controlpanel.user.sections
+				if activeSection == section
+					li.active
+						a(href="/controlpanel/user/#{section}")=__(section)
+				else
+					li
+						a(href="/controlpanel/user/#{section}")=__(section)

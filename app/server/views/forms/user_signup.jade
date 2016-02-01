@@ -3,7 +3,6 @@ block content
 	.row
 		- if (typeof msg !== "undefined" && typeof msg.c !== "undefined" && msg.c.length)
 			.col-md-6.col-md-offset-3
-				include ../comp/msg
 		- else
 			.col-md-6.col-md-offset-3.well
 				.text-center
@@ -16,7 +15,6 @@ block content
 							!=" "
 						a.btn.btn-primary(href="/controlpanel/signup/facebook/")=__("Facebook")
 					p=__("or sign up using your email:")
-					include ../comp/msg
 				form(method="post",autocomplete="off")
 					.controls.text-center
 						hr

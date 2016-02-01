@@ -741,9 +741,22 @@ svg.coda
 .crews_performer .box_wrapper.coloured .secondary_event
   color #414042
 
-// footer //
+// sticky footer //
+html,body
+  height: 100%
+.wrapper
+  position: relative
+  min-height: 100%
+  padding-bottom: 240px
+#content
+  padding-top: 32px
+  padding-bottom: 32px
 footer.main_footer
+  position: absolute
+  bottom: 0
+  width: 100%
   background #303030
+  height: 240px
   padding 60px 0
   color #fff
 
@@ -930,22 +943,49 @@ footer.main_footer
   background: #fff
   color #E4811E
 
-.location
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  margin-bottom: 16px;
-
-.website
-  margin-bottom: 16px;
+.website, .phonenumber
+  margin-bottom: 16px
 
 .dropzone
-	border: 3px dashed #ccc;
-	padding: 16px;
-	margin: 16px 0;
+	border: 3px dashed #ccc
+	padding: 16px
+	margin: 16px 0
 	&.dz-drag-hover
-		background-color: #f2f2f2;
+		background-color: #f2f2f2
 .progress
-	display: none;
+	display: none
+
+input.parsley-success,
+select.parsley-success,
+textarea.parsley-success
+  color: #468847
+  background-color: #DFF0D8
+  border: 1px solid #D6E9C6
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error
+  color: #B94A48
+  background-color: #F2DEDE
+  border: 1px solid #EED3D7
+
+.parsley-errors-list
+  margin: 2px 0 3px
+  padding: 0
+  list-style-type: none
+  font-size: 0.9em
+  line-height: 0.9em
+  opacity: 0
+  transition: all .3s ease-in
+  -o-transition: all .3s ease-in
+  -moz-transition: all .3s ease-in
+  -webkit-transition: all .3s ease-in
+
+.parsley-errors-list.filled
+  opacity: 1
+
+.subtitle.input-group
+	width: 100%
+	.input-group-addon
+		text-align: right
+		width: 130px

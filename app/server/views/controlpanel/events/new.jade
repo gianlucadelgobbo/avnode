@@ -1,8 +1,10 @@
-extends ../form-layout
+extends ../layout
 
-block form
-	include ./menu
-	h2=__("create new event")
+block variables
+	- var chapter='events'
+
+block inner-content
+	+render-alerts(alerts)
 	form.form-horizontal(method="post")
 		fieldset
 			legend=title

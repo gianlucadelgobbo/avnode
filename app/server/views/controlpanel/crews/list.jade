@@ -1,9 +1,33 @@
-extends ../list-layout
+extends ../layout
 
-block list
-	ul
-		each box in result.crews
-			li
-				span=box.display_name
-				a(href="/controlpanel/crews/#{box.permalink}/public")
-					i.fa.fa-pencil
+block variables
+	- var activeChapter='crews'
+	- var activeSection='list'
+
+block inner-content
+	+render-alerts(alerts)
+	div.row
+		div.col-md-12
+			each box in result.crews
+				.panel.panel-default
+					.panel-heading
+						.row
+							.col-sm-9
+								h5=box.display_name
+							.col-sm-3.text-right
+								.btn-group
+									a.btn.btn-default(href="/#{box.permalink}")
+										i.fa.fa-eye
+									a.btn.btn-default(href="/controlpanel/crews/#{box.permalink}/public")
+										i.fa.fa-pencil
+									a.btn.btn-danger(href="/controlpanel/crews/#{box.permalink}/public")
+										i.fa.fa-trash
+					.panel-body
+						if box.members
+							ul.list-inline
+								each member in box.members
+									li
+										a(href="/#{member.permalink}")
+											i.fa.fa-user
+											=" "
+											span=member.display_name

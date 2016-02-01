@@ -1,7 +1,12 @@
-extends ../form-layout
+extends ../layout
 
-block form
+block variables
+	- var activeChapter='user'
+	- var activeSection='image'
+
+block inner-content
 	include ./menu
+	+render-alerts(alerts)
 	h3=__("Profile image")
 	if image
 		img.img-thumbnail(src="#{image.file}")
