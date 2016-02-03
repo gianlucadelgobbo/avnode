@@ -12,6 +12,8 @@ var User = require('./user');
 var bcrypt = require('bcrypt-nodejs');
 var SALT_WORK_FACTOR = 10;
 
+var _ = require('lodash');
+
 var UserSchema = new Schema({
   old_id: Number,
   permalink: {
@@ -59,6 +61,10 @@ var UserSchema = new Schema({
   stats: {
     // FIXME
   }
+});
+
+UserSchema.virtual('primaryEmail').get(function () {
+  return _.first(_.filter(this.emails, { 'primary': true }));
 });
 
 // FIXME

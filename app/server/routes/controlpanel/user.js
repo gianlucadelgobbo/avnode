@@ -82,6 +82,7 @@ exports.passwordPost = function(req, res) {
       User.findById(req.user._id, function(err, user) {
         user.password = req.body.new_password;
         user.save(function(err) {
+          _h.mail.sendPasswordChangedMail(user.primaryEmail.email);
           res.render('controlpanel/user/password', {
             config: config,
             alerts: [{
