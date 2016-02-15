@@ -1,3 +1,6 @@
 {
+  "googlemaps": {
+      "key": "AIzaSyCcDsVPpV67QJP-H1hyiQAnMB_mAJsrhbM"
+  },
   "baseurl": "http://localhost:8002/"
 }

@@ -54,16 +54,26 @@ mixin locations(locations)
 					=" "
 					=__("Add location")
 	script(id="location", type="text/x-handlebars-template")
+		.modal.fade(id="location{{i}}")
+			.modal-dialog.modal-lg
+				.modal-content
+					.modal-header
+						button.close(type="button", data-dismiss="modal")
+							span="×"
+						h4.modal-title=__("Search location")
+					.modal-body
+						div.map(id="map{{i}}")
+					.modal-footer
+						button.btn.btn-primary
+							=__("Ok")
 		.location.col-md-10.col-md-offset-2
 			.panel.panel-default
 				.panel-body
 					.row
 						.col-md-12.text-right
 							.btn-group
-								button.show-location.btn.btn-default
-									i.fa.fa-search
-								button.show-location.btn.btn-default
-									i.fa.fa-map
+								button.show-location.btn.btn-default(type="button", data-toggle="modal", data-map-id="map{{i}}", data-target="#location{{i}}")
+									i.fa.fa-pencil
 								button.delete-location.btn.btn-danger
 									i.fa.fa-trash
 					.row
@@ -92,6 +102,25 @@ mixin locations(locations)
 							input.form-control(name="locations[{{i}}][lng]", value="{{lng}}", type="text")
 	//- FIXME
 	script.
+		function initMap(id, data) {
+			var latLng = {lat: parseFloat(data.lat), lng: parseFloat(data.lng)};
+			var map = new google.maps.Map(document.getElementById(id), {
+				center: latLng,
+				scrollwheel: false,
+				zoom: 6
+			});
+			var marker = new google.maps.Marker({
+				map: map,
+				position: latLng,
+				title: data.city
+			});
+			// Google API Bug
+			setTimeout(function() {
+				google.maps.event.trigger(map, 'resize');
+			}, 1000);
+		}
+	//- FIXME
+	script.
 		$(document).ready(function() {
 			var source   = $("#location").html();
 			var template = Handlebars.compile(source);
@@ -109,6 +138,11 @@ mixin locations(locations)
 				ev.preventDefault();
 				$(template({i: total})).appendTo($('#locations'));
 				total++;
+			});
+			$(document).on('click', '.show-location', function(ev) {
+				ev.preventDefault();
+				var id = $(ev.currentTarget).attr('data-map-id');
+				initMap(id, data);
 			});
 		});
 
