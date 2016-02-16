@@ -116,6 +116,7 @@ mixin locations(locations)
 			geocoder.geocode({latLng: position}, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
 					map.geocodeResult = results[0];
+					placeMarker(map, results[0].geometry.location, id);
 					$('#location' + id).find('.result').html(results[0].formatted_address);
 					$('#location' + id).find('.save-address').removeClass('disabled');
 				} else {
@@ -128,21 +129,7 @@ mixin locations(locations)
 			var geocoder = new google.maps.Geocoder();
 			geocoder.geocode({'address': address}, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
-					map.setCenter(results[0].geometry.location);
-					map.geocodeResult = results[0];
-					map.markers.forEach(function(marker) {
-							marker.setMap(null);
-					});
-					map.markers = [];
-					var marker = new google.maps.Marker({
-						draggable: true,
-						map: map,
-						position: results[0].geometry.location
-					});
-					map.markers.push(marker);
-					google.maps.event.addListener(marker, 'dragend', function() {
-						geocodePosition(marker.getPosition(), map, id);
-					});
+					placeMarker(map, results[0].geometry.location);
 					$('#location' + id).find('.result').html(results[0].formatted_address);
 					$('#location' + id).find('.save-address').removeClass('disabled');
 					google.maps.event.trigger(map, 'resize');
@@ -151,6 +138,36 @@ mixin locations(locations)
 					$('#location' + id).find('.save-address').addClass('disabled');
 				}
 			});
+		}
+		function searchLocation(map, id) {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+					var pos = {
+						lat: position.coords.latitude,
+						lng: position.coords.longitude
+					};
+					placeMarker(map, pos, id);
+				}, function() {
+					placeMarker(map, {lat: 0, lng: 0}, id);
+				});
+			}
+		}
+		function placeMarker(map, position, id) {
+			map.markers.forEach(function(marker) {
+				marker.setMap(null);
+			});
+			map.markers = [];
+			var marker = new google.maps.Marker({
+				draggable: true,
+				map: map,
+				position: position
+			});
+			map.markers.push(marker);
+			google.maps.event.addListener(marker, 'dragend', function() {
+				geocodePosition(marker.getPosition(), map, id);
+			});
+			google.maps.event.trigger(map, 'resize');
+			map.setCenter(position);
 		}
 		function initMap(id, data) {
 			var lat = (data && data.lat) || 0;
@@ -163,21 +180,10 @@ mixin locations(locations)
 				zoom: 6
 			});
 			map.markers = [];
-			var marker = new google.maps.Marker({
-				draggable: true,
-				map: map,
-				position: latLng,
-				title: formatted_address
-			});
-			map.markers.push(marker);
-			google.maps.event.addListener(marker, 'dragend', function() {
-				geocodePosition(marker.getPosition(), map, id);
-			});
 			$('#location' + id).find('.address').val(formatted_address);
 			// Google Maps API Bug
 			setTimeout(function() {
-				google.maps.event.trigger(map, 'resize');
-				map.setCenter(latLng);
+				searchLocation(map, id);
 			}, 500);
 			return map;
 		}
