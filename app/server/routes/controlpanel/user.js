@@ -8,6 +8,10 @@ var countries = require('country-list')().getData();
 var flatten = require('flat');
 
 exports.publicGet = function(req, res) {
+  console.log(req.user.locations);
+  if (req.user.locations.length === 0) {
+      req.user.locations.push({street: ''})
+  }
   res.render('controlpanel/user/public', {
     config: config,
     result: req.user
@@ -22,11 +26,12 @@ exports.publicSchemaPost = {
   ),
   locations: Joi.array().items(
     Joi.object().keys({
+      formatted_address: Joi.string().allow(''),
       street: Joi.string().allow(''),
       streetnumber: Joi.string().allow(''),
       zip: Joi.string().allow(''),
-      city: Joi.string().allow(''),
-      country: Joi.string().allow(''),
+      city: Joi.string().required(),
+      country: Joi.string().required(),
       lat: Joi.number().allow(''),
       lng: Joi.number().allow('')
     })

@@ -27,13 +27,14 @@ var UserSchema = new Schema({
   citizenship: String,
   birth_date: Date,
   locations: [{
+    formatted_address: String,
     street: String,
     streetnumber: String,
     zip: String,
     city: String,
     country: String,
-    latitude: Number,
-    longitude: Number
+    lat: Number,
+    lng: Number
   }],
   login: { type: String, required: true },
   password: { type: String, required: true },
