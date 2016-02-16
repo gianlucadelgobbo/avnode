@@ -1251,7 +1251,7 @@ input.parsley-error,
 select.parsley-error,
 textarea.parsley-error {
   color: #b94a48;
-  background-color: #f2dede;
+  background-color: #f2dede !important;
   border: 1px solid #eed3d7;
 }
 .parsley-errors-list {
