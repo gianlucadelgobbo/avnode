@@ -1,6 +1,8 @@
 extends ../layout
 
 block user-content
+	// template: user/sections/events.jade
 	.container
-		each box in performer.events
-			include ../../events/item
+		.row.grid
+			each box in performer.events
+				include ../../events/item

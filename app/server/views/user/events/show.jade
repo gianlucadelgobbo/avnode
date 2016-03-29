@@ -1,5 +1,6 @@
 extends ../layout
 block content
+	// template: views/user/events/show.jade
 	.single_event_page
 		.user_result.single_event_page
 			.container
@@ -44,10 +45,10 @@ block content
 																=" "
 																a(href="/events/#{category.permalink}")=category.name
 					.col-md-12
-						ul.row.event_events_list
+						ul.row.event_events_list.grid
 							if result.date_time_venue
 								each venue in result.date_time_venue
-									li.col-sm-4
+									li.col-sm-4.grid-item
 										.event_list_content_container
 											span
 												i(class="fa fa-clock-o")
@@ -93,8 +94,9 @@ block content
 													.row
 														.col-md-12
 															h3.single_event-room_title=name
-													each box in room
-														include ../../performances/item
+													.grid.row
+														each box in room
+															include ../../performances/item
 
 							if result.partners
 								#partners.tab-pane
@@ -103,13 +105,13 @@ block content
 											.container.single_partner_of_series
 												h3=name
 										.container
-											.row.main-list.grid_tab
+											.row.main-list.grid_tab.grid
 												each box in type
 													include ../../performers/item
 
 							if result.partners
 								#gallery.tab-pane
 									.container
-										.row.main-list.grid_tab
+										.row.main-list.grid_tab.grid
 											each box in result.gallery
 												include ../../gallery/item
