@@ -12,22 +12,24 @@
 						img.main_performace_image(src=performance.files[0].file, alt=performance.title)
 					.main_performer_box
 						.col-sm-6.col-xs-12.col-md-12
-								ul.list-inline
+								ul.list-inline.performer_main_data
 									li
-										i(class="fa fa-user")
-											a.performance_owner(href="/#{performance.users[0].permalink}", title=performance.users[0].display_name)= performance.users[0].display_name
-									li.evidence-performance_stats
+										i.fa.fa-caret-right(aria-hidden='true')
+										a.performance_owner(href="/#{performance.users[0].permalink}", title=performance.users[0].display_name)= performance.users[0].display_name
+									li.evidence-performance_stats.evidence-performance_stats_visits
+										span
+											i.fa.fa-eye(aria-hidden='true')
 										span.stat.value= performance.stats.visits
-										span= __(" Visits")
 									li.evidence-performance_stats
+										span
+											i.fa.fa-thumbs-o-up(aria-hidden='true')
 										span.stat.value= performance.stats.rates.tot_rate
-										span= __(" Likes")
 						.col-sm-6.col-xs-12.col-md-12
 								ul.evidence-performance_categories.list-inline
 									each category in performance.categories
 										li
 											i(class="fa fa-cube")
-												a(href="/#{category.permalink}", title=category.name)= category.name
+											a(href="/#{category.permalink}", title=category.name)= category.name
 				if (i > 0 && i < 3)
 					.col-sm-12.secondary_performance_wrapper
 						.secondary_performance.hidden-xs

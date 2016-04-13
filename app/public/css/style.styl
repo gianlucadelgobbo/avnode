@@ -360,14 +360,6 @@ a:hover img{opacity:.6;}
   padding-bottom 30px
   padding-top 15px
 
-.main_performer_box ul
-.events_performer ul
-.crews_performer ul
-  list-style none
-  padding-left 0
-  float: left;
-  width: 100%;
-
 .performer_geolocalization .country_geoloc
   color: #0f8fcf
 
@@ -453,7 +445,10 @@ a:hover img{opacity:.6;}
 
 .evidence-performance_stats .stat.value
   color #0f8fcf
-
+.evidence-performance_stats_visits:after
+  content "//"
+  color #0c2e4c
+  padding-left 10px
 .main_performer_box .performance_owner
   font-weight 500
 .secondary_performance_wrapper
@@ -476,6 +471,10 @@ a:hover img{opacity:.6;}
 .secondary-performace_image, .secondary-event_image
   padding: 0;
   width: 60px;
+.evidence-event_stats_visits:after
+  content "//"
+  padding-left 10px
+  color #330e02
 .secondary_performance
   padding 10px 0
   float left
@@ -518,7 +517,20 @@ a:hover img{opacity:.6;}
   font-size: 18px;
   font-weight: 600;
   text-transform: uppercase;
-
+.evidence-date
+  font-size 24px
+  .evidence-date_sep
+    color #e4811e
+.evidence_time i
+  color #e4811e !important
+.evidence_time
+  font-size 24px
+.evidence_time_end
+  padding-left 10px
+.date_time_event_evidence
+  padding 0
+.secondary_event_wrapper
+  margin-bottom 15px
 .secondary_events
   background: #DEDFDF
   padding 10px 15px
@@ -542,6 +554,7 @@ a:hover img{opacity:.6;}
 .main_crews-box img
   height 100px
   width 100px
+  border 1px solid
   @media onlymd
     height 91px
     width 91px
@@ -698,11 +711,10 @@ svg.coda
   top: 10px
 .performances_performer .box_wrapper.coloured
   border-color: #0F8FCF;
-  background: #0F8FCF none repeat scroll 0% 0%;
 .performances_performer .box_wrapper.coloured .main_performer_box
-  color: #FFF;
+  color: #0F8FCF;
 .performances_performer .box_wrapper.coloured a
-  color: #FFF;
+  color: #0F8FCF;
 .performances_performer .box_wrapper.coloured
   i, .stat.value
     color #0c2e4c
@@ -713,26 +725,26 @@ svg.coda
 
 .events_performer .box_wrapper.coloured
   border-color: #E4811E;
-  background: #E4811E none repeat scroll 0% 0%;
 .events_performer .box_wrapper.coloured .main_event_box
-  color: #FFF;
+  color: #E4811E;
 .events_performer .box_wrapper.coloured a
-  color: #FFF;
+  color: #E4811E;
 .events_performer .box_wrapper.coloured
   i, .stat.value
-    color #5c2e15
+    color #330e02
 .events_performer .box_wrapper.coloured .more_button a
   color #E4811E
 .events_performer .box_wrapper.coloured .secondary_event
   color #414042
+.evidence-event_stats
+  color #e4811e
 
 .crews_performer .box_wrapper.coloured
   border-color: #004431;
-  background: #004431 none repeat scroll 0% 0%;
 .crews_performer .box_wrapper.coloured
-  color: #FFF;
+  color: #004431;
 .crews_performer .box_wrapper.coloured a
-  color: #FFF;
+  color: #004431;
 .crews_performer .box_wrapper.coloured
   i, .stat.value
     color #005b3f

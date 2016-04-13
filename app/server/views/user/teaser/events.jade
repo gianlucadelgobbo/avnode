@@ -11,30 +11,29 @@
 					a.col-sm-6.col-xs-12.col-md-12.main_performace_image_wrapper(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
 						img.main_performace_image(src=event.files[0].file, alt=event.title)
 					.main_performer_box
-						.col-sm-6.col-xs-12.col-md-12
-								ul.list-inline
-									li
-										i(class="fa fa-user")
-											a.event_owner(href="/#{event.users[0].permalink}", title=event.users[0].display_name)= event.users[0].display_name
-									li.evidence-event_stats
-										span.stat.value= event.stats.visits
-										span= __(" Visits")
-									li.evidence-event_stats
-										span.stat.value= event.stats.rates.tot_rate
-										span= __(" Likes")
+						.col-xs-12
+							ul.row.date_time_event_evidence
+								li.evidence-date.col-xs-6
+									span 31
+									span.evidence-date_sep /
+									span 12
+									span.evidence-date_sep /
+									span 1999
+								li.evidence_time.col-xs-6
+									i.fa.fa-clock-o(aria-hidden='true')
+									span.evidence_time_start 20:00
+									span.evidence_time_end 22:00
+
 						.col-sm-6.col-xs-12.col-md-12
 								ul.evidence-event_categories.list-inline
+									li
+										i.fa.fa-caret-right(aria-hidden='true')
+										a.event_owner(href="/#{event.users[0].permalink}", title=event.users[0].display_name)= event.users[0].display_name
 									each category in event.categories
 										li
 											i(class="fa fa-cube")
-												a(href="/#{category.permalink}", title=category.name)= category.name
-				if (i > 0 && i < 3)
-					.col-sm-12.secondary_event_wrapper
-						.secondary_event.hidden-xs
-							a(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
-								.col-sm-3.secondary-performace_image
-									img.img-circle(src=event.files[0].file, alt=event.title)
-								h3.col-sm-9= event.title
+											a(href="/#{category.permalink}", title=category.name)= category.name
+
 			.col-sm-12.more_event.more_button
 				a(href="/#{performer.permalink}/events", title='More events')=__("All the events")
 					span=__("+")

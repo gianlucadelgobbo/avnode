@@ -4,6 +4,7 @@
 		+coda('#004431')
 	.col-sm-12
 		.box_wrapper.row.coloured
+
 			each crew, i in performer.crews
 				if i < 2
 					.main_crews-box.col-xs-6.col-sm-12
@@ -13,8 +14,8 @@
 						.col-sm-9.col-md-7.crew_details
 							ul
 								li= crew.stats.members +__(" Members")
-								li= crew.stats.performances +__(" Performances")
-								li= crew.stats.events +__(" Events")
+								li= 99 +__(" Performances")
+								li= 99 +__(" Events")
 							a(href="/#{crew.permalink}", title=crew.display_name)
 								h3= crew.display_name
 			each crew, i in performer.crews

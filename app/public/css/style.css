@@ -443,14 +443,6 @@ a:hover img {
   padding-bottom: 30px;
   padding-top: 15px;
 }
-.main_performer_box ul,
-.events_performer ul,
-.crews_performer ul {
-  list-style: none;
-  padding-left: 0;
-  float: left;
-  width: 100%;
-}
 .performer_geolocalization .country_geoloc {
   color: #0f8fcf;
 }
@@ -573,6 +565,11 @@ a:hover img {
 .evidence-performance_stats .stat.value {
   color: #0f8fcf;
 }
+.evidence-performance_stats_visits:after {
+  content: "//";
+  color: #0c2e4c;
+  padding-left: 10px;
+}
 .main_performer_box .performance_owner {
   font-weight: 500;
 }
@@ -606,6 +603,11 @@ a:hover img {
 .secondary-event_image {
   padding: 0;
   width: 60px;
+}
+.evidence-event_stats_visits:after {
+  content: "//";
+  padding-left: 10px;
+  color: #330e02;
 }
 .secondary_performance {
   padding: 10px 0;
@@ -660,6 +662,27 @@ a:hover img {
   font-weight: 600;
   text-transform: uppercase;
 }
+.evidence-date {
+  font-size: 24px;
+}
+.evidence-date .evidence-date_sep {
+  color: #e4811e;
+}
+.evidence_time i {
+  color: #e4811e !important;
+}
+.evidence_time {
+  font-size: 24px;
+}
+.evidence_time_end {
+  padding-left: 10px;
+}
+.date_time_event_evidence {
+  padding: 0;
+}
+.secondary_event_wrapper {
+  margin-bottom: 15px;
+}
 .secondary_events {
   background: #dedfdf;
   padding: 10px 15px;
@@ -692,6 +715,7 @@ a:hover img {
 .main_crews-box img {
   height: 100px;
   width: 100px;
+  border: 1px solid;
 }
 @media screen and (min-width: 992px) and (max-width: 1200px) {
   .main_crews-box img {
@@ -717,6 +741,10 @@ a:hover img {
   text-align: center;
   padding: 15px !important;
   display: none;
+}
+
+.crew_details ul {
+  padding: 0;
 }
 .more_crews.more_button a {
   color: #004431;
@@ -900,13 +928,12 @@ svg.coda {
 }
 .performances_performer .box_wrapper.coloured {
   border-color: #0f8fcf;
-  background: #0f8fcf none repeat scroll 0% 0%;
 }
 .performances_performer .box_wrapper.coloured .main_performer_box {
-  color: #fff;
+  color: #0f8fcf;
 }
 .performances_performer .box_wrapper.coloured a {
-  color: #fff;
+  color: #0f8fcf;
 }
 .performances_performer .box_wrapper.coloured i,
 .performances_performer .box_wrapper.coloured .stat.value {
@@ -920,17 +947,16 @@ svg.coda {
 }
 .events_performer .box_wrapper.coloured {
   border-color: #e4811e;
-  background: #e4811e none repeat scroll 0% 0%;
 }
 .events_performer .box_wrapper.coloured .main_event_box {
-  color: #fff;
+  color: #e4811e;
 }
 .events_performer .box_wrapper.coloured a {
-  color: #fff;
+  color: #e4811e;
 }
 .events_performer .box_wrapper.coloured i,
 .events_performer .box_wrapper.coloured .stat.value {
-  color: #5c2e15;
+  color: #330e02;
 }
 .events_performer .box_wrapper.coloured .more_button a {
   color: #e4811e;
@@ -938,15 +964,17 @@ svg.coda {
 .events_performer .box_wrapper.coloured .secondary_event {
   color: #414042;
 }
+.evidence-event_stats {
+  color: #e4811e;
+}
 .crews_performer .box_wrapper.coloured {
   border-color: #004431;
-  background: #004431 none repeat scroll 0% 0%;
 }
 .crews_performer .box_wrapper.coloured {
-  color: #fff;
+  color: #004431;
 }
 .crews_performer .box_wrapper.coloured a {
-  color: #fff;
+  color: #004431;
 }
 .crews_performer .box_wrapper.coloured i,
 .crews_performer .box_wrapper.coloured .stat.value {
