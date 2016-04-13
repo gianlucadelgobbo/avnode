@@ -483,7 +483,6 @@ a:hover img{opacity:.6;}
   @media smart
     display none
 .more_button
-  background: #dedfdf;
   font-size: 20px;
   text-transform: uppercase;
   padding: 15px;
@@ -575,7 +574,8 @@ a:hover img{opacity:.6;}
   display: none
 .more_crews.more_button a
   color #004431
-
+.crew_details ul
+  padding 0
 .about-bkg
   background: #333 none repeat scroll 0 0;
   color: #fff;
@@ -714,10 +714,12 @@ svg.coda
 .performances_performer .box_wrapper.coloured .main_performer_box
   color: #0F8FCF;
 .performances_performer .box_wrapper.coloured a
-  color: #0F8FCF;
+  color: #333;
 .performances_performer .box_wrapper.coloured
   i, .stat.value
-    color #0c2e4c
+    color #333
+.performer_main_data i
+  color #0F8FCF !important
 .performances_performer .box_wrapper.coloured .more_button a
   color #0F8FCF
 .performances_performer .box_wrapper.coloured .secondary_performance a
@@ -728,10 +730,10 @@ svg.coda
 .events_performer .box_wrapper.coloured .main_event_box
   color: #E4811E;
 .events_performer .box_wrapper.coloured a
-  color: #E4811E;
+  color: #333;
 .events_performer .box_wrapper.coloured
   i, .stat.value
-    color #330e02
+    color #333
 .events_performer .box_wrapper.coloured .more_button a
   color #E4811E
 .events_performer .box_wrapper.coloured .secondary_event
@@ -913,7 +915,7 @@ footer.main_footer
   .nav-tabs>li>a:hover,
   .nav-tabs>li>a:focus
     border none
-    margin: 0px;
+    margin: 0
 .nav-tabs>li>a
   border-radius 0
   color #e4811e

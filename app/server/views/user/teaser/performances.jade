@@ -31,8 +31,8 @@
 											i(class="fa fa-cube")
 											a(href="/#{category.permalink}", title=category.name)= category.name
 				if (i > 0 && i < 3)
-					.col-sm-12.secondary_performance_wrapper
-						.secondary_performance.hidden-xs
+					.col-sm-12.secondary_performance_wrapper.hidden
+						.secondary_performance
 							a(href="/#{performance.users[0].permalink}/performances/#{performance.permalink}", title=performance.title)
 								.col-sm-3.secondary-performace_image
 									img.img-circle(src=performance.files[0].file, alt=performance.title)

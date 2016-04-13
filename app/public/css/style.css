@@ -621,7 +621,6 @@ a:hover img {
   }
 }
 .more_button {
-  background: #dedfdf;
   font-size: 20px;
   text-transform: uppercase;
   padding: 15px;
@@ -742,12 +741,11 @@ a:hover img {
   padding: 15px !important;
   display: none;
 }
-
-.crew_details ul {
-  padding: 0;
-}
 .more_crews.more_button a {
   color: #004431;
+}
+.crew_details ul {
+  padding: 0;
 }
 .about-bkg {
   background: #333 none repeat scroll 0 0;
@@ -933,11 +931,14 @@ svg.coda {
   color: #0f8fcf;
 }
 .performances_performer .box_wrapper.coloured a {
-  color: #0f8fcf;
+  color: #333;
 }
 .performances_performer .box_wrapper.coloured i,
 .performances_performer .box_wrapper.coloured .stat.value {
-  color: #0c2e4c;
+  color: #333;
+}
+.performer_main_data i {
+  color: #0f8fcf !important;
 }
 .performances_performer .box_wrapper.coloured .more_button a {
   color: #0f8fcf;
@@ -952,11 +953,11 @@ svg.coda {
   color: #e4811e;
 }
 .events_performer .box_wrapper.coloured a {
-  color: #e4811e;
+  color: #333;
 }
 .events_performer .box_wrapper.coloured i,
 .events_performer .box_wrapper.coloured .stat.value {
-  color: #330e02;
+  color: #333;
 }
 .events_performer .box_wrapper.coloured .more_button a {
   color: #e4811e;
@@ -1197,7 +1198,7 @@ li {
 .single_event_page .nav-tabs>li>a:hover,
 .single_event_page .nav-tabs>li>a:focus {
   border: none;
-  margin: 0px;
+  margin: 0;
 }
 .nav-tabs>li>a {
   border-radius: 0;
