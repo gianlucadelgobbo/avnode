@@ -342,7 +342,7 @@ a:hover img {
     column-gap: 30px;
   }
 }
-.visual_header_performer_summary {
+.performer_summary {
   background: url("../img/performer_summary.png");
   height: 165px;
   background-position: right;
@@ -437,6 +437,9 @@ a:hover img {
 /**/
 /* Performer */
 /**/
+.main_box_performer .box_wrapper {
+  min-height: 350px;
+}
 .main_boxes_bkg {
 /*background #F8F6F6*/
   background-color: #fff;
@@ -712,8 +715,8 @@ a:hover img {
   padding-right: 0px;
 }
 .main_crews-box img {
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
   border: 1px solid;
 }
 @media screen and (min-width: 992px) and (max-width: 1200px) {
@@ -723,10 +726,18 @@ a:hover img {
   }
 }
 .main_crews-box h3 {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
   text-transform: uppercase;
   margin: 0 0 5px 0;
+  text-align: center;
+  background: #004431;
+  position: relative;
+  bottom: 30px;
+  border: 2px solid;
+  color: #fff;
+  margin-bottom: -30px;
+  padding: 2px;
 }
 .main_crews-box {
   padding: 15px;
@@ -743,6 +754,9 @@ a:hover img {
 }
 .more_crews.more_button a {
   color: #004431;
+}
+.crew_details {
+  margin-left: 15px;
 }
 .crew_details ul {
   padding: 0;
@@ -799,7 +813,10 @@ a:hover img {
   opacity: 0.9;
   position: relative;
   width: 100%;
-  font-size: 14px;
+  font-size: 12px;
+}
+.box_stats ul li span {
+  color: #fff;
 }
 .box_stats i.fa,
 .box_other_infos i.fa,
@@ -818,7 +835,6 @@ a:hover img {
 }
 .secondary_box {
   margin-bottom: 30px;
-  float: left;
 }
 @media screen and (max-width: 768px) {
   .secondary_box {
@@ -998,7 +1014,6 @@ body {
 }
 #content {
   padding-top: 32px;
-  padding-bottom: 32px;
 }
 footer.main_footer {
   position: absolute;
@@ -1028,7 +1043,7 @@ footer.main_footer {
   width: 50px;
 }
 .list_item_performer {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 @media screen and (max-width: 768px) {
   .list_item_performer {

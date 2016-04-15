@@ -289,7 +289,7 @@ a:hover img{opacity:.6;}
     -moz-column-gap: 30px;
     column-gap: 30px;
 
-.visual_header_performer_summary
+.performer_summary
   background url('../img/performer_summary.png')
   height 165px
   background-position right
@@ -354,6 +354,9 @@ a:hover img{opacity:.6;}
 /**/
 /* Performer */
 /**/
+
+.main_box_performer .box_wrapper
+  min-height 350px
 .main_boxes_bkg
   /*background #F8F6F6*/
   background-color: #fff
@@ -551,17 +554,26 @@ a:hover img{opacity:.6;}
   padding-right 0px
 
 .main_crews-box img
-  height 100px
-  width 100px
+  height 80px
+  width 80px
   border 1px solid
   @media onlymd
     height 91px
     width 91px
-.main_crews-box h3
-  font-size 18px
-  font-weight 600
-  text-transform uppercase
-  margin 0 0 5px 0
+.main_crews-box
+  h3
+    font-size 15px
+    font-weight 500
+    text-transform uppercase
+    margin 0 0 5px 0
+    text-align center
+    background #004431
+    position relative
+    bottom 30px
+    border 2px solid
+    color #fff
+    margin-bottom -30px
+    padding 2px
 .main_crews-box
   padding: 15px
 .secondary_crew
@@ -574,6 +586,8 @@ a:hover img{opacity:.6;}
   display: none
 .more_crews.more_button a
   color #004431
+.crew_details
+  margin-left 15px
 .crew_details ul
   padding 0
 .about-bkg
@@ -622,7 +636,9 @@ a:hover img{opacity:.6;}
   opacity: 0.9;
   position: relative;
   width: 100%;
-  font-size 14px
+  font-size 12px
+.box_stats ul li span
+  color #fff
 .box_stats i.fa, .box_other_infos i.fa, .playlist_categories_list i.fa, .gallery_details span.icon_at, .gallery_details i.fa
   color #fff
   margin-right 5px
@@ -633,12 +649,15 @@ a:hover img{opacity:.6;}
   background #303030 none repeat scroll 0 0
 .secondary_box
   margin-bottom 30px
-  float: left;
   @media onlyxs
     width 100%
 .box_other_infos
-  font-size 10px
+  font-size 12px
   margin-bottom 0
+  position absolute
+  bottom 0px
+  width 100%
+  padding 10px 0px
 .box_other_infos .fa-floppy-o
   margin-left 3px
 .single_footage
@@ -764,7 +783,6 @@ html,body
   padding-bottom: 240px
 #content
   padding-top: 32px
-  padding-bottom: 32px
 footer.main_footer
   position: absolute
   bottom: 0
@@ -790,7 +808,7 @@ footer.main_footer
 
 // lists //
 .list_item_performer
-  margin-bottom 30px
+  margin-bottom 20px
   @media onlyxs
     width 100%
     padding 0 15%

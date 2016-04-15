@@ -1,7 +1,8 @@
-div.list_item_performer.grid-item.col-sm-4(class="col-md-4 playlists_footage")
+div.list_item_performer.grid-item.col-sm-6(class="col-md-6 playlists_footage")
 	a(href="/#{box.users[0].permalink}/playlists/#{box.permalink}/", title=box.title)
 		.image_box
 			.footage_stats.box_stats
+				// MISSING DATA: LIKES, VIDEOS INSIDE DEL PLAYLIST, CATEGORY/TAG, THUMBNAIL
 				ul.list-inline
 					li
 						i(class="fa fa-download")
@@ -9,6 +10,12 @@ div.list_item_performer.grid-item.col-sm-4(class="col-md-4 playlists_footage")
 					li
 						i(class="fa fa-eye")
 						span= box.stats.visits
+					li
+						i(class="fa fa-heart")
+						span 99
+					li
+						i(class="fa fa-video-camera")
+						span 99
 			each file, i in box.files
 				if i === 0
 					// FIXME
@@ -22,5 +29,3 @@ div.list_item_performer.grid-item.col-sm-4(class="col-md-4 playlists_footage")
 						- for (var t=0;t<box.tags.length;t++) {
 								span= box.tags[t]+" "
 						- }
-					i(class="fa fa-floppy-o")
-					span= box.sizes

@@ -28,12 +28,23 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
 
 
+
+
 // isotope layout in lists
 $('.grid').isotope({
 	// options
 	itemSelector: '.grid-item',
 	layoutMode: 'masonry'
 });
+
+
+// isotope layout in user page app/server/views/user/show.jade
+$('.grid-user').isotope({
+	// options
+	itemSelector: '.grid-item-user',
+	layoutMode: 'masonry'
+});
+
 
 // isotope layout in bootstrap tabs
 $('.grid_tab').isotope({
