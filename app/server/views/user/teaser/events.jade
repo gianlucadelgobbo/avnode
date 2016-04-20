@@ -6,10 +6,10 @@
 		.row.box_wrapper.coloured
 			each event, i in performer.events
 				if i === 0
+					a.main_performace_image_wrapper(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
+						img.main_performace_image(src=event.files[0].file, alt=event.title)
 					a.col-sm-12.main_event_title_wrapper(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
 						h3.main_event_title=event.title
-					a.col-sm-6.col-xs-12.col-md-12.main_performace_image_wrapper(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
-						img.main_performace_image(src=event.files[0].file, alt=event.title)
 					.main_performer_box
 						.col-xs-12
 							// MISSING DATA: DATE, TIME, VENUE, CITY, COUNTRY
@@ -24,6 +24,11 @@
 									i.fa.fa-clock-o(aria-hidden='true')
 									span.evidence_time_start 20:00
 									span.evidence_time_end 22:00
+								li.evidence_location.col-xs-12
+									i(class="fa fa-map-marker")
+									span.event_location= event.event_loc + __(", ")
+									span.event_city= event.event_city + __(", ")
+									span.event_country= event.event_country
 
 						.col-sm-6.col-xs-12.col-md-12
 								ul.evidence-event_categories.list-inline

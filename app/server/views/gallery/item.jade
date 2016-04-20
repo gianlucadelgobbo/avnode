@@ -1,8 +1,11 @@
-div.list_item_performer.grid-item.col-sm-6(class="col-md-6 gallery_footage")
+mixin gallery_item_content
 	a(href="/#{box.users[0].permalink}/gallery/#{box.permalink}/", title=box.title)
-		.image_box
-
-			.footage_stats.box_stats
+		.image_box.wrapper_item
+			each file, i in box.files
+				if i === 0
+					//img.main_performace_image(src=file.file)
+					img.main_performance_image(src="http://img.dummy-image-generator.com/abstract/dummy-946x532-Utrecht.jpg")
+			.footage_stats.box_stats.overlay_wrapper_top
 				ul.list-inline
 					li
 						i(class="fa fa-picture-o")
@@ -14,11 +17,8 @@ div.list_item_performer.grid-item.col-sm-6(class="col-md-6 gallery_footage")
 					li
 						i(class="fa fa-eye")
 						span= box.stats.visits
-			each file, i in box.files
-				if i === 0
-					img(alt=box.title, src=file.file)
-		.title_and_info_container
-			h3= box.title
+			.title_and_info_container.overlay_wrapper
+				h3= box.title
 				ul.list-inline.box_other_infos
 					li
 						i(class="fa fa-caret-right")
@@ -30,3 +30,10 @@ div.list_item_performer.grid-item.col-sm-6(class="col-md-6 gallery_footage")
 						span= "location "
 						span= "city "
 						span country
+
+if (col_number)
+	div.list_item_performer.grid-item.gallery_footage(class= col_number)
+		+gallery_item_content
+else
+	div.list_item_performer.grid-item.col-sm-3(class="col-md-3 gallery_footage")
+		+gallery_item_content

@@ -31,6 +31,7 @@ block user-content
 							.secondary_box_container
 								each box, i in performer.footage
 									if (i > 0 && i < 10)
+										- var col_number = "col-xs-4"
 										include ../footage/item
 
 						.more_footage.more_button.col-sm-12
@@ -47,6 +48,7 @@ block user-content
 							.secondary_box_container
 								each box, i in performer.playlists
 									if (i > 0 && i < 5)
+										- var col_number = "col-xs-6"
 										include ../playlists/item
 						.more_playlist.more_button.col-sm-12
 							a(href="/#{performer.permalink}/playlist")(title=__("More playlist from ") + performer.display_name)
@@ -62,6 +64,7 @@ block user-content
 							.secondary_box_container
 								each box, i in performer.tvshow
 									if (i > 0 && i < 5)
+										- var col_number = "col-xs-6"
 										include ../tvshows/item
 						.more_playlist.more_button.col-sm-12
 							a(href="/#{performer.permalink}/tvshows")(title=__("More tvshows from ") + performer.display_name)
@@ -77,6 +80,7 @@ block user-content
 							.secondary_box_container
 								each box, i in performer.gallery
 									if (i > 0 && i < 5)
+										- var col_number = "col-xs-6"
 										include ../gallery/item
 						.more_playlist.more_button.col-sm-12
 							a(href="/#{performer.permalink}/gallery")(title=__("More gallery from ") + performer.display_name)

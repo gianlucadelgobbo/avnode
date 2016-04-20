@@ -1,7 +1,11 @@
-div.list_item_performer.grid-item.col-sm-4(class="col-md-4 footage_footage")
+mixin footage_item_content
 	a(href="/#{box.users[0].permalink}/footage/#{box.permalink}/", title=box.title)
-		.image_box
-			.footage_stats.box_stats
+		.image_box.wrapper_item
+			each file, i in box.files
+				if i === 0
+					// FIXME
+					img(alt=box.title, src="/img/default_footage.jpg")
+			.footage_stats.box_stats.overlay_wrapper_top
 				ul.list-inline
 					li
 						i(class="fa fa-download")
@@ -9,19 +13,24 @@ div.list_item_performer.grid-item.col-sm-4(class="col-md-4 footage_footage")
 					li
 						i(class="fa fa-eye")
 						span= box.stats.visits
-			each file, i in box.files
-				if i === 0
-					// FIXME
-					img(alt=box.title, src="/img/default_footage.jpg")
-		.title_and_info_container
-			h3= box.title
-			ul.list-inline.box_other_infos
-				// MISSING DATA: SIZE AND TAGS
-				li
-					i(class="fa fa-tags")
-					- if(box.tags)
-						- for (var t=0;t<box.tags.length;t++) {
-								span= box.tags[t]+" "
-						- }
-					i(class="fa fa-floppy-o")
-					span= box.sizes
+
+			.title_and_info_container.overlay_wrapper
+				h3= box.title
+				ul.list-inline.box_other_infos
+					// MISSING DATA: SIZE AND TAGS
+					li
+						i(class="fa fa-tags")
+							- if(box.tags)
+									- for (var t=0;t<box.tags.length;t++) {
+								span= box.tags[t] + " "
+							- }
+						i(class="fa fa-floppy-o")
+						span= box.sizes
+
+
+if (col_number)
+	div.list_item_performer.grid-item.footage_footage(class= col_number)
+		+footage_item_content
+else
+	div.list_item_performer.grid-item.col-sm-4(class="col-md-4 footage_footage")
+		+footage_item_content

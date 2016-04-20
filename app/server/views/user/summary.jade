@@ -33,10 +33,11 @@
 						li= __("Follow // ")
 							a(href="#")
 								i(class="fa fa-user")
-			.col-lg-5.col-md-4.col-sm-3.col-xs-3.performer_summary
-				.row
-					.col-md-8.performer_summary_box
-						ul
-							each stat, name in performer.stats
-								li
-									a(href="/#{performer.permalink}/#{name}/")=__(name) + ' (' + stat + ')'
+			.col-lg-5.col-md-4.col-sm-3.col-xs-3
+				.performer_summary
+					.row
+						.col-md-8.performer_summary_box
+							ul
+								each stat, name in performer.stats
+									li
+										a(href="/#{performer.permalink}/#{name}/")=__(name) + ' (' + stat + ')'

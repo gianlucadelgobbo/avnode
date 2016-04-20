@@ -298,7 +298,7 @@ a:hover img {
 .user_dett_bkg {
   padding-bottom: 15px;
   margin-bottom: 15px;
-  margin-top: 80px;
+  margin-top: 15px;
 }
 @media screen and (max-width: 500px) {
   .user_dett_bkg {
@@ -442,9 +442,10 @@ a:hover img {
 }
 .main_boxes_bkg {
 /*background #F8F6F6*/
-  background-color: #fff;
+  background-color: #f4f4f4;
   padding-bottom: 30px;
   padding-top: 15px;
+  border-top: 1px solid #ddd;
 }
 .performer_geolocalization .country_geoloc {
   color: #0f8fcf;
@@ -472,7 +473,7 @@ a:hover img {
   font-weight: 600;
   margin: 15px 0 5px;
   float: left;
-  margin-bottom: 10px;
+  margin-bottom: 13px;
 }
 .box_header .diagonale {
   height: 34px;
@@ -495,24 +496,26 @@ a:hover img {
   background-color: #004431;
 }
 .box_wrapper {
-  border: 1px solid;
-  border-radius: 0 10px 0 0;
+  border: 1px solid #b0b0b0;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
 }
 .performances_performer .box_wrapper {
-  border-color: #0f8fcf;
+  border-color: #b0b0b0;
 }
 .events_performer .box_wrapper {
-  border-color: #e4811e;
+  border-color: #b0b0b0;
 }
 .crews_performer .box_wrapper {
-  border-color: #004431;
+  border-color: #b0b0b0;
 }
 .main_event_title,
 .main_performance_title {
   font-size: 18px;
   text-transform: uppercase;
   font-weight: 600;
-  margin: 15px 0 5px;
+  margin: 15px 0 15px;
 }
 @media screen and (max-width: 768px) {
   .main_event_title,
@@ -632,6 +635,7 @@ a:hover img {
 .main_box_performer .more_button {
   float: left;
   width: 100%;
+  margin-top: 15px;
 }
 .more_button.more_performance a {
   color: #0f8fcf;
@@ -718,6 +722,7 @@ a:hover img {
   height: 80px;
   width: 80px;
   border: 1px solid;
+  border-radius: 50% !important;
 }
 @media screen and (min-width: 992px) and (max-width: 1200px) {
   .main_crews-box img {
@@ -842,8 +847,9 @@ a:hover img {
   }
 }
 .box_other_infos {
-  font-size: 10px;
-  margin-bottom: 0;
+  font-size: 12px;
+  margin: 0;
+  color: #fff;
 }
 .box_other_infos .fa-floppy-o {
   margin-left: 3px;
@@ -914,16 +920,13 @@ svg.coda {
   color: #fff;
   margin-bottom: 5px;
   font-size: 16px;
+  margin-top: 0;
 }
 .title_and_info_container {
   background: rgba(51,51,51,0.8) none repeat scroll 0 0;
   font-size: 14px;
-  height: 80px;
-  margin-bottom: -80px;
   opacity: 0.9;
   padding: 10px;
-  position: relative;
-  top: -80px;
   width: 100%;
 }
 .single_playlist,
@@ -934,14 +937,46 @@ svg.coda {
 .single_gallery .image_box {
   min-height: 163px;
 }
+.wrapper_item {
+  float: left;
+/* important */
+  position: relative;
+/* important(so we can absolutely position the description */
+  width: 100%;
+}
+.wrapper_item img {
+  width: 100%;
+}
+.overlay_wrapper {
+  position: absolute;
+/* absolute position (so we can position it where we want)*/
+  bottom: 0px;
+/* position will be on bottom */
+  left: 0px;
+  width: 100%;
+}
+.overlay_wrapper_top {
+  position: absolute;
+/* absolute position (so we can position it where we want)*/
+  top: 0px;
+/* position will be on bottom */
+  left: 0px;
+  width: 100%;
+}
 .box_wrapper.coloured {
-  border-radius: 0px;
+  border-radius: 4px;
+  box-shadow: 1px 7px 5px rgba(0,0,0,0.3);
+  background: #fff;
+  border-top: none;
 }
 .box_performer_header {
   top: 10px;
 }
+.box_wrapper.coloured img {
+  border-radius: 4px 4px 0 0;
+}
 .performances_performer .box_wrapper.coloured {
-  border-color: #0f8fcf;
+  border-color: #b0b0b0;
 }
 .performances_performer .box_wrapper.coloured .main_performer_box {
   color: #0f8fcf;
@@ -963,7 +998,7 @@ svg.coda {
   color: #414042;
 }
 .events_performer .box_wrapper.coloured {
-  border-color: #e4811e;
+  border-color: #b0b0b0;
 }
 .events_performer .box_wrapper.coloured .main_event_box {
   color: #e4811e;
@@ -985,7 +1020,7 @@ svg.coda {
   color: #e4811e;
 }
 .crews_performer .box_wrapper.coloured {
-  border-color: #004431;
+  border-color: #bbb;
 }
 .crews_performer .box_wrapper.coloured {
   color: #004431;
@@ -1009,8 +1044,9 @@ body {
 }
 .wrapper {
   position: relative;
-  min-height: 100%;
   padding-bottom: 240px;
+  float: left;
+  width: 100%;
 }
 #content {
   padding-top: 32px;
@@ -1042,8 +1078,19 @@ footer.main_footer {
 .logo_flyer img {
   width: 50px;
 }
+.user_lists_bkg {
+  background-color: #f4f4f4;
+  padding-bottom: 30px;
+  padding-top: 40px;
+  border-top: 1px solid #ddd;
+}
+.user_list_title {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
 .list_item_performer {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 @media screen and (max-width: 768px) {
   .list_item_performer {
@@ -1059,8 +1106,8 @@ footer.main_footer {
   float: left;
   width: 100%;
 }
-.list_item_performer .main_performace_image {
-  max-height: 100px;
+.list_item_performer .main_performance_image {
+  border-radius: 4px 4px 0 0;
 }
 .list_bkg {
   background: #f8f6f6;
@@ -1253,7 +1300,7 @@ li {
   margin: 0 0 15px 0px;
 }
 .single_event_page .performances_performer .box_wrapper {
-  border-color: #e4811e;
+  border-color: #b0b0b0;
 }
 .single_event_page .evidence-performance_stats .stat.value {
   color: #e4811e;

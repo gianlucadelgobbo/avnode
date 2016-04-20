@@ -1,6 +1,11 @@
 extends ../layout
 
 block user-content
-	.container
-		each box in performer.footage
-			include ../../footage/item
+	// template: app/server/views/user/sections/footage.jade
+	.user_lists_bkg
+		.container
+			h1.user_list_title=__("Footage")
+			.row.grid.user_list
+				each box in performer.footage
+					- var col_number = "col-sm-3"
+					include ../../footage/item

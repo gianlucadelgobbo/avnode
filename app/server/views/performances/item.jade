@@ -1,27 +1,42 @@
-div.list_item_performer.grid-item.col-sm-4(class="col-md-4 performances_performer")
-	.box_wrapper.col-sm-12
-		a(href="/#{box.users[0].permalink}/performances/#{box.permalink}/", title=box.title)
-			h3.main_event_title= box.title
+mixin performance_item_content
+	.box_wrapper
 		a(href="/#{box.users[0].permalink}/performances/#{box.permalink}/", title=box.title)
 			each file, i in box.files
 				if i === 0
-					img.main_performace_image(src=file.file)
+					//img.main_performace_image(src=file.file)
+					img.main_performance_image(src="http://img.dummy-image-generator.com/abstract/dummy-946x532-Stones.jpg")
+		a(href="/#{box.users[0].permalink}/performances/#{box.permalink}/", title=box.title)
+			h3.main_event_title.col-sm-12= box.title
+
 		.main_event_box
 			.main_event_details
-				p.event_date=box.date_str
-					p
-						i(class="fa fa-map-marker")
-						span.event_location= box.event_loc + __(", ")
-						span.event_city= box.event_city + __(", ")
-						span.event_country= box.event_country
-					p
-						i(class="fa fa-clock-o")
-						span.event_time= box.event_time
-					p.evidence-event_owner
-						i(class="fa fa-user")
-						a(href="/" + box.users[0].permalink, title=box.users[0].display_name)= box.users[0].display_name
+				.col-sm-6.col-xs-12.col-md-12
+					ul.list-inline.performer_main_data
+						li.col-sm-12
+							i.fa.fa-caret-right(aria-hidden='true')
+							a.performance_owner(href="/#{box.users[0].permalink}", title=box.users[0].display_name)= box.users[0].display_name
+						li.evidence-performance_stats.evidence-performance_stats_visits
+							span
+								i.fa.fa-eye(aria-hidden='true')
+							span.stat.value= box.stats.visits
+						li.evidence-performance_stats
+							span
+								i.fa.fa-thumbs-o-up(aria-hidden='true')
+							span.stat.value= box.stats.rates.tot_rate
+				.col-sm-6.col-xs-12.col-md-12
 					ul.evidence-performance_categories.list-inline
 						each category in box.categories
 							li
 								i(class="fa fa-cube")
-								a(href="/" + category.permalink, title=category.name)= category.name
+								a(href="/#{category.permalink}", title=category.name)= category.name
+
+
+if (col_number)
+	div.list_item_performer.grid-item.performances_performer(class= col_number)
+		+performance_item_content
+else
+	div.list_item_performer.grid-item.col-sm-3(class="col-md-3 performances_performer")
+		+performance_item_content
+
+
+
