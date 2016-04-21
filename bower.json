@@ -20,6 +20,7 @@
     "fine-uploader": "~4.4.0",
     "swfobject": "*",
     "bootstrap-switch": "~3.0.0",
-    "isotope": "^2.2.2"
+    "isotope": "^2.2.2",
+    "imagesloaded": "^4.1.0"
   }
 }
