@@ -1,9 +1,9 @@
-.col-md-4.events_performer.main_box_performer
+.col-md-4.events_performer.main_box_performer.baseheight
 	h2.box_events_header.box_header
 		span.title_str Events
 		+coda('#E4811E')
 	.col-sm-12
-		.row.box_wrapper.coloured
+		.row.box_wrapper.coloured.equalteaser
 			each event, i in performer.events
 				if i === 0
 					a.main_performace_image_wrapper(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)

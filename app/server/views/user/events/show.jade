@@ -6,11 +6,14 @@ block content
 			.container
 				.row
 					.col-md-12
-						.single_event_thumb_container
+						.single_event_thumb_container.wrapper_item
+
 							//.image
 							//	img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src=_h.media.getFileFormat(result.files, 400, 300))
+							img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src='http://www.wallpaperawesome.com/wallpapers-awesome/wallpapers-for-monitors-widescreen-panoramic-16-9-awesome/triangles-abstract-awesome.jpg')
+
 							.row
-								.overlay_container.col-sm-12
+								.overlay_container.overlay_wrapper
 									a.btn.btn-info.paticipate.pull-right(href="#{result.permalink}/participate", role='button') Participate
 									h1.title=result.title
 									if result.subtitle
@@ -44,18 +47,17 @@ block content
 																i(class="fa fa-cube")
 																=" "
 																a(href="/events/#{category.permalink}")=category.name
-					.col-md-12
-						ul.row.event_events_list.grid
-							if result.date_time_venue
-								each venue in result.date_time_venue
-									li.col-sm-4.grid-item
-										.event_list_content_container
-											span
-												i(class="fa fa-clock-o")
-												!=_h.date.getEventDate(venue.date) + " | " + venue.start_time + " / " + venue.end_time + "<br />"
-											span
-												i(class="fa fa-map-marker")
-												!=venue.venue + " | " + venue.city + ", " + venue.country
+				.row.event_events_list.grid
+					if result.date_time_venue
+						each venue in result.date_time_venue
+							.col-sm-4.grid-item
+								.event_list_content_container
+									span
+										i(class="fa fa-clock-o")
+										!=_h.date.getEventDate(venue.date) + " | " + venue.start_time + " / " + venue.end_time + "<br />"
+									span
+										i(class="fa fa-map-marker")
+										!=venue.venue + " | " + venue.city + ", " + venue.country
 
 		if result.text
 			.about-bkg
@@ -80,34 +82,36 @@ block content
 								a(href="#gallery", data-toggle="tab")=__("gallery") + " (" + result.gallery.length + ")"
 
 					div
-						.tab-content.row
+						.tab-content
 							if result.performances
 								#performances.tab-pane.active
 									each day,date in _h.groupEventsByDayAndRoom(result.performances)
-										.date_bkg
-											.container.single_date_of_series
-												h3=date
+										.single_date_of_series
+											h3.col-sm-12
+												span=date
 										each rooms,name in day
-											.container
+											div
 												h1=day[i]
 												each room,name in day
 													.row
 														.col-md-12
 															h3.single_event-room_title=name
-													.grid.row
+													.grid.row.day_grid
 														each box in room
 															include ../../performances/item
 
 							if result.partners
 								#partners.tab-pane
 									each type,name in _h.groupPartnersByType(result.partners)
-										.date_bkg
-											.container.single_partner_of_series
-												h3=name
-										.container
-											.row.main-list.grid_tab.grid
-												each box in type
-													include ../../performers/item
+										.row
+											.col-md-12
+												.single_date_of_series.single_partner_of_series
+													h3.col-sm-12
+														span=name
+
+										.row.main-list.grid_tab.grid.day_grid
+											each box in type
+												include ../../performers/item
 
 							if result.partners
 								#gallery.tab-pane

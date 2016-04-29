@@ -41,7 +41,7 @@ $('.grid').imagesLoaded(function() {
 
 
 // isotope layout in user page app/server/views/user/show.jade
-$('.grid').imagesLoaded(function() {
+$('.grid-user').imagesLoaded(function() {
 	$('.grid-user').isotope({
 		// options
 		itemSelector: '.grid-item-user',
@@ -71,3 +71,8 @@ $(document).ready(function() {
 		side: 'right'
 	});
 });
+
+
+// equal elements
+$('.equalteaser').equalHeights();
+

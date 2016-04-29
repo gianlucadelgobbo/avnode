@@ -21,6 +21,7 @@
     "swfobject": "*",
     "bootstrap-switch": "~3.0.0",
     "isotope": "^2.2.2",
-    "imagesloaded": "^4.1.0"
+    "imagesloaded": "^4.1.0",
+    "baseheight": "^1.0.0"
   }
 }
