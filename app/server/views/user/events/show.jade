@@ -14,18 +14,24 @@ block content
 
 							.row
 								.overlay_container.overlay_wrapper
-									a.btn.btn-info.paticipate.pull-right(href="#{result.permalink}/participate", role='button') Participate
+									div#partecipate_shape
+									div#partecipate_button
+										a(href="#{result.permalink}/participate", role='button')
+											span= __("Partecipate")
 									h1.title=result.title
 									if result.subtitle
 										h3.subtitle=_h.text.getTextFormat(result.subtitle, config.lang, true)
 
 									ul.list-inline.single_event_details
 										if result.websites
-											each url in result.websites
-												li
-													i.fa.fa-external-link
-													a(href=url,target="_blank")
-														=" site"
+											li
+												i.fa.fa-external-link
+												a(type='button', data-toggle='modal', data-target='#event_external_links')
+													=__(" Sites")
+											li
+												i.fa.fa-share-alt
+												a(type='button', data-toggle='modal', data-target='#event_share')
+													=__(" Share")
 											li
 												span
 													i(class="fa fa-eye")
@@ -35,6 +41,14 @@ block content
 													i(class="fa fa-heart")
 													=" "
 													span.value=result.stats.rates.tot_rate
+
+											li
+												span
+													i(class="fa fa-wrench")
+													span nodo production (fix me)
+
+
+
 											li
 												i(class="fa fa-user")
 												=" "
@@ -47,17 +61,79 @@ block content
 																i(class="fa fa-cube")
 																=" "
 																a(href="/events/#{category.permalink}")=category.name
-				.row.event_events_list.grid
-					if result.date_time_venue
-						each venue in result.date_time_venue
-							.col-sm-4.grid-item
-								.event_list_content_container
-									span
-										i(class="fa fa-clock-o")
-										!=_h.date.getEventDate(venue.date) + " | " + venue.start_time + " / " + venue.end_time + "<br />"
-									span
-										i(class="fa fa-map-marker")
-										!=venue.venue + " | " + venue.city + ", " + venue.country
+									.row.event_events_list.grid
+										if result.date_time_venue
+											each venue in result.date_time_venue
+												.col-sm-4.grid-item
+													.event_list_content_container
+														span
+															i(class="fa fa-clock-o")
+															!=_h.date.getEventDate(venue.date) + " | " + venue.start_time + " / " + venue.end_time + "<br />"
+														span
+															i(class="fa fa-map-marker")
+															!=venue.venue + " | " + venue.city + ", " + venue.country
+
+				// Modal event external links
+				#event_external_links.modal.fade(role='dialog')
+					.modal-dialog
+						// Modal content
+						.modal-content
+							.modal-header
+								button.close(type='button', data-dismiss='modal') ×
+								h4= result.title+" links"
+							.modal-body
+								ul.list-inline
+									each url in result.websites
+										li
+											i.fa.fa-external-link
+											a(href=url,target="_blank")
+												=" website"
+									li
+										a(href="#")
+											i.fa.fa-facebook-official(aria-hidden='true')
+									li
+										a(href="#")
+											i.fa.fa-twitter(aria-hidden='true')
+									li
+										a(href="#")
+											i.fa.fa-vimeo(aria-hidden='true')
+				// Modal event external links
+				#event_share.modal.fade(role='dialog')
+					#fb-root
+						script.
+							(function (d, s, id) {
+								var js, fjs = d.getElementsByTagName(s)[0];
+								if (d.getElementById(id)) return;
+								js = d.createElement(s);
+								js.id = id;
+								js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v2.6&appId=1725376071051640";
+								fjs.parentNode.insertBefore(js, fjs);
+							}(document, 'script', 'facebook-jssdk'));
+					.modal-dialog
+						// Modal content
+						.modal-content
+
+
+							.modal-header
+								button.close(type='button', data-dismiss='modal') ×
+								h4= "Share "+result.title
+							.modal-body
+								.fb-like(data-href='https://developers.facebook.com/docs/plugins/', data-layout='standard', data-action='like', data-show-faces='true', data-share='true')
+								ul.list-inline
+									li
+										a(href="#")
+											i.fa.fa-facebook-official(aria-hidden='true')
+									li
+										a(href="#")
+											i.fa.fa-twitter(aria-hidden='true')
+									li
+										a(href="#")
+											i.fa.fa-vimeo(aria-hidden='true')
+
+							.modal-footer
+								button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+
 
 		if result.text
 			.about-bkg
@@ -73,7 +149,7 @@ block content
 					ul.nav.nav-tabs.event_tabs
 						if result.performances
 							li.active
-								a(href="#performances", data-toggle="tab")=__("performances") + " (" + result.performances.length + ")"
+								a(href="#performances", data-toggle="tab")=__("Schedule") + " (" + result.performances.length + ")"
 						if result.partners
 							li
 								a(href="#partners", data-toggle="tab")=__("partners") + " (" + result.partners.length + ")"

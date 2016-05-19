@@ -557,10 +557,12 @@ a:hover img{opacity:.6;}
   padding-right 0px
 
 .main_crews-box img
-  height 80px
-  width 80px
-  border 1px solid
-  border-radius 50% !important
+  height: 80px;
+  width: 80px;
+  border: 1px solid;
+  border-radius: 50% !important;
+  margin: 0 auto;
+  display: block;
   @media onlymd
     height 91px
     width 91px
@@ -911,19 +913,40 @@ footer.main_footer
 
 // single event
 
+#partecipate_shape
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 150px 150px 0;
+  border-color: transparent #fdfd47 transparent transparent;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+#partecipate_button
+  position: absolute;
+  right: -5px;
+  top: 45px;
+#partecipate_button a
+  color: #000;
+  text-transform: uppercase;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  display: block;
+  font-weight: bold;
+  font-size: 24px;
 .single_event_thumb_container
   position relative
   float left
   width 100%
+  margin-bottom 30px
 .single_event_thumb_container .overlay_container
   color: #fff;
-  background: rgba(51,51,51,0.8) none repeat scroll 0 0;
+  background: rgba(51,51,51,0.72) none repeat scroll 0 0;
   width: 100%;
   padding: 15px 30px;
 
 .event_events_list
   margin-top 15px
-  margin-bottom 15px
 	li
 		list-style-type: none
 .event_events_list .event_list_content_container
@@ -938,6 +961,13 @@ footer.main_footer
 .event_events_list span
   display block
 
+.single_event_thumb_container h1.title
+  font-weight bold
+  text-transform uppercase
+.single_event_thumb_container .event_list_content_container
+  background: none;
+  border-bottom: 1px solid #fff;
+  padding: 10px 0 !important;
 .single_event_page a
   color: #E4811E
 .tabs-bkg
