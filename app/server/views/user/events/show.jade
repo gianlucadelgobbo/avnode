@@ -21,6 +21,41 @@ block content
 									h1.title=result.title
 									if result.subtitle
 										h3.subtitle=_h.text.getTextFormat(result.subtitle, config.lang, true)
+									h4
+										each type,name in _h.groupPartnersByType(result.partners)
+											if name == "PRODUCTION"
+												ul.list-inline
+													if ( type.length < 4 )
+														each box in type
+															li
+																a(href="/#{box.permalink}")
+																	span= box.display_name
+													else
+														each box,index in type
+															if index < 3
+																li
+																	a(href="/#{box.permalink}")
+																		span= box.display_name
+														li
+															a(data-toggle='modal', data-target='#allproduction')= __("[ + ]")
+														// Modal event external links
+														#allproduction.modal.fade(role='dialog')
+															.modal-dialog
+																// Modal content
+																.modal-content
+																	.modal-header
+																		button.close(type='button', data-dismiss='modal') ×
+																		h4= "All production"
+																	.modal-body
+																		ul.list-inline
+																			each box in type
+																				li
+																					a(href="/#{box.permalink}")
+																						span= box.display_name
+
+
+
+
 
 									ul.list-inline.single_event_details
 										if result.websites
@@ -42,17 +77,16 @@ block content
 													=" "
 													span.value=result.stats.rates.tot_rate
 
-											li
-												span
-													i(class="fa fa-wrench")
-													span nodo production (fix me)
-
-
 
 											li
 												i(class="fa fa-user")
 												=" "
-												a(href="/"+result.permalink+"/")=performer.display_name
+												a(href="/" + result.permalink + "/")=performer.display_name
+
+
+
+
+
 											each category in result.categories
 												if category.ancestors
 													each ancestor in category.ancestors
@@ -142,7 +176,7 @@ block content
 						h2=__("About")
 						!= _h.text.getTextFormat(result.text, config.lang, true)
 
-		if result.performances || result.partners || result.gallery
+	//	if result.performances || result.partners || result.gallery
 			.tabs-bkg
 				.container
 					// TABS
