@@ -33,6 +33,34 @@ module.exports = {
     });
     return groupedEvents;
   },
+
+  groupEventsByRoom: function(events) {
+    var groupedRooms = {};
+    events.forEach(function(event) {
+      if (groupedRooms[event.event_data.room] === undefined) {
+        groupedRooms[event.event_data.room] = [];
+      }
+      if (event.event_data.room !== null) {
+        //groupedRooms[event.event_data.room].push(event);
+      }
+    });
+    return groupedRooms;
+  },
+
+  groupEventsBycat: function(events) {
+    var groupedCat= {};
+    events.forEach(function(event) {
+      if (groupedCat[event.event_data.categories.permalink] === undefined) {
+        groupedCat[event.event_data.categories.permalink] = [];
+      }
+      if (event.event_data.categories.permalink !== null) {
+        //groupedRooms[event.event_data.room].push(event);
+      }
+    });
+    return groupedCat;
+  },
+
+
   pagination: function(link, skip, limit, total) {
     var pages = [];
     var total = Math.floor(total / limit);

@@ -89,5 +89,10 @@
 	" Share": " Share",
 	"Partecipate": "Partecipate",
 	"Schedule": "Schedule",
-	"+authors": "+authors"
+	"+authors": "+authors",
+	"all producion": "all producion",
+	"++ all producion ++": "++ all producion ++",
+	"++ all producion ++ (click to open popup)": "++ all producion ++ (click to open popup)",
+	"popup": "popup",
+	"[ + ]": "[ + ]"
 }
