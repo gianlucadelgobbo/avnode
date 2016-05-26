@@ -175,29 +175,35 @@ block content
 					.about_performer.readmore
 						h2=__("About")
 						!= _h.text.getTextFormat(result.text, config.lang, true)
-		.event_parameters_container
-			h3 dates
-			ul
+		.container
+			.event_parameters_container
+				h3 dates
+				ul
 
-			each day,date in _h.groupEventsByDayAndRoom(result.performances)
-				li=date
+				each day,date in _h.groupEventsByDayAndRoom(result.performances)
+					li=date
 
-		.event_parameters_container
-			h3 rooms
-			ul
-			each day,room in _h.groupEventsByRoom(result.performances)
-				if (room !== "null")
-					li=room
-		.event_parameters_container
-			h3 categories
-			ul
-			each day,cat in _h.groupEventsBycat(result.performances)
-				if (cat !== "null")
-					li=cat
+			.event_parameters_container
+				h3 rooms
+				ul
+				each day,room in _h.groupEventsByRoom(result.performances)
+					if (room !== "null")
+						li=room
+			.event_parameters_container
+				h3 categories
+				ul
+				- var categories_founded = []
+				each performance in result.performances
+					each category in performance.categories
+						- categories_founded.push(category.permalink)
+						- console.log(JSON.stringify(categories_founded, undefined, 4))
+				p= "categories founded "+categories_founded.length
+				P got a lot of duplicates... fix me!
 
-		//- console.log(JSON.stringify(result.performances, undefined, 4))
-		each node in result.performances[0].categories
-			- console.log(JSON.stringify(node, undefined, 4))
+
+
+
+
 
 		if result.performances || result.partners || result.gallery
 			.tabs-bkg
