@@ -62,7 +62,7 @@ block content
 											li
 												i.fa.fa-external-link
 												a(type='button', data-toggle='modal', data-target='#event_external_links')
-													=__(" Sites")
+													=__(" Webites & Socials")
 											li
 												i.fa.fa-share-alt
 												a(type='button', data-toggle='modal', data-target='#event_share')
@@ -180,26 +180,37 @@ block content
 				h3 dates
 				ul
 
-				each day,date in _h.groupEventsByDayAndRoom(result.performances)
+				each day,date in _h.groupPerformancesByDayAndRoom(result.performances)
 					li=date
 
 			.event_parameters_container
 				h3 rooms
-				ul
-				each day,room in _h.groupEventsByRoom(result.performances)
+				each day,room in _h.groupPerformancesByRoom(result.performances)
 					if (room !== "null")
 						li=room
 			.event_parameters_container
 				h3 categories
-				ul
-				- var categories_founded = []
-				each performance in result.performances
-					each category in performance.categories
-						- categories_founded.push(category.permalink)
-						- console.log(JSON.stringify(categories_founded, undefined, 4))
-				p= "categories founded "+categories_founded.length
-				P got a lot of duplicates... fix me!
+				- var categories_founded = _h.groupCategories(result.performances,"type")
 
+				- if (categories_founded !== {})
+					ul
+						each category in categories_founded
+							li= "category founded " + category.name + " " + category.permalink
+			.event_parameters_container
+				h3 Genres
+				- var genres_founded = _h.groupCategories(result.performances, "genere")
+				- if (genres_founded !== {})
+					ul
+						each genre in genres_founded
+							li= "genre founded " + genre.name + " " + genre.permalink
+			.event_parameters_container
+				h3 Technique
+				- var techniques_founded = _h.groupCategories(result.performances,"-technique")
+				- if (techniques_founded !== {})
+					ul
+						each technique in techniques_founded
+							li
+								a(href=technique.permalink)=technique.name
 
 
 
@@ -212,7 +223,13 @@ block content
 					ul.nav.nav-tabs.event_tabs
 						if result.performances
 							li.active
-								a(href="#performances", data-toggle="tab")=__("Schedule") + " (" + result.performances.length + ")"
+								a(href="#program", data-toggle="tab")=__("Program")
+						if categories_founded !== {}
+							li
+								a(href="#performances", data-toggle="tab")=__("Artists")
+						if categories_founded !== {}
+							li
+								a(href="#performances", data-toggle="tab")=__("Categories")
 						if result.partners
 							li
 								a(href="#partners", data-toggle="tab")=__("partners") + " (" + result.partners.length + ")"
@@ -223,11 +240,34 @@ block content
 					div
 						.tab-content
 							if result.performances
-								#performances.tab-pane.active
-									each day,date in _h.groupEventsByDayAndRoom(result.performances)
+								#program.tab-pane.active
+									- var groupedPerformances = _h.groupPerformancesByDayAndRoom(result.performances)
+									- if (groupedPerformances !== {})
+										ul.nav.nav-pills
+											- var a=0
+											each day,date in groupedPerformances
+												- if (date != "tobeconfirmed")
+													li(class=a==0 ? "active" : undefined)
+														a(href='#'+date)=_h.date.getEventDate(date)
+												- a++
+											- if (groupedPerformances["tobeconfirmed"].length)
+												li
+													a(href='#tobeconfirmed')=_('To be confirmed')
+									- var groupedPerformances = _h.groupPerformancesByRoom(result.performances)
+									- if (groupedPerformances !== {})
+										ul.nav.nav-pills
+											- var a=0
+											li.active
+												a(href='#all') All
+											each day,room in groupedPerformances
+												- if (room != "null")
+													li(class=a==0 ? "active" : undefined)
+														a(href='#' + room)=room
+												- a++
+									each day,date in groupedPerformances
 										.single_date_of_series
 											h3.col-sm-12
-												span=date
+												span=_h.date.getEventDate(date)
 										each rooms,name in day
 											div
 												h1=day[i]
