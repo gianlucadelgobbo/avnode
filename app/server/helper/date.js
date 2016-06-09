@@ -5,3 +5,8 @@ exports.getEventDate = function (date) {
 	//return moment(d).format("dddd, MMMM Do YYYY, h:mm");
 	return moment(d).format("dddd, MMMM Do YYYY");
 }
+
+exports.getPerformanceTime = function (date) {
+	//return moment(d).format("dddd, MMMM Do YYYY, h:mm");
+	return moment(date).format("hh:mm");
+}

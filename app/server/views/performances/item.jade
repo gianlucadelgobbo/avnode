@@ -6,7 +6,7 @@ mixin performance_item_content
 					//img.main_performace_image(src=file.file)
 					img.main_performance_image(src="http://img.dummy-image-generator.com/abstract/dummy-946x532-Stones.jpg")
 		a(href="/#{box.users[0].permalink}/performances/#{box.permalink}/", title=box.title)
-			h3.main_event_title.col-sm-12= box.title
+			h3.main_event_title.col-sm-12= box.title + " " + _h.date.getPerformanceTime(box.event_data.start_date)
 
 		.main_event_box
 			.main_event_details

@@ -18,23 +18,34 @@ module.exports = {
     });
     return groupedPartners;
   },
-  groupEventsByDayAndRoom: function(events) {
-    var groupedEvents = {};
+  groupCategories: function(performances, anc) {
+    var groupedCategories = {};
+    performances.forEach(function(performance) {
+      performance.categories.forEach(function(category) {
+        if (category.ancestors[0].permalink.indexOf(anc) !== -1) {
+          groupedCategories[category.permalink] = category;
+        }
+      });
+    });
+    return groupedCategories;
+  },
+  groupPerformancesByDayAndRoom: function(events) {
+    var groupedPerformances = {};
     events.forEach(function(event) {
-      if (groupedEvents[event.event_data.day] === undefined) {
-        groupedEvents[event.event_data.day] = {};
+      if (groupedPerformances[event.event_data.day] === undefined) {
+        groupedPerformances[event.event_data.day] = {};
       }
       if (event.event_data.room !== null) {
-        if (groupedEvents[event.event_data.day][event.event_data.room] === undefined) {
-          groupedEvents[event.event_data.day][event.event_data.room] = [];
+        if (groupedPerformances[event.event_data.day][event.event_data.room] === undefined) {
+          groupedPerformances[event.event_data.day][event.event_data.room] = [];
         }
-        groupedEvents[event.event_data.day][event.event_data.room].push(event);
+        groupedPerformances[event.event_data.day][event.event_data.room].push(event);
       }
     });
-    return groupedEvents;
+    return groupedPerformances;
   },
 
-  groupEventsByRoom: function(events) {
+  groupPerformancesByRoom: function(events) {
     var groupedRooms = {};
     events.forEach(function(event) {
       if (groupedRooms[event.event_data.room] === undefined) {
@@ -47,7 +58,7 @@ module.exports = {
     return groupedRooms;
   },
 
-  groupEventsBycat: function(events) {
+  groupPerformancesBycat: function(events) {
     var groupedCat= {};
     events.forEach(function(event) {
       if (groupedCat[event.event_data.categories.permalink] === undefined) {
