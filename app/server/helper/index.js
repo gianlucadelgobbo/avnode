@@ -18,54 +18,96 @@ module.exports = {
     });
     return groupedPartners;
   },
-  groupCategories: function(performances, anc) {
+  groupPerformancesByCategories: function(performances, anc) {
     var groupedCategories = {};
     performances.forEach(function(performance) {
       performance.categories.forEach(function(category) {
         if (category.ancestors[0].permalink.indexOf(anc) !== -1) {
-          groupedCategories[category.permalink] = category;
+          if (groupedCategories[category.permalink] === undefined) {
+            groupedCategories[category.permalink] = {category:category,list:[]};
+          }
+          groupedCategories[category.permalink].list.push(performance);
         }
+
       });
     });
     return groupedCategories;
   },
-  groupPerformancesByDayAndRoom: function(events) {
+  groupPerformancesByDayAndRoom: function(performances) {
     var groupedPerformances = {};
-    events.forEach(function(event) {
-      if (groupedPerformances[event.event_data.day] === undefined) {
-        groupedPerformances[event.event_data.day] = {};
+    performances.forEach(function(performance) {
+      if (groupedPerformances[performance.event_data.day] === undefined) {
+        groupedPerformances[performance.event_data.day] = {};
       }
-      if (event.event_data.room !== null) {
-        if (groupedPerformances[event.event_data.day][event.event_data.room] === undefined) {
-          groupedPerformances[event.event_data.day][event.event_data.room] = [];
+      if (performance.event_data.room !== null) {
+        if (groupedPerformances[performance.event_data.day][performance.event_data.room] === undefined) {
+          groupedPerformances[performance.event_data.day][performance.event_data.room] = [];
         }
-        groupedPerformances[event.event_data.day][event.event_data.room].push(event);
+        groupedPerformances[performance.event_data.day][performance.event_data.room].push(performance);
       }
     });
     return groupedPerformances;
   },
 
-  groupPerformancesByRoom: function(events) {
+  groupArtists: function(performances) {
+    var groupedArtists = {};
+    groupedArtists.stats = {
+      n:0,
+      countries:["Italy","Spain"],
+      types:{}
+    };
+    groupedArtists.list = [];
+    var groupedArtistsList = {};
+    performances.forEach(function(performance) {
+      performance.users.forEach(function(user) {
+        if (groupedArtistsList[user.permalink] === undefined) {
+          //console.log(user)
+          groupedArtistsList[user.permalink] = user;
+          performance.categories.forEach(function(category) {
+            if (category.ancestors[0].permalink.indexOf("type") !== -1) {
+              if (groupedArtists.stats.types[category.permalink] === undefined) {
+                groupedArtists.stats.types[category.permalink] = {n:1,name:category.name};
+              } else {
+                groupedArtists.stats.types[category.permalink].n++;
+              }
+            }
+          });
+          groupedArtists.stats.n += parseFloat(typeof(user.stats.members) != "undefined" ? user.stats.members : 1)
+        }
+      });
+    });
+    for(var aa in groupedArtistsList) groupedArtists.list.push(groupedArtistsList[aa]);
+    groupedArtists.list.sort(function(a,b) {
+      if ( a.display_name < b.display_name )
+        return -1;
+      if ( a.display_name > b.display_name )
+        return 1;
+      return 0;
+    });
+    return groupedArtists;
+  },
+
+  groupPerformancesByRoom: function(performances) {
     var groupedRooms = {};
-    events.forEach(function(event) {
-      if (groupedRooms[event.event_data.room] === undefined) {
-        groupedRooms[event.event_data.room] = [];
+    performances.forEach(function(performance) {
+      if (groupedRooms[performance.event_data.room] === undefined) {
+        groupedRooms[performance.event_data.room] = [];
       }
-      if (event.event_data.room !== null) {
-        //groupedRooms[event.event_data.room].push(event);
+      if (performance.event_data.room !== null) {
+        groupedRooms[performance.event_data.room].push(performance);
       }
     });
     return groupedRooms;
   },
 
-  groupPerformancesBycat: function(events) {
+  groupPerformancesBycat: function(performances) {
     var groupedCat= {};
-    events.forEach(function(event) {
-      if (groupedCat[event.event_data.categories.permalink] === undefined) {
-        groupedCat[event.event_data.categories.permalink] = [];
+    performances.forEach(function(performance) {
+      if (groupedCat[performance.event_data.categories.permalink] === undefined) {
+        groupedCat[performance.event_data.categories.permalink] = [];
       }
-      if (event.event_data.categories.permalink !== null) {
-        //groupedRooms[event.event_data.room].push(event);
+      if (performance.event_data.categories.permalink !== null) {
+        //groupedRooms[performance.event_data.room].push(performance);
       }
     });
     return groupedCat;
@@ -103,4 +145,4 @@ module.exports = {
     }
     return pages;
   }
-}
+};

@@ -177,20 +177,15 @@ block content
 						!= _h.text.getTextFormat(result.text, config.lang, true)
 		.container
 			.event_parameters_container
-				h3 dates
-				ul
-
-				each day,date in _h.groupPerformancesByDayAndRoom(result.performances)
-					li=date
-
-			.event_parameters_container
 				h3 rooms
-				each day,room in _h.groupPerformancesByRoom(result.performances)
-					if (room !== "null")
-						li=room
+				- var groupedPerformances = _h.groupPerformancesByRoom(result.performances)
+				- if(groupedPerformances)
+					each day,room in
+						if (room !== "null")
+							li=room
 			.event_parameters_container
 				h3 categories
-				- var categories_founded = _h.groupCategories(result.performances,"type")
+				- var categories_founded = _h.groupPerformancesByCategories(result.performances,"type")
 
 				- if (categories_founded !== {})
 					ul
@@ -198,19 +193,14 @@ block content
 							li= "category founded " + category.name + " " + category.permalink
 			.event_parameters_container
 				h3 Genres
-				- var genres_founded = _h.groupCategories(result.performances, "genere")
+				- var genres_founded = _h.groupPerformancesByCategories(result.performances, "genere")
 				- if (genres_founded !== {})
 					ul
 						each genre in genres_founded
 							li= "genre founded " + genre.name + " " + genre.permalink
 			.event_parameters_container
 				h3 Technique
-				- var techniques_founded = _h.groupCategories(result.performances,"-technique")
-				- if (techniques_founded !== {})
-					ul
-						each technique in techniques_founded
-							li
-								a(href=technique.permalink)=technique.name
+
 
 
 
@@ -226,10 +216,10 @@ block content
 								a(href="#program", data-toggle="tab")=__("Program")
 						if categories_founded !== {}
 							li
-								a(href="#performances", data-toggle="tab")=__("Artists")
+								a(href="#artists", data-toggle="tab")=__("Artists")
 						if categories_founded !== {}
 							li
-								a(href="#performances", data-toggle="tab")=__("Categories")
+								a(href="#categories", data-toggle="tab")=__("Categories")
 						if result.partners
 							li
 								a(href="#partners", data-toggle="tab")=__("partners") + " (" + result.partners.length + ")"
@@ -277,8 +267,38 @@ block content
 															h3.single_event-room_title=name
 													.grid.row.day_grid
 														each box in room
-															include ../../performances/item
-
+															//include ../../performances/item
+								#artists.tab-pane
+									- var groupedArtists = _h.groupArtists(result.performances)
+									- if (groupedArtists !== {})
+									//- console.log(groupedArtists.stats)
+									- var t = groupedArtists.stats.n;
+									- t+= " "+__("artists from")+" "+groupedArtists.stats.countries.length+" "+(groupedArtists.stats.countries.length==1 ? __("country") : __("countries"))+", "+groupedArtists.stats.countries.join(", ");
+									- t+= " "+__("playing")+" ";
+									- for(i in groupedArtists.stats.types) t+= groupedArtists.stats.types[i].n + " " + groupedArtists.stats.types[i].name+", ";
+									- t = t.substring(0,t.length-2);
+									p=t
+									.row
+										each artist in groupedArtists.list
+											//- console.log(artist)
+											.col-md-3
+												p=artist.display_name
+								#categories.tab-pane
+									- var categories_founded = _h.groupPerformancesByCategories(result.performances, "genere")
+									- if (categories_founded !== {})
+									- var first
+									ul.nav.nav-pills
+										- var a=0
+										each category in categories_founded
+											- if (a==0) first = category.category.permalink
+											li(class=a == 0 ? "active" : undefined)
+												a(href=category.category.permalink)=category.category.name
+											- a++
+									.row
+										each perf in categories_founded[first].list
+											- console.log(perf)
+											.col-md-3
+												p=perf.title
 							if result.partners
 								#partners.tab-pane
 									each type,name in _h.groupPartnersByType(result.partners)
