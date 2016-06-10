@@ -175,35 +175,6 @@ block content
 					.about_performer.readmore
 						h2=__("About")
 						!= _h.text.getTextFormat(result.text, config.lang, true)
-		.container
-			.event_parameters_container
-				h3 rooms
-				- var groupedPerformances = _h.groupPerformancesByRoom(result.performances)
-				- if(groupedPerformances)
-					each day,room in
-						if (room !== "null")
-							li=room
-			.event_parameters_container
-				h3 categories
-				- var categories_founded = _h.groupPerformancesByCategories(result.performances,"type")
-
-				- if (categories_founded !== {})
-					ul
-						each category in categories_founded
-							li= "category founded " + category.name + " " + category.permalink
-			.event_parameters_container
-				h3 Genres
-				- var genres_founded = _h.groupPerformancesByCategories(result.performances, "genere")
-				- if (genres_founded !== {})
-					ul
-						each genre in genres_founded
-							li= "genre founded " + genre.name + " " + genre.permalink
-			.event_parameters_container
-				h3 Technique
-
-
-
-
 
 
 		if result.performances || result.partners || result.gallery
