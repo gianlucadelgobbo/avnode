@@ -105,7 +105,7 @@ block content
 															!=_h.date.getEventDate(venue.date) + " | " + venue.start_time + " / " + venue.end_time + "<br />"
 														span
 															i(class="fa fa-map-marker")
-															!=venue.venue + " | " + venue.city + ", " + venue.country
+															!=venue.venue + " | " + venue.locality + ", " + venue.country
 
 				// Modal event external links
 				#event_external_links.modal.fade(role='dialog')
@@ -202,47 +202,42 @@ block content
 						.tab-content
 							if result.performances
 								#program.tab-pane.active
+									- var first
 									- var groupedPerformances = _h.groupPerformancesByDayAndRoom(result.performances)
 									- if (groupedPerformances !== {})
 										ul.nav.nav-pills
 											- var a=0
 											each day,date in groupedPerformances
+												- if (a==0) first = date
 												- if (date != "tobeconfirmed")
 													li(class=a==0 ? "active" : undefined)
 														a(href='#'+date)=_h.date.getEventDate(date)
 												- a++
-											- if (groupedPerformances["tobeconfirmed"].length)
+											- if (groupedPerformances["tobeconfirmed"] && groupedPerformances["tobeconfirmed"].length)
 												li
 													a(href='#tobeconfirmed')=_('To be confirmed')
-									- var groupedPerformances = _h.groupPerformancesByRoom(result.performances)
-									- if (groupedPerformances !== {})
+									- var groupedPerformancesByRoom = _h.groupPerformancesByRoom(result.performances)
+									- if (groupedPerformancesByRoom !== {})
 										ul.nav.nav-pills
-											- var a=0
 											li.active
 												a(href='#all') All
-											each day,room in groupedPerformances
+											each day,room in groupedPerformancesByRoom
 												- if (room != "null")
-													li(class=a==0 ? "active" : undefined)
+													li
 														a(href='#' + room)=room
 												- a++
-									each day,date in groupedPerformances
-										.single_date_of_series
-											h3.col-sm-12
-												span=_h.date.getEventDate(date)
-										each rooms,name in day
-											div
-												h1=day[i]
-												each room,name in day
-													.row
-														.col-md-12
-															h3.single_event-room_title=name
-													.grid.row.day_grid
-														each box in room
-															//include ../../performances/item
+									.single_date_of_series
+										h3
+											span=_h.date.getEventDate(first)
+									each room,roomname in groupedPerformances[first]
+										h3.single_event-room_title=roomname
+										.grid.row.day_grid
+											each box in room
+												include ../../performances/item
 								#artists.tab-pane
 									- var groupedArtists = _h.groupArtists(result.performances)
 									- if (groupedArtists !== {})
-									//- console.log(groupedArtists.stats)
+
 									- var t = groupedArtists.stats.n;
 									- t+= " "+__("artists from")+" "+groupedArtists.stats.countries.length+" "+(groupedArtists.stats.countries.length==1 ? __("country") : __("countries"))+", "+groupedArtists.stats.countries.join(", ");
 									- t+= " "+__("playing")+" ";
@@ -250,26 +245,26 @@ block content
 									- t = t.substring(0,t.length-2);
 									p=t
 									.row
-										each artist in groupedArtists.list
-											//- console.log(artist)
-											.col-md-3
-												p=artist.display_name
+										each box in groupedArtists.list
+											include ../../performers/item
 								#categories.tab-pane
-									- var categories_founded = _h.groupPerformancesByCategories(result.performances, "genere")
+									- var categories_founded = _h.groupPerformancesByCategories(result.performances, "type")
 									- if (categories_founded !== {})
 									- var first
 									ul.nav.nav-pills
 										- var a=0
 										each category in categories_founded
 											- if (a==0) first = category.category.permalink
+											- if (a==0) firstTitle = category.category.name
 											li(class=a == 0 ? "active" : undefined)
 												a(href=category.category.permalink)=category.category.name
 											- a++
+									.single_date_of_series
+										h3
+											span=firstTitle
 									.row
-										each perf in categories_founded[first].list
-											- console.log(perf)
-											.col-md-3
-												p=perf.title
+										each box in categories_founded[first].list
+												include ../../performances/item
 							if result.partners
 								#partners.tab-pane
 									each type,name in _h.groupPartnersByType(result.partners)

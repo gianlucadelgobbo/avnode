@@ -22,7 +22,7 @@ module.exports = {
     var groupedCategories = {};
     performances.forEach(function(performance) {
       performance.categories.forEach(function(category) {
-        if (category.ancestors[0].permalink.indexOf(anc) !== -1) {
+        if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink.indexOf(anc) !== -1) {
           if (groupedCategories[category.permalink] === undefined) {
             groupedCategories[category.permalink] = {category:category,list:[]};
           }
@@ -53,7 +53,7 @@ module.exports = {
     var groupedArtists = {};
     groupedArtists.stats = {
       n:0,
-      countries:["Italy","Spain"],
+      countries:[],
       types:{}
     };
     groupedArtists.list = [];
@@ -61,10 +61,9 @@ module.exports = {
     performances.forEach(function(performance) {
       performance.users.forEach(function(user) {
         if (groupedArtistsList[user.permalink] === undefined) {
-          //console.log(user)
           groupedArtistsList[user.permalink] = user;
           performance.categories.forEach(function(category) {
-            if (category.ancestors[0].permalink.indexOf("type") !== -1) {
+            if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink.indexOf("type") !== -1) {
               if (groupedArtists.stats.types[category.permalink] === undefined) {
                 groupedArtists.stats.types[category.permalink] = {n:1,name:category.name};
               } else {
@@ -72,7 +71,10 @@ module.exports = {
               }
             }
           });
-          groupedArtists.stats.n += parseFloat(typeof(user.stats.members) != "undefined" ? user.stats.members : 1)
+          user.locations.forEach(function(location) {
+            if (groupedArtists.stats.countries.indexOf(location.country) == -1) groupedArtists.stats.countries.push(location.country);
+          });
+          groupedArtists.stats.n += parseFloat(user.stats && typeof(user.stats.members) != "undefined" ? user.stats.members : 1)
         }
       });
     });
@@ -85,6 +87,15 @@ module.exports = {
       return 0;
     });
     return groupedArtists;
+  },
+
+  groupLocations: function(locations){
+    var groupedLocations = {};
+    locations.forEach(function(location) {
+      if (!groupedLocations[location.country]) groupedLocations[location.country] = [];
+      if (groupedLocations[location.country].indexOf(location.city) == -1) groupedLocations[location.country].push(location.city);
+    });
+    return groupedLocations;
   },
 
   groupPerformancesByRoom: function(performances) {

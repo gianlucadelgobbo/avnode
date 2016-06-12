@@ -53,6 +53,7 @@ module.exports = function(app) {
 
   app.get('/(:user)/events/(:event)/participate', userRoutes.participateAtUserEvent);
   app.get('/(:user)/events/(:event)', userRoutes.getUserEvent);
+  //app.get('/(:user)/events/(:event)/participate', userRoutes.getUserEventParticipate);
   app.get('/(:user)/performances/(:performance)', userRoutes.getUserPerformance);
   app.get('/(:user)/playlists/(:playlist)', userRoutes.getUserPlaylist);
   app.get('/(:user)/footage/(:footage)', userRoutes.getUserFootage);

@@ -1,3 +1,6 @@
+- console.log("box.")
+- console.log(box.title)
+- console.log(box)
 mixin performance_item_content
 	.box_wrapper
 		a(href="/#{box.users[0].permalink}/performances/#{box.permalink}/", title=box.title)
@@ -6,13 +9,16 @@ mixin performance_item_content
 					//img.main_performace_image(src=file.file)
 					img.main_performance_image(src="http://img.dummy-image-generator.com/abstract/dummy-946x532-Stones.jpg")
 		a(href="/#{box.users[0].permalink}/performances/#{box.permalink}/", title=box.title)
-			h3.main_event_title.col-sm-12= box.title + " " + _h.date.getPerformanceTime(box.event_data.start_date)
-
+			h3.main_event_title.col-sm-12= box.title
+		- console.log(box.event_data)
 		.main_event_box
 			.main_event_details
 				.col-sm-6.col-xs-12.col-md-12
+					ul.list-inline
+						li=box.event_data.room
+						li=_h.date.getPerformanceTime(box.event_data.start_date) + " | " + _h.date.getEventDate(box.event_data.start_date)
+				.col-sm-6.col-xs-12.col-md-12
 					ul.list-inline.performer_main_data
-
 						li.col-sm-12
 							if ( box.users.length > 1 )
 								i.fa.fa-caret-right(aria-hidden='true')
@@ -47,9 +53,14 @@ mixin performance_item_content
 				.col-sm-6.col-xs-12.col-md-12
 					ul.evidence-performance_categories.list-inline
 						each category in box.categories
-							li
-								i(class="fa fa-cube")
-								a(href="/#{category.permalink}", title=category.name)= category.name
+							- if (category.ancestors[0].permalink == "type")
+								li
+									i(class="fa fa-cube")
+									a(href="/#{category.permalink}", title=category.name)= category.name
+							- if (category.ancestors[0].permalink == "genere")
+								li
+									i(class="fa fa-cube")
+									a(href="/#{category.permalink}", title=category.name)= category.name
 
 
 if (col_number)

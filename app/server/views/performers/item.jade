@@ -10,7 +10,11 @@ mixin performer_item_content
 			h3.main_event_title.col-sm-12= box.display_name
 		.main_event_box
 			.main_event_details
-				ul
+				- var groupedLocations = _h.groupLocations(box.locations)
+
+				- for(var item in groupedLocations)
+					.col-sm-12!="<b>"+item+"</b>, " + groupedLocations[item].join(", ")
+				ul.col-sm-12
 					if box.stats.members
 						li= box.stats.members +__(" Members")
 					if(box.stats.performances)
