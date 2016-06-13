@@ -33,17 +33,52 @@ module.exports = {
     });
     return groupedCategories;
   },
-  groupPerformancesByDayAndRoom: function(performances) {
-    var groupedPerformances = {};
+  groupPerformancesByDayVenueRoom: function(performances) {
+    var groupedPerformances = {
+      venues: [],
+      dates: [],
+      rooms: [],
+      list: {},
+      tobeconfirmed: []
+    }
     performances.forEach(function(performance) {
-      if (groupedPerformances[performance.event_data.day] === undefined) {
-        groupedPerformances[performance.event_data.day] = {};
-      }
-      if (performance.event_data.room !== null) {
-        if (groupedPerformances[performance.event_data.day][performance.event_data.room] === undefined) {
-          groupedPerformances[performance.event_data.day][performance.event_data.room] = [];
+      var status;
+      for (var category in performance.event_data.categories){
+        if(performance.event_data.categories[category].ancestors && performance.event_data.categories[category].ancestors[0].permalink == "status") {
+          status = performance.event_data.categories[category].permalink;
         }
-        groupedPerformances[performance.event_data.day][performance.event_data.room].push(performance);
+      }
+      if (!status) {
+        groupedPerformances.tobeconfirmed.push(performance);
+      } else {
+        if (performance.event_data.day !== null && performance.event_data.venue !== null && performance.event_data.room !== null) {
+          if (groupedPerformances.list[performance.event_data.day] === undefined) {
+            groupedPerformances.list[performance.event_data.day] = {};
+          }
+          if (groupedPerformances.dates.indexOf(performance.event_data.day) === -1) {
+            groupedPerformances.dates.push(performance.event_data.day);
+          }
+
+          if (groupedPerformances.list[performance.event_data.day][performance.event_data.venue] === undefined) {
+            groupedPerformances.list[performance.event_data.day][performance.event_data.venue] = {};
+          }
+          if (groupedPerformances.venues.indexOf(performance.event_data.venue) === -1) {
+            groupedPerformances.venues.push(performance.event_data.venue);
+          }
+
+
+          if (groupedPerformances.list[performance.event_data.day][performance.event_data.venue][performance.event_data.room] === undefined) {
+            groupedPerformances.list[performance.event_data.day][performance.event_data.venue][performance.event_data.room] = [];
+          }
+          if (groupedPerformances.rooms.indexOf(performance.event_data.room) === -1) {
+            groupedPerformances.rooms.push(performance.event_data.room);
+          }
+          groupedPerformances.list[performance.event_data.day][performance.event_data.venue][performance.event_data.room].push(performance);
+        } else {
+          console.log("ERROR ERROR ERROR ERROR ERROR ERROR ");
+          console.log(performance);
+        }
+
       }
     });
     return groupedPerformances;
@@ -53,6 +88,7 @@ module.exports = {
     var groupedArtists = {};
     groupedArtists.stats = {
       n:0,
+      people:0,
       countries:[],
       types:{}
     };
@@ -74,7 +110,8 @@ module.exports = {
           user.locations.forEach(function(location) {
             if (groupedArtists.stats.countries.indexOf(location.country) == -1) groupedArtists.stats.countries.push(location.country);
           });
-          groupedArtists.stats.n += parseFloat(user.stats && typeof(user.stats.members) != "undefined" ? user.stats.members : 1)
+          groupedArtists.stats.n += parseFloat(user.stats && user.stats.members != 0 ? user.stats.members : 1)
+          groupedArtists.stats.people++
         }
       });
     });
