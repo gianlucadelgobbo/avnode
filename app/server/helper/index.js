@@ -18,148 +18,35 @@ module.exports = {
     });
     return groupedPartners;
   },
-  groupPerformancesByCategories: function(performances, anc) {
-    var groupedCategories = {};
-    performances.forEach(function(performance) {
-      performance.categories.forEach(function(category) {
-        if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink.indexOf(anc) !== -1) {
-          if (groupedCategories[category.permalink] === undefined) {
-            groupedCategories[category.permalink] = {category:category,list:[]};
-          }
-          groupedCategories[category.permalink].list.push(performance);
-        }
-
-      });
-    });
-    return groupedCategories;
-  },
-  groupPerformancesByDayVenueRoom: function(performances) {
-    var groupedPerformances = {
-      venues: [],
-      dates: [],
-      rooms: [],
-      list: {},
-      tobeconfirmed: []
-    }
-    performances.forEach(function(performance) {
-      var status;
-      for (var category in performance.event_data.categories){
-        if(performance.event_data.categories[category].ancestors && performance.event_data.categories[category].ancestors[0].permalink == "status") {
-          status = performance.event_data.categories[category].permalink;
-        }
+  groupEventsByDayAndRoom: function(events) {
+    var groupedEvents = {};
+    events.forEach(function(event) {
+      if (groupedEvents[event.event_data.day] === undefined) {
+        groupedEvents[event.event_data.day] = {};
       }
-      if (!status) {
-        groupedPerformances.tobeconfirmed.push(performance);
-      } else {
-        if (performance.event_data.day !== null && performance.event_data.venue !== null && performance.event_data.room !== null) {
-          if (groupedPerformances.list[performance.event_data.day] === undefined) {
-            groupedPerformances.list[performance.event_data.day] = {};
-          }
-          if (groupedPerformances.dates.indexOf(performance.event_data.day) === -1) {
-            groupedPerformances.dates.push(performance.event_data.day);
-          }
-
-          if (groupedPerformances.list[performance.event_data.day][performance.event_data.venue] === undefined) {
-            groupedPerformances.list[performance.event_data.day][performance.event_data.venue] = {};
-          }
-          if (groupedPerformances.venues.indexOf(performance.event_data.venue) === -1) {
-            groupedPerformances.venues.push(performance.event_data.venue);
-          }
-
-
-          if (groupedPerformances.list[performance.event_data.day][performance.event_data.venue][performance.event_data.room] === undefined) {
-            groupedPerformances.list[performance.event_data.day][performance.event_data.venue][performance.event_data.room] = [];
-          }
-          if (groupedPerformances.rooms.indexOf(performance.event_data.room) === -1) {
-            groupedPerformances.rooms.push(performance.event_data.room);
-          }
-          groupedPerformances.list[performance.event_data.day][performance.event_data.venue][performance.event_data.room].push(performance);
-        } else {
-          console.log("ERROR ERROR ERROR ERROR ERROR ERROR ");
-          console.log(performance);
+      if (event.event_data.room !== null) {
+        if (groupedEvents[event.event_data.day][event.event_data.room] === undefined) {
+          groupedEvents[event.event_data.day][event.event_data.room] = [];
         }
-
+        groupedEvents[event.event_data.day][event.event_data.room].push(event);
       }
     });
-    return groupedPerformances;
+    return groupedEvents;
   },
 
-  groupArtists: function(performances) {
-    var groupedArtists = {};
-    groupedArtists.stats = {
-      n:0,
-      people:0,
-      countries:[],
-      types:{}
-    };
-    groupedArtists.list = [];
-    var groupedArtistsList = {};
-    performances.forEach(function(performance) {
-      performance.users.forEach(function(user) {
-        if (groupedArtistsList[user.permalink] === undefined) {
-          groupedArtistsList[user.permalink] = user;
-          performance.categories.forEach(function(category) {
-            if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink.indexOf("type") !== -1) {
-              if (groupedArtists.stats.types[category.permalink] === undefined) {
-                groupedArtists.stats.types[category.permalink] = {n:1,name:category.name};
-              } else {
-                groupedArtists.stats.types[category.permalink].n++;
-              }
-            }
-          });
-          user.locations.forEach(function(location) {
-            if (groupedArtists.stats.countries.indexOf(location.country) == -1) groupedArtists.stats.countries.push(location.country);
-          });
-          groupedArtists.stats.n += parseFloat(user.stats && user.stats.members != 0 ? user.stats.members : 1)
-          groupedArtists.stats.people++
-        }
-      });
-    });
-    for(var aa in groupedArtistsList) groupedArtists.list.push(groupedArtistsList[aa]);
-    groupedArtists.list.sort(function(a,b) {
-      if ( a.display_name < b.display_name )
-        return -1;
-      if ( a.display_name > b.display_name )
-        return 1;
-      return 0;
-    });
-    return groupedArtists;
-  },
-
-  groupLocations: function(locations){
-    var groupedLocations = {};
-    locations.forEach(function(location) {
-      if (!groupedLocations[location.country]) groupedLocations[location.country] = [];
-      if (groupedLocations[location.country].indexOf(location.city) == -1) groupedLocations[location.country].push(location.city);
-    });
-    return groupedLocations;
-  },
-
-  groupPerformancesByRoom: function(performances) {
+  groupEventsByRoom: function(events) {
     var groupedRooms = {};
-    performances.forEach(function(performance) {
-      if (groupedRooms[performance.event_data.room] === undefined) {
-        groupedRooms[performance.event_data.room] = [];
+    events.forEach(function(event) {
+      if (groupedRooms[event.event_data.room] === undefined) {
+        groupedRooms[event.event_data.room] = [];
       }
-      if (performance.event_data.room !== null) {
-        groupedRooms[performance.event_data.room].push(performance);
+      if (event.event_data.room !== null) {
+        //groupedRooms[event.event_data.room].push(event);
       }
     });
     return groupedRooms;
   },
-
-  groupPerformancesBycat: function(performances) {
-    var groupedCat= {};
-    performances.forEach(function(performance) {
-      if (groupedCat[performance.event_data.categories.permalink] === undefined) {
-        groupedCat[performance.event_data.categories.permalink] = [];
-      }
-      if (performance.event_data.categories.permalink !== null) {
-        //groupedRooms[performance.event_data.room].push(performance);
-      }
-    });
-    return groupedCat;
-  },
+  
 
 
   pagination: function(link, skip, limit, total) {
@@ -193,4 +80,4 @@ module.exports = {
     }
     return pages;
   }
-};
+}
