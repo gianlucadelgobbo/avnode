@@ -51,6 +51,66 @@ block content
 																				li
 																					a(href="/#{box.permalink}")
 																						span= box.display_name
+
+									// Modal event external links
+									div#event_external_links.modal.fade(role='dialog')
+										.modal-dialog
+											// Modal content
+											.modal-content
+												.modal-header
+													button.close(type='button', data-dismiss='modal') ×
+													h4= result.title + " links"
+												.modal-body
+													ul.list-inline
+														each url in result.websites
+															li
+																i.fa.fa-external-link
+																a(href=url,target="_blank")
+																	=" website"
+														li
+															a(href="#")
+																i.fa.fa-facebook-official(aria-hidden='true')
+														li
+															a(href="#")
+																i.fa.fa-twitter(aria-hidden='true')
+														li
+															a(href="#")
+																i.fa.fa-vimeo(aria-hidden='true')
+
+									// Modal event external links
+									div#event_share.modal.fade(role='dialog')
+										#fb-root
+											script.
+												(function (d, s, id) {
+													var js, fjs = d.getElementsByTagName(s)[0];
+													if (d.getElementById(id)) return;
+													js = d.createElement(s);
+													js.id = id;
+													js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v2.6&appId=1725376071051640";
+													fjs.parentNode.insertBefore(js, fjs);
+												}(document, 'script', 'facebook-jssdk'));
+										.modal-dialog
+											// Modal content
+											.modal-content
+												.modal-header
+													button.close(type='button', data-dismiss='modal') ×
+													h4= "Share " + result.title
+												.modal-body
+													.fb-like(data-href='https://developers.facebook.com/docs/plugins/', data-layout='standard', data-action='like', data-show-faces='true', data-share='true')
+													ul.list-inline
+														li
+															a(href="#")
+																i.fa.fa-facebook-official(aria-hidden='true')
+														li
+															a(href="#")
+																i.fa.fa-twitter(aria-hidden='true')
+														li
+															a(href="#")
+																i.fa.fa-vimeo(aria-hidden='true')
+
+												.modal-footer
+													button.btn.btn-default(type='button', data-dismiss='modal') Close
+
 									ul.list-inline.single_event_details
 										if result.websites
 											li
@@ -220,60 +280,4 @@ block content
 										.row.main-list.grid_tab.grid
 											each box in result.gallery
 												include ../../gallery/item
-// Modal event external links
-#event_external_links.modal.fade(role='dialog')
-	.modal-dialog
-		// Modal content
-		.modal-content
-			.modal-header
-				button.close(type='button', data-dismiss='modal') ×
-				h4= result.title + " links"
-			.modal-body
-				ul.list-inline
-					each url in result.websites
-						li
-							i.fa.fa-external-link
-							a(href=url,target="_blank")
-								=" website"
-					li
-						a(href="#")
-							i.fa.fa-facebook-official(aria-hidden='true')
-					li
-						a(href="#")
-							i.fa.fa-twitter(aria-hidden='true')
-					li
-						a(href="#")
-							i.fa.fa-vimeo(aria-hidden='true')
-// Modal event external links
-#event_share.modal.fade(role='dialog')
-	#fb-root
-		script.
-			(function (d, s, id) {
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) return;
-				js = d.createElement(s);
-				js.id = id;
-				js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v2.6&appId=1725376071051640";
-				fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));
-	.modal-dialog
-		// Modal content
-		.modal-content
-			.modal-header
-				button.close(type='button', data-dismiss='modal') ×
-				h4= "Share " + result.title
-			.modal-body
-				.fb-like(data-href='https://developers.facebook.com/docs/plugins/', data-layout='standard', data-action='like', data-show-faces='true', data-share='true')
-				ul.list-inline
-					li
-						a(href="#")
-							i.fa.fa-facebook-official(aria-hidden='true')
-					li
-						a(href="#")
-							i.fa.fa-twitter(aria-hidden='true')
-					li
-						a(href="#")
-							i.fa.fa-vimeo(aria-hidden='true')
 
-			.modal-footer
-				button.btn.btn-default(type='button', data-dismiss='modal') Close
