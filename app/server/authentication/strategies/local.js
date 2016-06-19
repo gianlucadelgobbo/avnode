@@ -6,20 +6,38 @@ var User = require('../../models/user');
 module.exports = new LocalStrategy(function(username, password, done) {
   User.findOne({'login': username}, function(err, user) {
     if (err) {
+      console.log('Error');
+      console.log(err);
       return done(err, null);
     }
     if (!user) {
-      return done(null, false, { message: 'Incorrect username' });
+      console.log('User not found');
+      return done(null, false, {message:"User not found"});
     }
-    if (user) {
+    if (user.password) {
       console.log('compare');
       user.comparePassword(password, function(err, isMatch) {
         if (err || !isMatch) {
-          tryFlxer(username, password, function(res, isMatch) {
-            console.log("compare flxer 2"+password);
-          });
+          console.log('Wrong password');
+          return done(null, false, {message:"Wrong password"});
+        } else {
+          console.log('Login OK');
+          return done(null, user);
         }
-        return done(null, user);
+      });
+    } else {
+      console.log('Compare FLxER');
+      tryFlxer(username, password, function(res, isMatch) {
+        console.log("compare FLxER 2"+password);
+        console.log(res);
+        console.log(isMatch);
+        if (res.login === true) {
+          console.log('Login FLxER OK');
+          return done(null, user);
+        } else {
+          console.log('Login FLxER FAILED');
+          return done(null, false, {message:"Login Failed"});
+        }
       });
     }
   });
