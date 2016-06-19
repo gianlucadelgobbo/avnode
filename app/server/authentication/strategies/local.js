@@ -15,11 +15,9 @@ module.exports = new LocalStrategy(function(username, password, done) {
       console.log('compare');
       user.comparePassword(password, function(err, isMatch) {
         if (err || !isMatch) {
-          //tryFlxer(username, password, function(err, isMatch) {
-          //  console.log(err, isMatch);
-          //});
-          return done(null, false, { message: 'Incorrect password' });
-          // try against flxer
+          tryFlxer(username, password, function(res, isMatch) {
+            console.log("compare flxer 2"+password);
+          });
         }
         return done(null, user);
       });
@@ -35,6 +33,6 @@ var tryFlxer = function(username, password, cb) {
     body: querystring.stringify({login:username, password:password})
   }, function(err, res, body){
     var response = JSON.parse(body);
-    console.log(response);
+    cb(response);
   });
 };

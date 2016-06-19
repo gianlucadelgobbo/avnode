@@ -50,7 +50,6 @@ mixin performance_item_content
 				.col-sm-6.col-xs-12.col-md-12
 					ul.evidence-performance_categories.list-inline
 						each category in box.categories
-							- console.log(category)
 							- if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink == "type")
 								li
 									i(class="fa fa-cube")
