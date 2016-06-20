@@ -27,12 +27,11 @@ module.exports = new LocalStrategy(function(username, password, done) {
       });
     } else {
       console.log('Compare FLxER');
-      tryFlxer(username, password, function(res, isMatch) {
-        console.log("compare FLxER 2"+password);
+      tryFlxer(username, password, function(res) {
         console.log(res);
-        console.log(isMatch);
         if (res.login === true) {
           console.log('Login FLxER OK');
+          // SAVE PASSWORD !!!
           return done(null, user);
         } else {
           console.log('Login FLxER FAILED');
