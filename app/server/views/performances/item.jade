@@ -20,8 +20,8 @@ mixin performance_item_content
 							if ( box.users.length > 1 )
 								i.fa.fa-caret-right(aria-hidden='true')
 								a.performance_owner(type='button', data-toggle='modal', data-target='##{box.users[0].permalink}')
-									span= __("+authors")
-									span= " [ " + box.users.length + " ]"
+									span=box.users[0].display_name
+									span.more_artist= "{ + " + box.users.length + " }"
 								// performance authors modal
 								div.modal.fade(id='#{box.users[0].permalink}', role='dialog')
 									.modal-dialog
@@ -37,7 +37,25 @@ mixin performance_item_content
 																span= user.display_name
 							else
 								i.fa.fa-caret-right(aria-hidden='true')
-								a.performance_owner(href="/#{box.users[0].permalink}", title=box.users[0].display_name)= box.users[0].display_name
+								a.performance_owner(type='button', data-toggle='modal', data-target='##{box.users[0].permalink}')= box.users[0].display_name
+								// performer single modal
+								div.modal.fade(id='#{box.users[0].permalink}', role='dialog')
+									.modal-dialog
+										.modal-content
+											.modal-header
+												button.close(type='button', data-dismiss='modal') ×
+												h4= box.users[0].display_name
+											.modal-body
+												ul
+													li="country: "+box.users[0].locations[0].country
+													li="city: "+box.users[0].locations[0].city
+													li
+														a(href='#{box.users[0].permalink}')="Link to performer page"
+													li
+														- if (box.files && box.files.length)
+															each file, i in box.files
+																if i === 0
+																p="src: "+file.file
 
 						li.evidence-performance_stats.evidence-performance_stats_visits
 							span
@@ -52,7 +70,7 @@ mixin performance_item_content
 						each category in box.categories
 							- if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink == "type")
 								li
-									i(class="fa fa-cube")
+									i(class="fa fa-gamepad")
 									a(href="/#{category.permalink}", title=category.name)= category.name
 							- if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink == "genere")
 								li

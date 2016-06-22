@@ -1288,6 +1288,10 @@ li {
   border: none;
   margin: 0;
 }
+.more_artist {
+  color: #0f8fcf;
+  margin-left: 5px;
+}
 .nav-tabs>li>a {
   border-radius: 0;
   color: #e4811e;
@@ -1372,6 +1376,22 @@ li {
 .btn-info.paticipate:hover {
   background: #fff;
   color: #e4811e;
+}
+.grouped_infos a {
+  color: #333;
+  background: #eee;
+  font-size: 12px;
+  padding: 3px 5px;
+  border-bottom: 2px solid #e2e2e2;
+}
+.grouped_infos .active a {
+  border-bottom: 2px solid #0f8fcf;
+}
+.grouped_infos li {
+  margin-bottom: 10px;
+}
+.title_grouped_infos {
+  text-transform: uppercase;
 }
 .website,
 .phonenumber {

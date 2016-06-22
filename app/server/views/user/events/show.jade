@@ -195,7 +195,8 @@ block content
 							if result.performances
 								#program.tab-pane.active
 									- if (groupedPerformances.dates.length > 1)
-										ul.nav.nav-pills
+										p=title_grouped_infos="Days"
+										ul.list-inline.grouped_dates.grouped_infos
 											li.active
 												a(href='#all')=__("All days")
 											each date in groupedPerformances.dates
@@ -204,15 +205,17 @@ block content
 											- if (groupedPerformances["tobeconfirmed"] && groupedPerformances["tobeconfirmed"].length)
 												li
 													a(href='#tobeconfirmed')=__('To be confirmed')
-									- if (groupedPerformances.venues.length)
-										ul.nav.nav-pills
+									- if (groupedPerformances.venues.length > 1) // if there are at least two venues
+										p=title_grouped_infos = "Venues"
+										ul.list-inline.grouped_venues.grouped_infos
 											li.active
 												a(href='#all')=__("All venues")
 											each venue in groupedPerformances.venues
 												li
 													a(href='#' + venue)=venue
 									- if (groupedPerformances.rooms.length)
-										ul.nav.nav-pills
+										p=title_grouped_infos = "Rooms"
+										ul.list-inline.grouped_rooms.grouped_infos
 											li.active
 												a(href='#all')=__("All rooms")
 											each room in groupedPerformances.rooms

@@ -76,7 +76,7 @@ module.exports = {
           groupedPerformances.list[performance.event_data.day][performance.event_data.venue][performance.event_data.room].push(performance);
         } else {
           console.log("ERROR ERROR ERROR ERROR ERROR ERROR ");
-          console.log(performance);
+          
         }
 
       }
@@ -194,4 +194,3 @@ module.exports = {
     return pages;
   }
 };
-
