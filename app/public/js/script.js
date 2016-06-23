@@ -40,7 +40,6 @@ $('.grid').imagesLoaded(function() {
 });
 
 
-// isotope layout in user page app/server/views/user/show.jade
 $('.grid-user').imagesLoaded(function() {
 	$('.grid-user').isotope({
 		// options
