@@ -149,17 +149,23 @@ block content
 																i(class="fa fa-cube")
 																=" "
 																a(href="/events/#{category.permalink}")=category.name
-									.row.event_events_list.grid
-										if result.date_time_venue
-											each date_time_venue in result.date_time_venue
-												.col-sm-4.grid-item
-													.event_list_content_container
-														span
-															i(class="fa fa-clock-o")
-															!=_h.date.getEventDate(date_time_venue.date) + " | " + date_time_venue.start_time + " / " + date_time_venue.end_time + "<br />"
-														span
-															i(class="fa fa-map-marker")
-															!=date_time_venue.venue + " | " + date_time_venue.locality + ", " + date_time_venue.country
+									.row
+										.col-sm-8
+											.row.event_events_list.grid
+												if result.date_time_venue
+													each date_time_venue in result.date_time_venue
+														.col-sm-4.grid-item
+															.event_list_content_container
+																span
+																	i(class="fa fa-clock-o")
+																	!=_h.date.getEventDate(date_time_venue.date) + " | " + date_time_venue.start_time + " / " + date_time_venue.end_time + "<br />"
+																span
+																	i(class="fa fa-map-marker")
+																	!=date_time_venue.venue + " | " + date_time_venue.locality + ", " + date_time_venue.country
+										.col-sm-4
+											.event_map
+												img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?size=640x400&center=#{result.date_time_venue[0].locality},#{result.date_time_venue[0].country}&zoom=4&size=262x110&markers=#{result.date_time_venue[0].locality},#{result.date_time_venue[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
+
 
 		if result.text
 			.about-bkg
