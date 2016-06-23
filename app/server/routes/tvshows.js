@@ -28,31 +28,33 @@ exports.get = function get(req, res) {
 
   var path = '/' + section + '/' + _.map(req.params, function(p) { return p; }).join('/') + '/';
 	path = path.replace('//', '/');
-
+	console.log(query);
+	console.log(Tvshow);
 	Tvshow.count(query, function(error, total) {
 		Tvshow.find(query)
 		.limit(config.sections[section].limit)
 		.skip(skip)
 		.sort(config.sections[section].sortQ[sorting])
 		.exec(function(error, tvshow) {
-      var title = config.sections[section].title;
-      var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
-      var link = '/' + section + '/' + filter + "/" + sorting + "/";
-      var pages = _h.pagination(link, skip, config.sections[section].limit, total);
+
+			var title = config.sections[section].title;
+			var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
+			var link = '/' + section + '/' + filter + "/" + sorting + "/";
+			var pages = _h.pagination(link, skip, config.sections[section].limit, total);
 			res.render(section + '/list', {
 				title: title,
-        info: info,
+				info: info,
 				section: section,
 				total: total,
 				path: path,
 				sort: sorting,
 				filter: filter,
 				skip: skip,
-        page: page,
-        pages: pages,
+				page: page,
+				pages: pages,
 				result: tvshow,
-        categories: config.sections[section].categories,
-        orderings: config.sections[section].orders,
+				categories: config.sections[section].categories,
+				orderings: config.sections[section].orders,
 				user: req.user
 			});
 		});

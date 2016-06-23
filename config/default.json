@@ -511,7 +511,7 @@
         "all": "All"
       }
     },
-    "galleries": {
+    "gallery": {
       "title": "Gallery",
       "limit": 20,
       "basepath": "galleries",

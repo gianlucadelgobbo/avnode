@@ -10,10 +10,11 @@ mixin performance_item_content
 			h3.main_event_title.col-sm-12= box.title
 		.main_event_box
 			.main_event_details
-				.col-sm-6.col-xs-12.col-md-12
-					ul.list-inline
-						li=box.event_data.room
-						li=_h.date.getPerformanceTime(box.event_data.start_date) + " | " + _h.date.getEventDate(box.event_data.start_date)
+				- if (box.event_data)
+					.col-sm-6.col-xs-12.col-md-12
+						ul.list-inline
+							li=box.event_data.room
+							li=_h.date.getPerformanceTime(box.event_data.start_date) + " | " + _h.date.getEventDate(box.event_data.start_date)
 				.col-sm-6.col-xs-12.col-md-12
 					ul.list-inline.performer_main_data
 						li.col-sm-12
