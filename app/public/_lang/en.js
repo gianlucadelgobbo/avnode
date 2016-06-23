@@ -151,7 +151,7 @@ var label_ctr_crew_members_16={"code0":"Member already added"};
 var label_ctr_crew_websiteDeleteConfirmMsg_17={"code0":"Are you sure you want to delete this website?"};
 var label_ctr_crew_member_18={"code0":"Are you sure you want to delete this member from your group?","code1":"Pending confirmation"};
 /* gallery */
-var label_gallery_edit={"code0":"Are you sure you want to delete this gallery?","code1":"Are you sure you want to delete this content?","code2":"Saving ...","code3":"Wait for the preparation of the ZIP file"};
+var label_gallery_edit={"code0":"Are you sure you want to delete this galleries?","code1":"Are you sure you want to delete this content?","code2":"Saving ...","code3":"Wait for the preparation of the ZIP file"};
 
 /* playlist */
 var label_playlist_new={"code0":"The File field is required","code1":"There must be at least 5 files found in the Footage"};

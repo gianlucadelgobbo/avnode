@@ -15,7 +15,7 @@ exports.get = function get(req, res) {
 	var params = _.filter(req.params, function(v, k) {
 		return (k === 'filter' || k === 'page' || k === 'sorting');
 	});
-	var section = 'gallery';
+	var section = 'galleries';
 	var page = req.params.page || 1;
 	var skip = (page - 1) * config.sections[section].limit;
 	var filter = req.params.filter || config.sections[section].categories[0];
@@ -42,18 +42,18 @@ exports.get = function get(req, res) {
       var pages = _h.pagination(link, skip, config.sections[section].limit, total);
 			res.render(section + '/list', {
 				title: title,
-        info: info,
+        		info: info,
 				section: section,
 				total: total,
 				path: path,
 				sort: sorting,
 				filter: filter,
 				skip: skip,
-        page: page,
-        pages: pages,
+        		page: page,
+        		pages: pages,
 				result: galleries,
-        categories: config.sections[section].categories,
-        orderings: config.sections[section].orders,
+       			categories: config.sections[section].categories,
+        		orderings: config.sections[section].orders,
 				user: req.user
 			});
 		});

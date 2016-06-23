@@ -81,8 +81,8 @@ block user-content
 								each box, i in performer.gallery
 									if (i > 0 && i < 5)
 										- var col_number = "col-xs-6"
-										include ../gallery/item
+										include ../galleries/item
 						.more_playlist.more_button.col-sm-12
-							a(href="/#{performer.permalink}/gallery")(title=__("More gallery from ") + performer.display_name)
+							a(href="/#{performer.permalink}/galleries")(title=__("More galleries from ") + performer.display_name)
 								=__("More Gallery")
 								span=__("+")

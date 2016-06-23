@@ -1,5 +1,5 @@
 mixin gallery_item_content
-	a(href="/#{box.users[0].permalink}/gallery/#{box.permalink}/", title=box.title)
+	a(href="/#{box.users[0].permalink}/galleries/#{box.permalink}/", title=box.title)
 		.image_box.wrapper_item
 			each file, i in box.files
 				if i === 0

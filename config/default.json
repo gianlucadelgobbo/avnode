@@ -511,12 +511,12 @@
         "all": "All"
       }
     },
-    "gallery": {
-      "title": "Gallery",
+    "galleries": {
+      "title": "Galleries",
       "limit": 20,
       "basepath": "galleries",
       "coll": "gallery",
-      "view_list": "gallery",
+      "view_list": "galleries",
       "list_fields": {
         "title":1,
         "users":1,

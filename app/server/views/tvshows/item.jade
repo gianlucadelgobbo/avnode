@@ -1,34 +1,36 @@
 mixin tvshow_item_content
-	a(href="/#{box.users[0].permalink}/tvshows/#{box.permalink}/", title=box.title)
-		.image_box.wrapper_item
-			each file, i in box.files
-				if i === 0
-					// FIXME
-					img.media-obejct(alt=box.title, src="img/default_tvshow.jpg")
-			.footage_stats.box_stats.overlay_wrapper_top
-				// MISSING DATA: LIKES, CATEGORY/TAG, THUMBNAIL
-				ul.list-inline
-					li
-						i(class="fa fa-download")
-						span= box.stats.downloads
-					li
-						i(class="fa fa-eye")
-						span= box.stats.visits
-					li
-						i(class="fa fa-heart")
-						span 99
-					li
-						i(class="fa fa-video-camera")
-						span 99
-			.title_and_info_container.overlay_wrapper
-				h3= box.title
-				ul.list-inline.box_other_infos
-					li
-						i(class="fa fa-tags")
-							- if(box.tags)
-								- for (var t=0;t<box.tags.length;t++) {
-									span= box.tags[t] + " "
-							- }
+	- if(box.users.length)
+		a(href="/#{box.users[0].permalink}/tvshows/#{box.permalink}/", title=box.title)
+
+			.image_box.wrapper_item
+				each file, i in box.files
+					if i === 0
+						// FIXME
+						img.media-obejct(alt=box.title, src="img/default_tvshow.jpg")
+				.footage_stats.box_stats.overlay_wrapper_top
+					// MISSING DATA: LIKES, CATEGORY/TAG, THUMBNAIL
+					ul.list-inline
+						li
+							i(class="fa fa-download")
+							span= box.stats.downloads
+						li
+							i(class="fa fa-eye")
+							span= box.stats.visits
+						li
+							i(class="fa fa-heart")
+							span 99
+						li
+							i(class="fa fa-video-camera")
+							span 99
+				.title_and_info_container.overlay_wrapper
+					h3= box.title
+					ul.list-inline.box_other_infos
+						li
+							i(class="fa fa-tags")
+								- if(box.tags)
+									- for (var t=0;t<box.tags.length;t++) {
+										span= box.tags[t] + " "
+								- }
 
 if (col_number)
 	div.list_item_performer.grid-item.tvshows_footage(class= col_number)

@@ -194,7 +194,7 @@ block content
 								a(href="#partners", data-toggle="tab")=__("partners") + " (" + result.partners.length + ")"
 						if result.gallery.length
 							li
-								a(href="#gallery", data-toggle="tab")=__("gallery") + " (" + result.gallery.length + ")"
+								a(href="#galleries", data-toggle="tab")=__("gallery") + " (" + result.gallery.length + ")"
 
 					div
 						.tab-content
@@ -288,5 +288,5 @@ block content
 									.container
 										.row.main-list.grid_tab.grid
 											each box in result.gallery
-												include ../../gallery/item
+												include ../../galleries/item
 
