@@ -35,25 +35,26 @@ exports.get = function get(req, res) {
 		.skip(skip)
 		.sort(config.sections[section].sortQ[sorting])
 		.exec(function(error, performer) {
-      var title = config.sections[section].title;
-      var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
-      var link = '/' + section + '/' + filter + "/" + sorting + "/";
-      var pages = _h.pagination(link, skip, config.sections[section].limit, total);
+			var title = config.sections[section].title;
+			var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
+			var link = '/' + section + '/' + filter + "/" + sorting + "/";
+			var pages = _h.pagination(link, skip, config.sections[section].limit, total);
 			res.render(section + '/list', {
 				title: title,
-        info: info,
+        		info: info,
 				section: section,
 				total: total,
 				path: path,
 				sort: sorting,
 				filter: filter,
 				skip: skip,
-        page: page,
-        pages: pages,
+				page: page,
+				pages: pages,
 				result: performer,
-        categories: config.sections[section].categories,
-        orderings: config.sections[section].orders,
-				user: req.user
+				categories: config.sections[section].categories,
+				orderings: config.sections[section].orders,
+				user: req.user,
+				_h: _h
 			});
 		});
 	});

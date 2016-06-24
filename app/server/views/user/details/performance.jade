@@ -1,0 +1,59 @@
+extends ../layout_user_two_columns
+block user-content
+	- var groupedCategories = _h.groupPerformanceCategories(result.categories)
+	//- console.log(groupedCategories)
+
+	h1=result.title
+	ul
+		li
+			h3="page title: "
+			=title
+		li
+			h3="title: "
+			p=result.title
+		li
+			h3="image src: "
+			=result.files[0].file
+			- console.log(result.files[0])
+			img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src=_h.media.getFileFormat(result.files[0].file, config.sections[section].thumbnails.detail))
+
+		li
+			h3="text: "
+			=result.text.en
+		li
+			h3="Stats: "
+			p="visits: "+result.stats.visits
+			p="rate: "+result.stats.rates.stars
+			p="total rates: "+result.stats.rates.tot_rate
+		li
+			h3="Categories: "
+			p="type: "+groupedCategories.type.name
+			p="genre: " + groupedCategories.genre.name
+			p="technique: "+groupedCategories.technique.name
+		li
+			h2="Users: "
+			- for(var a=0; a<result.users.length; a++)
+				ol
+					li
+						="name: "+result.users[a].display_name
+					li
+						="permalink: "+result.users[a].permalink
+		li
+			h3="events: "
+			//p=result.events[0].users[0].display_name
+
+			- for(var a=0; a<result.events.length; a++)
+				p=result.events[a].title
+		li
+			h3="galleries: "
+			//p=result.events[0].users[0].display_name
+
+			- for(var a=0; a<result.gallery.length; a++)
+				p=result.gallery[a].title
+
+
+
+.pre
+		!=result
+	//-console.log(JSON.stringify(result, null, 20));
+	//- for(item in result) console.log(result[item]);

@@ -7,9 +7,7 @@ block content
 				.row
 					.col-md-12
 						.single_event_thumb_container.wrapper_item
-							//.image
-							//	img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src=_h.media.getFileFormat(result.files, 400, 300))
-							img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src='http://www.wallpaperawesome.com/wallpapers-awesome/wallpapers-for-monitors-widescreen-panoramic-16-9-awesome/triangles-abstract-awesome.jpg')
+							img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src=_h.media.getFileFormat(result.files[0].file, config.sections[section].thumbnails.detail))
 
 							.row
 								.overlay_container.overlay_wrapper

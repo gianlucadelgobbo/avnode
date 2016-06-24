@@ -213,7 +213,7 @@
         "corporate",
         "festival",
         "one-night",
-        "television", 
+        "television",
         "workshops-learning"
       ],
       "searchQ": {
@@ -232,7 +232,7 @@
         },
         "television": {
           "categories.permalink": "television"
-        }, 
+        },
         "workshops-learning": {
           "categories.permalink": "workshops-learning"
         }
@@ -258,7 +258,7 @@
         "corporate": "Corporate",
         "festival": "Festival",
         "one-night": "One night",
-        "television": "Television", 
+        "television": "Television",
         "workshops-learning": "Workshops & learning"
       },
       "subsections":{
@@ -317,12 +317,12 @@
         "workshop": {
           "categories.permalink": "workshop"
         },
-      "project-showcase": {
-        "categories.permalink": "project-showcase"
-      },
-      "dj-set": {
-        "categories.permalink": "dj-set"
-      }
+        "project-showcase": {
+          "categories.permalink": "project-showcase"
+        },
+        "dj-set": {
+          "categories.permalink": "dj-set"
+        }
       },
       "sortQ": {
         "mostrecent": {

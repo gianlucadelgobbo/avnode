@@ -33,10 +33,11 @@ exports.getUser = function get(req, res) {
   });
 };
 
-var localsList = function(user, req) {
+var localsList = function(user, req, sez) {
   return {
-    title: user.display_name,
+    title: config.sections[sez].title + " | " + user.display_name,
     performer: user,
+    section: sez,
     user: req.user,
     _h: _h
   }
@@ -46,7 +47,7 @@ exports.getUserEvents = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    res.render('user/sections/events', localsList(user, req));
+    res.render('user/sections/events', localsList(user, req, "events"));
   });
 }
 
@@ -54,7 +55,7 @@ exports.getUserPerformances = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    res.render('user/sections/performances', localsList(user, req));
+    res.render('user/sections/performances', localsList(user, req, "performances"));
   });
 }
 
@@ -62,7 +63,7 @@ exports.getUserTvshows = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
     .exec(function(error, user) {
-      res.render('user/sections/tvshows', localsList(user, req));
+      res.render('user/sections/tvshows', localsList(user, req, "tvshows"));
     });
 }
 
@@ -70,7 +71,7 @@ exports.getUserFootages = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
     .exec(function(error, user) {
-      res.render('user/sections/footages', localsList(user, req));
+      res.render('user/sections/footages', localsList(user, req, "footage"));
     });
 }
 
@@ -78,7 +79,7 @@ exports.getUserPlaylists = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    res.render('user/sections/playlists', localsList(user, req));
+    res.render('user/sections/playlists', localsList(user, req, "playlists"));
   });
 }
 
@@ -87,7 +88,7 @@ exports.getUserGalleries = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    res.render('user/sections/galleries', localsList(user, req));
+    res.render('user/sections/galleries', localsList(user, req, "galleries"));
   });
 }
 
@@ -95,14 +96,15 @@ exports.getUserCrews = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User.findOne(query)
   .exec(function(error, user) {
-    res.render('user/sections/crews', localsList(user, req));
+    res.render('user/sections/crews', localsList(user, req, "crews"));
   });
 }
 
-var localsDetail = function(user, result, req) {
+var localsDetail = function(user, result, req, sez) {
   return {
-    title: user.display_name,
+    title: result.title + " | " +  config.sections[sez].title + " | " + user.display_name,
     result: result,
+    section: sez,
     performer: user,
     user: req.user,
     _h: _h
@@ -114,12 +116,11 @@ exports.getUserEvent = function get(req, res) {
   User
   .findOne(query)
   .exec(function(error, user) {
-  console.log(user);
     var query = { 'permalink': req.params.event };
     Event
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/events/show', localsDetail(user, result, req));
+      res.render('user/details/event', localsDetail(user, result, req, "events"));
     });
   });
 };
@@ -133,9 +134,7 @@ exports.getUserPerformance = function get(req, res) {
     Performance
     .findOne(query)
     .exec(function(error, result) {
-		console.log(result.events);
-		console.log(result);
-		res.render('user/sections/performance', localsDetail(user, result, req));
+      res.render('user/details/performance', localsDetail(user, result, req, "performances"));
     });
   });
 };
@@ -149,7 +148,7 @@ exports.getUserTvshow = function get(req, res) {
       Tvshow
         .findOne(query)
         .exec(function(error, result) {
-          res.render('user/sections/tvshow', localsDetail(user, result, req));
+          res.render('user/details/tvshow', localsDetail(user, result, req, "tvshows"));
         });
     });
 };
@@ -163,7 +162,7 @@ exports.getUserFootage = function get(req, res) {
       Footage
         .findOne(query)
         .exec(function(error, result) {
-          res.render('user/sections/footage', localsDetail(user, result, req));
+          res.render('user/details/footage', localsDetail(user, result, req, "footage"));
         });
     });
 };
@@ -174,11 +173,10 @@ exports.getUserPlaylist = function get(req, res) {
   .findOne(query)
   .exec(function(error, user) {
     var query = { 'permalink': req.params.playlist };
-	  console.log(req.params);
     Playlist
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/sections/playlist', localsDetail(user, result, req));
+      res.render('user/details/playlist', localsDetail(user, result, req, "playlists"));
     });
   });
 };
@@ -188,15 +186,16 @@ exports.getUserGallery = function get(req, res) {
   User
   .findOne(query)
   .exec(function(error, user) {
-    var query = { 'permalink': req.params.galleries };
+    var query = { 'permalink': req.params.gallery };
     Gallery
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/sections/gallery', localsDetail(user, result, req));
+      res.render('user/details/gallery', localsDetail(user, result, req, "galleries"));
     });
   });
 };
 
+/*
 exports.getUserCrew = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User
@@ -206,11 +205,11 @@ exports.getUserCrew = function get(req, res) {
     User
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/sections/show', localsDetail(user, result, req));
+      res.render('user/sections/show', localsDetail(user, result, req, "performances"));
     });
   });
 };
-
+*/
 exports.participateAtUserEvent = function get(req, res) {
   var query = { 'permalink': req.params.user };
   User

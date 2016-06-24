@@ -7,6 +7,7 @@ module.exports = new Schema({
 	public: Boolean,
 	permalink: String,
 	old_id: String,
+	preview_file: String,
 	files: [File],
 	users: [User],
 	stats: {
