@@ -4,6 +4,9 @@ block user-content
 	h1=result.title
 	ul
 		li
+			h3="title: "
+			p=result.title
+		li
 			h3="user: "
 			=title
 		li
@@ -14,7 +17,11 @@ block user-content
 			=result.text.en
 		li
 			h3="events: "
-			="Fix can't get result.events object"
+			//p=result.events[0].users[0].display_name
+
+			-for(event in result.events)
+				p=result.events[event].title
+
 		li
 			h3="Stats: "
 			p="visits: "+result.stats.visits
@@ -22,12 +29,17 @@ block user-content
 			p="total rates: "+result.stats.rates.tot_rate
 		li
 			h3="Categories: "
-			p="Name: "+result.categories[0].name
-			- for(category in result.categories); console.log(result[category]);
-				=category.name
+			//-p="Name: "+result.categories[0].name
+			- for(category in result.categories)
+				p=result.categories[category].name
 		li
 			h2="Users: "
-			- for(user in result.users); console.log(result[user]);
+			- for(user in result.users)
+				ol
+					li
+						="name: "+result.users[user].display_name
+					li
+						="permalink: "+result.users[user].permalink
 	.pre
 		!=result
 	//-console.log(JSON.stringify(result, null, 20));
