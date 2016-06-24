@@ -2,6 +2,7 @@ var Schema = require('mongoose').Schema;
 var Gallery = require('./gallery');
 var File = require('./file');
 var User = require('./user');
+var Events = require('./event');
 var Category = require('./category');
 var config = require('getconfig');
 
@@ -24,6 +25,7 @@ module.exports = new Schema({
 	text: text,
 	files: [File],
 	users: [User],
+	events: [Events],
 	categories: [Category],
 	stats: {
 		visits: Number,
