@@ -133,7 +133,9 @@ exports.getUserPerformance = function get(req, res) {
     Performance
     .findOne(query)
     .exec(function(error, result) {
-      res.render('user/sections/performance', localsDetail(user, result, req));
+		console.log(result.events);
+		console.log(result);
+		res.render('user/sections/performance', localsDetail(user, result, req));
     });
   });
 };
