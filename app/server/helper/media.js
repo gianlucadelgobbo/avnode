@@ -3,7 +3,7 @@ var im = require('imagemagick');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
 
-exports.getFileFormat = function (source, conf) {
+exports.getFileFormat = function (source, conf, callback) {
 	if (source) {
 		var folder = 		source.substring(0,source.lastIndexOf("/")+1);
 		var file = 			source.substring(source.lastIndexOf("/")+1,source.length);
@@ -39,11 +39,11 @@ exports.getFileFormat = function (source, conf) {
 					quality: 1,
 					gravity: "North"
 				}, function (err, stdout, stderr) {
-					console.log(err);
 					if (err) return console.log(err.stack || err);
 					// FIXME (not available as done, need to reload)
-					return formatfolder + formatfile;
 				});
+				console.log(formatfolder + formatfile);
+				return formatfolder + formatfile;
 			} else if (fs.existsSync(config.sitepath+config.uploadpath+"/warehouse/defaults/"+conf.default)) {
 				return this.getFileFormat("/warehouse/defaults/"+conf.default, conf);
 			} else {
