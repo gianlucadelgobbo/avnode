@@ -7,7 +7,7 @@
         .col-xs-12.avatar_map
             .row
                 .col-xs-12
-                    img.media-object(alt=__("Thumbnail of") + ": " + performer.display_name, src=_h.media.getFileFormat(performer.files[0].file, config.sections["performers"].thumbnails.detail))
+                    //img.media-object(alt=__("Thumbnail of") + ": " + performer.display_name, src=_h.media.getFileFormat(performer.files.length ? performer.files[0].file : false, config.sections["performers"].thumbnails.detail))
                 .col-xs-12.performer_geolocalization
                     a(href="/" + performer.permalink, title=performer.display_name)
                         h1= performer.display_name

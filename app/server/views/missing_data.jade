@@ -69,7 +69,7 @@
 //- missing footage image
 - if (result.footage)
     - for(var i=0;i<result.footage.length;i++)
-      - result.footage[i].files= "default_footage.jpg"
+      - result.footage[i].files= "/warehouse/defaults/footage.jpg"
     //- missing footage tag list
     - for(var i=0;i<result.footage.length;i++)
       - if (i==0)
@@ -108,7 +108,7 @@
           - result.playlists[i].stats.videos= "3"
     //- missing playlist image
     - for(var i=0;i<result.playlists.length;i++)
-      - result.playlists[i].files= "default_playlist.jpg"
+      - result.playlists[i].files= "/warehouse/defaults/playlist.jpg"
 
 //- TVSHOWS
 - if (result.tvshow)
@@ -130,7 +130,7 @@
           - result.tvshow[i].stats.likes= "123"
     //- missing tvshows image
     - for(var i=0;i<result.tvshow.length;i++)
-      - result.tvshow[i].files= "default_tvshow.jpg"
+      - result.tvshow[i].files= "/warehouse/defaults/tvshow.jpg"
     //- missing tv show categories
     - for(var i=0;i<result.tvshow.length;i++)
       - if (i==0)

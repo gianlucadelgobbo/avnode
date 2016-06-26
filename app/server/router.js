@@ -9,6 +9,7 @@ var galleriesRoutes 	= require('./routes/galleries');
 //var forumRoutes 		= require('./routes/forum');
 var userRoutes 			= require('./routes/user');
 var apiRoutes 			= require('./routes/api');
+var swfdataRoutes 		= require('./routes/swfdata');
 
 var searchRoutes 		= require('./routes/search');
 
@@ -48,6 +49,11 @@ module.exports = function(app) {
 	app.get('/galleries(*)', galleriesRoutes.get);
 
 	app.get('/search', searchRoutes.get);
+
+	app.get('/swfdata/(:user)/footage/(:footage)', swfdataRoutes.get);
+	app.get('/embed/(:user)/footage/(:footage)', swfdataRoutes.get);
+	app.get('/download/(:user)/footage/(:footage)', swfdataRoutes.get);
+	app.get('/endpage/(:user)/footage/(:footage)', swfdataRoutes.get);
 
 	app.get('/image', imageRoutes.get);
 
