@@ -341,5 +341,14 @@
 	"Multimedia contents of": "Multimedia contents of",
 	"Show": "Show",
 	"TV": "TV",
-	"ON Demand": "ON Demand"
+	"ON Demand": "ON Demand",
+	"tv shows": "tv shows",
+	"galleries": "galleries",
+	"tvshows": "tvshows",
+	"superadmin": "superadmin",
+	"GENERATE": "GENERATE",
+	"Autogenerate": "Autogenerate",
+	"Auto generate": "Auto generate",
+	"Month": "Month",
+	"Year": "Year"
 }

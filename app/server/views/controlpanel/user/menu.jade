@@ -5,7 +5,7 @@ nav.navbar.navbar-default
 			i.fa.fa-bars
 	#section-menu.collapse.navbar-collapse
 		ul.nav.navbar-nav
-			each section in config.controlpanel.user.sections
+			each section in config.controlpanel.chapters.user.sections
 				if activeSection == section
 					li.active
 						a(href="/controlpanel/user/#{section}")=__(section)

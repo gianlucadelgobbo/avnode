@@ -18,15 +18,75 @@
     "permalink": "^[\\w-_]+$"
   },
   "controlpanel": {
-    "chapters": ["user", "crews", "events"],
-    "user": {
-      "sections": ["public", "image", "password", "private", "emails", "connections"]
-    },
-    "crews": {
-      "sections": ["public", "image", "members"]
-    },
-    "events": {
-      "sections": ["public", "image", "visibility", "permissions", "calls"]
+    "chapters": {
+      "user": {
+        "sections": [
+          "public",
+          "image",
+          "password",
+          "private",
+          "emails",
+          "connections"
+        ]
+      },
+      "crews": {
+        "sections": [
+          "public",
+          "image",
+          "members"
+        ]
+      },
+      "events": {
+        "sections": [
+          "public",
+          "image",
+          "performances",
+          "partners",
+          "galleries",
+          "permissions",
+          "visibility",
+          "calls"
+        ]
+      },
+      "performances": {
+        "sections": [
+          "public",
+          "image",
+          "performers",
+          "events",
+          "visibility",
+          "permissions"
+        ]
+      },
+      "tvshows": {
+        "sections": [
+          "public",
+          "image"
+        ]
+      },
+      "footage": {
+        "sections": [
+          "public",
+          "image"
+        ]
+      },
+      "playlists": {
+        "sections": [
+          "public",
+          "footage"
+        ]
+      },
+      "galleries": {
+        "sections": [
+          "public"
+        ]
+      },
+      "superadmin": {
+        "sections": [
+          "categories",
+          "vjtelevision"
+        ]
+      }
     }
   },
   "locales": [

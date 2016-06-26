@@ -67,12 +67,12 @@ exports.imageSchemaGet = {
 exports.imageGet = function(req, res) {
   var query = { 'permalink': req.params.event };
   Event.findOne(query)
-  .exec(function(err, event) {
-    res.render('controlpanel/events/image', {
-      config: config,
-      result: event
-    });
-  });
+      .exec(function(err, event) {
+        res.render('controlpanel/events/image', {
+          config: config,
+          result: event
+        });
+      });
 }
 exports.imageSchemaPost = {
   _id: Joi.string().alphanum().min(24).max(24).required()
@@ -85,6 +85,84 @@ exports.imagePost = function(req, res) {
       result: event
     });
   });
+}
+
+exports.performancesSchemaGet = {
+  event: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
+}
+exports.performancesGet = function(req, res) {
+  var query = { 'permalink': req.params.event };
+  Event.findOne(query)
+      .exec(function(err, event) {
+        res.render('controlpanel/events/performances', {
+          config: config,
+          result: event
+        });
+      });
+}
+exports.performancesSchemaPost = {
+  _id: Joi.string().alphanum().min(24).max(24).required()
+};
+exports.performancesPost = function(req, res) {
+  /*var data = _.defaults(req.body, { });
+  User.findByIdAndUpdate(req.body._id, { $set: data }, { new: true }, function (err, event) {
+    res.render('controlpanel/events/performances', {
+      config: config,
+      result: event
+    });
+  });*/
+}
+
+exports.partnersSchemaGet = {
+  event: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
+}
+exports.partnersGet = function(req, res) {
+  var query = { 'permalink': req.params.event };
+  Event.findOne(query)
+      .exec(function(err, event) {
+        res.render('controlpanel/events/partners', {
+          config: config,
+          result: event
+        });
+      });
+}
+exports.partnersSchemaPost = {
+  _id: Joi.string().alphanum().min(24).max(24).required()
+};
+exports.partnersPost = function(req, res) {
+  /*var data = _.defaults(req.body, { });
+   User.findByIdAndUpdate(req.body._id, { $set: data }, { new: true }, function (err, event) {
+   res.render('controlpanel/events/partners', {
+   config: config,
+   result: event
+   });
+   });*/
+}
+
+exports.galleriesSchemaGet = {
+  event: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
+}
+exports.galleriesGet = function(req, res) {
+  var query = { 'permalink': req.params.event };
+  Event.findOne(query)
+      .exec(function(err, event) {
+        res.render('controlpanel/events/galleries', {
+          config: config,
+          result: event
+        });
+      });
+}
+exports.galleriesSchemaPost = {
+  _id: Joi.string().alphanum().min(24).max(24).required()
+};
+exports.galleriesPost = function(req, res) {
+  /*var data = _.defaults(req.body, { });
+   User.findByIdAndUpdate(req.body._id, { $set: data }, { new: true }, function (err, event) {
+   res.render('controlpanel/events/galleries', {
+   config: config,
+   result: event
+   });
+   });*/
 }
 
 exports.visibilitySchemaGet = {

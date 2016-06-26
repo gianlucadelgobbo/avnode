@@ -7,7 +7,7 @@ block content
 		.col-md-2
 			.panel.panel-default
 				ul.nav.nav-pills.nav-stacked
-					each chapter in config.controlpanel.chapters
+					each sections, chapter  in config.controlpanel.chapters
 						if activeChapter == chapter
 							li.active
 								a(href="/controlpanel/#{chapter}")=__(chapter)
