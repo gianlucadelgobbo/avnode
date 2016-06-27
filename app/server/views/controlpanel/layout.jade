@@ -8,8 +8,6 @@ block content
 			.panel.panel-default
 				ul.nav.nav-pills.nav-stacked
 					each sections, chapter  in config.controlpanel.chapters
-						- console.log(chapter)
-						- console.log(sections)
 						if (typeof sections.user_sections !== undefined)
 							if activeChapter == chapter
 								li.active
