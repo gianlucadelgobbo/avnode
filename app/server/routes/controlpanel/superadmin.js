@@ -113,6 +113,5 @@ exports.vjtelevisionPost = function(req, res) {
         }
       }
     });
-  }
 }
 

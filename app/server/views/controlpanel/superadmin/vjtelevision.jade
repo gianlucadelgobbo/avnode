@@ -1,9 +1,13 @@
 extends ../layout
 
 block variables
-	- var activeChapter='vjtelevision'
+	- var activeChapter='superadmin'
+	- var activeSection='vjtelevision'
+
 
 block inner-content
+	include ../menu
+	br
 	.well
 		form.form-inline(method="post")
 			h3.form-group(style="margin:0 10px 0 0;")=__("Auto generate")
