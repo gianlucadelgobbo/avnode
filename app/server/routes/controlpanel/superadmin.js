@@ -4,6 +4,7 @@ var _ = require('lodash');
 var config = require('getconfig');
 var Joi = require('joi');
 var flatten = require('flat');
+var moment = require('moment');
 
 exports.categoriesSchemaGet = {
   event: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
@@ -77,6 +78,7 @@ exports.vjtelevisionGet = function(req, res) {
   console.log(query);
   Tvshows.find(query)
   .exec(function(err, tvshows) {
+    console.log(tvshows[0]);
     res.render('controlpanel/superadmin/vjtelevision', {
       config: config,
       result: tvshows
@@ -87,14 +89,30 @@ exports.vjtelevisionSchemaPost = {
   _id: Joi.string().alphanum().min(24).max(24).required()
 };
 exports.vjtelevisionPost = function(req, res) {
+  var vjtelevisionconfig = {
+    vjdjsets:6*60*60*1000,
+    docs:12*60*60*1000,
+    video:18*60*60*1000,
+    performances:24*60*60*1000
+  };
+
   console.log(req.body);
-  /*
-  var data = _.defaults(req.body, { });
-  User.findByIdAndUpdate(req.body._id, { $set: data }, { new: true }, function (err, event) {
-    res.render('controlpanel/superadmin/vjtelevision', {
-      config: config,
-      result: event
+  var startDate = moment([req.body.year, req.body.month - 1]);
+  var endDate = moment(startDate).endOf('month');
+  var days = moment(endDate).diff(startDate, 'days')+1;
+  var query = { 'duration': {$gt: 0} };
+  Tvshows.find(query)
+    .exec(function(err, tvshows) {
+      for (var a=0; a<days; a++) {
+        console.log(moment(startDate).add(a, 'days')._d);
+        if (a==days-1) {
+          res.render('controlpanel/superadmin/vjtelevision', {
+            config: config,
+            result: tvshows
+          });
+        }
+      }
     });
-  });
-   */
+  }
 }
+
