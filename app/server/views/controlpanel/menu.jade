@@ -5,10 +5,18 @@ nav.navbar.navbar-default
 			i.fa.fa-bars
 	#section-menu.collapse.navbar-collapse
 		ul.nav.navbar-nav
-			each section in config.controlpanel.chapters[activeChapter].sections
-				if activeSection == section
+			each section in config.controlpanel.chapters[activeChapter].user_sections
+				if activeSection == section.val
 					li.active
-						a(href="/controlpanel/#{activeChapter}/#{section}")=__(section)
+						a(href="/controlpanel/#{activeChapter}/#{section.val}")=__(section.label)
 				else
 					li
-						a(href="/controlpanel/#{activeChapter}/#{section}")=__(section)
+						a(href="/controlpanel/#{activeChapter}/#{section.val}")=__(section.label)
+			- if (user.login == 'GianlucaDelGobbo' && config.controlpanel.chapters[activeChapter].member_sections)
+				each section in config.controlpanel.chapters[activeChapter].member_sections
+					if activeSection == section.val
+						li.active
+							a(href="/controlpanel/#{activeChapter}/#{section.val}")=__(section.label)
+					else
+						li
+							a(href="/controlpanel/#{activeChapter}/#{section.val}")=__(section.label)

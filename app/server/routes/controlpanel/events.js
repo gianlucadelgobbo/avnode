@@ -21,7 +21,8 @@ exports.publicGet = function(req, res) {
   .exec(function(err, event) {
     res.render('controlpanel/events/public', {
       config: config,
-      result: event
+      result: event,
+      user: req.user
     });
   });
 }

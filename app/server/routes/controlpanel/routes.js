@@ -109,6 +109,23 @@ router.get('/crews', function(req, res) {
 });
 
 /*
+router.get('/organizations/:organization/public',		validateParams(organizations.publicSchemaGet), organizations.publicGet);
+router.post('/organizations/:organization/public', 	    validateBody(organizations.publicSchemaPost), organizations.publicPost);
+router.get('/organizations/:organization/image',		validateParams(organizations.imageSchemaGet), organizations.imageGet);
+router.post('/organizations/:organization/image', 	    validateBody(organizations.imageSchemaPost), organizations.imagePost);
+router.get('/organizations/:organization/logo',		    validateParams(organizations.logoSchemaGet), organizations.logoGet);
+router.post('/organizations/:organization/logo', 	    validateBody(organizations.logoSchemaPost), organizations.logoPost);
+router.get('/organizations/:organization/members',		validateParams(organizations.membersSchemaGet), organizations.membersGet);
+router.post('/organizations/:organization/members', 	validateBody(organizations.membersSchemaPost), organizations.membersPost);
+router.get('/organizations/:organization/private',		validateParams(organizations.privateSchemaGet), organizations.privateGet);
+router.post('/organizations/:organization/private', 	validateBody(organizations.privateSchemaPost), organizations.privatePost);
+router.get('/organizations/:organization/billing',		validateParams(organizations.billingSchemaGet), organizations.billingGet);
+router.post('/organizations/:organization/billing', 	validateBody(organizations.billingSchemaPost), organizations.billingPost);
+router.get('/organizations/list',                       organizations.listGet);
+router.get('/organizations', function(req, res) {
+res.redirect('/controlpanel/organizations/list');
+});
+
 router.get('/performances/:performance/public',		    validateParams(performances.publicSchemaGet), performances.publicGet);
 router.post('/performances/:performance/public', 	    validateBody(performances.publicSchemaPost), performances.publicPost);
 router.get('/performances/:performance/image',		    validateParams(performances.imageSchemaGet), performances.imageGet);

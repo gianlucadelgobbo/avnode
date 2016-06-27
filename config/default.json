@@ -20,71 +20,96 @@
   "controlpanel": {
     "chapters": {
       "user": {
-        "sections": [
-          "public",
-          "image",
-          "password",
-          "private",
-          "emails",
-          "connections"
+        "label":"My account",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"},
+          {"label":"Password","val":"password"},
+          {"label":"Private","val":"private"},
+          {"label":"Emails","val":"emails"},
+          {"label":"connections","val":"connections"}
         ]
       },
       "crews": {
-        "sections": [
-          "public",
-          "image",
-          "members"
+        "label":"Crews",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"},
+          {"label":"Members","val":"members"}
+        ]
+      },
+      "organizations": {
+        "label":"Organizations",
+        "member_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"},
+          {"label":"logo","val":"logo"},
+          {"label":"Members","val":"members"},
+          {"label":"Private","val":"private"},
+          {"label":"billing","val":"billing"}
         ]
       },
       "events": {
-        "sections": [
-          "public",
-          "image",
-          "performances",
-          "partners",
-          "galleries",
-          "permissions",
-          "visibility",
-          "calls"
+        "label":"Events",
+        "permissions":"user",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"},
+          {"label":"Performances","val":"performances"},
+          {"label":"Partners","val":"partners"},
+          {"label":"galleries","val":"galleries"},
+          {"label":"Permissions","val":"permissions"},
+          {"label":"Visibility","val":"visibility"}
+        ],
+        "member_sections": [
+          {"label":"Calls","val":"calls"},
+          {"label":"Tools","val":"tools"}
         ]
       },
       "performances": {
-        "sections": [
-          "public",
-          "image",
-          "performers",
-          "events",
-          "visibility",
-          "permissions"
+        "label":"Performances",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"},
+          {"label":"Performers","val":"performers"},
+          {"label":"Events","val":"events"},
+          {"label":"Visibility","val":"visibility"},
+          {"label":"Permissions","val":"permissions"}
         ]
       },
       "tvshows": {
-        "sections": [
-          "public",
-          "image"
+        "label":"TV Shows",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"}
         ]
       },
       "footage": {
-        "sections": [
-          "public",
-          "image"
+        "label":"Footage",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"}
         ]
       },
       "playlists": {
-        "sections": [
-          "public",
-          "footage"
+        "label":"Playlists",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Footage","val":"footage"}
         ]
       },
       "galleries": {
-        "sections": [
-          "public"
+        "label":"Galleries",
+        "user_sections": [
+          {"label":"Public","val":"public"}
         ]
       },
       "superadmin": {
-        "sections": [
-          "categories",
-          "vjtelevision"
+        "label":"Super admin",
+        "superadmin_sections": [
+          {"label":"vjtelevision","val":"VJ Television"},
+          {"label":"Categories","val":"categories"},
+          {"label":"Organizations","val":"organizations"}
         ]
       }
     }
