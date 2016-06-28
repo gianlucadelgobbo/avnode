@@ -107,7 +107,7 @@
       "superadmin": {
         "label":"Super admin",
         "superadmin_sections": [
-          {"label":"vjtelevision","val":"VJ Television"},
+          {"label":"VJ Television","val":"vjtelevision"},
           {"label":"Categories","val":"categories"},
           {"label":"Organizations","val":"organizations"}
         ]

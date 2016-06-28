@@ -9,23 +9,23 @@ nav.navbar.navbar-default
 				each section in config.controlpanel.chapters[activeChapter].user_sections
 					if activeSection == section.val
 						li.active
-							a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)
+							a(href="/controlpanel/#{activeChapter}/#{section.val}")=__(section.label)
 					else
 						li
-							a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)
+							a(href="/controlpanel/#{activeChapter}/#{section.val}")=__(section.label)
 			- if (result.login == 'GianlucaDelGobbo' && config.controlpanel.chapters[activeChapter].member_sections)
 				each section in config.controlpanel.chapters[activeChapter].member_sections
 					if activeSection == section.val
 						li.active
-							a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)
+							a(href="/controlpanel/#{activeChapter}/#{section.val}")=__(section.label)
 					else
 						li
-							a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)
+							a(href="/controlpanel/#{activeChapter}/#{section.val}")=__(section.label)
 			- if (result.login == 'GianlucaDelGobbo' && config.controlpanel.chapters[activeChapter].superadmin_sections)
 				each section in config.controlpanel.chapters[activeChapter].superadmin_sections
 					if activeSection == section.val
 						li.active
-							a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)
+							a(href="/controlpanel/#{activeChapter}/#{section.val}")=__(section.label)
 					else
 						li
-							a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)
+							a(href="/controlpanel/#{activeChapter}/#{section.val}")=__(section.label)

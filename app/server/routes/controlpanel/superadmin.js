@@ -78,10 +78,11 @@ exports.vjtelevisionGet = function(req, res) {
   console.log(query);
   Tvshows.find(query)
   .exec(function(err, tvshows) {
-    console.log(tvshows[0]);
+    //console.log(tvshows[0]);
     res.render('controlpanel/superadmin/vjtelevision', {
       config: config,
-      result: tvshows
+      result: req.user,
+      tvshows: tvshows
     });
   });
 }
@@ -115,3 +116,49 @@ exports.vjtelevisionPost = function(req, res) {
     });
 }
 
+
+exports.organizationsSchemaGet = {
+  //event: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
+}
+exports.organizationsGet = function(req, res) {
+  res.render('controlpanel/superadmin/organizations', {
+    config: config,
+    result: req.user
+  });
+}
+exports.organizationsSchemaPost = {
+  _id: Joi.string().alphanum().min(24).max(24).required()
+};
+exports.organizationsPost = function(req, res) {
+  if (req.body.move) {
+    var query = { 'permalink': req.body.move };
+    console.log("MOVE");
+    console.log(req.body);
+    User.find(query)
+      .exec(function(err, crew) {
+        var data = crew[0];
+        data.is_organization = 1;
+        console.log(crew[0]._id);
+        //console.log(crew[0]);
+        User.findByIdAndUpdate(crew[0]._id, { $set: data }, { new: true }, function (err, crew) {
+          res.render('controlpanel/superadmin/organizations', {
+            config: config,
+            result: req.user,
+            crew: crew[0],
+            updated: true
+          });
+        });
+      });
+  } else if (req.body.crew) {
+    var query = { 'permalink': req.body.crew };
+    User.find(query)
+      .exec(function(err, crew) {
+        res.render('controlpanel/superadmin/organizations', {
+          config: config,
+          result: req.user,
+          crew: crew[0]
+        });
+      });
+  }
+
+}

@@ -14,8 +14,7 @@ exports.publicGet = function(req, res) {
   }
   res.render('controlpanel/user/public', {
     config: config,
-    result: req.user,
-    user: req.user
+    result: req.user
   });
 }
 exports.publicSchemaPost = {

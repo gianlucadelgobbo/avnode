@@ -203,6 +203,8 @@ router.get('/superadmin/categories',		validateParams(superadmin.categoriesSchema
 router.post('/superadmin/categories', 	    validateBody(superadmin.categoriesSchemaPost), superadmin.categoriesPost);
 router.get('/superadmin/vjtelevision',		/*validateParams(superadmin.vjtelevisionSchemaGet), */superadmin.vjtelevisionGet);
 router.post('/superadmin/vjtelevision', 	/*validateBody(superadmin.vjtelevisionSchemaPost), */superadmin.vjtelevisionPost);
+router.get('/superadmin/organizations',		/*validateParams(organizations.organizationsSchemaGet), */superadmin.organizationsGet);
+router.post('/superadmin/organizations', 	/*validateBody(organizations.organizationsSchemaPost), */superadmin.organizationsPost);
 //router.get('/superadmin/list', superadmin.listGet);
 router.get('/superadmin', function(req, res) {
     res.redirect('/controlpanel/superadmin/vjtelevision');
