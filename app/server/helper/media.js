@@ -11,7 +11,7 @@ exports.getFileFormat = function (source, conf, callback) {
 		var previewfile = 	file.substring(0,file.lastIndexOf("."))+"_"+ext+".png";
 		var formatfile = 	file.substring(0,file.lastIndexOf("."))+"_"+ext+".jpg";
 		var formatfolder = 	folder+conf.w+"x"+conf.h+"/";
-		/**/
+		/*
 		console.log("---------");
 		console.log(config.sitepath);
 		console.log(config.uploadpath);
@@ -22,7 +22,7 @@ exports.getFileFormat = function (source, conf, callback) {
 		console.log(config.sitepath+config.uploadpath+formatfolder+formatfile);
 		console.log(config.sitepath+config.uploadpath+folder+file);
 		console.log("---------");
-
+		 */
 		//console.log(_config.sitepath+_config.uploadpath+formatfolder+formatfile);
 		if (fs.existsSync(config.sitepath+config.uploadpath+formatfolder+formatfile)) {
 			return formatfolder+formatfile;

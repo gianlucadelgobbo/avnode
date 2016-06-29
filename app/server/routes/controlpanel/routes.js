@@ -72,8 +72,8 @@ router.get('/confirm', confirm.get);
 // FIXME
 router.use('/*', function(req, res, next) {
   if (!req.user) {
-    next();
-    //res.redirect('/controlpanel/login');
+    //next();
+    res.redirect('/controlpanel/login');
   } else {
     next();
   }

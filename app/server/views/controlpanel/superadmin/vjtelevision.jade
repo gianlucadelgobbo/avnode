@@ -12,8 +12,6 @@ block inner-content
 		form.form-inline(method="post")
 			h3.form-group(style="margin:0 10px 0 0;")=__("Auto generate")
 			.form-group
-
-
 				select(name="month").form-control
 					option=__("Month")
 					option(value=1)=1
@@ -35,3 +33,6 @@ block inner-content
 						option(value=year+a)=year+a
 				input(type="submit", value=__("GENERATE")).btn.btn-primary
 
+	- if (str)
+		div!=str
+		code!=update

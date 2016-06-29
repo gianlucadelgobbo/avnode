@@ -182,11 +182,13 @@ exports.getUserPlaylist = function get(req, res) {
 };
 
 exports.getUserGallery = function get(req, res) {
+  console.log(req.params);
   var query = { 'permalink': req.params.user };
   User
   .findOne(query)
   .exec(function(error, user) {
-    var query = { 'permalink': req.params.gallery };
+    console.log(user);
+    var query = { 'permalink': req.params.galleries };
     Gallery
     .findOne(query)
     .exec(function(error, result) {

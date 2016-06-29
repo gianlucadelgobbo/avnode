@@ -63,7 +63,7 @@ module.exports = function(app) {
 	app.get('/(:user)/tvshows/(:tvshow)', 				userRoutes.getUserTvshow);
 	app.get('/(:user)/footage/(:footage)', 				userRoutes.getUserFootage);
 	app.get('/(:user)/playlists/(:playlist)', 			userRoutes.getUserPlaylist);
-	app.get('/(:user)/galleries/(:galleries)', 			userRoutes.getUserGallery);
+	app.get('/(:user)/galleries/(:gallery)', 			userRoutes.getUserGallery);
 	//app.get('/(:user)/crews/(:crew)', 					userRoutes.getUserCrew);
 
 	app.get('/(:user)/events', 							userRoutes.getUserEvents);
