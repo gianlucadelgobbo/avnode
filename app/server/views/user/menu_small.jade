@@ -1,0 +1,8 @@
+h3
+    a(href="/"+performer.permalink)
+        !='<i class="fa fa-user"></i> ' + performer.display_name
+nav
+    ul
+        each stat, name in performer.stats
+            li
+                a(href="/#{performer.permalink}/#{name}/")=__(name) + ' (' + stat + ')'

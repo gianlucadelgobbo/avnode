@@ -1,10 +1,8 @@
 mixin playlist_item_content
 	a(href="/#{box.users[0].permalink}/playlists/#{box.permalink}/", title=box.title)
 		.image_box.wrapper_item
-			each file, i in box.files
-				if i === 0
-					// FIXME
-					img(alt=box.title, src="/img/default_playlist.jpg")
+			- if (box.footage && box.footage.length && box.footage[0].files && box.footage[0].files.length)
+				img.main_performance_image(alt=__("Thumbnail of")+": "+box.title, src=_h.media.getFileFormat(box.footage[0].files[0].file, config.sections[section].thumbnails.list))
 			.footage_stats.box_stats.overlay_wrapper_top
 				// MISSING DATA: LIKES, VIDEOS INSIDE DEL PLAYLIST, CATEGORY/TAG, THUMBNAIL
 				ul.list-inline

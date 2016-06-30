@@ -8,6 +8,9 @@ onlyxs = 'screen and (max-width: 768px)'
 onlysm = 'screen and (min-width:768px) and (max-width: 992px)'
 onlymd = 'screen and (min-width:992px) and (max-width: 1200px)'
 
+.navbar
+  margin-bottom 0px
+
 body
   font-family: 'Roboto Condensed', sans-serif;
   letter-spacing: -0.01em;
@@ -599,6 +602,8 @@ a:hover img{opacity:.6;}
   color: #fff;
   font-weight: 300;
   padding: 30px 0;
+  border-bottom: 10px solid #E4811E;
+  margin-bottom 20px;
 .about_performer
   @media sm
     columns 2
@@ -801,7 +806,7 @@ html,body
   float: left
   width 100%
 #content
-  padding-top: 32px
+  padding-top: 0px
 footer.main_footer
   position: absolute
   bottom: 0
@@ -941,7 +946,7 @@ footer.main_footer
   margin-bottom 30px
 .single_event_thumb_container .overlay_container
   color: #fff;
-  background: rgba(51,51,51,0.72) none repeat scroll 0 0;
+  background: rgba(51,51,51,0.95) none repeat scroll 0 0;
   width: 100%;
   padding: 15px 30px;
 
@@ -990,6 +995,9 @@ footer.main_footer
   .nav-tabs>li>a:focus
     border none
     margin: 0
+.more_artist
+  color #0f8fcf
+  margin-left 5px
 .nav-tabs>li>a
   border-radius 0
   color #e4811e
@@ -1019,11 +1027,12 @@ footer.main_footer
   margin 15px 0
 .single_date_of_series h3
   text-align: center;
-  font-size: 80px;
-  letter-spacing: -0.05em;
-  color: #8d8d8d;
-  font-weight: 800;
-  margin-bottom 60px
+  font-size: 24px;
+  letter-spacing: 0.05em;
+  color: #5c5c5c;
+  font-weight: 500;
+  margin-bottom: 30px;
+  font-style: italic;
 .single_date_of_series h3 span
   border-right: 5px solid #e4811e;
   border-left: 5px solid #e4811e;
@@ -1031,7 +1040,7 @@ footer.main_footer
 .day_grid
   margin-bottom: 90px;
   border-bottom: 1px solid #eee;
-  box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+  //box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
   padding-top: 30px;
 .day_grid .list_item_performer a
   color: #333
@@ -1057,7 +1066,18 @@ footer.main_footer
 .btn-info.paticipate:hover
   background: #fff
   color #E4811E
-
+.grouped_infos a
+  color: #333;
+  background: #eee;
+  font-size: 12px;
+  padding: 3px 5px;
+  border-bottom: 2px solid #e2e2e2;
+.grouped_infos .active a
+  border-bottom 2px solid #0f8fcf
+.grouped_infos li
+  margin-bottom: 10px;
+.title_grouped_infos
+  text-transform uppercase
 .website, .phonenumber
   margin-bottom: 16px
 

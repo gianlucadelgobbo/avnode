@@ -76,7 +76,7 @@ module.exports = {
           groupedPerformances.list[performance.event_data.day][performance.event_data.venue][performance.event_data.room].push(performance);
         } else {
           console.log("ERROR ERROR ERROR ERROR ERROR ERROR ");
-          console.log(performance);
+          
         }
 
       }
@@ -135,6 +135,26 @@ module.exports = {
     return groupedLocations;
   },
 
+  groupPerformanceCategories: function(categories){
+    var groupedCategories = {
+      type:{},
+      genre:{},
+      technique:{}
+    };
+    categories.forEach(function(category) {
+      if (category.ancestors[0].permalink == "type") {
+        groupedCategories.type = category;
+        categories.forEach(function(category2) {
+          if (category2.ancestors[0].permalink == category.permalink+"-technique") {
+            groupedCategories.technique = category2;
+          }
+        });
+      }
+      if (category.ancestors[0].permalink == "genere") groupedCategories.genre = category;
+    });
+    return groupedCategories;
+  },
+/*
   groupPerformancesByRoom: function(performances) {
     var groupedRooms = {};
     performances.forEach(function(performance) {
@@ -160,7 +180,7 @@ module.exports = {
     });
     return groupedCat;
   },
-
+*/
 
   pagination: function(link, skip, limit, total) {
     var pages = [];

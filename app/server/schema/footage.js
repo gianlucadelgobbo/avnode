@@ -1,12 +1,15 @@
 var Schema = require('mongoose').Schema;
 var File = require('./file');
 var User = require('./user');
+var Playlist = require('./playlist');
 
 module.exports = new Schema({
 	tag: [String],
 	public: Boolean,
 	permalink: String,
 	old_id: String,
+	preview_file: String,
+	playlists: [Playlist],
 	files: [File],
 	users: [User],
 	stats: {

@@ -4,9 +4,22 @@ block variables
 	- var activeChapter='user'
 	- var activeSection='public'
 
+
 block inner-content
-	include ./menu
+	include ../menu_user
 	+render-alerts(alerts)
+	//code
+		each section, index in config.controlpanel.chapters
+			each chapters in section
+				each chapter in chapters
+					!="router.get('/" + index + "/:" + index.substring(0,index.length-1) + "/" + chapter + "',\t\tvalidateParams(" + index + "." + chapter + "SchemaGet), " + index + "." + chapter + "Get);\n"
+					!="router.post('/" + index + "/:" + index.substring(0,index.length-1) + "/" + chapter + "', \tvalidateBody(" + index + "." + chapter + "SchemaPost), " + index + "." + chapter + "Post);\n"
+
+			!="router.get('/" + index + "/list', " + index + ".listGet);\n"
+			!="router.get('/" + index + "', function(req, res) {\n"
+			!="\tres.redirect('/controlpanel/" + index + "/list');\n"
+			!="});\n"
+			!="\n"
 	form.form-horizontal(method="post", data-parsley-validate)
 		fieldset
 			legend=__("General")

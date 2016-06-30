@@ -7,10 +7,8 @@ block content
 				.row
 					.col-md-12
 						.single_event_thumb_container.wrapper_item
-							//.image
-							//	img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src=_h.media.getFileFormat(result.files, 400, 300))
-							img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src='http://www.wallpaperawesome.com/wallpapers-awesome/wallpapers-for-monitors-widescreen-panoramic-16-9-awesome/triangles-abstract-awesome.jpg')
-
+							- img = _h.media.getFileFormat(result.files[0].file, config.sections[section].thumbnails.detail)
+							img.img-responsive(id="img-"+result.permalink, alt=__("Thumbnail of")+": "+result.title, src=img)
 							.row
 								.overlay_container.overlay_wrapper
 									div#partecipate_shape
@@ -51,6 +49,66 @@ block content
 																				li
 																					a(href="/#{box.permalink}")
 																						span= box.display_name
+
+									// Modal event external links
+									div#event_external_links.modal.fade(role='dialog')
+										.modal-dialog
+											// Modal content
+											.modal-content
+												.modal-header
+													button.close(type='button', data-dismiss='modal') ×
+													h4= result.title + " links"
+												.modal-body
+													ul.list-inline
+														each url in result.websites
+															li
+																i.fa.fa-external-link
+																a(href=url,target="_blank")
+																	=" website"
+														li
+															a(href="#")
+																i.fa.fa-facebook-official(aria-hidden='true')
+														li
+															a(href="#")
+																i.fa.fa-twitter(aria-hidden='true')
+														li
+															a(href="#")
+																i.fa.fa-vimeo(aria-hidden='true')
+
+									// Modal event external links
+									div#event_share.modal.fade(role='dialog')
+										#fb-root
+											script.
+												(function (d, s, id) {
+													var js, fjs = d.getElementsByTagName(s)[0];
+													if (d.getElementById(id)) return;
+													js = d.createElement(s);
+													js.id = id;
+													js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v2.6&appId=1725376071051640";
+													fjs.parentNode.insertBefore(js, fjs);
+												}(document, 'script', 'facebook-jssdk'));
+										.modal-dialog
+											// Modal content
+											.modal-content
+												.modal-header
+													button.close(type='button', data-dismiss='modal') ×
+													h4= "Share " + result.title
+												.modal-body
+													.fb-like(data-href='https://developers.facebook.com/docs/plugins/', data-layout='standard', data-action='like', data-show-faces='true', data-share='true')
+													ul.list-inline
+														li
+															a(href="#")
+																i.fa.fa-facebook-official(aria-hidden='true')
+														li
+															a(href="#")
+																i.fa.fa-twitter(aria-hidden='true')
+														li
+															a(href="#")
+																i.fa.fa-vimeo(aria-hidden='true')
+
+												.modal-footer
+													button.btn.btn-default(type='button', data-dismiss='modal') Close
+
 									ul.list-inline.single_event_details
 										if result.websites
 											li
@@ -89,17 +147,23 @@ block content
 																i(class="fa fa-cube")
 																=" "
 																a(href="/events/#{category.permalink}")=category.name
-									.row.event_events_list.grid
-										if result.date_time_venue
-											each date_time_venue in result.date_time_venue
-												.col-sm-4.grid-item
-													.event_list_content_container
-														span
-															i(class="fa fa-clock-o")
-															!=_h.date.getEventDate(date_time_venue.date) + " | " + date_time_venue.start_time + " / " + date_time_venue.end_time + "<br />"
-														span
-															i(class="fa fa-map-marker")
-															!=date_time_venue.venue + " | " + date_time_venue.locality + ", " + date_time_venue.country
+									.row
+										.col-sm-8
+											.row.event_events_list.grid
+												if result.date_time_venue
+													each date_time_venue in result.date_time_venue
+														.col-sm-4.grid-item
+															.event_list_content_container
+																span
+																	i(class="fa fa-clock-o")
+																	!=_h.date.getEventDate(date_time_venue.date) + " | " + date_time_venue.start_time + " / " + date_time_venue.end_time + "<br />"
+																span
+																	i(class="fa fa-map-marker")
+																	!=date_time_venue.venue + " | " + date_time_venue.locality + ", " + date_time_venue.country
+										.col-sm-4
+											.event_map
+												img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?size=640x400&center=#{result.date_time_venue[0].locality},#{result.date_time_venue[0].country}&zoom=4&size=262x110&markers=#{result.date_time_venue[0].locality},#{result.date_time_venue[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
+
 
 		if result.text
 			.about-bkg
@@ -128,14 +192,15 @@ block content
 								a(href="#partners", data-toggle="tab")=__("partners") + " (" + result.partners.length + ")"
 						if result.gallery.length
 							li
-								a(href="#gallery", data-toggle="tab")=__("gallery") + " (" + result.gallery.length + ")"
+								a(href="#galleries", data-toggle="tab")=__("gallery") + " (" + result.gallery.length + ")"
 
 					div
 						.tab-content
 							if result.performances
 								#program.tab-pane.active
 									- if (groupedPerformances.dates.length > 1)
-										ul.nav.nav-pills
+										p=title_grouped_infos="Days"
+										ul.list-inline.grouped_dates.grouped_infos
 											li.active
 												a(href='#all')=__("All days")
 											each date in groupedPerformances.dates
@@ -144,15 +209,17 @@ block content
 											- if (groupedPerformances["tobeconfirmed"] && groupedPerformances["tobeconfirmed"].length)
 												li
 													a(href='#tobeconfirmed')=__('To be confirmed')
-									- if (groupedPerformances.venues.length)
-										ul.nav.nav-pills
+									- if (groupedPerformances.venues.length > 1) // if there are at least two venues
+										p=title_grouped_infos = "Venues"
+										ul.list-inline.grouped_venues.grouped_infos
 											li.active
 												a(href='#all')=__("All venues")
 											each venue in groupedPerformances.venues
 												li
 													a(href='#' + venue)=venue
 									- if (groupedPerformances.rooms.length)
-										ul.nav.nav-pills
+										p=title_grouped_infos = "Rooms"
+										ul.list-inline.grouped_rooms.grouped_infos
 											li.active
 												a(href='#all')=__("All rooms")
 											each room in groupedPerformances.rooms
@@ -219,61 +286,5 @@ block content
 									.container
 										.row.main-list.grid_tab.grid
 											each box in result.gallery
-												include ../../gallery/item
-// Modal event external links
-#event_external_links.modal.fade(role='dialog')
-	.modal-dialog
-		// Modal content
-		.modal-content
-			.modal-header
-				button.close(type='button', data-dismiss='modal') ×
-				h4= result.title + " links"
-			.modal-body
-				ul.list-inline
-					each url in result.websites
-						li
-							i.fa.fa-external-link
-							a(href=url,target="_blank")
-								=" website"
-					li
-						a(href="#")
-							i.fa.fa-facebook-official(aria-hidden='true')
-					li
-						a(href="#")
-							i.fa.fa-twitter(aria-hidden='true')
-					li
-						a(href="#")
-							i.fa.fa-vimeo(aria-hidden='true')
-// Modal event external links
-#event_share.modal.fade(role='dialog')
-	#fb-root
-		script.
-			(function (d, s, id) {
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (d.getElementById(id)) return;
-				js = d.createElement(s);
-				js.id = id;
-				js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v2.6&appId=1725376071051640";
-				fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));
-	.modal-dialog
-		// Modal content
-		.modal-content
-			.modal-header
-				button.close(type='button', data-dismiss='modal') ×
-				h4= "Share " + result.title
-			.modal-body
-				.fb-like(data-href='https://developers.facebook.com/docs/plugins/', data-layout='standard', data-action='like', data-show-faces='true', data-share='true')
-				ul.list-inline
-					li
-						a(href="#")
-							i.fa.fa-facebook-official(aria-hidden='true')
-					li
-						a(href="#")
-							i.fa.fa-twitter(aria-hidden='true')
-					li
-						a(href="#")
-							i.fa.fa-vimeo(aria-hidden='true')
+												include ../../galleries/item
 
-			.modal-footer
-				button.btn.btn-default(type='button', data-dismiss='modal') Close

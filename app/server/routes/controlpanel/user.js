@@ -54,7 +54,8 @@ exports.imageGet = function(req, res) {
   res.render('controlpanel/user/image', {
     config: config,
     image: req.user.files[0],
-    result: req.user
+    result: req.user,
+    user: req.user
   });
 }
 exports.imageSchemaPost = {
@@ -73,7 +74,8 @@ exports.imagePost = function(req, res) {
 exports.passwordGet = function(req, res) {
   res.render('controlpanel/user/password', {
     config: config,
-    result: req.user
+    result: req.user,
+    user: req.user
   });
 }
 exports.passwordSchemaPost = {
@@ -94,7 +96,8 @@ exports.passwordPost = function(req, res) {
               type: 'success',
               msg: __('Password changed')
             }],
-            result: user
+            result: user,
+            user: user
           });
         });
       });
@@ -105,7 +108,8 @@ exports.passwordPost = function(req, res) {
           type: 'danger',
           msg: __('Sorry, wrong password')
         }],
-        result: req.user
+        result: req.user,
+        user: req.user
       });
     }
   });
@@ -115,7 +119,8 @@ exports.privateGet = function(req, res) {
   res.render('controlpanel/user/private', {
     config: config,
     countries: countries,
-    result: req.user
+    result: req.user,
+    user: req.user
   });
 }
 exports.privateSchemaPost = {
@@ -136,7 +141,8 @@ exports.privatePost = function(req, res) {
     res.render('controlpanel/user/private', {
       config: config,
       countries: countries,
-      result: user
+      result: user,
+      user: req.user
     });
   });
 }
@@ -144,7 +150,8 @@ exports.privatePost = function(req, res) {
 exports.emailsGet = function(req, res) {
   res.render('controlpanel/user/emails', {
     config: config,
-    result: req.user
+    result: req.user,
+    user: req.user
   });
 }
 exports.emailsSchemaPost = {
@@ -185,7 +192,8 @@ exports.emailsPost = function(req, res) {
   User.findByIdAndUpdate(req.user._id, { $set: newEmails }, { new: true }, function (err, user) {
     res.render('controlpanel/user/emails', {
       config: config,
-      result: user
+      result: user,
+      user: user
     });
   });
 }
@@ -193,7 +201,8 @@ exports.emailsPost = function(req, res) {
 exports.connectionsGet = function(req, res) {
   res.render('controlpanel/user/connections', {
     config: config,
-    result: req.user
+    result: req.user,
+    user: req.user
   });
 }
 exports.connectionsSchemaPost = {
@@ -204,7 +213,8 @@ exports.connectionsPost = function(req, res) {
   User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
     res.render('controlpanel/user/connections', {
       config: config,
-      result: user
+      result: user,
+      user: user
     });
   });
 }
