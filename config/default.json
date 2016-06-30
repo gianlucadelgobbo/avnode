@@ -17,6 +17,10 @@
   "regex": {
     "permalink": "^[\\w-_]+$"
   },
+  "amazon": {
+    "key": "",
+    "secret": ""
+  },
   "controlpanel": {
     "chapters": {
       "user": {
@@ -126,6 +130,9 @@
     "gr"
   ],
   "googleAnalytics": "UA-8844617-6",
+  "googlemaps": {
+    "key": ""
+  },
   "mailinglists": [
     "livevisuals",
     "flxer",
