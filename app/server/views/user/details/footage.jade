@@ -1,0 +1,64 @@
+extends ../layout_user_two_columns
+block user-content
+	.container
+		h1=result.title
+		=result.files[0].file
+		#flashPlayer
+			a(href=result.files[0].file, target="_blank")
+				img.img-responsive(alt=__("Multimedia contents of")+": "+result.title, src=_h.media.getFileFormat(result.files[0].file, config.sections[section].thumbnails.detail))
+				img(alt=__("Show"), src="/img/play.png", style="top:145px;left:305px;position:absolute;")
+		script(type="text/javascript", src="/fp/fpVariables.js")
+		script(type="text/javascript", src="/fp/fpManager.js")
+		script(type="text/javascript", src="/fp/fpCheck.js")
+		script(type="text/javascript").
+			tmp = new Array();
+			tmp.push('flashPlayer');
+			tmp.push(730);
+			tmp.push(411);
+			tmp.push('/fp/flxerPlayer.swf?cnt=');
+			tmp.push("#{config.siteurl}/swfdata/#{result.users[0].permalink}/footage/#{result.permalink}/?");
+			tmp.push('window');
+			flashToLoad.push(tmp);
+			caricaFlashAvvio();
+
+		ul
+			li
+				h3="page title: "
+				=title
+			li
+				h3="title: "
+				p=result.title
+			li
+				h3="image src: "
+				=result.files[0].file
+				//img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.files[0].preview, config.sections[section].thumbnails.detail))
+
+			li
+				h3="text: "
+				=result.text.en
+			li
+				h3="Stats: "
+				p="visits: " + result.stats.visits
+				p="rate: " + result.stats.rates.stars
+				p="total rates: " + result.stats.rates.tot_rate
+			li
+				h2="Users: "
+				- for(var a=0; a<result.users.length; a++)
+					ol
+						li
+							="name: " + result.users[a].display_name
+						li
+							="permalink: " + result.users[a].permalink
+			li
+				h3="playlists: "
+				- if(result.playlists)
+					- for(var a=0; a<result.playlists.length; a++)
+						p=result.playlists[a].title
+
+
+
+
+		.pre
+			!=result
+		//-console.log(JSON.stringify(result, null, 20));
+		//- for(item in result) console.log(result[item]);

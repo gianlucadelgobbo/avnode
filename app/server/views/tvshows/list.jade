@@ -2,8 +2,34 @@ extends ../layout
 block content
 	h1=title
 		small=info
-	include ../partials/filter-menu
-	.row.main-list
-		each box in result
-			include ./item
-	include ../partials/pagination
+	.container
+		ul.nav.nav-tabs.event_tabs
+			li.active
+					a(href="#tv", data-toggle="tab")=__("TV")
+			li
+				a(href="#ondemand", data-toggle="tab")=__("ON Demand")
+
+		div!=str
+		div
+			.tab-content
+				#tv.tab-pane.active
+					#flashPlayer
+					script(type="text/javascript", src="/fp/fpVariables.js")
+					script(type="text/javascript", src="/fp/fpManager.js")
+					script(type="text/javascript", src="/fp/fpCheck.js")
+					script(type="text/javascript").
+						tmp = new Array();
+						tmp.push('flashPlayer');
+						tmp.push(1140);
+						tmp.push(641);
+						tmp.push('/vjtv/vjtv.swf?cnt=');
+						tmp.push('');
+						tmp.push('transparent');
+						flashToLoad.push(tmp);
+						caricaFlashAvvio();
+				#ondemand.tab-pane.active
+					include ../partials/filter-menu
+					.row.main-list
+						each box in result
+							include ./item
+					include ../partials/pagination

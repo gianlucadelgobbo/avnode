@@ -29,6 +29,28 @@ router.post('/upload/image', upload.single('image'), function (req, res, next) {
   res.send(response);
 });
 
+router.get(
+  '/validate/permalink/:permalink',
+  validateParams({
+    permalink: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
+  }),
+  function (req, res) {
+    var query = { 'permalink': req.params.permalink }
+    User.findOne(query)
+    .exec(function(err, user) {
+      if (user && req.user) {
+        if (req.user.permalink === req.params.permalink) {
+          res.status(404).send('Not found');
+        } else {
+          res.status(200).send('Found');
+        }
+      } else {
+        res.status(404).send('Not found');
+      }
+    });
+  }
+);
+
 router.get('/verify-email/:uuid', function (req, res) {
   // FIXME, validation missing
   var uuid = req.params.uuid;

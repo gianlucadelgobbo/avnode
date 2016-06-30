@@ -48,19 +48,20 @@ exports.get = function get(req, res) {
       var pages = _h.pagination(link, skip, config.sections[section].limit, total);
 			res.render(section + '/list', {
 				title: title,
-        info: info,
+        		info: info,
 				section: section,
 				total: total,
 				path: path,
 				sort: sorting,
 				filter: filter,
 				skip: skip,
-        page: page,
-        pages: pages,
+				page: page,
+				pages: pages,
 				result: events,
-        categories: config.sections[section].categories,
-        orderings: config.sections[section].orders,
-				user: req.user
+				categories: config.sections[section].categories,
+				orderings: config.sections[section].orders,
+				user: req.user,
+				_h: _h
 			});
 		});
 	});
