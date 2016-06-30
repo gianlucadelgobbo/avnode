@@ -11,10 +11,10 @@ module.exports = new Schema({
 	title: String,
 	permalink: String,
 	users: [User],
-	files: [File],
+	files: [File],  //FIXME
 	performances: [Performance], //FIXME
 	events: [Event],
-	footage: [Footage],
+	footage: [Footage], //FIXME
 	stats: {
 		img: Number,
 		visits: Number

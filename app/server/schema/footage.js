@@ -3,15 +3,16 @@ var File = require('./file');
 var User = require('./user');
 var Playlist = require('./playlist');
 
+
+
 module.exports = new Schema({
-	tag: [String],
-	public: Boolean,
-	permalink: String,
 	old_id: String,
-	preview_file: String,
-	playlists: [Playlist],
-	files: [File],
+	creation_date: Date,
+	title: String,
+	permalink: String,
 	users: [User],
+	files: [File],
+	playlists: [Playlist],
 	stats: {
 		visits: Number,
 		downloads: Number,
@@ -21,7 +22,8 @@ module.exports = new Schema({
 			sum_rate: String
 		}
 	},
-	title: String,
-	text: String,
-	creation_date: Date
+	preview_file: String,
+	tag: [String],
+	public: Boolean,
+	text: String
 }, {collection: 'footage'});

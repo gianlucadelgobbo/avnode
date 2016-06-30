@@ -26,9 +26,8 @@ mixin tvshow_item_content
 						li
 							i(class="fa fa-tags")
 								- if(box.tags)
-									- for (var t=0;t<box.tags.length;t++) {
+									- for (var t=0;t<box.tags.length;t++)
 										span= box.tags[t] + " "
-								- }
 
 if (col_number)
 	div.list_item_performer.grid-item.tvshows_footage(class= col_number)

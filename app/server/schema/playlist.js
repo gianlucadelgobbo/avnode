@@ -5,7 +5,6 @@ var User = require('./user');
 var Playlist = require('./playlist');
 var config = require('getconfig');
 
-
 module.exports = new Schema({
 	old_id: Number,
 	creation_date: Date,
