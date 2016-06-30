@@ -2,6 +2,7 @@ extends ../layout_user_two_columns
 
 block user-content
 	h2=result.title
+	p="Gallery"
 
 	ul
 		li
@@ -11,7 +12,8 @@ block user-content
 			h3="title: "
 			p=result.title
 		li
-			h3="stats: FIX"
+			h3="stats:
+
 		li
 			h3="performances"
 			- for(var a=0; a<result.performances.length; a++)
@@ -23,8 +25,32 @@ block user-content
 		li
 			h3="users"
 			- for(var a=0; a<result.users.length; a++)
-				li
-					="permalin: " + result.users[a].permalink
+				ol
+					li
+						="permalink: " + result.users[a].permalink
+					li
+						="name: " + result.users[a].display_name
+		li
+			h3="events: "
+			- for(var a=0; a<result.events.length; a++)
+				ol
+					li
+						="permalink: " + result.events[a].permalink
+					li
+						span.alert-danger="title: " + result.events[a].titolo
+		li
+			h3="footage: "
+			p="Footages: " + result.footage.length
+
+
+			- for(var a=0; a<result.footage.length; a++)
+				ul
+					li.alert-danger="title: " + result.footage[a].titolo
+					li="permalink: " + result.footage[a].permalink
+					li="preview file: " + result.footage[a].preview_file
+					li.alert-danger="weitgh: " + result.footage[a].peso
+					li.alert-danger="type: " + result.footage[a].type
+					li.alert-danger="file name: " + result.footage[a].name
 
 	.pre
 		//!=result

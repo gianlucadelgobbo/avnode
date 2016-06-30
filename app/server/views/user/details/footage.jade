@@ -2,6 +2,7 @@ extends ../layout_user_two_columns
 block user-content
 	.container
 		h1=result.title
+		p="footage"
 		=result.files[0].file
 		#flashPlayer
 			a(href=result.files[0].file, target="_blank")

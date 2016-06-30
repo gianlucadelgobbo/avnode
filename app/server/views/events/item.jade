@@ -8,17 +8,17 @@ mixin event_item_content
 			.main_event_details.col-sm-12
 				// MISSING DATA: DATE, TIME, VENUE, CITY, COUNTRY
 				ul.row.date_time_event_evidence
-					li.evidence-date.col-xs-12
-						span 31
+					li.alert-danger.evidence-date.col-xs-12
+						span 99
 						span.evidence-date_sep /
-						span 12
+						span 9
 						span.evidence-date_sep /
-						span 1999
+						span 9999
 					//-li.evidence_time.col-xs-6
 						i.fa.fa-clock-o(aria-hidden='true')
 						span.evidence_time_start 20:00
 						span.evidence_time_end 22:00
-					li.evidence_location.col-xs-12
+					li.alert-danger.evidence_location.col-xs-12
 						p
 							i(class="fa fa-map-marker")
 							span.event_location= box.event_loc + __(", ")
@@ -38,5 +38,7 @@ if (col_number)
 else
 	div.list_item_performer.grid-item.col-sm-3(class="col-md-3 events_performer")
 		+event_item_content
+
+//-console.log(JSON.stringify(box, null, 20));
 
 

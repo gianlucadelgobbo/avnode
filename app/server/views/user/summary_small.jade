@@ -2,40 +2,44 @@
    Created by gianlucabernardo on 24/06/16.
 
 // app/server/views/user/summary.jade
-.user_dett_bkg
-    .row
-        .col-xs-12
-            .row
-                .col-xs-12
-                    //img.media-object(alt=__("Thumbnail of") + ": " + performer.display_name, src=_h.media.getFileFormat(performer.files.length ? performer.files[0].file : false, config.sections["performers"].thumbnails.detail))
-                .col-xs-12
-                    a(href="/" + performer.permalink, title=performer.display_name)
-                        h1= performer.display_name
-                    each location, i in performer.locations
-                        if i === 0
-                            .col-xs-12
-                                span=location.city + " // "
-                                span.country_geoloc= location.country
-                            .col-xs-12
-                                img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?center=#{location.city},#{location.country}&zoom=4&size=262x110&markers=#{location.city},#{location.country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
-                                //- static url = https://maps.googleapis.com/maps/api/staticmap?center=Rome,Italy&zoom=13&size=400x200&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs
-        .col-xs-12
-            .foo
-                ul
-                    li
+
+.row.user_summary_small
+    .col-xs-12
+        .row
+            .col-xs-12
+                a(href="/" + performer.permalink, title=performer.display_name)
+                    h1.performer_display_name= performer.display_name
+                    img.media-object(alt=__("Thumbnail of") + ": " + performer.display_name, src=_h.media.getFileFormat(performer.files.length ? performer.files[0].file : false, config.sections["performers"].thumbnails.detail))
+                nav
+                    ul.performer_details
+                        each stat, name in performer.stats
+                            li
+                                a(href="/#{performer.permalink}/#{name}/")=__(name) + ' (' + stat + ')'
+            each location, i in performer.locations
+                if i === 0
+                    .col-xs-12
+                        span=location.city + " // "
+                        span.country_geoloc= location.country
+                    .col-xs-12
+                        img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?center=#{location.city},#{location.country}&zoom=4&size=350x110&markers=#{location.city},#{location.country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
+                        //- static url = https://maps.googleapis.com/maps/api/staticmap?center=Rome,Italy&zoom=13&size=400x200&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs
+    .col-xs-12
+        .foo
+            ul.performer_interaction
+                li
                     a(href="#")
                         span!='<i class="fa fa-download"></i> '
                         span=__("Download Pdf")
-                    li
-                        a(href="#")
-                            span!='<i class="fa fa-share-alt"></i> '
-                            span=__("Share")
-                    li
-                        a(href="#")
-                            span!='<i class="fa fa-chevron-right"></i> '
-                            span=__("Invite to event")
-                    li
-                        a(href="#")
-                            span!='<i class="fa fa-chevron-comment"></i> '
-                            span=__("Follow")
+                li
+                    a(href="#")
+                        span!='<i class="fa fa-share-alt"></i> '
+                        span=__("Share")
+                li
+                    a(href="#")
+                        span!='<i class="fa fa-chevron-right"></i> '
+                        span=__("Invite to event")
+                li
+                    a(href="#")
+                        span!='<i class="fa fa-hand-rock-o"></i> '
+                        span=__("Follow")
 

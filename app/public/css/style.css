@@ -437,6 +437,25 @@ a:hover img {
     width: 100%;
   }
 }
+.user_summary_small .performer_display_name {
+  font-size: 20px;
+}
+.user_summary_small .performer_details {
+  padding: 0;
+  margin: 10px 0;
+}
+.user_summary_small .performer_details li {
+  display: inline-block;
+  margin-right: 5px;
+}
+.user_summary_small .performer_interaction {
+  padding: 0;
+  margin: 10px 0;
+}
+.user_summary_small .performer_interaction li {
+  display: inline-block;
+  margin-right: 10px;
+}
 /**/
 /* Performer */
 /**/
