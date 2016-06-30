@@ -32,7 +32,7 @@ block inner-content
 				.col-sm-10
 					.input-group
 						span.input-group-addon=config.baseurl
-						input.form-control(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="[a-zA-z0-9]+")
+						input.form-control(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="#{config.regex.permalink}", data-parsley-remote-validator="reverse", data-parsley-remote="#{config.baseurl}api/validate/permalink/{value}")
 		+multilanguage-text(result.text)
 		+websites(result.websites)
 		+locations(result.locations)
