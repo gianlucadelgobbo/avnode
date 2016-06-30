@@ -187,11 +187,11 @@ exports.getUserGallery = function get(req, res) {
   User
   .findOne(query)
   .exec(function(error, user) {
-    console.log(user);
-    var query = { 'permalink': req.params.galleries };
+    var query = { 'permalink': req.params.gallery };
     Gallery
     .findOne(query)
     .exec(function(error, result) {
+      console.log(result);
       res.render('user/details/gallery', localsDetail(user, result, req, "galleries"));
     });
   });
