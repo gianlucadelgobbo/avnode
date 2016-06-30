@@ -1,17 +1,19 @@
-var indexRoutes 		= require('./routes/index');
-var performersRoutes 	= require('./routes/performers');
-var eventsRoutes 		= require('./routes/events');
-var performancesRoutes 	= require('./routes/performances');
-var tvshowsRoutes 		= require('./routes/tvshows');
+var Errors = require('./errors');
+var indexRoutes = require('./routes/index');
+var performersRoutes = require('./routes/performers');
+var performancesRoutes = require('./routes/performances');
+//var footageRoutes = require('./routes/footage');
+var eventsRoutes = require('./routes/events');
+var playlistsRoutes = require('./routes/playlists');
+var galleriesRoutes = require('./routes/galleries');
+//var forumRoutes = require('./routes/forum');
+var tvshowsRoutes = require('./routes/tvshows');
 var footagesRoutes 		= require('./routes/footages');
-var playlistsRoutes 	= require('./routes/playlists');
-var galleriesRoutes 	= require('./routes/galleries');
-//var forumRoutes 		= require('./routes/forum');
-var userRoutes 			= require('./routes/user');
-var apiRoutes 			= require('./routes/api');
-var swfdataRoutes 		= require('./routes/swfdata');
+var userRoutes = require('./routes/user');
+var apiRoutes = require('./routes/api');
 
-var searchRoutes 		= require('./routes/search');
+var swfdataRoutes 		= require('./routes/swfdata');
+var searchRoutes = require('./routes/search');
 
 // FIXME, upload routes working?
 var uploadRoutes 		= require('./routes/upload');
@@ -57,22 +59,33 @@ module.exports = function(app) {
 
 	app.get('/image', imageRoutes.get);
 
-	app.get('/(:user)/events/(:event)/participate', 	userRoutes.participateAtUserEvent);
-	app.get('/(:user)/events/(:event)', 				userRoutes.getUserEvent);
-	app.get('/(:user)/performances/(:performance)', 	userRoutes.getUserPerformance);
-	app.get('/(:user)/tvshows/(:tvshow)', 				userRoutes.getUserTvshow);
-	app.get('/(:user)/footage/(:footage)', 				userRoutes.getUserFootage);
-	app.get('/(:user)/playlists/(:playlist)', 			userRoutes.getUserPlaylist);
-	app.get('/(:user)/galleries/(:gallery)', 			userRoutes.getUserGallery);
-	//app.get('/(:user)/crews/(:crew)', 					userRoutes.getUserCrew);
+  app.get('/(:user)/events/(:event)/participate', userRoutes.participateAtUserEvent);
+  app.get('/(:user)/events/(:event)', userRoutes.getUserEvent);
+  app.get('/(:user)/performances/(:performance)', userRoutes.getUserPerformance);
+  app.get('/(:user)/tvshows/(:tvshow)', userRoutes.getUserTvshow);
 
-	app.get('/(:user)/events', 							userRoutes.getUserEvents);
-	app.get('/(:user)/performances', 					userRoutes.getUserPerformances);
-	app.get('/(:user)/tvshows', 						userRoutes.getUserTvshows);
-	app.get('/(:user)/footage', 						userRoutes.getUserFootages);
-	app.get('/(:user)/playlists', 						userRoutes.getUserPlaylists);
-	app.get('/(:user)/galleries', 						userRoutes.getUserGalleries);
-	app.get('/(:user)/crews', 							userRoutes.getUserCrews);
+  app.get('/(:user)/playlists/(:playlist)', userRoutes.getUserPlaylist);
+  app.get('/(:user)/footage/(:footage)', userRoutes.getUserFootage);
+  app.get('/(:user)/gallery/(:gallery)', userRoutes.getUserGallery);
+  //app.get('/(:user)/crews/(:crew)', userRoutes.getUserCrew);
 
-	app.get('/(:user)', 								userRoutes.getUser);
+  app.get('/(:user)/events', userRoutes.getUserEvents);
+  app.get('/(:user)/performances', userRoutes.getUserPerformances);
+  app.get('/(:user)/tvshows',	userRoutes.getUserTvshows);
+  app.get('/(:user)/playlists', userRoutes.getUserPlaylists);
+  app.get('/(:user)/footage', userRoutes.getUserFootages);
+  app.get('/(:user)/gallery', userRoutes.getUserGalleries);
+  app.get('/(:user)/crews', userRoutes.getUserCrews);
+
+  app.get('/(:user)', userRoutes.getUser);
+
+  app.use(function(err, req, res, next) {
+    // FIXME add logging
+    if (err instanceof Errors.NotFound) {
+      res.status(err.statusCode).send(err.message);
+    }
+    if (err instanceof Errors.Internal) {
+      res.status(err.statusCode).send(err.message);
+    }
+  });
 };

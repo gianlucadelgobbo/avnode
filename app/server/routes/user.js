@@ -1,3 +1,4 @@
+var Errors = require('../errors');
 var config = require('getconfig');
 var User = require('../models/user');
 var Footage = require('../models/footage');
@@ -111,11 +112,13 @@ var localsDetail = function(user, result, req, sez) {
   }
 }
 
-exports.getUserEvent = function get(req, res) {
+exports.getUserEvent = function get(req, res, next) {
   var query = { 'permalink': req.params.user };
   User
   .findOne(query)
   .exec(function(error, user) {
+    if (error) return next(new Errors.Internal());
+    if (!user) return next(new Errors.NotFound('User not found'));
     var query = { 'permalink': req.params.event };
     Event
     .findOne(query)
