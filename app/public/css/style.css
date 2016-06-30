@@ -1092,6 +1092,7 @@ footer.main_footer {
 }
 .list_item_performer {
   margin-bottom: 30px;
+  min-height: 140px;
 }
 @media screen and (max-width: 768px) {
   .list_item_performer {
