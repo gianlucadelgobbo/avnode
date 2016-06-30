@@ -34,6 +34,8 @@
     "mongoose": "^4.3.1",
     "morgan": "^1.6.1",
     "multer": "^1.1.0",
+    "nodemailer": "^2.4.2",
+    "nodemailer-ses-transport": "^1.3.1",
     "node-imagemagick": "^0.1.8",
     "passport": "^0.3.2",
     "passport-facebook": "^2.0.0",
