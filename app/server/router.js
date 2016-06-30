@@ -66,7 +66,7 @@ module.exports = function(app) {
 
   app.get('/(:user)/playlists/(:playlist)', userRoutes.getUserPlaylist);
   app.get('/(:user)/footage/(:footage)', userRoutes.getUserFootage);
-  app.get('/(:user)/gallery/(:gallery)', userRoutes.getUserGallery);
+  app.get('/(:user)/galleries/(:gallery)', userRoutes.getUserGallery);
   //app.get('/(:user)/crews/(:crew)', userRoutes.getUserCrew);
 
   app.get('/(:user)/events', userRoutes.getUserEvents);
@@ -74,7 +74,7 @@ module.exports = function(app) {
   app.get('/(:user)/tvshows',	userRoutes.getUserTvshows);
   app.get('/(:user)/playlists', userRoutes.getUserPlaylists);
   app.get('/(:user)/footage', userRoutes.getUserFootages);
-  app.get('/(:user)/gallery', userRoutes.getUserGalleries);
+  app.get('/(:user)/galleries', userRoutes.getUserGalleries);
   app.get('/(:user)/crews', userRoutes.getUserCrews);
 
   app.get('/(:user)', userRoutes.getUser);

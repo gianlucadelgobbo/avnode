@@ -2,15 +2,19 @@ var Schema = require('mongoose').Schema;
 var Footage = require('./footage');
 var File = require('./file');
 var User = require('./user');
+var Playlist = require('./playlist');
 var config = require('getconfig');
 
+
 module.exports = new Schema({
+	old_id: Number,
 	creation_date: Date,
 	title: String,
+	permalink: String,
+	users: [User],
 	files: [File],
 	footage: [Footage],
-	old_id: Number,
-	permalink: String,
+	playlists: [Playlist],
 	public: Boolean,
 	stats: {
 		visits: Number,
@@ -20,6 +24,5 @@ module.exports = new Schema({
 			tot_rate: String,
 			sum_rate: String
 		}
-	},
-	users: [User]
+	}
 });

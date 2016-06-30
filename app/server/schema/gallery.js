@@ -6,19 +6,19 @@ var Footage = require('./footage');
 var Performance = require('./performance');
 
 module.exports = new Schema({
+	old_id: String,
+	creation_date: Date,
+	title: String,
 	permalink: String,
+	users: [User],
+	files: [File],
+	performances: [Performance], //FIXME
+	events: [Event],
+	footage: [Footage],
 	stats: {
 		img: Number,
 		visits: Number
-	},
-	performances: [Performance], //FIXME
-	old_id: String,
-	title: String,
-	files: [File],
-	users: [User],
-	events: [Event],
-	creation_date: Date,
-	footage: [Footage]
+	}
   }, {
     // FIXME maybe would be better to rename the collection
     collection: 'gallery'
