@@ -1,6 +1,6 @@
 var config = require('getconfig');
 var mandrill = require('mandrill-api/mandrill');
-var mandrill_client = new mandrill.Mandrill(config.mandrill.key);
+//var mandrill_client = new mandrill.Mandrill(config.mandrill.key);
 
 exports.sendVerificationMail = function(to, uuid) {
   var message = {

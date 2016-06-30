@@ -28,32 +28,34 @@ exports.get = function get(req, res) {
 
   var path = '/' + section + '/' + _.map(req.params, function(p) { return p; }).join('/') + '/';
 	path = path.replace('//', '/');
-
 	Tvshow.count(query, function(error, total) {
 		Tvshow.find(query)
 		.limit(config.sections[section].limit)
 		.skip(skip)
 		.sort(config.sections[section].sortQ[sorting])
 		.exec(function(error, tvshow) {
-      var title = config.sections[section].title;
-      var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
-      var link = '/' + section + '/' + filter + "/" + sorting + "/";
-      var pages = _h.pagination(link, skip, config.sections[section].limit, total);
+
+			var title = config.sections[section].title;
+			var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
+			var link = '/' + section + '/' + filter + "/" + sorting + "/";
+			var pages = _h.pagination(link, skip, config.sections[section].limit, total);
 			res.render(section + '/list', {
 				title: title,
-        info: info,
+				info: info,
 				section: section,
 				total: total,
 				path: path,
 				sort: sorting,
 				filter: filter,
 				skip: skip,
-        page: page,
-        pages: pages,
+				page: page,
+				pages: pages,
+				str:generaXml(tvshow,"2016-03-01","2016-03-02"),
 				result: tvshow,
-        categories: config.sections[section].categories,
-        orderings: config.sections[section].orders,
-				user: req.user
+				categories: config.sections[section].categories,
+				orderings: config.sections[section].orders,
+				user: req.user,
+				_h: _h
 			});
 		});
 	});

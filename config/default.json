@@ -6,10 +6,10 @@
   "mongo": "mongodb://127.0.0.1/avnode",
   "sitename": "AVnode",
   "dbName": "avnode",
-  "sitepath": "/tmp/avnode",
+  "sitepath": "/Users/admin/github/avnode",
   "siteurl": "http://127.0.0.1:8002",
   "uploadpath": "",
-  "uploadedFilesPath":"/tmp/avnode/tmp/",
+  "uploadedFilesPath":"/tmp",
   "maxFileComment": "1 * 1024 * 1024 * 1024",
   "maxFileSize": 1073741824,
   "defaultLocale": "en",
@@ -18,15 +18,100 @@
     "permalink": "^[\\w-_]+$"
   },
   "controlpanel": {
-    "chapters": ["user", "crews", "events"],
-    "user": {
-      "sections": ["public", "image", "password", "private", "emails", "connections"]
-    },
-    "crews": {
-      "sections": ["public", "image", "members"]
-    },
-    "events": {
-      "sections": ["public", "image", "visibility", "permissions", "calls"]
+    "chapters": {
+      "user": {
+        "label":"My account",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"},
+          {"label":"Password","val":"password"},
+          {"label":"Private","val":"private"},
+          {"label":"Emails","val":"emails"},
+          {"label":"connections","val":"connections"}
+        ]
+      },
+      "crews": {
+        "label":"Crews",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"},
+          {"label":"Members","val":"members"}
+        ]
+      },
+      "organizations": {
+        "label":"Organizations",
+        "member_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"},
+          {"label":"logo","val":"logo"},
+          {"label":"Members","val":"members"},
+          {"label":"Private","val":"private"},
+          {"label":"billing","val":"billing"}
+        ]
+      },
+      "events": {
+        "label":"Events",
+        "permissions":"user",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"},
+          {"label":"Performances","val":"performances"},
+          {"label":"Partners","val":"partners"},
+          {"label":"galleries","val":"galleries"},
+          {"label":"Permissions","val":"permissions"},
+          {"label":"Visibility","val":"visibility"}
+        ],
+        "member_sections": [
+          {"label":"Calls","val":"calls"},
+          {"label":"Tools","val":"tools"}
+        ]
+      },
+      "performances": {
+        "label":"Performances",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"},
+          {"label":"Performers","val":"performers"},
+          {"label":"Events","val":"events"},
+          {"label":"Visibility","val":"visibility"},
+          {"label":"Permissions","val":"permissions"}
+        ]
+      },
+      "tvshows": {
+        "label":"TV Shows",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"}
+        ]
+      },
+      "footage": {
+        "label":"Footage",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Image","val":"image"}
+        ]
+      },
+      "playlists": {
+        "label":"Playlists",
+        "user_sections": [
+          {"label":"Public","val":"public"},
+          {"label":"Footage","val":"footage"}
+        ]
+      },
+      "galleries": {
+        "label":"Galleries",
+        "user_sections": [
+          {"label":"Public","val":"public"}
+        ]
+      },
+      "superadmin": {
+        "label":"Super admin",
+        "superadmin_sections": [
+          {"label":"VJ Television","val":"vjtelevision"},
+          {"label":"Categories","val":"categories"},
+          {"label":"Organizations","val":"organizations"}
+        ]
+      }
     }
   },
   "locales": [
@@ -40,13 +125,6 @@
     "by",
     "gr"
   ],
-  "thumbnails": [{
-    "width": 400,
-    "height": 300
-  },{
-    "width": 55,
-    "height": 55
-  }],
   "googleAnalytics": "UA-8844617-6",
   "mailinglists": [
     "livevisuals",
@@ -176,6 +254,10 @@
         "all":"All",
         "individuals":"Individuals",
         "crews":"Crews"
+      },
+      "thumbnails": {
+        "detail":{"w":350,"h":197,"default":"performer.jpg"},
+        "list":{"w":263,"h":148,"default":"performer.jpg"}
       }
     },
     "crews": {
@@ -276,6 +358,10 @@
         "administrator": "Administrator",
         "editor":  "Editor",
         "viewer":  "Viewer"
+      },
+      "thumbnails": {
+        "detail":{"w":1140,"h":641,"default":"event.jpg"},
+        "list":{"w":263,"h":148,"default":"event.jpg"}
       }
     },
     "performances": {
@@ -342,8 +428,12 @@
         "av-performance": "AV Performance",
         "vj-set": "VJ Set",
         "dj-set": "DJ Set",
-      "project-showcase": "Project Showcase",
+        "project-showcase": "Project Showcase",
         "workshop": "Workshop"
+      },
+      "thumbnails": {
+        "detail":{"w":730,"h":411,"default":"performance.jpg"},
+        "list":{"w":263,"h":148,"default":"performance.jpg"}
       }
     },
     "tvshows": {
@@ -408,6 +498,10 @@
         "vj-dj-sets": "VJ-DJ Sets",
         "docs": "Docs",
         "video": "Video"
+      },
+      "thumbnails": {
+        "detail":{"w":730,"h":411,"default":"tvshow.jpg"},
+        "list":{"w":263,"h":148,"default":"tvshow.jpg"}
       }
     },
     "footage": {
@@ -466,6 +560,10 @@
         "hole": "Hole",
         "no-hole": "No Hole",
         "koncept": "Koncept"
+      },
+      "thumbnails": {
+        "detail":{"w":730,"h":411,"default":"footage.jpg"},
+        "list":{"w":263,"h":148,"default":"footage.jpg"}
       }
     },
     "playlists": {
@@ -509,14 +607,18 @@
         "mostviewed": "Most viewed",
         "mostrated": "Most rated",
         "all": "All"
+      },
+      "thumbnails": {
+        "detail":{"w":730,"h":411,"default":"playlist.jpg"},
+        "list":{"w":263,"h":148,"default":"playlist.jpg"}
       }
     },
     "galleries": {
-      "title": "Gallery",
+      "title": "Galleries",
       "limit": 20,
       "basepath": "galleries",
       "coll": "gallery",
-      "view_list": "gallery",
+      "view_list": "galleries",
       "list_fields": {
         "title":1,
         "users":1,
@@ -549,6 +651,10 @@
         "mostviewed": "Most viewed",
         "mostrated": "Most rated",
         "all": "All"
+      },
+      "thumbnails": {
+        "detail":{"w":730,"h":411,"default":"gallery.jpg"},
+        "list":{"w":263,"h":148,"default":"gallery.jpg"}
       }
     }
   },

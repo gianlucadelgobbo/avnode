@@ -1,0 +1,16 @@
+doctype html
+html(lang=config.lang)
+	include ./head
+
+	body
+		.wrapper
+			header#header
+				include ./menu
+				include login/menu
+
+
+
+			#content
+				block content
+
+			include ./footer

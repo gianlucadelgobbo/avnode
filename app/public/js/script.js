@@ -28,20 +28,34 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
 
 
+
+
 // isotope layout in lists
-$('.grid').isotope({
-	// options
-	itemSelector: '.grid-item',
-	layoutMode: 'masonry'
+$('.grid').imagesLoaded(function() {
+	$('.grid').isotope({
+		// options
+		itemSelector: '.grid-item',
+		layoutMode: 'masonry'
+	});
+});
+
+
+$('.grid-user').imagesLoaded(function() {
+	$('.grid-user').isotope({
+		// options
+		itemSelector: '.grid-item-user',
+		layoutMode: 'masonry'
+	});
 });
 
 // isotope layout in bootstrap tabs
-$('.grid_tab').isotope({
-	// options
-	itemSelector: '.grid-item',
-	layoutMode: 'masonry'
+$('.grid').imagesLoaded(function() {
+	$('.grid_tab').isotope({
+		// options
+		itemSelector: '.grid-item',
+		layoutMode: 'masonry'
+	});
 });
-
 
 // readmore
 $('.readmore').readmore({
@@ -56,3 +70,8 @@ $(document).ready(function() {
 		side: 'right'
 	});
 });
+
+
+// equal elements
+$('.equalteaser').equalHeights();
+

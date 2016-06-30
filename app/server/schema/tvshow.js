@@ -30,4 +30,4 @@ module.exports = new Schema({
 			sum_rate: String
 		}
 	},
-});
+}, {collection: 'tvshow'});

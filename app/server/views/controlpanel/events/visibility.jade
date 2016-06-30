@@ -5,7 +5,7 @@ block variables
 	- var activeSection='visibility'
 
 block inner-content
-	include ./menu
+	include ../menu
 	+render-alerts(alerts)
 	form.form-horizontal(method="post")
 		input(name="_id", value=result._id, type="hidden")

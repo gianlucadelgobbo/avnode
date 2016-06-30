@@ -29,7 +29,7 @@ DB.db.open(function(e, d){
         DB.events = 		DB.db.collection('events');
 		DB.subscriptions = 	DB.db.collection('subscriptions');
 		DB.tvshow = 		DB.db.collection('tvshow');
-        DB.gallery = 		DB.db.collection('gallery');
+        DB.galleries = 		DB.db.collection('galleries');
         DB.categories = 	DB.db.collection('categories');
 		DB.temp_users = 	DB.db.collection('temp_users');
         DB.temp = 			DB.db.collection('temp');
