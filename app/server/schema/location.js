@@ -6,5 +6,5 @@ module.exports = new Schema({
   zip: String,
   country: String,
   lat:Number,
-  long:Number
+  lng:Number
 });
