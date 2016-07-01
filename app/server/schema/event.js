@@ -2,9 +2,9 @@ var Schema = require('mongoose').Schema;
 var User = require('./user');
 var File = require('./file');
 var Category = require('./category');
-var DateTimeVenue = require('./locationvenuedatetime');
+var Schedule = require('./schedule');
 var Gallery = require('./gallery');
-var Performances = require('./performance');
+var Slot = require('./slot');
 var config = require('getconfig');
 
 // Reuse the configured locales…
@@ -20,7 +20,6 @@ module.exports = new Schema({
   creation_date: Date,
   title: String,
   permalink: String,
-  text: text,
   public: Boolean,
   users: [User],
   files: [File],
@@ -34,11 +33,15 @@ module.exports = new Schema({
   },
   categories: [Category],
   subtitle: subtitle,
+  schedule: [Schedule],
+
+  text: text,
   websites: [String],
-  performances: [Performances],
+
+  program: [Slot],
+
   galleries: [Gallery],
   partners: [User],
-  date_time_venue: [DateTimeVenue],
   settings: {
     is_public: Boolean,
     gallery_is_public: Boolean,

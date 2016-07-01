@@ -2,19 +2,14 @@ var Schema = require('mongoose').Schema;
 var User = require('./user');
 var File = require('./file');
 var Category = require('./category');
-var Bookings = require('./bookings');
-var Gallery = require('./gallery');
-
+var Schedule = require('./schedule');
 var config = require('getconfig');
 
 // Reuse the configured locales…
-var text = {};
-var tech_art = {};
-var tech_req = {};
+var subtitle = {};
 config.locales.forEach(function(locale) {
   text[locale] = String;
-  tech_art[locale] = String;
-  tech_req[locale] = String;
+  subtitle[locale] = String;
 });
 
 module.exports = new Schema({
@@ -22,7 +17,6 @@ module.exports = new Schema({
   creation_date: Date,
   title: String,
   permalink: String,
-  text: text,
   public: Boolean,
   users: [User],
   files: [File],
@@ -35,9 +29,6 @@ module.exports = new Schema({
     }
   },
   categories: [Category],
-  duration: Number,
-  tech_art: tech_art,
-  tech_req: tech_req,
-  galleries: [Gallery],
-  bookings: [Bookings]
+  subtitle: subtitle,
+  schedule: [Schedule]
 });

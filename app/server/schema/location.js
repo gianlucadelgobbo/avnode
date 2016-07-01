@@ -6,6 +6,7 @@ module.exports = new Schema({
   street: String,
   streetnumber: String,
   city: String,
+  region: String,
   zip: String,
   country: String,
   lat:Number,
