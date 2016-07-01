@@ -27,7 +27,7 @@ var UserSchema = new Schema({
     type: String
   },
   public: {type: Boolean, default: true},
-  files: [File],
+  file: File,
   websites: [], // FIXME to be defined Socials?
   text: Object,
   activity: Number,

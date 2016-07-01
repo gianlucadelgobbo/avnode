@@ -19,7 +19,7 @@ module.exports = new Schema({
   permalink: String,
   public: Boolean,
   users: [User],
-  files: [File],
+  file: File,
   stats: {
     visits: Number,
     rates: {

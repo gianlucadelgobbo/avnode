@@ -13,7 +13,7 @@ module.exports = new Schema({
   permalink: String,
   text: {},
   users: [User],
-  files: [File],  //always one
+  file: File,  //always one
   tagged: [], // FIXME
   locationvenue : Locationvenue,
   stats: { // Summary of data coming by gallery and

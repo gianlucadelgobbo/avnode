@@ -25,7 +25,7 @@ module.exports = new Schema({
   text: text,
   public: Boolean,
   users: [User],
-  files: [File],
+  file: File,
   stats: {
     visits: Number,
     rates: {

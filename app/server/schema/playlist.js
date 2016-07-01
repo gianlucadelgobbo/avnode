@@ -13,7 +13,7 @@ module.exports = new Schema({
   text: {},
   public: Boolean,
   users: [User],
-  files: [File], // Main image (if selected)
+  file: File, // Main image (if selected)
   footage: [Footage], // Multiple Footage
   stats: {
     visits: Number,

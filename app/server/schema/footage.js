@@ -19,7 +19,7 @@ module.exports = new Schema({
   text: {},
   public: Boolean,
   users: [User],
-  files: [File], //always one
+  file: File, //always one
   preview_file: String, //FIXME put it inside file
   tag: [String],
   stats: {

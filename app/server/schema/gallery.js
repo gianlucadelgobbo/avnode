@@ -23,7 +23,7 @@ module.exports = new Schema({
   text: text,
   public: Boolean,
   users: [User],
-  files: [File], // Main image (if selected)
+  file: File, // Main image (if selected)
   medias: [Media], // 1 Media if video Multiple Media if image
   stats: { // Summary of data coming by gallery and media
     visits: Number,
