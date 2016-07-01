@@ -2,32 +2,38 @@ var Schema = require('mongoose').Schema;
 var Category = require('./category');
 var File = require('./file');
 var User = require('./user');
+
+
+
 var config = require('getconfig');
 
 // Reuse the configured locales…
 var text = {};
-config.locales.forEach(function(locale) {
-	text[locale] = String;
+config.locales.forEach(function (locale) {
+  text[locale] = String;
 });
 
 
+
+
+
 module.exports = new Schema({
-	categories: [Category],
-	creation_date: Date,
-	files: [File],
-	old_id: Number,
-	//palinsetodate: Array ?!
-	permalink: String,
-	public: Number, // Boolean?
-	text: text,
-	title: String,
-	users: [User],
-	stats: {
-		visits: Number,
-		rates: {
-			stars: String,
-			tot_rate: String,
-			sum_rate: String
-		}
-	},
+  old_id: String,
+  creation_date: Date,
+  title: String,
+  permalink: String,
+  text: text,
+  public: Boolean,
+  users: [User],
+  files: [File],
+  stats: {
+    visits: Number,
+    rates: {
+      stars: String,
+      tot_rate: String,
+      sum_rate: String
+    }
+  },
+  categories: [Category],
+  palinsetodate: [Date]
 }, {collection: 'tvshow'});
