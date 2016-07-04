@@ -2,8 +2,8 @@ var Schema = require('mongoose').Schema;
 var User = require('./user');
 var File = require('./file');
 var Media = require('./media');
-var Event = require('./event');
-var Performance = require('./performance');
+var Eventsummary = require('./eventsummary');
+var Performancesummary = require('./performancesummary');
 
 var config = require('getconfig');
 
@@ -21,20 +21,17 @@ module.exports = new Schema({
   title: String,
   permalink: String,
   text: text,
-  public: Boolean,
+  is_public: Boolean,
   users: [User],
   file: File, // Main image (if selected)
   medias: [Media], // 1 Media if video Multiple Media if image
   stats: { // Summary of data coming by gallery and media
     visits: Number,
-    rates: {
-      stars: String,
-      tot_rate: String,
-      sum_rate: String
-    }
+    likes: Number,
+    shares: Number
   },
-  performances: [Performance], // Gallery can be connected to performances or events
-  events: [Event] // Gallery can be connected to performances or events
+  performances: [Performancesummary], // Gallery can be connected to performances or events
+  events: [Eventsummary] // Gallery can be connected to performances or events
 }, {
   // FIXME maybe would be better to rename the collection
   collection: 'gallery'

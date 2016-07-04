@@ -23,16 +23,13 @@ module.exports = new Schema({
   title: String,
   permalink: String,
   text: text,
-  public: Boolean,
+  is_public: Boolean,
   users: [User],
   file: File,
   stats: {
     visits: Number,
-    rates: {
-      stars: String,
-      tot_rate: String,
-      sum_rate: String
-    }
+    likes: Number,
+    shares: Number
   },
   categories: [Category],
   duration: Number,

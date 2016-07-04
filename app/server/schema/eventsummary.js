@@ -6,6 +6,7 @@ var Schedule = require('./schedule');
 var config = require('getconfig');
 
 // Reuse the configured locales…
+var text = {};
 var subtitle = {};
 config.locales.forEach(function(locale) {
   text[locale] = String;
@@ -17,16 +18,13 @@ module.exports = new Schema({
   creation_date: Date,
   title: String,
   permalink: String,
-  public: Boolean,
+  is_public: Boolean,
   users: [User],
   file: File,
   stats: {
     visits: Number,
-    rates: {
-      stars: String,
-      tot_rate: String,
-      sum_rate: String
-    }
+    likes: Number,
+    shares: Number
   },
   categories: [Category],
   subtitle: subtitle,

@@ -17,7 +17,7 @@ module.exports = new Schema({
   title: String,
   permalink: String,
   text: {},
-  public: Boolean,
+  is_public: Boolean,
   users: [User],
   file: File, //always one
   preview_file: String, //FIXME put it inside file
@@ -25,11 +25,8 @@ module.exports = new Schema({
   stats: {
     visits: Number,
     downloads: Number,
-    rates: {
-      stars: String,
-      tot_rate: String,
-      sum_rate: String
-    }
+    likes: Number,
+    shares: Number
   },
   playlists: [Playlist]
 }, {collection: 'footage'});

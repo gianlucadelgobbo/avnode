@@ -1,5 +1,6 @@
 var Schema = require('mongoose').Schema;
 var User = require('./user');
+var File = require('./file');
 var Location = require('./location');
 
 module.exports = new Schema({
@@ -16,7 +17,7 @@ module.exports = new Schema({
   officialregistrationnumber: String,
   phone: String,
   pic: String,
-  publicemail: String,
+  is_publicemail: String,
   recuperatevat: Boolean,
   stamp: String,
   type: String,

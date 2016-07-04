@@ -1,15 +1,11 @@
 var Schema = require('mongoose').Schema;
-var Performancesummary = require('./performancesummary');
+var Performance = require('./performance');
 var Schedule = require('./schedule');
 
 
 
 
 module.exports = new Schema({
-  performance: Performancesummary,
-  schedule: Schedule,
-  topics:[{
-    title: String,
-    description: String
-  }]
+  performance: Performance,
+  schedule: Schedule
 });

@@ -1,6 +1,7 @@
 var Schema = require('mongoose').Schema;
 var User = require('./user');
 var File = require('./file');
+var Performance = require('./performance');
 var Category = require('./category');
 var Schedule = require('./schedule');
 var Gallery = require('./gallery');
@@ -20,16 +21,15 @@ module.exports = new Schema({
   creation_date: Date,
   title: String,
   permalink: String,
-  public: Boolean,
+  is_public: {type: Boolean, default: true},
+  is_freezed: {type: Boolean, default: false},
+  gallery_is_public: {type: Boolean, default: true},
   users: [User],
   file: File,
   stats: {
     visits: Number,
-    rates: {
-      stars: String,
-      tot_rate: String,
-      sum_rate: String
-    }
+    likes: Number,
+    shares: Number
   },
   categories: [Category],
   subtitle: subtitle,
@@ -39,12 +39,12 @@ module.exports = new Schema({
   websites: [String],
 
   program: [Slot],
+  tobescheduled:[Performance],
 
   galleries: [Gallery],
   partners: [User],
-  settings: {
-    is_public: Boolean,
-    gallery_is_public: Boolean,
+
+  organizationsettings: {
     program_builder: Boolean,
     advanced_proposals_manager: Boolean,
     call: {
@@ -102,7 +102,7 @@ module.exports = new Schema({
  members: [], // FIXME
  old_id: Number,
  permalink: String,
- public: Number,
+ is_public: Number,
  stats: {
  members: Number
  },

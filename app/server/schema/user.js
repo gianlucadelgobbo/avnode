@@ -8,7 +8,7 @@ var Performancesummary = require('./performancesummary');
 var Playlist = require('./playlist');
 var Tvshow = require('./tvshow');
 var User = require('./user');
-var Categories = require('./categories');
+var Categories = require('./category');
 var Organization = require('./organization');
 
 var Location = require('./location');
@@ -26,14 +26,15 @@ var UserSchema = new Schema({
   display_name: {
     type: String
   },
-  public: {type: Boolean, default: true},
+  is_public: {type: Boolean, default: true},
   file: File,
-  websites: [], // FIXME to be defined Socials?
-  text: Object,
   activity: Number,
   stats: {
     // FIXME
   },
+  locations: [Location],
+  websites: [], // FIXME to be defined Socials?
+  text: Object,
   categories: [Categories],
   is_crew: Boolean,
   // is_crew = false
@@ -46,10 +47,9 @@ var UserSchema = new Schema({
   login: { type: String, required: true },
   password: { type: String, required: true },
   crews: [User],
-  locations: [Location],
   emails: [{
     email: String,
-    public: {type: Boolean, default: false},
+    is_public: {type: Boolean, default: false},
     valid: {type: Boolean, default: false},
     primary: {type: Boolean, default: false},
     verify: String,
@@ -57,10 +57,11 @@ var UserSchema = new Schema({
   }],
   phonenumbers: [], // FIXME to be defined
   messengers: [], // FIXME to be defined
+  connections: [], // FIXME to be defined
 
   // is_crew = true
   members: [User],
-  memberslocations: [Location],
+  is_organization: Boolean,
   organization: Organization,
 
   // RELATIONS:
