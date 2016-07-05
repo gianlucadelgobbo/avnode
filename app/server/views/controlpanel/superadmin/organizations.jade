@@ -1,28 +1,28 @@
 extends ../layout
 
 block variables
-	- var activeChapter='superadmin'
-	- var activeSection='organizations'
+  - var activeChapter='superadmin'
+  - var activeSection='organizations'
 
 
 block inner-content
-	include ../menu_user
-	br
-	form.form-inline(method="post")
-		.well
-			.form-group
-				label(for="crew")!=__("Find a crew to transform in organization") + "&nbsp;&nbsp;&nbsp;"
-				input(type="text", id="crew", name="crew", value=crew ? crew.permalink : undefined).form-control
-				input(type="submit", value=__("SEARCH")).btn.btn-primary
-		if crew
-			br
-			.well
-				if updated
-					!=__("Crew updated")
-				else if crew.permalink
-					input(type="hidden", value=crew ? crew.permalink : undefined, name="move")
-					input(type="submit", value=__("MOVE") + " \"" + crew.display_name + "\"").btn.btn-block.btn-lg.btn-primary
-				else
-					!=__("No Crew found")
+  include ../menu_user
+  br
+  form.form-inline(method="post")
+    .well
+      .form-group
+        label(for="crew")!=__("Find a crew to transform in organization") + "&nbsp;&nbsp;&nbsp;"
+        input(type="text", id="crew", name="crew", value=crew ? crew.permalink : undefined).form-control
+        input(type="submit", value=__("SEARCH")).btn.btn-primary
+    if crew
+      br
+      .well
+        if updated
+          !=__("Crew updated")
+        else if crew.permalink
+          input(type="hidden", value=crew ? crew.permalink : undefined, name="move")
+          input(type="submit", value=__("MOVE") + " \"" + crew.display_name + "\"").btn.btn-block.btn-lg.btn-primary
+        else
+          !=__("No Crew found")
 
 

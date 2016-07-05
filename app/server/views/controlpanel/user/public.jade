@@ -1,40 +1,40 @@
 extends ../layout
 
 block variables
-	- var activeChapter='user'
-	- var activeSection='public'
+  - var activeChapter='user'
+  - var activeSection='public'
 
 
 block inner-content
-	include ../menu_user
-	+render-alerts(alerts)
-	//code
-		each section, index in config.controlpanel.chapters
-			each chapters in section
-				each chapter in chapters
-					!="router.get('/" + index + "/:" + index.substring(0,index.length-1) + "/" + chapter + "',\t\tvalidateParams(" + index + "." + chapter + "SchemaGet), " + index + "." + chapter + "Get);\n"
-					!="router.post('/" + index + "/:" + index.substring(0,index.length-1) + "/" + chapter + "', \tvalidateBody(" + index + "." + chapter + "SchemaPost), " + index + "." + chapter + "Post);\n"
+  include ../menu_user
+  +render-alerts(alerts)
+  //code
+    each section, index in config.controlpanel.chapters
+      each chapters in section
+        each chapter in chapters
+          !="router.get('/" + index + "/:" + index.substring(0,index.length-1) + "/" + chapter + "',  \tvalidateParams(" + index + "." + chapter + "SchemaGet), " + index + "." + chapter + "Get);\n"
+          !="router.post('/" + index + "/:" + index.substring(0,index.length-1) + "/" + chapter + "', \tvalidateBody(" + index + "." + chapter + "SchemaPost), " + index + "." + chapter + "Post);\n"
 
-			!="router.get('/" + index + "/list', " + index + ".listGet);\n"
-			!="router.get('/" + index + "', function(req, res) {\n"
-			!="\tres.redirect('/controlpanel/" + index + "/list');\n"
-			!="});\n"
-			!="\n"
-	form.form-horizontal(method="post", data-parsley-validate)
-		fieldset
-			legend=__("General")
-			.form-group
-				label.col-sm-2.control-label=__("Stage name")
-				.col-sm-10
-					input.form-control(autocomplete="off", name="display_name", value=result.display_name, type="text", placeholder=__("Stage name"), required)
-			.form-group
-				label.col-sm-2.control-label(for="permalink")=__("Profile url")
-				.col-sm-10
-					.input-group
-						span.input-group-addon=config.baseurl
-						input.form-control(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="#{config.regex.permalink}", data-parsley-remote-validator="reverse", data-parsley-remote="#{config.baseurl}api/validate/permalink/{value}")
-		+multilanguage-text(result.text)
-		+websites(result.websites)
-		+locations(result.locations)
+      !="router.get('/" + index + "/list', " + index + ".listGet);\n"
+      !="router.get('/" + index + "', function(req, res) {\n"
+      !="\tres.redirect('/controlpanel/" + index + "/list');\n"
+      !="});\n"
+      !="\n"
+  form.form-horizontal(method="post", data-parsley-validate)
+    fieldset
+      legend=__("General")
+      .form-group
+        label.col-sm-2.control-label=__("Stage name")
+        .col-sm-10
+          input.form-control(autocomplete="off", name="display_name", value=result.display_name, type="text", placeholder=__("Stage name"), required)
+      .form-group
+        label.col-sm-2.control-label(for="permalink")=__("Profile url")
+        .col-sm-10
+          .input-group
+            span.input-group-addon=config.baseurl
+            input.form-control(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="#{config.regex.permalink}", data-parsley-remote-validator="reverse", data-parsley-remote="#{config.baseurl}api/validate/permalink/{value}")
+    +multilanguage-text(result.text)
+    +websites(result.websites)
+    +locations(result.locations)
 
-		+save-button
+    +save-button

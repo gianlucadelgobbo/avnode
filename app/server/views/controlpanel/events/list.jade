@@ -1,75 +1,75 @@
 extends ../layout
 
 block variables
-	- var activeChapter='events'
+  - var activeChapter='events'
 
 block inner-content
-	div.row
-		div.col-md-12
-			form
-				.input-group
-					span.input-group-addon=config.baseurl
-					.input-group-btn
-						button.btn.btn-default.btn-lg.dropdown-toggle(type="button", data-toggle="dropdown")
-							="Select Crew"
-							span.caret
-						ul.dropdown-menu
-							each crew in result.crews
-								li
-									a=crew.permalink
-					span.input-group-addon="events/"
-					input.form-control.input-lg(type="text", id="permalink", name="permalink", placeholder="Event URL")
-					span.input-group-btn
-						button#new.btn.btn-default.btn-lg
-							i.fa.fa-plus
-							=" "
-							=__("Create new event")
+  div.row
+    div.col-md-12
+      form
+        .input-group
+          span.input-group-addon=config.baseurl
+          .input-group-btn
+            button.btn.btn-default.btn-lg.dropdown-toggle(type="button", data-toggle="dropdown")
+              ="Select Crew"
+              span.caret
+            ul.dropdown-menu
+              each crew in result.crews
+                li
+                  a=crew.permalink
+          span.input-group-addon="events/"
+          input.form-control.input-lg(type="text", id="permalink", name="permalink", placeholder="Event URL")
+          span.input-group-btn
+            button#new.btn.btn-default.btn-lg
+              i.fa.fa-plus
+              =" "
+              =__("Create new event")
 
-	hr
+  hr
 
-	div.row
-		div.col-md-12
-			each box in result.events
-				.panel.panel-default
-					.panel-heading
-						.row
-							.col-sm-9
-								h5=box.title
-							.col-sm-3.text-right
-								.btn-group
-									a.btn.btn-default(href="/#{box.users[0].permalink}/events/#{box.permalink}")
-										i.fa.fa-eye
-									a.btn.btn-default(href="/controlpanel/events/#{box.permalink}/public")
-										i.fa.fa-pencil
-									a.btn.btn-danger(href="/controlpanel/events/#{box.permalink}/public")
-										i.fa.fa-trash
-					.panel-body
-						ul.list-inline
-							li
-								i.fa.fa-eye
-								=" "
-								span=box.stats.visits
+  div.row
+    div.col-md-12
+      each box in result.events
+        .panel.panel-default
+          .panel-heading
+            .row
+              .col-sm-9
+                h5=box.title
+              .col-sm-3.text-right
+                .btn-group
+                  a.btn.btn-default(href="/#{box.users[0].permalink}/events/#{box.permalink}")
+                    i.fa.fa-eye
+                  a.btn.btn-default(href="/controlpanel/events/#{box.permalink}/public")
+                    i.fa.fa-pencil
+                  a.btn.btn-danger(href="/controlpanel/events/#{box.permalink}/public")
+                    i.fa.fa-trash
+          .panel-body
+            ul.list-inline
+              li
+                i.fa.fa-eye
+                =" "
+                span=box.stats.visits
 
-						ul.list-inline
-							each category in box.categories
-								li
-									a(href="/events/#{category.permalink}")
-										i.fa.fa-tag
-										=" "
-										span=category.name
+            ul.list-inline
+              each category in box.categories
+                li
+                  a(href="/events/#{category.permalink}")
+                    i.fa.fa-tag
+                    =" "
+                    span=category.name
 
-	script(type="text/javascript").
-		$(document).ready(function() {
-			$('#new').on('click', function(ev) {
-				$.ajax({
-					type: "PUT",
-					url: "/controlpanel/events/" + encodeURIComponent($('#permalink').val()),
-					success: function(data) {
-						//- FIXME
-						if (data) {
-							window.location.href = document.location.protocol + '//' + document.location.host + data;
-						}
-					}
-				});
-			});
-		});
+  script(type="text/javascript").
+    $(document).ready(function() {
+      $('#new').on('click', function(ev) {
+        $.ajax({
+          type: "PUT",
+          url: "/controlpanel/events/" + encodeURIComponent($('#permalink').val()),
+          success: function(data) {
+            //- FIXME
+            if (data) {
+              window.location.href = document.location.protocol + '//' + document.location.host + data;
+            }
+          }
+        });
+      });
+    });

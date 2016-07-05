@@ -1,27 +1,27 @@
 mixin performer_item_content
-	- var section = "performers"
-	.box_wrapper
-		a.main_performace_image_wrapper(href="/" + box.permalink, title=box.display_name)
-			img.main_performance_image(alt=__("Thumbnail of")+": "+box.display_name, src=_h.media.getFileFormat(box.files && box.files.length && box.files[0].file ? box.files[0].file : false, config.sections[section].thumbnails.list))
-		a.main_event_title_wrapper(href="/" + box.permalink, title=box.display_name)
-			h3.main_event_title.col-sm-12= box.display_name
-		.main_event_box
-			.main_event_details
-				- var groupedLocations = _h.groupLocations(box.locations)
+  - var section = "performers"
+  .box_wrapper
+    a.main_performace_image_wrapper(href="/" + box.permalink, title=box.display_name)
+      img.main_performance_image(alt=__("Thumbnail of")+": "+box.display_name, src=_h.media.getFileFormat(box.files && box.files.length && box.files[0].file ? box.files[0].file : false, config.sections[section].thumbnails.list))
+    a.main_event_title_wrapper(href="/" + box.permalink, title=box.display_name)
+      h3.main_event_title.col-sm-12= box.display_name
+    .main_event_box
+      .main_event_details
+        - var groupedLocations = _h.groupLocations(box.locations)
 
-				- for(var item in groupedLocations)
-					.col-sm-12!="<b>"+item+"</b>, " + groupedLocations[item].join(", ")
-				ul.col-sm-12
-					if box.stats.members
-						li= box.stats.members +__(" Members")
-					if(box.stats.performances)
-						li= box.stats.performances +__(" Performances")
-					if(box.stats.events)
-						li= box.stats.events +__(" Events")
+        - for(var item in groupedLocations)
+          .col-sm-12!="<b>"+item+"</b>, " + groupedLocations[item].join(", ")
+        ul.col-sm-12
+          if box.stats.members
+            li= box.stats.members +__(" Members")
+          if(box.stats.performances)
+            li= box.stats.performances +__(" Performances")
+          if(box.stats.events)
+            li= box.stats.events +__(" Events")
 
 if (col_number)
-	div.list_item_performer.grid-item.performer_performer(class= col_number)
-		+performer_item_content
+  div.list_item_performer.grid-item.performer_performer(class= col_number)
+    +performer_item_content
 else
-	div.list_item_performer.grid-item.col-sm-3(class="col-md-3 performer_performer")
-		+performer_item_content
+  div.list_item_performer.grid-item.col-sm-3(class="col-md-3 performer_performer")
+    +performer_item_content

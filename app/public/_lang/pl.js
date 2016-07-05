@@ -7,47 +7,47 @@ var label_multiple_fields_del="Usuń";
 var label_multiple_fields_edit="Edycja ";
 
 var label_checkPostForumData={
-	"code0":"Wybierz kategorię, do której chcesz wysłać posta.",
-	"code1":"Wybierz język footage ",
-	"code2":"Dodaj tytuł. ",
-	"code3":"Dodaj tekst ",
-	"code4":"Tekst nie powinien przekraczać 7000 znaków"
+  "code0":"Wybierz kategorię, do której chcesz wysłać posta.",
+  "code1":"Wybierz język footage ",
+  "code2":"Dodaj tytuł. ",
+  "code3":"Dodaj tekst ",
+  "code4":"Tekst nie powinien przekraczać 7000 znaków"
 };
 var label_fillCommentArea={"code0":"napisał "};
 /* LABEL UPLOADER */
 var uploaderS = {
-	messages:	{
-   		typeError: 		"ma niepoprawne rozszerzenie. Są to jedyne dozwolone rozszerzenia plików",
-		sizeError: 		"jest za duży, maksymalny rozmiar pliku to",
-		minSizeError:	"jest za mały, minimalny rozmiar pliku",
-		emptyErrorText: "jest pusty, wybierz ponownie wszystkie potrzebne pliki poza tym jednym",
-		onLeave: 		"Pliki są pobierane, jeśli teraz opuścisz stronę, upload zostanie anulowany"	
-	}, 
-	dropLabel: 			"Wrzuć tutaj pliki do przesłania (tylko. jpg,. png,. gif)",
-	buttonLabel:		"Prześlij plik (tylko. jpg,. png,. gif)",
-	uploadErrorText:	"Plik z ID nie został dodany, bądź został już przesłany lub usunięty",
-	loadingText:		"z"
+  messages:  {
+       typeError:     "ma niepoprawne rozszerzenie. Są to jedyne dozwolone rozszerzenia plików",
+    sizeError:     "jest za duży, maksymalny rozmiar pliku to",
+    minSizeError:  "jest za mały, minimalny rozmiar pliku",
+    emptyErrorText: "jest pusty, wybierz ponownie wszystkie potrzebne pliki poza tym jednym",
+    onLeave:     "Pliki są pobierane, jeśli teraz opuścisz stronę, upload zostanie anulowany"
+  },
+  dropLabel:       "Wrzuć tutaj pliki do przesłania (tylko. jpg,. png,. gif)",
+  buttonLabel:    "Prześlij plik (tylko. jpg,. png,. gif)",
+  uploadErrorText:  "Plik z ID nie został dodany, bądź został już przesłany lub usunięty",
+  loadingText:    "z"
 }
 var uploaderM = {
-	messages:	{
-   		typeError: 		"ma niepoprawne rozszerzenie. Są to jedyne dozwolone rozszerzenia plików",
-		sizeError: 		"jest za duży, maksymalny rozmiar pliku to",
-		minSizeError:	"jest za mały, minimalny rozmiar pliku",
-		emptyErrorText: "jest pusty, wybierz ponownie wszystkie potrzebne pliki poza tym jednym",
-		onLeave: 		"Pliki są pobierane, jeśli teraz opuścisz stronę, upload zostanie anulowany"	
-	}, 
-	dropLabel: 			"Wrzuć tutaj pliki do przesłania (tylko",
-	buttonLabel:		"Prześlij jeden lub wiecęj plików lub archiwum zip (tylko",
-	uploadErrorText:	"Plik z ID nie został dodany, bądź został już przesłany lub usunięty",
-	loadingText:		"z"
+  messages:  {
+       typeError:     "ma niepoprawne rozszerzenie. Są to jedyne dozwolone rozszerzenia plików",
+    sizeError:     "jest za duży, maksymalny rozmiar pliku to",
+    minSizeError:  "jest za mały, minimalny rozmiar pliku",
+    emptyErrorText: "jest pusty, wybierz ponownie wszystkie potrzebne pliki poza tym jednym",
+    onLeave:     "Pliki są pobierane, jeśli teraz opuścisz stronę, upload zostanie anulowany"
+  },
+  dropLabel:       "Wrzuć tutaj pliki do przesłania (tylko",
+  buttonLabel:    "Prześlij jeden lub wiecęj plików lub archiwum zip (tylko",
+  uploadErrorText:  "Plik z ID nie został dodany, bądź został już przesłany lub usunięty",
+  loadingText:    "z"
 }
 
 /* RATE js */ 
 var label_rateJs={
-	"code0":"Nota",
-	"code1":"Nie jesteś zarejestrowany? ",
-	"code2":"Zarejestruj się teraz ",
-	"code3":"Jeśli masz już konto, zaloguj się proszę w formularzu po prawej."
+  "code0":"Nota",
+  "code1":"Nie jesteś zarejestrowany? ",
+  "code2":"Zarejestruj się teraz ",
+  "code3":"Jeśli masz już konto, zaloguj się proszę w formularzu po prawej."
 };
 /* FRIEND */
 var label_friend_js={"amico":"znajomy","amici":"znajomi"};
@@ -162,10 +162,10 @@ var label_preview_edit={"code0":"Ładowanie pomyślnie zrealizowane","code1":"Pl
 var label_window_ok_btn="Zamknij ";
 /* LPM SUBSCRIPTION 2010 */
 var label_ctr_lpm_step_2={
-	"code0":"Wybierz dzień",
-	"code1":"Wybierz narodowość",
-	"code2":"Podaj telefon",
-	"code3":"Wybierz datę przyjazdu",
-	"code4":"Wybierz datę wyjazdu",
-	"code5":"co najmniej jeden artysta musi być obecny"
+  "code0":"Wybierz dzień",
+  "code1":"Wybierz narodowość",
+  "code2":"Podaj telefon",
+  "code3":"Wybierz datę przyjazdu",
+  "code4":"Wybierz datę wyjazdu",
+  "code5":"co najmniej jeden artysta musi być obecny"
 };

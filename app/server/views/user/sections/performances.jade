@@ -1,12 +1,12 @@
 extends ../layout
 
 block user-content
-	// template: app/server/views/user/sections/performances.jade
-	.user_lists_bkg
-		.container
-			h1.user_list_title=__("Performances")
-			.row.grid.user_list
-				each box in performer.performances
-					- var col_number = "col-sm-3"
-					include ../../performances/item
+  // template: app/server/views/user/sections/performances.jade
+  .user_lists_bkg
+    .container
+      h1.user_list_title=__("Performances")
+      .row.grid.user_list
+        each box in performer.performances
+          - var col_number = "col-sm-3"
+          include ../../performances/item
 

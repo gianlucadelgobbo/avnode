@@ -7,47 +7,47 @@ var label_multiple_fields_del="Cancella";
 var label_multiple_fields_edit="Modifica";
 
 var label_checkPostForumData={
-	"code0":"Seleziona la categoria in cui inviare il post.",
-	"code1":"Seleziona la lingua del footage",
-	"code2":"Inserisci il Titolo",
-	"code3":"Inserisci il Testo",
-	"code4":"Il testo non deve superare i 7.000 caratteri"
+  "code0":"Seleziona la categoria in cui inviare il post.",
+  "code1":"Seleziona la lingua del footage",
+  "code2":"Inserisci il Titolo",
+  "code3":"Inserisci il Testo",
+  "code4":"Il testo non deve superare i 7.000 caratteri"
 };
 var label_fillCommentArea={"code0":"ha scritto"};
 /* LABEL UPLOADER */
 var uploaderS = {
-	messages:	{
-   		typeError: 		"ha un estensione non valida. Sono accettate solo queste estensioni",
-		sizeError: 		"è troppo grande, il peso massimo è",
-		minSizeError:	"è troppo piccolo, il peso minimo è",
-		emptyErrorText: "è vuoto, seleziona di nuovo tutti i file escludendo questo",
-		onLeave: 		"L\'upload dei file è in corso, se abbandoni questa pagina ora l\'upload verrà annullato"	
-	}, 
-	dropLabel: 			"Trascina qui il file per l\'upload (solo ",
-	buttonLabel:		"Carica un file (solo ",
-	uploadErrorText:	"Il file con l\'id non è stato aggiunto, o era stato già caricato o annullato",
-	loadingText:		"di"
+  messages:  {
+       typeError:     "ha un estensione non valida. Sono accettate solo queste estensioni",
+    sizeError:     "è troppo grande, il peso massimo è",
+    minSizeError:  "è troppo piccolo, il peso minimo è",
+    emptyErrorText: "è vuoto, seleziona di nuovo tutti i file escludendo questo",
+    onLeave:     "L\'upload dei file è in corso, se abbandoni questa pagina ora l\'upload verrà annullato"
+  },
+  dropLabel:       "Trascina qui il file per l\'upload (solo ",
+  buttonLabel:    "Carica un file (solo ",
+  uploadErrorText:  "Il file con l\'id non è stato aggiunto, o era stato già caricato o annullato",
+  loadingText:    "di"
 }
 var uploaderM = {
-	messages:	{
-   		typeError: 		"ha un estensione non valida. Sono accettate solo queste estensioni",
-		sizeError: 		"è troppo grande, il peso massimo è",
-		minSizeError:	"è troppo piccolo, il peso minimo è",
-		emptyErrorText: "è vuoto, seleziona di nuovo tutti i file escludendo questo",
-		onLeave: 		"L\'upload dei file è in corso, se abbandoni questa pagina ora l\'upload verrà annullato"	
-	}, 
-	dropLabel: 			"Trascina qui i file per l\'upload (solo ",
-	buttonLabel:		"Carica uno o più file o un singolo file zip (solo ",
-	uploadErrorText:	"Il file con l\'id non è stato aggiunto, o era stato già caricato o annullato",
-	loadingText:		"di"
+  messages:  {
+       typeError:     "ha un estensione non valida. Sono accettate solo queste estensioni",
+    sizeError:     "è troppo grande, il peso massimo è",
+    minSizeError:  "è troppo piccolo, il peso minimo è",
+    emptyErrorText: "è vuoto, seleziona di nuovo tutti i file escludendo questo",
+    onLeave:     "L\'upload dei file è in corso, se abbandoni questa pagina ora l\'upload verrà annullato"
+  },
+  dropLabel:       "Trascina qui i file per l\'upload (solo ",
+  buttonLabel:    "Carica uno o più file o un singolo file zip (solo ",
+  uploadErrorText:  "Il file con l\'id non è stato aggiunto, o era stato già caricato o annullato",
+  loadingText:    "di"
 }
 
 /* RATE js */ 
 var label_rateJs={
-	"code0":"Vota",
-	"code1":"Non sei registrato?",
-	"code2":"registrati ora",
-	"code3":"Se sei gia registrato fai il login dal form a destra."
+  "code0":"Vota",
+  "code1":"Non sei registrato?",
+  "code2":"registrati ora",
+  "code3":"Se sei gia registrato fai il login dal form a destra."
 };
 /* FRIEND */
 var label_friend_js={"amico":"amico","amici":"amici"};
@@ -162,10 +162,10 @@ var label_preview_edit={"code0":"Caricamento eseguito con successo","code1":"Il 
 var label_window_ok_btn="Chiudi";
 /* LPM SUBSCRIPTION 2010 */
 var label_ctr_lpm_step_2={
-	"code0":"seleziona un giorno",
-	"code1":"seleziona la nazionalità",
-	"code2":"inserisci il telefono",
-	"code3":"seleziona la data di arrivo",
-	"code4":"seleziona la data di partenza",
-	"code5":"almeno un artista deve essere presente"
+  "code0":"seleziona un giorno",
+  "code1":"seleziona la nazionalità",
+  "code2":"inserisci il telefono",
+  "code3":"seleziona la data di arrivo",
+  "code4":"seleziona la data di partenza",
+  "code5":"almeno un artista deve essere presente"
 };

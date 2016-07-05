@@ -1,6 +1,6 @@
 root(lng=config.lang, autostop="true", trackID=config.googleAnalytics, endpPath=config.siteurl+"/endpage/"+result.users[0].permalink+"/footage/"+result.permalink+"/", resizzaMode="2", txtSwfReader=config.siteurl+"/fp/reader.swf", downPath=config.siteurl+"/download/"+result.users[0].permalink+"/footage/"+result.permalink+"/", embedPath=config.siteurl+"/embed/"+result.users[0].permalink+"/footage/"+result.permalink+"/")
-	item(page_url=config.siteurl+"/"+result.users[0].permalink+"/footage/"+result.permalink+"/")
-		file=config.siteurl+result.files[0].file
-		data
-			tit=result.title
-		thumb=config.siteurl+_h.media.getFileFormat(result.files[0].file, config.sections[section].thumbnails.detail)+"?a=192"
+  item(page_url=config.siteurl+"/"+result.users[0].permalink+"/footage/"+result.permalink+"/")
+    file=config.siteurl+result.files[0].file
+    data
+      tit=result.title
+    thumb=config.siteurl+_h.media.getFileFormat(result.files[0].file, config.sections[section].thumbnails.detail)+"?a=192"

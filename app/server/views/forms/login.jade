@@ -1,39 +1,39 @@
 extends ../layout
 block content
-	.row
-		.col-md-6.col-md-offset-3
-			.well
-				h1.no-margin-top=__("Login")
-				- if (message&& message.error && message.error.length)
-					.alert.alert-danger=message.error[0]
-				hr
-				.text-center
-					p
-						a.btn.btn-danger(href="/controlpanel/login/google/")=__("Google")
-						!=" "
-						a.btn.btn-info(href="/controlpanel/login/twitter/")=__("Twitter")
-						!=" "
-						a.btn.btn-primary(href="/controlpanel/login/facebook/")=__("Facebook")
-					p=__("or")
-				form(name="formLogin", method="post", action="/controlpanel/login/")
-					.form-group
-						if user
-							input(name="username", type="text", value="#{user.login}", placeholder=__("Username")).form-control
-						else
-							input(name="username", type="text", value="", placeholder=__("Username")).form-control
-					.form-group
-						input(name="password", type="password", value="", placeholder=__("Password")).form-control
-					.row
-						.col-md-6
-							.checkbox
-								label
-									input(name="remember",type="checkbox", value="true",checked="checked")
-									!=" "+__("Remember_me")
-									input(name="from",type="hidden", value=from)
-						.col-md-6
-							.pull-right
-								button(type="submit").btn.btn-primary=__("Enter")
-				hr.clearfix
-				a(href="/controlpanel/passwordRequest")=__("Recover data")
-				!="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-				a(href="/signup")=__("Register")
+  .row
+    .col-md-6.col-md-offset-3
+      .well
+        h1.no-margin-top=__("Login")
+        - if (message&& message.error && message.error.length)
+          .alert.alert-danger=message.error[0]
+        hr
+        .text-center
+          p
+            a.btn.btn-danger(href="/controlpanel/login/google/")=__("Google")
+            !=" "
+            a.btn.btn-info(href="/controlpanel/login/twitter/")=__("Twitter")
+            !=" "
+            a.btn.btn-primary(href="/controlpanel/login/facebook/")=__("Facebook")
+          p=__("or")
+        form(name="formLogin", method="post", action="/controlpanel/login/")
+          .form-group
+            if user
+              input(name="username", type="text", value="#{user.login}", placeholder=__("Username")).form-control
+            else
+              input(name="username", type="text", value="", placeholder=__("Username")).form-control
+          .form-group
+            input(name="password", type="password", value="", placeholder=__("Password")).form-control
+          .row
+            .col-md-6
+              .checkbox
+                label
+                  input(name="remember",type="checkbox", value="true",checked="checked")
+                  !=" "+__("Remember_me")
+                  input(name="from",type="hidden", value=from)
+            .col-md-6
+              .pull-right
+                button(type="submit").btn.btn-primary=__("Enter")
+        hr.clearfix
+        a(href="/controlpanel/passwordRequest")=__("Recover data")
+        !="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+        a(href="/signup")=__("Register")

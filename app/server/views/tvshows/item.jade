@@ -1,39 +1,39 @@
 mixin tvshow_item_content
-	- if(box.users.length)
-		- var section = "tvshows"
-		a(href="/#{box.users[0].permalink}/tvshows/#{box.permalink}/", title=box.title)
+  - if(box.users.length)
+    - var section = "tvshows"
+    a(href="/#{box.users[0].permalink}/tvshows/#{box.permalink}/", title=box.title)
 
-			.image_box.wrapper_item
-				img.main_performance_image(alt=__("Thumbnail of")+": "+box.title, src=_h.media.getFileFormat(box.file.file, config.sections[section].thumbnails.list))
-				.footage_stats.box_stats.overlay_wrapper_top
-					// MISSING DATA: LIKES, CATEGORY/TAG, THUMBNAIL
-					ul.list-inline
-						li
-							i(class="fa fa-download")
-							span= box.stats.downloads
-						li
-							i(class="fa fa-eye")
-							span= box.stats.visits
-						li
-							i(class="fa fa-heart")
-							span 99
-						li
-							i(class="fa fa-video-camera")
-							span 99
-				.title_and_info_container.overlay_wrapper
-					h3= box.title
-					ul.list-inline.box_other_infos
-						li
-							i(class="fa fa-tags")
-								- if(box.tags)
-									- for (var t=0;t<box.tags.length;t++)
-										span= box.tags[t] + " "
+      .image_box.wrapper_item
+        img.main_performance_image(alt=__("Thumbnail of")+": "+box.title, src=_h.media.getFileFormat(box.file.file, config.sections[section].thumbnails.list))
+        .footage_stats.box_stats.overlay_wrapper_top
+          // MISSING DATA: LIKES, CATEGORY/TAG, THUMBNAIL
+          ul.list-inline
+            li
+              i(class="fa fa-download")
+              span= box.stats.downloads
+            li
+              i(class="fa fa-eye")
+              span= box.stats.visits
+            li
+              i(class="fa fa-heart")
+              span 99
+            li
+              i(class="fa fa-video-camera")
+              span 99
+        .title_and_info_container.overlay_wrapper
+          h3= box.title
+          ul.list-inline.box_other_infos
+            li
+              i(class="fa fa-tags")
+                - if(box.tags)
+                  - for (var t=0;t<box.tags.length;t++)
+                    span= box.tags[t] + " "
 
 if (col_number)
-	div.list_item_performer.grid-item.tvshows_footage(class= col_number)
-		+tvshow_item_content
+  div.list_item_performer.grid-item.tvshows_footage(class= col_number)
+    +tvshow_item_content
 else
-	div.list_item_performer.grid-item.col-sm-3(class="col-md-3 tvshows_footage")
-		+tvshow_item_content
+  div.list_item_performer.grid-item.col-sm-3(class="col-md-3 tvshows_footage")
+    +tvshow_item_content
 
 

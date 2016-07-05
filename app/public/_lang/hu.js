@@ -7,47 +7,47 @@ var label_multiple_fields_del="Törlés";
 var label_multiple_fields_edit="Szerkesztés";
 
 var label_checkPostForumData={
-	"code0":"Válassz kategóriát, amelyikben posztolni szeretnél",
-	"code1":"Válaszd ki a footage nyelvét",
-	"code2":"Cím megadása",
-	"code3":"Szöveg beírása",
-	"code4":"A szöveg nem lehet több 7000 karakternél"
+  "code0":"Válassz kategóriát, amelyikben posztolni szeretnél",
+  "code1":"Válaszd ki a footage nyelvét",
+  "code2":"Cím megadása",
+  "code3":"Szöveg beírása",
+  "code4":"A szöveg nem lehet több 7000 karakternél"
 };
 var label_fillCommentArea={"code0":"írt"};
 /* LABEL UPLOADER */
 var uploaderS = {
-	messages:	{
-   		typeError: 		"rossz kiterjesztésű. Csak az alábbi kiterjesztések lehetségesek:",
-		sizeError: 		"túl nagy, a maximum fájl méret:",
-		minSizeError:	"túl kicsi, a minimum fájl méret:",
-		emptyErrorText: "üres, kérjük, válaszd ki újra az összes szükséges fájlt, kivéve ezt",
-		onLeave: 		"Feltöltés folyamatban. Ha elnavigálsz az oldalról, megszakad a feltöltés."	
-	}, 
-	dropLabel: 			"Húzd ide a feltöltendő fájlokat (elfogadott formátumok: ",
-	buttonLabel:		"Fájl feltöltése (elfogadott formátumok: ",
-	uploadErrorText:	"A fálj az átugrott azonosítóval vagy nem került feltöltésre, vagy már fel van töltve, vagy le lett törölve",
-	loadingText:		"-tól"
+  messages:  {
+       typeError:     "rossz kiterjesztésű. Csak az alábbi kiterjesztések lehetségesek:",
+    sizeError:     "túl nagy, a maximum fájl méret:",
+    minSizeError:  "túl kicsi, a minimum fájl méret:",
+    emptyErrorText: "üres, kérjük, válaszd ki újra az összes szükséges fájlt, kivéve ezt",
+    onLeave:     "Feltöltés folyamatban. Ha elnavigálsz az oldalról, megszakad a feltöltés."
+  },
+  dropLabel:       "Húzd ide a feltöltendő fájlokat (elfogadott formátumok: ",
+  buttonLabel:    "Fájl feltöltése (elfogadott formátumok: ",
+  uploadErrorText:  "A fálj az átugrott azonosítóval vagy nem került feltöltésre, vagy már fel van töltve, vagy le lett törölve",
+  loadingText:    "-tól"
 }
 var uploaderM = {
-	messages:	{
-   		typeError: 		"rossz kiterjesztésű. Csak az alábbi kiterjesztések lehetségesek:",
-		sizeError: 		"túl nagy, a maximum fájl méret:",
-		minSizeError:	"túl kicsi, a minimum fájl méret:",
-		emptyErrorText: "üres, kérjük, válaszd ki újra az összes szükséges fájlt, kivéve ezt",
-		onLeave: 		"Feltöltés folyamatban. Ha elnavigálsz az oldalról, megszakad a feltöltés."	
-	}, 
-	dropLabel: 			"Húzd ide a feltöltendő fájlokat (elfogadott formátumok: ",
-	buttonLabel:		"Tölts fel egy vagy több fájlt, vagy .zip-et (elfogadott formátumok: ",
-	uploadErrorText:	"A fálj az átugrott azonosítóval vagy nem került feltöltésre, vagy már fel van töltve, vagy le lett törölve",
-	loadingText:		"-tól"
+  messages:  {
+       typeError:     "rossz kiterjesztésű. Csak az alábbi kiterjesztések lehetségesek:",
+    sizeError:     "túl nagy, a maximum fájl méret:",
+    minSizeError:  "túl kicsi, a minimum fájl méret:",
+    emptyErrorText: "üres, kérjük, válaszd ki újra az összes szükséges fájlt, kivéve ezt",
+    onLeave:     "Feltöltés folyamatban. Ha elnavigálsz az oldalról, megszakad a feltöltés."
+  },
+  dropLabel:       "Húzd ide a feltöltendő fájlokat (elfogadott formátumok: ",
+  buttonLabel:    "Tölts fel egy vagy több fájlt, vagy .zip-et (elfogadott formátumok: ",
+  uploadErrorText:  "A fálj az átugrott azonosítóval vagy nem került feltöltésre, vagy már fel van töltve, vagy le lett törölve",
+  loadingText:    "-tól"
 }
 
 /* RATE js */ 
 var label_rateJs={
-	"code0":"Értékelés",
-	"code1":"Még nem regisztráltál?",
-	"code2":"Regisztrálj most",
-	"code3":"Ha már van azonosítód, kérlek jelentkezz be a jobb oldali mezőben"
+  "code0":"Értékelés",
+  "code1":"Még nem regisztráltál?",
+  "code2":"Regisztrálj most",
+  "code3":"Ha már van azonosítód, kérlek jelentkezz be a jobb oldali mezőben"
 };
 /* FRIEND */
 var label_friend_js={"amico":"Ismerős","amici":"Ismerősök"};
@@ -162,10 +162,10 @@ var label_preview_edit={"code0":"Betöltése sikeresen végrehajtott","code1":"A
 var label_window_ok_btn="Bezárás";
 /* LPM SUBSCRIPTION 2010 */
 var label_ctr_lpm_step_2={
-	"code0":"Nap kiválasztása",
-	"code1":"Nemzetiség kiválasztása",
-	"code2":"Írd be a telefonszámod",
-	"code3":"Válaszd ki az érkezési dátumod",
-	"code4":"Válaszd ki az indulási dátumod",
-	"code5":"Legalább egy művész jelen kell lennie"
+  "code0":"Nap kiválasztása",
+  "code1":"Nemzetiség kiválasztása",
+  "code2":"Írd be a telefonszámod",
+  "code3":"Válaszd ki az érkezési dátumod",
+  "code4":"Válaszd ki az indulási dátumod",
+  "code5":"Legalább egy művész jelen kell lennie"
 };

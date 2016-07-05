@@ -1,46 +1,46 @@
 mixin event_item_content
-	- var section = "events"
-	- console.log(box)
-	.box_wrapper
-		a(href="/#{box.users[0].permalink}/events/#{box.permalink}/", title=box.title)
-			img.main_performance_image(alt=__("Thumbnail of") + ": " + box.title, src=_h.media.getFileFormat(box.file && box.file.file, config.sections[section].thumbnails.list))
+  - var section = "events"
+  - console.log(box)
+  .box_wrapper
+    a(href="/#{box.users[0].permalink}/events/#{box.permalink}/", title=box.title)
+      img.main_performance_image(alt=__("Thumbnail of") + ": " + box.title, src=_h.media.getFileFormat(box.file && box.file.file, config.sections[section].thumbnails.list))
 
-		a(href="/#{box.users[0].permalink}/events/#{box.permalink}/", title=box.title)
-			h3.main_event_title.col-sm-12= box.title
-		.main_event_box
-			.main_event_details.col-sm-12
-				// MISSING DATA: DATE, TIME, VENUE, CITY, COUNTRY
-				ul.row.date_time_event_evidence
-					li.alert-danger.evidence-date.col-xs-12
-						span 99
-						span.evidence-date_sep /
-						span 9
-						span.evidence-date_sep /
-						span 9999
-					//-li.evidence_time.col-xs-6
-						i.fa.fa-clock-o(aria-hidden='true')
-						span.evidence_time_start 20:00
-						span.evidence_time_end 22:00
-					li.alert-danger.evidence_location.col-xs-12
-						p
-							i(class="fa fa-map-marker")
-							span.event_location= box.event_loc + __(", ")
-							span.event_city= box.event_city + __(", ")
-							span.event_country= box.event_country
-					li.col-xs-12
-						i.fa.fa-caret-right(aria-hidden='true')
-						a.event_owner(href="/#{box.users[0].permalink}", title=box.users[0].display_name)= box.users[0].display_name
-						//-each category in box.categories
-								li
-									i(class="fa fa-cube")
-									a(href="/#{category.permalink}", title=category.name)= category.name
+    a(href="/#{box.users[0].permalink}/events/#{box.permalink}/", title=box.title)
+      h3.main_event_title.col-sm-12= box.title
+    .main_event_box
+      .main_event_details.col-sm-12
+        // MISSING DATA: DATE, TIME, VENUE, CITY, COUNTRY
+        ul.row.date_time_event_evidence
+          li.alert-danger.evidence-date.col-xs-12
+            span 99
+            span.evidence-date_sep /
+            span 9
+            span.evidence-date_sep /
+            span 9999
+          //-li.evidence_time.col-xs-6
+            i.fa.fa-clock-o(aria-hidden='true')
+            span.evidence_time_start 20:00
+            span.evidence_time_end 22:00
+          li.alert-danger.evidence_location.col-xs-12
+            p
+              i(class="fa fa-map-marker")
+              span.event_location= box.event_loc + __(", ")
+              span.event_city= box.event_city + __(", ")
+              span.event_country= box.event_country
+          li.col-xs-12
+            i.fa.fa-caret-right(aria-hidden='true')
+            a.event_owner(href="/#{box.users[0].permalink}", title=box.users[0].display_name)= box.users[0].display_name
+            //-each category in box.categories
+                li
+                  i(class="fa fa-cube")
+                  a(href="/#{category.permalink}", title=category.name)= category.name
 
 if (col_number)
-	div.list_item_performer.grid-item.events_performer(class= col_number)
-		+event_item_content
+  div.list_item_performer.grid-item.events_performer(class= col_number)
+    +event_item_content
 else
-	div.list_item_performer.grid-item.col-sm-3(class="col-md-3 events_performer")
-		+event_item_content
+  div.list_item_performer.grid-item.col-sm-3(class="col-md-3 events_performer")
+    +event_item_content
 
 //-console.log(JSON.stringify(box, null, 20));
 

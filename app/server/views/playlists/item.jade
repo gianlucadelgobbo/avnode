@@ -1,37 +1,37 @@
 mixin playlist_item_content
-	a(href="/#{box.users[0].permalink}/playlists/#{box.permalink}/", title=box.title)
-		- var section = "playlists"
-		.image_box.wrapper_item
-			- console.log (config.sections[section].thumbnails.list)
-			img.main_performance_image(alt=__("Thumbnail of")+": "+box.title, src=_h.media.getFileFormat(box.footage[0].file && box.footage[0].file.file, config.sections[section].thumbnails.list))
-			.footage_stats.box_stats.overlay_wrapper_top
-				// MISSING DATA: LIKES, VIDEOS INSIDE DEL PLAYLIST, CATEGORY/TAG, THUMBNAIL
-				ul.list-inline
-					li
-						i(class="fa fa-download")
-						span= box.stats.downloads
-					li
-						i(class="fa fa-eye")
-						span= box.stats.visits
-					li
-						i(class="fa fa-heart")
-						span 99
-					li
-						i(class="fa fa-video-camera")
-						span 99
+  a(href="/#{box.users[0].permalink}/playlists/#{box.permalink}/", title=box.title)
+    - var section = "playlists"
+    .image_box.wrapper_item
+      - console.log (config.sections[section].thumbnails.list)
+      img.main_performance_image(alt=__("Thumbnail of")+": "+box.title, src=_h.media.getFileFormat(box.footage[0].file && box.footage[0].file.file, config.sections[section].thumbnails.list))
+      .footage_stats.box_stats.overlay_wrapper_top
+        // MISSING DATA: LIKES, VIDEOS INSIDE DEL PLAYLIST, CATEGORY/TAG, THUMBNAIL
+        ul.list-inline
+          li
+            i(class="fa fa-download")
+            span= box.stats.downloads
+          li
+            i(class="fa fa-eye")
+            span= box.stats.visits
+          li
+            i(class="fa fa-heart")
+            span 99
+          li
+            i(class="fa fa-video-camera")
+            span 99
 
-			.title_and_info_container.overlay_wrapper
-				h3= box.title
-				ul.list-inline.box_other_infos
-					li
-						i(class="fa fa-tags")
-						- if(box.tags)
-							- for (var t=0;t<box.tags.length;t++)
-									span= box.tags[t]+" "
+      .title_and_info_container.overlay_wrapper
+        h3= box.title
+        ul.list-inline.box_other_infos
+          li
+            i(class="fa fa-tags")
+            - if(box.tags)
+              - for (var t=0;t<box.tags.length;t++)
+                  span= box.tags[t]+" "
 
 if (col_number)
-	div.list_item_performer.grid-item.playlists_footage(class= col_number)
-		+playlist_item_content
+  div.list_item_performer.grid-item.playlists_footage(class= col_number)
+    +playlist_item_content
 else
-	div.list_item_performer.grid-item.col-sm-3(class="col-md-3 playlists_footage")
-		+playlist_item_content
+  div.list_item_performer.grid-item.col-sm-3(class="col-md-3 playlists_footage")
+    +playlist_item_content

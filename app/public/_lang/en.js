@@ -7,47 +7,47 @@ var label_multiple_fields_del="Delete";
 var label_multiple_fields_edit="Edit";
 
 var label_checkPostForumData={
-	"code0":"Select the category which you want to publish the post to.",
-	"code1":"Select the language for the footage",
-	"code2":"Insert Title.",
-	"code3":"Insert Text",
-	"code4":"The text should not exceed 7000 characters"
+  "code0":"Select the category which you want to publish the post to.",
+  "code1":"Select the language for the footage",
+  "code2":"Insert Title.",
+  "code3":"Insert Text",
+  "code4":"The text should not exceed 7000 characters"
 };
 var label_fillCommentArea={"code0":"wrote"};
 /* LABEL UPLOADER */
 var uploaderS = {
-	messages:	{
-   		typeError: 		"has an invalid extension. These are the only file extensions allowed",
-		sizeError: 		"is too large, maximum file size is",
-		minSizeError:	"is too small, minimum file size is",
-		emptyErrorText: "is empty, please select again all the needed files except this one",
-		onLeave: 		"The files are being uploaded, if you leave now the upload will be cancelled"	
-	}, 
-	dropLabel: 			"Drop here files to upload (only ",
-	buttonLabel:		"Upload a file (only ",
-	uploadErrorText:	"File with passed id was either not added, or it has been already uploaded or deleted",
-	loadingText:		"from"
+  messages:  {
+       typeError:     "has an invalid extension. These are the only file extensions allowed",
+    sizeError:     "is too large, maximum file size is",
+    minSizeError:  "is too small, minimum file size is",
+    emptyErrorText: "is empty, please select again all the needed files except this one",
+    onLeave:     "The files are being uploaded, if you leave now the upload will be cancelled"
+  },
+  dropLabel:       "Drop here files to upload (only ",
+  buttonLabel:    "Upload a file (only ",
+  uploadErrorText:  "File with passed id was either not added, or it has been already uploaded or deleted",
+  loadingText:    "from"
 }
 var uploaderM = {
-	messages:	{
-   		typeError: 		"has an invalid extension. These are the only file extensions allowed",
-		sizeError: 		"is too large, maximum file size is",
-		minSizeError:	"is too small, minimum file size is",
-		emptyErrorText: "is empty, please select again all the needed files except this one",
-		onLeave: 		"The files are being uploaded, if you leave now the upload will be cancelled"	
-	}, 
-	dropLabel: 			"Drop files here to upload (only ",
-	buttonLabel:		"Upload one or multiple files or a zip archive (only ",
-	uploadErrorText:	"File with passed id was either not added, or it has been already uploaded or deleted",
-	loadingText:		"from"
+  messages:  {
+       typeError:     "has an invalid extension. These are the only file extensions allowed",
+    sizeError:     "is too large, maximum file size is",
+    minSizeError:  "is too small, minimum file size is",
+    emptyErrorText: "is empty, please select again all the needed files except this one",
+    onLeave:     "The files are being uploaded, if you leave now the upload will be cancelled"
+  },
+  dropLabel:       "Drop files here to upload (only ",
+  buttonLabel:    "Upload one or multiple files or a zip archive (only ",
+  uploadErrorText:  "File with passed id was either not added, or it has been already uploaded or deleted",
+  loadingText:    "from"
 }
 
 /* RATE js */ 
 var label_rateJs={
-	"code0":"Rate",
-	"code1":"Are you not registered yet?",
-	"code2":"register now",
-	"code3":"If you already have an account, please login through the form on the right."
+  "code0":"Rate",
+  "code1":"Are you not registered yet?",
+  "code2":"register now",
+  "code3":"If you already have an account, please login through the form on the right."
 };
 /* FRIEND */
 var label_friend_js={"amico":"friend","amici":"friends"};
@@ -162,10 +162,10 @@ var label_preview_edit={"code0":"Loading successfully executed","code1":"Your fi
 var label_window_ok_btn="Close";
 /* LPM SUBSCRIPTION 2010 */
 var label_ctr_lpm_step_2={
-	"code0":"Select a day",
-	"code1":"Select nationality",
-	"code2":"Enter phone number",
-	"code3":"Select arrival date",
-	"code4":"Select departure date",
-	"code5":"at least one artist must be present"
+  "code0":"Select a day",
+  "code1":"Select nationality",
+  "code2":"Enter phone number",
+  "code3":"Select arrival date",
+  "code4":"Select departure date",
+  "code5":"at least one artist must be present"
 };

@@ -7,47 +7,47 @@ var label_multiple_fields_del="Annuler ";
 var label_multiple_fields_edit="Modifier ";
 
 var label_checkPostForumData={
-	"code0":"Sélectionnez la catégorie dans laquelle envoyer le message ",
-	"code1":"Sélectionnez la langue pour le footage",
-	"code2":"Entrez le titre. ",
-	"code3":"Entrez un texte.",
-	"code4":"Le texte ne devrait pas dépasser 7000 caractères"
+  "code0":"Sélectionnez la catégorie dans laquelle envoyer le message ",
+  "code1":"Sélectionnez la langue pour le footage",
+  "code2":"Entrez le titre. ",
+  "code3":"Entrez un texte.",
+  "code4":"Le texte ne devrait pas dépasser 7000 caractères"
 };
 var label_fillCommentArea={"code0":"a écrit "};
 /* LABEL UPLOADER */
 var uploaderS = {
-	messages:	{
-   		typeError: 		"a une extension invalide. Celles qui suivent sont les seules extensions permis",
-		sizeError: 		"est trop grand, la taille par fichier dois être un maximum de",
-		minSizeError:	"est trop petit, la taille par fichier dois être un minimum de ",
-		emptyErrorText: "est vide, s\'il vous plaît sélectionner à nouveau tous les fichiers nécessaires, sauf celui-ci",
-		onLeave: 		"Le téléchargement des fichiers est en cours, si vous quittez maintenant le téléchargement sera annulé"	
-	}, 
-	dropLabel: 			"Déposer ici les fichiers à télécharger (seulement ",
-	buttonLabel:		"Télécharger un fichier (seulement ",
-	uploadErrorText:	"Le fichier avec le ID n\'est pas été ajouté, ou il a déjà été téléchargé ou supprimé",
-	loadingText:		"de"
+  messages:  {
+       typeError:     "a une extension invalide. Celles qui suivent sont les seules extensions permis",
+    sizeError:     "est trop grand, la taille par fichier dois être un maximum de",
+    minSizeError:  "est trop petit, la taille par fichier dois être un minimum de ",
+    emptyErrorText: "est vide, s\'il vous plaît sélectionner à nouveau tous les fichiers nécessaires, sauf celui-ci",
+    onLeave:     "Le téléchargement des fichiers est en cours, si vous quittez maintenant le téléchargement sera annulé"
+  },
+  dropLabel:       "Déposer ici les fichiers à télécharger (seulement ",
+  buttonLabel:    "Télécharger un fichier (seulement ",
+  uploadErrorText:  "Le fichier avec le ID n\'est pas été ajouté, ou il a déjà été téléchargé ou supprimé",
+  loadingText:    "de"
 }
 var uploaderM = {
-	messages:	{
-   		typeError: 		"a une extension invalide. Celles qui suivent sont les seules extensions permis",
-		sizeError: 		"est trop grand, la taille par fichier dois être un maximum de",
-		minSizeError:	"est trop petit, la taille par fichier dois être un minimum de ",
-		emptyErrorText: "est vide, s\'il vous plaît sélectionner à nouveau tous les fichiers nécessaires, sauf celui-ci",
-		onLeave: 		"Le téléchargement des fichiers est en cours, si vous quittez maintenant le téléchargement sera annulé"	
-	}, 
-	dropLabel: 			"Déposer ici les fichiers à télécharger (seulement ",
-	buttonLabel:		"Télécharger un ou plusieurs fichiers ou une archive zip (seulement ",
-	uploadErrorText:	"Le fichier avec le ID n\'est pas été ajouté, ou il a déjà été téléchargé ou supprimé",
-	loadingText:		"de"
+  messages:  {
+       typeError:     "a une extension invalide. Celles qui suivent sont les seules extensions permis",
+    sizeError:     "est trop grand, la taille par fichier dois être un maximum de",
+    minSizeError:  "est trop petit, la taille par fichier dois être un minimum de ",
+    emptyErrorText: "est vide, s\'il vous plaît sélectionner à nouveau tous les fichiers nécessaires, sauf celui-ci",
+    onLeave:     "Le téléchargement des fichiers est en cours, si vous quittez maintenant le téléchargement sera annulé"
+  },
+  dropLabel:       "Déposer ici les fichiers à télécharger (seulement ",
+  buttonLabel:    "Télécharger un ou plusieurs fichiers ou une archive zip (seulement ",
+  uploadErrorText:  "Le fichier avec le ID n\'est pas été ajouté, ou il a déjà été téléchargé ou supprimé",
+  loadingText:    "de"
 }
 
 /* RATE js */ 
 var label_rateJs={
-	"code0":"Votez-vous",
-	"code1":"N\'êtes-vous pas enregistré? ",
-	"code2":"inscrivez-vous",
-	"code3":"Si vous êtes déjà inscrit, vous devez vous identifier dans la fiche sur la droite."
+  "code0":"Votez-vous",
+  "code1":"N\'êtes-vous pas enregistré? ",
+  "code2":"inscrivez-vous",
+  "code3":"Si vous êtes déjà inscrit, vous devez vous identifier dans la fiche sur la droite."
 };
 /* FRIEND */
 var label_friend_js={"amico":"ami","amici":"amis"};
@@ -162,10 +162,10 @@ var label_preview_edit={"code0":"Chargement exécuté avec succès","code1":"Vot
 var label_window_ok_btn="Fermer ";
 /* LPM SUBSCRIPTION 2010 */
 var label_ctr_lpm_step_2={
-	"code0":"Sélectionnez un jour",
-	"code1":"Sélectionnez la nationalité",
-	"code2":"Entrez téléphone",
-	"code3":"Sélectionnez la date d\'arrivée",
-	"code4":"Sélectionnez votre date de départ",
-	"code5":"au moins un artiste doit être présent"
+  "code0":"Sélectionnez un jour",
+  "code1":"Sélectionnez la nationalité",
+  "code2":"Entrez téléphone",
+  "code3":"Sélectionnez la date d\'arrivée",
+  "code4":"Sélectionnez votre date de départ",
+  "code5":"au moins un artiste doit être présent"
 };

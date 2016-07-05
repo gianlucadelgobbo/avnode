@@ -2,54 +2,54 @@ extends ../layout_user_two_columns
 
 block user-content
 
-	h2=result.title
-	p="Playlist"
-	.pre
-		//!=result
-	ul
-		li
-			h3="page title: "
-			=title
-		li
-			h3="title: "
-			p=result.title
-		li
-			h3="text/desc: "
-			p.alert-danger="MISSING DATA? cfr https://pl.flxer.net/GianlucaDelGobbo/playlists/8bit/"
-			p=result.text
-		li
-			h3="tags/categories: "
-			p.alert-danger="MISSING DATA? cfr https://pl.flxer.net/GianlucaDelGobbo/playlists/8bit/"
-			- if (result.categories)
-				- for(var a=0; a<result.categories.length; a++)
-					ul
-						li="title: " + result.categories[a].title
-						li="permalink: " + result.categories[a].permalink
-		li
-			h3="Stats: "
-			p="visits: " + result.stats.visits
-			p="likes: " + result.stats.likes
-		li
-			h2="Users: "
-			- for(var a=0; a<result.users.length; a++)
-				ol
-					li
-						="name: " + result.users[a].display_name
-					li
-						="permalink: " + result.users[a].permalink
-		li
-			h3="footage: "
-			p="Footages: "+result.footage.length
-			//p=result.events[0].users[0].display_name
+  h2=result.title
+  p="Playlist"
+  .pre
+    //!=result
+  ul
+    li
+      h3="page title: "
+      =title
+    li
+      h3="title: "
+      p=result.title
+    li
+      h3="text/desc: "
+      p.alert-danger="MISSING DATA? cfr https://pl.flxer.net/GianlucaDelGobbo/playlists/8bit/"
+      p=result.text
+    li
+      h3="tags/categories: "
+      p.alert-danger="MISSING DATA? cfr https://pl.flxer.net/GianlucaDelGobbo/playlists/8bit/"
+      - if (result.categories)
+        - for(var a=0; a<result.categories.length; a++)
+          ul
+            li="title: " + result.categories[a].title
+            li="permalink: " + result.categories[a].permalink
+    li
+      h3="Stats: "
+      p="visits: " + result.stats.visits
+      p="likes: " + result.stats.likes
+    li
+      h2="Users: "
+      - for(var a=0; a<result.users.length; a++)
+        ol
+          li
+            ="name: " + result.users[a].display_name
+          li
+            ="permalink: " + result.users[a].permalink
+    li
+      h3="footage: "
+      p="Footages: "+result.footage.length
+      //p=result.events[0].users[0].display_name
 
-			- for(var a=0; a<result.footage.length; a++)
-				ul
-					li="title: "+result.footage[a].title
-					li="permalink: "+result.footage[a].permalink
-		li
-			h3="image src: "
-			=result.file.file
-			- console.log(result.file)
-			img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.file.file, config.sections[section].thumbnails.detail))
+      - for(var a=0; a<result.footage.length; a++)
+        ul
+          li="title: "+result.footage[a].title
+          li="permalink: "+result.footage[a].permalink
+    li
+      h3="image src: "
+      =result.file.file
+      - console.log(result.file)
+      img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.file.file, config.sections[section].thumbnails.detail))
 
-	//-console.log(JSON.stringify(result, null, 20));
+  //-console.log(JSON.stringify(result, null, 20));

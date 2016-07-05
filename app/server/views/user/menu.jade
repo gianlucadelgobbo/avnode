@@ -1,8 +1,8 @@
 nav.navbar.navbar-inverse#user_menu
-	ul.nav.navbar-nav.pull-left
-		li
-			a(href="/"+performer.permalink)
-				!='<i class="fa fa-user"></i> ' + performer.display_name
-		each stat, name in performer.stats
-			li
-				a(href="/#{performer.permalink}/#{name}/")=__(name) + ' (' + stat + ')'
+  ul.nav.navbar-nav.pull-left
+    li
+      a(href="/"+performer.permalink)
+        !='<i class="fa fa-user"></i> ' + performer.display_name
+    each stat, name in performer.stats
+      li
+        a(href="/#{performer.permalink}/#{name}/")=__(name) + ' (' + stat + ')'

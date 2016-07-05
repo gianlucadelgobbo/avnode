@@ -7,47 +7,47 @@ var label_multiple_fields_del="Borrar";
 var label_multiple_fields_edit="Editar";
 
 var label_checkPostForumData={
-	"code0":"Selecciona la categoría en la que enviar la publicación.",
-	"code1":"Selecciona el idioma por el footage",
-	"code2":"Inserta el Título.",
-	"code3":"Inserta el Texto",
-	"code4":"El texto no debe exceder 7000 letras"
+  "code0":"Selecciona la categoría en la que enviar la publicación.",
+  "code1":"Selecciona el idioma por el footage",
+  "code2":"Inserta el Título.",
+  "code3":"Inserta el Texto",
+  "code4":"El texto no debe exceder 7000 letras"
 };
 var label_fillCommentArea={"code0":"escribió"};
 /* LABEL UPLOADER */
 var uploaderS = {
-	messages:	{
-   		typeError: 		"tiene una extensión que no es válida. Estas son las solas extensiones de archivo permitidas",
-		sizeError: 		"es demasiado grande, el tamaño máximo del archivo es",
-		minSizeError:	"es demasiado pequeño, el tamaño mínimo de archivo es",
-		emptyErrorText: "está vacío, por favor, vuelva a seleccionar todos los archivos necesarios, excepto éste",
-		onLeave: 		"Los archivos se están cargando, si te vas ahora el upload se cancelará"	
-	}, 
-	dropLabel: 			"Coloque aquí los archivos que desea subir (sólo ",
-	buttonLabel:		"Subir un archivo (sólo ",
-	uploadErrorText:	"El archivo con el id pasado, o no se ha añadido, o ya ha sido subido o borrado",
-	loadingText:		"de"
+  messages:  {
+       typeError:     "tiene una extensión que no es válida. Estas son las solas extensiones de archivo permitidas",
+    sizeError:     "es demasiado grande, el tamaño máximo del archivo es",
+    minSizeError:  "es demasiado pequeño, el tamaño mínimo de archivo es",
+    emptyErrorText: "está vacío, por favor, vuelva a seleccionar todos los archivos necesarios, excepto éste",
+    onLeave:     "Los archivos se están cargando, si te vas ahora el upload se cancelará"
+  },
+  dropLabel:       "Coloque aquí los archivos que desea subir (sólo ",
+  buttonLabel:    "Subir un archivo (sólo ",
+  uploadErrorText:  "El archivo con el id pasado, o no se ha añadido, o ya ha sido subido o borrado",
+  loadingText:    "de"
 }
 var uploaderM = {
-	messages:	{
-   		typeError: 		"tiene una extensión que no es válida. Estas son las solas extensiones de archivo permitidas",
-		sizeError: 		"es demasiado grande, el tamaño máximo del archivo es",
-		minSizeError:	"es demasiado pequeño, el tamaño mínimo de archivo es",
-		emptyErrorText: "está vacío, por favor, vuelva a seleccionar todos los archivos necesarios, excepto éste",
-		onLeave: 		"Los archivos se están cargando, si te vas ahora el upload se cancelará"	
-	}, 
-	dropLabel: 			"Coloque aquí los archivos que desea subir (sólo ",
-	buttonLabel:		"Subir uno o varios archivos o un archivo zip (sólo ",
-	uploadErrorText:	"El archivo con el id pasado, o no se ha añadido, o ya ha sido subido o borrado",
-	loadingText:		"de"
+  messages:  {
+       typeError:     "tiene una extensión que no es válida. Estas son las solas extensiones de archivo permitidas",
+    sizeError:     "es demasiado grande, el tamaño máximo del archivo es",
+    minSizeError:  "es demasiado pequeño, el tamaño mínimo de archivo es",
+    emptyErrorText: "está vacío, por favor, vuelva a seleccionar todos los archivos necesarios, excepto éste",
+    onLeave:     "Los archivos se están cargando, si te vas ahora el upload se cancelará"
+  },
+  dropLabel:       "Coloque aquí los archivos que desea subir (sólo ",
+  buttonLabel:    "Subir uno o varios archivos o un archivo zip (sólo ",
+  uploadErrorText:  "El archivo con el id pasado, o no se ha añadido, o ya ha sido subido o borrado",
+  loadingText:    "de"
 }
 
 /* RATE js */ 
 var label_rateJs={
-	"code0":"Vota",
-	"code1":"¿Aun no estás registrado?",
-	"code2":"regístrate ahora",
-	"code3":"Si ya estás registrado puedes identificarte con el form a la derecha."
+  "code0":"Vota",
+  "code1":"¿Aun no estás registrado?",
+  "code2":"regístrate ahora",
+  "code3":"Si ya estás registrado puedes identificarte con el form a la derecha."
 };
 /* FRIEND */
 var label_friend_js={"amico":"amigo","amici":"amigos"};
@@ -162,10 +162,10 @@ var label_preview_edit={"code0":"Cargando ejecutado con éxito","code1":"Su arch
 var label_window_ok_btn="Cerrar";
 /* LPM SUBSCRIPTION 2010 */
 var label_ctr_lpm_step_2={
-	"code0":"Seleccione un día",
-	"code1":"Seleccione la nacionalidad",
-	"code2":"Introduzca teléfono",
-	"code3":"Seleccione la fecha de llegada",
-	"code4":"Seleccionar la fecha de salida",
-	"code5":"al menos un artista debe estar presente"
+  "code0":"Seleccione un día",
+  "code1":"Seleccione la nacionalidad",
+  "code2":"Introduzca teléfono",
+  "code3":"Seleccione la fecha de llegada",
+  "code4":"Seleccionar la fecha de salida",
+  "code5":"al menos un artista debe estar presente"
 };

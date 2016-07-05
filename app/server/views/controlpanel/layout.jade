@@ -2,33 +2,33 @@ extends ../layout
 include ./mixins
 
 block content
-	block variables
-	.row
-		.col-md-2
-			.panel.panel-default
-				ul.nav.nav-pills.nav-stacked
-					each sections, chapter  in config.controlpanel.chapters
-						if (typeof sections.user_sections !== undefined)
-							if activeChapter == chapter
-								li.active
-									a(href="/controlpanel/#{chapter}/")=__(sections.label)
-							else
-								li
-									a(href="/controlpanel/#{chapter}/")=__(sections.label)
-						else if (user.login == 'GianlucaDelGobbo' && typeof sections.member_sections !== undefined)
-							if activeChapter == chapter
-								li.active
-									a(href="/controlpanel/#{chapter}/")=__(sections.label)
-							else
-								li
-									a(href="/controlpanel/#{chapter}/")=__(sections.label)
-						else if (user.login == 'GianlucaDelGobbo' && typeof sections.superadmin_sections !== undefined)
-							if activeChapter == chapter
-								li.active
-									a(href="/controlpanel/#{chapter}/")=__(sections.label)
-							else
-								li
-									a(href="/controlpanel/#{chapter}/")=__(sections.label)
-		.col-md-10
-			block inner-content
-	//script(src="https://maps.googleapis.com/maps/api/js?key=#{config.googlemaps.key}")
+  block variables
+  .row
+    .col-md-2
+      .panel.panel-default
+        ul.nav.nav-pills.nav-stacked
+          each sections, chapter  in config.controlpanel.chapters
+            if (typeof sections.user_sections !== undefined)
+              if activeChapter == chapter
+                li.active
+                  a(href="/controlpanel/#{chapter}/")=__(sections.label)
+              else
+                li
+                  a(href="/controlpanel/#{chapter}/")=__(sections.label)
+            else if (user.login == 'GianlucaDelGobbo' && typeof sections.member_sections !== undefined)
+              if activeChapter == chapter
+                li.active
+                  a(href="/controlpanel/#{chapter}/")=__(sections.label)
+              else
+                li
+                  a(href="/controlpanel/#{chapter}/")=__(sections.label)
+            else if (user.login == 'GianlucaDelGobbo' && typeof sections.superadmin_sections !== undefined)
+              if activeChapter == chapter
+                li.active
+                  a(href="/controlpanel/#{chapter}/")=__(sections.label)
+              else
+                li
+                  a(href="/controlpanel/#{chapter}/")=__(sections.label)
+    .col-md-10
+      block inner-content
+  //script(src="https://maps.googleapis.com/maps/api/js?key=#{config.googlemaps.key}")
