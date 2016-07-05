@@ -12,45 +12,50 @@ block user-content
 			h3="title: "
 			p=result.title
 		li
-			h3="stats:
+			h3="stats:"
 
 		li
 			h3="performances"
-			- for(var a=0; a<result.performances.length; a++)
-				ol
-					li
-						span.alert-danger="titolo: " + result.performances[a].title
-					li
-						="permalink: " + result.performances[a].permalink
+			- if(result.performances.length)
+				- for(var a=0; a<result.performances.length; a++)
+					ol
+						li
+							span.alert-danger="titolo: " + result.performances[a].title
+						li
+							="permalink: " + result.performances[a].permalink
 		li
 			h3="users"
-			- for(var a=0; a<result.users.length; a++)
-				ol
-					li
-						="permalink: " + result.users[a].permalink
-					li
-						="name: " + result.users[a].display_name
+			- if(result.users.length)
+				- for(var a=0; a<result.users.length; a++)
+
+					ol
+						li="permalink: " + result.users[a].permalink
+						li="name: " + result.users[a].display_name
 		li
 			h3="events: "
-			- for(var a=0; a<result.events.length; a++)
-				ol
-					li
-						="permalink: " + result.events[a].permalink
-					li
-						span.alert-danger="title: " + result.events[a].titolo
+			- if(result.events.length)
+				- for(var a=0; a<result.events.length; a++)
+					- console.log(result.events[a])
+					ol
+						li="permalink: " + result.events[a].permalink
+						li
+							span="title: " + result.events[a].title
 		li
 			h3="footage: "
-			p="Footages: " + result.footage.length
+			p="Footages: " + result.medias.length
 
-
-			- for(var a=0; a<result.footage.length; a++)
-				ul
-					li.alert-danger="title: " + result.footage[a].titolo
-					li="permalink: " + result.footage[a].permalink
-					li="preview file: " + result.footage[a].preview_file
-					li.alert-danger="weitgh: " + result.footage[a].peso
-					li.alert-danger="type: " + result.footage[a].type
-					li.alert-danger="file name: " + result.footage[a].name
+			- if(result.medias.length)
+				- for(var a=0; a<result.medias.length; a++)
+					- console.log(result.medias[a])
+					ul
+						li="title: " + result.medias[a].title
+						li="permalink: " + result.medias[a].permalink
+						li="preview file: " + result.medias[a].file.file
+						li="filesize: " + result.medias[a].file.filesize
+						li="encoded: " + result.medias[a].file.encoded
+						li="file size h: " + result.medias[a].file.size[0]
+						li="file size w: " + result.medias[a].file.size[1]
+						li!="&nbsp;"
 
 	.pre
 		//!=result

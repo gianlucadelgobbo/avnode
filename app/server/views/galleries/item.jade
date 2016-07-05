@@ -1,9 +1,7 @@
 mixin gallery_item_content
 	a(href="/#{box.users[0].permalink}/galleries/#{box.permalink}/", title=box.title)
 		.image_box.wrapper_item
-			- console.log (box)
-			- if (box.footage && box.footage.length && box.footage[0].preview)
-				img.main_performance_image(alt=__("Thumbnail of") + ": " + box.title, src=_h.media.getFileFormat(box.footage[0].preview, config.sections[section].thumbnails.list))
+			img.main_performance_image(alt=__("Thumbnail of") + ": " + box.title, src=_h.media.getFileFormat(box.file.file, config.sections[section].thumbnails.list))
 			.footage_stats.box_stats.overlay_wrapper_top
 				ul.list-inline
 					li

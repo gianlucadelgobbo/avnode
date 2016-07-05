@@ -3,10 +3,10 @@ block user-content
 	.container
 		h1=result.title
 		p="footage"
-		=result.files[0].file
+		=result.file.file
 		#flashPlayer
-			a(href=result.files[0].file, target="_blank")
-				img.img-responsive(alt=__("Multimedia contents of")+": "+result.title, src=_h.media.getFileFormat(result.files[0].file, config.sections[section].thumbnails.detail))
+			a(href=result.file.file, target="_blank")
+				img.img-responsive(alt=__("Multimedia contents of")+": "+result.title, src=_h.media.getFileFormat(result.file.preview, config.sections[section].thumbnails.detail))
 				img(alt=__("Show"), src="/img/play.png", style="top:145px;left:305px;position:absolute;")
 		script(type="text/javascript", src="/fp/fpVariables.js")
 		script(type="text/javascript", src="/fp/fpManager.js")
@@ -31,7 +31,7 @@ block user-content
 				p=result.title
 			li
 				h3="image src: "
-				=result.files[0].file
+				=result.file.file
 				//img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.files[0].preview, config.sections[section].thumbnails.detail))
 
 			li
@@ -40,8 +40,7 @@ block user-content
 			li
 				h3="Stats: "
 				p="visits: " + result.stats.visits
-				p="rate: " + result.stats.rates.stars
-				p="total rates: " + result.stats.rates.tot_rate
+				p="likes: " + result.stats.likes
 			li
 				h2="Users: "
 				- for(var a=0; a<result.users.length; a++)

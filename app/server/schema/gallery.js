@@ -32,7 +32,4 @@ module.exports = new Schema({
   },
   performances: [Performancesummary], // Gallery can be connected to performances or events
   events: [Eventsummary] // Gallery can be connected to performances or events
-}, {
-  // FIXME maybe would be better to rename the collection
-  collection: 'gallery'
 });

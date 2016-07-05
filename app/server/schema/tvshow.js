@@ -33,4 +33,4 @@ module.exports = new Schema({
   },
   categories: [Category],
   programming: [Date]
-}, {collection: 'tvshow'});
+});

@@ -1,14 +1,14 @@
 var moment = require('moment');
 
-exports.getEventDate = function (date) {
+exports.writeDate = function (date) {
 	var d = new Date(date);
 	//return moment(d).format("dddd, MMMM Do YYYY, h:mm");
 	return moment(d).format("dddd, MMMM Do YYYY");
 }
 
-exports.getPerformanceTime = function (date) {
+exports.writeTime = function (date) {
 	//return moment(d).format("dddd, MMMM Do YYYY, h:mm");
-	return moment(date).format("hh:mm");
+	return moment(date).format("HH:mm");
 }
 
 exports.millisToTime = function(ms){

@@ -18,22 +18,22 @@ module.exports = {
     });
     return groupedPartners;
   },
-  groupPerformancesByCategories: function(performances, anc) {
+  groupPerformancesByCategories: function(program, anc) {
     var groupedCategories = {};
-    performances.forEach(function(performance) {
-      performance.categories.forEach(function(category) {
+    program.forEach(function(slot) {
+      slot.performance.categories.forEach(function(category) {
         if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink.indexOf(anc) !== -1) {
           if (groupedCategories[category.permalink] === undefined) {
             groupedCategories[category.permalink] = {category:category,list:[]};
           }
-          groupedCategories[category.permalink].list.push(performance);
+          groupedCategories[category.permalink].list.push(slot);
         }
 
       });
     });
     return groupedCategories;
   },
-  groupPerformancesByDayVenueRoom: function(performances) {
+  groupPerformancesByDayVenueRoom: function(program) {
     var groupedPerformances = {
       venues: [],
       dates: [],
@@ -41,50 +41,53 @@ module.exports = {
       list: {},
       tobeconfirmed: []
     }
-    performances.forEach(function(performance) {
+    program.forEach(function(slot) {
       var status;
-      for (var category in performance.event_data.categories){
-        if(performance.event_data.categories[category].ancestors && performance.event_data.categories[category].ancestors[0].permalink == "status") {
-          status = performance.event_data.categories[category].permalink;
+      for (var category=0;category<slot.schedule.categories.length;category++){
+        if(slot.schedule.categories[category].ancestors && slot.schedule.categories[category].ancestors.length && slot.schedule.categories[category].ancestors[0].permalink == "status") {
+          status = slot.schedule.categories[category].permalink;
         }
       }
+      var day = slot.schedule.day;
+
+      //console.log(status);
       if (!status) {
-        groupedPerformances.tobeconfirmed.push(performance);
+        groupedPerformances.tobeconfirmed.push(slot);
       } else {
-        if (performance.event_data.day !== null && performance.event_data.venue !== null && performance.event_data.room !== null) {
-          if (groupedPerformances.list[performance.event_data.day] === undefined) {
-            groupedPerformances.list[performance.event_data.day] = {};
+        if (slot.schedule.day !== null && slot.schedule.venue.name !== null && slot.schedule.room !== null) {
+          if (groupedPerformances.list[slot.schedule.day] === undefined) {
+            groupedPerformances.list[slot.schedule.day] = {};
           }
-          if (groupedPerformances.dates.indexOf(performance.event_data.day) === -1) {
-            groupedPerformances.dates.push(performance.event_data.day);
-          }
-
-          if (groupedPerformances.list[performance.event_data.day][performance.event_data.venue] === undefined) {
-            groupedPerformances.list[performance.event_data.day][performance.event_data.venue] = {};
-          }
-          if (groupedPerformances.venues.indexOf(performance.event_data.venue) === -1) {
-            groupedPerformances.venues.push(performance.event_data.venue);
+          if (groupedPerformances.dates.indexOf(slot.schedule.day) === -1) {
+            groupedPerformances.dates.push(slot.schedule.day);
           }
 
+          if (groupedPerformances.list[slot.schedule.day][slot.schedule.venue.name] === undefined) {
+            groupedPerformances.list[slot.schedule.day][slot.schedule.venue.name] = {};
+          }
+          if (groupedPerformances.venues.indexOf(slot.schedule.venue.name) === -1) {
+            groupedPerformances.venues.push(slot.schedule.venue.name);
+          }
 
-          if (groupedPerformances.list[performance.event_data.day][performance.event_data.venue][performance.event_data.room] === undefined) {
-            groupedPerformances.list[performance.event_data.day][performance.event_data.venue][performance.event_data.room] = [];
+
+          if (groupedPerformances.list[slot.schedule.day][slot.schedule.venue.name][slot.schedule.room] === undefined) {
+            groupedPerformances.list[slot.schedule.day][slot.schedule.venue.name][slot.schedule.room] = [];
           }
-          if (groupedPerformances.rooms.indexOf(performance.event_data.room) === -1) {
-            groupedPerformances.rooms.push(performance.event_data.room);
+          if (groupedPerformances.rooms.indexOf(slot.schedule.room) === -1) {
+            groupedPerformances.rooms.push(slot.schedule.room);
           }
-          groupedPerformances.list[performance.event_data.day][performance.event_data.venue][performance.event_data.room].push(performance);
+          groupedPerformances.list[slot.schedule.day][slot.schedule.venue.name][slot.schedule.room].push(slot);
         } else {
           console.log("ERROR ERROR ERROR ERROR ERROR ERROR ");
-          
+
         }
 
-      }
+      }/**/
     });
     return groupedPerformances;
   },
 
-  groupArtists: function(performances) {
+  groupArtists: function(program) {
     var groupedArtists = {};
     groupedArtists.stats = {
       n:0,
@@ -94,11 +97,11 @@ module.exports = {
     };
     groupedArtists.list = [];
     var groupedArtistsList = {};
-    performances.forEach(function(performance) {
-      performance.users.forEach(function(user) {
+    program.forEach(function(slot) {
+      slot.performance.users.forEach(function(user) {
         if (groupedArtistsList[user.permalink] === undefined) {
           groupedArtistsList[user.permalink] = user;
-          performance.categories.forEach(function(category) {
+          slot.performance.categories.forEach(function(category) {
             if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink.indexOf("type") !== -1) {
               if (groupedArtists.stats.types[category.permalink] === undefined) {
                 groupedArtists.stats.types[category.permalink] = {n:1,name:category.name};

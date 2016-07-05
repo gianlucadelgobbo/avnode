@@ -15,15 +15,20 @@ block user-content
 			p=result.title
 		li
 			h3="text/desc: "
-			p.alert-danger="MISSING DATA? cfr 'agony!!!!	respect 2 team17 ;)' on https://pl.flxer.net/GianlucaDelGobbo/playlists/8bit/"
+			p.alert-danger="MISSING DATA? cfr https://pl.flxer.net/GianlucaDelGobbo/playlists/8bit/"
+			p=result.text
 		li
 			h3="tags/categories: "
 			p.alert-danger="MISSING DATA? cfr https://pl.flxer.net/GianlucaDelGobbo/playlists/8bit/"
+			- if (result.categories)
+				- for(var a=0; a<result.categories.length; a++)
+					ul
+						li="title: " + result.categories[a].title
+						li="permalink: " + result.categories[a].permalink
 		li
 			h3="Stats: "
 			p="visits: " + result.stats.visits
-			p="rate: " + result.stats.rates.stars
-			p="total rates: " + result.stats.rates.tot_rate
+			p="likes: " + result.stats.likes
 		li
 			h2="Users: "
 			- for(var a=0; a<result.users.length; a++)
@@ -43,8 +48,8 @@ block user-content
 					li="permalink: "+result.footage[a].permalink
 		li
 			h3="image src: "
-			=result.files[0].file
-			- console.log(result.files[0])
-			img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.files[0].file, config.sections[section].thumbnails.detail))
+			=result.file.file
+			- console.log(result.file)
+			img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.file.file, config.sections[section].thumbnails.detail))
 
 	//-console.log(JSON.stringify(result, null, 20));

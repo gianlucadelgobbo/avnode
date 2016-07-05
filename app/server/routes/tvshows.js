@@ -50,7 +50,7 @@ exports.get = function get(req, res) {
 				skip: skip,
 				page: page,
 				pages: pages,
-				str:generaXml(tvshow,"2016-03-01","2016-03-02"),
+				//str:generateTVprogramming(tvshow,"2016-03-01","2016-03-02"),
 				result: tvshow,
 				categories: config.sections[section].categories,
 				orderings: config.sections[section].orders,

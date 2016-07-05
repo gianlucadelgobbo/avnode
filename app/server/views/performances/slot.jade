@@ -1,0 +1,85 @@
+mixin performance_item_content
+  - var section = "performances"
+  .box_wrapper
+    a(href="/#{box.performance.users[0].permalink}/performances/#{box.performance.permalink}/", title=box.performance.title)
+      img.main_performance_image(alt=__("Thumbnail of") + ": " + box.performance.title, src=_h.media.getFileFormat(box.performance.file.file, config.sections[section].thumbnails.list))
+    a(href="/#{box.performance.users[0].permalink}/performances/#{box.performance.permalink}/", title=box.performance.title)
+      h3.main_event_title.col-sm-12= box.performance.title
+    .main_event_box
+      .main_event_details
+        - if (box.schedule)
+        .col-sm-6.col-xs-12.col-md-12
+          ul.list-inline
+            li=box.schedule.venue.room
+            li=_h.date.writeTime(box.schedule.starttime) + " | " + _h.date.writeTime(box.schedule.endtime)
+        .col-sm-6.col-xs-12.col-md-12
+          ul.list-inline.performer_main_data
+            li.col-sm-12
+              if ( box.performance.users.length > 1 )
+                i.fa.fa-caret-right(aria-hidden='true')
+                a.performance_owner(type='button', data-toggle='modal', data-target='##{box.performance.users[0].permalink}')
+                  span=box.performance.users[0].display_name
+                  span.more_artist= "{ + " + box.performance.users.length + " }"
+                // performance authors modal
+                div.modal.fade(id='#{box.performance.users[0].permalink}', role='dialog')
+                  .modal-dialog
+                    .modal-content
+                      .modal-header
+                        button.close(type='button', data-dismiss='modal') ×
+                        h4= box.performance.title + " authors"
+                      .modal-body
+                        ul.list-inline
+                          each user in box.performance.users
+                            li
+                              a(href="#{user.permalink}" title='#{user.display_name}')
+                                span= user.display_name
+              else
+                i.fa.fa-caret-right(aria-hidden='true')
+                a.performance_owner(type='button', data-toggle='modal', data-target='##{box.performance.users[0].permalink}')= box.performance.users[0].display_name
+                // performer single modal
+                div.modal.fade(id='#{box.performance.users[0].permalink}', role='dialog')
+                  .modal-dialog
+                    .modal-content
+                      .modal-header
+                        button.close(type='button', data-dismiss='modal') ×
+                        h4= box.performance.users[0].display_name
+                      .modal-body
+                        ul
+                          li="country: " + box.performance.users[0].locations[0].country
+                          li="city: " + box.performance.users[0].locations[0].city
+                          li
+                            a(href='#{box.performance.users[0].permalink}')="Link to performer page"
+                          li
+                            - if (box.performance.file && box.performance.file.file)
+                              p="src: " + box.performance.file.file
+
+            li.evidence-performance_stats.evidence-performance_stats_visits
+              span
+                i.fa.fa-eye(aria-hidden='true')
+              span.stat.value= box.performance.stats.visits
+            li.evidence-performance_stats
+              span
+                i.fa.fa-thumbs-o-up(aria-hidden='true')
+              span.stat.value= box.performance.stats.likes
+        .col-sm-6.col-xs-12.col-md-12
+          ul.evidence-performance_categories.list-inline
+            each category in box.performance.categories
+              - if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink == "type")
+                li
+                  i(class="fa fa-gamepad")
+                  a(href="/#{category.permalink}", title=category.name)= category.name
+              - if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink == "genere")
+                li
+                  i(class="fa fa-cube")
+                  a(href="/#{category.permalink}", title=category.name)= category.name
+
+
+if (col_number)
+  div.list_item_performer.grid-item.performances_performer(class= col_number)
+    +performance_item_content
+else
+  div.list_item_performer.grid-item.col-sm-3(class="col-md-3 performances_performer")
+    +performance_item_content
+
+
+

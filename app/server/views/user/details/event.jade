@@ -1,290 +1,291 @@
 extends ../layout
 block content
-	// template: views/user/events/show.jade
-	.single_event_page
-		.user_result.single_event_page
-			.container
-				.row
-					.col-md-12
-						.single_event_thumb_container.wrapper_item
-							- img = _h.media.getFileFormat(result.files[0].file, config.sections[section].thumbnails.detail)
-							img.img-responsive(id="img-"+result.permalink, alt=__("Thumbnail of")+": "+result.title, src=img)
-							.row
-								.overlay_container.overlay_wrapper
-									div#partecipate_shape
-									div#partecipate_button
-										a(href="#{result.permalink}/participate", role='button')
-											span= __("Partecipate")
-									h1.title=result.title
-									if result.subtitle
-										h3.subtitle=_h.text.getTextFormat(result.subtitle, config.lang, true)
-									h4
-										each type,name in _h.groupPartnersByType(result.partners)
-											if name == "PRODUCTION"
-												ul.list-inline
-													if ( type.length < 4 )
-														each box in type
-															li
-																a(href="/#{box.permalink}")
-																	span= box.display_name
-													else
-														each box,index in type
-															if index < 3
-																li
-																	a(href="/#{box.permalink}")
-																		span= box.display_name
-														li
-															a(data-toggle='modal', data-target='#allproduction')= __("[ + ]")
-														// Modal event external links
-														#allproduction.modal.fade(role='dialog')
-															.modal-dialog
-																// Modal content
-																.modal-content
-																	.modal-header
-																		button.close(type='button', data-dismiss='modal') ×
-																		h4= "All production"
-																	.modal-body
-																		ul.list-inline
-																			each box in type
-																				li
-																					a(href="/#{box.permalink}")
-																						span= box.display_name
+  // template: views/user/events/show.jade
+  .single_event_page
+    .user_result.single_event_page
+      .container
+        .row
+          .col-md-12
+            .single_event_thumb_container.wrapper_item
+              - img = _h.media.getFileFormat(result.file.file, config.sections[section].thumbnails.detail)
+              img.img-responsive(id="img-" + result.permalink, alt=__("Thumbnail of") + ": " + result.title, src=img)
+              .row
+            .overlay_container.overlay_wrapper
+              div#partecipate_shape
+              div#partecipate_button
+                a(href="#{result.permalink}/participate", role='button')
+                  span= __("Partecipate")
+              h1.title=result.title
+              if result.subtitle
+                h3.subtitle=_h.text.getTextFormat(result.subtitle, config.lang, true)
+              h4
+                each type,name in _h.groupPartnersByType(result.partners)
+                  if name == "PRODUCTION"
+                    ul.list-inline
+                      if ( type.length < 4 )
+                        each box in type
+                          li
+                            a(href="/#{box.permalink}")
+                              span= box.display_name
+                      else
+                        each box,index in type
+                          if index < 3
+                            li
+                              a(href="/#{box.permalink}")
+                                span= box.display_name
+                        li
+                          a(data-toggle='modal', data-target='#allproduction')= __("[ + ]")
+                        // Modal event external links
+                        #allproduction.modal.fade(role='dialog')
+                          .modal-dialog
+                            // Modal content
+                            .modal-content
+                              .modal-header
+                                button.close(type='button', data-dismiss='modal') ×
+                                h4= "All production"
+                              .modal-body
+                                ul.list-inline
+                                  each box in type
+                                    li
+                                      a(href="/#{box.permalink}")
+                                        span= box.display_name
 
-									// Modal event external links
-									div#event_external_links.modal.fade(role='dialog')
-										.modal-dialog
-											// Modal content
-											.modal-content
-												.modal-header
-													button.close(type='button', data-dismiss='modal') ×
-													h4= result.title + " links"
-												.modal-body
-													ul.list-inline
-														each url in result.websites
-															li
-																i.fa.fa-external-link
-																a(href=url,target="_blank")
-																	=" website"
-														li
-															a(href="#")
-																i.fa.fa-facebook-official(aria-hidden='true')
-														li
-															a(href="#")
-																i.fa.fa-twitter(aria-hidden='true')
-														li
-															a(href="#")
-																i.fa.fa-vimeo(aria-hidden='true')
+              // Modal event external links
+              div#event_external_links.modal.fade(role='dialog')
+                .modal-dialog
+                  // Modal content
+                  .modal-content
+                    .modal-header
+                      button.close(type='button', data-dismiss='modal') ×
+                      h4= result.title + " links"
+                    .modal-body
+                      ul.list-inline
+                        each url in result.websites
+                          li
+                            i.fa.fa-external-link
+                            a(href=url,target="_blank")
+                              =" website"
+                        li
+                          a(href="#")
+                            i.fa.fa-facebook-official(aria-hidden='true')
+                        li
+                          a(href="#")
+                            i.fa.fa-twitter(aria-hidden='true')
+                        li
+                          a(href="#")
+                            i.fa.fa-vimeo(aria-hidden='true')
 
-									// Modal event external links
-									div#event_share.modal.fade(role='dialog')
-										#fb-root
-											script.
-												(function (d, s, id) {
-													var js, fjs = d.getElementsByTagName(s)[0];
-													if (d.getElementById(id)) return;
-													js = d.createElement(s);
-													js.id = id;
-													js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v2.6&appId=1725376071051640";
-													fjs.parentNode.insertBefore(js, fjs);
-												}(document, 'script', 'facebook-jssdk'));
-										.modal-dialog
-											// Modal content
-											.modal-content
-												.modal-header
-													button.close(type='button', data-dismiss='modal') ×
-													h4= "Share " + result.title
-												.modal-body
-													.fb-like(data-href='https://developers.facebook.com/docs/plugins/', data-layout='standard', data-action='like', data-show-faces='true', data-share='true')
-													ul.list-inline
-														li
-															a(href="#")
-																i.fa.fa-facebook-official(aria-hidden='true')
-														li
-															a(href="#")
-																i.fa.fa-twitter(aria-hidden='true')
-														li
-															a(href="#")
-																i.fa.fa-vimeo(aria-hidden='true')
+              // Modal event external links
+              div#event_share.modal.fade(role='dialog')
+                #fb-root
+                  script.
+                    (function (d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0];
+                      if (d.getElementById(id)) return;
+                      js = d.createElement(s);
+                      js.id = id;
+                      js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v2.6&appId=1725376071051640";
+                      fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                .modal-dialog
+                  // Modal content
+                  .modal-content
+                    .modal-header
+                      button.close(type='button', data-dismiss='modal') ×
+                      h4= "Share " + result.title
+                    .modal-body
+                      .fb-like(data-href='https://developers.facebook.com/docs/plugins/', data-layout='standard', data-action='like', data-show-faces='true', data-share='true')
+                      ul.list-inline
+                        li
+                          a(href="#")
+                            i.fa.fa-facebook-official(aria-hidden='true')
+                        li
+                          a(href="#")
+                            i.fa.fa-twitter(aria-hidden='true')
+                        li
+                          a(href="#")
+                            i.fa.fa-vimeo(aria-hidden='true')
 
-												.modal-footer
-													button.btn.btn-default(type='button', data-dismiss='modal') Close
+                    .modal-footer
+                      button.btn.btn-default(type='button', data-dismiss='modal') Close
 
-									ul.list-inline.single_event_details
-										if result.websites
-											li
-												i.fa.fa-external-link
-												a(type='button', data-toggle='modal', data-target='#event_external_links')
-													=__(" Webites & Socials")
-											li
-												i.fa.fa-share-alt
-												a(type='button', data-toggle='modal', data-target='#event_share')
-													=__(" Share")
-											li
-												span
-													i(class="fa fa-eye")
-													span.value=" "+result.stats.visits
-											li
-												span
-													i(class="fa fa-heart")
-													=" "
-													span.value=result.stats.rates.tot_rate
-
-
-											li
-												i(class="fa fa-user")
-												=" "
-												a(href="/" + result.permalink + "/")=performer.display_name
+              ul.list-inline.single_event_details
+                if result.websites
+                  li
+                    i.fa.fa-external-link
+                    a(type='button', data-toggle='modal', data-target='#event_external_links')
+                      =__(" Webites & Socials")
+                  li
+                    i.fa.fa-share-alt
+                    a(type='button', data-toggle='modal', data-target='#event_share')
+                      =__(" Share")
+                  li
+                    span
+                      i(class="fa fa-eye")
+                      span.value=" " + result.stats.visits
+                  li
+                    span
+                      i(class="fa fa-heart")
+                      =" "
+                      span.value=result.stats.likes
 
 
+                  li
+                    i(class="fa fa-user")
+                    =" "
+                    a(href="/" + result.permalink + "/")=performer.display_name
 
 
 
-											each category in result.categories
-												if category.ancestors
-													each ancestor in category.ancestors
-														if ancestor.permalink == "lv-projects-categories"
-															li
-																i(class="fa fa-cube")
-																=" "
-																a(href="/events/#{category.permalink}")=category.name
-									.row
-										.col-sm-8
-											.row.event_events_list.grid
-												if result.date_time_venue
-													each date_time_venue in result.date_time_venue
-														.col-sm-4.grid-item
-															.event_list_content_container
-																span
-																	i(class="fa fa-clock-o")
-																	!=_h.date.getEventDate(date_time_venue.date) + " | " + date_time_venue.start_time + " / " + date_time_venue.end_time + "<br />"
-																span
-																	i(class="fa fa-map-marker")
-																	!=date_time_venue.venue + " | " + date_time_venue.locality + ", " + date_time_venue.country
-										.col-sm-4
-											.event_map
-												img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?size=640x400&center=#{result.date_time_venue[0].locality},#{result.date_time_venue[0].country}&zoom=4&size=262x110&markers=#{result.date_time_venue[0].locality},#{result.date_time_venue[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
 
 
-		if result.text
-			.about-bkg
-				.container
-					.about_performer.readmore
-						h2=__("About")
-						!= _h.text.getTextFormat(result.text, config.lang, true)
-		// TABS
-		if result.performances.length || result.partners.length || result.gallery.length
-			- var categories_founded = _h.groupPerformancesByCategories(result.performances, "type")
-			- var groupedPerformances = _h.groupPerformancesByDayVenueRoom(result.performances)
-			- var groupedArtists = _h.groupArtists(result.performances)
-			.tabs-bkg
-				.container
-					ul.nav.nav-tabs.event_tabs
-						if result.performances.length
-							li.active
-								a(href="#program", data-toggle="tab")=__("Program")
-							li
-								a(href="#artists", data-toggle="tab")=__("Artists") + " (" + groupedArtists.stats.people + "/" + groupedArtists.stats.n + ")"
-							if Object.keys(categories_founded).length
-								li
-									a(href="#categories", data-toggle="tab")=__("Categories")
-						if result.partners.length
-							li
-								a(href="#partners", data-toggle="tab")=__("partners") + " (" + result.partners.length + ")"
-						if result.gallery.length
-							li
-								a(href="#galleries", data-toggle="tab")=__("gallery") + " (" + result.gallery.length + ")"
+                  each category in result.categories
+                    if category.ancestors
+                      each ancestor in category.ancestors
+                        if ancestor.permalink == "lv-projects-categories"
+                          li
+                            i(class="fa fa-cube")
+                            =" "
+                            a(href="/events/#{category.permalink}")=category.name
+              .row
+                .col-sm-8
+                  .row.event_events_list.grid
+                    if result.schedule
+                      each date_time_venue in result.schedule
+                        .col-sm-4.grid-item
+                          .event_list_content_container
+                            span
+                              i(class="fa fa-clock-o")
+                              !=_h.date.writeDate(date_time_venue.date) + " | " + _h.date.writeTime(date_time_venue.starttime) + " / " + _h.date.writeTime(date_time_venue.endtime) + "<br />"
+                            span
+                              i(class="fa fa-map-marker")
+                              !=date_time_venue.venue.name + " | " + date_time_venue.venue.location.city + ", " + date_time_venue.venue.location.country
+                .col-sm-4
+                  .event_map
+                    img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?size=640x400&center=#{result.schedule[0].locality},#{result.schedule[0].country}&zoom=4&size=262x110&markers=#{result.schedule[0].locality},#{result.schedule[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
+      - console.log(result.text)
+      if result.text
+        .about-bkg
+          .container
+            .about_performer.readmore
+              h2=__("About")
+              != _h.text.getTextFormat(result.text, config.lang, true)
+      // TABS
+      if result.program.length || result.partners.length || result.galleries.length
+        - var categories_founded = _h.groupPerformancesByCategories(result.program, "type")
+        - var groupedPerformances = _h.groupPerformancesByDayVenueRoom(result.program)
+        - var groupedArtists = _h.groupArtists(result.program)
+        .tabs-bkg
+          .container
+            ul.nav.nav-tabs.event_tabs
+              if result.program.length
+                li.active
+                  a(href="#program", data-toggle="tab")=__("Program")
+                li
+                  a(href="#artists", data-toggle="tab")=__("Artists") + " (" + groupedArtists.stats.people + "/" + groupedArtists.stats.n + ")"
+                if Object.keys(categories_founded).length
+                  li
+                    a(href="#categories", data-toggle="tab")=__("Categories")
+              if result.partners.length
+                li
+                  a(href="#partners", data-toggle="tab")=__("partners") + " (" + result.partners.length + ")"
+              if result.galleries.length
+                li
+                  a(href="#galleries", data-toggle="tab")=__("gallery") + " (" + result.galleries.length + ")"
 
-					div
-						.tab-content
-							if result.performances
-								#program.tab-pane.active
-									- if (groupedPerformances.dates.length > 1)
-										p=title_grouped_infos="Days"
-										ul.list-inline.grouped_dates.grouped_infos
-											li.active
-												a(href='#all')=__("All days")
-											each date in groupedPerformances.dates
-												li
-													a(href='#'+date)=_h.date.getEventDate(date)
-											- if (groupedPerformances["tobeconfirmed"] && groupedPerformances["tobeconfirmed"].length)
-												li
-													a(href='#tobeconfirmed')=__('To be confirmed')
-									- if (groupedPerformances.venues.length > 1) // if there are at least two venues
-										p=title_grouped_infos = "Venues"
-										ul.list-inline.grouped_venues.grouped_infos
-											li.active
-												a(href='#all')=__("All venues")
-											each venue in groupedPerformances.venues
-												li
-													a(href='#' + venue)=venue
-									- if (groupedPerformances.rooms.length)
-										p=title_grouped_infos = "Rooms"
-										ul.list-inline.grouped_rooms.grouped_infos
-											li.active
-												a(href='#all')=__("All rooms")
-											each room in groupedPerformances.rooms
-												li
-													a(href='#' + room)=room
+            div
+              .tab-content
+                if result.program
+                  #program.tab-pane.active
+                    - if (groupedPerformances.dates.length > 0)
+                    p=title_grouped_infos = "Days"
+                    ul.list-inline.grouped_dates.grouped_infos
+                      li.active
+                        a(href='#all')=__("All days")
+                      each date in groupedPerformances.dates
+                        li
+                          a(href='#' + date)=_h.date.writeDate(date)
+                      - if (groupedPerformances["tobeconfirmed"] && groupedPerformances["tobeconfirmed"].length)
+                        li
+                          a(href='#tobeconfirmed')=__('To be confirmed')
+                    - if (groupedPerformances.venues.length > 0) // if there are at least two venues
+                      p=title_grouped_infos = "Venues"
+                      ul.list-inline.grouped_venues.grouped_infos
+                        li.active
+                          a(href='#all')=__("All venues")
+                        each venue in groupedPerformances.venues
+                          li
+                            a(href='#' + venue)=venue
+                    - if (groupedPerformances.rooms.length > 0)
+                      p=title_grouped_infos = "Rooms"
+                      ul.list-inline.grouped_rooms.grouped_infos
+                        li.active
+                          a(href='#all')=__("All rooms")
+                        each room in groupedPerformances.rooms
+                          li
+                            a(href='#' + room)=room
 
-									each day,date in groupedPerformances.list
-										.single_date_of_series
-											h3
-												span=_h.date.getEventDate(date)
-										each venue,venuename in groupedPerformances.list[date]
-											each room,roomname in groupedPerformances.list[date][venuename]
-												h3.single_event-room_title=venuename + " " + roomname
-												.grid.row.day_grid
-													each box in room
-														include ../../performances/item
-									if groupedPerformances.tobeconfirmed.length
-										.single_date_of_series
-											h3
-												span=__("To be confirmed")
-										.grid.row.day_grid
-											each box in groupedPerformances.tobeconfirmed
-												include ../../performances/item
-								#artists.tab-pane
-									- var t = groupedArtists.stats.n;
-									- t+= " "+__("artists from")+" "+groupedArtists.stats.countries.length+" "+(groupedArtists.stats.countries.length==1 ? __("country") : __("countries"))+", "+groupedArtists.stats.countries.join(", ");
-									- t+= " "+__("playing")+" ";
-									- for(i in groupedArtists.stats.types) t+= groupedArtists.stats.types[i].n + " " + groupedArtists.stats.types[i].name+", ";
-									- t = t.substring(0,t.length-2);
-									p=t
-									.row
-										each box in groupedArtists.list
-											include ../../performers/item
-								- if (Object.keys(categories_founded).length)
-									#categories.tab-pane
-										- var first
-										ul.nav.nav-pills
-											- var a=0
-											each category in categories_founded
-												- if (a==0) first = category.category.permalink
-												- if (a==0) firstTitle = category.category.name
-												li(class=a == 0 ? "active" : undefined)
-													a(href=category.category.permalink)=category.category.name
-												- a++
-										.single_date_of_series
-											h3
-												span=firstTitle
-										.row
-											each box in categories_founded[first].list
-													include ../../performances/item
-							if result.partners
-								#partners.tab-pane
-									each type,name in _h.groupPartnersByType(result.partners)
-										.row
-											.col-md-12
-												.single_date_of_series.single_partner_of_series
-													h3.col-sm-12
-														span=name
-										.row.main-list.grid_tab.grid.day_grid
-											each box in type
-												include ../../performers/item
-							if result.gallery
-								#galleries.tab-pane
-									.container
-										.row.main-list.grid_tab.grid
-											each box in result.gallery
-												include ../../galleries/item
+                    each day,date in groupedPerformances.list
+                      .single_date_of_series
+                        h3
+                          span=_h.date.writeDate(date)
+                      each venue,venuename in groupedPerformances.list[date]
+                        each room,roomname in groupedPerformances.list[date][venuename]
+                          each slot in groupedPerformances.list[date][venuename][roomname]
+                            - console.log(slot)
+                            h3.single_event-room_title=slot.schedule.venue.name + " > " + slot.schedule.venue.room
+                            .grid.row.day_grid
+                              each box in room
+                                include ../../performances/slot
+                    if groupedPerformances.tobeconfirmed.length
+                      .single_date_of_series
+                        h3
+                          span=__("To be confirmed")
+                      .grid.row.day_grid
+                        each box in groupedPerformances.tobeconfirmed
+                          include ../../performances/slot
+                  #artists.tab-pane
+                    - var t = groupedArtists.stats.n;
+                    - t+= " "+__("artists from")+" "+groupedArtists.stats.countries.length+" "+(groupedArtists.stats.countries.length==1 ? __("country") : __("countries"))+", "+groupedArtists.stats.countries.join(", ");
+                    - t+= " "+__("playing")+" ";
+                    - for(i in groupedArtists.stats.types) t+= groupedArtists.stats.types[i].n + " " + groupedArtists.stats.types[i].name+", ";
+                    - t = t.substring(0,t.length-2);
+                    p=t
+                    .row
+                      each box in groupedArtists.list
+                        include ../../performers/item
+                  - if (Object.keys(categories_founded).length)
+                  #categories.tab-pane
+                    - var first
+                    ul.nav.nav-pills
+                      - var a=0
+                      each category in categories_founded
+                        - if (a==0) first = category.category.permalink
+                        - if (a==0) firstTitle = category.category.name
+                        li(class=a == 0 ? "active" : undefined)
+                          a(href=category.category.permalink)=category.category.name
+                        - a++
+                    .single_date_of_series
+                      h3
+                        span=firstTitle
+                    .row
+                      each box in categories_founded[first].list
+                        include ../../performances/slot
+                if result.partners
+                  #partners.tab-pane
+                    each type,name in _h.groupPartnersByType(result.partners)
+                      .row
+                        .col-md-12
+                          .single_date_of_series.single_partner_of_series
+                            h3.col-sm-12
+                              span=name
+                      .row.main-list.grid_tab.grid.day_grid
+                        each box in type
+                          include ../../performers/item
+                if result.gallery
+                  #galleries.tab-pane
+                    .container
+                      .row.main-list.grid_tab.grid
+                        each box in result.gallery
+                          include ../../galleries/item
 

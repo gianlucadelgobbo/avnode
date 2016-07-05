@@ -79,13 +79,14 @@ module.exports = function(app) {
 
   app.get('/(:user)', userRoutes.getUser);
 
-  app.use(function(err, req, res, next) {
+  /*app.use(function(err, req, res, next) {
     // FIXME add logging
     if (err instanceof Errors.NotFound) {
       res.status(err.statusCode).send(err.message);
     }
     if (err instanceof Errors.Internal) {
+      console.log((err.message));
       res.status(err.statusCode).send(err.message);
     }
-  });
+  });*/
 };

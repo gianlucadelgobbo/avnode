@@ -194,8 +194,8 @@ exports.getUserGallery = function get(req, res) {
     Gallery
     .findOne(query)
     .exec(function(error, result) {
-      console.log(result);
-      res.render('user/details/gallery', localsDetail(user, result, req, "galleries"));
+      var ld = localsDetail(user, result, req, "galleries");
+      res.render('user/details/gallery', ld);
     });
   });
 };
