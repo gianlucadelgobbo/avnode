@@ -1262,7 +1262,7 @@ footer.main_footer {
 .event_events_list {
   margin-top: 15px;
 }
-li {
+.event_events_list li {
   list-style-type: none;
 }
 .event_events_list .event_list_content_container {
