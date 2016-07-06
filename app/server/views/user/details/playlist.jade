@@ -48,8 +48,9 @@ block user-content
           li="permalink: "+result.footage[a].permalink
     li
       h3="image src: "
-      =result.file.file
-      - console.log(result.file)
-      img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.file.file, config.sections[section].thumbnails.detail))
+      - var fff = result.file && result.file.file ? result.file.file : result.footage.length&& result.footage[0].file && result.footage[0].file.file ? result.footage[0].file.file : false
+      =fff
+      - console.log(fff)
+      img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(fff, config.sections[section].thumbnails.detail))
 
   //-console.log(JSON.stringify(result, null, 20));

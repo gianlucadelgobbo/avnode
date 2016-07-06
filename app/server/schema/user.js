@@ -7,9 +7,10 @@ var Gallery = require('./gallery');
 var Performancesummary = require('./performancesummary');
 var Playlist = require('./playlist');
 var Tvshow = require('./tvshow');
-var User = require('./user');
+var Usersummary = require('./usersummary');
 var Categories = require('./category');
 var Organization = require('./organization');
+var Url = require('./url');
 
 var Location = require('./location');
 
@@ -33,7 +34,7 @@ var UserSchema = new Schema({
     // FIXME
   },
   locations: [Location],
-  websites: [], // FIXME to be defined Socials?
+  websites: [Url],
   text: Object,
   categories: [Categories],
   is_crew: Boolean,
@@ -46,7 +47,7 @@ var UserSchema = new Schema({
   lang: String,
   login: { type: String, required: true },
   password: { type: String, required: true },
-  crews: [User],
+  crews: [Usersummary],
   emails: [{
     email: String,
     is_public: {type: Boolean, default: false},
@@ -60,7 +61,7 @@ var UserSchema = new Schema({
   connections: [], // FIXME to be defined
 
   // is_crew = true
-  members: [User],
+  members: [Usersummary],
   is_organization: Boolean,
   organization: Organization,
 

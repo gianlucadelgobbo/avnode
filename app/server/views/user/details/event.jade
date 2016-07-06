@@ -19,7 +19,9 @@ block content
               if result.subtitle
                 h3.subtitle=_h.text.getTextFormat(result.subtitle, config.lang, true)
               h4
-                each type,name in _h.groupPartnersByType(result.partners)
+                - var groupedPartners = _h.groupPartnersByType(result.partners)
+
+                each type,name in groupedPartners
                   if name == "PRODUCTION"
                     ul.list-inline
                       if ( type.length < 4 )
@@ -163,7 +165,6 @@ block content
                 .col-sm-4
                   .event_map
                     img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?size=640x400&center=#{result.schedule[0].locality},#{result.schedule[0].country}&zoom=4&size=262x110&markers=#{result.schedule[0].locality},#{result.schedule[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
-      - console.log(result.text)
       if result.text
         .about-bkg
           .container
@@ -232,7 +233,6 @@ block content
                       each venue,venuename in groupedPerformances.list[date]
                         each room,roomname in groupedPerformances.list[date][venuename]
                           each slot in groupedPerformances.list[date][venuename][roomname]
-                            - console.log(slot)
                             h3.single_event-room_title=slot.schedule.venue.name + " > " + slot.schedule.venue.room
                             .grid.row.day_grid
                               each box in room
@@ -273,7 +273,7 @@ block content
                         include ../../performances/slot
                 if result.partners
                   #partners.tab-pane
-                    each type,name in _h.groupPartnersByType(result.partners)
+                    each type,name in groupedPartners
                       .row
                         .col-md-12
                           .single_date_of_series.single_partner_of_series

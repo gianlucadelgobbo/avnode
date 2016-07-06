@@ -1,11 +1,13 @@
 var Schema = require('mongoose').Schema;
-var User = require('./user');
+var Usersummary = require('./usersummary');
 var File = require('./file');
-var Performance = require('./performance');
+var Partner = require('./partner');
 var Category = require('./category');
 var Schedule = require('./schedule');
 var Gallery = require('./gallery');
 var Slot = require('./slot');
+var Url = require('./url');
+var Performancesummary = require('./performancesummary');
 var config = require('getconfig');
 
 // Reuse the configured locales…
@@ -24,7 +26,7 @@ module.exports = new Schema({
   is_public: {type: Boolean, default: true},
   is_freezed: {type: Boolean, default: false},
   gallery_is_public: {type: Boolean, default: true},
-  users: [User],
+  users: [Usersummary],
   file: File,
   stats: {
     visits: Number,
@@ -36,13 +38,13 @@ module.exports = new Schema({
   schedule: [Schedule],
 
   text: text,
-  websites: [String],
+  websites: [Url],
 
   program: [Slot],
-  tobescheduled:[Performance],
+  tobescheduled:[Performancesummary],
 
   galleries: [Gallery],
-  partners: [User],
+  partners: [Partner],
 
   organizationsettings: {
     program_builder: Boolean,
@@ -84,7 +86,7 @@ module.exports = new Schema({
       }]
     },
     permissions: {
-      administrator: [User], // FIXME
+      administrator: [Usersummary], // FIXME
     }
   }
 });
