@@ -11,7 +11,7 @@
             .row
               .crew_teaser_logo_container.col-sm-6
                 a(href="/"+crew.permalink, title=crew.display_name)
-                  img.img-circle(src=crew.files[0].file, alt=crew.display_name)
+                  img.img-circle(src=crew.file.file, alt=crew.display_name)
                   h3
                     span= crew.display_name
               .crew_teaser_crew_details.crew_details.col-sm-6
@@ -27,7 +27,7 @@
             li.secondary_crew
               a(href="/#{crew.permalink}", title=crew.display_name)
                 if crew.files
-                  img(src=crew.files[0].file, alt=crew.display_name)
+                  img(src=crew.file.file, alt=crew.display_name)
   .col-sm-12.more_crews.more_button
     a(href="/#{performer.permalink}/crews", title='More Crews')
       =__("All the Crews")

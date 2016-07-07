@@ -4,7 +4,7 @@ var File = require('./file');
 var Partner = require('./partner');
 var Category = require('./category');
 var Schedule = require('./schedule');
-var Gallery = require('./gallery');
+var Gallerysummary = require('./gallerysummary');
 var Slot = require('./slot');
 var Url = require('./url');
 var Performancesummary = require('./performancesummary');
@@ -43,7 +43,7 @@ module.exports = new Schema({
   program: [Slot],
   tobescheduled:[Performancesummary],
 
-  galleries: [Gallery],
+  galleries: [Gallerysummary],
   partners: [Partner],
 
   organizationsettings: {

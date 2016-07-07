@@ -16,7 +16,15 @@ var UserSchema = new Schema({
   file: File,
   activity: Number,
   stats: {
-    // FIXME
+    members: Number,
+    performances: Number,
+    crews: Number,
+    footage: Number,
+    tvshows: Number,
+    playlists: Number,
+    events: Number,
+    galleries: Number,
+    friends: Number
   },
   locations: [Location],
   websites: [Url],

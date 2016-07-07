@@ -32,7 +32,7 @@ block user-content
       li
         h3="image src: "
         =result.file.file
-        //img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.files[0].preview, config.sections[section].thumbnails.detail))
+        //img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.file.preview, config.sections[section].thumbnails.detail))
 
       li
         h3="text: "

@@ -3,7 +3,7 @@ var File = require('./file');
 
 var Footage = require('./footage');
 var Eventsummary = require('./eventsummary');
-var Gallery = require('./gallery');
+var Gallerysummary = require('./gallerysummary');
 var Performancesummary = require('./performancesummary');
 var Playlist = require('./playlist');
 var Tvshow = require('./tvshow');
@@ -31,7 +31,15 @@ var UserSchema = new Schema({
   file: File,
   activity: Number,
   stats: {
-    // FIXME
+    members: Number,
+    performances: Number,
+    crews: Number,
+    footage: Number,
+    tvshows: Number,
+    playlists: Number,
+    events: Number,
+    galleries: Number,
+    friends: Number
   },
   locations: [Location],
   websites: [Url],
@@ -69,7 +77,7 @@ var UserSchema = new Schema({
   partnerships: [Eventsummary],
   events: [Eventsummary],
   footage: [Footage],
-  gallery: [Gallery],
+  galleries: [Gallerysummary],
   performances: [Performancesummary],
   playlists: [Playlist],
   tvshow: [Tvshow],

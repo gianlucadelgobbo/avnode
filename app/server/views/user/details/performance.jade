@@ -14,9 +14,8 @@ block user-content
       p=result.title
     li
       h3="image src: "
-      =result.files[0].file
-      - console.log(result.files[0])
-      img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src=_h.media.getFileFormat(result.files[0].file, config.sections[section].thumbnails.detail))
+      =result.file.file
+      img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src=_h.media.getFileFormat(result.file.file, config.sections[section].thumbnails.detail))
 
     li
       h3="text: "
@@ -24,8 +23,7 @@ block user-content
     li
       h3="Stats: "
       p="visits: "+result.stats.visits
-      p="rate: "+result.stats.rates.stars
-      p="total rates: "+result.stats.likes
+      p="likes: "+result.stats.likes
     li
       h3="Categories: "
       p="type: "+groupedCategories.type.name
@@ -43,14 +41,14 @@ block user-content
       h3="events: "
       //p=result.events[0].users[0].display_name
 
-      - for(var a=0; a<result.events.length; a++)
-        p=result.events[a].title
+      - for(var a=0; a<result.bookings.length; a++)
+        p=result.bookings[a].event.title
     li
       h3="galleries: "
       //p=result.events[0].users[0].display_name
 
-      - for(var a=0; a<result.gallery.length; a++)
-        p=result.gallery[a].title
+      - for(var a=0; a<result.galleries.length; a++)
+        p=result.galleries[a].title
 
 
 
