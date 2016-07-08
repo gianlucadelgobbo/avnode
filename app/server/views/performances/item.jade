@@ -2,7 +2,8 @@ mixin performance_item_content
   - var section = "performances"
   .box_wrapper
     a(href="/#{box.users[0].permalink}/performances/#{box.permalink}/", title=box.title)
-      img.main_performance_image(alt=__("Thumbnail of")+": "+box.title, src=_h.media.getFileFormat(box.file.file, config.sections[section].thumbnails.list))
+      - if (box.file)
+          img.main_performance_image(alt=__("Thumbnail of")+": "+box.title, src=_h.media.getFileFormat(box.file.file, config.sections[section].thumbnails.list))
     a(href="/#{box.users[0].permalink}/performances/#{box.permalink}/", title=box.title)
       h3.main_event_title.col-sm-12= box.title
     .main_event_box
@@ -74,7 +75,7 @@ mixin performance_item_content
                 li
                   i(class="fa fa-cube")
                   a(href="/#{category.permalink}", title=category.name)= category.name
-
+    -console.log(JSON.stringify(box.file, null, 20));
 
 if (col_number)
   div.list_item_performer.grid-item.performances_performer(class= col_number)

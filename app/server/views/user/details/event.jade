@@ -10,161 +10,119 @@ block content
               - img = _h.media.getFileFormat(result.file.file, config.sections[section].thumbnails.detail)
               img.img-responsive(id="img-" + result.permalink, alt=__("Thumbnail of") + ": " + result.title, src=img)
               .row
-            .overlay_container.overlay_wrapper
-              div#partecipate_shape
-              div#partecipate_button
-                a(href="#{result.permalink}/participate", role='button')
-                  span= __("Partecipate")
-              h1.title=result.title
-              if result.subtitle
-                h3.subtitle=_h.text.getTextFormat(result.subtitle, config.lang, true)
-              h4
-                - var groupedPartners = _h.groupPartnersByType(result.partners)
+                .overlay_container.overlay_wrapper
+                  div#partecipate_shape
+                  div#partecipate_button
+                    a(href="#{result.permalink}/participate", role='button')
+                      span= __("Partecipate")
+                  h1.title=result.title
+                  if result.subtitle
+                    h3.subtitle=_h.text.getTextFormat(result.subtitle, config.lang, true)
+                  h4
+                    - var groupedPartners = _h.groupPartnersByType(result.partners)
 
-                each type,name in groupedPartners
-                  if name == "PRODUCTION"
-                    ul.list-inline
-                      if ( type.length < 4 )
-                        each box in type
-                          li
-                            a(href="/#{box.permalink}")
-                              span= box.display_name
-                      else
-                        each box,index in type
-                          if index < 3
+                    each type,name in groupedPartners
+                      if name == "PRODUCTION"
+                        ul.list-inline
+                          if ( type.length < 4 )
+                            each box in type
+                              li
+                                a(href="/#{box.permalink}")
+                                  span= box.display_name
+                          else
+                            each box,index in type
+                              if index < 3
+                                li
+                                  a(href="/#{box.permalink}")
+                                    span= box.display_name
                             li
-                              a(href="/#{box.permalink}")
-                                span= box.display_name
-                        li
-                          a(data-toggle='modal', data-target='#allproduction')= __("[ + ]")
-                        // Modal event external links
-                        #allproduction.modal.fade(role='dialog')
-                          .modal-dialog
-                            // Modal content
-                            .modal-content
-                              .modal-header
-                                button.close(type='button', data-dismiss='modal') ×
-                                h4= "All production"
-                              .modal-body
-                                ul.list-inline
-                                  each box in type
-                                    li
-                                      a(href="/#{box.permalink}")
-                                        span= box.display_name
+                              a(data-toggle='modal', data-target='#allproduction')= __("[ + ]")
+                            // Modal event external links
+                            #allproduction.modal.fade(role='dialog')
+                              .modal-dialog
+                                // Modal content
+                                .modal-content
+                                  .modal-header
+                                    button.close(type='button', data-dismiss='modal') ×
+                                    h4= "All production"
+                                  .modal-body
+                                    ul.list-inline
+                                      each box in type
+                                        li
+                                          a(href="/#{box.permalink}")
+                                            span= box.display_name
 
-              // Modal event external links
-              div#event_external_links.modal.fade(role='dialog')
-                .modal-dialog
-                  // Modal content
-                  .modal-content
-                    .modal-header
-                      button.close(type='button', data-dismiss='modal') ×
-                      h4= result.title + " links"
-                    .modal-body
-                      ul.list-inline
-                        each url in result.websites
-                          li
-                            i.fa.fa-external-link
-                            a(href=url,target="_blank")
-                              =" website"
-                        li
-                          a(href="#")
-                            i.fa.fa-facebook-official(aria-hidden='true')
-                        li
-                          a(href="#")
-                            i.fa.fa-twitter(aria-hidden='true')
-                        li
-                          a(href="#")
-                            i.fa.fa-vimeo(aria-hidden='true')
+                  .row
+                    .col-sm-8
+                      .row.event_events_list.grid
+                        if result.schedule
+                          each date_time_venue in result.schedule
+                            .col-sm-4.grid-item
+                              .event_list_content_container
+                                span
+                                  i(class="fa fa-clock-o")
+                                  !=_h.date.writeDate(date_time_venue.date) + " | " + _h.date.writeTime(date_time_venue.starttime) + " / " + _h.date.writeTime(date_time_venue.endtime) + "<br />"
+                                span
+                                  i(class="fa fa-map-marker")
+                                  !=date_time_venue.venue.name + " | " + date_time_venue.venue.location.city + ", " + date_time_venue.venue.location.country
+                    .col-sm-4
+                      .event_map
+                        img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?size=640x400&center=#{result.schedule[0].locality},#{result.schedule[0].country}&zoom=4&size=262x110&markers=#{result.schedule[0].locality},#{result.schedule[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
 
-              // Modal event external links
-              div#event_share.modal.fade(role='dialog')
-                #fb-root
-                  script.
-                    (function (d, s, id) {
-                      var js, fjs = d.getElementsByTagName(s)[0];
-                      if (d.getElementById(id)) return;
-                      js = d.createElement(s);
-                      js.id = id;
-                      js.src = "//connect.facebook.net/it_IT/sdk.js#xfbml=1&version=v2.6&appId=1725376071051640";
-                      fjs.parentNode.insertBefore(js, fjs);
-                    }(document, 'script', 'facebook-jssdk'));
-                .modal-dialog
-                  // Modal content
-                  .modal-content
-                    .modal-header
-                      button.close(type='button', data-dismiss='modal') ×
-                      h4= "Share " + result.title
-                    .modal-body
-                      .fb-like(data-href='https://developers.facebook.com/docs/plugins/', data-layout='standard', data-action='like', data-show-faces='true', data-share='true')
-                      ul.list-inline
-                        li
-                          a(href="#")
-                            i.fa.fa-facebook-official(aria-hidden='true')
-                        li
-                          a(href="#")
-                            i.fa.fa-twitter(aria-hidden='true')
-                        li
-                          a(href="#")
-                            i.fa.fa-vimeo(aria-hidden='true')
 
-                    .modal-footer
-                      button.btn.btn-default(type='button', data-dismiss='modal') Close
-
-              ul.list-inline.single_event_details
-                if result.websites
+        // Modal event external links
+        div#event_external_links.modal.fade(role='dialog')
+          .modal-dialog
+            // Modal content
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal') ×
+                h4= result.title + " links"
+              .modal-body
+                ul.list-inline
+                  -if (result.websites)
+                    each url in result.websites
+                      li
+                        i.fa.fa-external-link
+                        a(href=url,target="_blank")
+                          =" website"
                   li
-                    i.fa.fa-external-link
-                    a(type='button', data-toggle='modal', data-target='#event_external_links')
-                      =__(" Webites & Socials")
+                    a(href="#")
+                      i.fa.fa-facebook-official(aria-hidden='true')
                   li
-                    i.fa.fa-share-alt
-                    a(type='button', data-toggle='modal', data-target='#event_share')
-                      =__(" Share")
+                    a(href="#")
+                      i.fa.fa-twitter(aria-hidden='true')
                   li
-                    span
-                      i(class="fa fa-eye")
-                      span.value=" " + result.stats.visits
+                    a(href="#")
+                      i.fa.fa-vimeo(aria-hidden='true')
+
+        // Modal event external links
+        div#event_share.modal.fade(role='dialog')
+          #fb-root
+           ="FB LIKE"
+          .modal-dialog
+            // Modal content
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal') ×
+                h4= "Share " + result.title
+              .modal-body
+                .fb-like(data-href='https://developers.facebook.com/docs/plugins/', data-layout='standard', data-action='like', data-show-faces='true', data-share='true')
+                ul.list-inline
                   li
-                    span
-                      i(class="fa fa-heart")
-                      =" "
-                      span.value=result.stats.likes
-
-
+                    a(href="#")
+                      i.fa.fa-facebook-official(aria-hidden='true')
                   li
-                    i(class="fa fa-user")
-                    =" "
-                    a(href="/" + result.permalink + "/")=performer.display_name
+                    a(href="#")
+                      i.fa.fa-twitter(aria-hidden='true')
+                  li
+                    a(href="#")
+                      i.fa.fa-vimeo(aria-hidden='true')
+
+              .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
 
 
-
-
-
-                  each category in result.categories
-                    if category.ancestors
-                      each ancestor in category.ancestors
-                        if ancestor.permalink == "lv-projects-categories"
-                          li
-                            i(class="fa fa-cube")
-                            =" "
-                            a(href="/events/#{category.permalink}")=category.name
-              .row
-                .col-sm-8
-                  .row.event_events_list.grid
-                    if result.schedule
-                      each date_time_venue in result.schedule
-                        .col-sm-4.grid-item
-                          .event_list_content_container
-                            span
-                              i(class="fa fa-clock-o")
-                              !=_h.date.writeDate(date_time_venue.date) + " | " + _h.date.writeTime(date_time_venue.starttime) + " / " + _h.date.writeTime(date_time_venue.endtime) + "<br />"
-                            span
-                              i(class="fa fa-map-marker")
-                              !=date_time_venue.venue.name + " | " + date_time_venue.venue.location.city + ", " + date_time_venue.venue.location.country
-                .col-sm-4
-                  .event_map
-                    img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?size=640x400&center=#{result.schedule[0].locality},#{result.schedule[0].country}&zoom=4&size=262x110&markers=#{result.schedule[0].locality},#{result.schedule[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
       if result.text
         .about-bkg
           .container
@@ -269,8 +227,9 @@ block content
                       h3
                         span=firstTitle
                     .row
-                      each box in categories_founded[first].list
-                        include ../../performances/slot
+                      - if (categories_founded.list)
+                          each box in categories_founded[first].list
+                            include ../../performances/slot
                 if result.partners
                   #partners.tab-pane
                     each type,name in groupedPartners
@@ -289,3 +248,4 @@ block content
                         each box in result.gallery
                           include ../../galleries/item
 
+  -//console.log(JSON.stringify(result, null, 20));

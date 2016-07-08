@@ -13,6 +13,8 @@ block user-content
       p=result.title
     li
       h3="stats:"
+      p="visits: "+result.stats.visits
+      p="likes: "+result.stats.likes
 
     li
       h3="performances"
@@ -20,7 +22,7 @@ block user-content
         - for(var a=0; a<result.performances.length; a++)
           ol
             li
-              span.alert-danger="titolo: " + result.performances[a].title
+              ="titolo: " + result.performances[a].title
             li
               ="permalink: " + result.performances[a].permalink
     li
@@ -55,8 +57,8 @@ block user-content
             li="encoded: " + result.medias[a].file.encoded
             li="file size h: " + result.medias[a].file.size[0]
             li="file size w: " + result.medias[a].file.size[1]
-            li!="&nbsp;"
+            br
 
   .pre
     //!=result
-//-console.log(JSON.stringify(result, null, 20));
+  -//console.log(JSON.stringify(result, null, 20));
