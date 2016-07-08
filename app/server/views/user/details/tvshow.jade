@@ -1,6 +1,48 @@
 extends ../layout_user_two_columns
 
 block user-content
-  h2=result.title + " FIXME"
-  .pre
-    !=result
+  h2=result.title
+  p="TV show"
+
+  ul
+    li
+      h3="page title: "
+      =title
+    li
+      h3="title: "
+      p=result.title
+    li
+      h3="text/desc: "
+      p=result.text
+    li
+      h3="tags/categories: "
+      - if (result.categories)
+        - for(var a=0; a<result.categories.length; a++)
+          ul
+            li="title: " + result.categories[a].name
+            li="permalink: " + result.categories[a].permalink
+    li
+      h3="Stats: "
+      p="visits: " + result.stats.visits
+      p="likes: " + result.stats.likes
+    li
+      h3="Users: "
+      - for(var a=0; a<result.users.length; a++)
+        ol
+          li
+            ="name: " + result.users[a].display_name
+          li
+            ="permalink: " + result.users[a].permalink
+          br
+    li
+      h3="programming: "
+      - for(var a=0; a<result.programming.length; a++)
+        p!=_h.date.writeDate(result.programming[a])
+    li
+      h3="image src: "
+      - var fff = result.file && result.file.file ? result.file.file : result.footage.length&& result.footage[0].file && result.footage[0].file.file ? result.footage[0].file.file : false
+      =fff
+      - console.log(fff)
+      img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(fff, config.sections[section].thumbnails.detail))
+
+    -console.log(JSON.stringify(result, null, 20));
