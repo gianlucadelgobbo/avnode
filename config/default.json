@@ -193,21 +193,22 @@
         "title":1,
         "users":1,
         "permalink":1,
-        "files":1,
+        "file":1,
         "categories":1,
         "stats":1
       },
       "orders": [
-        "mostrecent",
-        "mostactive"
+        "mostactive",
+        "mostrecent"
       ],
       "sortQ": {
+        "mostactive": {
+          "activity":1
+        },
         "mostrecent": {
           "creation_date": -1
-        },
-        "mostactive": {
-          "stats.performances": -1
         }
+
       },
       "labels": {
         "mostrecent":"Most recent",
@@ -226,7 +227,7 @@
       "list_fields": {
         "display_name":1,
         "permalink":1,
-        "files":1,
+        "file":1,
         "stats":1
       },
       "orders": [
@@ -263,8 +264,8 @@
         "crews":"Crews"
       },
       "thumbnails": {
-        "detail":{"w":350,"h":197,"default":"performer.jpg"},
-        "list":{"w":263,"h":148,"default":"performer.jpg"}
+        "detail":{"w":350,"h":197,"default":"/warehouse/defaults/performer.jpg"},
+        "list":{"w":263,"h":148,"default":"/warehouse/defaults/performer.jpg"}
       }
     },
     "crews": {
@@ -289,10 +290,10 @@
         "title":1,
         "users":1,
         "permalink":1,
-        "files":1,
+        "file":1,
         "categories":1,
         "stats":1,
-        "date_time_venue":1
+        "program":1
       },
       "orders": [
         "mostrecent",
@@ -367,8 +368,8 @@
         "viewer":  "Viewer"
       },
       "thumbnails": {
-        "detail":{"w":1140,"h":641,"default":"event.jpg"},
-        "list":{"w":263,"h":148,"default":"event.jpg"}
+        "detail":{"w":1140,"h":641,"default":"/warehouse/defaults/event.jpg"},
+        "list":{"w":263,"h":148,"default":"/warehouse/defaults/event.jpg"}
       }
     },
     "performances": {
@@ -381,7 +382,7 @@
         "title":1,
         "users":1,
         "permalink":1,
-        "files":1,
+        "file":1,
         "categories":1,
         "stats":1
       },
@@ -439,8 +440,8 @@
         "workshop": "Workshop"
       },
       "thumbnails": {
-        "detail":{"w":730,"h":411,"default":"performance.jpg"},
-        "list":{"w":263,"h":148,"default":"performance.jpg"}
+        "detail":{"w":730,"h":411,"default":"/warehouse/defaults/performance.jpg"},
+        "list":{"w":263,"h":148,"default":"/warehouse/defaults/performance.jpg"}
       }
     },
     "tvshows": {
@@ -453,7 +454,7 @@
         "title":1,
         "users":1,
         "permalink":1,
-        "files":1,
+        "file":1,
         "categories":1,
         "stats":1,
         "palinsestodate":1
@@ -507,8 +508,8 @@
         "video": "Video"
       },
       "thumbnails": {
-        "detail":{"w":730,"h":411,"default":"tvshow.jpg"},
-        "list":{"w":263,"h":148,"default":"tvshow.jpg"}
+        "detail":{"w":730,"h":411,"default":"/warehouse/defaults/tvshow.jpg"},
+        "list":{"w":263,"h":148,"default":"/warehouse/defaults/tvshow.jpg"}
       }
     },
     "footage": {
@@ -521,7 +522,7 @@
         "title":1,
         "users":1,
         "permalink":1,
-        "files":1,
+        "file":1,
         "categories":1,
         "stats":1
       },
@@ -569,8 +570,8 @@
         "koncept": "Koncept"
       },
       "thumbnails": {
-        "detail":{"w":730,"h":411,"default":"footage.jpg"},
-        "list":{"w":263,"h":148,"default":"footage.jpg"}
+        "detail":{"w":730,"h":411,"default":"/warehouse/defaults/footage.jpg"},
+        "list":{"w":263,"h":148,"default":"/warehouse/defaults/footage.jpg"}
       }
     },
     "playlists": {
@@ -583,7 +584,7 @@
         "title":1,
         "users":1,
         "permalink":1,
-        "files":1,
+        "file":1,
         "categories":1,
         "stats":1
       },
@@ -616,8 +617,8 @@
         "all": "All"
       },
       "thumbnails": {
-        "detail":{"w":730,"h":411,"default":"playlist.jpg"},
-        "list":{"w":263,"h":148,"default":"playlist.jpg"}
+        "detail":{"w":730,"h":411,"default":"/warehouse/defaults/playlist.jpg"},
+        "list":{"w":263,"h":148,"default":"/warehouse/defaults/playlist.jpg"}
       }
     },
     "galleries": {
@@ -630,7 +631,7 @@
         "title":1,
         "users":1,
         "permalink":1,
-        "files":1,
+        "file":1,
         "stats":1
       },
       "orders": [
@@ -660,8 +661,8 @@
         "all": "All"
       },
       "thumbnails": {
-        "detail":{"w":730,"h":411,"default":"gallery.jpg"},
-        "list":{"w":263,"h":148,"default":"gallery.jpg"}
+        "detail":{"w":730,"h":411,"default":"/warehouse/defaults/gallery.jpg"},
+        "list":{"w":263,"h":148,"default":"/warehouse/defaults/gallery.jpg"}
       }
     }
   },

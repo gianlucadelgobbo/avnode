@@ -3,7 +3,7 @@ mixin playlist_item_content
     - var section = "playlists"
     .image_box.wrapper_item
       - console.log (config.sections[section].thumbnails.list)
-      img.main_performance_image(alt=__("Thumbnail of")+": "+box.title, src=_h.media.getFileFormat(box.file.file, config.sections[section].thumbnails.list))
+      img.main_performance_image(alt=__("Thumbnail of")+": "+box.title, src=_h.media.getFileFormat(box.file, section, "list"))
       .footage_stats.box_stats.overlay_wrapper_top
         // MISSING DATA: LIKES, VIDEOS INSIDE DEL PLAYLIST, CATEGORY/TAG, THUMBNAIL
         ul.list-inline

@@ -7,7 +7,7 @@ block content
         .row
           .col-md-12
             .single_event_thumb_container.wrapper_item
-              - img = _h.media.getFileFormat(result.file.file, config.sections[section].thumbnails.detail)
+              - img = _h.media.getFileFormat(result.file, section, "detail")
               img.img-responsive(id="img-" + result.permalink, alt=__("Thumbnail of") + ": " + result.title, src=img)
               .row
                 .overlay_container.overlay_wrapper

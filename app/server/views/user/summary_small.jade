@@ -9,7 +9,7 @@
             .col-xs-12
                 a(href="/" + performer.permalink, title=performer.display_name)
                     h1.performer_display_name= performer.display_name
-                    img.media-object(alt=__("Thumbnail of") + ": " + performer.display_name, src=_h.media.getFileFormat(performer.file && performer.file.file ? performer.file.file : false, config.sections["performers"].thumbnails.detail))
+                    img.media-object(alt=__("Thumbnail of") + ": " + performer.display_name, src=_h.media.getFileFormat(performer.file, "performers", "detail"))
                 nav
                     ul.performer_details
                         - console.log(performer.stats)

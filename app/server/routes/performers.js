@@ -48,7 +48,7 @@ exports.get = function get(req, res) {
       var pages = _h.pagination(link, skip, config.sections[section].limit, total);
       res.render(section + '/list', {
         title: title,
-            info: info,
+        info: info,
         section: section,
         total: total,
         path: path,

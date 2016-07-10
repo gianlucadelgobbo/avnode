@@ -2,7 +2,7 @@ mixin event_item_content
   - var section = "events"
   .box_wrapper
     a(href="/#{box.users[0].permalink}/events/#{box.permalink}/", title=box.title)
-      img.main_performance_image(alt=__("Thumbnail of") + ": " + box.title, src=_h.media.getFileFormat(box.file && box.file.file, config.sections[section].thumbnails.list))
+      img.main_performance_image(alt=__("Thumbnail of") + ": " + box.title, src=_h.media.getFileFormat(box.file, section, "list"))
 
     a(href="/#{box.users[0].permalink}/events/#{box.permalink}/", title=box.title)
       h3.main_event_title.col-sm-12= box.title

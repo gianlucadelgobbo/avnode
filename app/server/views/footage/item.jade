@@ -2,8 +2,7 @@ mixin footage_item_content
   - var section = "footage"
   a(href="/#{box.users[0].permalink}/footage/#{box.permalink}/", title=box.title)
     .image_box.wrapper_item
-      - var fff = box.file && box.file.file ? box.file.file : false
-      img.main_performance_image(alt=__("Thumbnail of")+": "+box.display_name, src=_h.media.getFileFormat(fff, config.sections[section].thumbnails.list))
+      img.main_performance_image(alt=__("Thumbnail of")+": "+box.display_name, src=_h.media.getFileFormat(box.file, section, "list"))
       .footage_stats.box_stats.overlay_wrapper_top
         ul.list-inline
           li

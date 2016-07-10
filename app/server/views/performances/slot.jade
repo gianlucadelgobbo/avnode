@@ -3,7 +3,7 @@ mixin performance_item_content
   .box_wrapper
     a(href="/#{box.performance.users[0].permalink}/performances/#{box.performance.permalink}/", title=box.performance.title)
       -if(box.performance.file)
-        img.main_performance_image(alt=__("Thumbnail of") + ": " + box.performance.title, src=_h.media.getFileFormat(box.performance.file.file, config.sections[section].thumbnails.list))
+        img.main_performance_image(alt=__("Thumbnail of") + ": " + box.performance.title, src=_h.media.getFileFormat(box.performance.file, section, "list"))
     a(href="/#{box.performance.users[0].permalink}/performances/#{box.performance.permalink}/", title=box.performance.title)
       h3.main_event_title.col-sm-12= box.performance.title
     .main_event_box

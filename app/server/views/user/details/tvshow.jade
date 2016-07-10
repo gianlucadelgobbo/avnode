@@ -43,6 +43,6 @@ block user-content
       - var fff = result.file && result.file.file ? result.file.file : result.footage.length&& result.footage[0].file && result.footage[0].file.file ? result.footage[0].file.file : false
       =fff
       - console.log(fff)
-      img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(fff, config.sections[section].thumbnails.detail))
+      img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.file, section, "detail"))
 
     -console.log(JSON.stringify(result, null, 20));

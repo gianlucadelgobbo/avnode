@@ -3,4 +3,4 @@ root(lng=config.lang, autostop="true", trackID=config.googleAnalytics, endpPath=
     file=config.siteurl+result.file.file
     data
       tit=result.title
-    thumb=config.siteurl+_h.media.getFileFormat(result.file.file, config.sections[section].thumbnails.detail)+"?a=192"
+    thumb=config.siteurl+_h.media.getFileFormat(result.file, section, "detail")+"?a=192"

@@ -15,7 +15,7 @@ block user-content
     li
       h3="image src: "
       =result.file.file
-      img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src=_h.media.getFileFormat(result.file.file, config.sections[section].thumbnails.detail))
+      img.img-responsive(alt=__("Thumbnail of")+": "+result.title, src=_h.media.getFileFormat(result.file, section, "detail"))
 
     li
       h3="text: "

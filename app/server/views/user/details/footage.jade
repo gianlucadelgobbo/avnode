@@ -7,7 +7,7 @@ block user-content
   #flashPlayer
     -if(result.file)
       a(href=result.file.file, target="_blank")
-        img.img-responsive(alt=__("Multimedia contents of")+": "+result.title, src=_h.media.getFileFormat(result.file.preview, config.sections[section].thumbnails.detail))
+        img.img-responsive(alt=__("Multimedia contents of")+": "+result.title, src=_h.media.getFileFormat(result.file, section, "detail"))
         img(alt=__("Show"), src="/img/play.png", style="top:145px;left:305px;position:absolute;")
   script(type="text/javascript", src="/fp/fpVariables.js")
   script(type="text/javascript", src="/fp/fpManager.js")
@@ -33,7 +33,7 @@ block user-content
     li
       h3="image src: "
       =result.file
-      img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.file.file, config.sections[section].thumbnails.detail))
+      img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.file, section, "detail"))
 
     li
       h3="text: "
