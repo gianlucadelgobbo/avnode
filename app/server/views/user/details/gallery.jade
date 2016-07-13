@@ -4,61 +4,74 @@ block user-content
   h2=result.title
   p="Gallery"
 
-  ul
-    li
-      h3="page title: "
-      =title
-    li
-      h3="title: "
-      p=result.title
-    li
-      h3="stats:"
-      p="visits: "+result.stats.visits
-      p="likes: "+result.stats.likes
 
-    li
-      h3="performances"
-      - if(result.performances.length)
-        - for(var a=0; a<result.performances.length; a++)
-          ol
-            li
-              ="titolo: " + result.performances[a].title
-            li
-              ="permalink: " + result.performances[a].permalink
-    li
-      h3="users"
+      -if(result.file)
+        a(href=result.file.file, target="_blank")
+          img.img-responsive(alt=__("Multimedia contents of") + ": " + result.title, src=_h.media.getFileFormat(result.file, section, "detail"))
+
+    ul.list-inline
+      - if(result.stats.img)
+          li
+            i(class="fa fa-picture-o")
+            span= result.stats.img
+
+      - if(result.stats.video)
+          li
+            i(class="fa fa-video-camera")
+            span= result.stats.video
+
+      - if(result.stats.visits)
+          li
+            i(class="fa fa-eye")
+            span= result.stats.visits
+
+      - if(result.stats.likes)
+          li
+            i(class="fa fa-eye")
+            span= result.stats.likes
       - if(result.users.length)
-        - for(var a=0; a<result.users.length; a++)
+          li
+            - for(var a=0; a<result.users.length; a++)
+              i(class="fa fa-user")
+              a(href="#{result.users[a].permalink}", title="#{result.users[a].display_name}")
+                = result.users[a].display_name
 
-          ol
-            li="permalink: " + result.users[a].permalink
-            li="name: " + result.users[a].display_name
-    li
-      h3="events: "
-      - if(result.events.length)
-        - for(var a=0; a<result.events.length; a++)
-          - console.log(result.events[a])
-          ol
-            li="permalink: " + result.events[a].permalink
-            li
-              span="title: " + result.events[a].title
-    li
-      h3="footage: "
-      p="Footages: " + result.medias.length
+    - if(result.performances.length)
+        h3="Related performances"
+        - for(var a=0; a<result.performances.length; a++)
+          a(href="#{result.performances[a].permalink}", title="#{result.performances[a].title}")
+          = result.performances[a].title
+          
 
-      - if(result.medias.length)
-        - for(var a=0; a<result.medias.length; a++)
-          - console.log(result.medias[a])
-          ul
-            li="title: " + result.medias[a].title
-            li="permalink: " + result.medias[a].permalink
-            li="preview file: " + result.medias[a].file.file
-            li="filesize: " + result.medias[a].file.filesize
-            li="encoded: " + result.medias[a].file.encoded
-            li="file size h: " + result.medias[a].file.size[0]
-            li="file size w: " + result.medias[a].file.size[1]
+    - if(result.events.length)
+      h3="Related events"
+      - for(var a=0; a<result.events.length; a++)
+        a(href="#{result.events[a].permalink}", title="#{result.events[a].title}")
+          = result.events[a].title
+
+
+    - if(result.medias.length)
+      h3="Related footages"+ "(" + result.medias.length + ")"
+      .row
+      - for(var a=0; a<result.medias.length; a++)
+          .col-sm-3
+            a(href="#{result.medias[a].permalink}", title="#{result.medias[a].title}")
+              img.main_performance_image(alt=__("Thumbnail of")+": "+result.medias[a].title, src=_h.media.getFileFormat(result.medias[a].file.file, section, "list"))
+
+
+          //li="title: " + result.medias[a].title
+          //li="permalink: " + result.medias[a].permalink
+          //li="preview file: " + result.medias[a].file.file
+          //li="filesize: " + result.medias[a].file.filesize
+          //li="encoded: " + result.medias[a].file.encoded
+          //li="file size h: " + result.medias[a].file.size[0]
+          //li="file size w: " + result.medias[a].file.size[1]
             br
 
-  .pre
+    //h3="Other infos"
+    //ul
+      li
+        h3="page title: "
+        =title
     //!=result
   -//console.log(JSON.stringify(result, null, 20));
