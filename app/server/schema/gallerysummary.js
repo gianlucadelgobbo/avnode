@@ -26,6 +26,8 @@ module.exports = new Schema({
   stats: { // Summary of data coming by gallery and media
     visits: Number,
     likes: Number,
-    shares: Number
+    shares: Number,
+    img: Number,
+    video: Number
   }
 });
