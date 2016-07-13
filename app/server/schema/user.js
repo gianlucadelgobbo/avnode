@@ -38,6 +38,7 @@ var UserSchema = new Schema({
     tvshows: Number,
     playlists: Number,
     events: Number,
+    partnerships: Number,
     galleries: Number,
     friends: Number
   },

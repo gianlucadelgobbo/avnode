@@ -225,10 +225,15 @@
       "view_list": "performers",
       "view_edit": "user",
       "list_fields": {
-        "display_name":1,
         "permalink":1,
+        "display_name":1,
+        "is_public":1,
         "file":1,
-        "stats":1
+        "activity":1,
+        "stats":1,
+        "locations":1,
+        "websites":1,
+        "categorie":1
       },
       "orders": [
         "mostactive",

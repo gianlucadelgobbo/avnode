@@ -18,7 +18,7 @@ mixin performer_item_content
             li= box.stats.performances +__(" Performances")
           if(box.stats.events)
             li= box.stats.events +__(" Events")
-  -console.log(JSON.stringify(box, null, 20));
+  - //console.log(JSON.stringify(box, null, 20));
 if (col_number)
   div.list_item_performer.grid-item.performer_performer(class= col_number)
     +performer_item_content
