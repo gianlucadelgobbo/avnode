@@ -1,6 +1,7 @@
 mixin gallery_item_content
   a(href="/#{box.users[0].permalink}/galleries/#{box.permalink}/", title=box.title)
     .image_box.wrapper_item
+      -console.log(JSON.stringify(box.file, null, 20));
       img.main_performance_image(alt=__("Thumbnail of") + ": " + box.title, src=_h.media.getFileFormat(box.file, section, "list"))
       .footage_stats.box_stats.overlay_wrapper_top
         ul.list-inline
