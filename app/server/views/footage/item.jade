@@ -18,15 +18,16 @@ mixin footage_item_content
       .title_and_info_container.overlay_wrapper
         h3= box.title
         ul.list-inline.box_other_infos
-          - if(box.tags)
+          - if(box.tags.length)
             li
               i(class="fa fa-tags")
               - for (var t=0;t<box.tags.length;t++)
                 span= box.tags[t].tag + " "
-          - if(box.file.filesize)
-            li
-              i(class="fa fa-floppy-o")
-              span= box.file.filesize
+          -console.log(box.file.filesize)
+          //- if(box.file.filesize)
+              li
+                i(class="fa fa-floppy-o")
+                span= box.file.filesize
 
 if (col_number)
   div.list_item_performer.grid-item.footage_footage(class= col_number)

@@ -12,7 +12,7 @@
                     img.media-object(alt=__("Thumbnail of") + ": " + performer.display_name, src=_h.media.getFileFormat(performer.file, "performers", "detail"))
                 nav
                     ul.performer_details
-                        - console.log(performer.stats)
+                        - //console.log(performer.stats)
                         - if (performer.stats.members)
                             li
                                 a(href="/#{performer.permalink}/members/")=__("members") + ' (' + performer.stats.members + ')'

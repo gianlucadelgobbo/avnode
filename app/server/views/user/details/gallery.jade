@@ -5,9 +5,9 @@ block user-content
   p="Gallery"
 
 
-      -if(result.file)
-        a(href=result.file.file, target="_blank")
-          img.img-responsive(alt=__("Multimedia contents of") + ": " + result.title, src=_h.media.getFileFormat(result.file, section, "detail"))
+    -if(result.file)
+      a(href=result.file.file, target="_blank")
+        img.img-responsive(alt=__("Multimedia contents of") + ": " + result.title, src=_h.media.getFileFormat(result.file, section, "detail"))
 
     ul.list-inline
       - if(result.stats.img)
@@ -36,42 +36,38 @@ block user-content
               a(href="#{result.users[a].permalink}", title="#{result.users[a].display_name}")
                 = result.users[a].display_name
 
+    - if(result.medias.length)
+      h3="Related footages"+ "(" + result.medias.length + ")"
+      .row
+        - for(var a=0; a<result.medias.length; a++)
+            .col-sm-3
+              a(href="#{result.medias[a].permalink}", title="#{result.medias[a].title}")
+                img.main_performance_image(alt=__("Thumbnail of")+": "+result.medias[a].title, src=_h.media.getFileFormat(result.medias[a].file.file, section, "list"))
+
+            //-li="title: " + result.medias[a].title
+            //-li="permalink: " + result.medias[a].permalink
+            //-li="preview file: " + result.medias[a].file.file
+            //-li="filesize: " + result.medias[a].file.filesize
+            //-li="encoded: " + result.medias[a].file.encoded
+            //-li="file size h: " + result.medias[a].file.size[0]
+            //-li="file size w: " + result.medias[a].file.size[1]
+
+
     - if(result.performances.length)
-        h3="Related performances"
-        - for(var a=0; a<result.performances.length; a++)
-          a(href="#{result.performances[a].permalink}", title="#{result.performances[a].title}")
-          = result.performances[a].title
-          
+      h3="Related performances"
+
+      - for(var a=0; a<result.performances.length; a++)
+        a(href="#{result.performances[a].permalink}", title="#{result.performances[a].titolo}")
+        =result.performances[a].titolo
+
+
 
     - if(result.events.length)
       h3="Related events"
       - for(var a=0; a<result.events.length; a++)
         a(href="#{result.events[a].permalink}", title="#{result.events[a].title}")
-          = result.events[a].title
+          =result.events[a].title
 
 
-    - if(result.medias.length)
-      h3="Related footages"+ "(" + result.medias.length + ")"
-      .row
-      - for(var a=0; a<result.medias.length; a++)
-          .col-sm-3
-            a(href="#{result.medias[a].permalink}", title="#{result.medias[a].title}")
-              img.main_performance_image(alt=__("Thumbnail of")+": "+result.medias[a].title, src=_h.media.getFileFormat(result.medias[a].file.file, section, "list"))
-
-
-          //li="title: " + result.medias[a].title
-          //li="permalink: " + result.medias[a].permalink
-          //li="preview file: " + result.medias[a].file.file
-          //li="filesize: " + result.medias[a].file.filesize
-          //li="encoded: " + result.medias[a].file.encoded
-          //li="file size h: " + result.medias[a].file.size[0]
-          //li="file size w: " + result.medias[a].file.size[1]
-            br
-
-    //h3="Other infos"
-    //ul
-      li
-        h3="page title: "
-        =title
-    //!=result
+      
   -//console.log(JSON.stringify(result, null, 20));
