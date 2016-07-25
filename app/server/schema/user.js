@@ -28,6 +28,7 @@ var UserSchema = new Schema({
     type: String
   },
   is_public: {type: Boolean, default: true},
+  image: String,
   file: File,
   activity: Number,
   stats: {
