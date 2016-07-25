@@ -29,6 +29,10 @@ exports.sendVerificationMail = function(to, uuid) {
   sendMail(to, 'AVnode E-mail Verification', config.baseurl + 'api/verify-email/' + uuid);
 }
 
+exports.sendUserVerificationMail = function(to, uuid) {
+  sendMail(to, 'AVnode Registration', config.baseurl + 'api/verify-user/' + uuid);
+}
+
 exports.sendPasswordChangedMail = function(to) {
   sendMail(to, 'AVnode Password changed', 'Your password has been changed');
 }

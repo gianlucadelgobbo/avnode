@@ -27,6 +27,7 @@ var UserSchema = new Schema({
   display_name: {
     type: String
   },
+  confirmed: {type: Boolean, default: false},
   is_public: {type: Boolean, default: true},
   file: File,
   activity: Number,
@@ -82,6 +83,7 @@ var UserSchema = new Schema({
   performances: [Performancesummary],
   playlists: [Playlist],
   tvshow: [Tvshow],
+  verify: String
 });
 
 UserSchema.virtual('primaryEmail').get(function () {

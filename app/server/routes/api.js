@@ -35,15 +35,13 @@ router.get(
     permalink: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
   }),
   function (req, res) {
-    var query = { 'permalink': req.params.permalink }
+    var query = {'permalink': req.params.permalink}
     User.findOne(query)
     .exec(function(err, user) {
-      if (user && req.user) {
-        if (req.user.permalink === req.params.permalink) {
-          res.status(404).send('Not found');
-        } else {
-          res.status(200).send('Found');
-        }
+      if (req.user.permalink === req.params.permalink) {
+        res.status(404).send('Not found');
+      } else if (user) {
+        res.status(200).send('Found');
       } else {
         res.status(404).send('Not found');
       }
@@ -63,6 +61,21 @@ router.get('/verify-email/:uuid', function (req, res) {
       email.verify = '';
       user.save(function(err) {
         res.redirect('/controlpanel/user/emails');
+      });
+    }
+  });
+});
+
+router.get('/verify-user/:uuid', function (req, res) {
+  // FIXME, validation missing
+  var uuid = req.params.uuid;
+  User.findOne({'verify': uuid}, function(err, user) {
+    if (err || user === null) {
+      res.status(400).send('Error');
+    } else {
+      user.confirmed = true;
+      user.save(function(err) {
+        res.redirect('/controlpanel/login');
       });
     }
   });

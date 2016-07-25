@@ -64,8 +64,8 @@ router.get('/login/google/callback',
 
 router.get('/logout', logout.get);
 
-router.get('/signup/', signup.get);
-router.post('/signup/', signup.post);
+router.get('/signup', signup.publicGet);
+router.post('/signup', validateBody(signup.publicSchemaPost), signup.publicPost);
 
 router.get('/confirm', confirm.get);
 
@@ -79,8 +79,8 @@ router.use('/*', function(req, res, next) {
   }
 });
 
-router.get('/user/public',              user.publicGet);
-router.post('/user/public',             validateBody(user.publicSchemaPost), user.publicPost);
+router.get('/user/public', user.publicGet);
+router.post('/user/public', validateBody(user.publicSchemaPost), user.publicPost);
 router.get('/user', function(req, res) {
   res.redirect('/controlpanel/user/public');
 });
