@@ -6,6 +6,7 @@
     .box_wrapper.row.coloured.equalteaser
 
       each crew, i in performer.crews
+        -console.log(JSON.stringify(crew, null, 20));
         if i < 3
           .main_crews-box.col-xs-6.col-sm-12
             .row
@@ -17,9 +18,12 @@
               .crew_teaser_crew_details.crew_details.col-sm-6
                 // MISSING DATA: PERFORMANCE NUMBER, EVENTS NUMBER
                 ul
-                  li= crew.stats.members +__(" Members")
-                  li= 99 +__(" Performances")
-                  li= 99 +__(" Events")
+                  if(crew.stats.members)
+                    li= crew.stats.members +__(" Members")
+                  if(crew.stats.performances)
+                    li=crew.stats.performances +__(" Performances")
+                  if(crew.stats.events)
+                    li=crew.stats.events +__(" Events")
 
       each crew, i in performer.crews
         ul.list-inline.secondary_crew_container
