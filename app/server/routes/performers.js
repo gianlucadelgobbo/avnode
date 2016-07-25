@@ -41,6 +41,7 @@ exports.get = function get(req, res) {
     .limit(config.sections[section].limit)
     .skip(skip)
     .sort(config.sections[section].sortQ[sorting])
+    .select(config.sections[section].list_fields)
     .exec(function(error, events) {
       var title = config.sections[section].title;
       var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
@@ -48,7 +49,7 @@ exports.get = function get(req, res) {
       var pages = _h.pagination(link, skip, config.sections[section].limit, total);
       res.render(section + '/list', {
         title: title,
-            info: info,
+        info: info,
         section: section,
         total: total,
         path: path,

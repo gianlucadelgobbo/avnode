@@ -4,6 +4,7 @@ var File = require('./file');
 var Category = require('./category');
 var Bookings = require('./bookings');
 var Gallery = require('./gallery');
+var Tag = require('./tag');
 
 var config = require('getconfig');
 
@@ -35,6 +36,7 @@ module.exports = new Schema({
   duration: Number,
   tech_art: tech_art,
   tech_req: tech_req,
+  tags:[Tag],
   galleries: [Gallery],
   bookings: [Bookings]
 });

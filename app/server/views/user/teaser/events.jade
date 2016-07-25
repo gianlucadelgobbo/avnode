@@ -7,7 +7,7 @@
       each event, i in performer.events
         if i === 0
           a.main_performace_image_wrapper(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
-            img.main_performace_image(src=event.files[0].file, alt=event.title)
+            img.main_performace_image(src=event.file.file, alt=event.title)
           a.col-sm-12.main_event_title_wrapper(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
             h3.main_event_title=event.title
           .main_performer_box

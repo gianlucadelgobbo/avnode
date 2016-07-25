@@ -2,12 +2,15 @@ mixin footage_item_content
   - var section = "footage"
   a(href="/#{box.users[0].permalink}/footage/#{box.permalink}/", title=box.title)
     .image_box.wrapper_item
-      img.main_performance_image(alt=__("Thumbnail of")+": "+box.display_name, src=_h.media.getFileFormat(box.file.file, config.sections[section].thumbnails.list))
+      img.main_performance_image(alt=__("Thumbnail of")+": "+box.display_name, src=_h.media.getFileFormat(box.file, section, "list"))
       .footage_stats.box_stats.overlay_wrapper_top
         ul.list-inline
           li
             i(class="fa fa-download")
             span= box.stats.downloads
+          li
+            i(class="fa fa-heart")
+            span= box.stats.likes
           li
             i(class="fa fa-eye")
             span= box.stats.visits
@@ -15,16 +18,16 @@ mixin footage_item_content
       .title_and_info_container.overlay_wrapper
         h3= box.title
         ul.list-inline.box_other_infos
-          // MISSING DATA: SIZE AND TAGS
-          li
-            i(class="fa fa-tags")
-              - if(box.tags)
-                  - for (var t=0;t<box.tags.length;t++) {
-                span= box.tags[t] + " "
-              - }
-            i(class="fa fa-floppy-o")
-            span= box.sizes
-
+          - if(box.tags.length)
+            li
+              i(class="fa fa-tags")
+              - for (var t=0;t<box.tags.length;t++)
+                span= box.tags[t].tag + " "
+          -console.log(box.file.filesize)
+          //- if(box.file.filesize)
+              li
+                i(class="fa fa-floppy-o")
+                span= box.file.filesize
 
 if (col_number)
   div.list_item_performer.grid-item.footage_footage(class= col_number)

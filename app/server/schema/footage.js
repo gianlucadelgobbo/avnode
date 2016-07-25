@@ -2,6 +2,7 @@ var Schema = require('mongoose').Schema;
 var File = require('./file');
 var User = require('./user');
 var Playlist = require('./playlist');
+var Tag = require('./tag');
 var config = require('getconfig');
 
 // Reuse the configured locales…
@@ -21,7 +22,7 @@ module.exports = new Schema({
   users: [User],
   file: File, //always one
   preview_file: String, //FIXME put it inside file
-  tag: [String],
+  tags: [Tag],
   stats: {
     visits: Number,
     downloads: Number,

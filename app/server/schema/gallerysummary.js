@@ -20,11 +20,9 @@ module.exports = new Schema({
   creation_date: Date,
   title: String,
   permalink: String,
-  text: text,
   is_public: Boolean,
   users: [User],
   file: File, // Main image (if selected)
-  medias: [Media], // 1 Media if video Multiple Media if image
   stats: { // Summary of data coming by gallery and media
     visits: Number,
     likes: Number,
@@ -34,7 +32,5 @@ module.exports = new Schema({
     audio: Number,
     img: Number,
     video: Number
-  },
-  performances: [Performancesummary], // Gallery can be connected to performances or events
-  events: [Eventsummary] // Gallery can be connected to performances or events
+  }
 });

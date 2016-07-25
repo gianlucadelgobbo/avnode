@@ -22,7 +22,7 @@ table.table
           td
             - if (files[item][file].users && files[item][file].users.length)
               span=files[item][file].users[0].display_name
-          td=files[item][file].files[0].file
-          td=files[item][file].files[0].preview
+          td=files[item][file].file.file
+          td=files[item][file].file.preview
           td=files[item][file].files.length
           //td=JSON.stringify(files[item][file])

@@ -7,7 +7,7 @@
       each performance, i in performer.performances
         if i === 0
           a.main_performace_image_wrapper(href="/#{performance.users[0].permalink}/performances/#{performance.permalink}", title=performance.title)
-            img.main_performace_image(src=performance.files[0].file, alt=performance.title)
+            img.main_performace_image(src=performance.file.file, alt=performance.title)
           a.col-sm-12.main_performance_title_wrapper(href="/#{performance.users[0].permalink}/performances/#{performance.permalink}", title=performance.title)
             h3.main_performance_title=performance.title
           .main_performer_box
@@ -35,7 +35,7 @@
             .secondary_performance
               a(href="/#{performance.users[0].permalink}/performances/#{performance.permalink}", title=performance.title)
                 .col-sm-3.secondary-performace_image
-                  img.img-circle(src=performance.files[0].file, alt=performance.title)
+                  img.img-circle(src=performance.file.file, alt=performance.title)
                 h3.col-sm-9= performance.title
   .col-sm-12.more_performance.more_button
     a(href="/#{performer.permalink}/performances", title='More performances')=__("All the performances")

@@ -3,6 +3,31 @@ nav.navbar.navbar-inverse#user_menu
     li
       a(href="/"+performer.permalink)
         !='<i class="fa fa-user"></i> ' + performer.display_name
-    each stat, name in performer.stats
-      li
-        a(href="/#{performer.permalink}/#{name}/")=__(name) + ' (' + stat + ')'
+    - if (performer.stats.members)
+        li
+          a(href="/#{performer.permalink}/members/")=__("members") + ' (' + performer.stats.members + ')'
+
+    - if (performer.stats.performances)
+        li
+          a(href="/#{performer.permalink}/performances/")=__("Performances") + ' (' + performer.stats.performances + ')'
+    - if (performer.stats.crews)
+        li
+          a(href="/#{performer.permalink}/crews/")=__("Crews") + ' (' + performer.stats.crews + ')'
+    - if (performer.stats.footage)
+        li
+          a(href="/#{performer.permalink}/footage/")=__("Footage") + ' (' + performer.stats.footage + ')'
+    - if (performer.stats.tvshows)
+        li
+          a(href="/#{performer.permalink}/tvshows/")=__("TVShows") + ' (' + performer.stats.tvshows + ')'
+    - if (performer.stats.playlists)
+        li
+          a(href="/#{performer.permalink}/playlists/")=__("Playlists") + ' (' + performer.stats.playlists + ')'
+    - if (performer.stats.events)
+        li
+          a(href="/#{performer.permalink}/events/")=__("Events") + ' (' + performer.stats.events + ')'
+    - if (performer.stats.galleries)
+        li
+          a(href="/#{performer.permalink}/galleries/")=__("Galleries") + ' (' + performer.stats.galleries + ')'
+    - if (performer.stats.friends)
+        li
+          a(href="/#{performer.permalink}/friends/")=__("Friends") + ' (' + performer.stats.friends + ')'
