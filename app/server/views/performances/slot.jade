@@ -32,7 +32,7 @@ mixin performance_item_content
                         ul.list-inline
                           each user in box.performance.users
                             li
-                              a(href="#{user.permalink}" title='#{user.display_name}')
+                              a(href="/#{user.permalink}" title='#{user.display_name}')
                                 span= user.display_name
               else
                 i.fa.fa-caret-right(aria-hidden='true')
@@ -49,7 +49,7 @@ mixin performance_item_content
                           li="country: " + box.performance.users[0].locations[0].country
                           li="city: " + box.performance.users[0].locations[0].city
                           li
-                            a(href='#{box.performance.users[0].permalink}')="Link to performer page"
+                            a(href='/#{box.performance.users[0].permalink}')="Link to performer page"
                           li
                             - if (box.performance.file && box.performance.file.file)
                               p="src: " + box.performance.file.file
@@ -68,11 +68,11 @@ mixin performance_item_content
               - if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink == "type")
                 li
                   i(class="fa fa-gamepad")
-                  a(href="/#{category.permalink}", title=category.name)= category.name
+                  a(href="/performances/#{category.permalink}/mostrecent/1", title=category.name)= category.name
               - if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink == "genere")
                 li
                   i(class="fa fa-cube")
-                  a(href="/#{category.permalink}", title=category.name)= category.name
+                  a(href="/performances/#{category.permalink}/mostrecent/1", title=category.name)= category.name
 
 
 if (col_number)
