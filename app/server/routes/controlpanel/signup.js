@@ -1,12 +1,10 @@
 var User = require('../../models/user');
 var Errors = require('../../errors');
-var _ = require('lodash');
 var config = require('getconfig');
 var _h = require('../../helper/index');
 var uuid = require('uuid');
 var Joi = require('joi');
 var countries = require('country-list')().getData();
-var flatten = require('flat');
 
 exports.publicGet = function(req, res) {
   res.render('controlpanel/signup/signup', {
@@ -14,7 +12,7 @@ exports.publicGet = function(req, res) {
     countries: countries,
     result: {}
   });
-}
+};
 exports.publicSchemaPost = {
   gender: Joi.string().allow(''),
   name: Joi.string().allow(''),
@@ -34,7 +32,7 @@ exports.publicSchemaPost = {
   permalink: Joi.string().alphanum().required()
 };
 exports.publicPost = function(req, res, next) {
-  user = req.body;
+  var user = req.body;
   user.login = user.emails[0].email;
   user.confirmed = false;
   user.verify = uuid.v4();
@@ -48,4 +46,4 @@ exports.publicPost = function(req, res, next) {
       config: config
     });
   });
-}
+};

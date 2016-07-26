@@ -51,7 +51,7 @@ exports.publicPost = function(req, res) {
 exports.imageGet = function(req, res) {
   var image = '';
   if (req.user.image) {
-    var image = req.user.image
+    image = req.user.image;
   }
   res.render('controlpanel/user/image', {
     config: config,

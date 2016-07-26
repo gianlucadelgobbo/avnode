@@ -83,7 +83,7 @@ router.post('/upload/files', function(req, res){
 
 // Handle status checks on chunks through Resumable.js
 router.get('/upload/files', function(req, res){
-  resumable.get(req, function(status, filename, original_filename, identifier){
+  resumable.get(req, function(status){
     res.send((status == 'found' ? 200 : 404), status);
   });
 });
@@ -98,7 +98,7 @@ router.get(
       permalink: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
     }),
     function (req, res) {
-      var query = { 'permalink': req.params.permalink }
+      var query = { 'permalink': req.params.permalink };
       User.findOne(query)
         .exec(function(err, user) {
           if (user && req.user) {
@@ -139,7 +139,7 @@ router.get('/verify-user/:uuid', function (req, res) {
       res.status(400).send('Error');
     } else {
       user.confirmed = true;
-      user.save(function(err) {
+      user.save(function() {
         res.redirect('/controlpanel/login');
       });
     }
@@ -166,7 +166,7 @@ router.get(
         data = users.map(function(user) {
           return _.pick(user, ['display_name', 'permalink']);
         });
-         res.json(data);
+        res.json(data);
       }
     });
   }
