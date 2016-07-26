@@ -1,31 +1,39 @@
 .col-md-4.crews_performer.main_box_performer
-	h2.box_crews_header.box_header
-		span.title_str Crews
-		+coda('#004431')
-	.col-sm-12
-		.box_wrapper.row.coloured
-			each crew, i in performer.crews
-				if i < 2
-					.main_crews-box.col-xs-6.col-sm-12
-						.col-sm-3.col-md-5
-							a(href="/"+crew.permalink, title=crew.display_name)
-								img.img-circle(src=crew.files[0].file, alt=crew.display_name)
-						.col-sm-9.col-md-7.crew_details
-							ul
-								li= crew.stats.members +__(" Members")
-								li= crew.stats.performances +__(" Performances")
-								li= crew.stats.events +__(" Events")
-							a(href="/#{crew.permalink}", title=crew.display_name)
-								h3= crew.display_name
-			each crew, i in performer.crews
-				ul.list-inline.secondary_crew_container
-					if (i > 1 && i < 7)
-						li.secondary_crew
-							a(href="/#{crew.permalink}", title=crew.display_name)
-								if crew.files
-									img(src=crew.files[0].file, alt=crew.display_name)
-			.col-sm-12.more_crews.more_button
-				a(href="/#{performer.permalink}/crews", title='More Crews')
-					=__("All the Crews")
-					span=__("+")
-					+slashes("#004431")
+  h2.box_crews_header.box_header
+    span.title_str Crews
+    +coda('#004431')
+  .col-sm-12
+    .box_wrapper.row.coloured.equalteaser
+
+      each crew, i in performer.crews
+        -//console.log(JSON.stringify(crew, null, 20));
+        if i < 3
+          .main_crews-box.col-xs-6.col-sm-12
+            .row
+              .crew_teaser_logo_container.col-sm-6
+                a(href="/"+crew.permalink, title=crew.display_name)
+                  img.img-circle(src=crew.file.file, alt=crew.display_name)
+                  h3
+                    span= crew.display_name
+              .crew_teaser_crew_details.crew_details.col-sm-6
+                // MISSING DATA: PERFORMANCE NUMBER, EVENTS NUMBER
+                ul
+                  if(crew.stats.members)
+                    li= crew.stats.members +__(" Members")
+                  if(crew.stats.performances)
+                    li=crew.stats.performances +__(" Performances")
+                  if(crew.stats.events)
+                    li=crew.stats.events +__(" Events")
+
+      each crew, i in performer.crews
+        ul.list-inline.secondary_crew_container
+          if (i > 1 && i < 7)
+            li.secondary_crew
+              a(href="/#{crew.permalink}", title=crew.display_name)
+                if crew.files
+                  img(src=crew.file.file, alt=crew.display_name)
+  .col-sm-12.more_crews.more_button
+    a(href="/#{performer.permalink}/crews", title='More Crews')
+      =__("All the Crews")
+      span=__("+")
+      +slashes("#004431")

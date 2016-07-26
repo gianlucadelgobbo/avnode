@@ -1,11 +1,11 @@
 nav.navbar.navbar-inverse#sections_menu
-	a.navbar-brand(href="/")
-		img.logo_header_user(alt="AVnode.net", src="/img/logo_piede.png")
+  a.navbar-brand(href="/")
+    img.logo_header_user(alt="AVnode.net", src="/img/logo_piede.png")
 
-	button.navbar-toggle.pull-right(type='button', data-target='#navbarCollapse', data-toggle='collapse')
-	#navbarCollapse.collapse.navbar-collapse
-		ul.nav.navbar-nav.pull-left
-			each item in config.sections
-				if item.view_list
-					li
-						a(href="/#{item.basepath}")=item.title
+  button.navbar-toggle.pull-right(type='button', data-target='#navbarCollapse', data-toggle='collapse')
+  #navbarCollapse.collapse.navbar-collapse
+    ul.nav.navbar-nav.pull-left
+      each item in config.sections
+        if item.view_list
+          li
+            a(href="/#{item.basepath}")=item.title

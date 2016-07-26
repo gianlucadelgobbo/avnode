@@ -1,21 +1,41 @@
-div(class="col-md-6")
-	.media
-		.pull-left
-			a(href="/#{box.users[0].permalink}/tvshows/#{box.permalink}/")
-				img.media-obejct(alt=box.title, src="img/default_tvshow.jpg")
-			br
-			ul.stats
-				li=__("Visits") + ": " + box.stats.visits
-				li=__("Likes") + ": " + box.stats.rates.tot_rate
-		.media-body
-			h4.media-heading
-				a(href="/#{box.users[0].permalink}/tvshows/#{box.permalink}/")=box.title
-				p
-					each user in box.users
-						a(href="/#{user.permalink}")
-							i(class="fa fa-user")
-							span=user.display_name
-				ul.list-inline
-					each category in box.categories
-						li
-							a(href="/tvshows/#{category.permalink}/")=category.name
+mixin tvshow_item_content
+  - if(box.users.length)
+    - var section = "tvshows"
+    a(href="/#{box.users[0].permalink}/tvshows/#{box.permalink}/", title=box.title)
+
+      .image_box.wrapper_item
+        img.main_performance_image(alt=__("Thumbnail of")+": "+box.title, src=_h.media.getFileFormat(box.file, section, "list"))
+        .footage_stats.box_stats.overlay_wrapper_top
+          // MISSING DATA: LIKES, CATEGORY/TAG, THUMBNAIL
+          ul.list-inline
+            //li
+              i(class="fa fa-download")
+              span= box.stats.downloads
+            li
+              i(class="fa fa-eye")
+              span= box.stats.visits
+            li
+              i(class="fa fa-heart")
+              span= box.stats.likes
+        .title_and_info_container.overlay_wrapper
+          h3= box.title
+          ul.list-inline.box_other_infos
+            - if(box.tags)
+              li
+                i(class="fa fa-tags")
+                  - for (var t=0;t<box.tags.length;t++)
+                    span= box.tags[t] + " "
+            - if(box.categories)
+              li
+                i(class="fa fa-tags")
+                - for (var t=0;t<box.categories.length;t++)
+                  span= box.categories[t].permalink + " "
+        -//console.log(JSON.stringify(box, null, 20));
+if (col_number)
+  div.list_item_performer.grid-item.tvshows_footage(class= col_number)
+    +tvshow_item_content
+else
+  div.list_item_performer.grid-item.col-sm-3(class="col-md-3 tvshows_footage")
+    +tvshow_item_content
+
+

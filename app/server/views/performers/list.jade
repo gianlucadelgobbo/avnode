@@ -1,9 +1,14 @@
 extends ../layout
 block content
-	h1=title
-		small=info
-	include ../partials/filter-menu
-	.row.main-list
-		each box in result
-			include ./item
-	include ../partials/pagination
+  h1=title
+    small=info
+  include ../partials/filter-menu
+  // template: views/performances/list.jade
+  .row.main-list.grid
+    -console.log(JSON.stringify(result, null, 20));
+    if(result)
+      each box in result
+        include ./item
+    else
+      .alert-danger="errore on result object"
+  include ../partials/pagination

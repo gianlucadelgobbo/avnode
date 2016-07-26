@@ -37,6 +37,7 @@ module.exports = function(app, exp) {
   app.locals.config = {
     lang: config.lang,
     sections: config.sections,
+    siteurl: config.siteurl,
     locales: config.locales,
     locales_labels: config.locales_labels
   };

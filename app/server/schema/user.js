@@ -2,12 +2,17 @@ var Schema = require('mongoose').Schema;
 var File = require('./file');
 
 var Footage = require('./footage');
-var Event = require('./event');
-var Gallery = require('./gallery');
-var Performance = require('./performance');
+var Eventsummary = require('./eventsummary');
+var Gallerysummary = require('./gallerysummary');
+var Performancesummary = require('./performancesummary');
 var Playlist = require('./playlist');
-var TVShow = require('./tvshow');
-var User = require('./user');
+var Tvshow = require('./tvshow');
+var Usersummary = require('./usersummary');
+var Categories = require('./category');
+var Organization = require('./organization');
+var Url = require('./url');
+
+var Location = require('./location');
 
 var bcrypt = require('bcrypt-nodejs');
 var SALT_WORK_FACTOR = 10;
@@ -22,46 +27,61 @@ var UserSchema = new Schema({
   display_name: {
     type: String
   },
+  is_public: {type: Boolean, default: true},
+  file: File,
+  activity: Number,
+  stats: {
+    members: Number,
+    performances: Number,
+    crews: Number,
+    footage: Number,
+    tvshows: Number,
+    playlists: Number,
+    events: Number,
+    partnerships: Number,
+    galleries: Number,
+    friends: Number
+  },
+  locations: [Location],
+  websites: [Url],
+  text: Object,
+  categories: [Categories],
+  is_crew: Boolean,
+  // is_crew = false
   name: String,
   surname: String,
   citizenship: String,
   birth_date: Date,
-  locations: [{
-    formatted_address: String,
-    street: String,
-    streetnumber: String,
-    zip: String,
-    city: String,
-    country: String,
-    lat: Number,
-    lng: Number
-  }],
+  gender: String,
+  lang: String,
   login: { type: String, required: true },
   password: { type: String, required: true },
-  crews: [User],
-  footage: [Footage],
-  events: [Event],
-  gallery: [Gallery],
-  performances: [Performance],
-  playlists: [Playlist],
-  tvshow: [TVShow],
-  files: [File],
+  crews: [Usersummary],
   emails: [{
     email: String,
-    public: {type: Boolean, default: false},
+    is_public: {type: Boolean, default: false},
     valid: {type: Boolean, default: false},
     primary: {type: Boolean, default: false},
     verify: String,
     mailingslists: []
   }],
-  websites: [],
-  phonenumbers: [],
-  mailinglists: [],
-  members: [],
-  text: Object,
-  stats: {
-    // FIXME
-  }
+  phonenumbers: [], // FIXME to be defined
+  messengers: [], // FIXME to be defined
+  connections: [], // FIXME to be defined
+
+  // is_crew = true
+  members: [Usersummary],
+  is_organization: Boolean,
+  organization: Organization,
+
+  // RELATIONS:
+  partnerships: [Eventsummary],
+  events: [Eventsummary],
+  footage: [Footage],
+  galleries: [Gallerysummary],
+  performances: [Performancesummary],
+  playlists: [Playlist],
+  tvshow: [Tvshow],
 });
 
 UserSchema.virtual('primaryEmail').get(function () {

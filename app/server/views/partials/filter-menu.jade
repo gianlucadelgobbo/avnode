@@ -1,20 +1,20 @@
 .clearfix.submenu
-	if categories
-		.pull-left
-			ul.nav.nav-pills
-				each category in categories
-					if category === filter
-						li(class="active")
-							a(href="/#{section}/#{category}/#{sort}/#{page}")=__(category)
-					else
-						li
-							a(href="/#{section}/#{category}/#{sort}/1")=__(category)
-		.pull-right
-			ul.nav.nav-pills
-				each order in orderings
-					if order === sort
-						li(class="active")
-							a(href="/#{section}/#{filter}/#{order}/#{page}")=__(order)
-					else
-						li
-							a(href="/#{section}/#{filter}/#{order}/1")=__(order)
+  if categories
+    .pull-left
+      ul.nav.nav-pills
+        each category in categories
+          if category === filter
+            li(class="active")
+              a(href="/#{section}/#{category}/#{sort}/#{page}")=__(category)
+          else
+            li
+              a(href="/#{section}/#{category}/#{sort}/1")=__(category)
+    .pull-right
+      ul.nav.nav-pills
+        each order in orderings
+          if order === sort
+            li(class="active")
+              a(href="/#{section}/#{filter}/#{order}/#{page}")=__(order)
+          else
+            li
+              a(href="/#{section}/#{filter}/#{order}/1")=__(order)

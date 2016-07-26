@@ -18,7 +18,7 @@ var //dependencies
     fs = require("fs"),
     rimraf = require("rimraf"),
     mkdirp = require("mkdirp"),
-		config = require('getconfig'),
+    config = require('getconfig'),
 
 // paths/constants
     fileInputName = "qqfile",
@@ -57,7 +57,7 @@ exports.onDeleteFile = function onDeleteFile(req, res) {
 }
 
 function onSimpleUpload(req, res) {
-	console.log(req);
+  console.log(req);
     var file = req.files[fileInputName],
         uuid = req.body.qquuid,
         responseData = {
@@ -103,15 +103,15 @@ function onChunkedUpload(req, res) {
                 }
                 else {
                     combineChunks(file, uuid, function() {
-						responseData.file = file;
-						responseData.uuid = uuid;
-						responseData.success = true;
-						res.send(responseData);
-					},
-					function() {
-						responseData.error = "Problem conbining the chunks!";
-						res.send(responseData);
-					});
+            responseData.file = file;
+            responseData.uuid = uuid;
+            responseData.success = true;
+            res.send(responseData);
+          },
+          function() {
+            responseData.error = "Problem conbining the chunks!";
+            res.send(responseData);
+          });
                 }
             },
             function(reset) {

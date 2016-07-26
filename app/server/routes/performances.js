@@ -11,15 +11,15 @@ exports.get = function get(req, res) {
     || req.params.page === undefined) {
     redirect = true
   }
-	var params = _.filter(req.params, function(v, k) {
-		return (k === 'filter' || k === 'page' || k === 'sorting');
-	});
-	var section = 'performances';
-	var page = req.params.page || 1;
-	var skip = (page - 1) * config.sections[section].limit;
-	var filter = req.params.filter || config.sections[section].categories[0];
-	var query = config.sections[section].searchQ[filter];
-	var sorting = req.params.sorting || config.sections[section].orders[0];
+  var params = _.filter(req.params, function(v, k) {
+    return (k === 'filter' || k === 'page' || k === 'sorting');
+  });
+  var section = 'performances';
+  var page = req.params.page || 1;
+  var skip = (page - 1) * config.sections[section].limit;
+  var filter = req.params.filter || config.sections[section].categories[0];
+  var query = config.sections[section].searchQ[filter];
+  var sorting = req.params.sorting || config.sections[section].orders[0];
 
   if (redirect) {
     res.redirect('/' + section + '/' + filter + '/' + sorting + '/' + page);
@@ -27,34 +27,35 @@ exports.get = function get(req, res) {
   }
 
   var path = '/' + section + '/' + _.map(req.params, function(p) { return p; }).join('/') + '/';
-	path = path.replace('//', '/');
+  path = path.replace('//', '/');
 
-	Performance.count(query, function(error, total) {
-		Performance.find(query)
-		.limit(config.sections[section].limit)
-		.skip(skip)
-		.sort(config.sections[section].sortQ[sorting])
-		.exec(function(error, performer) {
+  Performance.count(query, function(error, total) {
+    Performance.find(query)
+    .limit(config.sections[section].limit)
+    .skip(skip)
+    .sort(config.sections[section].sortQ[sorting])
+    .exec(function(error, performer) {
       var title = config.sections[section].title;
       var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
       var link = '/' + section + '/' + filter + "/" + sorting + "/";
       var pages = _h.pagination(link, skip, config.sections[section].limit, total);
-			res.render(section + '/list', {
-				title: title,
-        info: info,
-				section: section,
-				total: total,
-				path: path,
-				sort: sorting,
-				filter: filter,
-				skip: skip,
+      res.render(section + '/list', {
+        title: title,
+            info: info,
+        section: section,
+        total: total,
+        path: path,
+        sort: sorting,
+        filter: filter,
+        skip: skip,
         page: page,
         pages: pages,
-				result: performer,
+        result: performer,
         categories: config.sections[section].categories,
         orderings: config.sections[section].orders,
-				user: req.user
-			});
-		});
-	});
+        user: req.user,
+        _h: _h
+      });
+    });
+  });
 };

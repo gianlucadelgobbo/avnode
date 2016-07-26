@@ -1,55 +1,59 @@
 footer.main_footer
-	.container
-		.media
-			.pull-right.logo_flyer
-				a(href="http://www.flyer.it", target="_blank", data-toggle="tooltip", onmouseover="$(this).tooltip('show')", title=__("This website is developed with NodeJS and MongoDB from Flyer communication"))
-					img(alt="Flyer.it", src="/img/logo_flyer.png")
-			.pull-left
-				img.logo_piede(alt="AVnode.net", src="/img/logo_piede.png")
-			.media-body
-				h4.media-heading.brand_name_footer="AVnode.net"
-					small=" | "+__("a project of AVnode.org")
+  .container
+    .media
+      .pull-right.logo_flyer
+        a(href="http://www.flyer.it", target="_blank", data-toggle="tooltip", onmouseover="$(this).tooltip('show')", title=__("This website is developed with NodeJS and MongoDB from Flyer communication"))
+          img(alt="Flyer.it", src="/img/logo_flyer.png")
+      .pull-left
+        img.logo_piede(alt="AVnode.net", src="/img/logo_piede.png")
+      .media-body
+        h4.media-heading.brand_name_footer="AVnode.net"
+          small=" | "+__("a project of AVnode.org")
 
 
-				nav.footer_menu
-					ul.list-inline
-						li
-							a(href="http://avnode.org")=__("AVnode.org")
-						li
-							a(href="/disclaimers/about/")=__("About")
-						li
-							a(href="/disclaimers/about/")=__("Developers & API")
-						li
-							a(href="/disclaimers/privacy/")=__("Privacy")
-						li
-							a(href="/disclaimers/terms/")=__("Terms and conditions")
-						li
-							a(href="/disclaimers/guidelines/")=__("Guidelines")
+        nav.footer_menu
+          ul.list-inline
+            li
+              a(href="http://avnode.org")=__("AVnode.org")
+            li
+              a(href="/disclaimers/about/")=__("About")
+            li
+              a(href="/disclaimers/about/")=__("Developers & API")
+            li
+              a(href="/disclaimers/privacy/")=__("Privacy")
+            li
+              a(href="/disclaimers/terms/")=__("Terms and conditions")
+            li
+              a(href="/disclaimers/guidelines/")=__("Guidelines")
 
-				- d = new Date()
-				p
-					span.nocopy="NO &copy; " + d.getFullYear()
+        - d = new Date()
+        p
+          span.nocopy="NO &copy; " + d.getFullYear()
 
 
 
+script(type="text/javascript", src="/jquery/dist/jquery.js")
+script(type="text/javascript", src="/modules/jquery-ui/jquery-ui-1.10.2.custom.js")
 script(type="text/javascript", src="/bootstrap/dist/js/bootstrap.min.js")
 script(type="text/javascript", src="/bootstrap-datepicker/js/bootstrap-datepicker.js")
 script(type="text/javascript", src="/bootstrap-timepicker/js/bootstrap-timepicker.min.js")
-script(type="text/javascript", src="/modules/jquery-ui/jquery-ui-1.10.2.custom.js")
 script(type="text/javascript", src="/modules/birthdaypicker/bday-picker.min.js")
 script(type="text/javascript", src="/bootstrap-switch/dist/js/bootstrap-switch.min.js")
 script(type="text/javascript", src="/modules/geocomplete/jquery.geocomplete.min.js")
+script(type="text/javascript", src="/modules/geocomplete/jquery.geocomplete.min.js")
 
-script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.js")
-script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js")
+//script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.js")
+//script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.2.0/imagesloaded.pkgd.min.js")
 script(type="text/javascript", src="/js/validators.js")
 script(type="text/javascript", src="/swfobject/swfobject/swfobject.js")
 script(type="text/javascript", src="/modules/readmore-js/readmore.js")
 script(type="text/javascript", src='/modules/sidr/jquery.sidr.min.js')
+script(type="text/javascript", src="/jQuery.equalHeights/jquery.equalheights.js")
+
 
 script(type="text/javascript", src="/js/script.js")
 - if(user && user.login)
-	script(type="text/javascript", src="/js/script-admin.js")
+  script(type="text/javascript", src="/js/script-admin.js")
 
 script(src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js")
 script(src="//cdnjs.cloudflare.com/ajax/libs/parsley.js/2.2.0/parsley.min.js")

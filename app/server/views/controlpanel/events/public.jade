@@ -1,35 +1,35 @@
 extends ../layout
 
 block variables
-	- var activeChapter='events'
-	- var activeSection='public'
+  - var activeChapter='events'
+  - var activeSection='public'
 
 block inner-content
-	include ./menu
-	+render-alerts(alerts)
-	form.form-horizontal(method="post", data-parsley-validate)
-		input(name="_id", value=result._id, type="hidden")
-		fieldset
-			legend=__("General")
-			.form-group
-				label.col-sm-2.control-label=__("Event name")
-				.col-sm-10
-					input.form-control(name="title", value=result.title, type="text", placeholder=__("Event name"), required)
-			.form-group
-				label.col-sm-2.control-label(for="permalink")=__("Event url")
-				.col-sm-10
-					.input-group
-						span.input-group-addon=config.baseurl + result.users[0].permalink + "/events/"
-						input.form-control(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern=config.regex.permalink)
-			+multilanguage-subtitle(result.subtitle)
-			+multilanguage-text(result.text)
-			+websites(result.websites)
+  include ../menu
+  +render-alerts(alerts)
+  form.form-horizontal(method="post", data-parsley-validate)
+    input(name="_id", value=result._id, type="hidden")
+    fieldset
+      legend=__("General")
+      .form-group
+        label.col-sm-2.control-label=__("Event name")
+        .col-sm-10
+          input.form-control(name="title", value=result.title, type="text", placeholder=__("Event name"), required)
+      .form-group
+        label.col-sm-2.control-label(for="permalink")=__("Event url")
+        .col-sm-10
+          .input-group
+            span.input-group-addon=config.baseurl + result.users[0].permalink + "/events/"
+            input.form-control(autocomplete="off", type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern=config.regex.permalink)
+      +multilanguage-subtitle(result.subtitle)
+      +multilanguage-text(result.text)
+      +websites(result.websites)
 
-		+venues(result.date_time_venue)
-		+save-button
+    +venues(result.date_time_venue)
+    +save-button
 
-	//- FIXME remove generic inline scripts
-	script.
-		$(document).ready(function() {
-			$('.date').datepicker({ });
-		});
+  //- FIXME remove generic inline scripts
+  script.
+    $(document).ready(function() {
+      $('.date').datepicker({ });
+    });

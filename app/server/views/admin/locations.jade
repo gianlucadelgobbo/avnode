@@ -1,8 +1,8 @@
 h1 Files
 //- console.log(CT)
 table.table
-	- for(item in results)
-		tr
-			td=item
-			td=JSON.stringify(results[item])
-			td=(results[item] && results[item].country ? (CT[results[item].country] ? "" : "error country") : "error country")
+  - for(item in results)
+    tr
+      td=item
+      td=JSON.stringify(results[item])
+      td=(results[item] && results[item].country ? (CT[results[item].country] ? "" : "error country") : "error country")

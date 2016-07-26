@@ -24,82 +24,82 @@ fs.mkdirParent = function(dirPath, mode, callback) {
 };
 
 exports.post = function post(req, res) {
-	var form = new formidable.IncomingForm();
-	var files = [];
-	var fields = [];
-	form.uploadDir = config.uploadedFilesPath;
-	form.encoding = 'utf-8';
-	/*
-	console.dir(req);
-	form.keepExtensions = true;
-	form.type
-	Either 'multipart' or 'urlencoded' depending on the incoming request.
-	
-	form.maxFieldsSize = 2 * 1024 * 1024;
-	Limits the amount of memory a field (not file) can allocate in bytes. If this value is exceeded, an 'error' event is emitted. The default size is 2MB.
-	
-	form.maxFields = 0;
-	Limits the number of fields that the querystring parser will decode. Defaults to 0 (unlimited).
-	
-	form.hash = false;
-	If you want checksums calculated for incoming files, set this to either 'sha1' or 'md5'.
-	
-	form.bytesReceived
-	The amount of bytes received for this form so far.
-	form.bytesExpected	
+  var form = new formidable.IncomingForm();
+  var files = [];
+  var fields = [];
+  form.uploadDir = config.uploadedFilesPath;
+  form.encoding = 'utf-8';
+  /*
+  console.dir(req);
+  form.keepExtensions = true;
+  form.type
+  Either 'multipart' or 'urlencoded' depending on the incoming request.
 
-	form.parse(req, function(err, fields, files) {
-		res.writeHead(200, {'content-type': 'text/plain'});
-		res.write('received upload:\n\n');
-		res.end(util.inspect({fields: fields, files: files}));
-	});
+  form.maxFieldsSize = 2 * 1024 * 1024;
+  Limits the amount of memory a field (not file) can allocate in bytes. If this value is exceeded, an 'error' event is emitted. The default size is 2MB.
 
-	*/
-	form
-  	.on('field', function(field, value) {
-		//console.log(field, value);
-		fields.push([field, value]);
-  	})
-  	.on('file', function(field, file) {
-		//console.log(field, file);
-		files.push([field, file]);
-  	})
-  	.on('end', function() {
-  		var count;
-		//console.log('-> upload done');
-		//res.writeHead(200, {'content-type': 'text/plain'});
-		var result = [];
-		files.forEach(function(item,index,e){
-			im.identify(item[1].path, function(err, features){
-				delete item[1]._writeStream;
-				delete item[1].hash;
-				delete item[1].size;
-				item[1].format = features.format;
-				item[1].width = features.width;
-				item[1].height = features.height;
-				var file = item[1].path;
-				if (req.query.id) {
-					var d = new Date();
-					newfolder = "/warehouse/"+d.getFullYear()+"/"+("0" + (d.getMonth() + 1)).slice(-2)+"/";
-					mkdirp.sync(config.sitepath+config.uploadpath+newfolder);
-			 		fs.renameSync(item[1].path,config.sitepath+config.uploadpath+newfolder+item[1].name);
-			 		file = newfolder+item[1].name;
-					
-				}
-				result.push({file:file,name:item[1].name,type:item[1].type,height:features.height,width:features.width,format:features.format,lastModifiedDate:item[1].lastModifiedDate});
-				if (err) throw err;
-		    	if (e.length-1==index) {
-					if (req.query.id) {
-						DB.updateDB("users",req.query.id,[{name:"files",value:result}], function() {
-							res.send(result);
-						});
-					} else {
-						res.send(result);
-					}
-				}
-			});
-		})
-		//res.end(files);
-  	});
-	form.parse(req);
+  form.maxFields = 0;
+  Limits the number of fields that the querystring parser will decode. Defaults to 0 (unlimited).
+
+  form.hash = false;
+  If you want checksums calculated for incoming files, set this to either 'sha1' or 'md5'.
+
+  form.bytesReceived
+  The amount of bytes received for this form so far.
+  form.bytesExpected
+
+  form.parse(req, function(err, fields, files) {
+    res.writeHead(200, {'content-type': 'text/plain'});
+    res.write('received upload:\n\n');
+    res.end(util.inspect({fields: fields, files: files}));
+  });
+
+  */
+  form
+    .on('field', function(field, value) {
+    //console.log(field, value);
+    fields.push([field, value]);
+    })
+    .on('file', function(field, file) {
+    //console.log(field, file);
+    files.push([field, file]);
+    })
+    .on('end', function() {
+      var count;
+    //console.log('-> upload done');
+    //res.writeHead(200, {'content-type': 'text/plain'});
+    var result = [];
+    files.forEach(function(item,index,e){
+      im.identify(item[1].path, function(err, features){
+        delete item[1]._writeStream;
+        delete item[1].hash;
+        delete item[1].size;
+        item[1].format = features.format;
+        item[1].width = features.width;
+        item[1].height = features.height;
+        var file = item[1].path;
+        if (req.query.id) {
+          var d = new Date();
+          newfolder = "/warehouse/"+d.getFullYear()+"/"+("0" + (d.getMonth() + 1)).slice(-2)+"/";
+          mkdirp.sync(config.sitepath+config.uploadpath+newfolder);
+           fs.renameSync(item[1].path,config.sitepath+config.uploadpath+newfolder+item[1].name);
+           file = newfolder+item[1].name;
+
+        }
+        result.push({file:file,name:item[1].name,type:item[1].type,height:features.height,width:features.width,format:features.format,lastModifiedDate:item[1].lastModifiedDate});
+        if (err) throw err;
+          if (e.length-1==index) {
+          if (req.query.id) {
+            DB.updateDB("users",req.query.id,[{name:"files",value:result}], function() {
+              res.send(result);
+            });
+          } else {
+            res.send(result);
+          }
+        }
+      });
+    })
+    //res.end(files);
+    });
+  form.parse(req);
 };

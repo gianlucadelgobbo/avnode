@@ -1,25 +1,25 @@
 extends ../layout
 
 block variables
-	- var chapter='events'
+  - var chapter='events'
 
 block inner-content
-	+render-alerts(alerts)
-	form.form-horizontal(method="post")
-		fieldset
-			legend=title
-			.form-group
-				label.col-sm-2.control-label=__("Event name")
-				.col-sm-10
-					input(name="title", value=result.title, type="text", placeholder=__("Event name")).form-control
-			.form-group
-				label.col-sm-2.control-label(for="permalink")=__("Event url")
-				.col-sm-10
-					input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
-					span.glyphicon.form-control-feedback(aria-hidden="true")
-					.row
-						.help-block.col-sm-9="https://avnode.net/"
-							span.permalink_print=result.permalink.toLowerCase()
-						input(type="hidden", value="events", name="collection")
-						.control-label.col-sm-3
-		input(type="submit", value=__("Save")).btn.btn-primary.btn-lg
+  +render-alerts(alerts)
+  form.form-horizontal(method="post")
+    fieldset
+      legend=title
+      .form-group
+        label.col-sm-2.control-label=__("Event name")
+        .col-sm-10
+          input(name="title", value=result.title, type="text", placeholder=__("Event name")).form-control
+      .form-group
+        label.col-sm-2.control-label(for="permalink")=__("Event url")
+        .col-sm-10
+          input.permalink(type="text", value=result.permalink, autocomplete="off", name="permalink", placeholder=__("Profile url")).form-control
+          span.glyphicon.form-control-feedback(aria-hidden="true")
+          .row
+            .help-block.col-sm-9="https://avnode.net/"
+              span.permalink_print=result.permalink.toLowerCase()
+            input(type="hidden", value="events", name="collection")
+            .control-label.col-sm-3
+    input(type="submit", value=__("Save")).btn.btn-primary.btn-lg

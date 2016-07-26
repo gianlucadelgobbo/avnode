@@ -113,7 +113,7 @@ exports.post = function get(req, res) {
                 } else {
                     res.sendStatus(404);
                 }
-                /*		} else if (pathArray[2] == "recreatePartnersEvent") {
+                /*    } else if (pathArray[2] == "recreatePartnersEvent") {
                  if(req.body.id) {
                  DB.events.findOne({_id:new ObjectID(req.body.id)}, {fields:{_id:1,title:1,permalink:1,users:1,files:1,categories:1,stats:1,date_time_venue:1,partners:1}}, function(e, event) {
                  console.dir({_id:new ObjectID(req.body.id)});
