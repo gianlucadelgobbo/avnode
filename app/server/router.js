@@ -1,4 +1,3 @@
-var Errors = require('./errors');
 var indexRoutes = require('./routes/index');
 var performersRoutes = require('./routes/performers');
 var performancesRoutes = require('./routes/performances');
@@ -14,10 +13,6 @@ var apiRoutes = require('./routes/api');
 
 var swfdataRoutes     = require('./routes/swfdata');
 var searchRoutes = require('./routes/search');
-
-// FIXME, upload routes working?
-var uploadRoutes     = require('./routes/upload');
-var uploadSuccessRoutes = require('./routes/upload-success');
 
 var imageRoutes     = require('./routes/image');
 

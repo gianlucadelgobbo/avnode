@@ -2,8 +2,6 @@ var Schema = require('mongoose').Schema;
 var User = require('./user');
 var File = require('./file');
 var Category = require('./category');
-var Bookings = require('./bookings');
-var Gallery = require('./gallery');
 
 module.exports = new Schema({
   old_id: String,

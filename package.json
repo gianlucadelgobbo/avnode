@@ -57,7 +57,8 @@
   "scripts": {
     "start": "node app.js",
     "test": "mocha test/index.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "lint": "eslint -c .eslintrc.json --ignore-path .gitignore --ignore-path .eslintignore ."
   },
   "repository": {
     "type": "git",

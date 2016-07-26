@@ -17,11 +17,11 @@ var Joi = require('joi');
 
 var config = require('getconfig');
 
-router.post('/upload/image', upload.single('image'), function (req, res, next) {
+router.post('/upload/image', upload.single('image'), function (req, res) {
   var response = '';
   var extension = mime.extension(req.file.mimetype);
   if (extension === 'png' || extension === 'jpeg') {
-    var response = '/warehouse/uploads/' + sha1(req.file.originalname) + '.' + extension;
+    response = '/warehouse/uploads/' + sha1(req.file.originalname) + '.' + extension;
     var destAbsolute = process.cwd() + response;
     fs.createReadStream(req.file.path).pipe(fs.createWriteStream(destAbsolute));
     fs.unlink(req.file.path);
@@ -32,10 +32,10 @@ router.post('/upload/image', upload.single('image'), function (req, res, next) {
 router.get(
   '/validate/permalink/:permalink',
   validateParams({
-    permalink: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
+    permalink: Joi.string().regex(new RegExp(config.regex.permalink)).required()
   }),
   function (req, res) {
-    var query = { 'permalink': req.params.permalink }
+    var query = { 'permalink': req.params.permalink };
     User.findOne(query)
     .exec(function(err, user) {
       if (user && req.user) {
@@ -71,7 +71,7 @@ router.get('/verify-email/:uuid', function (req, res) {
 router.get(
   '/search/users/:q',
   validateParams({
-    q: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
+    q: Joi.string().regex(new RegExp(config.regex.permalink)).required()
   }),
   function (req, res) {
     // FIXME, validation missing
@@ -79,7 +79,7 @@ router.get(
       '$text': {
         '$search': req.params.q
       }
-    }
+    };
     User.find(query)
     .limit(5)
     .exec(function(err, users) {
@@ -94,4 +94,4 @@ router.get(
   }
 );
 
-module.exports = router
+module.exports = router;

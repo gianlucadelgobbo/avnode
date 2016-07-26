@@ -12,14 +12,14 @@ module.exports = new LocalStrategy(function(username, password, done) {
     }
     if (!user) {
       console.log('User not found');
-      return done(null, false, {message:"User not found"});
+      return done(null, false, {message:'User not found'});
     }
     if (user.password) {
       console.log('compare');
       user.comparePassword(password, function(err, isMatch) {
         if (err || !isMatch) {
           console.log('Wrong password');
-          return done(null, false, {message:"Wrong password"});
+          return done(null, false, {message:'Wrong password'});
         } else {
           console.log('Login OK');
           return done(null, user);
@@ -35,7 +35,7 @@ module.exports = new LocalStrategy(function(username, password, done) {
           return done(null, user);
         } else {
           console.log('Login FLxER FAILED');
-          return done(null, false, {message:"Login Failed"});
+          return done(null, false, {message:'Login Failed'});
         }
       });
     }
@@ -45,7 +45,7 @@ module.exports = new LocalStrategy(function(username, password, done) {
 var tryFlxer = function(username, password, cb) {
   // Try flxer
   request.post({
-    uri: "https://flxer.net/api/login",
+    uri: 'https://flxer.net/api/login',
     headers: {'content-type': 'application/x-www-form-urlencoded'},
     body: querystring.stringify({login:username, password:password})
   }, function(err, res, body){

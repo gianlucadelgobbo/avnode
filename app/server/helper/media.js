@@ -1,19 +1,18 @@
 var config = require('getconfig');
 var im = require('imagemagick');
 var fs = require('fs');
-var mkdirp = require('mkdirp');
 
 exports.getFileFormat = function (file, section, format) {
-  var conf            = config.sections[section].thumbnails[format];
+  var conf = config.sections[section].thumbnails[format];
   if (file && file.file) {
-    var source        = file.preview ? file.preview : file.file;
-    var folder        = source.substring(0,source.lastIndexOf("/")+1);
-    var file          = source.substring(source.lastIndexOf("/")+1,source.length);
-    var formatfolder  = folder+conf.w+"x"+conf.h+"/";
-    var ext           = file.substring(file.lastIndexOf(".")+1,file.length);
-    var formatfile    = file.substring(0,file.lastIndexOf("."))+"_"+ext+".jpg";
-    var originalImg   = folder+file;
-    var formatImg     = formatfolder+formatfile;
+    var source = file.preview ? file.preview : file.file;
+    var folder = source.substring(0,source.lastIndexOf('/')+1);
+    file = source.substring(source.lastIndexOf('/')+1,source.length);
+    var formatfolder = folder+conf.w+'x'+conf.h+'/';
+    var ext = file.substring(file.lastIndexOf('.')+1,file.length);
+    var formatfile = file.substring(0,file.lastIndexOf('.'))+'_'+ext+'.jpg';
+    var originalImg = folder+file;
+    var formatImg = formatfolder+formatfile;
 
     /*
     console.log("---------");
@@ -38,7 +37,7 @@ exports.getFileFormat = function (file, section, format) {
         width: conf.w,
         height: conf.h,
         quality: 1,
-        gravity: "North"
+        gravity: 'North'
       }, function (err, stdout, stderr) {
         if (err) return console.log(err.stack || err);
         // FIXME (not available as done, need to reload)
@@ -59,4 +58,4 @@ exports.getFileFormat = function (file, section, format) {
       return conf.default;
     }
   }
-}
+};

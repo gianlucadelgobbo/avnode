@@ -1,22 +1,21 @@
 var config = require('getconfig');
 var User = require('../models/user');
 var Footage = require('../models/footage');
-var _ = require('lodash');
 
 var _h = require('../helper/index');
 
 var localsDetail = function(user, result, req, sez) {
   console.log(config);
   return {
-    title: result.title + " | " +  config.sections[sez].title + " | " + user.display_name,
+    title: result.title + ' | ' +  config.sections[sez].title + ' | ' + user.display_name,
     result: result,
     config: config,
     section: sez,
     performer: user,
     user: req.user,
     _h: _h
-  }
-}
+  };
+};
 
 exports.get = function get(req, res) {
   var query = { 'permalink': req.params.user };
@@ -29,7 +28,7 @@ exports.get = function get(req, res) {
       Footage
         .findOne(query)
         .exec(function(error, result) {
-          res.render('swfdata', localsDetail(user, result, req, "footage"));
+          res.render('swfdata', localsDetail(user, result, req, 'footage'));
         });
     });
 };

@@ -31,4 +31,4 @@ var UserSchema = new Schema({
   categories: [Categories],
 });
 
-module.exports = UserSchema
+module.exports = UserSchema;

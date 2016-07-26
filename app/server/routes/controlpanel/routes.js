@@ -10,12 +10,6 @@ var signup = require('./signup');
 var user = require('./user');
 var crews = require('./crews');
 var events = require('./events');
-var performances = require('./performances');
-var events = require('./events');
-var tvshows = require('./tvshows');
-var footage = require('./footage');
-var playlists = require('./playlists');
-var galleries = require('./galleries');
 var superadmin = require('./superadmin');
 var validateParams = require('../../validation.js').validateParams;
 var validateBody = require('../../validation.js').validateBody;
@@ -32,13 +26,13 @@ router.get('/login', login.get);
 
 router.get('/login/facebook',
     passport.authenticate('facebook', {
-        scope: ['public_profile', 'email']
+      scope: ['public_profile', 'email']
     })
 );
 router.get('/login/facebook/callback',
     passport.authenticate('facebook', {
-        successRedirect: '/controlpanel/user',
-        failureRedirect: '/controlpanel/login'
+      successRedirect: '/controlpanel/user',
+      failureRedirect: '/controlpanel/login'
     })
 );
 
@@ -47,8 +41,8 @@ router.get('/login/twitter',
 );
 router.get('/login/twitter/callback',
     passport.authenticate('twitter', {
-        successRedirect: '/controlpanel/user',
-        failureRedirect: '/controlpanel/login'
+      successRedirect: '/controlpanel/user',
+      failureRedirect: '/controlpanel/login'
     })
 );
 
@@ -57,8 +51,8 @@ router.get('/login/google',
 );
 router.get('/login/google/callback',
     passport.authenticate('google', {
-        successRedirect: '/controlpanel/user',
-        failureRedirect: '/controlpanel/login'
+      successRedirect: '/controlpanel/user',
+      failureRedirect: '/controlpanel/login'
     })
 );
 
@@ -162,7 +156,7 @@ router.get('/events/:event/calls',        validateParams(events.callsSchemaGet),
 router.post('/events/:event/calls',       validateBody(events.callsSchemaPost), events.callsPost);
 router.get('/events/list', events.listGet);
 router.get('/events', function(req, res) {
-    res.redirect('/controlpanel/events/list');
+  res.redirect('/controlpanel/events/list');
 });
 /*
 router.get('/tvshows/:tvshow/public',      validateParams(tvshows.publicSchemaGet), tvshows.publicGet);
@@ -207,7 +201,7 @@ router.get('/superadmin/organizations',    /*validateParams(organizations.organi
 router.post('/superadmin/organizations',   /*validateBody(organizations.organizationsSchemaPost), */superadmin.organizationsPost);
 //router.get('/superadmin/list', superadmin.listGet);
 router.get('/superadmin', function(req, res) {
-    res.redirect('/controlpanel/superadmin/vjtelevision');
+  res.redirect('/controlpanel/superadmin/vjtelevision');
 });
 
 

@@ -13,8 +13,8 @@ module.exports.validateParams = function(schema) {
         next();
       }
     });
-  }
-}
+  };
+};
 
 module.exports.validateBody = function(schema) {
   return function (req, res, next) {
@@ -29,5 +29,5 @@ module.exports.validateBody = function(schema) {
         next();
       }
     });
-  }
-}
+  };
+};
