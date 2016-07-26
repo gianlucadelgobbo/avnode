@@ -42,16 +42,14 @@ module.exports = {
       rooms: [],
       list: {},
       tobeconfirmed: []
-    }
+    };
     program.forEach(function(slot) {
       var status;
       for (var category=0;category<slot.schedule.categories.length;category++){
-        if(slot.schedule.categories[category].ancestors && slot.schedule.categories[category].ancestors.length && slot.schedule.categories[category].ancestors[0].permalink == "status") {
+        if(slot.schedule.categories[category].ancestors && slot.schedule.categories[category].ancestors.length && slot.schedule.categories[category].ancestors[0].permalink == 'status') {
           status = slot.schedule.categories[category].permalink;
         }
       }
-      var day = slot.schedule.day;
-
       //console.log(status);
       if (!status) {
         groupedPerformances.tobeconfirmed.push(slot);
@@ -80,7 +78,7 @@ module.exports = {
           }
           groupedPerformances.list[slot.schedule.day][slot.schedule.venue.name][slot.schedule.venue.room].push(slot);
         } else {
-          console.log("ERROR ERROR ERROR ERROR ERROR ERROR ");
+          console.log('ERROR ERROR ERROR ERROR ERROR ERROR ');
 
         }
 
@@ -104,7 +102,7 @@ module.exports = {
         if (groupedArtistsList[user.permalink] === undefined) {
           groupedArtistsList[user.permalink] = user;
           slot.performance.categories.forEach(function(category) {
-            if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink.indexOf("type") !== -1) {
+            if (category.ancestors && category.ancestors.length && category.ancestors[0].permalink.indexOf('type') !== -1) {
               if (groupedArtists.stats.types[category.permalink] === undefined) {
                 groupedArtists.stats.types[category.permalink] = {n:1,name:category.name};
               } else {
@@ -115,8 +113,8 @@ module.exports = {
           user.locations.forEach(function(location) {
             if (groupedArtists.stats.countries.indexOf(location.country) == -1) groupedArtists.stats.countries.push(location.country);
           });
-          groupedArtists.stats.n += parseFloat(user.stats && user.stats.members != 0 ? user.stats.members : 1)
-          groupedArtists.stats.people++
+          groupedArtists.stats.n += parseFloat(user.stats && user.stats.members != 0 ? user.stats.members : 1);
+          groupedArtists.stats.people++;
         }
       });
     });
@@ -147,15 +145,15 @@ module.exports = {
       technique:{}
     };
     categories.forEach(function(category) {
-      if (category.ancestors[0].permalink == "type") {
+      if (category.ancestors[0].permalink == 'type') {
         groupedCategories.type = category;
         categories.forEach(function(category2) {
-          if (category2.ancestors[0].permalink == category.permalink+"-technique") {
+          if (category2.ancestors[0].permalink == category.permalink+'-technique') {
             groupedCategories.technique = category2;
           }
         });
       }
-      if (category.ancestors[0].permalink == "genere") groupedCategories.genre = category;
+      if (category.ancestors[0].permalink == 'genere') groupedCategories.genre = category;
     });
     return groupedCategories;
   },
@@ -189,7 +187,7 @@ module.exports = {
 
   pagination: function(link, skip, limit, total) {
     var pages = [];
-    var total = Math.floor(total / limit);
+    total = Math.floor(total / limit);
     var current = Math.floor(skip / limit);
 
     // add prev link if not on first page
@@ -202,10 +200,9 @@ module.exports = {
     // TODO could be improved in the future
     for (var i = (current - 5); i <= (current + 5); i++) {
       if (i >= 0 && i <= total) {
+        var active = false;
         if (i === current) {
           active = true;
-        } else {
-          active = false;
         }
         pages.push({index: (i + 1), link: link + (i + 1), active: active});
       }

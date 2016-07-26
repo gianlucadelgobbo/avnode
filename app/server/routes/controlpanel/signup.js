@@ -7,7 +7,7 @@ var Fnc = require('../../modules/general-functions');
 
 exports.get = function get(req, res) {
   if (req.query.code) {
-    DB.temp_users.findOne({"code":req.query.code},function(err, record){
+    DB.temp_users.findOne({'code':req.query.code},function(err, record){
       if (record) {
         var user = record;
         user.emails = [];
@@ -44,8 +44,8 @@ exports.get = function get(req, res) {
               crew = record[0];
               user.crews.push({permalink: crew.permalink,display_name:crew.display_name,_id:crew._id, stats:crew.stats });
               DB.users.save(user, {safe: true}, function(err, record){
-                DB.temp_users.remove({"code":req.query.code}, {safe: true}, function(err, record){
-                  res.render('forms/user_signup', {title : __('Signup'), countries: CT, result:record, msg:{c:[{m:__("Data saved, please login")}]} , user : req.session.passport.user });
+                DB.temp_users.remove({'code':req.query.code}, {safe: true}, function(err, record){
+                  res.render('forms/user_signup', {title : __('Signup'), countries: CT, result:record, msg:{c:[{m:__('Data saved, please login')}]} , user : req.session.passport.user });
                   /*
                    EM.sendMail({
                    text:    text,
@@ -59,8 +59,8 @@ exports.get = function get(req, res) {
               });
             });
           } else {
-            DB.temp_users.remove({"code":req.query.code}, {safe: true}, function(err, record){
-              var mess = __("Data saved, please login")+" <a href=\"/controlpanel/login/\" class=\"btn btn-primary\">LOGIN</a>";
+            DB.temp_users.remove({'code':req.query.code}, {safe: true}, function(err, record){
+              var mess = __('Data saved, please login')+' <a href="/controlpanel/login/" class="btn btn-primary">LOGIN</a>';
               res.render('forms/user_signup', {title : __('Signup'), countries: CT, result:record, msg:{c:[{m:mess}]} , user : req.session.passport.user });
               /*
                EM.sendMail({
@@ -75,14 +75,14 @@ exports.get = function get(req, res) {
           }
         });
       } else {
-        var mess = __("User already confirmed, please login")+" <a href=\"/controlpanel/login/\" class=\"btn btn-primary\">LOGIN</a>";
+        var mess = __('User already confirmed, please login')+' <a href="/controlpanel/login/" class="btn btn-primary">LOGIN</a>';
         res.render('forms/user_signup', {title : __('Signup'), countries: CT, result:record, msg:{c:[{m:mess}]} , user : req.session.passport.user });
       }
     });
   } else {
     res.render('forms/user_signup', {title : __('Signup'), countries: CT, result:req.body, user : req.session.passport.user });
   }
-}
+};
 
 exports.post = function get(req, res) {
   exports.validateFormSignup(req.body, function(e, o, m) {
@@ -101,19 +101,19 @@ exports.post = function get(req, res) {
           temp.code = hash;
           temp.lang = _config.defaultLocale;
           delete temp.passwordconfirm;
-          DB.temp_users.remove({"email":o.email}, {safe: true}, function(err, record){
+          DB.temp_users.remove({'email':o.email}, {safe: true}, function(err, record){
             DB.temp_users.insert(temp, {safe: true}, function(err, record){
-              var text = "";
-              text+= __('Ciao')+" "+o.name+"," + "\n";
-              text+= __('please confirm your registration to')+" "+_config.sitename+"," + "\n";
-              text+= _config.siteurl+"/controlpanel/signup/?code="+temp.code + "\n";
+              var text = '';
+              text+= __('Ciao')+' '+o.name+',' + '\n';
+              text+= __('please confirm your registration to')+' '+_config.sitename+',' + '\n';
+              text+= _config.siteurl+'/controlpanel/signup/?code='+temp.code + '\n';
               text+= _config.signature;
               EM.sendMail({
-                 text:    text,
-                 to:      o.email,
-                 subject: _config.sitename + " | " + __("Signup confirmation")
+                text:    text,
+                to:      o.email,
+                subject: _config.sitename + ' | ' + __('Signup confirmation')
               }, function(err, message) {
-                res.render('forms/user_signup', {title : "Signup", result:record,msg:{c:[{m:m}]}, user : req.session.passport.user });
+                res.render('forms/user_signup', {title : 'Signup', result:record,msg:{c:[{m:m}]}, user : req.session.passport.user });
               });
             });
           });
@@ -121,7 +121,7 @@ exports.post = function get(req, res) {
       });
     }
   });
-}
+};
 /*
     DB.users.findOne({"emails.email":o.email},function(err, record){
       if(record){
@@ -132,109 +132,109 @@ exports.post = function get(req, res) {
 */
 exports.validateFormSignup = function (o,callback) {
   var e = [];
-  if (typeof o.is_crew === "undefined") {
-    e.push({name:"is_crew",m:__("Please select the type of account: individual or crew")});
+  if (typeof o.is_crew === 'undefined') {
+    e.push({name:'is_crew',m:__('Please select the type of account: individual or crew')});
   }
   if (o.is_crew==1) {
     if (o.crew_display_name.length < 1){
-      e.push({name:"crew_display_name",m:__("Crew name is too short")});
+      e.push({name:'crew_display_name',m:__('Crew name is too short')});
     }
     if (o.crew_permalink.length < 1){
-      e.push({name:"crew_permalink",m:__("Crew profile url is too short")});
+      e.push({name:'crew_permalink',m:__('Crew profile url is too short')});
     }
     if (o.crew_display_name.length.length > 50){
-      e.push({name:"crew_display_name",m:__("Crew name is too long (max. 50 char)")});
+      e.push({name:'crew_display_name',m:__('Crew name is too long (max. 50 char)')});
     }
     if (o.crew_permalink.length > 50){
-      e.push({name:"crew_display_name",m:__("Crew  profile url is too long (max. 50 char)")});
+      e.push({name:'crew_display_name',m:__('Crew  profile url is too long (max. 50 char)')});
     }
     if (o.crew_permalink == o.permalink){
-      e.push({name:"crew_display_name",m:__("Crew  profile url can not be the equal to Profile url")});
+      e.push({name:'crew_display_name',m:__('Crew  profile url can not be the equal to Profile url')});
     }
   }
 
   if (o.name.length < 1){
-    e.push({name:"name",m:__("Name is too short")});
+    e.push({name:'name',m:__('Name is too short')});
   }
   if (o.name.length > 50){
-    e.push({name:"name",m:__("Name is too long (max. 50 char)")});
+    e.push({name:'name',m:__('Name is too long (max. 50 char)')});
   }
 
   if (o.surname.length < 1){
-    e.push({name:"surname",m:__("Surname is too short")});
+    e.push({name:'surname',m:__('Surname is too short')});
   }
   if (o.surname.length > 50){
-    e.push({name:"surname",m:__("Surname is too long (max. 50 char)")});
+    e.push({name:'surname',m:__('Surname is too long (max. 50 char)')});
   }
 
-  if (o.gender=="") e.push({name:"gender",m:__("Gender can not be empty")});
-  if (o.citizenship=="") e.push({name:"gender",m:__("Country of citizenship can not be empty")});
+  if (o.gender=='') e.push({name:'gender',m:__('Gender can not be empty')});
+  if (o.citizenship=='') e.push({name:'gender',m:__('Country of citizenship can not be empty')});
 
-  var tmp = o.birthdate.split("-");
+  var tmp = o.birthdate.split('-');
   o.birth_date = new Date(o.birthdate);
   delete o.birth;
   delete o.birthdate;
-  if (!((parseFloat(tmp[2])==o.birth_date.getDate()) && (parseFloat(tmp[1])-1==o.birth_date.getMonth()) && (parseFloat(tmp[0])==o.birth_date.getFullYear()))) e.push({name:"birthdate",m:__("Birth date is not valid")});
+  if (!((parseFloat(tmp[2])==o.birth_date.getDate()) && (parseFloat(tmp[1])-1==o.birth_date.getMonth()) && (parseFloat(tmp[0])==o.birth_date.getFullYear()))) e.push({name:'birthdate',m:__('Birth date is not valid')});
 
   if (o.email.length < 1){
-    e.push({name:"email",m:__("Email is too short")});
+    e.push({name:'email',m:__('Email is too short')});
   }
   if (o.email.length > 50){
-    e.push({name:"email",m:__("Email is too long (max. 50 char)")});
+    e.push({name:'email',m:__('Email is too long (max. 50 char)')});
   }
   if (e.length==0 && !Fnc.is_email(o.email)) {
-    e.push({name:"email",m:__("Email is not a valid address")});
+    e.push({name:'email',m:__('Email is not a valid address')});
   }
 
-  if (typeof o.is_crew === "undefined") {
-    e.push({name:"is_crew",m:__("Please select the type of account: individual or crew")});
+  if (typeof o.is_crew === 'undefined') {
+    e.push({name:'is_crew',m:__('Please select the type of account: individual or crew')});
   }
 
   if (o.password == o.passwordconfirm){
     if (o.password.length < 8){
-      e.push({name:"password",m:__("Password is too short (min 8 char)")});
+      e.push({name:'password',m:__('Password is too short (min 8 char)')});
     }
     if (o.password.length > 50){
-      e.push({name:"password",m:__("Password is too long (max. 50 char)")});
+      e.push({name:'password',m:__('Password is too long (max. 50 char)')});
     }
   } else {
-    e.push({name:"password",m:__("Password does not match the confirm password")});
+    e.push({name:'password',m:__('Password does not match the confirm password')});
   }
 
   if (o.display_name.length < 1){
-    e.push({name:"display_name",m:__("Stage name is too short")});
+    e.push({name:'display_name',m:__('Stage name is too short')});
   }
   if (o.display_name.length > 50){
-    e.push({name:"display_name",m:__("Stage name is too long (max. 50 char)")});
+    e.push({name:'display_name',m:__('Stage name is too long (max. 50 char)')});
   }
 
 
   if (o.permalink.length < 1){
-    e.push({name:"permalink",m:__("Profile url is too short")});
+    e.push({name:'permalink',m:__('Profile url is too short')});
   }
   if (o.permalink.length > 50){
-    e.push({name:"permalink",m:__("Profile url is too long (max. 50 char)")});
+    e.push({name:'permalink',m:__('Profile url is too long (max. 50 char)')});
   }
   if (e.length) {
-    callback(e, o, __("We have sent an email to confirm"));
+    callback(e, o, __('We have sent an email to confirm'));
   } else {
-    DB.users.findOne({"emails.email":o.email}, function(err, result) {
+    DB.users.findOne({'emails.email':o.email}, function(err, result) {
       if (result != null){
-        e.push({name:"email",m:__("Email already in use")});
+        e.push({name:'email',m:__('Email already in use')});
       }
-      DB.users.findOne({"permalink":o.permalink}, function(err, result) {
+      DB.users.findOne({'permalink':o.permalink}, function(err, result) {
         if (result != null){
-          e.push({name:"email",m:__("Profile url already in use")});
+          e.push({name:'email',m:__('Profile url already in use')});
         }
         if (o.is_crew===1) {
-          DB.users.findOne({"permalink":o.crew_permalink}, function(err, result) {
+          DB.users.findOne({'permalink':o.crew_permalink}, function(err, result) {
             if (result != null){
-              e.push({name:"email",m:__("Crew profile url already in use")});
+              e.push({name:'email',m:__('Crew profile url already in use')});
             }
-            callback(e, o, __("We have sent an email to confirm"));
+            callback(e, o, __('We have sent an email to confirm'));
           });
         } else {
-          callback(e, o, __("We have sent an email to confirm"));
+          callback(e, o, __('We have sent an email to confirm'));
         }
       });
     });

@@ -15,6 +15,6 @@ module.exports = {
     this.statusCode = 500;
     this.message = message || 'internal error';
   }*/
-}
+};
 util.inherits(module.exports.NotFound, Error);
 //util.inherits(module.exports.Internal, Error);

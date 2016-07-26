@@ -6,22 +6,22 @@ var app = null;
 var server = null;
 
 init(function(a, s) {
-	app = a;
-	server = s;
+  app = a;
+  server = s;
 
-	describe('Tests', function() {
-		console.log('Running tests…');
-		routesIndexTest(app);
-		routesApiTest(app);
-	});
+  describe('Tests', function() {
+    console.log('Running tests…');
+    routesIndexTest(app);
+    routesApiTest(app);
+  });
 
-	run();
+  run();
 });
 
 after(function(done) {
-	console.log('Cleaning up…');
-	app._mongoose.disconnect(function() {
-		server.close();
-		done();
-	});
+  console.log('Cleaning up…');
+  app._mongoose.disconnect(function() {
+    server.close();
+    done();
+  });
 });

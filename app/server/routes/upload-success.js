@@ -1,7 +1,5 @@
 var DB = require('../modules/db-manager');
-var Fnc = require('../modules/general-functions');
 var formidable = require('formidable');
-var util = require('util');
 var im = require('imagemagick');
 var fs = require('fs');
 var path = require('path');
@@ -58,47 +56,46 @@ exports.post = function post(req, res) {
   form
     .on('field', function(field, value) {
     //console.log(field, value);
-    fields.push([field, value]);
+      fields.push([field, value]);
     })
     .on('file', function(field, file) {
     //console.log(field, file);
-    files.push([field, file]);
+      files.push([field, file]);
     })
     .on('end', function() {
-      var count;
     //console.log('-> upload done');
     //res.writeHead(200, {'content-type': 'text/plain'});
-    var result = [];
-    files.forEach(function(item,index,e){
-      im.identify(item[1].path, function(err, features){
-        delete item[1]._writeStream;
-        delete item[1].hash;
-        delete item[1].size;
-        item[1].format = features.format;
-        item[1].width = features.width;
-        item[1].height = features.height;
-        var file = item[1].path;
-        if (req.query.id) {
-          var d = new Date();
-          newfolder = "/warehouse/"+d.getFullYear()+"/"+("0" + (d.getMonth() + 1)).slice(-2)+"/";
-          mkdirp.sync(config.sitepath+config.uploadpath+newfolder);
-           fs.renameSync(item[1].path,config.sitepath+config.uploadpath+newfolder+item[1].name);
-           file = newfolder+item[1].name;
-
-        }
-        result.push({file:file,name:item[1].name,type:item[1].type,height:features.height,width:features.width,format:features.format,lastModifiedDate:item[1].lastModifiedDate});
-        if (err) throw err;
-          if (e.length-1==index) {
+      var result = [];
+      files.forEach(function(item,index,e){
+        im.identify(item[1].path, function(err, features){
+          delete item[1]._writeStream;
+          delete item[1].hash;
+          delete item[1].size;
+          item[1].format = features.format;
+          item[1].width = features.width;
+          item[1].height = features.height;
+          var file = item[1].path;
           if (req.query.id) {
-            DB.updateDB("users",req.query.id,[{name:"files",value:result}], function() {
-              res.send(result);
-            });
-          } else {
-            res.send(result);
+            var d = new Date();
+            var newfolder = '/warehouse/'+d.getFullYear()+'/'+('0' + (d.getMonth() + 1)).slice(-2)+'/';
+            mkdirp.sync(config.sitepath+config.uploadpath+newfolder);
+            fs.renameSync(item[1].path,config.sitepath+config.uploadpath+newfolder+item[1].name);
+            file = newfolder+item[1].name;
+
           }
-        }
+          result.push({file:file,name:item[1].name,type:item[1].type,height:features.height,width:features.width,format:features.format,lastModifiedDate:item[1].lastModifiedDate});
+          if (err) throw err;
+          if (e.length-1==index) {
+            if (req.query.id) {
+              DB.updateDB('users',req.query.id,[{name:'files',value:result}], function() {
+                res.send(result);
+              });
+            } else {
+              res.send(result);
+            }
+          }
+        });
       });
-    })
     //res.end(files);
     });
   form.parse(req);
