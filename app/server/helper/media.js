@@ -38,7 +38,7 @@ exports.getFileFormat = function (file, section, format) {
         height: conf.h,
         quality: 1,
         gravity: 'North'
-      }, function (err, stdout, stderr) {
+      }, function (err) {
         if (err) return console.log(err.stack || err);
         // FIXME (not available as done, need to reload)
       });

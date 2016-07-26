@@ -4,7 +4,10 @@
     "mocha": true
   },
   "globals": {
-    "__": true
+    "__": true,
+    "setLocale": true,
+    "getLocale": true,
+    "_config": true
   },
   "extends": "eslint:recommended",
   "rules": {
@@ -13,6 +16,7 @@
       2
     ],
     "no-console": 0,
+    "no-control-regex": 0,
     "linebreak-style": [
       "error",
       "unix"

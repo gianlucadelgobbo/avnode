@@ -5,16 +5,13 @@ var _ = require('lodash');
 var _h = require('../helper/index');
 
 exports.get = function get(req, res) {
-  redirect = false;
+  var redirect = false;
   if (req.params.filter === undefined
     || req.params.sorting === undefined
     || req.params.page === undefined) {
     redirect = true;
   }
 
-  var params = _.filter(req.params, function(v, k) {
-    return (k === 'filter' || k === 'page' || k === 'sorting');
-  });
   var section = 'playlists';
   var page = req.params.page || 1;
   var skip = (page - 1) * config.sections[section].limit;

@@ -1,14 +1,6 @@
 var bcrypt = require('bcrypt-nodejs');
-var Db = require('mongodb').Db;
-var Server = require('mongodb').Server;
 var Fnc = require('./general-functions');
 var config = require('getconfig');
-
-var dbPort = config.dbPort;
-var dbHost = config.dbHost;
-var dbName = config.dbName;
-
-var moment = require('moment');
 
 var accounting = require('accounting');
 accounting.settings = config.accountingSettings;
@@ -18,27 +10,6 @@ var request = require('request');
 var querystring = require('querystring');
 
 var DB = {};
-/*
-DB.db = new Db(dbName, new Server(dbHost, dbPort, {auto_reconnect: true,safe:true}, {}));
-DB.db.open(function(e, d){
-  if (!e) {
-    DB.users =     DB.db.collection('users');
-    DB.footage =   DB.db.collection('footage');
-    DB.playlists =   DB.db.collection('playlists');
-    DB.performances =   DB.db.collection('performances');
-    DB.events =   DB.db.collection('events');
-  DB.subscriptions =   DB.db.collection('subscriptions');
-  DB.tvshow =   DB.db.collection('tvshow');
-    DB.galleries =   DB.db.collection('galleries');
-    DB.categories =   DB.db.collection('categories');
-  DB.temp_users =   DB.db.collection('temp_users');
-    DB.temp =     DB.db.collection('temp');
-    console.log('connected to database :: ' + dbName);
-  }
-});
-*/
-
-module.exports = DB;
 
 DB.validateFormLogin = function (login, password,callback) {
   var e = [];
@@ -159,7 +130,7 @@ DB.facebookCreate = function(profile, callback) {
     phonenumbers: [ '0678147301' ],
     facebook: profile
   };
-  DB.users.save(o, {safe:true}, function(err, res) {
+  DB.users.save(o, {safe:true}, function(err) {
     callback(err, o);
   });
 };
@@ -183,7 +154,7 @@ DB.googleFindOrCreate = function(profile, callback){
           });
         } else {
           res.google = profile;
-          DB.users.save(res, {safe:true}, function(e, resSave) {
+          DB.users.save(res, {safe:true}, function(e) {
             callback(e, res);
           });
         }
@@ -256,7 +227,7 @@ DB.googleCreate = function(profile, callback) {
     phonenumbers: [ '0678147301' ],
     facebook: profile
   };
-  DB.users.save(o, {safe:true}, function(err, res) {
+  DB.users.save(o, {safe:true}, function(err) {
     callback(err, o);
   });
 };
@@ -288,7 +259,7 @@ DB.updateDB = function(collection, id, values, callback) {
     for(var i=0;i<values.length;i++) {
       o[values[i].name] = values[i].value;
     }
-    DB[collection].save(o, {safe:true}, function(e, success) {
+    DB[collection].save(o, {safe:true}, function(e) {
       callback(e, o);
     });
   });
@@ -325,12 +296,12 @@ DB.updateEventRel = function(id, callback) {
             }
           }
           if (add) subrecord.events.push(minievent);
-          DB.users.save(subrecord, {safe:true}, function(e, success) {
+          DB.users.save(subrecord, {safe:true}, function() {
             conta++;
             if (conta==subrecords.length) {
               status.users = true;
               var end = true;
-              for (sts in status) if (status[sts]==false) end = false;
+              for (var sts in status) if (status[sts]==false) end = false;
               if (end) callback(true);
             }
           });
@@ -338,7 +309,7 @@ DB.updateEventRel = function(id, callback) {
       } else {
         status.users = true;
         var end = true;
-        for (sts in status) {
+        for (var sts in status) {
           if (status[sts]==false) {
             end = false;
           }
@@ -349,10 +320,9 @@ DB.updateEventRel = function(id, callback) {
       }
     });
     // PERFORMANCES
-    var ids = [];
-    for (var item in event.performances) {
-      ids.push(event.performances[item]._id);
-    }
+    ids = event.performances.map(function(event) {
+      return event._id;
+    });
     DB.performances.find({'_id':{$in:ids}}).toArray(function(err, subrecords){
       var conta = 0;
       if (subrecords.length) {
@@ -367,12 +337,12 @@ DB.updateEventRel = function(id, callback) {
           if (add) {
             subrecord.events.push(minievent);
           }
-          DB.performances.save(subrecord, {safe:true}, function(e, success) {
+          DB.performances.save(subrecord, {safe:true}, function() {
             conta++;
             if (conta==subrecords.length) {
               status.performances = true;
               var end = true;
-              for (sts in status)  {
+              for (var sts in status)  {
                 if (status[sts]==false) {
                   end = false;
                 }
@@ -384,7 +354,7 @@ DB.updateEventRel = function(id, callback) {
       } else {
         status.performances = true;
         var end = true;
-        for (sts in status) {
+        for (var sts in status) {
           if (status[sts]==false) {
             end = false;
           }
@@ -395,10 +365,9 @@ DB.updateEventRel = function(id, callback) {
       }
     });
     // GALLERY
-    var ids = [];
-    for (var item in event.gallery) {
-      ids.push(event.gallery[item]._id);
-    }
+    ids = event.gallery.map(function(g) {
+      return g._id;
+    });
     DB.gallery.find({'_id':{$in:ids}}).toArray(function(err, subrecords){
       var conta = 0;
       if (subrecords.length) {
@@ -411,12 +380,12 @@ DB.updateEventRel = function(id, callback) {
             }
           }
           if (add) subrecord.events.push(minievent);
-          DB.gallery.save(subrecord, {safe:true}, function(e, success) {
+          DB.gallery.save(subrecord, {safe:true}, function() {
             conta++;
             if (conta==subrecords.length) {
               status.gallery = true;
               var end = true;
-              for (sts in status) if (status[sts]==false) end = false;
+              for (var sts in status) if (status[sts]==false) end = false;
               if (end) callback(true);
             }
           });
@@ -424,7 +393,7 @@ DB.updateEventRel = function(id, callback) {
       } else {
         status.gallery = true;
         var end = true;
-        for (sts in status) if (status[sts]==false) end = false;
+        for (var sts in status) if (status[sts]==false) end = false;
         if (end) callback(true);
       }
     });
@@ -452,12 +421,12 @@ DB.updateUserRel = function(id, callback) {
           for (var a=0;a<subrecord[q].length;a++) {
             if (subrecord[q][a]._id.equals(id)) subrecord[q][a] = user;
           }
-          DB.users.save(subrecord, {safe:true}, function(e, success) {
+          DB.users.save(subrecord, {safe:true}, function() {
             conta++;
             if (conta==subrecords.length) {
               status.users = true;
               var end = true;
-              for (sts in status) if (status[sts]==false) end = false;
+              for (var sts in status) if (status[sts]==false) end = false;
               if (end) callback(true);
             }
           });
@@ -465,7 +434,7 @@ DB.updateUserRel = function(id, callback) {
       } else {
         status.users = true;
         var end = true;
-        for (sts in status) if (status[sts]==false) end = false;
+        for (var sts in status) if (status[sts]==false) end = false;
         if (end) callback(true);
       }
     });
@@ -477,23 +446,25 @@ DB.updateUserRel = function(id, callback) {
             if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user;
           }
           if (subrecord.partners) {
-            for (var a=0;a<subrecord.partners.length;a++) {
-              if (subrecord.partners[a]._id.equals(id)) subrecord.partners[a] = user;
-            }
-          }
-          if (subrecord.performances) {
-            for (var a=0;a<subrecord.performances.length;a++) {
-              for (var b=0;b<subrecord.performances[a].length;b++) {
-                if (subrecord.performances[a].users[b]._id.equals(id)) subrecord.performances[a].users[b] = user;
+            for (var l=0;a<subrecord.partners.length;l++) {
+              if (subrecord.partners[l]._id.equals(id)) {
+                subrecord.partners[l] = user;
               }
             }
           }
-          DB.events.save(subrecord, {safe:true}, function(e, success) {
+          if (subrecord.performances) {
+            for (var m=0;a<subrecord.performances.length;m++) {
+              for (var b=0;b<subrecord.performances[a].length;b++) {
+                if (subrecord.performances[m].users[b]._id.equals(id)) subrecord.performances[m].users[b] = user;
+              }
+            }
+          }
+          DB.events.save(subrecord, {safe:true}, function() {
             conta++;
             if (conta==subrecords.length) {
               status.events = true;
               var end = true;
-              for (sts in status) if (status[sts]==false) end = false;
+              for (var sts in status) if (status[sts]==false) end = false;
               if (end) callback(true);
             }
           });
@@ -501,7 +472,7 @@ DB.updateUserRel = function(id, callback) {
       } else {
         status.events = true;
         var end = true;
-        for (sts in status) if (status[sts]==false) end = false;
+        for (var sts in status) if (status[sts]==false) end = false;
         if (end) callback(true);
       }
     });
@@ -512,12 +483,12 @@ DB.updateUserRel = function(id, callback) {
           for (var a=0;a<subrecord.users.length;a++) {
             if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user;
           }
-          DB.footage.save(subrecord, {safe:true}, function(e, success) {
+          DB.footage.save(subrecord, {safe:true}, function() {
             conta++;
             if (conta==subrecords.length) {
               status.footage = true;
               var end = true;
-              for (sts in status) if (status[sts]==false) end = false;
+              for (var sts in status) if (status[sts]==false) end = false;
               if (end) callback(true);
             }
           });
@@ -525,7 +496,7 @@ DB.updateUserRel = function(id, callback) {
       } else {
         status.footage = true;
         var end = true;
-        for (sts in status) if (status[sts]==false) end = false;
+        for (var sts in status) if (status[sts]==false) end = false;
         if (end) callback(true);
       }
     });
@@ -536,12 +507,12 @@ DB.updateUserRel = function(id, callback) {
           for (var a=0;a<subrecord.users.length;a++) {
             if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user;
           }
-          DB.playlists.save(subrecord, {safe:true}, function(e, success) {
+          DB.playlists.save(subrecord, {safe:true}, function() {
             conta++;
             if (conta==subrecords.length) {
               status.playlists = true;
               var end = true;
-              for (sts in status) if (status[sts]==false) end = false;
+              for (var sts in status) if (status[sts]==false) end = false;
               if (end) callback(true);
             }
           });
@@ -549,7 +520,7 @@ DB.updateUserRel = function(id, callback) {
       } else {
         status.playlists = true;
         var end = true;
-        for (sts in status) if (status[sts]==false) end = false;
+        for (var sts in status) if (status[sts]==false) end = false;
         if (end) callback(true);
       }
     });
@@ -560,12 +531,12 @@ DB.updateUserRel = function(id, callback) {
           for (var a=0;a<subrecord.users.length;a++) {
             if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user;
           }
-          DB.gallery.save(subrecord, {safe:true}, function(e, success) {
+          DB.gallery.save(subrecord, {safe:true}, function() {
             conta++;
             if (conta==subrecords.length) {
               status.gallery = true;
               var end = true;
-              for (sts in status) if (status[sts]==false) end = false;
+              for (var sts in status) if (status[sts]==false) end = false;
               if (end) callback(true);
             }
           });
@@ -573,7 +544,7 @@ DB.updateUserRel = function(id, callback) {
       } else {
         status.gallery = true;
         var end = true;
-        for (sts in status) if (status[sts]==false) end = false;
+        for (var sts in status) if (status[sts]==false) end = false;
         if (end) callback(true);
       }
     });
@@ -584,12 +555,12 @@ DB.updateUserRel = function(id, callback) {
           for (var a=0;a<subrecord.users.length;a++) {
             if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user;
           }
-          DB.performances.save(subrecord, {safe:true}, function(e, success) {
+          DB.performances.save(subrecord, {safe:true}, function() {
             conta++;
             if (conta==subrecords.length) {
               status.performances = true;
               var end = true;
-              for (sts in status) if (status[sts]==false) end = false;
+              for (var sts in status) if (status[sts]==false) end = false;
               if (end) callback(true);
             }
           });
@@ -597,7 +568,7 @@ DB.updateUserRel = function(id, callback) {
       } else {
         status.performances = true;
         var end = true;
-        for (sts in status) if (status[sts]==false) end = false;
+        for (var sts in status) if (status[sts]==false) end = false;
         if (end) callback(true);
       }
     });
@@ -608,12 +579,12 @@ DB.updateUserRel = function(id, callback) {
           for (var a=0;a<subrecord.users.length;a++) {
             if (subrecord.users[a]._id.equals(id)) subrecord.users[a] = user;
           }
-          DB.tvshow.save(subrecord, {safe:true}, function(e, success) {
+          DB.tvshow.save(subrecord, {safe:true}, function() {
             conta++;
             if (conta==subrecords.length) {
               status.tvshow = true;
               var end = true;
-              for (sts in status) if (status[sts]==false) end = false;
+              for (var sts in status) if (status[sts]==false) end = false;
               if (end) callback(true);
             }
           });
@@ -621,7 +592,7 @@ DB.updateUserRel = function(id, callback) {
       } else {
         status.tvshow = true;
         var end = true;
-        for (sts in status) if (status[sts]==false) end = false;
+        for (var sts in status) if (status[sts]==false) end = false;
         if (end) callback(true);
       }
     });
@@ -761,3 +732,5 @@ function unformatPrices(newInvoice){
     newInvoice.items[i].amount=parseFloat(accounting.unformat(newInvoice.items[i].amount, ','));
   }
 }
+
+module.exports = DB;

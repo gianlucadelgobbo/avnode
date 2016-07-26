@@ -144,7 +144,7 @@ exports.getFileFormat = function (obj, w, h) {
           height: h,
           quality: 1,
           gravity: 'North'
-        }, function(err, stdout, stderr){
+        }, function(err){
 
           if (err) return console.error(err.stack || err);
         });

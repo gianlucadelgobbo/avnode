@@ -8,3 +8,4 @@ app/public/modules/geocomplete/jquery.geocomplete.min.js
 app/public/modules/birthdaypicker/bday-picker.min.js
 app/public/modules/birthdaypicker/bday-picker.js
 app/public/fp
+app/server/routes/controlpanel/superadmin.js

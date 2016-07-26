@@ -1,9 +1,8 @@
-/* global $, document */
+/* global $, document, google, window, navigator */
 var ajax;
-var int;
 
 // GENERAL
-function deleteTemp(t,id) {
+window.deleteTemp = function(t,id) {
   var divremove = $(t).parent().parent().parent();
   $(t).parent().parent().html('<div class="text-center"><span class="loading-box"><img src="/img/loading-small.gif" /></span></div>');
   $.ajax({
@@ -15,7 +14,7 @@ function deleteTemp(t,id) {
       if (!$('.main-list-notconfirmed').children().length) $('.main-list-notconfirmed-title').hide();
     }
   });
-}
+};
 
 function __(t){
   return t;
@@ -38,20 +37,20 @@ function renamer(t){
 
 /* WEBSITES */
 
-function websiteAdd(t){
+window.websiteAdd = function(){
   var tmp = $($('#websites').children()[0]).clone();
   tmp.find('input').val('');
   $('#websites').append(tmp);
   disableOnEnter('websites');
-}
+};
 
-function websiteRemove(t){
+window.websiteRemove = function(t){
   if ($('#websites').children().length==1) {
     $(t).parent().parent().find('input').val('');
   } else {
     $(t).parent().parent().parent().remove();
   }
-}
+};
 
 $(document).ready(function() {
   disableOnEnter('websites');
@@ -105,7 +104,7 @@ function checkPermalink(field) {
 
 // EVENTS
 
-function invitePartner(id) {
+window.invitePartner = function(id) {
   var _id = $('[name="_id"]').val();
   var event_name = $('[name="title"]').val();
   var collection = 'events';
@@ -130,8 +129,8 @@ function invitePartner(id) {
       }
     }
   });
-}
-function updatePartners( event, ui ) {
+};
+window.updatePartners = function() {
   var _id = $('[name="_id"]').val();
   var collection = $('[name="collection"]').val();
   var partners = [];
@@ -147,9 +146,9 @@ function updatePartners( event, ui ) {
       console.log($('#permalink').parent().parent());
     }
   });
-}
+};
 
-function deletePartner(t,id) {
+window.deletePartner = function(t,id) {
   var _id = $('[name="_id"]').val();
   var collection = $('[name="collection"]').val();
   var toremove = $(t).parent().parent().parent();
@@ -162,12 +161,12 @@ function deletePartner(t,id) {
     url: '/controlpanel/ajax/updatePartners/',
     type: 'POST',
     data:{_id:_id, partners:partners, collection:collection},
-    success: function(data) {
+    success: function() {
       $.ajax({
         url: '/controlpanel/ajax/deletePartner/',
         type: 'POST',
         data:{_id:_id, id_partner:id, collection:collection},
-        success: function(data) {
+        success: function() {
           toremove.remove();
           /*
           $.ajax({
@@ -185,22 +184,22 @@ function deletePartner(t,id) {
       });
     }
   });
-}
+};
 
-function recreatePartnersEvent() {
+window.recreatePartnersEvent = function() {
   $.ajax({
     url: '/controlpanel/ajax/recreatePartnersEvent/',
     type: 'POST',
     data:{id:$('[name="_id"]').val()},
     success: function(data) {
-      $(t).parent().parent().parent().remove();
+      //$(t).parent().parent().parent().remove();
       console.log(data);
       console.log($('#permalink').parent().parent());
     }
   });
-}
+};
 
-function searchPartners(val) {
+window.searchPartners = function() {
   var partners = [];
   var partnersnotconfirmed = [];
   $('input[name=partners\\[\\]]').each(function(){
@@ -238,11 +237,11 @@ function searchPartners(val) {
       $('#search_result').html(str);
     }
   });
-}
+};
 
 // MEMBERS
 
-function updateMembers(event) {
+window.updateMembers = function() {
   var _id = $('[name="_id"]').val();
   var collection = $('[name="collection"]').val();
   var members = [];
@@ -258,12 +257,12 @@ function updateMembers(event) {
       console.log($('#permalink').parent().parent());
     }
   });
-}
+};
 
-function deleteMember(t,id) {
+window.deleteMember = function(t,id) {
   if($('input[name=members\\[\\]]').length>1) {
     $(t).parent().parent().html('<div class="text-center"><span class="loading-box"><img src="/img/loading-small.gif" /></span></div>');
-    updateMembers(undefined,undefined);
+    window.updateMembers();
     $.ajax({
       url: '/controlpanel/ajax/recreateUserCrews/',
       type: 'POST',
@@ -275,15 +274,14 @@ function deleteMember(t,id) {
       }
     });
   } else {
-    showModal('errors', __('Crews need at least 1 member'));
+    window.showModal('errors', __('Crews need at least 1 member'));
   }
-}
+};
 
-function inviteMember(id) {
+window.inviteMember = function(id) {
   var _id = $('[name="_id"]').val();
   var crew_name = $('[name="crew_name"]').val();
   var permalink = $('[name="permalink"]').val();
-  var collection = 'users';
   var data = JSON.parse($('#'+id).val());
   $('#'+id).parent().find('button').parent().prepend('<span class="loading-box"><img src="/img/loading-small.gif" /></span>');
   $('#'+id).parent().find('button').attr('disabled','disabled');
@@ -306,16 +304,16 @@ function inviteMember(id) {
       }
     }
   });
-}
-function searchMembers(val) {
+};
+window.searchMembers = function() {
   var members = [];
   var membersnotconfirmed = [];
   $('input[name=members\\[\\]]').each(function(){
-      members.push(JSON.parse($(this).val())._id);
-    });
+    members.push(JSON.parse($(this).val())._id);
+  });
   $('input[name=membersnotconfirmed\\[\\]]').each(function(){
-      membersnotconfirmed.push(JSON.parse($(this).val())._id);
-    });
+    membersnotconfirmed.push(JSON.parse($(this).val())._id);
+  });
   ajax = $.ajax({
     url: '/controlpanel/ajax/searchMembers/',
     type: 'POST',
@@ -325,10 +323,10 @@ function searchMembers(val) {
       for (var a=0;a<data.length;a++) {
         var status = '';
         if (members.length && members.indexOf(data[a]._id.toString())!=-1){
-                  status = 'member';
-                } else if (membersnotconfirmed.length && membersnotconfirmed.indexOf(data[a]._id.toString())!=-1){
-                  status = 'membernotconfirmed';
-                }
+          status = 'member';
+        } else if (membersnotconfirmed.length && membersnotconfirmed.indexOf(data[a]._id.toString())!=-1){
+          status = 'membernotconfirmed';
+        }
         str+='<div class="alert alert-info"><div class="clearfix">\n';
         str+='<h4 class="pull-left">'+data[a].display_name+'</h4>\n';
         str+='<span class="pull-right">\n';
@@ -345,15 +343,15 @@ function searchMembers(val) {
       $('#search_result').html(str);
     }
   });
-}
+};
 
 /* EMAILS */
 
-function emailAdd(t){
+window.emailAdd = function(){
   $('#email_add').parent().parent().find('.help-inline').html('<img src="/img/loading-small.gif" />&nbsp;&nbsp;Checking email');
   $('#email_add').parent().parent().find('button').attr('disabled','disabled');
   var email = $('#email_add').val();
-  if (Validators.is_email(email)) {
+  if (window.Validators.is_email(email)) {
     $('#email_add').parent().parent().find('.help-inline').html('<img src="/img/loading-small.gif" />&nbsp;&nbsp;Sending verification email');
     var _id = $('[name="_id"]').val();
     var collection = $('[name="collection"]').val();
@@ -380,9 +378,9 @@ function emailAdd(t){
     $('#email_add').parent().parent().find('button').removeAttr('disabled');
     $('#email_add').parent().parent().parent().removeClass('error');
   });
-}
+};
 
-function emailRemove(t){
+window.emailRemove = function(t){
   var _id = $('[name="_id"]').val();
   var collection = $('[name="collection"]').val();
   var email = $($(t).parent().parent().parent().find('input')[0]).val();
@@ -394,19 +392,22 @@ function emailRemove(t){
     type: 'POST',
     data:{doc_id:_id, email:email, collection:collection},
     success: function(data) {
-    if(data.success){
-    divremove.remove();
-    } else {
-    $('#email_add').parent().parent().find('.help-inline').html('<i class="glyphicon glyphicon-remove"></i> '+data.msg);
-}
+      if(data.success){
+        divremove.remove();
+      } else {
+        $('#email_add').parent().parent().find('.help-inline').html('<i class="glyphicon glyphicon-remove"></i> '+data.msg);
+      }
+    }
+  });
+};
 
-function setPrimary(t){
+window.setPrimary = function(t){
   var _id = $('[name="_id"]').val();
   var collection = $('[name="collection"]').val();
   var email = $($(t).parent().parent().parent().find('input')[0]).val();
   var div = $(t).parent().parent().parent();
-  var oldHelp = $(t).parent().parent().find('.help-inline').html();
-  var oldDelete = $(t).parent().parent().find('.add-on');
+  $(t).parent().parent().find('.help-inline').html();
+  $(t).parent().parent().find('.add-on');
   $(t).parent().parent().find('.add-on').remove();
   $(t).parent().parent().find('.input-append').append('<span class="add-on"><i class="glyphicon glyphicon-lock"></i></span>');
   $(t).parent().parent().find('.help-inline').html('<img src="/img/loading-small.gif" />&nbsp;&nbsp;Deleting');
@@ -420,11 +421,11 @@ function setPrimary(t){
       }
     }
   });
-}
+};
 
-function setNewsletter(email, t){
+window.setNewsletter = function(email, t){
   var _id = $('[name="_id"]').val();
-  var collection = $('[name="collection"]').val();
+  $('[name="collection"]').val();
   var val = [];
   $(t).parent().parent().find('.help-inline').html('<img src="/img/loading-small.gif" />&nbsp;&nbsp;Updating');
   $(t).parent().parent().find('input').each(function() {
@@ -435,24 +436,28 @@ function setNewsletter(email, t){
     url: '/controlpanel/ajax/setNewsletter/',
     type: 'POST',
     data:{doc_id:_id, newsletters:val.concat(','), email:email, lang:lang},
-    success: function(data) {
+    success: function() {
       $(t).parent().parent().find('.help-inline').html('');
     }
   });
-}
+};
 /* MAPS */
 var map;
 var bounds;
 var map_add;
 var allMarkers = [];
 
-function showMapAdd(){
-  showModal('search_map', false, addOnClose);
-  if (!map_add) if(navigator.geolocation) navigator.geolocation.getCurrentPosition(createMapAdd);
-}
+window.showMapAdd = function(){
+  window.showModal('search_map', false, addOnClose);
+  if (!map_add) {
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(createMapAdd);
+    }
+  }
+};
 
 /* MAPS USER GLOBAL*/
-function initializeMap(data) {
+window.initializeMap = function(data) {
   var myOptions = {
     zoom: 17,
     center: new google.maps.LatLng(1,1) ,
@@ -485,11 +490,12 @@ function initializeMap(data) {
     */
   });
   map.fitBounds(bounds);
-}
+};
 
 /* MAPS PICKER*/
 var defaultLat = 41.8929163;
 var defaultLng = 12.482519899999943;
+var defaultBounds = null;
 var center;
 
 function createMapAdd(){
@@ -516,7 +522,7 @@ function createMapAdd(){
 
   $('#geocomplete').geocomplete(options)
     .bind('geocode:result', function(event, result){
-      geo_add = result;
+      //geo_add = result; // ?
       console.log('Result: ' + result.formatted_address);
     })
     .bind('geocode:error', function(event, status){
@@ -556,10 +562,10 @@ function addOnClose() {
   }
 }
 
-function deleteLocation(button) {
+window.deleteLocation = function(button) {
   var div = $(button).parent().parent().parent();
   var obj = $.parseJSON(div.find('input').val());
-  for (item in allMarkers) {
+  for (var item in allMarkers) {
     if (allMarkers[item].position.lat()==obj.lat && allMarkers[item].position.lng()==obj.lng) {
       allMarkers[item].setMap(null);
       delete allMarkers[item];
@@ -571,22 +577,20 @@ function deleteLocation(button) {
       }
     }
   }
-}
+};
 
-function onPositionUpdate(position) {
+window.onPositionUpdate = function(position) {
   defaultLat = position.coords.latitude;
   defaultLng = position.coords.longitude;
   var latlng = new google.maps.LatLng(defaultLat,defaultLng);
-  var marker = new google.maps.Marker({
+  new google.maps.Marker({
     map: map_add,
     position: latlng,
     draggable: true
   });
   map_add.setCenter(latlng);
   map_add.setZoom(17);
-  alert('Current position: ' + lat + ' ' + lng);
-}
-
+};
 
 $.fn.serializeObject = function() {
   var arrayData, objectData;

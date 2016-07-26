@@ -114,10 +114,10 @@ function onChunkedUpload(req, res) {
           });
       }
     },
-            function(reset) {
-              responseData.error = 'Problem storing the chunk!';
-              res.send(responseData);
-            });
+    function() {
+      responseData.error = 'Problem storing the chunk!';
+      res.send(responseData);
+    });
   }
   else {
     failWithTooBigFile(responseData, res);

@@ -103,15 +103,17 @@ exports.performancesGet = function(req, res) {
 exports.performancesSchemaPost = {
   _id: Joi.string().alphanum().min(24).max(24).required()
 };
+/*
 exports.performancesPost = function(req, res) {
-  /*var data = _.defaults(req.body, { });
+  var data = _.defaults(req.body, { });
   User.findByIdAndUpdate(req.body._id, { $set: data }, { new: true }, function (err, event) {
     res.render('controlpanel/events/performances', {
       config: config,
       result: event
     });
-  });*/
+  });
 };
+*/
 
 exports.partnersSchemaGet = {
   event: Joi.string().regex(new RegExp(config.regex.permalink)).required()
@@ -129,15 +131,17 @@ exports.partnersGet = function(req, res) {
 exports.partnersSchemaPost = {
   _id: Joi.string().alphanum().min(24).max(24).required()
 };
+/*
 exports.partnersPost = function(req, res) {
-  /*var data = _.defaults(req.body, { });
+  var data = _.defaults(req.body, { });
    User.findByIdAndUpdate(req.body._id, { $set: data }, { new: true }, function (err, event) {
    res.render('controlpanel/events/partners', {
    config: config,
    result: event
    });
-   });*/
+   });
 };
+*/
 
 exports.galleriesSchemaGet = {
   event: Joi.string().regex(new RegExp(config.regex.permalink)).required()
@@ -155,15 +159,17 @@ exports.galleriesGet = function(req, res) {
 exports.galleriesSchemaPost = {
   _id: Joi.string().alphanum().min(24).max(24).required()
 };
+/*
 exports.galleriesPost = function(req, res) {
-  /*var data = _.defaults(req.body, { });
+  var data = _.defaults(req.body, { });
    User.findByIdAndUpdate(req.body._id, { $set: data }, { new: true }, function (err, event) {
    res.render('controlpanel/events/galleries', {
    config: config,
    result: event
    });
-   });*/
+   });
 };
+*/
 
 exports.visibilitySchemaGet = {
   event: Joi.string().regex(new RegExp(config.regex.permalink)).required()
@@ -277,9 +283,8 @@ exports.newEvent = function put(req, res) {
   var query = { 'permalink': permalink };
   Event.findOne(query, function(err, event) {
     var response = '';
-    if (err) {}
     if (event === null) {
-      Event.create({ permalink: permalink }, function (err, event) {
+      Event.create({ permalink: permalink }, function (err) {
         if (!err) {
           response = '/controlpanel/events/' + permalink + '/public';
         }
@@ -307,7 +312,7 @@ exports.newCallGet = function (req, res) {
     });
     event.settings.call.calls.push({title: __('New call')});
     var call = _.last(event.settings.call.calls);
-    event.save(function (err, event) {
+    event.save(function () {
       res.redirect(call._id);
     });
   });
@@ -323,7 +328,7 @@ exports.deleteCallGet = function (req, res) {
   .exec(function(error, event) {
     var call = event.settings.call.calls.id(req.params.call);
     call.remove();
-    event.save(function (err, event) {
+    event.save(function () {
       res.redirect('../../calls');
     });
   });
@@ -402,7 +407,7 @@ exports.editCallPost = function (req, res) {
     call.markModified('packages');
     call.markModified('topics');
     call.markModified('admitted');
-    event.save(function(err) {
+    event.save(function() {
       res.render('controlpanel/events/call/edit', {
         config: config,
         call: call,

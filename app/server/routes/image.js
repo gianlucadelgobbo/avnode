@@ -10,7 +10,7 @@ exports.get = function get(req, res) {
     height: req.query.h ? req.query.h : 300,
     quality: 1,
     gravity: 'North'
-  }, function(err, stdout, stderr){
+  }, function() {
     var img = fs.readFileSync(config.sitepath+config.uploadpath+req.query.f+'cropped.jpg');
     res.writeHead(200, {'Content-Type': 'image/jpeg' });
     res.end(img, 'binary');

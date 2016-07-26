@@ -61,7 +61,7 @@ router.get('/verify-email/:uuid', function (req, res) {
       var email = _.find(user.emails, {verify: uuid});
       email.valid = 1;
       email.verify = '';
-      user.save(function(err) {
+      user.save(function() {
         res.redirect('/controlpanel/user/emails');
       });
     }
