@@ -8,7 +8,6 @@ var countries = require('country-list')().getData();
 var flatten = require('flat');
 
 exports.publicGet = function(req, res) {
-  console.log(req.user.locations);
   if (req.user.locations.length === 0) {
       req.user.locations.push({street: ''})
   }
