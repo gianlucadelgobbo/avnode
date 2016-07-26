@@ -5,17 +5,16 @@ var _h = require('../../helper/index');
 var uuid = require('uuid');
 var Joi = require('joi');
 var countries = require('country-list')().getData();
-var flatten = require('flat');
 
 exports.publicGet = function(req, res) {
   if (req.user.locations.length === 0) {
-      req.user.locations.push({street: ''})
+    req.user.locations.push({street: ''});
   }
   res.render('controlpanel/user/public', {
     config: config,
     result: req.user
   });
-}
+};
 exports.publicSchemaPost = {
   display_name: Joi.string().required(),
   permalink: Joi.string().alphanum().required(),
@@ -47,7 +46,7 @@ exports.publicPost = function(req, res) {
       result: user
     });
   });
-}
+};
 
 exports.imageGet = function(req, res) {
   var image = '';
@@ -60,7 +59,7 @@ exports.imageGet = function(req, res) {
     result: req.user,
     user: req.user
   });
-}
+};
 exports.imageSchemaPost = {
   image: Joi.string().required()
 };
@@ -68,11 +67,14 @@ exports.imagePost = function(req, res) {
   var data = {
     'image': req.body.image
   };
-  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
-    if (err) res.status(400).send('error');
-    res.json({success: true});
+  User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err) {
+    if (err) {
+      res.status(400).send('error');
+    } else {
+      res.json({success: true});
+    }
   });
-}
+};
 
 exports.passwordGet = function(req, res) {
   res.render('controlpanel/user/password', {
@@ -80,7 +82,7 @@ exports.passwordGet = function(req, res) {
     result: req.user,
     user: req.user
   });
-}
+};
 exports.passwordSchemaPost = {
   password: Joi.string().min(8).required(),
   new_password: Joi.string().min(8).required(),
@@ -91,7 +93,7 @@ exports.passwordPost = function(req, res) {
     if (isMatch) {
       User.findById(req.user._id, function(err, user) {
         user.password = req.body.new_password;
-        user.save(function(err) {
+        user.save(function() {
           _h.mail.sendPasswordChangedMail(user.primaryEmail.email);
           res.render('controlpanel/user/password', {
             config: config,
@@ -116,7 +118,7 @@ exports.passwordPost = function(req, res) {
       });
     }
   });
-}
+};
 
 exports.privateGet = function(req, res) {
   res.render('controlpanel/user/private', {
@@ -125,7 +127,7 @@ exports.privateGet = function(req, res) {
     result: req.user,
     user: req.user
   });
-}
+};
 exports.privateSchemaPost = {
   name: Joi.string().allow(''),
   surname: Joi.string().allow(''),
@@ -148,7 +150,7 @@ exports.privatePost = function(req, res) {
       user: req.user
     });
   });
-}
+};
 
 exports.emailsGet = function(req, res) {
   res.render('controlpanel/user/emails', {
@@ -156,14 +158,14 @@ exports.emailsGet = function(req, res) {
     result: req.user,
     user: req.user
   });
-}
+};
 exports.emailsSchemaPost = {
   primary_email: Joi.string().email().required(),
   emails: Joi.array().items(
     Joi.object().keys({
       email: Joi.string().email().required(),
       verify: Joi.boolean(),
-      public: Joi.boolean(),
+      public: Joi.boolean()
     })
   )
 };
@@ -173,15 +175,15 @@ exports.emailsPost = function(req, res) {
   var newEmails = {
     emails: []
   };
-  newData.emails.forEach(function(newEmail, i) {
+  newData.emails.forEach(function(newEmail) {
     _.defaults(newEmail, {
       public: false,
-      primary: false,
+      primary: false
     });
     if (newEmail.email === newData.primary_email) {
       newEmail.primary = true;
     }
-    existingData.emails.forEach(function(existingEmail, i) {
+    existingData.emails.forEach(function(existingEmail) {
       if (existingEmail.email === newEmail.email) {
         newEmail = _.merge(existingEmail, newEmail);
       }
@@ -199,7 +201,7 @@ exports.emailsPost = function(req, res) {
       user: user
     });
   });
-}
+};
 
 exports.connectionsGet = function(req, res) {
   res.render('controlpanel/user/connections', {
@@ -207,7 +209,7 @@ exports.connectionsGet = function(req, res) {
     result: req.user,
     user: req.user
   });
-}
+};
 exports.connectionsSchemaPost = {
 };
 exports.connectionsPost = function(req, res) {
@@ -220,4 +222,4 @@ exports.connectionsPost = function(req, res) {
       user: user
     });
   });
-}
+};

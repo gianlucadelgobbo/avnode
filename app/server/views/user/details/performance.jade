@@ -28,24 +28,26 @@ block user-content
         li
           - for(var a=0; a<result.users.length; a++)
             i(class="fa fa-user")
-            a(href="#{result.users[a].permalink}", title="#{result.users[a].display_name}")
+            a(href="/#{result.users[a].permalink}", title="#{result.users[a].display_name}")
               = result.users[a].display_name
 
     - if(groupedCategories.type)
         li
           i(class="fa fa-gamepad")
-          a(href="/#{groupedCategories.type.permalink}", title=groupedCategories.type.name)
+          a(href="/performances/#{groupedCategories.type.permalink}/mostrecent/1", title=groupedCategories.type.name)
             =groupedCategories.type.name
     - if(groupedCategories.genre)
         li
           i(class="fa fa-cube")
-          a(href="/#{groupedCategories.genre.permalink}", title=groupedCategories.genre.name)
+          a(href="/performances/#{groupedCategories.genre.permalink}/mostrecent/1", title=groupedCategories.genre.name)
             =groupedCategories.genre.name
+            span.alert-danger=" fix permalink "+ groupedCategories.genre.permalink + " archive list dosn't exist"
     - if(groupedCategories.technique)
         li
           i(class="fa fa-wrench")
-          a(href="/#{groupedCategories.technique.permalink}", title=groupedCategories.technique.name)
+          a(href="/performances/#{groupedCategories.technique.permalink}/mostrecent/1", title=groupedCategories.technique.name)
             =groupedCategories.technique.name
+            span.alert-danger=" fix permalink: "+ groupedCategories.technique.permalink + " archive list dosn't exist"
 
 
   - if(result.text)

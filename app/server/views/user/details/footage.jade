@@ -47,7 +47,7 @@ block user-content
         li
           - for(var a=0; a<result.users.length; a++)
             i(class="fa fa-user")
-            a(href="#{result.users[a].permalink}", title="#{result.users[a].display_name}")
+            a(href="/#{result.users[a].permalink}", title="#{result.users[a].display_name}")
               = result.users[a].display_name
 
   - if(result.text.length)
@@ -59,9 +59,9 @@ block user-content
     ul
       - for(var a=0; a<result.playlists.length; a++)
         li
-          a(href="#{result.playlists[a].permalink}", title="#{result.playlists[a].title}")
+          a(href="/#{result.playlists[a].users[0].permalink}/playlists/#{result.playlists[a].permalink}", title="#{result.playlists[a].title}")
             =result.playlists[a].title
-        //-console.log(result.playlists[a])
+
 
   //-console.log(JSON.stringify(result, null, 20));
   //.pre

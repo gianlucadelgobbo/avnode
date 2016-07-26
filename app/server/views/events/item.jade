@@ -1,50 +1,52 @@
 mixin event_item_content
-	- var section = "events"
-	.box_wrapper
-		a(href="/#{box.users[0].permalink}/events/#{box.permalink}/", title=box.title)
-			img.main_performance_image(alt=__("Thumbnail of") + ": " + box.title, src=_h.media.getFileFormat(box.file, section, "list"))
+  - var section = "events"
+  .box_wrapper
+    a(href="/#{box.users[0].permalink}/events/#{box.permalink}/", title=box.title)
+      img.main_performance_image(alt=__("Thumbnail of") + ": " + box.title, src=_h.media.getFileFormat(box.file, section, "list"))
 
-		a(href="/#{box.users[0].permalink}/events/#{box.permalink}/", title=box.title)
-			h3.main_event_title.col-sm-12= box.title
-		.main_event_box
-			.main_event_details.col-sm-12
-				// MISSING DATA: DATE, TIME, VENUE, CITY, COUNTRY
-				ul.date_time_event_evidence
-					- if(box.schedule[0])
-						li.evidence-date
-							span!=_h.date.writeDate(box.schedule[0].date)
-						//-li.evidence_time.col-xs-6
-							i.fa.fa-clock-o(aria-hidden='true')
-							span.evidence_time_start 20:00
-							span.evidence_time_end 22:00
-						li.evidence_location
-							p
-								span
-									i(class="fa fa-map-marker")
-										span.event_city= box.schedule[0].venue.location.city+" / "
-								span.event_country= box.schedule[0].venue.location.country
-					li
-						i.fa.fa-user(aria-hidden='true')
-							a.event_owner(href="/#{box.users[0].permalink}", title=box.users[0].display_name)= box.users[0].display_name
-						//-each category in box.categories
-							li
-								i(class="fa fa-cube")
-									a(href="/#{category.permalink}", title=category.name)= category.name
-					- if(box.categories)
-						li
-							- for (var a=0;t<box.categories.length;a++)
-							i.fa.fa-cube(aria-hidden='true')
-								span= box.categories[a].name + " "
-							-//console.log(JSON.stringify(box.categories[a], null, 20));
+    a(href="/#{box.users[0].permalink}/events/#{box.permalink}/", title=box.title)
+      h3.main_event_title.col-sm-12= box.title
+    if (box.schedule.length)
+      .main_event_box
+        .main_event_details.col-sm-12
+          ul.date_time_event_evidence
+            li.evidence-date
+              span!=_h.date.writeDate(box.schedule[0].date)
 
-	-//console.log(JSON.stringify(box, null, 20));
+
+            //-li.evidence_time.col-xs-6
+              i.fa.fa-clock-o(aria-hidden='true')
+              span.evidence_time_start 20:00
+              span.evidence_time_end 22:00
+            li.evidence_location
+              p
+                span
+                  i(class="fa fa-map-marker")
+                span.event_city= box.schedule[0].venue.location.city+" / "
+                span.event_country= box.schedule[0].venue.location.country
+            li
+              i.fa.fa-user(aria-hidden='true')
+              a.event_owner(href="/#{box.users[0].permalink}", title=box.users[0].display_name)= box.users[0].display_name
+              //-each category in box.categories
+                  li
+                    i(class="fa fa-cube")
+                    a(href="/#{category.permalink}", title=category.name)= category.name
+            - if(box.categories)
+              li
+                - for (var a=0;t<box.categories.length;a++)
+                i.fa.fa-cube(aria-hidden='true')
+                a(href="/events/#{box.categories[a].permalink}/mostrecent/1")
+                  span= box.categories[a].name + " "
+                -//console.log(JSON.stringify(box.categories[a], null, 20));
+    else
+      .alert-danger="missing box.schedule in app/server/views/events/item.jade"
+
+  -//console.log(JSON.stringify(box, null, 20));
 if (col_number)
-	div.list_item_performer.grid-item.events_performer(class= col_number)
-		+event_item_content
+  div.list_item_performer.grid-item.events_performer(class= col_number)
+    +event_item_content
 else
-	div.list_item_performer.grid-item.col-sm-3(class="col-md-3 events_performer")
-		+event_item_content
+  div.list_item_performer.grid-item.col-sm-3(class="col-md-3 events_performer")
+    +event_item_content
 
--console.log(JSON.stringify(box.schedule[0], null, 20));
-
-
+-//console.log(JSON.stringify(box.schedule[0], null, 20));

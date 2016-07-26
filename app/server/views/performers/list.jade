@@ -5,6 +5,10 @@ block content
   include ../partials/filter-menu
   // template: views/performances/list.jade
   .row.main-list.grid
-    each box in result
-      include ./item
+    -console.log(JSON.stringify(result, null, 20));
+    if(result)
+      each box in result
+        include ./item
+    else
+      .alert-danger="errore on result object"
   include ../partials/pagination

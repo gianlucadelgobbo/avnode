@@ -30,13 +30,13 @@ block user-content
         li
           - for(var a=0; a<result.users.length; a++)
             i(class="fa fa-user")
-            a(href="#{result.users[a].permalink}", title="#{result.users[a].display_name}")
+            a(href="/#{result.users[a].permalink}", title="#{result.users[a].display_name}")
               = result.users[a].display_name
   - if(result.footage.length)
     p="Footages: "+result.footage.length
     .row
       - for(var a=0; a<result.footage.length; a++)
-        .col-sm-4
+        .col-sm-2
           a(href="#{result.footage[a].permalink}", title="#{result.footage[a].title}")
             img.main_performance_image(alt=__("Thumbnail of") + ": " + result.footage[a].title, src=_h.media.getFileFormat(result.footage[a].file.preview, section, "list"))
 

@@ -23,11 +23,11 @@ var resumable = require('../modules/resumable.js')('/tmp/avnode-uploads/');
 var uuid = require('uuid');
 router.use(multipart());
 
-router.post('/upload/image', upload.single('image'), function (req, res, next) {
+router.post('/upload/image', upload.single('image'), function (req, res) {
   var response = '';
   var extension = mime.extension(req.file.mimetype);
   if (extension === 'png' || extension === 'jpeg') {
-    var response = '/warehouse/uploads/' + sha1(req.file.originalname) + '.' + extension;
+    response = '/warehouse/uploads/' + sha1(req.file.originalname) + '.' + extension;
     var destAbsolute = process.cwd() + response;
     fs.createReadStream(req.file.path).pipe(fs.createWriteStream(destAbsolute));
     fs.unlink(req.file.path);
@@ -38,10 +38,10 @@ router.post('/upload/image', upload.single('image'), function (req, res, next) {
 router.get(
   '/validate/permalink/:permalink',
   validateParams({
-    permalink: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
+    permalink: Joi.string().regex(new RegExp(config.regex.permalink)).required()
   }),
   function (req, res) {
-    var query = {'permalink': req.params.permalink}
+    var query = { 'permalink': req.params.permalink };
     User.findOne(query)
     .exec(function(err, user) {
       if (req.user.permalink === req.params.permalink) {
@@ -124,7 +124,7 @@ router.get('/verify-email/:uuid', function (req, res) {
       var email = _.find(user.emails, {verify: uuid});
       email.valid = 1;
       email.verify = '';
-      user.save(function(err) {
+      user.save(function() {
         res.redirect('/controlpanel/user/emails');
       });
     }
@@ -147,30 +147,28 @@ router.get('/verify-user/:uuid', function (req, res) {
 });
 
 router.get(
-    '/search/users/:q',
-    validateParams({
-      q: Joi.string().regex(new RegExp(config.regex.permalink)).required(),
-    }),
-    function (req, res) {
-      // FIXME, validation missing
-      var query = {
-        '$text': {
-          '$search': req.params.q
-        }
+  '/search/users/:q',
+  validateParams({
+    q: Joi.string().regex(new RegExp(config.regex.permalink)).required()
+  }),
+  function (req, res) {
+    // FIXME, validation missing
+    var query = {
+      '$text': {
+        '$search': req.params.q
       }
-      User.find(query)
-        .limit(5)
-        .exec(function(err, users) {
-          var data = [];
-          if (users) {
-            data = users.map(function(user) {
-              return _.pick(user, ['display_name', 'permalink']);
-            });
-          }
-          res.json(data);
+    };
+    User.find(query)
+    .limit(5)
+    .exec(function(err, users) {
+      var data = [];
+      if (users) {
+        data = users.map(function(user) {
+          return _.pick(user, ['display_name', 'permalink']);
         });
-    }
+         res.json(data);
+      }
+    });
+  }
 );
-
-
-module.exports = router
+module.exports = router;

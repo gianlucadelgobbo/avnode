@@ -5,15 +5,12 @@ var _ = require('lodash');
 var _h = require('../helper/index');
 
 exports.get = function get(req, res) {
-  redirect = false
+  var redirect = false;
   if (req.params.filter === undefined
     || req.params.sorting === undefined
     || req.params.page === undefined) {
-    redirect = true
+    redirect = true;
   }
-  var params = _.filter(req.params, function(v, k) {
-    return (k === 'filter' || k === 'page' || k === 'sorting');
-  });
   var section = 'tvshows';
   var page = req.params.page || 1;
   var skip = (page - 1) * config.sections[section].limit;
@@ -23,7 +20,7 @@ exports.get = function get(req, res) {
 
   if (redirect) {
     res.redirect('/' + section + '/' + filter + '/' + sorting + '/' + page);
-    return
+    return;
   }
 
   var path = '/' + section + '/' + _.map(req.params, function(p) { return p; }).join('/') + '/';
@@ -36,8 +33,8 @@ exports.get = function get(req, res) {
     .exec(function(error, tvshow) {
 
       var title = config.sections[section].title;
-      var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
-      var link = '/' + section + '/' + filter + "/" + sorting + "/";
+      var info = ' From ' + skip + ' to ' + (skip + config.sections[section].limit) + ' on ' + total + ' ' + title;
+      var link = '/' + section + '/' + filter + '/' + sorting + '/';
       var pages = _h.pagination(link, skip, config.sections[section].limit, total);
       res.render(section + '/list', {
         title: title,

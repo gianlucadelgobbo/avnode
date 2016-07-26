@@ -7,14 +7,14 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('express-session');
 var flash = require('connect-flash');
-var passport = require('passport');
 var authentication = require('./authentication/passport');
+var i18n = require('i18n');
 
-GLOBAL.i18n = require('i18n');
+GLOBAL.i18n = i18n;
 i18n.configure({
   locales: config.locales,
   defaultLocale: config.defaultLocale,
-  cookie: "avnode",
+  cookie: 'avnode',
   directory: __dirname + '/locales',
   register: global
 });

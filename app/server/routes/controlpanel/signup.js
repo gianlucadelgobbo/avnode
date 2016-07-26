@@ -9,7 +9,6 @@ var countries = require('country-list')().getData();
 var flatten = require('flat');
 
 exports.publicGet = function(req, res) {
-  console.log(req.params);
   res.render('controlpanel/signup/signup', {
     config: config,
     countries: countries,

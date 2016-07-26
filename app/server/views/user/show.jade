@@ -57,6 +57,7 @@ block user-content
                 a(href="/#{performer.permalink}/playlist")(title=__("More playlist from ") + performer.display_name)
                   =__("More Playlist")
                   span=__("+")
+        -console.log(performer.tvshow)
         if performer.tvshow.length
           .col-md-6.footage_box.secondary_box.grid-item-user
             // list template app/server/views/user/show.jade

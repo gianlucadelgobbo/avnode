@@ -33,7 +33,7 @@ block user-content
           li
             - for(var a=0; a<result.users.length; a++)
               i(class="fa fa-user")
-              a(href="#{result.users[a].permalink}", title="#{result.users[a].display_name}")
+              a(href="/#{result.users[a].permalink}", title="#{result.users[a].display_name}")
                 = result.users[a].display_name
 
     - if(result.medias.length)
@@ -57,16 +57,20 @@ block user-content
       h3="Related performances"
 
       - for(var a=0; a<result.performances.length; a++)
-        a(href="#{result.performances[a].permalink}", title="#{result.performances[a].titolo}")
-        =result.performances[a].titolo
+        a(href="/#{result.performances[a].performers[0].login}/performances/#{result.performances[a].permalink}", title="#{result.performances[a].titolo}")
+          =result.performances[a].titolo
+
+
 
 
 
     - if(result.events.length)
       h3="Related events"
       - for(var a=0; a<result.events.length; a++)
-        a(href="#{result.events[a].permalink}", title="#{result.events[a].title}")
+        a(href="/UNKNOWN_EVENT_OWNER/events/#{result.events[a].permalink}", title="#{result.events[a].title}")
           =result.events[a].title
+            span.alert-danger="fix permalink: can't get event's user"
+          -console.log(result.events[a])
 
 
       

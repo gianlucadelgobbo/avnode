@@ -225,5 +225,7 @@
 	"execPopulate": "execPopulate",
 	"populated": "populated",
 	"depopulate": "depopulate",
-	"$__fullPath": "$__fullPath"
+	"$__fullPath": "$__fullPath",
+	"country": "country",
+	" members": " members"
 }

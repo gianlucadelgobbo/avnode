@@ -212,7 +212,7 @@ block content
                     .row
                       each box in groupedArtists.list
                         include ../../performers/item
-                  - if (Object.keys(categories_founded).length)
+                if (Object.keys(categories_founded).length)
                   #categories.tab-pane
                     - var first
                     ul.nav.nav-pills
@@ -241,11 +241,11 @@ block content
                       .row.main-list.grid_tab.grid.day_grid
                         each box in type
                           include ../../performers/item
-                if result.gallery
+                if result.galleries
                   #galleries.tab-pane
                     .container
                       .row.main-list.grid_tab.grid
-                        each box in result.gallery
+                        each box in result.galleries
                           include ../../galleries/item
 
   -//console.log(JSON.stringify(result, null, 20));

@@ -118,4 +118,4 @@ UserSchema.methods.comparePassword = function(password, cb) {
   });
 };
 
-module.exports = UserSchema
+module.exports = UserSchema;

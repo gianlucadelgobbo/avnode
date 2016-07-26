@@ -16,6 +16,7 @@
                         - if (performer.stats.members)
                             li
                                 a(href="/#{performer.permalink}/members/")=__("members") + ' (' + performer.stats.members + ')'
+                                span.alert-danger="fix permalink: " + performer.permalink + " members link dosn't exist"
 
                         - if (performer.stats.performances)
                             li

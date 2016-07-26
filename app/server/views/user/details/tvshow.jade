@@ -10,7 +10,7 @@ block user-content
     li
       - for(var a=0; a<result.users.length; a++)
         i(class="fa fa-user")
-        a(href="#{result.users[a].permalink}", title="#{result.users[a].display_name}")
+        a(href="/#{result.users[a].permalink}", title="#{result.users[a].display_name}")
           = result.users[a].display_name
     - if(result.stats.visits)
     li
@@ -25,7 +25,7 @@ block user-content
       - for(var a=0; a<result.categories.length; a++)
         li
           i(class="fa fa-cube")
-          a(href="#{result.categories[a].permalink}", title="#{result.categories[a].name}")
+          a(href="/tvshows/#{result.categories[a].permalink}/mostrecent/1", title="#{result.categories[a].name}")
             = result.categories[a].name
   p=result.text.en
 
