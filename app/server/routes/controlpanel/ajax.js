@@ -57,7 +57,7 @@ exports.post = function get(req, res) {
         if (req.body.partners && req.body.collection) {
           DB[req.body.collection].findOne({'_id': new ObjectID(req.body._id)}, function (e, o) {
             o.partners = req.body.partners;
-            DB[req.body.collection].save(o, {safe: true}, function (e, success) {
+            DB[req.body.collection].save(o, {safe: true}, function () {
               res.send(o);
             });
           });
@@ -68,17 +68,17 @@ exports.post = function get(req, res) {
         if (req.body._id && req.body.id_partner) {
           DB.users.findOne({'_id': new ObjectID(req.body.id_partner)}, function (e, o) {
             if (o.partnerships && o.partnerships.length) {
-              o.partnerships = o.partnerships.filter(function (element, index, array) {
+              o.partnerships = o.partnerships.filter(function (element) {
                 return (element._id.toString() !== req.body._id);
               });
-              DB.users.save(o, {safe: true}, function (e, success) {
+              DB.users.save(o, {safe: true}, function () {
                 res.send(o);
               });
             } else {
               DB.events.find({'partners._id': new ObjectID(req.body.id_partner)}, {fields: {_id: 1, title: 1, permalink: 1, users: 1, files: 1, categories: 1, stats: 1, date_time_venue: 1}}).toArray(function (e, subrecords) {
               //if (o.partnership) delete o.partnership;
                 if (subrecords) o.partnerships = subrecords;
-                DB.users.save(o, {safe: true}, function (e, success) {
+                DB.users.save(o, {safe: true}, function () {
                   res.send(o);
                 });
               });
@@ -95,14 +95,14 @@ exports.post = function get(req, res) {
             req.body.collection = 'users';
             req.body.redirect = '/' + req.body.permalink + '/';
             req.body.msg = {title: __('Accept invitation to be partner of') + ': ' + req.body.title, text: __('Invitation accepted with success, please continue')};
-            DB.temp.insert(req.body, {safe: true}, function (err, record) {
+            DB.temp.insert(req.body, {safe: true}, function () {
               var text = _config.siteurl + '/confirm/?code=' + req.body.code;
               EM.sendMail({
                 text: text,
                 //to:    req.body.data.emails[0].email,
                 to: 'g.delgobbo@flyer.it',
                 subject: _config.sitename + ' | ' + __('Invitation to') + ': ' + req.body.crew_name
-              }, function (err, message) {
+              }, function (err) {
                 var result = err ? {success: false, msg: __('Email verification sending failed')} : {success: true, msg: __('Email verification sent by email')};
                 res.send(result);
               });
@@ -158,7 +158,7 @@ exports.post = function get(req, res) {
         if (req.body.members && req.body.collection) {
           DB[req.body.collection].findOne({'_id': new ObjectID(req.body._id)}, function (e, o) {
             o.members = req.body.members;
-            DB[req.body.collection].save(o, {safe: true}, function (e, success) {
+            DB[req.body.collection].save(o, {safe: true}, function () {
               res.send(o);
             });
           });
@@ -173,14 +173,14 @@ exports.post = function get(req, res) {
             req.body.collection = 'users';
             req.body.redirect = '/' + req.body.permalink + '/';
             req.body.msg = {title: __('Accept invitation to') + ': ' + req.body.crew_name, text: __('Invitation accepted with success, please continue')};
-            DB.temp.insert(req.body, {safe: true}, function (err, record) {
+            DB.temp.insert(req.body, {safe: true}, function () {
               var text = 'Ciao '+req.body.data.display_name+',\n'+req.session.passport.user.display_name+' invited you to be member of ' + req.body.crew_name+' ' + _config.siteurl+'/'+req.body.permalink+'\n\nTo accept the invitation click here:\n'+_config.siteurl + '/confirm/?code=' + req.body.code+'\n\n'+_config.signature;
               EM.sendMail({
                 text: text,
                 //to:    req.body.data.emails[0].email,
                 to: 'g.delgobbo@flyer.it',
                 subject: _config.sitename + ' | ' + __('Invitation to') + ': ' + req.body.crew_name
-              }, function (err, message) {
+              }, function (err) {
                 var result = err ? {success: false, msg: __('Email verification sending failed')} : {success: true, msg: __('Email verification sent by email')};
                 res.send(result);
               });
@@ -214,7 +214,7 @@ exports.post = function get(req, res) {
                   if (result.emails[a].email == req.body.email && result.emails[a].primary != 1) result.emails.splice(a, a);
                 }
                 if (index == theArray.length - 1) {
-                  DB[req.body.collection].save(result, {safe: true}, function (e, success) {
+                  DB[req.body.collection].save(result, {safe: true}, function () {
                     res.send({success: true, msg: __('Email deleted')});
                   });
                 }
@@ -240,14 +240,14 @@ exports.post = function get(req, res) {
                     result.emails[a].primary = 0;
                   }
                 }
-                for (var a = 0; a < result.emails.length; a++) {
-                  if (result.emails[a].email != req.body.email) {
-                    newMails.push(result.emails[a]);
+                result.emails.forEach(function(email) {
+                  if (email !== req.body.email) {
+                    newMails.push(email);
                   }
-                }
+                });
                 result.emails = newMails;
                 if (index == theArray.length - 1) {
-                  DB[req.body.collection].save(result, {safe: true}, function (e, success) {
+                  DB[req.body.collection].save(result, {safe: true}, function () {
                     res.send({success: true, msg: __('Email is primary')});
                   });
                 }
@@ -265,7 +265,7 @@ exports.post = function get(req, res) {
           //MC.lists.memberInfo({id:'6be13adfd8', emails:[{email:result.emails[index].email}]}, function (data) {
           MC.lists.memberInfo({id: '6be13adfd8', emails: [
             {email: 'g.delgobbo@flyer.it'}
-          ]}, function (data) {
+          ]}, function () {
             req.body.newsletters.pop();
             var mcReq = {
               id: '6be13adfd8',
@@ -321,7 +321,7 @@ exports.post = function get(req, res) {
             } else {
               DB[req.body.collection].findOne({'_id': new ObjectID(req.body.doc_id)}, function (e, o) {
                 o.emails.push({email: req.body.email, valid: 0, public: 0, primary: 0});
-                DB[req.body.collection].save(o, {safe: true}, function (e, success) {
+                DB[req.body.collection].save(o, {safe: true}, function () {
                   DB.saltAndHash(req.body.email, function (hash) {
                     req.body.code = hash;
                     req.body.act = 'newmail';
@@ -329,13 +329,13 @@ exports.post = function get(req, res) {
                     delete req.body.email;
                     req.body.redirect = '/controlpanel/user/emails/';
                     req.body.msg = {title: __('Email verification'), text: __('Email verified with success, please continue')};
-                    DB.temp.insert(req.body, {safe: true}, function (err, record) {
-                      text = _config.siteurl + '/confirm/?code=' + req.body.code;
+                    DB.temp.insert(req.body, {safe: true}, function () {
+                      var text = _config.siteurl + '/confirm/?code=' + req.body.code;
                       EM.sendMail({
                         text: text,
                         to: req.body.data.email,
                         subject: _config.sitename + ' | ' + __('Email verification')
-                      }, function (err, message) {
+                      }, function (err) {
                         var result = err ? {success: false, msg: __('Email verification sending failed')} : {success: true, msg: __('Email verification sent by email')};
                         res.send(result);
                       });

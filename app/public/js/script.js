@@ -1,7 +1,7 @@
-/* global $, document */
+/* global $, document, window */
 
 // t > errors, alert, confirm, search_and_add, search_map
-function showModal(t, m, callback) {
+window.showModal = function(t, m, callback) {
   if (m) $('.modal-'+t+' .modal-body p').html(m);
   $('.modal-'+t).modal('show');
   if ($.isFunction(callback)) {
@@ -9,10 +9,10 @@ function showModal(t, m, callback) {
       callback();
     });
   }
-}
+};
 
 // isotope layout in bootstrap tabs
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+$('a[data-toggle="tab"]').on('shown.bs.tab', function () {
   $('.grid_tab').isotope({
     // options
     itemSelector: '.grid-item',

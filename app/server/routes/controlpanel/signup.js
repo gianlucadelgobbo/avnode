@@ -43,7 +43,7 @@ exports.get = function get(req, res) {
             DB.users.insert(crew, {safe: true}, function(err, record){
               crew = record[0];
               user.crews.push({permalink: crew.permalink,display_name:crew.display_name,_id:crew._id, stats:crew.stats });
-              DB.users.save(user, {safe: true}, function(err, record){
+              DB.users.save(user, {safe: true}, function() {
                 DB.temp_users.remove({'code':req.query.code}, {safe: true}, function(err, record){
                   res.render('forms/user_signup', {title : __('Signup'), countries: CT, result:record, msg:{c:[{m:__('Data saved, please login')}]} , user : req.session.passport.user });
                   /*
@@ -101,7 +101,7 @@ exports.post = function get(req, res) {
           temp.code = hash;
           temp.lang = _config.defaultLocale;
           delete temp.passwordconfirm;
-          DB.temp_users.remove({'email':o.email}, {safe: true}, function(err, record){
+          DB.temp_users.remove({'email':o.email}, {safe: true}, function(){
             DB.temp_users.insert(temp, {safe: true}, function(err, record){
               var text = '';
               text+= __('Ciao')+' '+o.name+',' + '\n';
@@ -112,7 +112,7 @@ exports.post = function get(req, res) {
                 text:    text,
                 to:      o.email,
                 subject: _config.sitename + ' | ' + __('Signup confirmation')
-              }, function(err, message) {
+              }, function() {
                 res.render('forms/user_signup', {title : 'Signup', result:record,msg:{c:[{m:m}]}, user : req.session.passport.user });
               });
             });

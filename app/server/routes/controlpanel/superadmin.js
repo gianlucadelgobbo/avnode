@@ -158,10 +158,6 @@ var generateTVprogramming = function (sres,startdate,enddate){
   console.log(sres[0]);
   var str='';
   var _SERVER_NAME = 'dev.vjtelevision.com';
-  var size = [128,96];
-  var defaultLang = 'en';
-  var lang = 'en';
-  var altLang = 'it';
   var currentdate = new Date(startdate);
   var dayNum = moment(enddate).diff(startdate, 'days')+1;
   var DOCS = [];
@@ -172,11 +168,11 @@ var generateTVprogramming = function (sres,startdate,enddate){
   var VJSETS_time = 0;
   var PERFORMANCES_time = 0;
   var VIDEO_time = 0;
-  var dailyProgram = {};
   var contaVJSETS = 0;
   var contaDOCS = 0;
   var contaVIDEO = 0;
   var contaPERFORMANCES = 0;
+  var dailyTime = 0;
   var update = {};
   str+=__('Genero 1 mese a partire da')+': '+moment(startdate).format('YYYY-MM-DD')+__(' fino a ')+moment(enddate).format('YYYY-MM-DD')+'<br />';
   if(sres){
@@ -246,9 +242,9 @@ var generateTVprogramming = function (sres,startdate,enddate){
     // dalle 6 alle 12
     if(DOCS.length) {
       while(dailyTime<12*60*60*1000) {
-        var catIndex = [];
+        catIndex = [];
         for (var a=0; a<DOCS[contaDOCS].categories.length;a++) catIndex.push(DOCS[contaDOCS].categories[a].name);
-        var ddd = (moment(currentdate).format('YYYY-MM-DD')+' '+_h.date.millisToTime(dailyTime));
+        ddd = (moment(currentdate).format('YYYY-MM-DD')+' '+_h.date.millisToTime(dailyTime));
         if (!update[DOCS[contaDOCS].permalink]) update[DOCS[contaDOCS].permalink] = [];
         update[DOCS[contaDOCS].permalink].push(ddd);
         str+=(ddd+' '+moment(ddd).format('YYYY-MM-DD HH:mm:ss')+' | duration: '+_h.date.millisToTime(DOCS[contaDOCS].files[0].duration)+' | ' +catIndex.join('-')+' | '+DOCS[contaDOCS].title+' | <a target="_blank" href="/'+DOCS[contaDOCS].users[0].permalink+'/tvshows/'+DOCS[contaDOCS]['permalink']+'/">FLxER</a> - <a target="_blank" href="/controlpanel/?edit=tvshows&tvshowid='+DOCS[contaDOCS]['id']+'">FLxER CP</a><br />');

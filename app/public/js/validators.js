@@ -37,7 +37,7 @@ Validators.checkCF = function (cf) {
   }
   return errors;
 };
-Validators.checkVAT = function (pi, country, callback) {
+Validators.checkVAT = function (pi, country) {
   var errors = [];
   switch(country) {
   case 'Italy' :
@@ -128,7 +128,7 @@ Validators.is_email = function(e) {
 };
 Validators.is_date = function (aaaa,mm,gg){
   var res = true;
-  mmNew = parseFloat(mm)-1;
+  var mmNew = parseFloat(mm)-1;
   mm = (mmNew.toString().length==1 ? '0'+mmNew : mmNew);
   var dteDate=new Date(aaaa,mm,gg);
   if (!((gg==dteDate.getDate()) && (mm==dteDate.getMonth()) && (aaaa==dteDate.getFullYear())))

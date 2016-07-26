@@ -2,7 +2,6 @@ var DB = require('../../modules/db-manager');
 var Fnc = require('../../modules/general-functions');
 var ObjectID = require('mongodb').ObjectID;
 var CT = require('../../modules/country-list');
-var util = require('util');
 exports.get = function get(req, res) {
   if (req.session.passport.user == null) {
     res.redirect('/controlpanel/login/?from='+req.url);
@@ -18,34 +17,29 @@ exports.get = function get(req, res) {
       });
     } else {
       var p = Fnc.parseParams(req.params[0]);
-      var page = p.page;
       var params2 = p.params2;
+      var msg = [];
       DB.canIeditThis('performances', {'permalink':params2[0]}, req.session.passport.user, function (result) {
         if (result) {
           var sez = 'performances';
+          var subsez = '';
           if (params2.length==1) {
-            var subsez = 'maindata';
-            var msg = [];
+            subsez = 'maindata';
             res.render('forms/performance_maindata', {locals: {title:result.title+': '+__('Main data'), sez:sez, subsez:subsez, countries: CT, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
           } else if (params2[1]=='mainimage') {
-            var subsez = 'mainimage';
-            var msg = [];
+            subsez = 'mainimage';
             res.render('forms/performance_mainimage', {locals: {title:result.title+': '+__('Main image'), sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
           } else if (params2[1]=='partners') {
-            var subsez = 'partners';
-            var msg = [];
+            subsez = 'partners';
             res.render('forms/performance_partners', {locals: {title:result.title+': '+__('Partners'), sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
           } else if (params2[1]=='performances') {
-            var subsez = 'performances';
-            var msg = [];
+            subsez = 'performances';
             res.render('forms/performance_performances', {locals: {title:result.title+': '+__('Performances'), sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
           } else if (params2[1]=='gallery') {
-            var subsez = 'gallery';
-            var msg = [];
+            subsez = 'gallery';
             res.render('forms/performance_gallery', {locals: {title:result.title+': '+__('Gallery'), sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
           } else if (params2[1]=='settings') {
-            var subsez = 'settings';
-            var msg = [];
+            subsez = 'settings';
             res.render('forms/performance_settings', {locals: {title:result.title+': '+__('Settings'), countries: CT, sez:sez, subsez:subsez, result:result, msg:msg,Fnc:Fnc}, user : req.session.passport.user });
           }
         } else {
@@ -59,7 +53,7 @@ exports.post = function post(req, res) {
   delete req.body.meridian;
   delete req.body.hour;
   delete req.body.minute;
-  ins(req.body);
+  //ins(req.body); // WTF?!
   var sez = 'performances';
   var subsez = 'settings';
   var msg = [];

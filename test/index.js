@@ -14,8 +14,6 @@ init(function(a, s) {
     routesIndexTest(app);
     routesApiTest(app);
   });
-
-  run();
 });
 
 after(function(done) {
