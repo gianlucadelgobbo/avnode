@@ -9,6 +9,7 @@
     "body-parser": "^1.14.1",
     "bower": "^1.7.1",
     "connect-flash": "^0.1.1",
+    "connect-multiparty": "^2.0.0",
     "cookie-parser": "^1.4.0",
     "country-list": "0.0.3",
     "emailjs": "^1.0.0",

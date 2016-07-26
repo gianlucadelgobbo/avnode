@@ -8,7 +8,6 @@ var countries = require('country-list')().getData();
 var flatten = require('flat');
 
 exports.publicGet = function(req, res) {
-  console.log(req.user.locations);
   if (req.user.locations.length === 0) {
       req.user.locations.push({street: ''})
   }
@@ -51,9 +50,13 @@ exports.publicPost = function(req, res) {
 }
 
 exports.imageGet = function(req, res) {
+  var image = '';
+  if (req.user.image) {
+    var image = req.user.image
+  }
   res.render('controlpanel/user/image', {
     config: config,
-    image: req.user.files[0],
+    image: image,
     result: req.user,
     user: req.user
   });
@@ -63,7 +66,7 @@ exports.imageSchemaPost = {
 };
 exports.imagePost = function(req, res) {
   var data = {
-    'files.0.file': req.body.image
+    'image': req.body.image
   };
   User.findByIdAndUpdate(req.user._id, { $set: data }, { new: true }, function (err, user) {
     if (err) res.status(400).send('error');
