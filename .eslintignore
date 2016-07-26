@@ -1,0 +1,10 @@
+node_modules/*
+bower_components/*
+app/public/modules/readmore-js/readmore.js
+app/public/modules/sidr/jquery.sidr.min.js
+app/public/modules/jquery-ui/jquery-ui-1.10.2.custom.min.js
+app/public/modules/jquery-ui/jquery-ui-1.10.2.custom.js
+app/public/modules/geocomplete/jquery.geocomplete.min.js
+app/public/modules/birthdaypicker/bday-picker.min.js
+app/public/modules/birthdaypicker/bday-picker.js
+app/public/fp
