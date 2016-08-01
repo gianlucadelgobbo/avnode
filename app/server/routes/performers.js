@@ -28,7 +28,7 @@ exports.get = function get(req, res) {
 
   // TODO: Validate that the params above are configured in `config`, if not
   // => 404 or 500
-
+  console.log(config.sections[section].sortQ[sorting]);
   Performer.count(query, function(error, total) {
     Performer.find(query)
     .limit(config.sections[section].limit)
