@@ -250,15 +250,15 @@
       },
       "sortQ": {
         "mostactive": {
-          "activity": -1
+          "activity": 1
         },
         "mostrecent": {
           "creation_date": -1
         }
       },
       "labels": {
-        "mostrecent":"Most recent",
         "mostactive":"Most active",
+        "mostrecent":"Most recent",
         "all":"All",
         "individuals":"Individuals",
         "crews":"Crews"
