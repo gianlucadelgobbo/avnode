@@ -1,34 +1,24 @@
+/* global $, document, window */
+
 // t > errors, alert, confirm, search_and_add, search_map
-function showModal(t, m, callback) {
+window.showModal = function(t, m, callback) {
   if (m) $('.modal-'+t+' .modal-body p').html(m);
   $('.modal-'+t).modal('show');
   if ($.isFunction(callback)) {
     $('.modal-'+t).on('hidden.bs.modal', function () {
       callback();
-    })
+    });
   }
-}
-
-
-
+};
 
 // isotope layout in bootstrap tabs
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+$('a[data-toggle="tab"]').on('shown.bs.tab', function () {
   $('.grid_tab').isotope({
     // options
     itemSelector: '.grid-item',
     layoutMode: 'masonry'
   });
 });
-
-
-
-
-
-
-
-
-
 
 // isotope layout in lists
 $('.grid').imagesLoaded(function() {
@@ -38,7 +28,6 @@ $('.grid').imagesLoaded(function() {
     layoutMode: 'masonry'
   });
 });
-
 
 $('.grid-user').imagesLoaded(function() {
   $('.grid-user').isotope({
@@ -61,7 +50,7 @@ $('.grid').imagesLoaded(function() {
 $('.readmore').readmore({
   speed: 500,
   moreLink: '<a title="Read more..." href="#" class="readmore_button"><i class="fa fa-plus-circle"></i></a>',
-  lessLink: '<a title="Read less..." href="#" class="readmore_button"><i class="fa fa-minus-circle"></i></a>',
+  lessLink: '<a title="Read less..." href="#" class="readmore_button"><i class="fa fa-minus-circle"></i></a>'
 });
 
 // swiping menu
@@ -71,7 +60,5 @@ $(document).ready(function() {
   });
 });
 
-
 // equal elements
 $('.equalteaser').equalHeights();
-

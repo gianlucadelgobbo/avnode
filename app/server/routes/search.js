@@ -9,15 +9,15 @@ exports.get = function get(req, res) {
       DB.delete_client(req.query.id, function(err, obj){
         if (obj){
           msg.c = [];
-          msg.c.push({name:"",m:__("Client deleted successfully")});
+          msg.c.push({name:'',m:__('Client deleted successfully')});
         } else {
           msg.e = [];
-          msg.e.push({name:"",m:__("Client not found")});
+          msg.e.push({name:'',m:__('Client not found')});
         }
       });
     }
     DB.clients.find({}).toArray(function(e, result) {
-      res.render('clients', { title: __("Clients"), result : result, msg: msg, user : req.session.passport.user });
+      res.render('clients', { title: __('Clients'), result : result, msg: msg, user : req.session.passport.user });
     });
   }
 };

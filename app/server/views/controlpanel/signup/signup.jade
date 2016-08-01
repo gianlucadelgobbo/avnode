@@ -1,0 +1,73 @@
+extends ../../layout
+include ../mixins
+
+block content
+	block variables
+		.row
+			form(method="post", autocomplete="off", data-parsley-validate)
+				.row
+					.col-md-12
+						.form-group
+							label(for="gender")=__("Gender")
+							select#gender(name="gender",required).form-control
+								option(value="")=__("Gender")
+								option(value="M",selected=(result.gender=="M" ? "selected" : undefined))=__("M")
+								option(value="F",selected=(result.gender=="F" ? "selected" : undefined))=__("F")
+								option(value="Other",selected=(result.gender=="Other" ? "selected" : undefined))=__("Other")
+					.col-md-6
+						.form-group
+							label(for="name")=__("Name")
+							input#name(type="text", value=result.name, name="name", placeholder=__("Name"), required).form-control
+					.col-md-6
+						.form-group
+							label(for="surname")=__("Surname")
+							input#surname(type="text", value=result.surname, name="surname", placeholder=__("Surname"), required).form-control
+				.row
+					.col-md-12
+						.form-group
+							label(for="email")=__("Email")
+							input#email(value=result.email, name="emails[0][email]", placeholder=__("Your Email Address"), type="email", required).form-control
+				.row
+					.col-md-6
+						.form-group
+							label(for="name")=__("Password")
+							input.form-control#new_password(type="password", name="new_password", placeholder=__("New password"), minlength="8", required)
+					.col-md-6
+						.form-group
+							label(for="password")=__("Confirm password")
+							input.form-control(type="password", name="new_password_confirm", placeholder=__("Confirm new password"), required, data-parsley-equalto="#new_password")
+				.row
+					.col-md-12
+						.form-group
+							label(for="Birthday")=__("Birthday")
+							.input-group.date.datepicker(data-date=result.birth_date, data-date-format="yyyy-mm-dd")
+								input.form-control(name="birth_date", value=result.birth_date, type="text", readonly)
+								span.input-group-addon
+									i.glyphicon.glyphicon-calendar
+						.form-group
+							label(for="citizenship")=__("Country of citizenship")
+							select#citizenship(name="citizenship", required).form-control
+								option(value="")=__("Country")
+								each country in countries
+									option(value=country.name,selected=(result.citizenship && country.name==result.citizenship ? "selected" : undefined))=country.name
+				legend=__("Member public data")
+				.row
+					.col-md-12
+						.form-group
+							label(for="display_name")=__("Stage name")
+							input.form-control(type="text", value=result.display_name, name="display_name", placeholder=__("Stage name"), required)
+				.row
+					.col-md-12
+						.form-group
+							label(for="permalink")=__("Profile url")
+							input.form-control(type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="#{config.regex.permalink}", data-parsley-remote-validator="reverse", data-parsley-remote="#{config.baseurl}api/validate/permalink/{value}")
+							.help-block="https://avnode.net/"
+								span.permalink_print
+				.controls
+					button(type="submit").btn.btn-primary.pull-right=__("Get Started")+"  "
+						i.glyphicon.glyphicon-forward.glyphicon.glyphicon-white
+		//- FIXME remove generic inline scripts
+		script.
+			$(document).ready(function() {
+				$(".date").datepicker({ });
+			});

@@ -1,4 +1,4 @@
-var passport = require('passport')
+var passport = require('passport');
 var local = require('./strategies/local');
 var facebook = require('./strategies/facebook');
 var twitter = require('./strategies/twitter');
@@ -28,4 +28,4 @@ module.exports = function(app) {
 
   app.use(passport.initialize());
   app.use(passport.session());
-}
+};

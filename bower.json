@@ -20,8 +20,6 @@
     "fine-uploader": "~4.4.0",
     "swfobject": "*",
     "bootstrap-switch": "~3.0.0",
-    "isotope": "^2.2.2",
-    "imagesloaded": "^4.1.0",
     "baseheight": "^1.0.0",
     "jQuery.equalHeights": "jquery.equalheights#~1.5.2"
   }

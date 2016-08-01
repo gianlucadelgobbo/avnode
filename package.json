@@ -9,6 +9,7 @@
     "body-parser": "^1.14.1",
     "bower": "^1.7.1",
     "connect-flash": "^0.1.1",
+    "connect-multiparty": "^2.0.0",
     "cookie-parser": "^1.4.0",
     "country-list": "0.0.3",
     "emailjs": "^1.0.0",
@@ -50,14 +51,16 @@
     "uuid": "^2.0.1"
   },
   "devDependencies": {
+    "eslint": "^3.1.1",
     "mocha": "^2.3.4",
     "nodemon": "^1.8.1",
     "supertest": "^1.1.0"
   },
   "scripts": {
     "start": "node app.js",
-    "test": "mocha test/index.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "echo \"Add tests soon\"",
+    "pretest": "eslint -c .eslintrc.json --ignore-path .gitignore --ignore-path .eslintignore ."
   },
   "repository": {
     "type": "git",

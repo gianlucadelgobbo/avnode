@@ -30,6 +30,11 @@ module.exports = new Schema({
     likes: Number,
     shares: Number
   },
+  counters: {
+    audio: Number,
+    img: Number,
+    video: Number
+  },
   performances: [Performancesummary], // Gallery can be connected to performances or events
   events: [Eventsummary] // Gallery can be connected to performances or events
 });

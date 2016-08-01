@@ -1,33 +1,39 @@
 mixin gallery_item_content
   a(href="/#{box.users[0].permalink}/galleries/#{box.permalink}/", title=box.title)
     .image_box.wrapper_item
-      img.main_performance_image(alt=__("Thumbnail of") + ": " + box.title, src=_h.media.getFileFormat(box.file, section, "list"))
+      -//console.log(JSON.stringify(box.file, null, 20));
+      if(box.file.length)
+        img.main_performance_image(alt=__("Thumbnail of") + ": " + box.title, src=_h.media.getFileFormat(box.file, section, "list"))
+      else
+        .alert-danger(style="height:200px")
+          ="missing box.file in app/server/views/galleries/item.jade"
       .footage_stats.box_stats.overlay_wrapper_top
         ul.list-inline
-          li
-            i(class="fa fa-picture-o")
-            span= box.stats.img
-          li
-            // MISSING DATA: NUMBER OF VIDEO
-            i(class="fa fa-video-camera")
-            span= box.stats.video
+          - if(box.stats.img)
+            li
+              i(class="fa fa-picture-o")
+              span= box.stats.img
+          - if(box.stats.video)
+            li
+              i(class="fa fa-video-camera")
+              span= box.stats.video
           li
             i(class="fa fa-eye")
             span= box.stats.visits
       .title_and_info_container.overlay_wrapper
         h3= box.title
         ul.list-inline.box_other_infos
-          li
+          //li
             i(class="fa fa-caret-right")
             // MISSING DATA: TYPOLOGY
             span typology
-          li
+          //li
             i(class="fa fa-map-marker")
             // MISSING DATA: TYPOLOGY
             span= "location "
             span= "city "
             span country
-
+  -//console.log(JSON.stringify(box.stats, null, 20));
 if (col_number)
   div.list_item_performer.grid-item.gallery_footage(class= col_number)
     +gallery_item_content

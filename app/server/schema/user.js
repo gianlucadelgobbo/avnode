@@ -27,8 +27,11 @@ var UserSchema = new Schema({
   display_name: {
     type: String
   },
+  confirmed: {type: Boolean, default: false},
   is_public: {type: Boolean, default: true},
+  image: String,
   file: File,
+  files: Array,
   activity: Number,
   stats: {
     members: Number,
@@ -38,6 +41,7 @@ var UserSchema = new Schema({
     tvshows: Number,
     playlists: Number,
     events: Number,
+    partnerships: Number,
     galleries: Number,
     friends: Number
   },
@@ -81,6 +85,7 @@ var UserSchema = new Schema({
   performances: [Performancesummary],
   playlists: [Playlist],
   tvshow: [Tvshow],
+  verify: String
 });
 
 UserSchema.virtual('primaryEmail').get(function () {
@@ -113,4 +118,4 @@ UserSchema.methods.comparePassword = function(password, cb) {
   });
 };
 
-module.exports = UserSchema
+module.exports = UserSchema;

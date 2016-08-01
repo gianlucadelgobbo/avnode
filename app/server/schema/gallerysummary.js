@@ -1,9 +1,6 @@
 var Schema = require('mongoose').Schema;
 var User = require('./user');
 var File = require('./file');
-var Media = require('./media');
-var Eventsummary = require('./eventsummary');
-var Performancesummary = require('./performancesummary');
 
 var config = require('getconfig');
 
@@ -27,5 +24,10 @@ module.exports = new Schema({
     visits: Number,
     likes: Number,
     shares: Number
+  },
+  counters: {
+    audio: Number,
+    img: Number,
+    video: Number
   }
 });

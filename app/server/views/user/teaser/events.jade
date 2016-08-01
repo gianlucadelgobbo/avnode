@@ -11,29 +11,23 @@
           a.col-sm-12.main_event_title_wrapper(href="/#{event.users[0].permalink}/events/#{event.permalink}", title=event.title)
             h3.main_event_title=event.title
           .main_performer_box
-            .col-xs-12
-              // MISSING DATA: DATE, TIME, VENUE, CITY, COUNTRY
-              ul.row.date_time_event_evidence
-                li.evidence-date.col-xs-6
-                  span 31
-                  span.evidence-date_sep /
-                  span 12
-                  span.evidence-date_sep /
-                  span 1999
-                li.evidence_time.col-xs-6
-                  i.fa.fa-clock-o(aria-hidden='true')
-                  span.evidence_time_start 20:00
-                  span.evidence_time_end 22:00
-                li.evidence_location.col-xs-12
-                  i(class="fa fa-map-marker")
-                  span.event_location= event.event_loc + __(", ")
-                  span.event_city= event.event_city + __(", ")
-                  span.event_country= event.event_country
+            -//console.log(JSON.stringify(event, null, 20));
+            if(event.schedule.length)
+              .col-xs-12
+                ul.row.date_time_event_evidence
+                  li.evidence-date.col-xs-12
+                    span!=_h.date.writeDate(event.schedule[0].date)
+                  li.evidence_location.col-xs-12
+                    span
+                      i(class="fa fa-map-marker")
+                    span.event_city= event.schedule[0].venue.name + " / "
+                    span.event_city= event.schedule[0].venue.location.city + " / "
+                    span.event_country= event.schedule[0].venue.location.country
 
             .col-sm-6.col-xs-12.col-md-12
                 ul.evidence-event_categories.list-inline
                   li
-                    i.fa.fa-caret-right(aria-hidden='true')
+                    i.fa.fa-user(aria-hidden='true')
                     a.event_owner(href="/#{event.users[0].permalink}", title=event.users[0].display_name)= event.users[0].display_name
                   each category in event.categories
                     li

@@ -13,12 +13,17 @@ mixin performer_item_content
           .col-sm-12!="<b>"+item+"</b>, " + groupedLocations[item].join(", ")
         ul.col-sm-12
           if box.stats.members
-            li= box.stats.members +__(" Members")
+            li
+              a(href="/#{box.permalink}/members" title="#{box.permalink} members")
+                =box.stats.members + __(" members")
+                span.alert-danger=" fix permalink: " + box.permalink + " members link dosn't exist"
           if(box.stats.performances)
-            li= box.stats.performances +__(" Performances")
+            li
+              a(href="/#{box.permalink}/performances" title="#{box.permalink} performances")
+                =box.stats.performances +__(" Performances")
           if(box.stats.events)
             li= box.stats.events +__(" Events")
-
+  - //console.log(JSON.stringify(box, null, 20));
 if (col_number)
   div.list_item_performer.grid-item.performer_performer(class= col_number)
     +performer_item_content
