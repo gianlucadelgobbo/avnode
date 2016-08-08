@@ -1,33 +1,33 @@
 .modal-search_map.modal.fade
-	.modal-dialog
-		.modal-content
-			.modal-header
-				button.close(data-dismiss='modal') x
-				h3=__("Google map search")
-			.modal-body
-				form#search-map-form.form-inline
-					#map_canvas_add
-					br
-					input#geocomplete.form-control(placeholder=__("Type in an address"),type="text")
-					button#find.btn(type="button")=__("SEARCH")
-					input(name="name",type="hidden", autocomplete="off")
-					input(name="lat",type="hidden", autocomplete="off")
-					input(name="lng",type="hidden", autocomplete="off")
-					input(name="formatted_address",type="hidden", autocomplete="off")
-					input(name="bounds",type="hidden", autocomplete="off")
-					input(name="viewport",type="hidden", autocomplete="off")
-					input(name="route",type="hidden", autocomplete="off")
-					input(name="street_number",type="hidden", autocomplete="off")
-					input(name="postal_code",type="hidden", autocomplete="off")
-					input(name="locality",type="hidden", autocomplete="off")
-					input(name="sublocality",type="hidden", autocomplete="off")
-					input(name="country",type="hidden", autocomplete="off")
-					input(name="country_short",type="hidden", autocomplete="off")
-					input(name="administrative_area_level_1",type="hidden", autocomplete="off")
-					input(name="id",type="hidden", autocomplete="off")
-					input(name="reference",type="hidden", autocomplete="off")
-					input(name="url",type="hidden", autocomplete="off")
-					input(name="website",type="hidden", autocomplete="off")
-			.modal-footer
-				button(data-dismiss="modal").cancel.btn=__("Cancel")
-				button(data-dismiss="modal")#ok.btn.btn-success=__("ADD")
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(data-dismiss='modal') x
+        h3=__("Google map search")
+      .modal-body
+        form#search-map-form.form-inline
+          #map_canvas_add
+          br
+          input#geocomplete.form-control(placeholder=__("Type in an address"),type="text")
+          button#find.btn(type="button")=__("SEARCH")
+          input(name="name",type="hidden", autocomplete="off")
+          input(name="lat",type="hidden", autocomplete="off")
+          input(name="lng",type="hidden", autocomplete="off")
+          input(name="formatted_address",type="hidden", autocomplete="off")
+          input(name="bounds",type="hidden", autocomplete="off")
+          input(name="viewport",type="hidden", autocomplete="off")
+          input(name="route",type="hidden", autocomplete="off")
+          input(name="street_number",type="hidden", autocomplete="off")
+          input(name="postal_code",type="hidden", autocomplete="off")
+          input(name="locality",type="hidden", autocomplete="off")
+          input(name="sublocality",type="hidden", autocomplete="off")
+          input(name="country",type="hidden", autocomplete="off")
+          input(name="country_short",type="hidden", autocomplete="off")
+          input(name="administrative_area_level_1",type="hidden", autocomplete="off")
+          input(name="id",type="hidden", autocomplete="off")
+          input(name="reference",type="hidden", autocomplete="off")
+          input(name="url",type="hidden", autocomplete="off")
+          input(name="website",type="hidden", autocomplete="off")
+      .modal-footer
+        button(data-dismiss="modal").cancel.btn=__("Cancel")
+        button(data-dismiss="modal")#ok.btn.btn-success=__("ADD")

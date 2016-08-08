@@ -1,82 +1,82 @@
 extends ../layout
 
 block variables
-	- var activeChapter='user'
-	- var activeSection='private'
+  - var activeChapter='user'
+  - var activeSection='private'
 
 block inner-content
-	include ./menu
-	+render-alerts(alerts)
-	form.form-horizontal(method="post", data-parsley-validate)
-		fieldset
-			legend=__("General")
-			.form-group
-				label.col-sm-2.control-label=__("Name")
-				.col-sm-10
-					input(name="name", value=result.name, type="text", placeholder=__("Name")).form-control
-			.form-group
-				label.col-sm-2.control-label=__("Surname")
-				.col-sm-10
-					input(name="surname", value=result.surname, type="text", placeholder=__("Surname")).form-control
-			.form-group
-				label.col-sm-2.control-label=__("Birthday")
-				.col-sm-10
-					.input-group.date.datepicker(data-date=result.birth_date, data-date-format="yyyy-mm-dd")
-						input.form-control(name="birth_date", value=result.birth_date, type="text", readonly)
-						span.input-group-addon
-							i.glyphicon.glyphicon-calendar
-			.form-group
-				label.col-sm-2.control-label=__("Gender")
-				.col-sm-10
-					select(name="gender",style="width:100px;").form-control
-						option(value="")=__("Gender")
-						option(value="M",selected=(result.gender=="M" ? "selected" : undefined))=__("M")
-						option(value="F",selected=(result.gender=="F" ? "selected" : undefined))=__("F")
-						option(value="Other",selected=(result.gender=="Other" ? "selected" : undefined))=__("Other")
-			.form-group
-				label.col-sm-2.control-label=__("Country of citizenship")
-				.col-sm-10
-					select(name="citizenship").form-control
-						option(value="")=__("Country")
-						each country in countries
-							option(value=country.name,selected=(result.citizenship && country.name==result.citizenship ? "selected" : undefined))=country.name
-			.form-group
-				label.col-sm-2.control-label=__("Phonenumbers")
-				.col-sm-10
-					#phonenumbers
-					button.add-phonenumber.btn.btn-default
-						i.fa.fa-plus
-						=" "
-						=__("Add phonenumber")
-			script(id="phonenumber", type="text/x-handlebars-template")
-				.input-group.phonenumber
-					input.form-control(autocomplete="off", name="phonenumbers[]", value="{{phonenumber}}", type="text", required)
-					.input-group-btn
-						button.delete-phonenumber.btn.btn-danger
-							i.fa.fa-trash
-			//- FIXME
-			script.
-				$(document).ready(function() {
-					var source   = $("#phonenumber").html();
-					var template = Handlebars.compile(source);
-					var data = !{JSON.stringify(result.phonenumbers)};
-					data.forEach(function(phonenumber) {
-						$(template({ phonenumber: phonenumber})).appendTo($('#phonenumbers'));
-					});
-					$(document).on('click', '.delete-phonenumber', function(ev) {
-						ev.preventDefault();
-						$(this).closest('.phonenumber').remove();
-					});
-					$(document).on('click', '.add-phonenumber', function(ev) {
-						ev.preventDefault();
-						$(template({})).appendTo($('#phonenumbers'));
-					});
-				});
+  include ../menu_user
+  +render-alerts(alerts)
+  form.form-horizontal(method="post", data-parsley-validate)
+    fieldset
+      legend=__("General")
+      .form-group
+        label.col-sm-2.control-label=__("Name")
+        .col-sm-10
+          input(name="name", value=result.name, type="text", placeholder=__("Name")).form-control
+      .form-group
+        label.col-sm-2.control-label=__("Surname")
+        .col-sm-10
+          input(name="surname", value=result.surname, type="text", placeholder=__("Surname")).form-control
+      .form-group
+        label.col-sm-2.control-label=__("Birthday")
+        .col-sm-10
+          .input-group.date.datepicker(data-date=result.birth_date, data-date-format="yyyy-mm-dd")
+            input.form-control(name="birth_date", value=result.birth_date, type="text", readonly)
+            span.input-group-addon
+              i.glyphicon.glyphicon-calendar
+      .form-group
+        label.col-sm-2.control-label=__("Gender")
+        .col-sm-10
+          select(name="gender",style="width:100px;").form-control
+            option(value="")=__("Gender")
+            option(value="M",selected=(result.gender=="M" ? "selected" : undefined))=__("M")
+            option(value="F",selected=(result.gender=="F" ? "selected" : undefined))=__("F")
+            option(value="Other",selected=(result.gender=="Other" ? "selected" : undefined))=__("Other")
+      .form-group
+        label.col-sm-2.control-label=__("Country of citizenship")
+        .col-sm-10
+          select(name="citizenship").form-control
+            option(value="")=__("Country")
+            each country in countries
+              option(value=country.name,selected=(result.citizenship && country.name==result.citizenship ? "selected" : undefined))=country.name
+      .form-group
+        label.col-sm-2.control-label=__("Phonenumbers")
+        .col-sm-10
+          #phonenumbers
+          button.add-phonenumber.btn.btn-default
+            i.fa.fa-plus
+            =" "
+            =__("Add phonenumber")
+      script(id="phonenumber", type="text/x-handlebars-template")
+        .input-group.phonenumber
+          input.form-control(autocomplete="off", name="phonenumbers[]", value="{{phonenumber}}", type="text", required)
+          .input-group-btn
+            button.delete-phonenumber.btn.btn-danger
+              i.fa.fa-trash
+      //- FIXME
+      script.
+        $(document).ready(function() {
+          var source   = $("#phonenumber").html();
+          var template = Handlebars.compile(source);
+          var data = !{JSON.stringify(result.phonenumbers)};
+          data.forEach(function(phonenumber) {
+            $(template({ phonenumber: phonenumber})).appendTo($('#phonenumbers'));
+          });
+          $(document).on('click', '.delete-phonenumber', function(ev) {
+            ev.preventDefault();
+            $(this).closest('.phonenumber').remove();
+          });
+          $(document).on('click', '.add-phonenumber', function(ev) {
+            ev.preventDefault();
+            $(template({})).appendTo($('#phonenumbers'));
+          });
+        });
 
-			+save-button
+      +save-button
 
-	//- FIXME remove generic inline scripts
-	script.
-		$(document).ready(function() {
-			$(".date").datepicker({ });
-		});
+  //- FIXME remove generic inline scripts
+  script.
+    $(document).ready(function() {
+      $(".date").datepicker({ });
+    });

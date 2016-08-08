@@ -1,39 +1,39 @@
 extends ../layout
 
 block variables
-	- var activeChapter='crews'
-	- var activeSection='members'
+  - var activeChapter='crews'
+  - var activeSection='members'
 
 block inner-content
-	include ./menu
-	+render-alerts(alerts)
-	div.row
-		div.col-md-12
-			.navbar
-				.input-group
-					input.form-control.input-lg.typeahead(autocomplete="off", type="text", name="invite")
-					.input-group-btn
-						button.search.btn.btn-default.btn-lg
-							i.fa.fa-search
-							=" "
-							=__("Search for users to invite")
+  include ../menu
+  +render-alerts(alerts)
+  div.row
+    div.col-md-12
+      .navbar
+        .input-group
+          input.form-control.input-lg.typeahead(autocomplete="off", type="text", name="invite")
+          .input-group-btn
+            button.search.btn.btn-default.btn-lg
+              i.fa.fa-search
+              =" "
+              =__("Search for users to invite")
 
-	div.row
-		div.col-md-12
-			each box in result.members
-				.panel.panel-default
-					.panel-heading
-						.row
-							.col-sm-9
-								h5=box.display_name
-							.col-sm-3.text-right
-								.btn-group
-									a.btn.btn-default(href="/#{box.permalink}")
-										i.fa.fa-eye
-									a.btn.btn-warning(href="#")
-										i.fa.fa-chain-broken
+  div.row
+    div.col-md-12
+      each box in result.members
+        .panel.panel-default
+          .panel-heading
+            .row
+              .col-sm-9
+                h5=box.display_name
+              .col-sm-3.text-right
+                .btn-group
+                  a.btn.btn-default(href="/#{box.permalink}")
+                    i.fa.fa-eye
+                  a.btn.btn-warning(href="#")
+                    i.fa.fa-chain-broken
 
-	//- FIXME connect with API /api/search/users/...
-	script.
-		$(document).ready(function() {
-		});
+  //- FIXME connect with API /api/search/users/...
+  script.
+    $(document).ready(function() {
+    });

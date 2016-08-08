@@ -1,0 +1,31 @@
+nav.navbar.navbar-default
+  .navbar-header
+    .navbar-brand=result.display_name ? result.display_name : result.title ? result.title : activeChapter
+    button.navbar-toggle.collapsed(data-toggle="collapse", data-target="#section-menu")
+      i.fa.fa-bars
+  #section-menu.collapse.navbar-collapse
+    ul.nav.navbar-nav
+      - if (config.controlpanel.chapters[activeChapter].user_sections)
+        each section in config.controlpanel.chapters[activeChapter].user_sections
+          if activeSection == section.val
+            li.active
+              a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)
+          else
+            li
+              a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)
+      - if (result.login == 'GianlucaDelGobbo' && config.controlpanel.chapters[activeChapter].member_sections)
+        each section in config.controlpanel.chapters[activeChapter].member_sections
+          if activeSection == section.val
+            li.active
+              a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)
+          else
+            li
+              a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)
+      - if (result.login == 'GianlucaDelGobbo' && config.controlpanel.chapters[activeChapter].superadmin_sections)
+        each section in config.controlpanel.chapters[activeChapter].superadmin_sections
+          if activeSection == section.val
+            li.active
+              a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)
+          else
+            li
+              a(href="/controlpanel/#{activeChapter}/#{result.permalink}/#{section.val}")=__(section.label)

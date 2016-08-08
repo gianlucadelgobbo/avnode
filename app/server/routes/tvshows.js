@@ -5,56 +5,55 @@ var _ = require('lodash');
 var _h = require('../helper/index');
 
 exports.get = function get(req, res) {
-  redirect = false
+  var redirect = false;
   if (req.params.filter === undefined
     || req.params.sorting === undefined
     || req.params.page === undefined) {
-    redirect = true
+    redirect = true;
   }
-	var params = _.filter(req.params, function(v, k) {
-		return (k === 'filter' || k === 'page' || k === 'sorting');
-	});
-	var section = 'tvshows';
-	var page = req.params.page || 1;
-	var skip = (page - 1) * config.sections[section].limit;
-	var filter = req.params.filter || config.sections[section].categories[0];
-	var query = config.sections[section].searchQ[filter];
-	var sorting = req.params.sorting || config.sections[section].orders[0];
+  var section = 'tvshows';
+  var page = req.params.page || 1;
+  var skip = (page - 1) * config.sections[section].limit;
+  var filter = req.params.filter || config.sections[section].categories[0];
+  var query = config.sections[section].searchQ[filter];
+  var sorting = req.params.sorting || config.sections[section].orders[0];
 
   if (redirect) {
     res.redirect('/' + section + '/' + filter + '/' + sorting + '/' + page);
-    return
+    return;
   }
 
   var path = '/' + section + '/' + _.map(req.params, function(p) { return p; }).join('/') + '/';
-	path = path.replace('//', '/');
+  path = path.replace('//', '/');
+  Tvshow.count(query, function(error, total) {
+    Tvshow.find(query)
+    .limit(config.sections[section].limit)
+    .skip(skip)
+    .sort(config.sections[section].sortQ[sorting])
+    .exec(function(error, tvshow) {
 
-	Tvshow.count(query, function(error, total) {
-		Tvshow.find(query)
-		.limit(config.sections[section].limit)
-		.skip(skip)
-		.sort(config.sections[section].sortQ[sorting])
-		.exec(function(error, tvshow) {
       var title = config.sections[section].title;
-      var info = " From " + skip + " to " + (skip + config.sections[section].limit) + " on " + total + " " + title;
-      var link = '/' + section + '/' + filter + "/" + sorting + "/";
+      var info = ' From ' + skip + ' to ' + (skip + config.sections[section].limit) + ' on ' + total + ' ' + title;
+      var link = '/' + section + '/' + filter + '/' + sorting + '/';
       var pages = _h.pagination(link, skip, config.sections[section].limit, total);
-			res.render(section + '/list', {
-				title: title,
+      res.render(section + '/list', {
+        title: title,
         info: info,
-				section: section,
-				total: total,
-				path: path,
-				sort: sorting,
-				filter: filter,
-				skip: skip,
+        section: section,
+        total: total,
+        path: path,
+        sort: sorting,
+        filter: filter,
+        skip: skip,
         page: page,
         pages: pages,
-				result: tvshow,
+        //str:generateTVprogramming(tvshow,"2016-03-01","2016-03-02"),
+        result: tvshow,
         categories: config.sections[section].categories,
         orderings: config.sections[section].orders,
-				user: req.user
-			});
-		});
-	});
+        user: req.user,
+        _h: _h
+      });
+    });
+  });
 };

@@ -1,0 +1,72 @@
+//
+   Created by gianlucabernardo on 24/06/16.
+
+// app/server/views/user/summary.jade
+
+.row.user_summary_small
+    .col-xs-12
+        .row
+            .col-xs-12
+                a(href="/" + performer.permalink, title=performer.display_name)
+                    h1.performer_display_name= performer.display_name
+                    img.media-object(alt=__("Thumbnail of") + ": " + performer.display_name, src=_h.media.getFileFormat(performer.file, "performers", "detail"))
+                nav
+                    ul.performer_details
+                        - //console.log(performer.stats)
+                        - if (performer.stats.members)
+                            li
+                                a(href="/#{performer.permalink}/members/")=__("members") + ' (' + performer.stats.members + ')'
+                                span.alert-danger="fix permalink: " + performer.permalink + " members link dosn't exist"
+
+                        - if (performer.stats.performances)
+                            li
+                                a(href="/#{performer.permalink}/performances/")=__("Performances") + ' (' + performer.stats.performances + ')'
+                        - if (performer.stats.crews)
+                            li
+                                a(href="/#{performer.permalink}/crews/")=__("Crews") + ' (' + performer.stats.crews + ')'
+                        - if (performer.stats.footage)
+                            li
+                                a(href="/#{performer.permalink}/footage/")=__("Footage") + ' (' + performer.stats.footage + ')'
+                        - if (performer.stats.tvshows)
+                            li
+                                a(href="/#{performer.permalink}/tvshows/")=__("TVShows") + ' (' + performer.stats.tvshows + ')'
+                        - if (performer.stats.playlists)
+                            li
+                                a(href="/#{performer.permalink}/playlists/")=__("Playlists") + ' (' + performer.stats.playlists + ')'
+                        - if (performer.stats.events)
+                            li
+                                a(href="/#{performer.permalink}/events/")=__("Events") + ' (' + performer.stats.events + ')'
+                        - if (performer.stats.galleries)
+                            li
+                                a(href="/#{performer.permalink}/galleries/")=__("Galleries") + ' (' + performer.stats.galleries + ')'
+                        - if (performer.stats.friends)
+                            li
+                                a(href="/#{performer.permalink}/friends/")=__("Friends") + ' (' + performer.stats.friends + ')'
+            each location, i in performer.locations
+                if i === 0
+                    .col-xs-12
+                        span=location.city + " // "
+                        span.country_geoloc= location.country
+                    .col-xs-12
+                        img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?center=#{location.city},#{location.country}&zoom=4&size=350x110&markers=#{location.city},#{location.country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
+                        //- static url = https://maps.googleapis.com/maps/api/staticmap?center=Rome,Italy&zoom=13&size=400x200&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs
+    .col-xs-12
+        .foo
+            ul.performer_interaction
+                li
+                    a(href="#")
+                        span!='<i class="fa fa-download"></i> '
+                        span=__("Download Pdf")
+                li
+                    a(href="#")
+                        span!='<i class="fa fa-share-alt"></i> '
+                        span=__("Share")
+                li
+                    a(href="#")
+                        span!='<i class="fa fa-chevron-right"></i> '
+                        span=__("Invite to event")
+                li
+                    a(href="#")
+                        span!='<i class="fa fa-hand-rock-o"></i> '
+                        span=__("Follow")
+

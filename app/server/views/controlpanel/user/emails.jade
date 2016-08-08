@@ -1,88 +1,88 @@
 extends ../layout
 
 block variables
-	- var activeChapter='user'
-	- var activeSection='emails'
+  - var activeChapter='user'
+  - var activeSection='emails'
 
 block inner-content
-	include ./menu
-	+render-alerts(alerts)
-	form.form-horizontal(method="post", data-parsley-validate)
-		fieldset
-			legend=__("E-mails")
-			#emails
-			.form-group
-				.col-md-10.col-md-offset-2
-					button.success.add-email.btn.btn-default
-						i.fa.fa-plus
-						=" "
-						=__("Add another E-mail")
+  include ../menu_user
+  +render-alerts(alerts)
+  form.form-horizontal(method="post", data-parsley-validate)
+    fieldset
+      legend=__("E-mails")
+      #emails
+      .form-group
+        .col-md-10.col-md-offset-2
+          button.success.add-email.btn.btn-default
+            i.fa.fa-plus
+            =" "
+            =__("Add another E-mail")
 
-		+save-button
+    +save-button
 
-		script(id="email", type="text/x-handlebars-template")
-			.email.form-group
-				.col-md-2.control-label
-					="{{#if valid}}"
-					span.label.label-success=__("confirmed")
-					="{{else if email}}"
-					span.label.label-warning=__("not confirmed")
-					="{{else}}"
-					span.label.label-default=__("new, save to verify")
-					="{{/if}}"
-				.col-md-10
-					.input-group
-						="{{#if email}}"
-						input.form-control(name="emails[{{i}}][email]", value="{{email}}", type="email", required, readonly)
-						="{{#if valid}}"
-						label.input-group-addon
-							="{{#if primary}}"
-								input(name="primary_email", type="radio", value="{{email}}", checked)
-							="{{else}}"
-								input(name="primary_email", type="radio", value="{{email}}")
-							="{{/if}}"
-							=" " + __("primary")
-						="{{/if}}"
-						label.input-group-addon
-							="{{#if public}}"
-							input(name="emails[{{i}}][public]", type="checkbox", value="true", checked)
-							="{{else}}"
-							input(name="emails[{{i}}][public]", type="checkbox", value="true")
-							="{{/if}}"
-							=" " + __("public")
-						="{{else}}"
-						input.form-control(name="emails[{{i}}][email]", value="", type="email", required)
-						input(name="emails[{{i}}][verify]", value="true", type="hidden")
-						="{{/if}}"
-						="{{#if primary}}"
-						span.input-group-btn
-							button.disabled.btn.btn-danger
-								i.fa.fa-trash
-						="{{else}}"
-						span.input-group-btn
-							button.delete-email.btn.btn-danger
-								i.fa.fa-trash
-						="{{/if}}"
+    script(id="email", type="text/x-handlebars-template")
+      .email.form-group
+        .col-md-2.control-label
+          ="{{#if valid}}"
+          span.label.label-success=__("confirmed")
+          ="{{else if email}}"
+          span.label.label-warning=__("not confirmed")
+          ="{{else}}"
+          span.label.label-default=__("new, save to verify")
+          ="{{/if}}"
+        .col-md-10
+          .input-group
+            ="{{#if email}}"
+            input.form-control(name="emails[{{i}}][email]", value="{{email}}", type="email", required, readonly)
+            ="{{#if valid}}"
+            label.input-group-addon
+              ="{{#if primary}}"
+                input(name="primary_email", type="radio", value="{{email}}", checked)
+              ="{{else}}"
+                input(name="primary_email", type="radio", value="{{email}}")
+              ="{{/if}}"
+              =" " + __("primary")
+            ="{{/if}}"
+            label.input-group-addon
+              ="{{#if public}}"
+              input(name="emails[{{i}}][public]", type="checkbox", value="true", checked)
+              ="{{else}}"
+              input(name="emails[{{i}}][public]", type="checkbox", value="true")
+              ="{{/if}}"
+              =" " + __("public")
+            ="{{else}}"
+            input.form-control(name="emails[{{i}}][email]", value="", type="email", required)
+            input(name="emails[{{i}}][verify]", value="true", type="hidden")
+            ="{{/if}}"
+            ="{{#if primary}}"
+            span.input-group-btn
+              button.disabled.btn.btn-danger
+                i.fa.fa-trash
+            ="{{else}}"
+            span.input-group-btn
+              button.delete-email.btn.btn-danger
+                i.fa.fa-trash
+            ="{{/if}}"
 
-		//- FIXME
-		script.
-			$(document).ready(function() {
-				var source   = $("#email").html();
-				var template = Handlebars.compile(source);
-				var data = !{JSON.stringify(result.emails)};
-				var total = data.length;
-				data.forEach(function(email, i) {
-					email.i = i;
-					$(template(email)).appendTo($('#emails'));
-				});
-				$(document).on('click', '.delete-email', function(ev) {
-					ev.preventDefault();
-					$(this).closest('.email').remove();
-					total--;
-				});
-				$(document).on('click', '.add-email', function(ev) {
-					ev.preventDefault();
-					$(template({i: total})).appendTo($('#emails'));
-					total++;
-				});
-			});
+    //- FIXME
+    script.
+      $(document).ready(function() {
+        var source   = $("#email").html();
+        var template = Handlebars.compile(source);
+        var data = !{JSON.stringify(result.emails)};
+        var total = data.length;
+        data.forEach(function(email, i) {
+          email.i = i;
+          $(template(email)).appendTo($('#emails'));
+        });
+        $(document).on('click', '.delete-email', function(ev) {
+          ev.preventDefault();
+          $(this).closest('.email').remove();
+          total--;
+        });
+        $(document).on('click', '.add-email', function(ev) {
+          ev.preventDefault();
+          $(template({i: total})).appendTo($('#emails'));
+          total++;
+        });
+      });

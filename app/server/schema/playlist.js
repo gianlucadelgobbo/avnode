@@ -1,25 +1,24 @@
 var Schema = require('mongoose').Schema;
-var Footage = require('./footage');
-var File = require('./file');
 var User = require('./user');
-var config = require('getconfig');
+var File = require('./file');
+var Footage = require('./footage');
+
+
 
 module.exports = new Schema({
-	creation_date: Date,
-	title: String,
-	files: [File],
-	footage: [Footage],
-	old_id: Number,
-	permalink: String,
-	public: Boolean,
-	stats: {
-		visits: Number,
-		downloads: Number,
-		rates: {
-			stars: String,
-			tot_rate: String,
-			sum_rate: String
-		}
-	},
-	users: [User]
+  old_id: Number,
+  creation_date: Date,
+  title: String,
+  permalink: String,
+  text: {},
+  is_public: Boolean,
+  users: [User],
+  file: File, // Main image (if selected)
+  footage: [Footage], // Multiple Footage
+  stats: {
+    visits: Number,
+    likes: Number,
+    shares: Number,
+    downloads: Number
+  }
 });

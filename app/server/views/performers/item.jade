@@ -1,18 +1,32 @@
-div.list_item_performer.grid-item.col-sm-4(class="col-md-4 performer_performer")
-	.box_wrapper.col-sm-12
-		a.main_event_title_wrapper(href="/" + box.permalink, title=box.display_name)
-			h3.main_event_title= box.display_name
-		a.main_performace_image_wrapper(href="/" + box.permalink, title=box.display_name)
-			if box.files.length
-				img.main_performace_image(src=box.files[0].file)
-			else
-				img.main_performace_image(src="http://placehold.it/500x100")
-		.main_event_box
-			.main_event_details
-				ul
-					if box.stats.members
-						li= box.stats.members +__(" Members")
-					if(box.stats.performances)
-						li= box.stats.performances +__(" Performances")
-					if(box.stats.events)
-						li= box.stats.events +__(" Events")
+mixin performer_item_content
+  - var section = "performers"
+  .box_wrapper
+    a.main_performace_image_wrapper(href="/" + box.permalink, title=box.display_name)
+      img.main_performance_image(alt=__("Thumbnail of")+": "+box.display_name, src=_h.media.getFileFormat(box.file, section, "list"))
+    a.main_event_title_wrapper(href="/" + box.permalink, title=box.display_name)
+      h3.main_event_title.col-sm-12= box.display_name
+    .main_event_box
+      .main_event_details
+        - var groupedLocations = _h.groupLocations(box.locations)
+
+        - for(var item in groupedLocations)
+          .col-sm-12!="<b>"+item+"</b>, " + groupedLocations[item].join(", ")
+        ul.col-sm-12
+          if box.stats.members
+            li
+              a(href="/#{box.permalink}/members" title="#{box.permalink} members")
+                =box.stats.members + __(" members")
+                span.alert-danger=" fix permalink: " + box.permalink + " members link dosn't exist"
+          if(box.stats.performances)
+            li
+              a(href="/#{box.permalink}/performances" title="#{box.permalink} performances")
+                =box.stats.performances +__(" Performances")
+          if(box.stats.events)
+            li= box.stats.events +__(" Events")
+  - //console.log(JSON.stringify(box, null, 20));
+if (col_number)
+  div.list_item_performer.grid-item.performer_performer(class= col_number)
+    +performer_item_content
+else
+  div.list_item_performer.grid-item.col-sm-3(class="col-md-3 performer_performer")
+    +performer_item_content

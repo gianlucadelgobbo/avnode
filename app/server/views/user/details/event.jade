@@ -1,0 +1,251 @@
+extends ../layout
+block content
+  // template: views/user/events/show.jade
+  .single_event_page
+    .user_result.single_event_page
+      .container
+        .row
+          .col-md-12
+            .single_event_thumb_container.wrapper_item
+              - img = _h.media.getFileFormat(result.file, section, "detail")
+              img.img-responsive(id="img-" + result.permalink, alt=__("Thumbnail of") + ": " + result.title, src=img)
+              .row
+                .overlay_container.overlay_wrapper
+                  div#partecipate_shape
+                  div#partecipate_button
+                    a(href="#{result.permalink}/participate", role='button')
+                      span= __("Partecipate")
+                  h1.title=result.title
+                  if result.subtitle
+                    h3.subtitle=_h.text.getTextFormat(result.subtitle, config.lang, true)
+                  h4
+                    - var groupedPartners = _h.groupPartnersByType(result.partners)
+
+                    each type,name in groupedPartners
+                      if name == "PRODUCTION"
+                        ul.list-inline
+                          if ( type.length < 4 )
+                            each box in type
+                              li
+                                a(href="/#{box.permalink}")
+                                  span= box.display_name
+                          else
+                            each box,index in type
+                              if index < 3
+                                li
+                                  a(href="/#{box.permalink}")
+                                    span= box.display_name
+                            li
+                              a(data-toggle='modal', data-target='#allproduction')= __("[ + ]")
+                            // Modal event external links
+                            #allproduction.modal.fade(role='dialog')
+                              .modal-dialog
+                                // Modal content
+                                .modal-content
+                                  .modal-header
+                                    button.close(type='button', data-dismiss='modal') ×
+                                    h4= "All production"
+                                  .modal-body
+                                    ul.list-inline
+                                      each box in type
+                                        li
+                                          a(href="/#{box.permalink}")
+                                            span= box.display_name
+
+                  .row
+                    .col-sm-8
+                      .row.event_events_list.grid
+                        if result.schedule
+                          each date_time_venue in result.schedule
+                            .col-sm-4.grid-item
+                              .event_list_content_container
+                                span
+                                  i(class="fa fa-clock-o")
+                                  !=_h.date.writeDate(date_time_venue.date) + " | " + _h.date.writeTime(date_time_venue.starttime) + " / " + _h.date.writeTime(date_time_venue.endtime) + "<br />"
+                                span
+                                  i(class="fa fa-map-marker")
+                                  !=date_time_venue.venue.name + " | " + date_time_venue.venue.location.city + ", " + date_time_venue.venue.location.country
+                    .col-sm-4
+                      .event_map
+                        img.performer_map(src="https://maps.googleapis.com/maps/api/staticmap?size=640x400&center=#{result.schedule[0].locality},#{result.schedule[0].country}&zoom=4&size=262x110&markers=#{result.schedule[0].locality},#{result.schedule[0].country}&key=AIzaSyCCztSfUAS_r-1uyWhtAq3waEAjDk_iMQs")
+
+
+        // Modal event external links
+        div#event_external_links.modal.fade(role='dialog')
+          .modal-dialog
+            // Modal content
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal') ×
+                h4= result.title + " links"
+              .modal-body
+                ul.list-inline
+                  -if (result.websites)
+                    each url in result.websites
+                      li
+                        i.fa.fa-external-link
+                        a(href=url,target="_blank")
+                          =" website"
+                  li
+                    a(href="#")
+                      i.fa.fa-facebook-official(aria-hidden='true')
+                  li
+                    a(href="#")
+                      i.fa.fa-twitter(aria-hidden='true')
+                  li
+                    a(href="#")
+                      i.fa.fa-vimeo(aria-hidden='true')
+
+        // Modal event external links
+        div#event_share.modal.fade(role='dialog')
+          #fb-root
+           ="FB LIKE"
+          .modal-dialog
+            // Modal content
+            .modal-content
+              .modal-header
+                button.close(type='button', data-dismiss='modal') ×
+                h4= "Share " + result.title
+              .modal-body
+                .fb-like(data-href='https://developers.facebook.com/docs/plugins/', data-layout='standard', data-action='like', data-show-faces='true', data-share='true')
+                ul.list-inline
+                  li
+                    a(href="#")
+                      i.fa.fa-facebook-official(aria-hidden='true')
+                  li
+                    a(href="#")
+                      i.fa.fa-twitter(aria-hidden='true')
+                  li
+                    a(href="#")
+                      i.fa.fa-vimeo(aria-hidden='true')
+
+              .modal-footer
+                button.btn.btn-default(type='button', data-dismiss='modal') Close
+
+
+      if result.text
+        .about-bkg
+          .container
+            .about_performer.readmore
+              h2=__("About")
+              != _h.text.getTextFormat(result.text, config.lang, true)
+      // TABS
+      if result.program.length || result.partners.length || result.galleries.length
+        - var categories_founded = _h.groupPerformancesByCategories(result.program, "type")
+        - var groupedPerformances = _h.groupPerformancesByDayVenueRoom(result.program)
+        - var groupedArtists = _h.groupArtists(result.program)
+        .tabs-bkg
+          .container
+            ul.nav.nav-tabs.event_tabs
+              if result.program.length
+                li.active
+                  a(href="#program", data-toggle="tab")=__("Program")
+                li
+                  a(href="#artists", data-toggle="tab")=__("Artists") + " (" + groupedArtists.stats.people + "/" + groupedArtists.stats.n + ")"
+                if Object.keys(categories_founded).length
+                  li
+                    a(href="#categories", data-toggle="tab")=__("Categories")
+              if result.partners.length
+                li
+                  a(href="#partners", data-toggle="tab")=__("partners") + " (" + result.partners.length + ")"
+              if result.galleries.length
+                li
+                  a(href="#galleries", data-toggle="tab")=__("gallery") + " (" + result.galleries.length + ")"
+
+            div
+              .tab-content
+                if result.program
+                  #program.tab-pane.active
+                    - if (groupedPerformances.dates.length > 0)
+                    p=title_grouped_infos = "Days"
+                    ul.list-inline.grouped_dates.grouped_infos
+                      li.active
+                        a(href='#all')=__("All days")
+                      each date in groupedPerformances.dates
+                        li
+                          a(href='#' + date)=_h.date.writeDate(date)
+                      - if (groupedPerformances["tobeconfirmed"] && groupedPerformances["tobeconfirmed"].length)
+                        li
+                          a(href='#tobeconfirmed')=__('To be confirmed')
+                    - if (groupedPerformances.venues.length > 0) // if there are at least two venues
+                      p=title_grouped_infos = "Venues"
+                      ul.list-inline.grouped_venues.grouped_infos
+                        li.active
+                          a(href='#all')=__("All venues")
+                        each venue in groupedPerformances.venues
+                          li
+                            a(href='#' + venue)=venue
+                    - if (groupedPerformances.rooms.length > 0)
+                      p=title_grouped_infos = "Rooms"
+                      ul.list-inline.grouped_rooms.grouped_infos
+                        li.active
+                          a(href='#all')=__("All rooms")
+                        each room in groupedPerformances.rooms
+                          li
+                            a(href='#' + room)=room
+
+                    each day,date in groupedPerformances.list
+                      .single_date_of_series
+                        h3
+                          span=_h.date.writeDate(date)
+                      each venue,venuename in groupedPerformances.list[date]
+                        each room,roomname in groupedPerformances.list[date][venuename]
+                          each slot in groupedPerformances.list[date][venuename][roomname]
+                            h3.single_event-room_title=slot.schedule.venue.name + " > " + slot.schedule.venue.room
+                            .grid.row.day_grid
+                              each box in room
+                                include ../../performances/slot
+                    if groupedPerformances.tobeconfirmed.length
+                      .single_date_of_series
+                        h3
+                          span=__("To be confirmed")
+                      .grid.row.day_grid
+                        each box in groupedPerformances.tobeconfirmed
+                          include ../../performances/slot
+                  #artists.tab-pane
+                    - var t = groupedArtists.stats.n;
+                    - t+= " "+__("artists from")+" "+groupedArtists.stats.countries.length+" "+(groupedArtists.stats.countries.length==1 ? __("country") : __("countries"))+", "+groupedArtists.stats.countries.join(", ");
+                    - t+= " "+__("playing")+" ";
+                    - for(i in groupedArtists.stats.types) t+= groupedArtists.stats.types[i].n + " " + groupedArtists.stats.types[i].name+", ";
+                    - t = t.substring(0,t.length-2);
+                    p=t
+                    .row
+                      each box in groupedArtists.list
+                        include ../../performers/item
+                if (Object.keys(categories_founded).length)
+                  #categories.tab-pane
+                    - var first
+                    ul.nav.nav-pills
+                      - var a=0
+                      each category in categories_founded
+                        - if (a==0) first = category.category.permalink
+                        - if (a==0) firstTitle = category.category.name
+                        li(class=a == 0 ? "active" : undefined)
+                          a(href=category.category.permalink)=category.category.name
+                        - a++
+                    .single_date_of_series
+                      h3
+                        span=firstTitle
+                    .row
+                      - if (categories_founded.list)
+                          each box in categories_founded[first].list
+                            include ../../performances/slot
+                if result.partners
+                  #partners.tab-pane
+                    each type,name in groupedPartners
+                      .row
+                        .col-md-12
+                          .single_date_of_series.single_partner_of_series
+                            h3.col-sm-12
+                              span=name
+                      .row.main-list.grid_tab.grid.day_grid
+                        each box in type
+                          include ../../performers/item
+                if result.galleries
+                  #galleries.tab-pane
+                    .container
+                      .row.main-list.grid_tab.grid
+                        each box in result.galleries
+                          include ../../galleries/item
+
+  -//console.log(JSON.stringify(result, null, 20));

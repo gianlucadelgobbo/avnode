@@ -1,102 +1,102 @@
 extends ../layout
 
 block variables
-	- var activeChapter='events'
-	- var activeSection='calls'
+  - var activeChapter='events'
+  - var activeSection='calls'
 
 block inner-content
-	include ./menu
-	+render-alerts(alerts)
-	form.form-horizontal(method="POST")
-		input(name="_id", value=result._id, type="hidden")
-		fieldset
-			legend=__("Visibility")
-			.form-group
-				label.col-md-2.control-label
-					input.switch(value="true", name="settings[call][is_active]", type="checkbox", checked=result.settings.call.is_active)
-				.col-md-10
-					h4=__("Open call")
-					p=__("The users can submit a project to the event")
+  include ../menu
+  +render-alerts(alerts)
+  form.form-horizontal(method="POST")
+    input(name="_id", value=result._id, type="hidden")
+    fieldset
+      legend=__("Visibility")
+      .form-group
+        label.col-md-2.control-label
+          input.switch(value="true", name="settings[call][is_active]", type="checkbox", checked=result.settings.call.is_active)
+        .col-md-10
+          h4=__("Open call")
+          p=__("The users can submit a project to the event")
 
-			.form-group
-				label.col-md-2.control-label
-					input.switch(value="true", name="settings[call][program_builder]", type="checkbox", checked=result.settings.call.program_builder)
-				.col-md-9
-					h4=__("Advanced program builder")
-					p=__("Tool to manage, evaluate, select and schedule every project involved in the event")
-					p
-						b=__("This function is reserved to AVnode.org members")+". "
-						a(href="http://avnode.org/members/")=__("more info")
+      .form-group
+        label.col-md-2.control-label
+          input.switch(value="true", name="settings[call][program_builder]", type="checkbox", checked=result.settings.call.program_builder)
+        .col-md-9
+          h4=__("Advanced program builder")
+          p=__("Tool to manage, evaluate, select and schedule every project involved in the event")
+          p
+            b=__("This function is reserved to AVnode.org members")+". "
+            a(href="http://avnode.org/members/")=__("more info")
 
-			.form-group
-				label.col-md-2.control-label
-					input.switch(value="true", name="settings[call][advanced_proposals_manager]", type="checkbox" checked=result.settings.call.advanced_proposals_manager)
-				.col-md-10
-					h4=__("Advanced project proposals manager")
-					p=__("Tool to easily build the program based on custom rooms ad timetable with rules on performance accepted")
-					p
-						b=__("This function is reserved to AVnode.org members")+". "
-						a(href="http://avnode.org/members/")=__("more info")
+      .form-group
+        label.col-md-2.control-label
+          input.switch(value="true", name="settings[call][advanced_proposals_manager]", type="checkbox" checked=result.settings.call.advanced_proposals_manager)
+        .col-md-10
+          h4=__("Advanced project proposals manager")
+          p=__("Tool to easily build the program based on custom rooms ad timetable with rules on performance accepted")
+          p
+            b=__("This function is reserved to AVnode.org members")+". "
+            a(href="http://avnode.org/members/")=__("more info")
 
-		fieldset
-			legend=__("General")
-			.form-group
-				label.col-md-2.control-label=__("Next Edition")
-				.col-md-10
-					input.form-control(name="settings[call][next_edition]",value=result.settings.call.next_edition,type="text")
-			.form-group
-				label.col-md-2.control-label
-					!=__("Header image")
-					br
-					!="(960 x 100px)"
-				.col-md-10
-					input.form-control(name="settings[call][header_image]",	value=result.settings.call.header_image,	type="text")
-			.form-group
-				label.col-md-2.control-label=__("Background image")+" (optional)"
-				.col-md-10
-					input.form-control(name="settings[call][background_image]",	value=result.settings.call.background_image,	type="text")
-			.form-group
-				label.col-md-2.control-label=__("Background color")
-				.col-md-10
-					input.form-control(name="settings[call][background_color]",	value=result.settings.call.background_color,	type="text")
+    fieldset
+      legend=__("General")
+      .form-group
+        label.col-md-2.control-label=__("Next Edition")
+        .col-md-10
+          input.form-control(name="settings[call][next_edition]",value=result.settings.call.next_edition,type="text")
+      .form-group
+        label.col-md-2.control-label
+          !=__("Header image")
+          br
+          !="(960 x 100px)"
+        .col-md-10
+          input.form-control(name="settings[call][header_image]",  value=result.settings.call.header_image,  type="text")
+      .form-group
+        label.col-md-2.control-label=__("Background image")+" (optional)"
+        .col-md-10
+          input.form-control(name="settings[call][background_image]",  value=result.settings.call.background_image,  type="text")
+      .form-group
+        label.col-md-2.control-label=__("Background color")
+        .col-md-10
+          input.form-control(name="settings[call][background_color]",  value=result.settings.call.background_color,  type="text")
 
-		fieldset
-			legend=__("Calls")
-			.row
-				.col-md-10.col-md-offset-2
-					if result.settings.call.calls
-						.list-group
-							each call in result.settings.call.calls
-								.list-group-item
-									.row
-										.col-sm-9
-											h4
-												a(href="calls/#{call._id}")=call.title
-										.col-sm-3.text-right
-											.btn-group
-												//- FIXME TBD if a single call can be opened/closed
-												a.btn.btn-default(href="calls/#{call._id}/open")
-													i.fa.fa-unlock
-												a.btn.btn-default(href="calls/#{call._id}")
-													i.fa.fa-pencil
-												a.btn.btn-danger(href="calls/#{call._id}/delete")
-													i.fa.fa-trash
-					else
-						p.bg-info=__("no calls")
+    fieldset
+      legend=__("Calls")
+      .row
+        .col-md-10.col-md-offset-2
+          if result.settings.call.calls
+            .list-group
+              each call in result.settings.call.calls
+                .list-group-item
+                  .row
+                    .col-sm-9
+                      h4
+                        a(href="calls/#{call._id}")=call.title
+                    .col-sm-3.text-right
+                      .btn-group
+                        //- FIXME TBD if a single call can be opened/closed
+                        a.btn.btn-default(href="calls/#{call._id}/open")
+                          i.fa.fa-unlock
+                        a.btn.btn-default(href="calls/#{call._id}")
+                          i.fa.fa-pencil
+                        a.btn.btn-danger(href="calls/#{call._id}/delete")
+                          i.fa.fa-trash
+          else
+            p.bg-info=__("no calls")
 
-					a.btn.btn-default(href="calls/new")
-						i.fa.fa-plus
-						=" "
-						=__("Add new call")
+          a.btn.btn-default(href="calls/new")
+            i.fa.fa-plus
+            =" "
+            =__("Add new call")
 
-		+save-button
+    +save-button
 
-	//- FIXME no inline scripts for generic functionality
-	script.
-		$(document).ready(function() {
-			$("input.switch").bootstrapSwitch({
-				onSwitchChange: function(ev, state, el) {
-					$(ev.currentTarget).prop('checked', state);
-				}
-			});
-		});
+  //- FIXME no inline scripts for generic functionality
+  script.
+    $(document).ready(function() {
+      $("input.switch").bootstrapSwitch({
+        onSwitchChange: function(ev, state, el) {
+          $(ev.currentTarget).prop('checked', state);
+        }
+      });
+    });

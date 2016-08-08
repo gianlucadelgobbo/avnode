@@ -1,10 +1,10 @@
 extends ../layout
 
 block variables
-	- var activeChapter='events'
-	- var activeSection='image'
+  - var activeChapter='events'
+  - var activeSection='image'
 
 block inner-content
-	include ./menu
-	+render-alerts(alerts)
-	//- FIXME TBD after controlpanel > user > image is defined
+  include ../menu
+  +render-alerts(alerts)
+  //- FIXME TBD after controlpanel > user > image is defined

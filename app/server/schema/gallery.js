@@ -1,26 +1,40 @@
 var Schema = require('mongoose').Schema;
-var File = require('./file');
 var User = require('./user');
-var Event = require('./event');
-var Footage = require('./footage');
-var Performance = require('./performance');
+var File = require('./file');
+var Media = require('./media');
+var Eventsummary = require('./eventsummary');
+var Performancesummary = require('./performancesummary');
+
+var config = require('getconfig');
+
+// Reuse the configured locales…
+var text = {};
+
+config.locales.forEach(function(locale) {
+  text[locale] = String;
+
+});
 
 module.exports = new Schema({
-	permalink: String,
-	stats: {
-		img: Number,
-		visits: Number
-	},
-	performances: [Performance], //FIXME
-	old_id: String,
-	title: String,
-	files: [File],
-	users: [User],
-	events: [Event],
-	creation_date: Date,
-	footage: [Footage]
-  }, {
-    // FIXME maybe would be better to rename the collection
-    collection: 'gallery'
-  }
-);
+  old_id: String,
+  creation_date: Date,
+  title: String,
+  permalink: String,
+  text: text,
+  is_public: Boolean,
+  users: [User],
+  file: File, // Main image (if selected)
+  medias: [Media], // 1 Media if video Multiple Media if image
+  stats: { // Summary of data coming by gallery and media
+    visits: Number,
+    likes: Number,
+    shares: Number
+  },
+  counters: {
+    audio: Number,
+    img: Number,
+    video: Number
+  },
+  performances: [Performancesummary], // Gallery can be connected to performances or events
+  events: [Eventsummary] // Gallery can be connected to performances or events
+});
