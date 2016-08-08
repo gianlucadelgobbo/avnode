@@ -112,7 +112,24 @@ router.get(
           }
         });
     }
-    );
+);
+
+router.get(
+  '/validate/login/:email',
+  validateParams({
+    email: Joi.string().email().required(),
+  }),
+  function (req, res) {
+    var email = req.params.email;
+    User.findOne({'login': email}, function(err, user) {
+      if (user === null) {
+        res.status(200).send('Found');
+      } else {
+        res.status(404).send('Not found');
+      }
+    });
+  }
+);
 
 router.get('/verify-email/:uuid', function (req, res) {
   // FIXME, validation missing

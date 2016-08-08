@@ -26,7 +26,7 @@ block content
 					.col-md-12
 						.form-group
 							label(for="email")=__("Email")
-							input#email(value=result.email, name="emails[0][email]", placeholder=__("Your Email Address"), type="email", required).form-control
+							input#email(value=result.email, name="emails[0][email]", placeholder=__("Your Email Address"), type="email", required, data-parsley-remote="#{config.baseurl}api/validate/login/{value}").form-control
 				.row
 					.col-md-6
 						.form-group
