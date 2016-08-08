@@ -44,7 +44,7 @@ router.get(
     var query = { 'permalink': req.params.permalink };
     User.findOne(query)
     .exec(function(err, user) {
-      if (req.user.permalink === req.params.permalink) {
+      if (req.user && req.user.permalink === req.params.permalink) {
         res.status(404).send('Not found');
       } else if (user) {
         res.status(200).send('Found');
