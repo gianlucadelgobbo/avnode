@@ -41,7 +41,8 @@ exports.publicPost = function(req, res, next) {
   delete user.new_password_confirm;
   User.create(user, function (err, user) {
     if (err) return next(new Errors.Internal(err));
-    _h.mail.sendUserVerificationMail(user.email, user.verify);
+    // FIXME error handling
+    _h.mail.sendUserVerificationMail(user.login, user.verify);
     res.render('controlpanel/signup/ok', {
       config: config
     });

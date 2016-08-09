@@ -3,6 +3,7 @@
   margin-bottom: 0px;
 }
 body {
+  background-color: #303030;
   font-family: 'Roboto Condensed', sans-serif;
   letter-spacing: -0.01em;
   font-size: 15px;
@@ -119,9 +120,6 @@ a:hover img {
 a:hover img {
   opacity: 0.6;
 }
-.logo {
-  height: 75px;
-}
 .navbar .brand {
   margin: 0;
 }
@@ -146,6 +144,10 @@ a:hover img {
 .main-list .media h4 {
   height: 43px;
   overflow: hidden;
+}
+.logo {
+  height: 120px;
+  padding: 20px 0;
 }
 .submenu {
   border-bottom: 1px solid #eee;
@@ -703,6 +705,7 @@ a:hover img {
   padding-left: 10px;
 }
 .date_time_event_evidence {
+  list-style: none;
   padding: 0;
 }
 .secondary_event_wrapper {
@@ -1063,6 +1066,7 @@ body {
   height: 100%;
 }
 .wrapper {
+  background-color: #fff;
   position: relative;
   padding-bottom: 240px;
   float: left;
@@ -1070,6 +1074,7 @@ body {
 }
 #content {
   padding-top: 0px;
+  margin-bottom: 50px;
 }
 footer.main_footer {
   position: absolute;

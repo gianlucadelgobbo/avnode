@@ -26,7 +26,7 @@ block content
 					.col-md-12
 						.form-group
 							label(for="email")=__("Email")
-							input#email(value=result.email, name="emails[0][email]", placeholder=__("Your Email Address"), type="email", required).form-control
+							input#email(value=result.email, name="emails[0][email]", placeholder=__("Your Email Address"), type="email", required, data-parsley-remote-message=__("Sorry, already in use"), data-parsley-remote="#{config.baseurl}api/validate/login/{value}").form-control
 				.row
 					.col-md-6
 						.form-group
@@ -59,12 +59,11 @@ block content
 				.row
 					.col-md-12
 						.form-group
-							label(for="permalink")=__("Profile url")
-							input.form-control(type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="#{config.regex.permalink}", data-parsley-remote-validator="reverse", data-parsley-remote="#{config.baseurl}api/validate/permalink/{value}")
-							.help-block="https://avnode.net/"
-								span.permalink_print
+							.input-group
+								span.input-group-addon=config.baseurl
+								input.form-control(type="text", value=result.permalink, name="permalink", placeholder=__("Profile url"), required, pattern="#{config.regex.permalink}", data-parsley-remote-message=__("Sorry, already in use"), data-parsley-remote-validator="reverse", data-parsley-remote="#{config.baseurl}api/validate/permalink/{value}")
 				.controls
-					button(type="submit").btn.btn-primary.pull-right=__("Get Started")+"  "
+					button(type="submit").btn.btn-lg.btn-success.pull-right=__("Get Started")+"  "
 						i.glyphicon.glyphicon-forward.glyphicon.glyphicon-white
 		//- FIXME remove generic inline scripts
 		script.
