@@ -491,5 +491,7 @@
 	"Confirm password": "Confirm password",
 	"Member public data": "Member public data",
 	"Get Started": "Get Started",
-	" members": " members"
+	" members": " members",
+	"Sorry, already used": "Sorry, already used",
+	"Sorry, already in use": "Sorry, already in use"
 }
