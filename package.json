@@ -54,13 +54,14 @@
     "eslint": "^3.1.1",
     "mocha": "^2.3.4",
     "nodemon": "^1.8.1",
+    "stylint": "^1.5.6",
     "supertest": "^1.1.0"
   },
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
     "test": "echo \"Add tests soon\"",
-    "pretest": "eslint -c .eslintrc.json --ignore-path .gitignore --ignore-path .eslintignore ."
+    "pretest": "eslint -c .eslintrc.json --ignore-path .gitignore --ignore-path .eslintignore . && stylint app/public/css/style.styl"
   },
   "repository": {
     "type": "git",
