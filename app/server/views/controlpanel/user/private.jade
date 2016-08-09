@@ -21,8 +21,8 @@ block inner-content
       .form-group
         label.col-sm-2.control-label=__("Birthday")
         .col-sm-10
-          .input-group.date.datepicker(data-date=result.birth_date, data-date-format="yyyy-mm-dd")
-            input.form-control(name="birth_date", value=result.birth_date, type="text", readonly)
+          .input-group.date.datepicker(data-date=result.birthDateFormatted, data-date-format="yyyy-mm-dd")
+            input.form-control(name="birth_date", value=result.birthDateFormatted, type="text", readonly)
             span.input-group-addon
               i.glyphicon.glyphicon-calendar
       .form-group
