@@ -34,6 +34,7 @@ exports.publicSchemaPost = {
 exports.publicPost = function(req, res, next) {
   var user = req.body;
   user.login = user.emails[0].email;
+  user.emails[0].primary = true
   user.confirmed = false;
   user.verify = uuid.v4();
   user.password = user.new_password;
