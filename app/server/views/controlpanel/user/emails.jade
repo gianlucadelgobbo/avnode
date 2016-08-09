@@ -44,10 +44,10 @@ block inner-content
               =" " + __("primary")
             ="{{/if}}"
             label.input-group-addon
-              ="{{#if public}}"
-              input(name="emails[{{i}}][public]", type="checkbox", value="true", checked)
+              ="{{#if is_public}}"
+              input(name="emails[{{i}}][is_public]", type="checkbox", value="true", checked)
               ="{{else}}"
-              input(name="emails[{{i}}][public]", type="checkbox", value="true")
+              input(name="emails[{{i}}][is_public]", type="checkbox", value="true")
               ="{{/if}}"
               =" " + __("public")
             ="{{else}}"

@@ -15,6 +15,7 @@ var Url = require('./url');
 var Location = require('./location');
 
 var bcrypt = require('bcrypt-nodejs');
+var moment = require('moment');
 var SALT_WORK_FACTOR = 10;
 
 var _ = require('lodash');
@@ -90,6 +91,11 @@ var UserSchema = new Schema({
 
 UserSchema.virtual('primaryEmail').get(function () {
   return _.first(_.filter(this.emails, { 'primary': true }));
+});
+
+UserSchema.virtual('birthDateFormatted').get(function () {
+  // FIXME format could be config
+  return moment(this.birth_date).format('YYYY-MM-DD');
 });
 
 // FIXME

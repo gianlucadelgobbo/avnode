@@ -156,6 +156,7 @@ router.get('/verify-user/:uuid', function (req, res) {
       res.status(400).send('Error');
     } else {
       user.confirmed = true;
+      user.primaryEmail.valid = true;
       user.save(function() {
         res.redirect('/controlpanel/login');
       });
