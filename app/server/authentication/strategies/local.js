@@ -4,7 +4,7 @@ var querystring = require('querystring');
 var User = require('../../models/user');
 
 module.exports = new LocalStrategy(function(username, password, done) {
-  User.findOne({'login': username}, function(err, user) {
+  User.findOne({'login': username, 'confirmed': true}, function(err, user) {
     if (err) {
       console.log('Error');
       console.log(err);
