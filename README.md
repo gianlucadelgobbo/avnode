@@ -20,6 +20,7 @@ Setup
 1. Copy the config file `config/default.json` to `config/local.json` and configure your settings
 2. Restore the DB using `AVnodeDB.zip` [mongorestore](http://docs.mongodb.org/manual/reference/program/mongorestore/) with `mongorestore --drop -d avnode <directory-of-dumped-backup>`
 3. Request the file repository `/warehouse` to g.delgobbo@flyer.it (you don't need it to let the app starts)
+4. Run `npm install && bower install`
 4. Run `npm start`
 5. Login with your FLxER user or use user: GianlucaDelGobbo password: GianlucaDelGobbo
 
