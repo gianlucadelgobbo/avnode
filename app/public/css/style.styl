@@ -1,4 +1,5 @@
-/* media sizes for media query */
+white = white
+
 xs =  'screen and (min-width: 1px)'
 sm = 'screen and (min-width: 768px)'
 md = 'screen and (min-width: 992px)'
@@ -9,340 +10,337 @@ onlysm = 'screen and (min-width:768px) and (max-width: 992px)'
 onlymd = 'screen and (min-width:992px) and (max-width: 1200px)'
 
 .navbar
-  margin-bottom 0px
+  margin-bottom: 0px
 
 body
-  font-family: 'Roboto Condensed', sans-serif;
-  letter-spacing: -0.01em;
-  font-size: 15px;
-  font-weight: 400;
+  background-color: #303030
+  font-family: 'Roboto Condensed', sans-serif
+  letter-spacing: -.01em
+  font-size: 15px
+  font-weight: 400
 
 img
-  max-width 100%
+  max-width: 100%
 
 a
   color: #0f8fcf
 
-
-.performances a {
-  color #D60000
-  display block
-}
+.performances a
+  color: #D60000
+  display: block
 
 .performances li
-  border-bottom 1px solid #cccccc
-  padding 10px
+  border-bottom: 1px solid #cccccc
+  padding: 10px
 
 .performances li:hover
-  background #ccc
+  background: #ccc
 
 
-a:hover img{opacity:.6;}
+a:hover img
+  opacity: .6
+
 .tab-pane legend .btn
-  margin-bottom 5px
-.tabs-below, .tabs-right, .tabs-left {
-  .nav-tabs {
-    border-bottom: 0;
-  }
-}
-
+  margin-bottom: 5px
+.tabs-below, .tabs-right, .tabs-left
+  .nav-tabs
+    border-bottom: 0
 
 .tab-content > .tab-pane,
-.pill-content > .pill-pane {
-  display: none;
-}
+.pill-content > .pill-pane
+  display: none
 
 .tab-content > .active,
-.pill-content > .active {
-  display: block;
-}
+.pill-content > .active
+  display: block
 
-.tabs-below {
-  > .nav-tabs {
-    border-top: 1px solid #ddd;
+.tabs-below
+  > .nav-tabs
+    border-top: 1px solid #ddd
 
-    > li {
-      margin-top: -1px;
-      margin-bottom: 0;
+    > li
+      margin-top: -1px
+      margin-bottom: 0
 
-      > a {
-        -webkit-border-radius: 0 0 4px 4px;
-        -moz-border-radius: 0 0 4px 4px;
-        border-radius: 0 0 4px 4px;
+      > a
+        -webkit-border-radius: 0 0 4px 4px
+        -moz-border-radius: 0 0 4px 4px
+        border-radius: 0 0 4px 4px
 
-        &:hover, &:focus {
-          border-top-color: #ddd;
-          border-bottom-color: transparent;
-        }
-      }
-    }
-    > .active a {
-      &, &:hover, &:focus {
-        border-color: transparent #ddd #ddd #ddd;
-      }
-    }
-  }
-}
+        &:hover, &:focus
+          border-top-color: #ddd
+          border-bottom-color: transparent
+    > .active a
+      &, &:hover, &:focus
+        border-color: transparent #ddd #ddd #ddd
 
-.tabs-left, .tabs-right {
-  div > .nav-tabs > li {
-    float: none;
+.tabs-left, .tabs-right
+  div > .nav-tabs > li
+    float: none
+    > a
+      min-width: 74px
+      margin-right: 0
+      margin-bottom: 3px
 
-    > a {
-      min-width: 74px;
-      margin-right: 0;
-      margin-bottom: 3px;
-    }
-  }
-}
+.tabs-left > div > .nav-tabs
+  border-right: 1px solid #ddd
 
-.tabs-left > div > .nav-tabs {
-  border-right: 1px solid #ddd;
+  > li > a
+    margin-right: -1px
+    -webkit-border-radius: 4px 0 0 4px
+    -moz-border-radius: 4px 0 0 4px
+    border-radius: 4px 0 0 4px
 
-  > li > a {
-    margin-right: -1px;
-    -webkit-border-radius: 4px 0 0 4px;
-    -moz-border-radius: 4px 0 0 4px;
-    border-radius: 4px 0 0 4px;
+    &:hover, &:focus
+      border-color: #eee #ddd #eee #eee
 
-    &:hover, &:focus {
-      border-color: #eee #ddd #eee #eee;
-    }
-  }
+  > .active a
+    &, &:hover, &:focus
+      border-color: #ddd transparent #ddd #ddd
 
-  > .active a {
-    &, &:hover, &:focus {
-      border-color: #ddd transparent #ddd #ddd;
-*border-right-color: #fff;
-}
-}
-}
+.tabs-right > .nav-tabs
+  float: right
+  margin-left: 19px
+  border-left: 1px solid #ddd
 
-.tabs-right > .nav-tabs {
-  float: right;
-  margin-left: 19px;
-  border-left: 1px solid #ddd;
+  > li > a
+    margin-left: -1px
+    -webkit-border-radius: 0 4px 4px 0
+    -moz-border-radius: 0 4px 4px 0
+    border-radius: 0 4px 4px 0
 
-  > li > a {
-    margin-left: -1px;
-    -webkit-border-radius: 0 4px 4px 0;
-    -moz-border-radius: 0 4px 4px 0;
-    border-radius: 0 4px 4px 0;
+    &:hover, &:focus
+      border-color: #eee #eee #eee #ddd
 
-    &:hover, &:focus {
-      border-color: #eee #eee #eee #ddd;
-    }
-  }
+  > .active a
+    &, &:hover, &:focus
+      border-color: #ddd #ddd #ddd transparent
 
-  > .active a {
-    &, &:hover, &:focus {
-      border-color: #ddd #ddd #ddd transparent;
-*border-left-color: #fff;
-}
-}
-}
+.navbar .brand
+  margin: 0
+.user_dett .nav-tabs
+  margin-top: 20px
+.stats
+  list-style: none
+  margin: 0 0 5px 0
+  padding: 0
+  font-size: 10px
+.stats li
+  line-height: 10px
 
+.main-list .media
+  border-bottom: 1px solid #EEEEEE
+  height: 105px
+  margin-bottom: 20px
+  padding-bottom: 10px
+.main-list .media h4
+  height: 43px
+  overflow: hidden
 
+.logo
+  height: 120px
+  padding: 20px 0
 
+.submenu
+  border-bottom: 1px solid #EEEEEE
+  margin-bottom:20px
+.submenu .nav
+  margin-bottom: 10px
 
-
-a:hover img{opacity:.6;}
-.logo{height:75px;}
-.navbar .brand{margin:0;}
-.user_dett .nav-tabs{margin-top:20px;}
-.stats{list-style:none;margin:0 0 5px 0;padding:0;font-size:10px;}
-.stats li{line-height:10px;}
-.main-list .media{border-bottom: 1px solid #EEEEEE;height: 105px;margin-bottom: 20px;padding-bottom: 10px;}
-.main-list .media h4{height: 43px;overflow:hidden;}
-
-.submenu{border-bottom: 1px solid #EEEEEE;margin-bottom:20px;}
-.submenu .nav{margin-bottom:10px;}
 #menu_search_lang
-  border-top-left-radius 0
-  border-top-right-radius 0
-  border-top 0
+  border-top-left-radius: 0
+  border-top-right-radius: 0
+  border-top: 0
 .no-margin-top
-  margin-top 0
+  margin-top: 0
 .divider
-  height 1px
-  background-color #e5e5e5
-.user_dett_ul {padding-left: 0;padding-right: 0;}
-.user_dett_ul > li > a.btn{display:inline;padding: 3px 5px;}
-.user_dett_ul > li > a{display:inline;padding:0;}
-.user_dett_ul > li > a{margin-left:0;margin-right: 0;}
-.user_dett_ul{list-style:none;margin:0;padding:0;}
-.user_dett_ul i{margin-right:5px;}
-.user_dett_ul li{margin-bottom:5px;}
-.nav-pills > li > span {
-  display: block;
-    line-height: 14px;
-    margin: 2px 2px 0 0;
-    padding: 8px 12px 8px 0;
-}
-#map_canvas,#map_canvas_add{height: 300px;}
-.modal-backdrop{z-index:998;}
-.modal{z-index:999;}
-#search-map-form{margin:0;}
-#map_canvas_add img{max-width:none}
-.loading-box{padding:1px 5px 6px 5px;border-radius:5px;border: 1px solid #EEEEEE;background-color:#FFF;}
-.datepicker{padding:0;}
-.glyphicon-calendar{cursor: pointer;}
+  height: 1px
+  background-color: #e5e5e5
 
+.user_dett_ul
+  padding-left: 0
+  padding-right: 0
+.user_dett_ul > li > a.btn
+  display:inline
+  padding: 3px 5px
+.user_dett_ul > li > a
+  display: inline
+  padding: 0
+.user_dett_ul > li > a
+  margin-left: 0
+  margin-right: 0
+.user_dett_ul
+  list-style: none
+  margin: 0
+  padding: 0
+.user_dett_ul i
+  margin-right: 5px
+.user_dett_ul li
+  margin-bottom: 5px
+.nav-pills > li > span
+  display: block
+  line-height: 14px
+  margin: 2px 2px 0 0
+  padding: 8px 12px 8px 0
 
-// DONOSTIA //
+#map_canvas, #map_canvas_add
+  height: 300px
 
-// general //
+.modal-backdrop
+  z-index: 998
+.modal
+  z-index: 999
+#search-map-form
+  margin: 0
+#map_canvas_add img
+  max-width: none
+.loading-box
+  padding: 1px 5px 6px 5px
+  border-radius: 5px
+  border: 1px solid #EEEEEE
+  background-color: #FFF
+.datepicker
+  padding: 0
+.glyphicon-calendar
+  cursor: pointer
 
 .missing
   background red
-  color: #ffffff
+  color: white
 .readmore_button
-  font-size 30px
-  text-align center
-  margin-top 15px
-  margin-bottom 15px
+  font-size: 30px
+  text-align: center
+  margin-top: 15px
+  margin-bottom: 15px
 
-
-// header  //
 #user_menu
-  background-color #0F8FCF
-  border none
+  background-color: #0F8FCF
+  border: 0
 #user_menu
-  color #fff
+  color: white
 #user_menu a
-  color #fff
+  color: white
 #menu_user_interaction
-  background #e4811e
-  border none
+  background: #e4811e
+  border: none
 #menu_user_interaction .dropdown-menu
-  background #e4811e
+  background: #e4811e
 #menu_user_interaction a
-  color #fff
+  color: white
 .logo_header_user
-  height 20px
+  height: 20px
 #menu .navbar
-  margin-bottom 0px
+  margin-bottom: 0px
 .user_nav li
-  display inline-block
+  display: inline-block
 .user_nav
   @media smart
-    display none
+    display: none
 .logo_banner
-  margin-top 50px
-  margin-bottom 15px
+  margin-top: 50px
+  margin-bottom: 15px
 #header
-  font-size: 14px;
-  font-weight: 300;
+  font-size: 14px
+  font-weight: 300
 #header .nav > li > a
-  padding 15px 5px
+  padding: 15px 5px
 .navbar-brand:hover
-  color #fff !important
+  color: white !important
 
 .user_manager_button
-  position: absolute;
-  display: inline-block;
-  height: 33px;
-  top: 5px;
-  right: 15px;
-  color #fff
-  font-size 30px
+  position: absolute
+  display: inline-block
+  height: 33px
+  top: 5px
+  right: 15px
+  color: white
+  font-size: 30px
 .user_manager_button:active, .user_manager_button:hover
-  color: #fff !important
-
-// header performer //
+  color: white !important
 
 .user_dett_bkg
-  padding-bottom 15px
-  margin-bottom 15px
-  margin-top 15px
+  padding-bottom: 15px
+  margin-bottom: 15px
+  margin-top: 15px
   @media smart
-    padding-bottom 5px
-    margin-bottom 0px
+    padding-bottom: 5px
+    margin-bottom: 0px
 
-.performer_geolocalization img {
-  max-width 100%
-}
+.performer_geolocalization img
+  max-width: 100%
 
-.performer_geolocalization h1 {
-  font-size: 22px;
-  margin-top: 0;
-  font-weight: 200;
-  margin-bottom: 5px;
-}
+.performer_geolocalization h1
+  font-size: 22px
+  margin-top: 0
+  font-weight: 200
+  margin-bottom: 5px
+
 .performer_geolocalization
   @media smart
-    width 70%
+    width: 70%
 .performer_map
   @media smart
-    display none
-.user_dett ul {
-  padding-left 0
-  list-style none
-}
+    display: none
+.user_dett ul
+  padding-left: 0
+  list-style: none
 
 .performer_summary ul
   @media lg
-    columns 2
-    -webkit-columns 2
-    -moz-columns 2
-    -webkit-column-rule: 1px outset #A9ABAD; /* Chrome, Safari, Opera */
-    -moz-column-rule: 1px outset #A9ABAD; /* Firefox */
-    column-rule: 1px outset #A9ABAD;
-    -webkit-column-gap: 30px;
-    -moz-column-gap: 30px;
-    column-gap: 30px;
+    columns: 2
+    column-rule: 1px outset #A9ABAD
+    column-gap: 30px
 
 .performer_summary
-  background url('../img/performer_summary.png')
-  height 165px
-  background-position right
+  background: url('../img/performer_summary.png')
+  height: 165px
+  background-position: right
 
 .performer_summary_box
-  background none
-  border-top 5px solid #F2F2F2
-  height 165px
+  background: none
+  border-top: 5px solid #F2F2F2
+  height: 165px
   @media md
-    background #F2F2F2
-    border-top none
+    background: #F2F2F2
+    border-top: none
   @media smart
-    width 100%
-    height auto
-    border-top none
+    width: 100%
+    height: auto
+    border-top: none
 
 .performer_summary
   @media smart
-    width 100%
-    display none
+    width: 100%
+    display: none
 .performer_summary_box ul
-  padding 10px 0
+  padding: 10px 0
   @media md
-    padding 15px 0
+    padding: 15px 0
   @media smart
-    padding 0
+    padding: 0
 
 .performer_summary_box ul li
-  line-height 25px
+  line-height: 25px
   @media smart
-    display inline-block
+    display: inline-block
 
 .performer_details_wrapper
-  border-left 1px solid #0F8FCF
-  border-right 1px solid #0F8FCF
-  padding 0 15px
-  height 165px
+  border-left: 1px solid #0F8FCF
+  border-right: 1px solid #0F8FCF
+  padding: 0 15px
+  height: 165px
   @media smart
-    border-left none
-    border-right none
-    padding 0
-    height auto
-    display none
+    border-left: none
+    border-right: none
+    padding: 0
+    height: auto
+    display: none
 
 .performer_details_wrapper ul
-  border-top 5px solid #0f8fcf
-  padding-top 12px
+  border-top: 5px solid #0f8fcf
+  padding-top: 12px
   @media smart
-    border-top 0
-
+    border-top: 0
 
 .performer_details_wrapper ul li
   line-height 24px
@@ -368,13 +366,8 @@ a:hover img{opacity:.6;}
   li
     display inline-block
     margin-right 10px
-/**/
-/* Performer */
-/**/
-
 
 .main_boxes_bkg
-  /*background #F8F6F6*/
   background-color: #F4F4F4
   padding-bottom 30px
   padding-top 15px
@@ -389,30 +382,29 @@ a:hover img{opacity:.6;}
 .performer_avatar
   @media smart
     width 30%
-// main boxes
 .main_box_performer
   @media onlyxs
     margin-bottom 15px
 .main_box_performer a
-  color #414042
+  color: #414042
 
 .box_header
-  text-transform: uppercase;
-  font-size: 20px;
-  font-weight: 600;
-  margin: 15px 0 5px;
+  text-transform: uppercase
+  font-size: 20px
+  font-weight: 600
+  margin: 15px 0 5px
   float left
   margin-bottom 13px
 
 .box_header .diagonale
-  height: 34px;
-  left: 0px;
-  position: relative;
-  top: 10px;
-  width: 22px;
+  height: 34px
+  left: 0px
+  position: relative
+  top: 10px
+  width: 22px
 .box_header .title_str
-  color #ffffff
-  padding: 5px 10px;
+  color white
+  padding: 5px 10px
 
 .box_header.box_performer_header .title_str
   background-color: #0f8fcf
@@ -422,21 +414,21 @@ a:hover img{opacity:.6;}
   background-color: #004431
 
 .box_wrapper
-  border: 1px solid #B0B0B0;
-  border-radius: 4px;
-  background #fff
-  box-shadow 3px 3px 3px rgba(0,0,0,0.3)
+  border: 1px solid #B0B0B0
+  border-radius: 4px
+  background white
+  box-shadow 3px 3px 3px rgba(0,0,0,.3)
 .performances_performer .box_wrapper
-  border-color #B0B0B0
+  border-color: #B0B0B0
 .events_performer .box_wrapper
-  border-color #B0B0B0
+  border-color: #B0B0B0
 .crews_performer .box_wrapper
-  border-color #B0B0B0
+  border-color: #B0B0B0
 .main_event_title, .main_performance_title
   font-size 18px
-  text-transform: uppercase;
-  font-weight: 600;
-  margin: 15px 0 15px;
+  text-transform: uppercase
+  font-weight: 600
+  margin: 15px 0 15px
   @media onlyxs
     padding 0 15px
     margin 0
@@ -448,11 +440,11 @@ a:hover img{opacity:.6;}
   @media smart
     padding 0
 .main_performace_image
-  height: 186px;
-  width: 100%;
+  height: 186px
+  width: 100%
   @media onlyxs
     height: auto
-    padding: 0;
+    padding: 0
 .main_performace_image_wrapper
   @media xs
     margin-bottom 10px
@@ -461,15 +453,15 @@ a:hover img{opacity:.6;}
 .main_performer_box p
   margin-bottom 0
 .main_performer_box i
-  color #0f8fcf
+  color: #0f8fcf
   display inline-block
   margin-right 5px
 
 .evidence-performance_stats .stat.value
-  color #0f8fcf
+  color: #0f8fcf
 .evidence-performance_stats_visits:after
   content "//"
-  color #0c2e4c
+  color: #0c2e4c
   padding-left 10px
 .main_performer_box .performance_owner
   font-weight 500
@@ -481,22 +473,22 @@ a:hover img{opacity:.6;}
     background none
 
 .secondary_performance h3, .secondary_performance h3
-    text-transform: uppercase;
-    font-size: 14px;
-    margin: 0;
-    position: relative;
-    top: 26px;
-    font-weight: 600;
+    text-transform: uppercase
+    font-size: 14px
+    margin: 0
+    position: relative
+    top: 26px
+    font-weight: 600
 .secondary-performace_image img, .secondary-event_image img
-  width: 60px;
-  height: 60px;
+  width: 60px
+  height: 60px
 .secondary-performace_image, .secondary-event_image
-  padding: 0;
-  width: 60px;
+  padding: 0
+  width: 60px
 .evidence-event_stats_visits:after
   content "//"
   padding-left 10px
-  color #330e02
+  color: #330e02
 .secondary_performance
   padding 10px 0
   float left
@@ -505,59 +497,60 @@ a:hover img{opacity:.6;}
   @media smart
     display none
 .more_button
-  font-size: 20px;
-  text-transform: uppercase;
-  padding: 15px;
-  font-weight: 600;
+  font-size: 20px
+  text-transform: uppercase
+  padding: 15px
+  font-weight: 600
 .main_box_performer .more_button
   float: left
   width 100%
   margin-top 15px
 .more_button.more_performance a
-  color #0f8fcf
+  color: #0f8fcf
 .more_button.more_events a
-  color #E4811E
+  color: #E4811E
 .big_slash {
-  font-size: 40px;
-  font-weight: 800;
-  letter-spacing: -0.55em;
-  margin-left: 15px;
-  position: absolute;
-  text-shadow: 2px 0 0;
-  top: 0;
+  font-size: 40px
+  font-weight: 800
+  letter-spacing: -.55em
+  margin-left: 15px
+  position: absolute
+  text-shadow: 2px 0 0
+  top: 0
 }
 
 .events_performer i.fa
-  color #e4811e
-  display: inline-block;
-  margin-right: 5px;
+  color: #e4811e
+  display: inline-block
+  margin-right: 5px
 .main_event_details p
   margin-bottom 5px
 .main_event_details
   margin-bottom 15px
 .main_event_details .event_date
-  font-size: 18px;
-  font-weight: 600;
-  text-transform: uppercase;
+  font-size: 18px
+  font-weight: 600
+  text-transform: uppercase
 .evidence-date
   font-size 24px
   .evidence-date_sep
-    color #e4811e
+    color: #e4811e
 .evidence_time i
-  color #e4811e !important
+  color: #e4811e !important
 .evidence_time
   font-size 24px
 .evidence_time_end
   padding-left 10px
 .date_time_event_evidence
+  list-style: none
   padding 0
 .secondary_event_wrapper
   margin-bottom 15px
 .secondary_events
   background: #DEDFDF
   padding 10px 15px
-  float: left;
-  width: 100%;
+  float: left
+  width: 100%
   display none
   @media smart
     display: none
@@ -574,12 +567,12 @@ a:hover img{opacity:.6;}
   padding-right 0px
 
 .main_crews-box img
-  height: 80px;
-  width: 80px;
-  border: 1px solid;
-  border-radius: 50% !important;
-  margin: 0 auto;
-  display: block;
+  height: 80px
+  width: 80px
+  border: 1px solid
+  border-radius: 50% !important
+  margin: 0 auto
+  display: block
   @media onlymd
     height 91px
     width 91px
@@ -594,7 +587,7 @@ a:hover img{opacity:.6;}
     position relative
     bottom 30px
     border 2px solid
-    color #fff
+    color white
     margin-bottom -30px
     padding 2px
 .main_crews-box
@@ -608,62 +601,56 @@ a:hover img{opacity:.6;}
   padding 15px !important
   display: none
 .more_crews.more_button a
-  color #004431
+  color: #004431
 .crew_details ul
   padding 0
 .about-bkg
-  background: #333 none repeat scroll 0 0;
-  color: #fff;
-  font-weight: 300;
-  padding: 30px 0;
-  border-bottom: 10px solid #E4811E;
-  margin-bottom 20px;
+  background: #333 none repeat scroll 0 0
+  color: white
+  font-weight: 300
+  padding: 30px 0
+  border-bottom: 10px solid #E4811E
+  margin-bottom 20px
 .about_performer
   @media sm
-    columns 2
-    -webkit-columns 2
-    -moz-columns 2
-    -webkit-column-rule: 1px outset #fff; /* Chrome, Safari, Opera */
-    -moz-column-rule: 1px outset #fff; /* Firefox */
-    column-rule: 1px outset #fff;
-    -webkit-column-gap: 30px;
-    -moz-column-gap: 30px;
-    column-gap: 30px;
+    columns: 2
+    column-rule: 1px outset white
+    column-gap: 30px
 
 .about_performer h2
-  font-size: 30px;
-  font-weight: 600;
-  margin: 0 0 15px;
-  text-transform: uppercase;
+  font-size: 30px
+  font-weight: 600
+  margin: 0 0 15px
+  text-transform: uppercase
 .secondary_box_wrapper
-  border: 1px solid #fff;
-  float: left;
-  width: 100%;
+  border: 1px solid white
+  float: left
+  width: 100%
 
 .secondary_boxes_bkg
-  background: #333 none repeat scroll 0 0;
-  color: #fff;
-  font-weight: 300;
-  padding: 30px 0;
+  background: #333 none repeat scroll 0 0
+  color: white
+  font-weight: 300
+  padding: 30px 0
 .secondary_box_header
-  font-size: 30px;
-  font-weight: 600;
-  margin: 10px 0 15px;
-  text-transform: uppercase;
+  font-size: 30px
+  font-weight: 600
+  margin: 10px 0 15px
+  text-transform: uppercase
 .box_stats ul
   margin 0
 .box_stats
-  background: rgba(51, 51, 51, 0.8) none repeat scroll 0 0;
-  height: 21px;
-  margin-bottom: -21px;
-  opacity: 0.9;
-  position: relative;
-  width: 100%;
+  background: rgba(51, 51, 51, .8) none repeat scroll 0 0
+  height: 21px
+  margin-bottom: -21px
+  opacity: .9
+  position: relative
+  width: 100%
   font-size 12px
 .box_stats ul li span
-  color #fff
+  color white
 .box_stats i.fa, .box_other_infos i.fa, .playlist_categories_list i.fa, .gallery_details span.icon_at, .gallery_details i.fa
-  color #fff
+  color: white
   margin-right 5px
 .secondary_box h3
   margin 10px 0
@@ -677,13 +664,13 @@ a:hover img{opacity:.6;}
 .box_other_infos
   font-size 12px
   margin 0
-  color #fff
+  color white
 .box_other_infos .fa-floppy-o
   margin-left 3px
 .single_footage
   margin-bottom 30px
 .single_footage h3
-  color #fff
+  color white
 .playlist_categories_list
   font-size 13px
   @media md
@@ -704,15 +691,15 @@ a:hover img{opacity:.6;}
   min-height 200px
 
 svg.coda
-  width: 52px;
-  position: relative;
-  top: 10px;
-  margin-top: -10px;
-  left: -1px;
+  width: 52px
+  position: relative
+  top: 10px
+  margin-top: -10px
+  left: -1px
 .slash_svg
-  position: absolute;
-  top: 15px;
-  width: 48px;
+  position: absolute
+  top: 15px
+  width: 48px
 .secondary_box .slash_svg
   top 0
 .secondary_box .slash_svg.before_title
@@ -722,18 +709,18 @@ svg.coda
 .slash_svg.more_secondary_box
   top: 10px
 .secondary_box a
-  color #0F8FCF
+  color: #0F8FCF
 .title_and_info_container h3
-  color: #fff;
-  margin-bottom: 5px;
+  color: white
+  margin-bottom: 5px
   font-size 16px
   margin-top 0
 .title_and_info_container
-  background: rgba(51, 51, 51, 0.8) none repeat scroll 0 0;
-  font-size: 14px;
-  opacity: 0.9;
-  padding: 10px;
-  width: 100%;
+  background: rgba(51, 51, 51, .8) none repeat scroll 0 0
+  font-size: 14px
+  opacity: .9
+  padding: 10px
+  width: 100%
 .single_playlist, .single_tvshow, .single_gallery
   margin-bottom 30px
 .single_gallery .image_box
@@ -747,352 +734,350 @@ svg.coda
 .overlay_wrapper
   position:absolute; /* absolute position (so we can position it where we want)*/
   bottom:0px; /* position will be on bottom */
-  left:0px;
-  width:100%;
+  left:0px
+  width:100%
 .overlay_wrapper_top
   position:absolute; /* absolute position (so we can position it where we want)*/
   top:0px; /* position will be on bottom */
-  left:0px;
-  width:100%;
+  left:0px
+  width:100%
 
 // coloured boxes //
 .box_wrapper.coloured
   border-radius 4px
-  box-shadow 1px 7px 5px rgba(0, 0, 0, 0.3)
-  background #fff
+  box-shadow 1px 7px 5px rgba(0, 0, 0, .3)
+  background white
   border-top none
 .box_performer_header
   top: 10px
 .box_wrapper.coloured img
   border-radius 4px 4px 0 0
 .performances_performer .box_wrapper.coloured
-  border-color: #B0B0B0;
+  border-color: #B0B0B0
 .performances_performer .box_wrapper.coloured .main_performer_box
-  color: #0F8FCF;
+  color: #0F8FCF
 .performances_performer .box_wrapper.coloured a
-  color: #333;
+  color: #333
 .performances_performer .box_wrapper.coloured
   i, .stat.value
-    color #333
+    color: #333
 .performer_main_data i
-  color #0F8FCF !important
+  color: #0F8FCF !important
 .performances_performer .box_wrapper.coloured .more_button a
-  color #0F8FCF
+  color: #0F8FCF
 .performances_performer .box_wrapper.coloured .secondary_performance a
-  color #414042
+  color: #414042
 
 .events_performer .box_wrapper.coloured
-  border-color: #B0B0B0;
+  border-color: #B0B0B0
 .events_performer .box_wrapper.coloured .main_event_box
-  color: #E4811E;
+  color: #E4811E
 .events_performer .box_wrapper.coloured a
-  color: #333;
+  color: #333
 .events_performer .box_wrapper.coloured
   i, .stat.value
-    color #333
+    color: #333
 .events_performer .box_wrapper.coloured .more_button a
-  color #E4811E
+  color: #E4811E
 .events_performer .box_wrapper.coloured .secondary_event
-  color #414042
+  color: #414042
 .evidence-event_stats
-  color #e4811e
+  color: #e4811e
 
 .crews_performer .box_wrapper.coloured
-  border-color: #bbb;
+  border-color: #bbb
 .crews_performer .box_wrapper.coloured
-  color: #004431;
+  color: #004431
 .crews_performer .box_wrapper.coloured a
-  color: #004431;
+  color: #004431
 .crews_performer .box_wrapper.coloured
   i, .stat.value
-    color #005b3f
+    color: #005b3f
 .crews_performer .box_wrapper.coloured .more_button a
-  color #004431
+  color: #004431
 .crews_performer .box_wrapper.coloured .secondary_event
-  color #414042
+  color: #414042
 
-// sticky footer //
 html,body
   height: 100%
 .wrapper
+  background-color: white
   position: relative
   padding-bottom: 240px
   float: left
   width 100%
 #content
   padding-top: 0px
+  margin-bottom: 50px
 footer.main_footer
   position: absolute
   bottom: 0
   width: 100%
-  background #303030
+  background: #303030
   height: 240px
-  padding 60px 0
-  color #fff
+  padding: 60px 0
+  color: white
 
 .logo_piede
-  width 100px
+  width: 100px
 .footer_menu ul
-  padding: 15px 0 5px;
-  margin: 0;
+  padding: 15px 0 5px
+  margin: 0
 .footer_menu ul li
-  padding-left 0
-  padding-right 15px
+  padding-left: 0
+  padding-right: 15px
 .nocopy
-  font-weight 200
-  font-size 12px
+  font-weight: 200
+  font-size: 12px
 .logo_flyer img
-  width 50px
-
-// lists //
+  width: 50px
 
 .user_lists_bkg
-  background-color: #f4f4f4;
-  padding-bottom: 30px;
-  padding-top: 40px;
-  border-top: 1px solid #ddd;
+  background-color: #f4f4f4
+  padding-bottom: 30px
+  padding-top: 40px
+  border-top: 1px solid #ddd
 .user_list_title
-  font-size 20px
-  margin-top 0
-  margin-bottom 30px
+  font-size: 20px
+  margin-top: 0
+  margin-bottom: 30px
 .list_item_performer
   margin-bottom 30px
   min-height 140px
   @media onlyxs
-    width 100%
-    padding 0 15%
+    width: 100%
+    padding: 0 15%
 .list_item_performer a
-  color #333
+  color: #333
 .list_item_performer .box_wrapper
-  border-style solid
-  float: left;
-  width: 100%;
+  border-style: solid
+  float: left
+  width: 100%
 .list_item_performer .main_performance_image
-  border-radius 4px 4px 0 0
+  border-radius: 4px 4px 0 0
 .list_bkg
   background #F8F6F6
 .list_page_title
-  font-size: 18px;
-  margin-top: 0;
-  margin-bottom: 15px;
-  color: #fff
+  font-size: 18px
+  margin-top: 0
+  margin-bottom: 15px
+  color: white
 .list_item_performer i
-  display: inline-block;
-  margin-right: 5px;
+  display: inline-block
+  margin-right: 5px
 .performances_performer.list_item_performer i
-  color: #0f8fcf;
+  color: #0f8fcf
 .list_item_performer .main_event_details
-  margin 15px 0
+  margin: 15px 0
 .list_page .list_page_title i
-  display: inline-block;
-  padding: 0 10px;
+  display: inline-block
+  padding: 0 10px
 .performances_list .list_page_title i
-  color: #fff;
+  color: white
 .events_list .list_page_title i
-  color: #fff;
+  color: white
 .title_performer_list_bkg
-  margin-bottom 30px
+  margin-bottom: 30px
 .events_list .title_performer_list_bkg
-  background #e4811e
+  background: #e4811e
 .performances_list .title_performer_list_bkg
-  background #0F8FCF
+  background: #0F8FCF
 .crews_list .title_performer_list_bkg
-  background #004431
+  background: #004431
 .crews_list .list_page_title i
-  color: #fff;
+  color: white
 .list_page .list_page_sez
-  font-weight 600
+  font-weight: 600
 .list_page .list_page_user
-  font-weight 200
+  font-weight: 200
 .list_page .slash_svg
-  margin-top: 0px;
-  position: relative;
-  top: 11px;
-  width: 48px;
-  margin-right: 5px;
+  margin-top: 0px
+  position: relative
+  top: 11px
+  width: 48px
+  margin-right: 5px
 .performances_list .list_page_title polyline
-  fill #ffffff
+  fill: white
 .events_list .list_page_title polyline
-  fill #fff
+  fill: white
 .crews_list .list_page_title polyline
-  fill #fff
+  fill: white
 .footage_list, .gallery_list, .playlists_list
   .list_item_performer
   .list_page_title
   .list_item_performer a
-    color #fff
+    color: white
 .footage_list, .playlists_list, .gallery_list
   polyline
-    fill #fff
+    fill: white
 .footage_list, .gallery_list, .playlists_list
-  background #333
+  background: #333
 .list_item_performer.gallery_performer .image_box img
-  min-height 150px
+  min-height: 150px
 .list_item_performer.gallery_performer
-  min-height 150px
-
-// single event
+  min-height: 150px
 
 #partecipate_shape
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 150px 150px 0;
-  border-color: transparent #fdfd47 transparent transparent;
-  position: absolute;
-  right: 0px;
-  top: 0px;
+  width: 0
+  height: 0
+  border-style: solid
+  border-width: 0 150px 150px 0
+  border-color: transparent #fdfd47 transparent transparent
+  position: absolute
+  right: 0px
+  top: 0px
 #partecipate_button
-  position: absolute;
-  right: -5px;
-  top: 45px;
+  position: absolute
+  right: -5px
+  top: 45px
 #partecipate_button a
-  color: #000;
-  text-transform: uppercase;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  display: block;
-  font-weight: bold;
-  font-size: 24px;
+  color: #000
+  text-transform: uppercase
+  -webkit-transform: rotate(45deg)
+  -moz-transform: rotate(45deg)
+  display: block
+  font-weight: bold
+  font-size: 24px
 .single_event_thumb_container
-  position relative
-  float left
-  width 100%
-  margin-bottom 30px
+  position: relative
+  float: left
+  width: 100%
+  margin-bottom: 30px
 .single_event_thumb_container .overlay_container
-  color: #fff;
-  background: rgba(51,51,51,0.95) none repeat scroll 0 0;
-  width: 100%;
-  padding: 15px 30px;
+  color: white
+  background: rgba(51,51,51,.95) none repeat scroll 0 0
+  width: 100%
+  padding: 15px 30px
 
 .event_events_list
-  margin-top 15px
+  margin-top: 15px
   li
     list-style-type: none
 .event_events_list .event_list_content_container
-  padding: 5px 10px;
-  margin-bottom 15px
-  color: #fff;
-  background: url("../img/single_event_list_bkg.png");
-  background-position: right;
-  background-color #e4811e
+  padding: 5px 10px
+  margin-bottom: 15px
+  color: white
+  background: url("../img/single_event_list_bkg.png")
+  background-position: right
+  background-color: #e4811e
 .event_events_list i
-  margin-right 5px
+  margin-right: 5px
 .event_events_list span
-  display block
+  display: block
 
 .single_event_thumb_container h1.title
-  font-weight bold
-  text-transform uppercase
+  font-weight: bold
+  text-transform: uppercase
 .single_event_thumb_container .event_list_content_container
-  background: none;
-  border-bottom: 1px solid #fff;
-  padding: 10px 0 !important;
+  background: none
+  border-bottom: 1px solid white
+  padding: 10px 0 !important
 .single_event_page a
   color: #E4811E
 .tabs-bkg
-  margin-top 30px
+  margin-top: 30px
 .nav-tabs
-  border-bottom 1px solid #e4811e
-  margin-bottom 30px
+  border-bottom: 1px solid #e4811e
+  margin-bottom: 30px
 .single_event_page
-  .nav-tabs>li.active>a,
-  .nav-tabs>li.active>a:hover,
-  .nav-tabs>li.active>a:focus
-    border none
-    color: #fff;
-    background: url("../img/single_event_list_bkg.png");
-    background-position: right;
-    background-color: #e4811e;
+  .nav-tabs > li.active > a,
+  .nav-tabs > li.active > a:hover,
+  .nav-tabs > li.active > a:focus
+    border: 0
+    color: white
+    background: url("../img/single_event_list_bkg.png")
+    background-position: right
+    background-color: #e4811e
 .single_event_page
-  .nav-tabs>li>a,
-  .nav-tabs>li>a:hover,
-  .nav-tabs>li>a:focus
-    border none
+  .nav-tabs > li > a,
+  .nav-tabs > li > a:hover,
+  .nav-tabs > li > a:focus
+    border: 0
     margin: 0
 .more_artist
-  color #0f8fcf
+  color: #0f8fcf
   margin-left 5px
-.nav-tabs>li>a
+.nav-tabs > li > a
   border-radius 0
-  color #e4811e
-.nav-tabs>li
-  float: left;
-  margin-bottom: -2px;
-  padding: 0;
-  margin: 0;
-.nav-tabs>li>a:hover
+  color: #e4811e
+.nav-tabs > li
+  float: left
+  margin-bottom: -2px
+  padding: 0
+  margin: 0
+.nav-tabs > li > a:hover
   border-color: none
-.nav>li>a:hover, .nav>li>a:focus
-  text-decoration: none;
-  background-color: none !important;
+.nav > li > a:hover, .nav > li > a:focus
+  text-decoration: none
+  background-color: none !important
 .date_bkg
-  background: #E4811E url("../img/single_event_list_bkg.png") repeat scroll right center;
-  color: #FFF;
-  margin-bottom: 30px;
-  border-bottom: 1px solid #E4811E;
-  border-top: 1px solid #E4811E;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  float left
-  width 100%
+  background: #E4811E url("../img/single_event_list_bkg.png") repeat scroll right center
+  color: #FFF
+  margin-bottom: 30px
+  border-bottom: 1px solid #E4811E
+  border-top: 1px solid #E4811E
+  background-repeat: no-repeat
+  background-position: 0 0
+  float: left
+  width: 100%
 .single_event_details li span.value
-  color #E4811E
-.single_date_of_series h3, .single_partner_of_series h3
-  margin 15px 0
+  color: #E4811E
+.single_partner_of_series h3
+  margin: 15px 0
 .single_date_of_series h3
-  text-align: center;
-  font-size: 24px;
-  letter-spacing: 0.05em;
-  color: #5c5c5c;
-  font-weight: 500;
-  margin-bottom: 30px;
-  font-style: italic;
-.single_date_of_series h3 span
-  border-right: 5px solid #e4811e;
-  border-left: 5px solid #e4811e;
-  padding: 0 20px;
+  margin: 15px 0
+  text-align: center
+  font-size: 24px
+  letter-spacing: .05em
+  color: #5c5c5c
+  font-weight: 500
+  margin-bottom: 30px
+  font-style: italic
+  span
+    border-right: 5px solid #e4811e
+    border-left: 5px solid #e4811e
+    padding: 0 20px
 .day_grid
-  margin-bottom: 90px;
-  border-bottom: 1px solid #eee;
-  //box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
-  padding-top: 30px;
+  margin-bottom: 90px
+  border-bottom: 1px solid #eee
+  padding-top: 30px
 .day_grid .list_item_performer a
   color: #333
 .single_event-room_title
-  margin: 30px 0 30px 0px;
-  text-align: center;
-  text-transform: uppercase;
-  font-weight: 900;
-  text-shadow: 1px 1px 1px #fff;
-  letter-spacing: -0.05em;
-  font-size: 36px;
-.performer_main_data i
-.single_event_page .performances_performer .box_wrapper
-  border-color #B0B0B0
-.single_event_page .evidence-performance_stats .stat.value
-  color: #333
+  margin: 30px 0 30px 0px
+  text-align: center
+  text-transform: uppercase
+  font-weight: 900
+  text-shadow: 1px 1px 1px white
+  letter-spacing: -.05em
+  font-size: 36px
+.single_event_page
+  .performances_performer .box_wrapper
+    border-color: #B0B0B0
+  .evidence-performance_stats .stat.value
+    color: #333
 .btn-info.paticipate
-  color: #FFF;
-  top: 15px;
-  position: relative;
-  background #E4811E
-  border none
+  color: #FFF
+  top: 15px
+  position: relative
+  background: #E4811E
+  border: none
 .btn-info.paticipate:hover
-  background: #fff
-  color #E4811E
-.grouped_infos a
-  color: #333;
-  background: #eee;
-  font-size: 12px;
-  padding: 3px 5px;
-  border-bottom: 2px solid #e2e2e2;
-.grouped_infos .active a
-  border-bottom 2px solid #0f8fcf
-.grouped_infos li
-  margin-bottom: 10px;
+  background: white
+  color: #E4811E
+.grouped_infos
+  a
+    color: #333
+    background: #eee
+    font-size: 12px
+    padding: 3px 5px
+    border-bottom: 2px solid #e2e2e2
+  .active a
+    border-bottom: 2px solid #0f8fcf
+  li
+    margin-bottom: 10px
 .title_grouped_infos
-  text-transform uppercase
+  text-transform: uppercase
 .website, .phonenumber
   margin-bottom: 16px
 
@@ -1123,13 +1108,10 @@ textarea.parsley-error
   margin: 2px 0 3px
   padding: 0
   list-style-type: none
-  font-size: 0.9em
-  line-height: 0.9em
+  font-size: .9em
+  line-height: .9em
   opacity: 0
   transition: all .3s ease-in
-  -o-transition: all .3s ease-in
-  -moz-transition: all .3s ease-in
-  -webkit-transition: all .3s ease-in
 
 .parsley-errors-list.filled
   opacity: 1

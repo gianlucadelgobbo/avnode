@@ -32,8 +32,6 @@ block content
                   input(name="from",type="hidden", value=from)
             .col-md-6
               .pull-right
-                button(type="submit").btn.btn-primary=__("Enter")
+                button(type="submit").btn.btn-success.btn-primary=__("Login")
         hr.clearfix
-        a(href="/controlpanel/passwordRequest")=__("Recover data")
-        !="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-        a(href="/signup")=__("Register")
+        a(href="/controlpanel/signup")=__("Signup")

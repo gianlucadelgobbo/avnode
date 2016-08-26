@@ -1,8 +1,8 @@
-/* media sizes for media query */
 .navbar {
   margin-bottom: 0px;
 }
 body {
+  background-color: #303030;
   font-family: 'Roboto Condensed', sans-serif;
   letter-spacing: -0.01em;
   font-size: 15px;
@@ -93,7 +93,6 @@ a:hover img {
 .tabs-left > div > .nav-tabs > .active a:hover,
 .tabs-left > div > .nav-tabs > .active a:focus {
   border-color: #ddd transparent #ddd #ddd;
-  *border-right-color: #fff;
 }
 .tabs-right > .nav-tabs {
   float: right;
@@ -114,13 +113,6 @@ a:hover img {
 .tabs-right > .nav-tabs > .active a:hover,
 .tabs-right > .nav-tabs > .active a:focus {
   border-color: #ddd #ddd #ddd transparent;
-  *border-left-color: #fff;
-}
-a:hover img {
-  opacity: 0.6;
-}
-.logo {
-  height: 75px;
 }
 .navbar .brand {
   margin: 0;
@@ -146,6 +138,10 @@ a:hover img {
 .main-list .media h4 {
   height: 43px;
   overflow: hidden;
+}
+.logo {
+  height: 120px;
+  padding: 20px 0;
 }
 .submenu {
   border-bottom: 1px solid #eee;
@@ -239,7 +235,7 @@ a:hover img {
 }
 #user_menu {
   background-color: #0f8fcf;
-  border: none;
+  border: 0;
 }
 #user_menu {
   color: #fff;
@@ -335,13 +331,7 @@ a:hover img {
 @media screen and (min-width: 1200px) {
   .performer_summary ul {
     columns: 2;
-    -webkit-columns: 2;
-    -moz-columns: 2;
-    -webkit-column-rule: 1px outset #a9abad;
-    -moz-column-rule: 1px outset #a9abad;
     column-rule: 1px outset #a9abad;
-    -webkit-column-gap: 30px;
-    -moz-column-gap: 30px;
     column-gap: 30px;
   }
 }
@@ -456,11 +446,7 @@ a:hover img {
   display: inline-block;
   margin-right: 10px;
 }
-/**/
-/* Performer */
-/**/
 .main_boxes_bkg {
-/*background #F8F6F6*/
   background-color: #f4f4f4;
   padding-bottom: 30px;
   padding-top: 15px;
@@ -703,6 +689,7 @@ a:hover img {
   padding-left: 10px;
 }
 .date_time_event_evidence {
+  list-style: none;
   padding: 0;
 }
 .secondary_event_wrapper {
@@ -795,13 +782,7 @@ a:hover img {
 @media screen and (min-width: 768px) {
   .about_performer {
     columns: 2;
-    -webkit-columns: 2;
-    -moz-columns: 2;
-    -webkit-column-rule: 1px outset #fff;
-    -moz-column-rule: 1px outset #fff;
     column-rule: 1px outset #fff;
-    -webkit-column-gap: 30px;
-    -moz-column-gap: 30px;
     column-gap: 30px;
   }
 }
@@ -1063,6 +1044,7 @@ body {
   height: 100%;
 }
 .wrapper {
+  background-color: #fff;
   position: relative;
   padding-bottom: 240px;
   float: left;
@@ -1070,6 +1052,7 @@ body {
 }
 #content {
   padding-top: 0px;
+  margin-bottom: 50px;
 }
 footer.main_footer {
   position: absolute;
@@ -1301,7 +1284,7 @@ footer.main_footer {
 .single_event_page .nav-tabs>li.active>a,
 .single_event_page .nav-tabs>li.active>a:hover,
 .single_event_page .nav-tabs>li.active>a:focus {
-  border: none;
+  border: 0;
   color: #fff;
   background: url("../img/single_event_list_bkg.png");
   background-position: right;
@@ -1310,7 +1293,7 @@ footer.main_footer {
 .single_event_page .nav-tabs>li>a,
 .single_event_page .nav-tabs>li>a:hover,
 .single_event_page .nav-tabs>li>a:focus {
-  border: none;
+  border: 0;
   margin: 0;
 }
 .more_artist {
@@ -1384,7 +1367,6 @@ footer.main_footer {
   letter-spacing: -0.05em;
   font-size: 36px;
 }
-.performer_main_data i,
 .single_event_page .performances_performer .box_wrapper {
   border-color: #b0b0b0;
 }
@@ -1455,9 +1437,6 @@ textarea.parsley-error {
   line-height: 0.9em;
   opacity: 0;
   transition: all 0.3s ease-in;
-  -o-transition: all 0.3s ease-in;
-  -moz-transition: all 0.3s ease-in;
-  -webkit-transition: all 0.3s ease-in;
 }
 .parsley-errors-list.filled {
   opacity: 1;

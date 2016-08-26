@@ -13,3 +13,4 @@ _buttare
 tmp
 app/server/config.js
 config/local*
+npm-debug.log

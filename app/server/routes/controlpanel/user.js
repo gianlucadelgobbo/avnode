@@ -165,7 +165,7 @@ exports.emailsSchemaPost = {
     Joi.object().keys({
       email: Joi.string().email().required(),
       verify: Joi.boolean(),
-      public: Joi.boolean()
+      is_public: Joi.boolean()
     })
   )
 };
@@ -177,7 +177,7 @@ exports.emailsPost = function(req, res) {
   };
   newData.emails.forEach(function(newEmail) {
     _.defaults(newEmail, {
-      public: false,
+      is_public: false,
       primary: false
     });
     if (newEmail.email === newData.primary_email) {

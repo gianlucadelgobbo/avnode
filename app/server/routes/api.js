@@ -44,7 +44,7 @@ router.get(
     var query = { 'permalink': req.params.permalink };
     User.findOne(query)
     .exec(function(err, user) {
-      if (req.user.permalink === req.params.permalink) {
+      if (req.user && req.user.permalink === req.params.permalink) {
         res.status(404).send('Not found');
       } else if (user) {
         res.status(200).send('Found');
@@ -112,7 +112,24 @@ router.get(
           }
         });
     }
-    );
+);
+
+router.get(
+  '/validate/login/:email',
+  validateParams({
+    email: Joi.string().email().required(),
+  }),
+  function (req, res) {
+    var email = req.params.email;
+    User.findOne({'login': email}, function(err, user) {
+      if (user === null) {
+        res.status(200).send('Found');
+      } else {
+        res.status(404).send('Not found');
+      }
+    });
+  }
+);
 
 router.get('/verify-email/:uuid', function (req, res) {
   // FIXME, validation missing
@@ -139,6 +156,7 @@ router.get('/verify-user/:uuid', function (req, res) {
       res.status(400).send('Error');
     } else {
       user.confirmed = true;
+      user.primaryEmail.valid = true;
       user.save(function() {
         res.redirect('/controlpanel/login');
       });
