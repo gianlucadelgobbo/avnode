@@ -2,7 +2,6 @@ var Schema = require('mongoose').Schema;
 var mongoose = require('mongoose');
 var File = require('./file');
 
-var Footage = require('./footage');
 var Eventsummary = require('./eventsummary');
 var Gallerysummary = require('./gallerysummary');
 var Performancesummary = require('./performancesummary');

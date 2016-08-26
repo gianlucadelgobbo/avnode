@@ -3,7 +3,6 @@ var File = require('../../models/file');
 var User = require('../../models/user');
 var config = require('getconfig');
 var mongoose = require('mongoose');
-var _ = require('lodash');
 
 exports.listGet = function get(req, res) {
   User.findOne({_id: req.user._id})
@@ -19,7 +18,6 @@ exports.listGet = function get(req, res) {
 };
 
 exports.createPost = function post(req, res) {
-  var user = User.findOne({_id: req.user._id});
   var fileId = mongoose.Types.ObjectId();
   var footageId = mongoose.Types.ObjectId();
   var file = JSON.parse(req.body.file);
@@ -34,7 +32,7 @@ exports.createPost = function post(req, res) {
     encoded: false
   });
 
-  var footage = new Footage({
+  new Footage({
     _id: footageId,
     title: req.body.title,
     creation_date: new Date(),
@@ -42,6 +40,7 @@ exports.createPost = function post(req, res) {
   }).save(function(err) {
     if (err) throw err;
     User.findByIdAndUpdate(req.user._id, { $addToSet: {'footages': footageId} }, { new: true }, function (err) {
+      if (err) throw err;
       User.findOne({_id: req.user._id})
         .populate('footages')
         .exec(function(err, resolvedUser) {
@@ -57,9 +56,6 @@ exports.createPost = function post(req, res) {
 
 exports.filePost = function(req, res) {
   var file = req.body.file;
-  var data = {
-    'files': JSON.parse(file)
-  };
   res.status(200).json(file);
 };
 
@@ -70,15 +66,17 @@ exports.deleteReq = function post(req,res) {
   if (allowedToDelete === false) {
     res.status(403).send('Denied');
   } else {
-    Footage.find({_id: req.params.footage}).remove(function(err, response) {
+    Footage.find({_id: req.params.footage}).remove(function(err) {
       if (err) throw err;
       User.findByIdAndUpdate(req.user._id, { $pull: {'footages': req.params.footage} }, { new: true }, function (err) {
+        if (err) throw err;
         User.findOne({_id: req.user._id})
           .populate('footages')
-          .exec(function(err, resolvedUser) {
+          .exec(function(err) {
+            if (err) throw err;
             res.status(200).json({deleted: req.params.footage});
           });
       });
     });
   }
-}
+};
