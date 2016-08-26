@@ -141,6 +141,8 @@ router.post('/events/:event/calls/:call', validateBody(events.editCallSchemaPost
 router.get('/events', events.listGet);
 
 router.get('/footage', footages.listGet);
+router.post('/footage', footages.createPost);
+router.delete('/footage/:footage/delete', footages.deleteReq);
 router.post('/footage/file', footages.filePost);
 
 module.exports = router;

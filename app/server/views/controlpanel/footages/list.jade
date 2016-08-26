@@ -6,31 +6,71 @@ block variables
 block inner-content
   +render-alerts(alerts)
   div.row 
-    .resumable-drop.dropzone(ondragenter="jQuery(this).addClass('resumable-dragover');", ondragend="jQuery(this).removeClass('resumable-dragover');", ondrop="jQuery(this).removeClass('resumable-dragover');")
-      | Drop video files here to upload or 
-      a.resumable-browse
-        u select from your computer
-    .resumable-progress(style="display: none;")
-      a.btn.btn-primary.progress-resume-link(href='#', onclick='r.upload(); return(false);')
-        span.glyphicons.glyphicons-play
-        | resume
-      a.btn.btn-primary.progress-pause-link(href='#', onclick='r.pause(); return(false);')
-        i.glyphicons.glyphicons-play
-        | pause
-      a.btn.btn-danger.progress-cancel-link(href='#', onclick='r.cancel(); return(false);')
-        | cancel
-    ul.resumable-list
+    form.form-horizontal(method="post", data-parsley-validate)
+      div.col-xs-12.col-md-6
+        input(name="file", type="hidden", required)#file
+        div.form-group
+          label
+            | Title
+          input.form-control.input-block(name="title",type="text", required)
 
-    div
-      each file in user.files
-        h5=file.name
+      div.col-xs-12.col-md-6
+        .resumable-drop.dropzone(ondragenter="jQuery(this).addClass('resumable-dragover');", ondragend="jQuery(this).removeClass('resumable-dragover');", ondrop="jQuery(this).removeClass('resumable-dragover');")
+          | Drop video files here to upload or 
+          a.resumable-browse
+            u select from your computer
+        .resumable-progress(style="display: none;")
+          a.btn.btn-primary.progress-resume-link(href='#', onclick='r.upload(); return(false);')
+            span.glyphicons.glyphicons-play
+            | resume
+          a.btn.btn-primary.progress-pause-link(href='#', onclick='r.pause(); return(false);')
+            i.glyphicons.glyphicons-play
+            | pause
+          a.btn.btn-danger.progress-cancel-link(href='#', onclick='r.cancel(); return(false);')
+            | cancel
+        ul.resumable-list
+      input.btn.btn-primary.btn-block(type="submit", value="create")
+
+
+    if footages
+      div.footages
+        div.row
+          each f in footages
+            div.col-xs-6.col-md-4.footage
+              div.panel.panel-default
+                div.panel-body
+                  = f.title
+                  span= f.file
+                  div.row
+                    div.col-xs-12.col-md-6
+                      a.btn.btn-block.btn-primary
+                        i.fa.fa-pencil
+                        | edit
+                    div.col-xs-12.col-md-6
+                      a.btn.btn-block.btn-danger(onclick='deleteFootage(this, "#{f._id}")')
+                        i.fa.fa-trash
+                        | delete
 
     script(src="//cdnjs.cloudflare.com/ajax/libs/resumable.js/1.0.2/resumable.min.js")
+
     script.
+      function deleteFootage(el, id) {
+        $.ajax({
+          type: "DELETE",
+          url: "/controlpanel/footage/"+id+"/delete",
+          success: function(data) {
+            $(el)
+              .parents('.footage')
+              .hide('slow');
+          }
+        });
+      }
+
+
       var r = new Resumable({
         target:'/api/upload/files',
         chunkSize:1*1024*1024,
-        simultaneousUploads:4,
+        simultaneousUploads:1,
         testChunks:false,
         throttleProgressCallbacks:1
       });
@@ -43,7 +83,8 @@ block inner-content
         r.assignBrowse($('.resumable-browse')[0]);
         // Handle file add event
         r.on('fileAdded', function(file){
-          // Show progress pabr
+          $('.resumable-drop').hide();
+          // Show progress bar
           $('.resumable-progress, .resumable-list').show();
           // Show pause, hide resume
           $('.resumable-progress .progress-resume-link').hide();
@@ -82,10 +123,14 @@ block inner-content
               file: JSON.stringify(file)
             },
             success: function(data) {
+              // FIXME
+              $('input[name="file"]').attr('value', data);
+              console.log($('input[name="file"]'));
             }
           });
         });
         r.on('fileError', function(file, message){
+          $('.resumable-drop').show();
           // Reflect that the file upload has resulted in error
           $('.resumable-file-'+file.uniqueIdentifier+' .resumable-file-progress').html('(file could not be uploaded: '+message+')');
         });
@@ -95,6 +140,7 @@ block inner-content
           $('.progress-bar').css({width:Math.floor(r.progress()*100) + '%'});
         });
         r.on('cancel', function(){
+          $('.resumable-drop').show();
           $('.resumable-file-progress').html('canceled');
         });
         r.on('uploadStart', function(){
