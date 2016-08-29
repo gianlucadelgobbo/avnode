@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "eslint": "^3.1.1",
+    "expect": "^1.20.2",
     "mocha": "^2.3.4",
     "nodemon": "^1.8.1",
     "stylint": "^1.5.6",
@@ -60,7 +61,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
-    "test": "echo \"Add tests soon\"",
+    "test": "./node_modules/.bin/mocha",
     "pretest": "eslint -c .eslintrc.json --ignore-path .gitignore --ignore-path .eslintignore . && stylint app/public/css/style.styl"
   },
   "repository": {

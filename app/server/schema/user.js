@@ -81,7 +81,6 @@ var UserSchema = new Schema({
   // RELATIONS:
   partnerships: [Eventsummary],
   events: [Eventsummary],
-  //footages: [Footage],
   footages: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Footage'
