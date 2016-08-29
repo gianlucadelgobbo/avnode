@@ -1281,18 +1281,18 @@ footer.main_footer {
   border-bottom: 1px solid #e4811e;
   margin-bottom: 30px;
 }
-.single_event_page .nav-tabs>li.active>a,
-.single_event_page .nav-tabs>li.active>a:hover,
-.single_event_page .nav-tabs>li.active>a:focus {
+.single_event_page .nav-tabs > li.active > a,
+.single_event_page .nav-tabs > li.active > a:hover,
+.single_event_page .nav-tabs > li.active > a:focus {
   border: 0;
   color: #fff;
   background: url("../img/single_event_list_bkg.png");
   background-position: right;
   background-color: #e4811e;
 }
-.single_event_page .nav-tabs>li>a,
-.single_event_page .nav-tabs>li>a:hover,
-.single_event_page .nav-tabs>li>a:focus {
+.single_event_page .nav-tabs > li > a,
+.single_event_page .nav-tabs > li > a:hover,
+.single_event_page .nav-tabs > li > a:focus {
   border: 0;
   margin: 0;
 }
@@ -1300,21 +1300,21 @@ footer.main_footer {
   color: #0f8fcf;
   margin-left: 5px;
 }
-.nav-tabs>li>a {
+.nav-tabs > li > a {
   border-radius: 0;
   color: #e4811e;
 }
-.nav-tabs>li {
+.nav-tabs > li {
   float: left;
   margin-bottom: -2px;
   padding: 0;
   margin: 0;
 }
-.nav-tabs>li>a:hover {
+.nav-tabs > li > a:hover {
   border-color: none;
 }
-.nav>li>a:hover,
-.nav>li>a:focus {
+.nav > li > a:hover,
+.nav > li > a:focus {
   text-decoration: none;
   background-color: none !important;
 }
@@ -1332,11 +1332,11 @@ footer.main_footer {
 .single_event_details li span.value {
   color: #e4811e;
 }
-.single_date_of_series h3,
 .single_partner_of_series h3 {
   margin: 15px 0;
 }
 .single_date_of_series h3 {
+  margin: 15px 0;
   text-align: center;
   font-size: 24px;
   letter-spacing: 0.05em;

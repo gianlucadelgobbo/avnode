@@ -1,7 +1,7 @@
 var Schema = require('mongoose').Schema;
+var mongoose = require('mongoose');
 var File = require('./file');
 
-var Footage = require('./footage');
 var Eventsummary = require('./eventsummary');
 var Gallerysummary = require('./gallerysummary');
 var Performancesummary = require('./performancesummary');
@@ -81,7 +81,10 @@ var UserSchema = new Schema({
   // RELATIONS:
   partnerships: [Eventsummary],
   events: [Eventsummary],
-  footage: [Footage],
+  footages: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Footage'
+  }],
   galleries: [Gallerysummary],
   performances: [Performancesummary],
   playlists: [Playlist],

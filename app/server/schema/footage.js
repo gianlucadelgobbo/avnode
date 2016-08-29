@@ -1,6 +1,5 @@
 var Schema = require('mongoose').Schema;
 var File = require('./file');
-var User = require('./user');
 var Playlist = require('./playlist');
 var Tag = require('./tag');
 var config = require('getconfig');
@@ -11,7 +10,6 @@ config.locales.forEach(function(locale) {
   text[locale] = String;
 });
 
-
 module.exports = new Schema({
   old_id: String,
   creation_date: Date,
@@ -19,7 +17,6 @@ module.exports = new Schema({
   permalink: String,
   text: {},
   is_public: Boolean,
-  users: [User],
   file: File, //always one
   preview_file: String, //FIXME put it inside file
   tags: [Tag],

@@ -140,6 +140,10 @@ router.get('/events/:event/calls/:call', validateParams(events.editCallSchemaGet
 router.post('/events/:event/calls/:call', validateBody(events.editCallSchemaPost), events.editCallPost);
 router.get('/events', events.listGet);
 
+router.get('/footage/edit/:footage', footages.editGet);
+router.post('/footage/edit/:footage/update', footages.updatePost);
+router.post('/footage/create', footages.createPost);
+router.delete('/footage/:footage/delete', footages.deleteReq);
 router.get('/footage', footages.listGet);
 router.post('/footage/file', footages.filePost);
 

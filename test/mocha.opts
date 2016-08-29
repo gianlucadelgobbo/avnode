@@ -1,1 +1,2 @@
---delay
+test/spec/**/*.js
+--recursive

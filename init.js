@@ -2,12 +2,14 @@ var config = require('getconfig');
 var express = require('express');
 var mongoose = require('mongoose');
 
+
 module.exports = function(ready) {
   var app = express();
 
   app.root = __dirname;
   require('./app/server/setup')(app, express);
   require('./app/server/router')(app);
+
 
   var server = null;
   mongoose.connect(config.mongo);
@@ -16,6 +18,7 @@ module.exports = function(ready) {
   });
   mongoose.connection.once('open', function() {
     mongoose.set('debug', true);
+    console.log(config.mongo);
     server = app.listen(config.port, config.host, function(){
       console.log('Express server listening on ' + config.host + ':' + config.port);
       // Needed for unit tests and wherever we need to embed the app

@@ -6,17 +6,27 @@ block variables
 block inner-content
   +render-alerts(alerts)
   div.row 
-    form.form-horizontal(method="post", action="/controlpanel/footage/create", data-parsley-validate)
+    a.btn(href="/controlpanel/footage")
+      i.fa.fa-chevron-left
+      | back
+
+    h2=footage.title
+
+    form.form-horizontal(method="post", action="/controlpanel/footage/edit/#{footage._id}/update", data-parsley-validate)
       div.col-xs-12.col-md-6
-        input(name="file", type="hidden", required)#file
+        input(name="file", type="hidden", value="#{JSON.stringify(footage.file)}", required)#file
         div.form-group
           label
             | Title
-          input.form-control.input-block(name="title",type="text", required)
+          input.form-control.input-block(name="title",type="text", value="#{footage.title}", required)
+
 
       div.col-xs-12.col-md-6
+        if footage.file
+          span=footage.file.size
+          img.img-repsonsive(src="https://placeholdit.imgix.net/~text?txtsize=47&txt=500%C3%97250&w=500&h=250")
         .resumable-drop.dropzone(ondragenter="jQuery(this).addClass('resumable-dragover');", ondragend="jQuery(this).removeClass('resumable-dragover');", ondrop="jQuery(this).removeClass('resumable-dragover');")
-          | Drop video files here to upload or 
+          | Upload new video and replace current one
           a.resumable-browse
             u select from your computer
         .resumable-progress(style="display: none;")
@@ -29,27 +39,9 @@ block inner-content
           a.btn.btn-danger.progress-cancel-link(href='#', onclick='r.cancel(); return(false);')
             | cancel
         ul.resumable-list
-      input.btn.btn-primary.btn-block(type="submit", value="create")
+      input.btn.btn-primary.btn-block(type="submit", value="save")
 
 
-    if footages
-      div.footages
-        div.row
-          each f in footages
-            div.col-xs-6.col-md-4.footage
-              div.panel.panel-default
-                div.panel-body
-                  = f.title
-                  span= f.file
-                  div.row
-                    div.col-xs-12.col-md-6
-                      a.btn.btn-block.btn-primary(href="/controlpanel/footage/edit/#{f._id}")
-                        i.fa.fa-pencil
-                        | edit
-                    div.col-xs-12.col-md-6
-                      a.btn.btn-block.btn-danger(onclick='deleteFootage(this, "#{f._id}")')
-                        i.fa.fa-trash
-                        | delete
 
     script(src="//cdnjs.cloudflare.com/ajax/libs/resumable.js/1.0.2/resumable.min.js")
 
@@ -65,7 +57,6 @@ block inner-content
           }
         });
       }
-
 
       var r = new Resumable({
         target:'/api/upload/files',
@@ -150,3 +141,4 @@ block inner-content
           $('.resumable-progress .progress-pause-link').show();
         });
       }
+
