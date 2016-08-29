@@ -6,6 +6,7 @@ var google = require('./strategies/google');
 
 var User = require('../models/user');
 
+
 module.exports = function(app) {
   passport.use(local);
   passport.use(facebook);

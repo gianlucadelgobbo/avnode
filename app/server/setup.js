@@ -7,6 +7,9 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var session = require('express-session');
 var flash = require('connect-flash');
+var MongoStore = require('connect-mongo')(session);
+var mongoose = require('mongoose');
+
 var authentication = require('./authentication/passport');
 var i18n = require('i18n');
 
@@ -46,7 +49,14 @@ module.exports = function(app, exp) {
   app.use(bodyParser.urlencoded({parameterLimit: 30000000000, limit: config.maxFileSize, extended: true }));
   app.use(methodOverride());
 
-  app.use(session({ secret: 'avnode', resave: true, saveUninitialized: true }));
+  app.use(session({
+    secret: 'avnode',
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    })
+  }));
 
   app.use(require('stylus').middleware({ src: './app/public' }));
   app.use(exp.static('./app/public'));
