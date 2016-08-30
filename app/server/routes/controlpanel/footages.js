@@ -6,7 +6,6 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 
 exports.listGet = function get(req, res) {
-  console.log(Footage);
   User.findOne({_id: req.user._id})
     .populate('footages')
     .exec(function(err, resolvedUser) {
@@ -35,7 +34,10 @@ exports.createPost = function post(req, res) {
   new Footage({
     _id: footageId,
     title: req.body.title,
+    is_public: Boolean(req.body.is_public),
+    permalink: req.body.permalink,
     creation_date: new Date(),
+    owner: req.user._id,
     file: attachment || null 
   }).save(function(err) {
     if (err) throw err;
@@ -70,6 +72,8 @@ exports.updatePost = function(req, res) {
 
     Footage.findByIdAndUpdate(id, { 
       title: req.body.title,
+      is_public: Boolean(req.body.is_public),
+      permalink: req.body.permalink,
       file: attachment
     }, function (err) {
       if (err) throw err;
