@@ -28,7 +28,7 @@ module.exports = new Schema({
     shares: Number
   },
   playlists: [Playlist],
-  owner: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }

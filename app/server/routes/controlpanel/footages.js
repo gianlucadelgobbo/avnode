@@ -37,7 +37,7 @@ exports.createPost = function post(req, res) {
     is_public: Boolean(req.body.is_public),
     permalink: req.body.permalink,
     creation_date: new Date(),
-    owner: req.user._id,
+    user: req.user._id,
     file: attachment || null 
   }).save(function(err) {
     if (err) throw err;
