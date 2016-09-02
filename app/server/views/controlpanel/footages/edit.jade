@@ -19,6 +19,16 @@ block inner-content
           label
             | Title
           input.form-control.input-block(name="title",type="text", value="#{footage.title}", required)
+        
+        div.form-group
+          label
+            | Permalink
+          input.form-control.input-block(name="permalink",type="text", value="#{footage.permalink}", required)
+
+        div.checkbox
+          label
+            input(name="is_public", value="1",type="checkbox", checked=(footage.is_public===true))
+            | Public?
 
 
       div.col-xs-12.col-md-6
@@ -39,9 +49,11 @@ block inner-content
           a.btn.btn-danger.progress-cancel-link(href='#', onclick='r.cancel(); return(false);')
             | cancel
         ul.resumable-list
-      input.btn.btn-primary.btn-block(type="submit", value="save")
 
-
+      div.clearfix
+      div.pull-right
+        input.btn.btn-success.btn-block(type="submit", value="save")
+      div.clearfix
 
     script(src="//cdnjs.cloudflare.com/ajax/libs/resumable.js/1.0.2/resumable.min.js")
 
