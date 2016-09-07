@@ -8,6 +8,7 @@ block inner-content
   div.row 
     form.form-horizontal(method="post", action="/controlpanel/footage/create", data-parsley-validate)
       div.col-xs-12.col-md-6
+        input(name="id", type="hidden", value="#{newFootageId}", required)
         input(name="file", type="hidden", required)#file
         div.form-group
           label
@@ -31,6 +32,7 @@ block inner-content
         ul.resumable-list
       input.btn.btn-primary.btn-block(type="submit", value="create")
 
+    h2= newFootageId
 
     if footages
       div.footages
@@ -40,20 +42,52 @@ block inner-content
               div.panel.panel-default
                 div.panel-body
                   = f.title
-                  span= f.file
-                  div.row
-                    div.col-xs-12.col-md-6
-                      a.btn.btn-block.btn-primary(href="/controlpanel/footage/edit/#{f._id}")
+                  if f.file && f.file.status.preview && !f.file.status.transcoded
+                    img(src="/api/video/#{f.file.previews[0]}/poster")
+                  if f.file && f.file.status.preview && f.file.status.transcoded
+                    video(poster="/api/video/#{f.file.previews[0]}/poster", controls, style="max-width: 100%; height: auto;")
+                      source(src="/api/video/#{f.file.uuid}")
+                  if f.file && !f.file.status.preview && !f.file.status.transcoded
+                    div.text-center
+                      i.fa.fa-spinner.fa-3x.fa-spin
+                      div
+                        | grenerating preview
+                  hr
+                  div.pull-left
+                    if f.file.status.transcoded === false
+                      span.label.label-info
+                        i.fa.fa-circle-o-notch.fa-spin
+                        | &nbsp; web version
+                    else
+                      span.label.label-success
+                        i.fa.fa-check
+                        | &nbsp; web version
+                    br
+                    if f.file.status.mobile === false
+                      span.label.label-info
+                        i.fa.fa-circle-o-notch.fa-spin
+                        | &nbsp; mobile version
+                    else
+                      span.label.label-success
+                        i.fa.fa-check
+                        | &nbsp; mobile version
+
+                      
+                  div.pull-right
+                    div.btn-group
+                      a.btn.btn-primary(href="/controlpanel/footage/edit/#{f._id}")
                         i.fa.fa-pencil
-                        | edit
-                    div.col-xs-12.col-md-6
-                      a.btn.btn-block.btn-danger(onclick='deleteFootage(this, "#{f._id}")')
+                      a.btn.btn-danger(onclick='deleteFootage(this, "#{f._id}")')
                         i.fa.fa-trash
-                        | delete
+                  div.clearfix
 
     script(src="//cdnjs.cloudflare.com/ajax/libs/resumable.js/1.0.2/resumable.min.js")
 
     script.
+
+      // Footage id 
+      var newFootageId ="#{newFootageId}";
+
       function deleteFootage(el, id) {
         $.ajax({
           type: "DELETE",
@@ -83,7 +117,7 @@ block inner-content
         r.assignBrowse($('.resumable-browse')[0]);
         // Handle file add event
         r.on('fileAdded', function(file){
-          $('.resumable-drop').hide();
+      //$('.resumable-drop').hide();
           // Show progress bar
           $('.resumable-progress, .resumable-list').show();
           // Show pause, hide resume
@@ -109,12 +143,14 @@ block inner-content
           $('.resumable-file-'+result.uniqueIdentifier+' .resumable-file-progress').html('(completed)');
           var message = JSON.parse(message);
           var file = {
-            id: result.uniqueIdentifier,
+            uuid: message.id,
             name: message.fileName,
             original_name: result.file.name,
             size: result.file.size,
-            type: result.file.type
+            type: result.file.type,
+            footageId: newFootageId
           };
+          console.log(file);
           $.ajax({
             type: "POST",
             url: "/controlpanel/footage/file",
@@ -123,9 +159,7 @@ block inner-content
               file: JSON.stringify(file)
             },
             success: function(data) {
-              // FIXME
               $('input[name="file"]').attr('value', data);
-              console.log(data);
               console.log($('input[name="file"]'));
             }
           });

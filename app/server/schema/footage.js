@@ -18,7 +18,6 @@ module.exports = new Schema({
   text: {},
   is_public: Boolean,
   file: File, //always one
-  preview_file: String, //FIXME put it inside file
   tags: [Tag],
   stats: {
     visits: Number,

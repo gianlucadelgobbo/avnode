@@ -12,7 +12,6 @@ var text = {};
 
 config.locales.forEach(function(locale) {
   text[locale] = String;
-
 });
 
 module.exports = new Schema({

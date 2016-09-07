@@ -1,0 +1,17 @@
+{
+  apps: [{
+    name: "App",
+    script: "./app.js",
+    watch: "./app",
+    ignore_watch: [
+      "app/public"
+    ]
+  },{
+    name: "VideoTranscoder",
+    script: "./videotranscoder.js",
+    watch: "./videotranscoder.js",
+    ignore_watch: [
+      "app/public"
+    ]
+  }]
+}

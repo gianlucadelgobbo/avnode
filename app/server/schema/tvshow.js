@@ -13,10 +13,6 @@ config.locales.forEach(function (locale) {
   text[locale] = String;
 });
 
-
-
-
-
 module.exports = new Schema({
   old_id: String,
   creation_date: Date,

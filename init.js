@@ -1,15 +1,18 @@
 var config = require('getconfig');
 var express = require('express');
 var mongoose = require('mongoose');
-
+var queue = require('./app/server/modules/queue');
 
 module.exports = function(ready) {
   var app = express();
+  queue.connect(function(err) {
+    if (err) throw err;
+    console.log('Queue connection established');
+  });
 
   app.root = __dirname;
   require('./app/server/setup')(app, express);
   require('./app/server/router')(app);
-
 
   var server = null;
   mongoose.connect(config.mongo);
