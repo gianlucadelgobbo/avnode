@@ -10,8 +10,6 @@ block inner-content
       i.fa.fa-chevron-left
       | back
 
-    h2=footage.title
-
     form.form-horizontal(method="post", action="/controlpanel/footage/edit/#{footage._id}/update", data-parsley-validate)
       div.col-xs-12.col-md-6
         input(name="file", type="hidden", value="#{JSON.stringify(footage.file)}", required)#file
@@ -24,6 +22,12 @@ block inner-content
           label
             | Permalink
           input.form-control.input-block(name="permalink",type="text", value="#{footage.permalink}", required)
+
+        div.form-group
+          label
+            | Text
+          textarea.form-control.input-block(name="text", value="#{footage.text}")
+            = footage.text
 
         div.checkbox
           label
