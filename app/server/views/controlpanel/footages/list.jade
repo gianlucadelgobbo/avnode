@@ -14,6 +14,16 @@ block inner-content
           label
             | Title
           input.form-control.input-block(name="title",type="text", required)
+        
+        div.form-group
+          label
+            | Permalink
+          input.form-control.input-block(name="permalink",type="text", required)
+
+        div.checkbox
+          label
+            input(name="is_public", value="1", type="checkbox")
+            | Public?
 
       div.col-xs-12.col-md-6
         .resumable-drop.dropzone(ondragenter="jQuery(this).addClass('resumable-dragover');", ondragend="jQuery(this).removeClass('resumable-dragover');", ondrop="jQuery(this).removeClass('resumable-dragover');")
@@ -30,7 +40,13 @@ block inner-content
           a.btn.btn-danger.progress-cancel-link(href='#', onclick='r.cancel(); return(false);')
             | cancel
         ul.resumable-list
-      input.btn.btn-primary.btn-block(type="submit", value="create")
+
+      div.clearfix
+      div.pull-right
+        input.btn.btn-success(type="submit", value="create")
+      div.clearfix
+        
+      hr
 
     h2= newFootageId
 

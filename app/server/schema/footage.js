@@ -3,6 +3,7 @@ var File = require('./file');
 var Playlist = require('./playlist');
 var Tag = require('./tag');
 var config = require('getconfig');
+var mongoose = require('mongoose');
 
 // Reuse the configured locales…
 var text = {};
@@ -25,5 +26,9 @@ module.exports = new Schema({
     likes: Number,
     shares: Number
   },
-  playlists: [Playlist]
+  playlists: [Playlist],
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 }, {collection: 'footage'});

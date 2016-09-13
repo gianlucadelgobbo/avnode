@@ -49,7 +49,10 @@ exports.createPost = function post(req, res) {
   new Footage({
     _id: footageId,
     title: req.body.title,
+    is_public: Boolean(req.body.is_public),
+    permalink: req.body.permalink,
     creation_date: new Date(),
+    user: req.user._id,
     file: attachment || null 
   }).save(function(err) {
     if (err) throw err;
@@ -85,6 +88,8 @@ exports.updatePost = function(req, res) {
 
     Footage.findByIdAndUpdate(id, { 
       title: req.body.title,
+      is_public: Boolean(req.body.is_public),
+      permalink: req.body.permalink,
       file: attachment
     }, function (err) {
       if (err) throw err;
