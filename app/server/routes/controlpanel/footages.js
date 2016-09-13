@@ -3,7 +3,6 @@ var File = require('../../models/file');
 var User = require('../../models/user');
 var config = require('getconfig');
 var mongoose = require('mongoose');
-var mime = require('mime');
 var _ = require('lodash');
 var Queue = require('../../modules/queue');
 
