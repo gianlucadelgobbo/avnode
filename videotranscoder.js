@@ -30,20 +30,8 @@ var processQueue = function() {
 };
 
 var handleJob = function(job, next) {
-  console.log('handle job', job.payload.type); 
   switch(job.payload.type) {
-  case 'metadata':
-    metadata(job, function(err, job) {
-      if (err) throw err;
-      queue.remove(job.ack, function(err) {
-        if (err) throw err;
-        console.log('metadata job finished', job.id);
-        next();
-      });
-    });
-    break;
   case 'thumbnail':
-    console.log('get thumbnail jooooob');
     thumbnail(job, function(err, job) {
       queue.remove(job.ack, function(err) {
         if (err) throw err;
@@ -53,16 +41,6 @@ var handleJob = function(job, next) {
     });
     break;
   case 'transcode':
-    transcode(job, function(err, job) {
-      if (err) throw err;
-      queue.remove(job.ack, function(err) {
-        if (err) throw err;
-        console.log('transcode job finished', job.id);
-        next();
-      });
-    });
-    break;
-  case 'footageFile':
     handleFile(job, function(err, job) {
       if (err) throw err;
       if (job) {
@@ -86,7 +64,6 @@ var handleFile = function(job, next) {
       if (err) console.log(err);
     });
   }, 5000);
-
   Filehandler.info(job.payload.file, function(err, metadata) {
     Footage.findByIdAndUpdate(job.payload.footage, {$set: {
       'file.metadata': metadata, 
@@ -124,40 +101,6 @@ var thumbnail = function(job, next) {
       previews = [result];
     }
     Footage.findByIdAndUpdate(job.payload.footage, {$set: {'file.previews': previews, 'file.status.preview': true}}, {}, function (err) {
-      if (err) throw err;
-      clearInterval(interval);
-      next(null, job);
-    });
-  });
-};
-
-var transcode = function(job, next) {
-  var interval = setInterval(function() {
-    queue.ping(job.ack, function(err) {
-      if (err) console.log(err);
-    });
-  }, 5000);
-  Filehandler.transcode(job.payload.file, function(err) {
-    if (err) throw err;
-    Footage.findbyidandupdate(job.payload.footage, {$set: {'file.status.transcoded': true}}, function (err) {
-      if (err) throw err;
-      clearInterval(interval);
-      next(null, job);
-    });
-  });
-};
-
-var metadata = function(job, next) {
-  var interval = setInterval(function() {
-    queue.ping(job.ack, function(err) {
-      if (err) console.log(err);
-    });
-  }, 5000);
-  Filehandler.info(job.payload.file, function(err, metadata){
-    Footage.findByIdAndUpdate(job.payload.footage, {$set: {
-      'file.metadata': metadata, 
-      'file.duration': metadata.format.duration
-    }}, function (err) {
       if (err) throw err;
       clearInterval(interval);
       next(null, job);

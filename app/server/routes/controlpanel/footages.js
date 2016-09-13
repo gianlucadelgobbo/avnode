@@ -41,21 +41,10 @@ exports.createPost = function post(req, res) {
       footage: footageId
     });
     Queue.add({
-      type: 'footageFile',
+      type: 'transcode',
       file: file, 
       footage: footageId
     });
-    
-//    Queue.add({
-//      type: 'metadata',
-//      file: file, 
-//      footage: footageId
-//    });
-//    Queue.add({
-//      type: 'transcode',
-//      file: file, 
-//      footage: footageId
-//    });
   }
   new Footage({
     _id: footageId,
