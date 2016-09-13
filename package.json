@@ -68,6 +68,8 @@
   "scripts": {
     "start": "node app.js",
     "start:videotranscoder": "node videotranscoder.js",
+    "dev": "nodemon app.js",
+    "dev:videotranscoder": "nodemon videotranscoder.js",
     "pm2-start": "./node_modules/pm2/bin/pm2 start pm2.json",
     "pm2-stop": "./node_modules/pm2/bin/pm2 delete pm2.json",
     "pm2-logs": "./node_modules/pm2/bin/pm2 logs",
