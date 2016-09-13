@@ -7,6 +7,7 @@ var mime = require('mime');
 var _ = require('lodash');
 var Queue = require('../../modules/queue');
 
+
 exports.listGet = function get(req, res) {
   // In case a new one will be created
   var footageId = mongoose.Types.ObjectId();
@@ -22,45 +23,54 @@ exports.listGet = function get(req, res) {
     });
 };
 
+// Check if we already have a footage with that permalink
 exports.createPost = function post(req, res) {
-  var footageId = mongoose.Types.ObjectId(req.body.id);
-  if (req.body.file) {
-    var file = JSON.parse(req.body.file);
-    var attachment = new File({
-      _id: mongoose.Types.ObjectId(),
-      uuid: file.uuid,
-      name: file.name,
-      original_name: file.original_name,
-      size: file.size,
-      mimetype: mime.lookup(file.name),
-    });
-
-    Queue.add({
-      type: 'thumbnail',
-      file: file, 
-      footage: footageId
-    });
-    Queue.add({
-      type: 'transcode',
-      file: file, 
-      footage: footageId
-    });
-  }
-  new Footage({
-    _id: footageId,
-    title: req.body.title,
-    is_public: Boolean(req.body.is_public),
-    permalink: req.body.permalink,
-    creation_date: new Date(),
-    user: req.user._id,
-    file: attachment || null 
-  }).save(function(err) {
+  Footage.isPermalinkUnique(req.user, req.body.permalink, function(err, status) {
     if (err) throw err;
-    User.findByIdAndUpdate(req.user._id, { $addToSet: {'footages': footageId} }, { new: true }, function (err) {
-      if (err) throw err;
-      // Go back to list view.
+    if (status === false) {
+      // TODO Display error/alert, because permalink isn't unique
       res.redirect('/controlpanel/footage');
-    });
+    } else {
+      var footageId = mongoose.Types.ObjectId();
+      if (req.body.file) {
+        var file = JSON.parse(req.body.file);
+        var attachment = new File({
+          _id: mongoose.Types.ObjectId(),
+          uuid: file.uuid,
+          name: file.name,
+          original_name: file.original_name,
+          size: file.size,
+          mimetype: file.type,
+        });
+        Queue.add({
+          type: 'thumbnail',
+          file: file, 
+          footage: footageId
+        });
+        Queue.add({
+          type: 'transcode',
+          file: file, 
+          footage: footageId
+        });
+      }
+      new Footage({
+        _id: footageId,
+        title: req.body.title,
+        text: req.body.text,
+        is_public: Boolean(req.body.is_public),
+        permalink: req.body.permalink,
+        creation_date: new Date(),
+        user: req.user._id,
+        file: attachment || null 
+      }).save(function(err) {
+        if (err) throw err;
+        User.findByIdAndUpdate(req.user._id, { $addToSet: {'footages': footageId} }, { new: true }, function (err) {
+          if (err) throw err;
+          // Go back to list view.
+          res.redirect('/controlpanel/footage');
+        });
+      });
+    }
   });
 }; 
 
@@ -81,14 +91,14 @@ exports.updatePost = function(req, res) {
         original_name: file.original_name,
         size: file.size,
         mimetype: file.type,
-        duration: 129831,
-        encoded: false
       });
     }
 
     Footage.findByIdAndUpdate(id, { 
       title: req.body.title,
+      text: req.body.text,
       is_public: Boolean(req.body.is_public),
+      // TODO Check again for unique permalink, except this one
       permalink: req.body.permalink,
       file: attachment
     }, function (err) {
@@ -119,6 +129,7 @@ exports.editGet = function(req, res) {
 
 exports.filePost = function(req, res) {
   var file = JSON.parse(req.body.file);
+  console.log('>>>>>>>',file);
   res.status(200).json(JSON.stringify(file));
 };
 

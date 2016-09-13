@@ -5,8 +5,18 @@ block variables
   - var activeSection='list'
 block inner-content
   +render-alerts(alerts)
+
   div.row 
     form.form-horizontal(method="post", action="/controlpanel/footage/create", data-parsley-validate)
+
+      .input-group
+        span.input-group-addon
+          = config.siteurl
+          | /
+          = user.permalink
+          | /
+        input(name="permalink", type="text", onblur='validatePermalink(this)', placeholder="permalink", required).form-control
+
       div.col-xs-12.col-md-6
         input(name="id", type="hidden", value="#{newFootageId}", required)
         input(name="file", type="hidden", required)#file
@@ -14,11 +24,11 @@ block inner-content
           label
             | Title
           input.form-control.input-block(name="title",type="text", required)
-        
+
         div.form-group
           label
-            | Permalink
-          input.form-control.input-block(name="permalink",type="text", required)
+            | Text
+          textarea.form-control.input-block(name="text")
 
         div.checkbox
           label
@@ -41,14 +51,17 @@ block inner-content
             | cancel
         ul.resumable-list
 
+        div.form-group.tags
+          label
+            | Tags // TODO!
+          input.form-control.input-block(name="tags",type="text", autocomplete="on")
+
       div.clearfix
       div.pull-right
         input.btn.btn-success(type="submit", value="create")
       div.clearfix
         
       hr
-
-    h2= newFootageId
 
     if footages
       div.footages
@@ -115,7 +128,13 @@ block inner-content
           }
         });
       }
-
+      function validatePermalink(el) {
+        var permalink = $(el).val();
+        var urlCompatible = permalink.trim()
+        .toLowerCase()
+        .replace(new RegExp(' ', 'g'), '-')
+        return $(el).val(urlCompatible);
+      }
 
       var r = new Resumable({
         target:'/api/upload/files',
