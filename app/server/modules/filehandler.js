@@ -5,21 +5,21 @@ var FFmpeg = require('fluent-ffmpeg'),
 // FIXME Move to config.
 var directory = config.sitepath+'/warehouse/uploads/videos/';
 
-function webPreset(command) {
+var webPreset = function(command) {
   command
     .format('mp4')
     //.audioCodec('libfaac')
     .videoCodec('libx264')
     .keepDAR();
-} 
-function mobilePreset(command) {
+};
+var mobilePreset = function(command) {
   command
     .format('mp4')
     //.audioCodec('libfaac')
     .videoCodec('libx264')
     .keepDAR()
     .size('720x?');
-} 
+};
 
 var fileName = function(file) {
   return path.basename(file.name, path.extname(file.name));
