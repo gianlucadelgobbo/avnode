@@ -1,20 +1,28 @@
-var Schema = require('mongoose').Schema;
-var User = require('./user');
+var mongoose = require('mongoose');
 var File = require('./file');
-var Footage = require('./footage');
 
-
-
-module.exports = new Schema({
+module.exports = new mongoose.Schema({
   old_id: Number,
-  creation_date: Date,
+  creation_date: {
+    type: Date,
+    default: new Date()
+  },
   title: String,
   permalink: String,
   text: {},
-  is_public: Boolean,
-  users: [User],
+  is_public: {
+    type: Boolean,
+    default: false
+  },
+  users: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   file: File, // Main image (if selected)
-  footage: [Footage], // Multiple Footage
+  footages: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Footage'
+  }], // Multiple Footage
   stats: {
     visits: Number,
     likes: Number,

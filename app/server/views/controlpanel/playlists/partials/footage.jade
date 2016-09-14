@@ -1,0 +1,38 @@
+div.col-xs-6.col-md-4.footage(data-id="#{f._id}")
+  div.panel.panel-default
+    div.pull-right
+      button.btn.btn-default(data-id="#{f._id}").selectFootage
+        i.fa.fa-plus
+    div.clearfix
+    div.panel-body
+      = f.title
+      if f.file && f.file.status.preview && !f.file.status.transcoded
+        img(src="/api/video/#{f.file.previews[0]}/poster")
+      if f.file && f.file.status.preview && f.file.status.transcoded
+        video(poster="/api/video/#{f.file.previews[0]}/poster", controls, style="max-width: 100%; height: auto;")
+          source(src="/api/video/#{f.file.uuid}")
+      if f.file && !f.file.status.preview && !f.file.status.transcoded
+        div.text-center
+          i.fa.fa-spinner.fa-3x.fa-spin
+          div
+            | grenerating preview
+      hr
+      div.pull-left
+        if f.file.status.transcoded === false
+          span.label.label-info
+            i.fa.fa-circle-o-notch.fa-spin
+            | &nbsp; web version
+        else
+          span.label.label-success
+            i.fa.fa-check
+            | &nbsp; web version
+        br
+        if f.file.status.mobile === false
+          span.label.label-info
+            i.fa.fa-circle-o-notch.fa-spin
+            | &nbsp; mobile version
+        else
+          span.label.label-success
+            i.fa.fa-check
+            | &nbsp; mobile version
+        div.clearfix

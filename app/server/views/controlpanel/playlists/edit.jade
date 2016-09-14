@@ -1,0 +1,96 @@
+extends ../layout
+
+block variables
+  - var activeChapter='playlist'
+  - var activeSection='edit'
+block inner-content
+  +render-alerts(alerts)
+  div.row 
+    a.btn(href="/controlpanel/playlists")
+      i.fa.fa-chevron-left
+      | back
+
+    form.form-horizontal(method="post", action="/controlpanel/playlists/edit/#{playlist._id}/update", data-parsley-validate)
+      .input-group
+        span.input-group-addon
+          = config.siteurl
+          | /
+          = user.permalink
+          | /playlists/
+        input(name="permalink", type="text", onblur='validatePermalink(this)', placeholder="permalink", value="#{playlist.permalink}" required).form-control
+
+      div.col-xs-12.col-md-6
+        input(name="footages", type="hidden", value="#{JSON.stringify(playlist.footages)}")
+        div.form-group
+          label
+            | Title
+          input.form-control.input-block(name="title",type="text", value="#{playlist.title}", required)
+
+        div.form-group
+          label
+            | Text
+          textarea.form-control.input-block(name="text", value="#{playlist.text}")
+            = playlist.text
+
+        div.checkbox
+          label
+            input(name="is_public", value="1",type="checkbox", checked=(playlist.is_public===true))
+            | Public?
+
+
+      div.clearfix
+      div.pull-right
+        input.btn.btn-success.btn-block(type="submit", value="save")
+      div.clearfix
+
+      div.footages
+        each f in footages
+          include partials/footage
+
+  script.
+    function validatePermalink(el) {
+      var permalink = $(el).val();
+      var urlCompatible = permalink.trim()
+      .toLowerCase()
+      .replace(new RegExp(' ', 'g'), '-')
+      return $(el).val(urlCompatible);
+    }
+
+    function setActive(footage) {
+      $(footage)
+        .removeClass('btn-default')
+        .addClass('btn-success')
+        .children('i').attr('class','fa fa-check');
+    }
+
+    function setInactive(footage) {
+      $(footage)
+        .addClass('btn-default')
+        .removeClass('btn-success')
+        .children('i').attr('class','fa fa-plus');
+    }
+
+    var footages = JSON.parse($('input[name="footages"]').val());
+    // Initially we mark the chosen ones.
+    $('.footage').each(function(i, el) {
+      var footageId = $(el).attr('data-id');
+      if (footages.indexOf(footageId) != -1) {
+        setActive($(el).find('.selectFootage'));
+      }
+    });
+    
+
+    $('.selectFootage').on('click', function(ev) {
+      // Add footage to footages
+      var footageId = $(this).attr('data-id');
+      var pos = footages.indexOf(footageId);
+      if (pos === -1) {
+        footages.push(footageId);
+        setActive(this);
+      } else {
+        footages.splice(pos, 1);
+        setInactive(this);
+      }
+      $('input[name="footages"]').val(JSON.stringify(footages));
+      ev.preventDefault();
+    }); 

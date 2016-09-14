@@ -5,7 +5,6 @@ var File = require('./file');
 var Eventsummary = require('./eventsummary');
 var Gallerysummary = require('./gallerysummary');
 var Performancesummary = require('./performancesummary');
-var Playlist = require('./playlist');
 var Tvshow = require('./tvshow');
 var Usersummary = require('./usersummary');
 var Categories = require('./category');
@@ -87,7 +86,10 @@ var UserSchema = new Schema({
   }],
   galleries: [Gallerysummary],
   performances: [Performancesummary],
-  playlists: [Playlist],
+  playlists: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Playlist'
+  }],
   tvshow: [Tvshow],
   verify: String
 });

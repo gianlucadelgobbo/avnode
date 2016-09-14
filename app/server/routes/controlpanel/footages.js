@@ -128,7 +128,6 @@ exports.editGet = function(req, res) {
 
 exports.filePost = function(req, res) {
   var file = JSON.parse(req.body.file);
-  console.log('>>>>>>>',file);
   res.status(200).json(JSON.stringify(file));
 };
 
