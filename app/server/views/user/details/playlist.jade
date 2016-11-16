@@ -4,7 +4,7 @@ block user-content
 
   h2=result.title
   p="Playlist"
-  - var fff = result.file && result.file.file ? result.file.file : result.footage.length&& result.footage[0].file && result.footage[0].file.file ? result.footage[0].file.file : false
+  - var fff = result.file && result.file.file ? result.file.file : result.footages.length&& result.footages[0].file && result.footages[0].file.file ? result.footages[0].file.file : false
   img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.file, section, "detail"))
   ul.list-inline
     - if(result.stats.img)
@@ -32,12 +32,12 @@ block user-content
             i(class="fa fa-user")
             a(href="/#{result.users[a].permalink}", title="#{result.users[a].display_name}")
               = result.users[a].display_name
-  - if(result.footage.length)
-    p="Footages: "+result.footage.length
+  - if(result.footages.length)
+    p="Footages: "+result.footages.length
     .row
-      - for(var a=0; a<result.footage.length; a++)
+      - for(var a=0; a<result.footages.length; a++)
         .col-sm-2
-          a(href="#{result.footage[a].permalink}", title="#{result.footage[a].title}")
-            img.main_performance_image(alt=__("Thumbnail of") + ": " + result.footage[a].title, src=_h.media.getFileFormat(result.footage[a].file.preview, section, "list"))
+          a(href="#{result.footages[a].permalink}", title="#{result.footages[a].title}")
+            img.main_performance_image(alt=__("Thumbnail of") + ": " + result.footages[a].title, src=_h.media.getFileFormat(result.footages[a].file.preview, section, "list"))
 
   //-console.log(JSON.stringify(result, null, 20));
