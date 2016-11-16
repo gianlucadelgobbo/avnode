@@ -11,6 +11,7 @@ var Tvshow = require('../models/tvshow');
 var _h = require('../helper/index');
 
 exports.getUser = function get(req, res) {
+  console.log('JABSJDAJSKBDJSADLKASJKDN');
   var query = { 'permalink': req.params.user };
   console.log('get user', query);
   // FIXME

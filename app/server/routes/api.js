@@ -213,4 +213,15 @@ router.get('/video/:id/mobile', function(req,res) {
     res.sendStatus(404);
   }
 });
+
+// EVENTS API
+router.get('/:user/events/:event', function(req, res) {
+  User.findOne({'permalink': req.params.user})
+    .populate('events', null, {permalink: req.params.event})
+    .exec(function(err, result) {
+      console.log(result.events);
+      res.status(200).json(result.events);
+  });
+});
+
 module.exports = router;

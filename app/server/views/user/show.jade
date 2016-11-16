@@ -4,11 +4,11 @@ block user-content
   .main_boxes_bkg
     .container
       .row
-        if performer.performances.length
+        if performer.performances
           include ./teaser/performances
-        if performer.events.length
+        if performer.events
           include ./teaser/events
-        if performer.crews.length
+        if performer.crews
           include ./teaser/crews
 
   if performer.text
@@ -21,7 +21,7 @@ block user-content
   .secondary_boxes_bkg
     .container
       .row.secondary_boxes.grid-user
-        if performer.footage.length
+        if performer.footage
           .col-md-6.footage_box.secondary_box.grid-item-user
             // list template server/views/user/show.jade
             // single item template server/views/footage/item.jade
@@ -40,7 +40,7 @@ block user-content
                   =__("More Footage")
                   span=__("+")
 
-        if performer.playlists.length
+        if performer.playlists
           .col-md-6.footage_box.secondary_box.grid-item-user
             .secondary_box_wrapper
               // list template app/server/views/user/show.jade
@@ -58,7 +58,7 @@ block user-content
                   =__("More Playlist")
                   span=__("+")
         -console.log(performer.tvshow)
-        if performer.tvshow.length
+        if performer.tvshow
           .col-md-6.footage_box.secondary_box.grid-item-user
             // list template app/server/views/user/show.jade
             // item template app/server/views/tvshows/item.jade
@@ -77,7 +77,7 @@ block user-content
                   span=__("+")
 
         -//console.log(JSON.stringify(performer.galleries, null, 20));
-        if performer.galleries.length
+        if performer.galleries
           .col-md-6.footage_box.secondary_box.grid-item-user
             // list template app/server/views/user/show.jade
             // item template app/server/views/gallery/item.jade

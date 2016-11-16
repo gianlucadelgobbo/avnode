@@ -31,12 +31,15 @@ exports.get = function get(req, res) {
     Footage.find(query)
     .limit(config.sections[section].limit)
     .skip(skip)
+    .populate('users')
     .sort(config.sections[section].sortQ[sorting])
     .exec(function(error, footage) {
+      if (error) throw error;
       var title = config.sections[section].title;
       var info = ' From ' + skip + ' to ' + (skip + config.sections[section].limit) + ' on ' + total + ' ' + title;
       var link = '/' + section + '/' + filter + '/' + sorting + '/';
       var pages = _h.pagination(link, skip, config.sections[section].limit, total);
+      console.log(footage[0].users);
       res.render(section + '/list', {
         config: config,
         title: title,

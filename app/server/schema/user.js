@@ -78,19 +78,30 @@ var UserSchema = new Schema({
   organization: Organization,
 
   // RELATIONS:
-  partnerships: [Eventsummary],
-  events: [Eventsummary],
+  parnterships: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Partnership'
+  }],
+  events: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Event'
+  }],
   footages: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Footage'
   }],
-  galleries: [Gallerysummary],
-  performances: [Performancesummary],
   playlists: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Playlist'
   }],
-  tvshow: [Tvshow],
+  galleries: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Gallery'
+  }],
+  tvshows: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tvshow'
+  }],
   verify: String
 });
 

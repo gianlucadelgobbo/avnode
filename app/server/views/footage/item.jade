@@ -1,5 +1,8 @@
 mixin footage_item_content
   - var section = "footage"
+  if box.users
+    h2= box.users
+
   a(href="/#{box.users[0].permalink}/footage/#{box.permalink}/", title=box.title)
     .image_box.wrapper_item
       img.main_performance_image(alt=__("Thumbnail of")+": "+box.display_name, src=_h.media.getFileFormat(box.file, section, "list"))
