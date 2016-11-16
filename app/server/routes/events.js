@@ -34,6 +34,7 @@ exports.get = function get(req, res) {
     Event.find(query)
     .limit(config.sections[section].limit)
     .skip(skip)
+    .populate('users')
     .sort(config.sections[section].sortQ[sorting])
     .exec(function(error, events) {
       var title = config.sections[section].title;

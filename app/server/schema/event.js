@@ -8,6 +8,7 @@ var Gallerysummary = require('./gallerysummary');
 var Slot = require('./slot');
 var Url = require('./url');
 var Performancesummary = require('./performancesummary');
+var mongoose = require('mongoose');
 var config = require('getconfig');
 
 // Reuse the configured locales…
@@ -26,7 +27,10 @@ module.exports = new Schema({
   is_public: {type: Boolean, default: true},
   is_freezed: {type: Boolean, default: false},
   gallery_is_public: {type: Boolean, default: true},
-  users: [Usersummary],
+  users: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   file: File,
   stats: {
     visits: Number,
