@@ -3,7 +3,7 @@ extends ../layout_user_two_columns
 block user-content
   h2=result.title
   p="TV show"
-  - var fff = result.file && result.file.file ? result.file.file : result.footage.length&& result.footage[0].file && result.footage[0].file.file ? result.footage[0].file.file : false
+  - var fff = result.file && result.file.file ? result.file.file : result.footages.length&& result.footages[0].file && result.footages[0].file.file ? result.footages[0].file.file : false
   img.img-responsive(alt=__("Thumbnail of") + ": " + result.title, src=_h.media.getFileFormat(result.file, section, "detail"))
   ul.list-inline
     - if(result.users.length)

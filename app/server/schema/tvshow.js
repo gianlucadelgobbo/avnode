@@ -20,7 +20,14 @@ module.exports = new Schema({
   permalink: String,
   text: text,
   is_public: Boolean,
-  users: [User],
+  users: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  footages: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Footage'
+  }],
   file: File,
   stats: {
     visits: Number,

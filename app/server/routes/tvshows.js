@@ -29,6 +29,7 @@ exports.get = function get(req, res) {
     Tvshow.find(query)
     .limit(config.sections[section].limit)
     .skip(skip)
+    .populate('users')
     .sort(config.sections[section].sortQ[sorting])
     .exec(function(error, tvshow) {
 
