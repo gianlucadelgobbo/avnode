@@ -10,8 +10,8 @@ exports.get = function get(req, res) {
   if (req.params.filter === undefined
     || req.params.sorting === undefined
       || req.params.page === undefined) {
-        redirect = true;
-      }
+    redirect = true;
+  }
   var section = 'events';
   var page = req.params.page || 1;
   var skip = (page - 1) * config.sections[section].limit;

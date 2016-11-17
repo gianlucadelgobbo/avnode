@@ -15,7 +15,6 @@ exports.get = function get(req, res) {
   var page = req.params.page || 1;
   var skip = (page - 1) * config.sections[section].limit;
   var filter = req.params.filter || config.sections[section].categories[0];
-  var query = config.sections[section].searchQ[filter];
   var sorting = req.params.sorting || config.sections[section].orders[0];
 
   if (redirect) {
@@ -28,18 +27,17 @@ exports.get = function get(req, res) {
 
   // TODO: Validate that the params above are configured in `config`, if not
   // => 404 or 500
+  var query = {};
   switch(filter) {
-    case 'individuals':
-      var q = {is_crew: 0};
-      break;
-    case 'crews':
-      var q = {is_crew: 1};
-      break;
-    default:
-      var q = {};
+  case 'individuals':
+    query = {is_crew: 0};
+    break;
+  case 'crews':
+    query = {is_crew: 1};
+    break;
   }
-  Performer.count(q, function(error, total) {
-    Performer.find(q)
+  Performer.count(query, function(error, total) {
+    Performer.find(query)
     .limit(config.sections[section].limit)
     .skip(skip)
     .sort(config.sections[section].sortQ[sorting])

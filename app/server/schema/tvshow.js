@@ -1,6 +1,5 @@
 var Schema = require('mongoose').Schema;
 var File = require('./file');
-var User = require('./user');
 var config = require('getconfig');
 
 // Reuse the configured locales…

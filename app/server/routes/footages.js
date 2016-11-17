@@ -16,7 +16,6 @@ exports.get = function get(req, res) {
   var page = req.params.page || 1;
   var skip = (page - 1) * config.sections[section].limit;
   var filter = req.params.filter || config.sections[section].categories[0];
-  var query = config.sections[section].searchQ[filter];
   var sorting = req.params.sorting || config.sections[section].orders[0];
 
   if (redirect) {
@@ -27,10 +26,9 @@ exports.get = function get(req, res) {
   var path = '/' + section + '/' + _.map(req.params, function(p) { return p; }).join('/') + '/';
   path = path.replace('//', '/');
 
-  if (filter === 'all') {
-    var q = {};
-  } else {
-    var q = {'tags.tag': filter};
+  var q = {};
+  if (filter !== 'all') {
+    q = {'tags.tag': filter};
   } 
   Footage.count(q, function(error, total) {
     Footage.find(q)
@@ -39,7 +37,6 @@ exports.get = function get(req, res) {
       .populate('users')
       .sort(config.sections[section].sortQ[sorting])
       .exec(function(error, footage) {
-        console.log('>>>>>>>',total);
         if (error) throw error;
         var title = config.sections[section].title;
         var info = ' From ' + skip + ' to ' + (skip + config.sections[section].limit) + ' on ' + total + ' ' + title;

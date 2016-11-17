@@ -221,7 +221,7 @@ router.get('/:user/events/:event', function(req, res) {
     .exec(function(err, result) {
       console.log(result.events);
       res.status(200).json(result.events);
-  });
+    });
 });
 
 module.exports = router;

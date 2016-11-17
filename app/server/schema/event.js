@@ -2,7 +2,6 @@ var Schema = require('mongoose').Schema;
 var Usersummary = require('./usersummary');
 var File = require('./file');
 var Partner = require('./partner');
-var Category = require('./category');
 var Schedule = require('./schedule');
 var Gallerysummary = require('./gallerysummary');
 var Slot = require('./slot');

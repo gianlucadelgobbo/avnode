@@ -2,10 +2,6 @@ var Schema = require('mongoose').Schema;
 var mongoose = require('mongoose');
 var File = require('./file');
 
-var Eventsummary = require('./eventsummary');
-var Gallerysummary = require('./gallerysummary');
-var Performancesummary = require('./performancesummary');
-var Tvshow = require('./tvshow');
 var Usersummary = require('./usersummary');
 var Categories = require('./category');
 var Organization = require('./organization');
