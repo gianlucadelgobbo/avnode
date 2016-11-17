@@ -59,7 +59,7 @@ exports.createPost = function post(req, res) {
         is_public: Boolean(req.body.is_public),
         permalink: req.body.permalink,
         creation_date: new Date(),
-        user: req.user._id,
+        users: [mongoose.Types.ObjectId(req.user._id)],
         file: attachment || null 
       }).save(function(err) {
         if (err) throw err;
