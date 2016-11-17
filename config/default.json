@@ -6,7 +6,7 @@
   "mongo": "mongodb://127.0.0.1/avnode-relaunch",
   "sitename": "AVnode",
   "dbName": "avnode-relaunch",
-  "sitepath": "/Users/admin/github/avnode",
+  "sitepath": "/sites/avnode",
   "siteurl": "http://127.0.0.1:8002",
   "uploadpath": "",
   "uploadedFilesPath":"/tmp",
