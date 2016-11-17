@@ -1,10 +1,6 @@
 var Schema = require('mongoose').Schema;
-var Category = require('./category');
 var File = require('./file');
 var User = require('./user');
-
-
-
 var config = require('getconfig');
 
 // Reuse the configured locales…
@@ -28,12 +24,15 @@ module.exports = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Footage'
   }],
+  categories: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Footage'
+  }],
   file: File,
   stats: {
     visits: Number,
     likes: Number,
     shares: Number
   },
-  categories: [Category],
   programming: [Date]
 });
