@@ -49,7 +49,7 @@ var UserSchema = new Schema({
   websites: [Url],
   text: Object,
   categories: [Categories],
-  is_crew: Boolean,
+  is_crew: Number, // FIXME has to be of type boolean. 
   // is_crew = false
   name: String,
   surname: String,
