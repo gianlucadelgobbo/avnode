@@ -31,9 +31,9 @@ mixin event_item_content
                   li
                     i(class="fa fa-cube")
                     a(href="/#{category.permalink}", title=category.name)= category.name
-            - if(box.categories)
+            - if(box.categories && false)
               li
-                - for (var a=0;t<box.categories.length;a++)
+                - for (var a=0;a<box.categories.length;a++)
                 i.fa.fa-cube(aria-hidden='true')
                 a(href="/events/#{box.categories[a].permalink}/mostrecent/1")
                   span= box.categories[a].name + " "

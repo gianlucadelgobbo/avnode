@@ -31,13 +31,16 @@ module.exports = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   }],
+  categories: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category'
+  }],
   file: File,
   stats: {
     visits: Number,
     likes: Number,
     shares: Number
   },
-  categories: [Category],
   subtitle: subtitle,
   schedule: [Schedule],
 
