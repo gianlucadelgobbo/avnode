@@ -11,6 +11,7 @@ var user = require('./user');
 var crews = require('./crews');
 var events = require('./events');
 var footages = require('./footages');
+var playlists = require('./playlists');
 var superadmin = require('./superadmin');
 var validateParams = require('../../validation.js').validateParams;
 var validateBody = require('../../validation.js').validateBody;
@@ -146,5 +147,11 @@ router.post('/footage/create', footages.createPost);
 router.delete('/footage/:footage/delete', footages.deleteReq);
 router.get('/footage', footages.listGet);
 router.post('/footage/file', footages.filePost);
+
+router.get('/playlists', playlists.listGet);
+router.post('/playlists/create', playlists.createPost);
+router.get('/playlists/edit/:playlist', playlists.editGet);
+router.post('/playlists/edit/:playlist/update', playlists.updatePost);
+router.delete('/playlists/:playlist/delete', playlists.deleteReq);
 
 module.exports = router;

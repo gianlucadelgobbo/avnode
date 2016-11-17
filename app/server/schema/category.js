@@ -7,5 +7,5 @@ module.exports = new Schema({
   name: String,
   rel: String,
   permalink: String,
-  ancestors: [Category]
-});
+  ancestors: [Category] // What's that? Maybe nested categories? 
+}, {collection: 'categories'});

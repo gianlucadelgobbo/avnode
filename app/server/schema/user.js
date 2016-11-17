@@ -2,11 +2,6 @@ var Schema = require('mongoose').Schema;
 var mongoose = require('mongoose');
 var File = require('./file');
 
-var Eventsummary = require('./eventsummary');
-var Gallerysummary = require('./gallerysummary');
-var Performancesummary = require('./performancesummary');
-var Playlist = require('./playlist');
-var Tvshow = require('./tvshow');
 var Usersummary = require('./usersummary');
 var Categories = require('./category');
 var Organization = require('./organization');
@@ -50,7 +45,7 @@ var UserSchema = new Schema({
   websites: [Url],
   text: Object,
   categories: [Categories],
-  is_crew: Boolean,
+  is_crew: Number, // FIXME has to be of type boolean. 
   // is_crew = false
   name: String,
   surname: String,
@@ -79,16 +74,30 @@ var UserSchema = new Schema({
   organization: Organization,
 
   // RELATIONS:
-  partnerships: [Eventsummary],
-  events: [Eventsummary],
+  parnterships: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Partnership'
+  }],
+  events: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Event'
+  }],
   footages: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Footage'
   }],
-  galleries: [Gallerysummary],
-  performances: [Performancesummary],
-  playlists: [Playlist],
-  tvshow: [Tvshow],
+  playlists: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Playlist'
+  }],
+  galleries: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Gallery'
+  }],
+  tvshows: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Tvshow'
+  }],
   verify: String
 });
 

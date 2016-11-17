@@ -12,6 +12,7 @@ Requirements
 
 * NodeJS http://nodejs.org/
 * MongoDB http://www.mongodb.org/
+* FFmpeg https://ffmpeg.org/
 
 
 Setup
@@ -21,7 +22,7 @@ Setup
 2. Restore the DB using `AVnodeDB.zip` [mongorestore](http://docs.mongodb.org/manual/reference/program/mongorestore/) with `mongorestore --drop -d avnode <directory-of-dumped-backup>`
 3. Request the file repository `/warehouse` to g.delgobbo@flyer.it (you don't need it to let the app starts)
 4. Run `npm install && bower install`
-5. Run `npm start`
+5. Run `npm start` and `npm run start:videostranscoder`
 6. Login with your FLxER user or use user: GianlucaDelGobbo password: GianlucaDelGobbo
 
 
@@ -29,6 +30,12 @@ Contributing
 ------------
 
 Want to contribute? Great!!!
+
+
+Development
+------------
+
+For development we use `nodemon` to detect changes during developement. Ensure to start both scripts the main app with `npm run dev` and our videotranscoding queue worker with `npm run dev:videotranscoder`.
 
 
 ### Commands

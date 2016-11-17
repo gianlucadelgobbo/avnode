@@ -1,0 +1,164 @@
+extends ../layout
+
+block variables
+  - var activeChapter='playlists'
+  - var activeSection='list'
+block inner-content
+  +render-alerts(alerts)
+
+  div.row 
+    form.form-horizontal(method="post", action="/controlpanel/playlists/create", data-parsley-validate)
+
+      .input-group
+        span.input-group-addon
+          = config.siteurl
+          | /
+          = user.permalink
+          | /playlists/
+        input(name="permalink", type="text", onblur='validatePermalink(this)', placeholder="permalink", required).form-control
+
+      div.col-xs-12.col-md-6
+        input(name="file", type="hidden", required)#file
+        div.form-group
+          label
+            | Title
+          input.form-control.input-block(name="title",type="text", required)
+
+        div.form-group
+          label
+            | Text
+          textarea.form-control.input-block(name="text")
+
+        div.checkbox
+          label
+            input(name="is_public", value="1", type="checkbox")
+            | Public?
+
+      div.col-xs-12.col-md-6
+        div.form-group.tags
+          label
+            | Tags // TODO!
+          input.form-control.input-block(name="tags",type="text", autocomplete="on")
+
+
+      div.clearfix
+      div.pull-right
+        input.btn.btn-success(type="submit", value="create")
+      div.clearfix
+      hr
+
+  
+      input(type="hidden", name="footages",required)#footages
+
+      each f in user.footages
+        div.col-xs-6.col-md-4.footage
+          div.panel.panel-default
+            div.pull-right
+              button.btn.btn-default(data-id="#{f._id}").selectFootage
+                i.fa.fa-plus
+            div.clearfix
+            div.panel-body
+              = f.title
+              if f.file && f.file.status.preview && !f.file.status.transcoded
+                img(src="/api/video/#{f.file.previews[0]}/poster")
+              if f.file && f.file.status.preview && f.file.status.transcoded
+                video(poster="/api/video/#{f.file.previews[0]}/poster", controls, style="max-width: 100%; height: auto;")
+                  source(src="/api/video/#{f.file.uuid}")
+              if f.file && !f.file.status.preview && !f.file.status.transcoded
+                div.text-center
+                  i.fa.fa-spinner.fa-3x.fa-spin
+                  div
+                    | grenerating preview
+              hr
+              div.pull-left
+                if f.file.status.transcoded === false
+                  span.label.label-info
+                    i.fa.fa-circle-o-notch.fa-spin
+                    | &nbsp; web version
+                else
+                  span.label.label-success
+                    i.fa.fa-check
+                    | &nbsp; web version
+                br
+                if f.file.status.mobile === false
+                  span.label.label-info
+                    i.fa.fa-circle-o-notch.fa-spin
+                    | &nbsp; mobile version
+                else
+                  span.label.label-success
+                    i.fa.fa-check
+                    | &nbsp; mobile version
+                div.clearfix
+
+      div.clearfix
+
+      hr
+
+      h2 Your playlists
+      each p in user.playlists
+        div.col-xs-6.col-md-4.playlist
+          div.panel.panel-default
+            div.panel-body
+              h2
+              = p.title
+              p 
+              | contains #{p.footages.length} footages
+                  
+            div.pull-right
+              div.btn-group
+                a.btn.btn-primary(href="/controlpanel/playlists/edit/#{p._id}")
+                  i.fa.fa-pencil
+                a.btn.btn-danger(onclick='deletePlaylist(this, "#{p._id}")')
+                  i.fa.fa-trash
+
+      script.
+        function deletePlaylist(el, id) {
+          $.ajax({
+            type: "DELETE",
+            url: "/controlpanel/playlists/"+id+"/delete",
+            success: function(data) {
+              $(el)
+                .parents('.playlist')
+                .hide('slow');
+            }
+          });
+        }
+
+        function validatePermalink(el) {
+          var permalink = $(el).val();
+          var urlCompatible = permalink.trim()
+          .toLowerCase()
+          .replace(new RegExp(' ', 'g'), '-')
+          return $(el).val(urlCompatible);
+        }
+
+        function setActive(footage) {
+          $(footage)
+            .removeClass('btn-default')
+            .addClass('btn-success')
+            .children('i').attr('class','fa fa-check');
+        }
+
+        function setInactive(footage) {
+          $(footage)
+            .addClass('btn-default')
+            .removeClass('btn-success')
+            .children('i').attr('class','fa fa-plus');
+        }
+
+        var footages = [];
+        $('.selectFootage').on('click', function(ev) {
+          // Add footage to footages
+          var footageId = $(this).attr('data-id');
+          var pos = footages.indexOf(footageId);
+          if (pos === -1) {
+            footages.push(footageId);
+            setActive(this);
+          } else {
+            footages.splice(pos, 1);
+            setInactive(this);
+          }
+          $('input[name="footages"]').val(JSON.stringify(footages));
+          ev.preventDefault();
+        }); 
+

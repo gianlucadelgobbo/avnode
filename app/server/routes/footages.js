@@ -16,7 +16,6 @@ exports.get = function get(req, res) {
   var page = req.params.page || 1;
   var skip = (page - 1) * config.sections[section].limit;
   var filter = req.params.filter || config.sections[section].categories[0];
-  var query = config.sections[section].searchQ[filter];
   var sorting = req.params.sorting || config.sections[section].orders[0];
 
   if (redirect) {
@@ -27,34 +26,40 @@ exports.get = function get(req, res) {
   var path = '/' + section + '/' + _.map(req.params, function(p) { return p; }).join('/') + '/';
   path = path.replace('//', '/');
 
-  Footage.count(query, function(error, total) {
-    Footage.find(query)
-    .limit(config.sections[section].limit)
-    .skip(skip)
-    .sort(config.sections[section].sortQ[sorting])
-    .exec(function(error, footage) {
-      var title = config.sections[section].title;
-      var info = ' From ' + skip + ' to ' + (skip + config.sections[section].limit) + ' on ' + total + ' ' + title;
-      var link = '/' + section + '/' + filter + '/' + sorting + '/';
-      var pages = _h.pagination(link, skip, config.sections[section].limit, total);
-      res.render(section + '/list', {
-        config: config,
-        title: title,
-        info: info,
-        section: section,
-        total: total,
-        path: path,
-        sort: sorting,
-        filter: filter,
-        skip: skip,
-        page: page,
-        pages: pages,
-        result: footage,
-        categories: config.sections[section].categories,
-        orderings: config.sections[section].orders,
-        user: req.user,
-        _h: _h
+  var q = {};
+  if (filter !== 'all') {
+    q = {'tags.tag': filter};
+  } 
+  Footage.count(q, function(error, total) {
+    Footage.find(q)
+      .limit(config.sections[section].limit)
+      .skip(skip)
+      .populate('users')
+      .sort(config.sections[section].sortQ[sorting])
+      .exec(function(error, footage) {
+        if (error) throw error;
+        var title = config.sections[section].title;
+        var info = ' From ' + skip + ' to ' + (skip + config.sections[section].limit) + ' on ' + total + ' ' + title;
+        var link = '/' + section + '/' + filter + '/' + sorting + '/';
+        var pages = _h.pagination(link, skip, config.sections[section].limit, total);
+        res.render(section + '/list', {
+          config: config,
+          title: title,
+          info: info,
+          section: section,
+          total: total,
+          path: path,
+          sort: sorting,
+          filter: filter,
+          skip: skip,
+          page: page,
+          pages: pages,
+          result: footage,
+          categories: config.sections[section].categories,
+          orderings: config.sections[section].orders,
+          user: req.user,
+          _h: _h
+        });
       });
-    });
   });
 };

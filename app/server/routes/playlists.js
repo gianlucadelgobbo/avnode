@@ -31,6 +31,8 @@ exports.get = function get(req, res) {
     Playlist.find(query)
     .limit(config.sections[section].limit)
     .skip(skip)
+    .populate('users')
+    .populate('footages')
     .sort(config.sections[section].sortQ[sorting])
     .exec(function(error, playlists) {
       var title = config.sections[section].title;

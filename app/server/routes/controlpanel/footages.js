@@ -4,16 +4,20 @@ var User = require('../../models/user');
 var config = require('getconfig');
 var mongoose = require('mongoose');
 var _ = require('lodash');
+var Queue = require('../../modules/queue');
 
 
 exports.listGet = function get(req, res) {
+  // In case a new one will be created
+  var footageId = mongoose.Types.ObjectId();
   User.findOne({_id: req.user._id})
     .populate('footages')
     .exec(function(err, resolvedUser) {
       res.render('controlpanel/footages/list', {
         config: config,
         user: req.user,
-        footages: resolvedUser.footages
+        footages: resolvedUser.footages,
+        newFootageId: footageId
       });
     });
 };
@@ -26,19 +30,28 @@ exports.createPost = function post(req, res) {
       // TODO Display error/alert, because permalink isn't unique
       res.redirect('/controlpanel/footage');
     } else {
+      var footageId = mongoose.Types.ObjectId();
       if (req.body.file) {
         var file = JSON.parse(req.body.file);
         var attachment = new File({
           _id: mongoose.Types.ObjectId(),
-          file: file.id,
+          uuid: file.uuid,
+          name: file.name,
           original_name: file.original_name,
           size: file.size,
           mimetype: file.type,
-          duration: 129831,
-          encoded: false
+        });
+        Queue.add({
+          type: 'thumbnail',
+          file: file, 
+          footage: footageId
+        });
+        Queue.add({
+          type: 'transcode',
+          file: file, 
+          footage: footageId
         });
       }
-      var footageId = mongoose.Types.ObjectId();
       new Footage({
         _id: footageId,
         title: req.body.title,
@@ -72,12 +85,11 @@ exports.updatePost = function(req, res) {
     } else if (file !== null) {
       attachment = new File({
         _id: mongoose.Types.ObjectId(),
-        file: file.id,
+        uuid: file.uuid,
+        name: file.name,
         original_name: file.original_name,
         size: file.size,
         mimetype: file.type,
-        duration: 129831,
-        encoded: false
       });
     }
 
@@ -115,8 +127,8 @@ exports.editGet = function(req, res) {
 };
 
 exports.filePost = function(req, res) {
-  var file = req.body.file;
-  res.status(200).json(file);
+  var file = JSON.parse(req.body.file);
+  res.status(200).json(JSON.stringify(file));
 };
 
 exports.deleteReq = function post(req,res) {

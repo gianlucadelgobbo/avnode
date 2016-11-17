@@ -3,7 +3,6 @@ var File = require('./file');
 var Playlist = require('./playlist');
 var Tag = require('./tag');
 var config = require('getconfig');
-var mongoose = require('mongoose');
 
 // Reuse the configured locales…
 var text = {};
@@ -19,7 +18,6 @@ module.exports = new Schema({
   text: {},
   is_public: Boolean,
   file: File, //always one
-  preview_file: String, //FIXME put it inside file
   tags: [Tag],
   stats: {
     visits: Number,
@@ -28,8 +26,8 @@ module.exports = new Schema({
     shares: Number
   },
   playlists: [Playlist],
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
+  users: [{
+    type: Schema.Types.ObjectId,
     ref: 'User'
-  }
+  }]
 }, {collection: 'footage'});

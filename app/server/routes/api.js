@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
+var config = require('getconfig');
 
 var fs = require('fs');
-var process = require('process');
 var path = require('path');
 
 var multer = require('multer');
-var upload = multer({ dest: process.cwd() + '/warehouse/tmp/' });
+var upload = multer({ dest: config.sitepath + '/warehouse/tmp/' });
 var mime = require('mime');
 var sha1 = require('sha1');
 
@@ -15,8 +15,6 @@ var _ = require('lodash');
 
 var validateParams = require('../validation.js').validateParams;
 var Joi = require('joi');
-
-var config = require('getconfig');
 
 var multipart = require('connect-multiparty');
 var resumable = require('../modules/resumable.js')('/tmp/avnode-uploads/');
@@ -28,7 +26,7 @@ router.post('/upload/image', upload.single('image'), function (req, res) {
   var extension = mime.extension(req.file.mimetype);
   if (extension === 'png' || extension === 'jpeg') {
     response = '/warehouse/uploads/' + sha1(req.file.originalname) + '.' + extension;
-    var destAbsolute = process.cwd() + response;
+    var destAbsolute = config.sitepath + response;
     fs.createReadStream(req.file.path).pipe(fs.createWriteStream(destAbsolute));
     fs.unlink(req.file.path);
   }
@@ -56,14 +54,15 @@ router.get(
 );
 
 router.post('/upload/files', function(req, res){
-  var destination = process.cwd() + '/warehouse/uploads/videos/';
+  var destination = config.sitepath + '/warehouse/uploads/videos/';
   if (!fs.existsSync(destination)){
     fs.mkdirSync(destination);
   }
   resumable.post(req, function(status, filename, original_filename, identifier){
     if (status === 'done') {
       // FIXME Path.extname can be something different than the acutal file extension.
-      var uniqueFileName = uuid.v4() + path.extname(filename);
+      var id = uuid.v4();
+      var uniqueFileName = id + path.extname(filename);
       //when all chunks uploaded, then createWriteStream to /uploads folder with filename
       var stream = fs.createWriteStream(destination + uniqueFileName);
       //stitches the file chunks back together to create the original file.
@@ -75,6 +74,7 @@ router.post('/upload/files', function(req, res){
       });
     }
     res.send({
+      id: id,
       fileName: uniqueFileName,
       status: status
     });
@@ -189,4 +189,39 @@ router.get(
     });
   }
 );
+router.get('/video/:id/poster', function(req,res) {
+  try {
+    res.sendFile(config.sitepath + '/warehouse/uploads/videos/' + req.params.id);
+  }
+  catch (e) {
+    res.sendStatus(404);
+  }
+});
+router.get('/video/:id', function(req,res) {
+  try {
+    res.sendFile(config.sitepath + '/warehouse/uploads/videos/' + req.params.id + '.mp4');
+  }
+  catch (e) {
+    res.sendStatus(404);
+  }
+});
+router.get('/video/:id/mobile', function(req,res) {
+  try {
+    res.sendFile(config.sitepath + '/warehouse/uploads/videos/' + req.params.id + '-mobile.mp4');
+  }
+  catch (e) {
+    res.sendStatus(404);
+  }
+});
+
+// EVENTS API
+router.get('/:user/events/:event', function(req, res) {
+  User.findOne({'permalink': req.params.user})
+    .populate('events', null, {permalink: req.params.event})
+    .exec(function(err, result) {
+      console.log(result.events);
+      res.status(200).json(result.events);
+    });
+});
+
 module.exports = router;

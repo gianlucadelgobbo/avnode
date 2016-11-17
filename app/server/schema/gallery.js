@@ -1,5 +1,4 @@
 var Schema = require('mongoose').Schema;
-var User = require('./user');
 var File = require('./file');
 var Media = require('./media');
 var Eventsummary = require('./eventsummary');
@@ -12,7 +11,6 @@ var text = {};
 
 config.locales.forEach(function(locale) {
   text[locale] = String;
-
 });
 
 module.exports = new Schema({
@@ -22,7 +20,10 @@ module.exports = new Schema({
   permalink: String,
   text: text,
   is_public: Boolean,
-  users: [User],
+  users: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }],
   file: File, // Main image (if selected)
   medias: [Media], // 1 Media if video Multiple Media if image
   stats: { // Summary of data coming by gallery and media

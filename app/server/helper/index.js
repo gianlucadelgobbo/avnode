@@ -145,15 +145,17 @@ module.exports = {
       technique:{}
     };
     categories.forEach(function(category) {
-      if (category.ancestors[0].permalink == 'type') {
-        groupedCategories.type = category;
-        categories.forEach(function(category2) {
-          if (category2.ancestors[0].permalink == category.permalink+'-technique') {
-            groupedCategories.technique = category2;
-          }
-        });
+      if (category.ancestors) {
+        if (category.ancestors[0].permalink == 'type') {
+          groupedCategories.type = category;
+          categories.forEach(function(category2) {
+            if (category2.ancestors[0].permalink == category.permalink+'-technique') {
+              groupedCategories.technique = category2;
+            }
+          });
+        }
+        if (category.ancestors[0].permalink == 'genere') groupedCategories.genre = category;
       }
-      if (category.ancestors[0].permalink == 'genere') groupedCategories.genre = category;
     });
     return groupedCategories;
   },

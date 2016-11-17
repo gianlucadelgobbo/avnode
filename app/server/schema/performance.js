@@ -1,10 +1,9 @@
 var Schema = require('mongoose').Schema;
-var User = require('./user');
 var File = require('./file');
-var Category = require('./category');
 var Bookings = require('./bookings');
 var Gallery = require('./gallery');
 var Tag = require('./tag');
+
 
 var config = require('getconfig');
 
@@ -25,14 +24,20 @@ module.exports = new Schema({
   permalink: String,
   text: text,
   is_public: Boolean,
-  users: [User],
+  users: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  }],
+  categories: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Category'
+  }],
   file: File,
   stats: {
     visits: Number,
     likes: Number,
     shares: Number
   },
-  categories: [Category],
   duration: Number,
   tech_art: tech_art,
   tech_req: tech_req,

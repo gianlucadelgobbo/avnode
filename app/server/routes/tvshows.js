@@ -1,5 +1,6 @@
 var config = require('getconfig');
 var Tvshow = require('../models/tvshow');
+var Category = require('../models/category');
 var _ = require('lodash');
 
 var _h = require('../helper/index');
@@ -25,35 +26,73 @@ exports.get = function get(req, res) {
 
   var path = '/' + section + '/' + _.map(req.params, function(p) { return p; }).join('/') + '/';
   path = path.replace('//', '/');
-  Tvshow.count(query, function(error, total) {
-    Tvshow.find(query)
-    .limit(config.sections[section].limit)
-    .skip(skip)
-    .sort(config.sections[section].sortQ[sorting])
-    .exec(function(error, tvshow) {
+  if (filter === 'all') {
+    Tvshow.count(query, function(error, total) {
+      Tvshow.find(query)
+      .limit(config.sections[section].limit)
+      .skip(skip)
+      .populate('users')
+      .sort(config.sections[section].sortQ[sorting])
+      .exec(function(error, tvshow) {
 
-      var title = config.sections[section].title;
-      var info = ' From ' + skip + ' to ' + (skip + config.sections[section].limit) + ' on ' + total + ' ' + title;
-      var link = '/' + section + '/' + filter + '/' + sorting + '/';
-      var pages = _h.pagination(link, skip, config.sections[section].limit, total);
-      res.render(section + '/list', {
-        title: title,
-        info: info,
-        section: section,
-        total: total,
-        path: path,
-        sort: sorting,
-        filter: filter,
-        skip: skip,
-        page: page,
-        pages: pages,
-        //str:generateTVprogramming(tvshow,"2016-03-01","2016-03-02"),
-        result: tvshow,
-        categories: config.sections[section].categories,
-        orderings: config.sections[section].orders,
-        user: req.user,
-        _h: _h
+        var title = config.sections[section].title;
+        var info = ' From ' + skip + ' to ' + (skip + config.sections[section].limit) + ' on ' + total + ' ' + title;
+        var link = '/' + section + '/' + filter + '/' + sorting + '/';
+        var pages = _h.pagination(link, skip, config.sections[section].limit, total);
+        res.render(section + '/list', {
+          title: title,
+          info: info,
+          section: section,
+          total: total,
+          path: path,
+          sort: sorting,
+          filter: filter,
+          skip: skip,
+          page: page,
+          pages: pages,
+          //str:generateTVprogramming(tvshow,"2016-03-01","2016-03-02"),
+          result: tvshow,
+          categories: config.sections[section].categories,
+          orderings: config.sections[section].orders,
+          user: req.user,
+          _h: _h
+        });
       });
     });
-  });
+  } else {
+    Category.findOne({'permalink': filter}, function(err, category) {
+      Tvshow.count({categories: { $in: [category._id]}}, function(error, total) {
+        Tvshow.find({categories: { $in: [category._id]}})
+          .limit(config.sections[section].limit)
+          .skip(skip)
+          .populate('users')
+          .sort(config.sections[section].sortQ[sorting])
+          .exec(function(error, tvshow) {
+
+            var title = config.sections[section].title;
+            var info = ' From ' + skip + ' to ' + (skip + config.sections[section].limit) + ' on ' + total + ' ' + title;
+            var link = '/' + section + '/' + filter + '/' + sorting + '/';
+            var pages = _h.pagination(link, skip, config.sections[section].limit, total);
+            res.render(section + '/list', {
+              title: title,
+              info: info,
+              section: section,
+              total: total,
+              path: path,
+              sort: sorting,
+              filter: filter,
+              skip: skip,
+              page: page,
+              pages: pages,
+              //str:generateTVprogramming(tvshow,"2016-03-01","2016-03-02"),
+              result: tvshow,
+              categories: config.sections[section].categories,
+              orderings: config.sections[section].orders,
+              user: req.user,
+              _h: _h
+            });
+          });
+      });
+    });
+  }
 };
