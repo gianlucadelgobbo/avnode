@@ -14,16 +14,16 @@ describe('Footage Model', function() {
       ]
     };
   });
-  it('isowner should return false if footage id is not present', function() {
+  it('isOwner should return false if footage id is not present', function() {
     expect(isOwner(user, '1111')).toBe(false);
   });
   it('isOwner should return true if user has footage id', function() {
     expect(isOwner(user, '57c411ca3bbefc0e37b877e9')).toBe(true);
   });
-  it('isOwner should return true if valid id is string', function() {
+  it('isOwner should return true if valid id is of type string', function() {
     expect(isOwner(user, '57c411ca3bbefc0e37b877e9')).toBe(true);
   });
-  it('isOwner should return true if valid id is ObjectID', function() {
+  it('isOwner should return true if valid id is an ObjectId', function() {
     var id = mongoose.Types.ObjectId('57c411cf2819c01d377b54e8');
     expect(isOwner(user, id)).toBe(true);
   });
